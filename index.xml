@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>li_mingxie - Blog</title>
+    <link>https://limingxie.github.io/</link>
+    <description>Recent content on li_mingxie - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>limingxie - Blog</copyright>
+    <lastBuildDate>Sun, 27 May 2018 20:37:02 +0800</lastBuildDate>
+    
+	<atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go项目的测试代码（项目运用）</title>
+      <link>https://limingxie.github.io/limingxie/my_go_test1/</link>
+      <pubDate>Sun, 27 May 2018 20:37:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/my_go_test1/</guid>
+      <description>上一篇文章介绍了最基本的测试代码的写法。
+Go项目的测试代码（基础）
+这里简单的共享一下我在项目中使用的方式。
+项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层modles
+ 因为现在都已微服务的形式开发，没必要太复杂的结构。
+分控制层和模块层已经能满足我们的需求，不需要再细分了。
+ |___config ||==&amp;gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&amp;gt; 控制层，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&amp;gt; 模块层，所有的业务都是在模块层里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&amp;gt; 系统的入口 |___factory ||| |___kit ||| ==&amp;gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
+有些人喜欢把测试方法分另一个package里写，也可以~ 不同人有不同的喜好。 我也试过这种方式，但是还是喜欢写在同一个package里面，这么写简单方便。
+ 控制层controllers和模块层modles的不同方式 控制层controllers
+控制层是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
+我喜欢在这里写参数验证，业务验证等等主要功能的测试。</description>
+    </item>
+    
+    <item>
+      <title>Go项目的测试代码（基础）</title>
+      <link>https://limingxie.github.io/limingxie/my_go_test/</link>
+      <pubDate>Sun, 27 May 2018 20:36:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/my_go_test/</guid>
+      <description>最近写了测试代码，整理了一下。
+先看看简单的测试代码
+// add_test.go ==&amp;gt; 文件名 _test.go 结尾的默认为测试代码文件 package models import ( &amp;quot;testing&amp;quot; ) //Test开头的默认为测试方法 func TestAdd(t *testing.T) { //arrange var x, y, res int x = 2 y = 3 //act result = Add(x, y) //assert if result != 5 { t.Fatal(&amp;quot;Add的结果不正确&amp;quot;) } }  // add.go package models func Add(x, y int) int { return x + y }  查看测试结构。
+$ go test -v ==&amp;gt; 依次运行当前package的 _test.</description>
+    </item>
+    
+    <item>
+      <title>使用docker运行mysql</title>
+      <link>https://limingxie.github.io/limingxie/docker_mysql/</link>
+      <pubDate>Tue, 27 Mar 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/docker_mysql/</guid>
+      <description>以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。
+为了避免这种现象，还是链接本地mysql开发还是更稳定的， 可是开发的项目多了后，本地的mysql库看起来好乱。 而且有很多项目是实验性的项目，没有及时处理的话会产生很多垃圾数据。
+要不使用docker运行mysql，开发结束后把容器删掉 ?  前提是需要准备测试数据脚本，开发或测试的时候随时可以删除，添加数据。 这样就不会因为删除docker容器，重新添加数据而烦恼。 做测试数据很麻烦~ 但是写测试代码，这些测试数据脚本也是必要的。  废话有点多了，说说如何去做。来点干货&amp;hellip;^^
+1. 安装docker (建议上官网下载安装包安装。)
+$ brew install docker  2. 下载mysql镜像
+$ docker pull mysql  3. 启动mysql实例
+$ docker run --name mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest   &amp;mdash;name 后面的是docker容器名 -p 32xxx:3306 这里需要注意 32xxx 是你链接mysql的时候的Port。 -e MYSQL_ROOT_PASSWORD 是设置mysql的root账号密码 -d mysql 是你的镜像标签  4. 在shell中访问mysql
+docker exec -it mingxie-mysql bash root@7c289aa0ca95:/# mysql -uroot -p -h localhost Enter password:  输入密码即可。</description>
+    </item>
+    
+    <item>
+      <title>用hugo搭建个人博客</title>
+      <link>https://limingxie.github.io/limingxie/hugo_create/</link>
+      <pubDate>Wed, 14 Mar 2018 10:14:08 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/hugo_create/</guid>
+      <description>这几天研究了用hugo搭建个人博客。
+简单的整理了一下。
+1.安装hugo（windows 请查看官网介绍 https://gohugo.io/getting-started/installing/）
+$ brew install hugo  之后检查版本
+$ hugo version Hugo Static Site Generator v0.37.1 darwin/amd64 BuildDate:  2.创建hugo 项目
+$ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users/limingxie/Projects/my-blog. Just a few more steps and you&#39;re ready to go: 1. Download a theme into the same-named folder. Choose a theme from https://themes.gohugo.io/, or create your own with the &amp;quot;hugo new theme &amp;lt;THEMENAME&amp;gt;&amp;quot; command.</description>
+    </item>
+    
+  </channel>
+</rss>

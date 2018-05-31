@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" Go项目的测试代码（项目运用） &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/limingxie/my_go_test1/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2018-05-27T20:37:02&#43;08:00" />
+  
+  
+
+  <title>
+     Go项目的测试代码（项目运用） &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">Go项目的测试代码（项目运用）</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-05-27T20:37:02&#43;08:00">
+          May 27, 2018
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>上一篇文章介绍了最基本的测试代码的写法。<br />
+<a href="https://limingxie.github.io/limingxie/my_go_test/">Go项目的测试代码（基础）</a></p>
+
+<p>这里简单的共享一下我在项目中使用的方式。</p>
+
+<h2 id="项目结构">项目结构</h2>
+
+<p>我们实际项目中, 结构简单地分了<code>控制层controllers</code>和<code>模块层modles</code></p>
+
+<blockquote>
+<p>因为现在都已微服务的形式开发，没必要太复杂的结构。<br />
+分控制层和模块层已经能<code>满足我们的需求</code>，<code>不需要再细分了</code>。</p>
+</blockquote>
+
+<pre><code>|___config          ||==&gt; 配置文件
+| |___config.qa.go
+| |___config.production.go
+... ...
+|___controllers     ||==&gt; 控制层，只做参数的有效性和简单的逻辑处理
+| |___app_api_test.go
+| |___app_api.go
+| |___init_test.go
+| |___tenant_api.go
+... ...
+|___models          ||==&gt; 模块层，所有的业务都是在模块层里实现的
+| |___app.go
+| |___app_test.go
+| |___init_test.go
+| |___tenant.go
+... ...
+|___main.go         ||==&gt; 系统的入口
+|___factory         |||
+|___kit             ||| ==&gt; 按需求自定义建立一个package方便使用
+|___filters         |||
+... ...
+</code></pre>
+
+<blockquote>
+<p>看项目结构的话，可以发现测试方法直接写在对应的package里面。<br />
+有些人喜欢把测试方法分另一个package里写，也可以~ 不同人有不同的喜好。
+我也试过这种方式，但是还是喜欢写在<code>同一个package里面</code>，这么写简单方便。</p>
+</blockquote>
+
+<hr />
+
+<h2 id="控制层controllers和模块层modles的不同方式">控制层controllers和模块层modles的不同方式</h2>
+
+<p><strong>控制层controllers</strong><br />
+控制层是提供接口api的直接入口，所以那些重要的api都需要写测试方法。<br />
+我喜欢在这里写<code>参数验证</code>，<code>业务验证</code>等等<code>主要功能的测试</code>。</p>
+
+<p><strong>模块层modles</strong><br />
+因为控制层controllers里已经做了业务验证了，所以再次做业务验证感觉是多余的。<br />
+我喜欢在这里写方法的<code>逻辑测试</code>，一般和数据没太多关系。<br />
+或很<code>复杂的业务处理</code>的话也会在这里写测试，和控制层做<code>双重确认</code>。</p>
+
+<hr />
+
+<h2 id="控制层controllers的测试代码">控制层controllers的测试代码</h2>
+
+<h3 id="init-函数">init() 函数</h3>
+
+<p>每个package里有 init_test.go文件<br />
+这里写 init()方法 执行 go test的时候的<code>初始化方法</code>。</p>
+
+<pre><code>package controllers
+
+var (
+	appEnv           = flag.String(&quot;app-env&quot;, os.Getenv(&quot;APP_ENV&quot;), &quot;app env&quot;)
+	ctx              context.Context
+	echoApp          *echo.Echo
+	xormEngine       *xorm.Engine
+)
+
+func init() {
+	//执行1个线程
+	runtime.GOMAXPROCS(1)
+	var err error
+	//测试数据的链接是内存里的sqlite ==&gt; 每次执行测试代码的时候用到的是内存的sqlite 所以不用管理数据库
+	xormEngine, err = xorm.NewEngine(&quot;sqlite3&quot;, &quot;:memory:&quot;)
+	if err != nil {
+		panic(err)
+	}
+	//读取配置
+	var c configutil.Config
+	if err := configutil.Read(&quot;&quot;, &amp;c, configutil.TestMode); err != nil {
+		panic(err)
+	}
+
+	//建立Redis链接 没有用到redis可以跳过
+	models.SetRedisConn(os.Getenv(&quot;TEST_SERVICE_REDIS_CONNECTION&quot;))
+	//登记struct到xormEngine
+	models.SetXormEngineSync(xormEngine)
+	//初始化数据
+	models.Seed(xormEngine, configutil.TestMode)
+
+	//echo架构
+	echoApp = echo.New()
+	echoApp.Validator = &amp;filters.Validator{}
+
+	//为了测试先模拟一个context
+	ctx = context.WithValue(context.Background(), echomiddleware.ContextDBName, xormEngine.NewSession())
+}
+</code></pre>
+
+<h3 id="seed-函数">Seed() 函数</h3>
+
+<p>我觉得写测试代码的时候，制作<code>测试数据</code>的时间比会<code>占50%以上</code>。<br />
+让人最头疼的事情。</p>
+
+<p>刚开始的时候我觉得可以直接写。<br />
+如下:</p>
+
+<pre><code>var (
+	tenants = []Tenant{
+		{Id: 1, Code: &quot;eland&quot;, Name: &quot;上海衣恋&quot;, Enable: true},
+		{Id: 1, Code: &quot;T02&quot;, Name: &quot;Ice cream&quot;, Enable: true},
+	}
+
+	brands = []Brand{
+		{Id: 1, Code: &quot;EE&quot;, Name: &quot;Eland&quot;, Enable: true},
+		{Id: 2, Code: &quot;EK&quot;, Name: &quot;Eland Accessory&quot;, Enable: true},
+		{Id: 3, Code: &quot;IC&quot;, Name: &quot;Haagen-Dazs&quot;, Enable: true},
+	}
+    ... ...
+)
+func Seed(xormEngine *xorm.Engine) {
+	for _, u := range tenants {
+		xormEngine.Insert(&amp;u)
+	}
+	for _, u := range brands {
+		xormEngine.Insert(&amp;u)
+	}
+    ... ...
+}
+</code></pre>
+
+<p>但是当有一些<code>mapping表</code>的话这么加数据会是个噩梦&hellip;ㅠㅠ</p>
+
+<p>这时候可以先把数据添加到<code>mysql数据库</code>(使用流行的工具应该还不错吧？)。<br />
+<code>sqlite</code>的可视化工具太难用果断放弃。</p>
+
+<pre><code>func Seed(xormEngine *xorm.Engine, executeMode configutil.ExecuteMode) {
+	//建立原始数据的连接
+	driverName := os.Getenv(&quot;TEST_SERVICE_DRIVER&quot;)
+	dataSourceName := os.Getenv(&quot;TEST_SERVICE_CONNECTION&quot;)
+	testXormEngine, err := xorm.NewEngine(driverName, dataSourceName)
+	if err != nil {
+		panic(err)
+	}
+
+	//登记struct
+	SetXormEngineSync(testXormEngine)
+
+	//数据保存到内存的sqlite
+	Tenant_SetTestData(testXormEngine, xormEngine)
+	Brand_SetTestData(testXormEngine, xormEngine)
+    ... ...
+}
+
+func SetXormEngineSync(xormEngine *xorm.Engine) {
+	xormEngine.Sync(new(Tenant))
+	xormEngine.Sync(new(Brand))
+    ... ...
+}
+
+func Tenant_SetTestData(testXormEngine *xorm.Engine, xormEngine *xorm.Engine) {
+	var tenants []Tenant
+	if err := testXormEngine.Find(&amp;tenants); err != nil {
+		fmt.Println(err)
+	}
+	for _, u := range tenants {
+		xormEngine.Insert(&amp;u)
+	}
+}
+... ...
+
+</code></pre>
+
+<h2 id="多人做的项目如何管理原始数据">多人做的项目如何管理原始数据？</h2>
+
+<p>我是这么做的</p>
+
+<ul>
+<li>准备一个<code>公用的mysql数据库</code>(没有的话可以让下班最晚的员工开数据库共享&hellip;^^)<br /></li>
+<li>在公共的数据库里<code>添加原始数据</code></li>
+<li>每个组员都可以<code>灵活利用Seed方法</code>，把数据导入到自己本地数据库。<br />
+不嫌慢的话直接调用公用数据库。<br />
+(Seed方法的原始数据库地址和目标数据库地址可以灵活地去修改，导数据非常easy)<br /></li>
+<li>如果原始数据有变化，组员之间<code>相互共享</code>，从新导入。</li>
+</ul>
+
+<h2 id="接口api测试代码">接口api测试代码</h2>
+
+<p>繁琐的准备工作已经做完，终于可以写测试代码了&hellip;^^</p>
+
+<pre><code>func Test_ColleagueApiController_GetColleagues(t *testing.T) {
+	//需要测试的api
+	req := httptest.NewRequest(echo.GET, &quot;/api/v1/colleagues/:id&quot;, nil)
+
+	//添加token和context
+	c, rec := SetContextWithToken(req)
+
+	//执行完测试代码后需要回滚
+	defer factory.DB(c.Request().Context()).Close()
+	defer factory.DB(c.Request().Context()).Rollback()
+	factory.DB(c.Request().Context()).Begin()
+
+	//参数设定
+	c.SetParamNames(&quot;id&quot;)
+	c.SetParamValues(&quot;1&quot;)
+
+	//调用api方法
+	test.Ok(t, ColleagueApiController{}.GetBrandShops(c))
+	test.Equals(t, http.StatusOK, rec.Code)
+
+	//api返回结果的结构
+	var v struct {
+		Result struct {
+			ColleagueId int64  `json:&quot;colleagueId&quot;`
+			ColleagueNo string `json:&quot;colleagueNo&quot;`
+			Name        string `json:&quot;name&quot;`
+		} `json:&quot;result&quot;`
+		Success bool `json:&quot;success&quot;`
+	}
+
+	//验证结果
+	test.Ok(t, json.Unmarshal(rec.Body.Bytes(), &amp;v))
+	test.Equals(t, v.Result.ColleagueId, int64(1))
+	test.Equals(t, v.Result.ColleagueNo, &quot;C000001&quot;)
+	test.Equals(t, v.Result.Name, &quot;测试人员&quot;)
+}
+</code></pre>
+
+<hr />
+
+<h2 id="模块层models的测试代码">模块层models的测试代码</h2>
+
+<h3 id="init-函数-1">init() 函数</h3>
+
+<p>和controllers 的init()方法没什么区别</p>
+
+<pre><code>var (
+	appEnv     = flag.String(&quot;app-env&quot;, os.Getenv(&quot;APP_ENV&quot;), &quot;app env&quot;)
+	xormEngine *xorm.Engine
+)
+
+func init() {
+	runtime.GOMAXPROCS(1)
+	var err error
+	xormEngine, err = xorm.NewEngine(&quot;sqlite3&quot;, &quot;:memory:&quot;)
+	if err != nil {
+		panic(err)
+	}
+	var c configutil.Config
+	if err := configutil.Read(&quot;&quot;, &amp;c, configutil.TestMode); err != nil {
+		panic(err)
+	}
+	SetModelConfig(&amp;ModelConfig{ValidTimeout: c.ValidTimeout, AppEnv: *appEnv})
+	SetRedisConn(os.Getenv(&quot;TEST_SERVICE_REDIS_CONNECTION&quot;))
+	SetXormEngineSync(xormEngine)
+
+	Seed(xormEngine, configutil.TestMode)
+}
+</code></pre>
+
+<p>多写了一个<code>GetContext()方法</code>
+如果需要数据连接先调用。</p>
+
+<pre><code>func GetContextForTest() context.Context {
+	return context.WithValue(context.Background(), echomiddleware.ContextDBName, xormEngine.NewSession())
+}
+</code></pre>
+
+<h3 id="测试代码">测试代码</h3>
+
+<p>模块层models的测试代码如下：</p>
+
+<pre><code>func Test_GetTenantAppInfosFromAppContainers(t *testing.T) {
+	// 因为这个方法不需要连数据库所以也不需要这些操作
+	// ctx := GetContextForTest()
+	// factory.DB(ctx).Begin()
+	// defer factory.DB(ctx).Close()
+	// defer factory.DB(ctx).Rollback()
+
+	appContainers := []TenantAppContainer{
+		{TenantAppId: 1, RoleCode: &quot;admin&quot;, RoleName: &quot;admin&quot;},
+		{TenantAppId: 1, RoleCode: &quot;dev&quot;, RoleName: &quot;dev&quot;},
+		{TenantAppId: 1, RoleCode: &quot;plan&quot;, RoleName: &quot;plan&quot;},
+		{TenantAppId: 2, RoleCode: &quot;admin&quot;, RoleName: &quot;admin&quot;},
+		{TenantAppId: 2, RoleCode: &quot;plan&quot;, RoleName: &quot;plan&quot;},
+		{TenantAppId: 3, RoleCode: &quot;dev&quot;, RoleName: &quot;dev&quot;},
+	}
+
+	//测试该方法的功能
+	appInfos := GetTenantAppInfosFromAppContainers(appContainers)
+
+	test.Equals(t, len(appInfos), 3)
+	test.Equals(t, len(appInfos[0].Roles), 3)
+	test.Equals(t, len(appInfos[1].Roles), 2)
+	test.Equals(t, len(appInfos[2].Roles), 1)
+	test.Equals(t, appInfos[0].Roles[0].RoleCode, &quot;admin&quot;)
+	test.Equals(t, appInfos[0].Roles[0].RoleName, &quot;admin&quot;)
+	test.Equals(t, appInfos[0].Roles[2].RoleCode, &quot;plan&quot;)
+	test.Equals(t, appInfos[0].Roles[2].RoleName, &quot;plan&quot;)
+	test.Equals(t, appInfos[1].TenantAppId, int64(2))
+}
+</code></pre>
+
+<hr />
+
+<p>你们准备好应对如下的场景吗？</p>
+
+<blockquote>
+<p>产品经理：因为客户的需求我们需要赶紧发布最新版本。<br />
+我：稍等，让我确认一下~</p>
+
+<pre><code>cd models 
+go test
+cd ..
+cd controllers
+go test
+</code></pre>
+
+<p>我：<code>没问题，现在可以发布...^^</code></p>
+</blockquote>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/limingxie/my_go_test/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - Blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
