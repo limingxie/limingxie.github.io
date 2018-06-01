@@ -87,7 +87,7 @@
     上一篇文章介绍了最基本的测试代码的写法。
 Go项目的测试代码（基础）
 这里简单的共享一下我在项目中使用的方式。
-项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层modles
+项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层models
  因为现在都已微服务的形式开发，没必要太复杂的结构。
 分控制层和模块层已经能满足我们的需求，不需要再细分了。
  |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; 控制层，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; 模块层，所有的业务都是在模块层里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
