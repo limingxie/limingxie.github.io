@@ -7,13 +7,49 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>limingxie - blog</copyright>
-    <lastBuildDate>Sun, 27 May 2018 20:37:02 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 May 2018 20:38:02 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Go项目的测试代码（项目运用）</title>
+      <title>Go项目的测试代码3（测试替身Test Double）</title>
+      <link>https://limingxie.github.io/limingxie/my_go_test3/</link>
+      <pubDate>Sun, 27 May 2018 20:38:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/my_go_test3/</guid>
+      <description>上一篇文章介绍了项目中测试代码的写法。
+Go项目的测试代码2（项目运用）
+这里简单的共享一下测试替身。
+当我们写测试代码的时候，经常遇到一个问题。
+跟别的模块或服务有依赖性，可是功能还没开发完。
+或是因为各种原因(安全，白名单，内网等等&amp;hellip;)开发环境里无法调用相应的模块。
+这时候我们应该如何去写测试代码？
+因此测试替身Test Double出现了。 其功能和名字一样，做替身。
+测试替身Test Double的分以下类型。 Dummy, Stub, Fake, Spy, Mock
+Dummy 最简单、最原始的测试替身型别。Dummy 没有实作，最常用于需要参数值但不使用它的情况。
+Null 可视为是 Dummy，但真的 Dummy 是接口或基类的衍生，且完全不包含实作。
+Stub Dummy 的上一级，Stub 是接口或基类的最低限度实作。
+会传回 Void 的方法通常完全不包含实作，而会传回值的方法通常会传回硬式编码的值。
+Spy 测试 Spy 类似 Stub，但除了提供客户端可叫用成员的实例，
+Spy 还会记录叫用了哪些成员，好让单元测试验证所叫用的成员是否符合预期。
+Fake Fake 包含更复杂的实作，通常涉及所继承型别之不同成员之间的互动。
+虽然不是完整的生产实作，但 Fake 与生产实作很相似，尽管它会采取一些快捷方式。
+Mock Mock 是由 Mock 链接库动态建立 (其他通常是由测试开发人员使用程序代码来产生)。
+测试开发人员永远看不到实作接口或基类的实际程序代码，但是可以设定 Mock 以提供传回值、预期要叫用的特定成员&amp;hellip;等等。
+视其中的设定而定，Mock 的行为可能会像 Dummy、Stub 或 Spy。
+上面是网上流行的概念和理论。
+我在项目中的运用 我开发的是在企业微信中的应用，所以需要调用企业微信的API，
+用过的人应该知道，这需要登记可信域名(简单的说不能本地用，只能发布到服务器才能调用)。
+也可以用第三方工具去模拟调试，但是这么做感觉很不方便。而且Debug也相当麻烦。
+我是这么处理的。
+项目初期(一阶段) 直接写硬代码hardcode。
+一般我们都会说尽量避免写硬代码hardcode,
+但是项目初期我建议大家这么写。</description>
+    </item>
+    
+    <item>
+      <title>Go项目的测试代码2（项目运用）</title>
       <link>https://limingxie.github.io/limingxie/my_go_test1/</link>
       <pubDate>Sun, 27 May 2018 20:37:02 +0800</pubDate>
       
@@ -21,7 +57,7 @@
       <description>上一篇文章介绍了最基本的测试代码的写法。
 Go项目的测试代码（基础）
 这里简单的共享一下我在项目中使用的方式。
-项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层models
+项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层modles
  因为现在都已微服务的形式开发，没必要太复杂的结构。
 分控制层和模块层已经能满足我们的需求，不需要再细分了。
  |___config ||==&amp;gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&amp;gt; 控制层，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&amp;gt; 模块层，所有的业务都是在模块层里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&amp;gt; 系统的入口 |___factory ||| |___kit ||| ==&amp;gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
@@ -32,7 +68,7 @@ Go项目的测试代码（基础）
     </item>
     
     <item>
-      <title>Go项目的测试代码（基础）</title>
+      <title>Go项目的测试代码1（基础）</title>
       <link>https://limingxie.github.io/limingxie/my_go_test/</link>
       <pubDate>Sun, 27 May 2018 20:36:02 +0800</pubDate>
       
