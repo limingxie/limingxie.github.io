@@ -131,13 +131,13 @@
 
 <hr />
 
-<h2 id="控制层controllers和模块层modles的不同方式">控制层controllers和模块层modles的不同方式</h2>
+<h2 id="控制层controllers和模块层models的不同方式">控制层controllers和模块层models的不同方式</h2>
 
 <p><strong>控制层controllers</strong><br />
 控制层是提供接口api的直接入口，所以那些重要的api都需要写测试方法。<br />
 我喜欢在这里写<code>参数验证</code>，<code>业务验证</code>等等<code>主要功能的测试</code>。</p>
 
-<p><strong>模块层modles</strong><br />
+<p><strong>模块层models</strong><br />
 因为控制层controllers里已经做了业务验证了，所以再次做业务验证感觉是多余的。<br />
 我喜欢在这里写方法的<code>逻辑测试</code>，一般和数据没太多关系。<br />
 或很<code>复杂的业务处理</code>的话也会在这里写测试，和控制层做<code>双重确认</code>。</p>
@@ -449,7 +449,7 @@ go test
   </main>
   <footer class="container global-footer">
     <div class="copyright-note pull-left">
-      limingxie - Blog
+      limingxie - blog
     </div>
     <div class="sns-links hidden-print">
   

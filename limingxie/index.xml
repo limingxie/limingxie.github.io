@@ -6,7 +6,7 @@
     <description>Recent content in Limingxies on li_mingxie - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>limingxie - Blog</copyright>
+    <copyright>limingxie - blog</copyright>
     <lastBuildDate>Sun, 27 May 2018 20:37:02 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/limingxie/index.xml" rel="self" type="application/rss+xml" />
@@ -26,7 +26,7 @@ Go项目的测试代码（基础）
 分控制层和模块层已经能满足我们的需求，不需要再细分了。
  |___config ||==&amp;gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&amp;gt; 控制层，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&amp;gt; 模块层，所有的业务都是在模块层里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&amp;gt; 系统的入口 |___factory ||| |___kit ||| ==&amp;gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
 有些人喜欢把测试方法分另一个package里写，也可以~ 不同人有不同的喜好。 我也试过这种方式，但是还是喜欢写在同一个package里面，这么写简单方便。
- 控制层controllers和模块层modles的不同方式 控制层controllers
+ 控制层controllers和模块层models的不同方式 控制层controllers
 控制层是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
 我喜欢在这里写参数验证，业务验证等等主要功能的测试。</description>
     </item>
