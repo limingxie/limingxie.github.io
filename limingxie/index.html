@@ -84,6 +84,108 @@
   <hr/>
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/encrpytion_key/">公钥，私钥，数字签名，数字证书的相互关系</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-06-07T07:28:49&#43;08:00">
+          Jun 7, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    我们经常听到数字证书，数字签名这些词。
+这些证书，签名到底是什么？
+他们又起到什么样的作用？ 其原理是什么？
+了解这些我们需要先了解加密方式，以及什么是公钥？什么是私钥？
+1. 加密方式 先解释一下2种常用的加密方式。
+◆ 对称加密
+加密的传统方法是对称加密。发出讯息者用一把钥匙对讯息加密。
+接收讯息者需用这把钥匙将加密了的讯息解密。
+这把钥匙必须以一种其他人没有机会得到它的方式给予接收讯息者。
+如果其他人得到了这把钥匙，这种加密方式就没用了。
+◆ 非对称加密算法
+非对称加密算法需要两个密钥：公开密钥(publickey)和私有密钥(privatekey)
+公开密钥与私有密钥是一对，可以相互加密和解密。
+如果用公钥对数据进行加密，只有用对应的密钥才能解密。
+如果用密钥对数据进行加密，那么只有用对应的公钥才能解密。
+因为非对称加密算法安全性比较高，所以下面的数字签名，数字证书都是用了非对称加密算法。
+
+2. 数字签名digital signature 在现实生活中，签名是为了表示这是签名者写的。计算机中，数字签名也是相同的含义。
+举一个例子如果A，B两台计算机相互通讯：
+A计算机传输给B计算机信息的时候，A计算机会在消息的最后写上去自己的签名，以代表这些信息是A计算机的。 B计算机接到消息后，先看签名是不是A计算机判断不是别人冒充A计算机发送不安全或是无效的信息(有效性)。 除此之外，数字签名还能证明消息传输过程中没有被篡改(完整性)。
+◆ 原理
+简单的说的话其实就是：
+A计算机给B计算机传输信息的时候，
+A计算机在信息后面加自己的签名(字符串)，用自己的私钥(privatekey)加密。
+B计算机接到数据后，用A计算机的公钥(publickey)解密，确认来源是不是A计算机。
+这样确保了完整性，而且A计算机也不可抵赖
+(因为用A计算机公钥解密的信息只能是A计算机的私钥加密的信息)
+
+3. 数字证书 先预想一个场景，如果有10台计算机，10台计算机需要记住相互之间的公钥(publickey)，
+那有100台计算机，1000台呢？ 他们之间都需要记住相互的公钥吗？
+答案肯定是不能，那如何解决这些问题呢？
+其实很简单，有个第三方中介机构。记住了这些1000台的公钥相对应的资料。
+这种机构称为认证机构(Certification Authority， CA)。
+CA开一个证明这是计算机A的信息，发给B计算机。
+B计算机通过CA的证明，可以确认这是A计算机的信息。
+◆ 如何生成证书？
+A计算机将自己的【公钥A】给CA
+CA用自己的【私钥CA】给【公钥A】加密，生成【数字签名A】
+CA把【公钥A】，【数字签名A】，附加一些【A计算机的信息】整合在一起，生成证书，发给A计算机。
+◆ 如何验证证书？
+A计算机发信息给B计算机的时候，会附加【数字签名A】
+B计算机通过CA的公钥解密【数字签名A】，既可以确认这是A计算机发的信息。
+(其实详细原理不是这样，是解证书得到哈希值，通过算法比较这个哈希值的。)
+
+总结 两台计算机相互通讯的时候，为了确保有效性和完整性。需要签名证明是自己(数字签名)。
+这签名不能随便公开，所以需要加密。
+加密的时候使用的是非对称加密算法。(公钥，私钥)
+相互通讯的计算机多了后，需要一个中介公司来证明这个签名是合法的(数字证书)。
+这中介机构叫(Certification Authority， CA)。
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/encrpytion_key/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/limingxie/gpg_base/">Mac 安装和简单的使用GunPG（GPG） </a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-06-04T20:38:02&#43;08:00">
+          Jun 4, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    Gnu Privacy Guard 是一种加密的软件？ 具体GPG是什么？ PGP是什么？ 可以百度谷歌一下&hellip;^^
+安装
+$ brew install gpg ==&gt; Installing dependencies for gnupg: npth, libtasn1, gmp, nettle, libunistring, libffi, p11-kit, gnutls, libgpg-error, libgcrypt, libksba, libassuan, pinentry, gettext, adns, libusb ==&gt; Installing gnupg dependency: npth ... ... ... ... `Error`: The `brew link` step did not complete successfully The formula built, but is not symlinked into /usr/local Could not symlink share/man/man8/addgnupghome.8 /usr/local/share/man/man8 is not writable. ... ... .
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/gpg_base/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/my_go_test3/">Go项目的测试代码3（测试替身Test Double）</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -104,6 +206,25 @@ Go项目的测试代码2（项目运用）
 这时候我们应该如何去写测试代码？
 因此测试替身Test Double出现了。 其功能和名字一样，做替身。
 测试替身Test Double的分以下类型。 Dummy, Stub, Fake, Spy, Mock
+Dummy 最简单、最原始的测试替身型别。Dummy 没有实作，最常用于需要参数值但不使用它的情况。
+Null 可视为是 Dummy，但真的 Dummy 是接口或基类的衍生，且完全不包含实作。
+Stub Dummy 的上一级，Stub 是接口或基类的最低限度实作。
+会传回 Void 的方法通常完全不包含实作，而会传回值的方法通常会传回硬式编码的值。
+Spy 测试 Spy 类似 Stub，但除了提供客户端可叫用成员的实例，
+Spy 还会记录叫用了哪些成员，好让单元测试验证所叫用的成员是否符合预期。
+Fake Fake 包含更复杂的实作，通常涉及所继承型别之不同成员之间的互动。
+虽然不是完整的生产实作，但 Fake 与生产实作很相似，尽管它会采取一些快捷方式。
+Mock Mock 是由 Mock 链接库动态建立 (其他通常是由测试开发人员使用程序代码来产生)。
+测试开发人员永远看不到实作接口或基类的实际程序代码，但是可以设定 Mock 以提供传回值、预期要叫用的特定成员&hellip;等等。
+视其中的设定而定，Mock 的行为可能会像 Dummy、Stub 或 Spy。
+上面是网上流行的概念和理论。
+我在项目中的运用 我开发的是在企业微信中的应用，所以需要调用企业微信的API，
+用过的人应该知道，这需要登记可信域名(简单的说本地不能调用，只能发布到服务器才能调用)。
+也可以用第三方工具去模拟调试，但是这么做感觉很不方便。而且Debug也相当麻烦。
+我是这么处理的。
+项目初期(一阶段) 直接写硬代码hardcode。
+一般我们都会说尽量避免写硬代码hardcode,
+但是项目初期我建议大家这么写。
   </div>
   
   <footer>
@@ -132,7 +253,7 @@ Go项目的测试代码2（项目运用）
     上一篇文章介绍了最基本的测试代码的写法。
 Go项目的测试代码（基础）
 这里简单的共享一下我在项目中使用的方式。
-项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层modles
+项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层models
  因为现在都已微服务的形式开发，没必要太复杂的结构。
 分控制层和模块层已经能满足我们的需求，不需要再细分了。
  |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; 控制层，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; 模块层，所有的业务都是在模块层里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。

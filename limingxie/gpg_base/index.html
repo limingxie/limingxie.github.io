@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" Mac 安装和简单的使用GunPG（GPG）  &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/limingxie/gpg_base/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2018-06-04T20:38:02&#43;08:00" />
+  
+  
+
+  <title>
+     Mac 安装和简单的使用GunPG（GPG）  &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">Mac 安装和简单的使用GunPG（GPG） </h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-06-04T20:38:02&#43;08:00">
+          Jun 4, 2018
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    <p>Gnu Privacy Guard 是一种加密的软件？
+具体GPG是什么？ PGP是什么？ 可以百度谷歌一下&hellip;^^</p>
+
+<p>安装</p>
+
+<pre><code>$ brew install gpg
+==&gt; Installing dependencies for gnupg: npth, libtasn1, gmp, nettle, libunistring, libffi, p11-kit, gnutls, libgpg-error, libgcrypt, libksba, libassuan, pinentry, gettext, adns, libusb
+==&gt; Installing gnupg dependency: npth
+... ... ... ...
+`Error`: The `brew link` step did not complete successfully
+The formula built, but is not symlinked into /usr/local
+Could not symlink share/man/man8/addgnupghome.8
+/usr/local/share/man/man8 is not writable.
+... ... ... ...
+</code></pre>
+
+<p>哎？ 怎么有个Error?</p>
+
+<pre><code>$ cd /usr/local/share/man/man8
+$ ls -l
+total 104
+... ... ... ...
+drwxr-xr-x     7 root       admin    224  1 24 14:40 man8
+... ... ... ...
+</code></pre>
+
+<p>原来没有写入权限, 添加写入权限。</p>
+
+<pre><code>sudo chmod 775 man8
+</code></pre>
+
+<p>好了，在运行下面的命令</p>
+
+<pre><code>$ brew link gnupg
+Linking /usr/local/Cellar/gnupg/2.2.7... 68 symlinks created
+</code></pre>
+
+<p>看看有没有正常安装</p>
+
+<pre><code>$ gpg --help
+gpg (GnuPG) 2.2.7
+libgcrypt 1.8.2
+... ... ... ...
+</code></pre>
+
+<p>配置公钥和私钥</p>
+
+<p>gpg &ndash;full-generate-key</p>
+
+<pre><code>$ gpg --full-generate-key
+gpg (GnuPG) 2.2.7; Copyright (C) 2018 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+请选择您要使用的密钥种类：
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (仅用于签名)
+   (4) RSA (仅用于签名)
+您的选择？ 1
+RSA 密钥长度应在 1024 位与 4096 位之间。
+您想要用多大的密钥尺寸？(2048)
+您所要求的密钥尺寸是 2048 位
+请设定这把密钥的有效期限。
+         0 = 密钥永不过期
+      &lt;n&gt;  = 密钥在 n 天后过期
+      &lt;n&gt;w = 密钥在 n 周后过期
+      &lt;n&gt;m = 密钥在 n 月后过期
+      &lt;n&gt;y = 密钥在 n 年后过期
+密钥的有效期限是？(0)
+密钥永远不会过期
+以上正确吗？(y/n)y
+密钥的有效期限是？(0)
+密钥永远不会过期
+以上正确吗？(y/n)y
+
+You need a user ID to identify your key; the software constructs the user ID
+from the Real Name, Comment and Email Address in this form:
+    &quot;Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;&quot;
+
+真实姓名：Li MingXie
+电子邮件地址：li_mingxie@163.com
+注释：nihao
+您选定了这个用户标识：
+    “Li MingXie (nihao) &lt;li_mingxie@163.com&gt;”
+
+更改姓名(N)、注释(C)、电子邮件地址(E)或确定(O)/退出(Q)？O
+我们需要生成大量的随机字节。这个时候您可以多做些琐事(像是敲打键盘、移动
+鼠标、读写硬盘之类的)，这会让随机数字发生器有更好的机会获得足够的熵数。
+我们需要生成大量的随机字节。这个时候您可以多做些琐事(像是敲打键盘、移动
+鼠标、读写硬盘之类的)，这会让随机数字发生器有更好的机会获得足够的熵数。
+gpg: /Users/limingxie/.gnupg/trustdb.gpg：建立了信任度数据库
+gpg: 密钥 xxxxx 被标记为绝对信任
+gpg: directory '/Users/limingxie/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/Users/limingxie/.gnupg/openpgp-revocs.d/xxxxx.rev'
+公钥和私钥已经生成并经签名。
+</code></pre>
+
+<p>用以下命令可以查看配置好的公钥和私钥。</p>
+
+<p>gpg &ndash;list-keys：查看所有keys<br />
+gpg &ndash;list-public-keys：查看所有公钥<br />
+gpg &ndash;list-secret-keys：查看所有私钥</p>
+
+<p>gpg &ndash;armor &ndash;export &lt;你的邮箱&gt;：查看公钥<br />
+gpg &ndash;armor &ndash;export-secret-keys &lt;你的邮箱&gt;：查看私钥</p>
+
+<p>gpg &ndash;list-public-keys &ndash;keyid-format long：查看公钥的完整摘要信息<br />
+gpg &ndash;list-secret-keys &ndash;keyid-format long：查看私钥的完整摘要信息</p>
+
+<p>参考文章：
+<a href="https://www.gnupg.org/howtos/zh/index.html">Gnu 隐私卫士 (GnuPG) 袖珍 HOWTO (中文版)</a>
+<a href="http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html">数字签名是什么？</a></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/limingxie/my_go_test3/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="https://limingxie.github.io/limingxie/encrpytion_key/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
