@@ -70,17 +70,6 @@ B计算机通过CA的公钥解密【数字签名A】，既可以确认这是A计
     </item>
     
     <item>
-      <title>Mac 安装和简单的使用GunPG（GPG） </title>
-      <link>https://limingxie.github.io/limingxie/gpg_base/</link>
-      <pubDate>Mon, 04 Jun 2018 20:38:02 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/limingxie/gpg_base/</guid>
-      <description>Gnu Privacy Guard 是一种加密的软件？ 具体GPG是什么？ PGP是什么？ 可以百度谷歌一下&amp;hellip;^^
-安装
-$ brew install gpg ==&amp;gt; Installing dependencies for gnupg: npth, libtasn1, gmp, nettle, libunistring, libffi, p11-kit, gnutls, libgpg-error, libgcrypt, libksba, libassuan, pinentry, gettext, adns, libusb ==&amp;gt; Installing gnupg dependency: npth ... ... ... ... `Error`: The `brew link` step did not complete successfully The formula built, but is not symlinked into /usr/local Could not symlink share/man/man8/addgnupghome.8 /usr/local/share/man/man8 is not writable. ... ... .</description>
-    </item>
-    
-    <item>
       <title>Go项目的测试代码3（测试替身Test Double）</title>
       <link>https://limingxie.github.io/limingxie/my_go_test3/</link>
       <pubDate>Sun, 27 May 2018 20:38:02 +0800</pubDate>
