@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" Redis简单应用 &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/limingxie/redis/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2018-07-01T07:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     Redis简单应用 &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">Redis简单应用</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-01T07:28:49&#43;08:00">
+          Jul 1, 2018
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>这些天因为项目性能上的问题，采用了Redis缓存。<br />
+做了一些简单的笔记。</p>
+
+<p><strong>◆ Redis</strong><br />
+Redis(REmote DIctionary Server)是一个key-value存储系统。<br />
+它支持存储的value类型很多，包括string、list、set、hash等等&hellip;<br />
+我最喜欢用 key-json字符。</p>
+
+<p><strong>◆ 应用</strong><br />
+用法其实也简单，代码逻辑中读取相应的信息的时候先去Redis读取，<br />
+没有数据，再去数据库(mysql)读取。保存到Redis后，返回结果集。<br />
+因为Redis的数据是保存在内存里的(分保存的方式，暂且可以理解成保存在内存)，<br />
+所以查询速度会很快。</p>
+
+<p><strong>◆ 缺点</strong><br />
+也很容易看到他的缺点，<br />
+1. <code>一致性问题</code>。 为了高效查询性能，付出的代价是数据的一致性。<br />
+2. 而且内存的资源是有限的，所以要控制数据量的大小。</p>
+
+<p><strong>◆ 如何去解决？</strong><br />
+如果没有太高的一致性需求的话，<br />
+可以直接<code>设置比较短的缓存时间</code>来解决<code>一致性</code>的问题。<br />
+比方说缓存时间设置为5分钟，5分钟后数据无效，那再次去数据库查询。</p>
+
+<p>要么做定时任务，每隔一段时间做数据同步。</p>
+
+<p>如果数据一致性需求很高，建议再次做一次验证，要不要用Redis?<br />
+因为要需要考虑每次<code>数据有变动代码里需要添加删除Redis数据的逻辑</code>。<br />
+(万一这数据的Mapping关系比较复杂的话，光是删掉这些有关系的数据也会让你哭死&hellip;)<br />
+只要删掉了，下次查询会从新去数据库查询数据。</p>
+
+<p><br /></p>
+
+<h5 id="我这只是简单应用-没什么深度-哈">我这只是简单应用，没什么深度，哈~</h5>
+
+<h5 id="下面简单的整理了一下语法">下面简单的整理了一下语法</h5>
+
+<hr />
+
+<p><strong>1. 安装Redis</strong> (我比较喜欢下docker镜像安装，如果不想这么做可以搜一下&hellip;^^)</p>
+
+<pre><code>$ docker run --name test-redis -p 33201:6379 -d redis:latest
+</code></pre>
+
+<ul>
+<li>&mdash;name 后面的是docker容器名</li>
+<li>-p 32xxx:6379 这里需要注意 <code>32xxx</code> 是你<strong>链接redis的时候的<code>Port</code>。</strong></li>
+<li>-d redis:latest 是你的镜像标签和版本</li>
+</ul>
+
+<p><strong>2. 在shell中访问redis</strong></p>
+
+<pre><code>$ redis-cli -h 127.0.0.1 -p 33201           //链接redis
+127.0.0.1:33201&gt; set key01 'hello world'    //赋值
+OK
+127.0.0.1:33201&gt; get key01                  //查询
+&quot;hello world&quot;
+127.0.0.1:33201&gt; del key01                  //删除
+(integer) 1
+127.0.0.1:33201&gt;
+</code></pre>
+
+<p><strong>2. 设置密码</strong></p>
+
+<pre><code>127.0.0.1:33201&gt; config set requirepass test123     //密码设置为 test123
+OK
+127.0.0.1:33201&gt; get key01                          //因为设置了密码，验证失败
+(error) NOAUTH Authentication required.
+127.0.0.1:33201&gt; auth test123                       //登录验证
+OK
+127.0.0.1:33201&gt; get key01                          //正常
+&quot;hello world&quot;
+</code></pre>
+
+<p><strong>3. 几个常用的命令</strong></p>
+
+<pre><code>#查看所有key
+keys *  或  keys &quot;*&quot;
+
+#查看匹配前缀的keys
+keys &quot;miao*&quot;
+
+#清空redis
+flushdb
+
+#随机取出一个key
+randomkey
+
+#查看key的类型
+type key
+
+#查看数据库中key的数量
+dbsize
+
+#查看服务器信息
+info
+
+#查看日志
+slowlog get
+slowlog get 10
+</code></pre>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/limingxie/blockchain_introduction/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

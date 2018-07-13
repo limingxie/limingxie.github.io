@@ -80,6 +80,61 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/redis/">Redis简单应用</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-01T07:28:49&#43;08:00">
+          Jul 1, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    这些天因为项目性能上的问题，采用了Redis缓存。
+做了一些简单的笔记。
+◆ Redis
+Redis(REmote DIctionary Server)是一个key-value存储系统。
+它支持存储的value类型很多，包括string、list、set、hash等等&hellip;
+我最喜欢用 key-json字符。
+◆ 应用
+用法其实也简单，代码逻辑中读取相应的信息的时候先去Redis读取，
+没有数据，再去数据库(mysql)读取。保存到Redis后，返回结果集。
+因为Redis的数据是保存在内存里的(分保存的方式，暂且可以理解成保存在内存)，
+所以查询速度会很快。
+◆ 缺点
+也很容易看到他的缺点，
+1. 一致性问题。 为了高效查询性能，付出的代价是数据的一致性。
+2. 而且内存的资源是有限的，所以要控制数据量的大小。
+◆ 如何去解决？
+如果没有太高的一致性需求的话，
+可以直接设置比较短的缓存时间来解决一致性的问题。
+比方说缓存时间设置为5分钟，5分钟后数据无效，那再次去数据库查询。
+要么做定时任务，每隔一段时间做数据同步。
+如果数据一致性需求很高，建议再次做一次验证，要不要用Redis?
+因为要需要考虑每次数据有变动代码里需要添加删除Redis数据的逻辑。
+(万一这数据的Mapping关系比较复杂的话，光是删掉这些有关系的数据也会让你哭死&hellip;)
+只要删掉了，下次查询会从新去数据库查询数据。
+
+我这只是简单应用，没什么深度，哈~ 下面简单的整理了一下语法 1. 安装Redis (我比较喜欢下docker镜像安装，如果不想这么做可以搜一下&hellip;^^)
+$ docker run --name test-redis -p 33201:6379 -d redis:latest   &mdash;name 后面的是docker容器名 -p 32xxx:6379 这里需要注意 32xxx 是你链接redis的时候的Port。 -d redis:latest 是你的镜像标签和版本  2. 在shell中访问redis
+$ redis-cli -h 127.0.0.1 -p 33201 //链接redis 127.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/redis/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/blockchain_introduction/">区块链blockchain零基础入门(一)</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
