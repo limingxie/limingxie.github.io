@@ -116,7 +116,7 @@ Redis(REmote DIctionary Server)是一个key-value存储系统。<br />
 1. <code>一致性问题</code>。 为了高效查询性能，付出的代价是数据的一致性。<br />
 2. 而且内存的资源是有限的，所以要控制数据量的大小。</p>
 
-<p><strong>◆ 如何去解决？</strong><br />
+<p><strong>◆ 如何去解决的？</strong><br />
 如果没有太高的一致性需求的话，<br />
 可以直接<code>设置比较短的缓存时间</code>来解决<code>一致性</code>的问题。<br />
 比方说缓存时间设置为5分钟，5分钟后数据无效，那再次去数据库查询。</p>
