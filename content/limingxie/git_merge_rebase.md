@@ -132,8 +132,7 @@ $ git rebase master     --在dev分支先把master分支的记录拉倒自己的
 (但是你只知道这些，仍然是个菜鸟。包括我，哈哈~)
 
 下一遍文章继续介绍cherry-pick的简单应用。  
-<!-- [git命令cherry-pick的简单应用](https://limingxie.github.io/limingxie/git_cherry_pick/) -->
-### **继续更新**
+[git命令cherry-pick的简单应用](https://limingxie.github.io/limingxie/git_cherry_pick/)
 
 ----------------------------------------------
 欢迎大家的意见和交流
