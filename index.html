@@ -80,6 +80,48 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">git命令 cherry-pick 的使用简介</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-30T07:28:49&#43;08:00">
+          Jul 30, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章介绍了merge和rebase的用法以及原理。
+git命令merge和rebase的简单应用
+这里简单的介绍一下 cherry-pick 的用法。
+什么时候会用到 cherry-pick 命令？
+代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。
+只合并某个分支上的某次修改commit到指定的分支上。
+这时候就可以使用cherry-pick命令来操作。
+$ git cherry-pick commit_id //想合并的commit_id  图片备用地址
+如果是图1这样使用cherry-pick命令的话，
+会有 a1, a2, a3 的合并项，在代码中需要删除 a1, a2 再次提交解决冲突才行。
+喜欢找茬的人会这么问：这么一来和merge有什么区别吗？
+merge的话也不是把 a1, a2, a3 的代码合并过来吗？
+merge合并后把 a1, a2 删掉的话跟cherry-pick有什么区别？
+区别在于日志。
+$ git cherry-pick fd4e09c(a3的 commit_id) error: could not apply fd4e09c... add a3 hint: after resolving the conflicts, mark the corrected paths hint: with 'git add &lt;paths&gt;' or 'git rm &lt;paths&gt;' hint: and commit the result with 'git commit' //.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">git命令merge和rebase的简单应用</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -528,44 +570,15 @@ docker exec -it mingxie-mysql bash root@7c289aa0ca95:/# mysql -uroot -p -h local
 </article>
 
   
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/hugo_create/">用hugo搭建个人博客</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-03-14T10:14:08&#43;08:00">
-          Mar 14, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    这几天研究了用hugo搭建个人博客。
-简单的整理了一下。
-1.安装hugo（windows 请查看官网介绍 https://gohugo.io/getting-started/installing/）
-$ brew install hugo  之后检查版本
-$ hugo version Hugo Static Site Generator v0.37.1 darwin/amd64 BuildDate:  2.创建hugo 项目
-$ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users/limingxie/Projects/my-blog. Just a few more steps and you're ready to go: 1. Download a theme into the same-named folder. Choose a theme from https://themes.gohugo.io/, or create your own with the &quot;hugo new theme &lt;THEMENAME&gt;&quot; command.
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/hugo_create/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
 </div>
 <nav class="pagination" role="navigation">
 
+  <hr />
 
-  <span class="page-number">Page 1 of 1</span>
+
+  <span class="page-number">Page 1 of 2</span>
+
+<a class="older-posts" href="/page/2/">Older Posts <span aria-hidden="true">&raquo;</span></a>
 
 </nav>
 

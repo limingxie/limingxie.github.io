@@ -7,10 +7,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>limingxie - blog</copyright>
-    <lastBuildDate>Sun, 29 Jul 2018 07:28:49 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 30 Jul 2018 07:28:49 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/limingxie/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>git命令 cherry-pick 的使用简介</title>
+      <link>https://limingxie.github.io/limingxie/git_cherry_pick/</link>
+      <pubDate>Mon, 30 Jul 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/git_cherry_pick/</guid>
+      <description>上一篇文章介绍了merge和rebase的用法以及原理。
+git命令merge和rebase的简单应用
+这里简单的介绍一下 cherry-pick 的用法。
+什么时候会用到 cherry-pick 命令？
+代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。
+只合并某个分支上的某次修改commit到指定的分支上。
+这时候就可以使用cherry-pick命令来操作。
+$ git cherry-pick commit_id //想合并的commit_id  图片备用地址
+如果是图1这样使用cherry-pick命令的话，
+会有 a1, a2, a3 的合并项，在代码中需要删除 a1, a2 再次提交解决冲突才行。
+喜欢找茬的人会这么问：这么一来和merge有什么区别吗？
+merge的话也不是把 a1, a2, a3 的代码合并过来吗？
+merge合并后把 a1, a2 删掉的话跟cherry-pick有什么区别？
+区别在于日志。
+$ git cherry-pick fd4e09c(a3的 commit_id) error: could not apply fd4e09c... add a3 hint: after resolving the conflicts, mark the corrected paths hint: with &#39;git add &amp;lt;paths&amp;gt;&#39; or &#39;git rm &amp;lt;paths&amp;gt;&#39; hint: and commit the result with &#39;git commit&#39; //.</description>
+    </item>
     
     <item>
       <title>git命令merge和rebase的简单应用</title>
