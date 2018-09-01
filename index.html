@@ -80,6 +80,54 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/solid/">solid原则简单笔记</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-09-01T07:28:49&#43;08:00">
+          Sep 1, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    这些天因为工作上的需求，一套代码需要布了很多环境。
+虽然说是一样的业务，但是不在不同的环境里难免会有一些少许不同的业务。
+刚开始的时候觉得没什么问题，分了几个分支。
+但是后来感觉越来越不对劲了，不同的环境分不同的分支，以为管理的不太难。
+时间长了，分支之间的差异也越来越大，感觉应该分不同的仓库。
+这分了仓库问题又来了，改了Bug需要再不同的仓库里重复的改，审查代码，合并代码，测试&hellip;
+把我忙的不亦乐乎。
+这让我怀疑，是不是代码结构本身有问题？
+虽然现在用的Go语言不是面向对象编程语言，
+但是我觉得经典的面向对象编程思想应该能对我有帮助。
+当做自己的笔记简单的整理了一下solid原则。
+SRP	The Single Responsibility Principle	单一责任原则 OCP	The Open Closed Principle	开放封闭原则 LSP	The Liskov Substitution Principle	里氏替换原则 ISP	The Interface Segregation Principle	接口分离原则 DIP	The Dependency Inversion Principle	依赖倒置原则  ◆ 单一责任原则(The Single Responsibility Principle)
+一个类只完成它应该完成的职责。  这一原则其实项目刚开始的时候很容易遵守。
+但是项目久了后，你会发现你的项目越来越变味儿。
+需要不断的重构中，维持单一责任原则。
+◆ 开放封闭原则(The Open Closed Principle)
+软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。  好难好难。
+尤其是api的版本不断的升级，老版本的api又不能弃用的时候，
+而且结构在不断的变化的时候&hellip;ㅠㅠ
+◆ 里氏替换原则(The Liskov Substitution Principle)
+只有在确定是 is-a 的关系时才能使用继承。  这一原则我刚开始的时候还真不理解。其实很简单。
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/solid/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">git命令 cherry-pick 的使用简介</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -529,41 +577,6 @@ $ go test -v ==&gt; 依次运行当前package的 _test.
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/docker_mysql/">使用docker运行mysql</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-03-27T07:28:49&#43;08:00">
-          Mar 27, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。
-为了避免这种现象，还是链接本地mysql开发还是更稳定的， 可是开发的项目多了后，本地的mysql库看起来好乱。 而且有很多项目是实验性的项目，没有及时处理的话会产生很多垃圾数据。
-要不使用docker运行mysql，开发结束后把容器删掉 ?  前提是需要准备测试数据脚本，开发或测试的时候随时可以删除，添加数据。 这样就不会因为删除docker容器，重新添加数据而烦恼。 做测试数据很麻烦~ 但是写测试代码，这些测试数据脚本也是必要的。  废话有点多了，说说如何去做。来点干货&hellip;^^
-1. 安装docker (建议上官网下载安装包安装。)
-$ brew install docker  2. 下载mysql镜像
-$ docker pull mysql  3. 启动mysql实例
-$ docker run --name mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest   &mdash;name 后面的是docker容器名 -p 32xxx:3306 这里需要注意 32xxx 是你链接mysql的时候的Port。 -e MYSQL_ROOT_PASSWORD 是设置mysql的root账号密码 -d mysql 是你的镜像标签  4. 在shell中访问mysql
-docker exec -it mingxie-mysql bash root@7c289aa0ca95:/# mysql -uroot -p -h localhost Enter password:  输入密码即可。
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/docker_mysql/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
