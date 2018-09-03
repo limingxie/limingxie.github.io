@@ -80,6 +80,37 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/my_go_test/">Go项目的测试代码1（基础）</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-05-27T20:36:02&#43;08:00">
+          May 27, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    最近写了测试代码，整理了一下。
+先看看简单的测试代码
+// add_test.go ==&gt; 文件名 _test.go 结尾的默认为测试代码文件 package models import ( &quot;testing&quot; ) //Test开头的默认为测试方法 func TestAdd(t *testing.T) { //arrange var x, y, res int x = 2 y = 3 //act result = Add(x, y) //assert if result != 5 { t.Fatal(&quot;Add的结果不正确&quot;) } }  // add.go package models func Add(x, y int) int { return x + y }  查看测试结构。
+$ go test -v ==&gt; 依次运行当前package的 _test.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/docker_mysql/">使用docker运行mysql</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">

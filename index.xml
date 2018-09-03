@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>limingxie - blog</copyright>
-    <lastBuildDate>Sat, 01 Sep 2018 07:28:49 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Sep 2018 07:28:49 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux 常用命令整理(一)</title>
+      <link>https://limingxie.github.io/limingxie/linux_command/</link>
+      <pubDate>Sun, 02 Sep 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/linux_command/</guid>
+      <description>这么晚了才认识了linux系统。感觉越来越喜欢linux系统了。
+废话少说，这几天自己做的笔记，炫耀一下&amp;hellip;.^^
+方便以后用的时候查找。
+ 命令行 备注   pwd: 改变目录 cd..   ls: 列出目录内容 ls -l = ll  ls -l t 时间排序 S 大小排序 -d 目录  ls -lt --reverse  ls -F 所有文件  Ls -i 查看所有节点inodemv    file: 确定文件类型   less: 查看文件内容   cp: 复制文件和目录 -a 复制所有文件一起权限 -r 递归复制 -u 复制没有或更新的内容  cp file1 file2 dir1 复制文件file1和file2 到dir1   mv: 移动或重命名文件夹和目录 -i 操作需要做确认 -u -v 显示信息  mv file1 file2 file1移动到file2 或重命名file2  mv file1 file2 dir1 将file1,file2 移动到dir1 前提是dir1必须存在   mkdir: 创建目录   rm: 移除文件盒目录 危险的命令，先用ls 看看是不是你要删除的文件，在换成rm执行。  -i 需要确认删除 -r 递归删除 -f --force 忽略提示全部删除 -v 查看信息  rm -rf file1 dir1 删除 file1和dir2 并且不提示执行删除   ln: 创建硬链接和符号链接  in file link 创建硬链接  in -s item link 创建符号链接，这里item可以是目录   通配符 g* g开头的任意文件  b*.</description>
+    </item>
     
     <item>
       <title>solid原则简单笔记</title>
