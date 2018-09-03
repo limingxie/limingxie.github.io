@@ -264,7 +264,8 @@ draft: true
 	    <td><font style="font-family:SimHei">关机或者重启系统</font></td>
     </tr>
 </table>
-
+<br/>
+<br/>
 
 <table class="table-bordered table-striped table-condensed ">
     <tr>
@@ -295,9 +296,8 @@ draft: true
         <td><font style="font-family:SimHei">Ctrl + R:</font></td>
 	    <td><font style="font-family:SimHei">搜索之前的命令  history | grep   相似</font></td>
     </tr>
-
-
 </table>
+
 ----------------------------------------------
 欢迎大家的意见和交流
 
