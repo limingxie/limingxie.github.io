@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" 一个小小变化的威力 &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/limingxie/do_change/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2018-11-11T07:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     一个小小变化的威力 &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">一个小小变化的威力</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-11-11T07:28:49&#43;08:00">
+          Nov 11, 2018
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>今天是双11，本想来公司凑凑热闹&hellip;^^<br />
+结果主要问题都是在我的服务里，还把登录给整瘫了半个多小时&hellip;ㅠㅠ<br />
+高峰过去了，可以松口气了~ 抽个时间写写博文。</p>
+
+<p>这次我想共享我们公司一个部门遇到的事情。</p>
+
+<p>那天我正在为拆分服务的问题而苦恼着。<br />
+(本来是一个的服务拆分成4个服务，问题巨多&hellip;ㅠㅠ)</p>
+
+<p>有位同事(韩国人)跟我说，看到了一些不太正常的请求。<br />
+希望我帮他和相关负责人沟通。(我是朝鲜族，有时候会帮他们沟通)。<br />
+在沟通的过程当中，我感觉到这是一个很有趣的问题。</p>
+
+<h3 id="为什么会有这么多的请求"><strong>◆ 为什么会有这么多的请求？</strong></h3>
+
+<p>先简单的说一下业务吧。<br />
+线上(天猫商城)出售一笔商品，线下的卖场会把这个单子抢过来，自行给购物者发货。<br />
+全国各地的卖场会积极的抢线上出售过的单子，因为每抢到一笔单子，他们就有提成赚。<br />
+所以比较勤奋的卖场人员只要店里没有顾客的话就会不停的刷单。<br />
+(不停的给服务器发Request请求，看看有没有可抢的单子。)</p>
+
+<p>有些喜欢思考的人就会问，那不能做成推单吗？<br />
+这样就没有这种查询的压力了。为什么不难么做是有种种原因的这里不做解释了。</p>
+
+<p>那问题是什么呢？其实就是请求量异常的的多。<br />
+在我们不怎么注意的情况下，Request请求量<code>1个月内翻了6倍！</code><br />
+不可能吧？当时是9~10月份。又不是双11，又不是做了什么活动&hellip;<br />
+卖场数量没什么太多的变化，这请求数量怎么会上升的这么快？</p>
+
+<h3 id="原来是有人用脚本刷单啊"><strong>◆ 原来是有人用脚本刷单啊？</strong></h3>
+
+<p>我们赶紧查看了一下日志，发现有几个卖场的请求比较异常。<br />
+1个卖场1天内请求量居然达到了10万次。<br />
+就是说1秒一次也是刷20个小时也只能刷7.2万次。<br />
+而且我们在前端做了限制是3秒才能刷一次。</p>
+
+<p>这问题就简单了，肯定是这几个卖场是在用脚本刷单。<br />
+而且是有点IT基础的人获取后台api的url刷单。</p>
+
+<h3 id="好像不对-日志证明不了有人用脚本刷单"><strong>◆ 好像不对？日志证明不了有人用脚本刷单</strong></h3>
+
+<p>但是我们看了前一天的日志，傻眼了。<br />
+请求量最高的卖场不停的变。<br />
+这就不能证明有几个卖场人员是用脚本刷单了。<br />
+用脚本刷单的卖场，应该是每天都会刷单吧？
+而且请求量最高的卖场分布在全国各地区，<br />
+今天是这家卖场，明天又是另一家卖场&hellip;.ㅠㅠ</p>
+
+<p>我们开始怀疑我们的程序有问题了。<br />
+是不是有bug在特定的情况下会不停的发请求?<br />
+开始争辩:<br />
+项目的负责人说我们的程序绝不会有这样的问题。<br />
+我们就反问你怎么证明你的程序是没问题？</p>
+
+<h3 id="虽然不知道怎么办-但是我们可以做一些改变"><strong>◆ 虽然不知道怎么办，但是我们可以做一些改变</strong></h3>
+
+<p>争论一番后，大家都累了。不知道怎么解决这件事情。<br />
+大家你看我，我看你~ 都等着别人出方案&hellip;^^;;</p>
+
+<p>这怎么办啊？联系了卖场，卖场负责人说我们这里没有异常~ 也不承认自己用了什么脚本。<br />
+(这举动很傻，如果我是卖场人员，即使用了我也不会承认自己用了脚本刷单。)</p>
+
+<p>这时候我们发现这个api没有做身份验证。我们提议要不要做身份验证？<br />
+(至于为什么不做身份验证，好不专业之类的评价我不做解释了~)</p>
+
+<p>这是一个比较古老的api，而且过些日子会有新的api代替他的。<br />
+所以相关的负责人是不怎么希望动这套代码。<br />
+而且做身份验证是解决不了这个古怪的现象的。</p>
+
+<p>最后我们决定加身份验证看看，当时大部分的人都认为做身份验证没什么用。<br />
+<code>没事找事，这老代码改动后，万一报错怎么办？</code><br />
+虽然我们不知道有什么效果，或是给我们带来什么？<br />
+<code>总比什么都不做强吧？</code></p>
+
+<h3 id="加了身份验证没什么效果啊"><strong>◆ 加了身份验证没什么效果啊？</strong></h3>
+
+<p>添加身份验证功能以后，早上我们紧急发布了新版本。<br />
+看了日志，我们失算了~ 没效果&hellip;ㅠㅠ<br />
+没有报我们想看的401验证失败的错误，
+而且又是别的几家卖场刷单刷的特别厉害。<br />
+NND 这问题怎么解决啊？</p>
+
+<p>当我们迷茫的时候，第二天有转机了&hellip;^^<br />
+有一家卖场从下午开始刷单，都在报401的错误。<br />
+而且是直到第二天掉了8万次左右都是在报401的错误。</p>
+
+<p>嘿嘿，我们就是想要看这个效果~<br />
+当时我们猜测，这家卖场很有可能是用脚本直接刷单的，<br />
+因为过了这么长时间，用系统正常的方式调用是不会出现401的验证失败。<br />
+及时前端有bug，不停的调用也是不会出现身份验证失败的。<br />
+(前端调用肯定会有token, 而且我们token的有效期是15个小时。失效了得从新登陆)<br />
+他是不知道我们加了身份验证，所以用以前的方式刷了一晚上的单都在报错。</p>
+
+<h3 id="做了限制-人家有应对方法"><strong>◆ 做了限制，人家有应对方法？</strong></h3>
+
+<p>这样就好办了~<br />
+根据上述现象，我们可以判断这8万次的调用很大可能不是因为我们的前端程序的bug。<br />
+我们可以放心的对服务api的请求做了限制，每个用户10秒只能调用10次请求。<br />
+超过这个次数的话我们直接抛异常，提示稍微休息一会&hellip;^^</p>
+
+<p>有趣的现象发生了~<br />
+仅过了一天~ 日志上很多卖场都是1分钟发出60次的抢单请求。<br />
+NND 这不是用脚本刷单吗？</p>
+
+<h3 id="原来是按键精灵"><strong>◆ 原来是按键精灵~</strong></h3>
+
+<p>我们再次做了调整20秒只能调用10次请求。<br />
+因为我们前端限制是3秒刷新一次，所以其实这么改也应该不会有问题。</p>
+
+<p>哈哈~ 日志显示很多卖场是1分钟平均30次请求。<br />
+NND 这肯定是脚本刷单。</p>
+
+<p>这期间居然有个卖场联系了我们(刷单可疑卖场)，他们说抢单查询总有提示休息。<br />
+于是我们用视频连接看了他们操作的情况。<br />
+这些卖场人员真厉害，我们做的3秒限制居然还可以破解？<br />
+太感谢了，赶紧处理一下。</p>
+
+<p>重点不是在这里，因为即使是这样，1秒一次的刷单8万次是不可能的。<br />
+我们编了个理由看了一下人家的手机界面。<br />
+<code>按键精灵！！</code></p>
+
+<p>原来如此~ 所有的谜题都有答案了~</p>
+
+<p>原来是用按键精灵的，所以当我们加身份验证也是，他们是可以正常的刷单。<br />
+后来我们猜测卖场人员是相互有联系的。这东西被共享了~<br />
+有些人用按键精灵，有些人脚本刷单，有些人用我们不知道的东西刷单&hellip;^^;;</p>
+
+<p>没想到问题居然这么严重？之后怎么做处理是部门负责人要做的事情了。<br />
+我在这里就不做更多的讨论了。</p>
+
+<h3 id="总结"><strong>◆ 总结</strong></h3>
+
+<p>我们会遇到一些问题或困难，会让我们迷茫，不知所措。<br />
+这时候后我们不妨试一试小小的尝试性的改动，或是来点小小的变化？<br />
+我们可以依据这些行动带来的效果和经验，可以做下一个行动的计划。<br />
+虽然我们不知道这么做是对，还是错。<br />
+但是这些改变或行动很有可能是这个问题的突破口。</p>
+
+<p>打个比方，你想挖一个井。<br />
+不知道在哪里挖。没人告诉你~ 该怎么办呢？<br />
+你可以找个地方先挖一点看看，你可以总结一些经验。<br />
+根据那个经验再挖别的地方，你又可以总结一些经验。<br />
+根据那个经验&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;<br />
+最后你有很多很多总结经验，可以挖到一个比较好的井。</p>
+
+<p>不知这个例子举得好不好，有些人说这是什么傻傻笨笨的方法？<br />
+但是总比你什么都不做，干等着别人教你强吧？<br />
+万一没有人教你呢？你是负责人连你都不知道的问题，还有谁会过来教你？</p>
+
+<p><strong>当遇到一些问题让你迷惑，不知所措的的时候：</strong><br />
+<strong>不妨试一试做一些小小的行动或变化，根据这件事情再做下一步打算？</strong><br />
+<strong>久而久之你会发现你已经解决这个问题了。</strong></p>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/work_sharing/share_001/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
