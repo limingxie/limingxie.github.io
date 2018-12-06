@@ -103,7 +103,7 @@
 demo大致构建了如下的场景。
 图片备用地址
 Dial(用户) package main import ( &quot;log&quot; &quot;golang.org/x/net/websocket&quot; ) func main() { origin := &quot;http://localhost/&quot; url := &quot;ws://localhost:5001/test&quot; //创建websocket链接 ws, err := websocket.Dial(url, &quot;&quot;, origin) if err != nil { log.Fatal(err) } var s string for { //等待websocket的消息(这个过程是bolck) err := websocket.Message.Receive(ws, &amp;s) if err != nil { log.Println(err) ws.Close() break } log.Println(s) } }  
-Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; &quot;sync&quot; _ &quot;github.
+Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; &quot;sync&quot; &quot;github.
   </div>
   
   <footer>

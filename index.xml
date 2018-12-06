@@ -26,7 +26,7 @@
 demo大致构建了如下的场景。
 图片备用地址
 Dial(用户) package main import ( &amp;quot;log&amp;quot; &amp;quot;golang.org/x/net/websocket&amp;quot; ) func main() { origin := &amp;quot;http://localhost/&amp;quot; url := &amp;quot;ws://localhost:5001/test&amp;quot; //创建websocket链接 ws, err := websocket.Dial(url, &amp;quot;&amp;quot;, origin) if err != nil { log.Fatal(err) } var s string for { //等待websocket的消息(这个过程是bolck) err := websocket.Message.Receive(ws, &amp;amp;s) if err != nil { log.Println(err) ws.Close() break } log.Println(s) } }  
-Handle(SocketServer) package main import ( &amp;quot;log&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;sync&amp;quot; _ &amp;quot;github.</description>
+Handle(SocketServer) package main import ( &amp;quot;log&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;sync&amp;quot; &amp;quot;github.</description>
     </item>
     
     <item>
