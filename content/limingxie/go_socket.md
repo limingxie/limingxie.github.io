@@ -184,7 +184,7 @@ func NewClientConnection(ws *websocket.Conn, server *SocketServer) *ClientConnec
 ![2](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go_socket/go_socket2.png)
 <!-- ![2](http://localhost:1313/images/go_socket/go_socket2.png)   -->
 
-**socket+apiserver**  
+**socket + api server**  
 [图片备用地址](https://limingxie.github.io/images/go_socket/go_socket3.png)  
 ![3](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go_socket/go_socket3.png)
 <!-- ![3](http://localhost:1313/images/go_socket/go_socket3.png)   -->
