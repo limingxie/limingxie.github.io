@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>limingxie - blog</copyright>
-    <lastBuildDate>Wed, 14 Nov 2018 05:28:49 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 06 Dec 2018 07:28:49 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/limingxie/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>go websocket的简单应用</title>
+      <link>https://limingxie.github.io/limingxie/go_socket/</link>
+      <pubDate>Thu, 06 Dec 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/go_socket/</guid>
+      <description>因为我们是做企业ERP系统，没什么机会接触socket。
+这次准备做消息推送才了解到还有socket这种技术&amp;hellip;ㅠㅠ
+(做了这么多年的程序员，连这个也不知道&amp;hellip;ㅠㅠ)
+具体的概念就不在这里多做解释了，可以百度或谷歌搜一下。
+我做了一个简单的demo，以便于了解使用方式。
+demo大致构建了如下的场景。
+图片备用地址
+Dial(用户) package main import ( &amp;quot;log&amp;quot; &amp;quot;golang.org/x/net/websocket&amp;quot; ) func main() { origin := &amp;quot;http://localhost/&amp;quot; url := &amp;quot;ws://localhost:5001/test&amp;quot; //创建websocket链接 ws, err := websocket.Dial(url, &amp;quot;&amp;quot;, origin) if err != nil { log.Fatal(err) } var s string for { //等待websocket的消息(这个过程是bolck) err := websocket.Message.Receive(ws, &amp;amp;s) if err != nil { log.Println(err) ws.Close() break } log.Println(s) } }  
+Handle(SocketServer) package main import ( &amp;quot;log&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;sync&amp;quot; _ &amp;quot;github.</description>
+    </item>
     
     <item>
       <title>我们(开发者)的责任</title>
