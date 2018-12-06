@@ -58,10 +58,8 @@ import (
 	"net/http"
 	"sync"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/net/websocket"
 )
 
