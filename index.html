@@ -80,6 +80,41 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/err_return/">Go项目:error错误处理</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-02-12T08:38:02&#43;08:00">
+          Feb 12, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章我介绍了拆分服务后如何去写测试代码的。
+Go项目:傻瓜式联合测试
+今天想共享一下，我是如何处理error的。
+其实error是一个普通的处理。
+但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。
+有A,B,C 3个服务。 A服务提供的一个工能是需要 B和C 服务的信息。 该功能执行的时候报错，单凭返回的错误信息，你是很难一眼看出问题点是在哪里。 (go 的错误提示过于简单...^^;;)  所以我自己写了处理error的一个package。
+https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go 实际运用例子 这是普通的处理方式
+package main import ( &quot;fmt&quot; &quot;strconv&quot; ) func main() { value, err := returnValue() if err != nil { //普通的处理 fmt.Println(err) } else { fmt.Println(value) } } func returnValue() (int, error) { value, err := strconv.Atoi(&quot;string&quot;) if err != nil { //普通的处理 return 0, err } return value, nil }  执行结果
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/err_return/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/my_go_test4/">Go项目:傻瓜式联合测试</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -514,59 +549,6 @@ $ git cherry-pick fd4e09c(a3的 commit_id) error: could not apply fd4e09c... add
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">git命令merge和rebase的简单应用</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-07-29T07:28:49&#43;08:00">
-          Jul 29, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    因为工作的需求，项目分了几个大分支管理了。
-不同的环境需要的功能也不一样，在不同的分支里修改。
-虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。 (我比较倾向，有一个主分支，发布在不同的环境是应该由不同的配置和适当的继承来实现。
-如果这么做实在太麻烦的话，应该另分出一个仓库repository管理。)
-以下是我简单整理的内容。
-◆ merge merge就是合并不同分支的代码。
-先举个简单的使用场景例子。
-从master分支分出一个dev分支开发。
-期间我们master分支有 m1,m2,m3 的提交记录。
-dev分支有 d1,d2 的提交记录。
-2个分支需要合并代码。
-$ git merge dev --在master分支把dev分支的代码合并过来。  把2支分支合并，有冲突，解决冲突后需要提交一次合并代码记录。
-(为了简单，下图是没有冲突时的场景。)
-图片备用地址
-◆ rebase rebase其实就是重置代码历史，手动的修改提交记录和代码。
-一般项目当中有两种用法。
-1. 合并记录
-这是一般开发者处理完Issue后，给主分支发出合并请求了。
-但是CodeReview的时候发现有不合适的代码，或是有个小Bug需要修改。
-修改后又出现一个提交记录，1个Issue有2个提交记录，看着不舒服。
-这时候用以下方式处理。
-$ git rebase -i HEAD~2 --2代表要修改最近2个记录  图片备用地址
-2. 调整顺序
-git merge语法是按照时间顺序合并代码的。
-图1所示merge是时间的顺序来合并代码的。
-master: m1 -&gt; m2 -&gt; m3 dev: d1 -&gt; d2 ==&gt; -- 合并的代码记录是按照时间的排序 master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3  当开发到 m2 的时候我们发布了一个版本，合并了d1,d2后发布出现问题了。
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
