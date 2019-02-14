@@ -18,12 +18,12 @@
       <pubDate>Thu, 14 Feb 2019 08:38:02 +0800</pubDate>
       
       <guid>https://limingxie.github.io/limingxie/err_return/</guid>
-      <description>上一篇文章我介绍了拆分服务后如何去写测试代码的。
+      <description>上一篇文章我介绍了拆分服务后如何去写测试代码。
 Go项目:傻瓜式联合测试
-今天想共享一下，我是如何处理error的。
+今天想共享一下，我是如何处理error。
 其实error是一个普通的处理。
 但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。
-有A,B,C 3个服务。 A服务提供的一个工能是需要 B和C 服务的信息。 该功能执行的时候报错，单凭返回的错误信息，你是很难一眼看出问题点是在哪里。 (go 的错误提示过于简单...^^;;)  所以我自己写了处理error的一个package。
+有A,B,C 3个服务。 A服务提供的一个功能是需要 B和C 服务的信息。 该功能执行的时候出问题，单凭返回的信息，你是很难一眼看出问题点是在哪里。 (go 的错误提示过于简单...^^;;)  所以我自己写了处理error的一个package。
 https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go 实际运用例子 这是普通的处理方式
 package main import ( &amp;quot;fmt&amp;quot; &amp;quot;strconv&amp;quot; ) func main() { value, err := returnValue() if err != nil { //普通的处理 fmt.Println(err) } else { fmt.Println(value) } } func returnValue() (int, error) { value, err := strconv.Atoi(&amp;quot;string&amp;quot;) if err != nil { //普通的处理 return 0, err } return value, nil }  执行结果</description>
     </item>

@@ -97,16 +97,16 @@
   <section>
     
 
-<p>上一篇文章我介绍了拆分服务后如何去写测试代码的。<br />
+<p>上一篇文章我介绍了拆分服务后如何去写测试代码。<br />
 <a href="https://limingxie.github.io/limingxie/my_go_test4/">Go项目:傻瓜式联合测试</a><br />
-今天想共享一下，我是如何处理error的。</p>
+今天想共享一下，我是如何处理error。</p>
 
 <p>其实error是一个普通的处理。<br />
 但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。</p>
 
 <pre><code>有A,B,C 3个服务。  
-A服务提供的一个工能是需要 B和C 服务的信息。  
-该功能执行的时候报错，单凭返回的错误信息，你是很难一眼看出问题点是在哪里。  
+A服务提供的一个功能是需要 B和C 服务的信息。  
+该功能执行的时候出问题，单凭返回的信息，你是很难一眼看出问题点是在哪里。  
 (go 的错误提示过于简单...^^;;)
 </code></pre>
 
@@ -155,7 +155,7 @@ strconv.Atoi: parsing &quot;string&quot;: invalid syntax
 
 <hr />
 
-<p>返回err的时候套用我的errs.Trace()函数</p>
+<p>返回err的时候，使用errs.Trace()函数</p>
 
 <pre><code>package main
 
@@ -169,7 +169,7 @@ func main() {
 
 	value, err := returnValue()
 	if err != nil {
-        //套用errs.Trace()处理
+        //errs.Trace()处理
 		fmt.Println(errs.Trace(err))
 	} else {
 		fmt.Println(value)
@@ -179,14 +179,14 @@ func main() {
 func returnValue() (int, error) {
 	value, err := strconv.Atoi(&quot;string&quot;)
 	if err != nil {
-        //套用errs.Trace()处理
+        //errs.Trace()处理
 		return 0, errs.Trace(err)
 	}
 	return value, nil
 }
 </code></pre>
 
-<p>其结果是这样的</p>
+<p>其结果是</p>
 
 <pre><code>$ go run main.go
 strconv.Atoi: parsing &quot;string&quot;: invalid syntax
@@ -196,20 +196,20 @@ testCode/errTest/main.go:13:
 
 <hr />
 
-<p>能感受的不同之处了吧？<br />
-之后api的返回err的时候<code>前面加个</code><strong><code>服务前缀</code></strong>，我就可以知道是哪个服务第几行出问题了。</p>
+<p>能感受的不同之处了吗？<br />
+api的返回err的时候<code>前面加个</code><strong><code>服务的名称</code></strong>，就可以知道是哪个服务第几行出问题了。</p>
 
 <hr />
 
 <h4 id="运营的时候怎么办"><strong>运营的时候怎么办？</strong></h4>
 
-<p>再怎么样的菜鸟也知道，运营服务器出问题直接爆出这些代码信息是不行的。</p>
+<p>再怎么样的新手也知道，运营服务器出问题直接爆出这些代码信息是不行的。</p>
 
 <p>那怎么办？<br />
 其实很简单，大家都会留日志吧？只要把这些信息放到日志里就行了，</p>
 
-<p>前面只显示request_id,
-只要有了request_id 我们就通过这个查找这些错误信息了。</p>
+<p>只要管理好request_id就可以了。<br />
+只要有了request_id 通过它来查找这些错误信息。</p>
 
 <hr />
 
