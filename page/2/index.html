@@ -80,6 +80,48 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">git命令 cherry-pick 的使用简介</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-30T07:28:49&#43;08:00">
+          Jul 30, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章介绍了merge和rebase的用法以及原理。
+git命令merge和rebase的简单应用
+这里简单的介绍一下 cherry-pick 的用法。
+什么时候会用到 cherry-pick 命令？
+代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。
+只合并某个分支上的某次修改commit到指定的分支上。
+这时候就可以使用cherry-pick命令来操作。
+$ git cherry-pick commit_id //想合并的commit_id  图片备用地址
+如果是图1这样使用cherry-pick命令的话，
+会有 a1, a2, a3 的合并项，在代码中需要删除 a1, a2 再次提交解决冲突才行。
+喜欢找茬的人会这么问：这么一来和merge有什么区别吗？
+merge的话也不是把 a1, a2, a3 的代码合并过来吗？
+merge合并后把 a1, a2 删掉的话跟cherry-pick有什么区别？
+区别在于日志。
+$ git cherry-pick fd4e09c(a3的 commit_id) error: could not apply fd4e09c... add a3 hint: after resolving the conflicts, mark the corrected paths hint: with 'git add &lt;paths&gt;' or 'git rm &lt;paths&gt;' hint: and commit the result with 'git commit' //.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">git命令merge和rebase的简单应用</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -443,13 +485,13 @@ Mock Mock 是由 Mock 链接库动态建立 (其他通常是由测试开发人�
     上一篇文章介绍了最基本的测试代码的写法。
 Go项目的测试代码（基础）
 这里简单的共享一下我在项目中使用的方式。
-项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层models
+项目结构 我们实际项目中, 结构简单地分了controller和model
  因为现在都已微服务的形式开发，没必要太复杂的结构。
-分控制层和模块层已经能满足我们的需求，不需要再细分了。
- |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; 控制层，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; 模块层，所有的业务都是在模块层里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
+分controller和model已经能满足我们的需求，不需要再细分了。
+ |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; controller，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; model，所有的业务都是在这里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
 有些人喜欢把测试方法分另一个package里写，也可以~ 不同人有不同的喜好。 我也试过这种方式，但是还是喜欢写在同一个package里面，这么写简单方便。
- 控制层controllers和模块层models的不同方式 控制层controllers
-控制层是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
+ controllers和models的不同方式 controllers
+controller是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
 我喜欢在这里写参数验证，业务验证等等主要功能的测试。
   </div>
   
@@ -528,39 +570,6 @@ docker exec -it mingxie-mysql bash root@7c289aa0ca95:/# mysql -uroot -p -h local
 </article>
 
   
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/hugo_create/">用hugo搭建个人博客</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-03-14T10:14:08&#43;08:00">
-          Mar 14, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    这几天研究了用hugo搭建个人博客。
-简单的整理了一下。
-1.安装hugo（windows 请查看官网介绍 https://gohugo.io/getting-started/installing/）
-$ brew install hugo  之后检查版本
-$ hugo version Hugo Static Site Generator v0.37.1 darwin/amd64 BuildDate:  2.创建hugo 项目
-$ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users/limingxie/Projects/my-blog. Just a few more steps and you're ready to go: 1. Download a theme into the same-named folder. Choose a theme from https://themes.gohugo.io/, or create your own with the &quot;hugo new theme &lt;THEMENAME&gt;&quot; command.
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/hugo_create/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
 </div>
 <nav class="pagination" role="navigation">
 
@@ -569,7 +578,9 @@ $ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users
 
 <a class="newer-posts" href="/"><span aria-hidden="true">&laquo;</span> Newer Posts</a>
 
-  <span class="page-number">Page 2 of 2</span>
+  <span class="page-number">Page 2 of 3</span>
+
+<a class="older-posts" href="/page/3/">Older Posts <span aria-hidden="true">&raquo;</span></a>
 
 </nav>
 

@@ -80,6 +80,47 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/solid_1/">solid原则的再次整理</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-06-06T07:28:49&#43;08:00">
+          Jun 6, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    最近对代码结构比较感兴趣。
+使得让我再次关注solid原则。
+SRP	The Single Responsibility Principle	单一责任原则 OCP	The Open Closed Principle	开放封闭原则 LSP	The Liskov Substitution Principle	里氏替换原则 ISP	The Interface Segregation Principle	接口分离原则 DIP	The Dependency Inversion Principle	依赖倒置原则  ◆ 单一责任原则(The Single Responsibility Principle)
+一个类只完成它应该完成的职责。  一个class，一个library, 一个package &hellip; 只完成自己的单一职责。
+但是也很容易走极端。 比如一个微服务只完成一个功能？
+我也不知道这么做好不好，但是我还是倾向于符合自己的实际情况。
+比如有职员类，有销售登记和配送管理函数。
+这时你可以拆分店员和物流管理人员2个类。
+但是这个类只包含这两个函数，那你何必要分着管呢？
+◆ 开放封闭原则(The Open Closed Principle)
+软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。  这其实就是要关注，增加新的功能的时候能不能不修改以前旧代码？
+增加新功能，需要大概旧代码，说明没做好开放封闭原则。
+◆ 里氏替换原则(The Liskov Substitution Principle)
+只有在确定是 is-a 的关系时才能使用继承。  其实就是替换别的模块的时候不要修改原有的旧模块。
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/solid_1/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/err_return/">Go项目:error错误处理</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -513,55 +554,13 @@ SRP	The Single Responsibility Principle	单一责任原则 OCP	The Open Closed P
 </article>
 
   
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">git命令 cherry-pick 的使用简介</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-07-30T07:28:49&#43;08:00">
-          Jul 30, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    上一篇文章介绍了merge和rebase的用法以及原理。
-git命令merge和rebase的简单应用
-这里简单的介绍一下 cherry-pick 的用法。
-什么时候会用到 cherry-pick 命令？
-代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。
-只合并某个分支上的某次修改commit到指定的分支上。
-这时候就可以使用cherry-pick命令来操作。
-$ git cherry-pick commit_id //想合并的commit_id  图片备用地址
-如果是图1这样使用cherry-pick命令的话，
-会有 a1, a2, a3 的合并项，在代码中需要删除 a1, a2 再次提交解决冲突才行。
-喜欢找茬的人会这么问：这么一来和merge有什么区别吗？
-merge的话也不是把 a1, a2, a3 的代码合并过来吗？
-merge合并后把 a1, a2 删掉的话跟cherry-pick有什么区别？
-区别在于日志。
-$ git cherry-pick fd4e09c(a3的 commit_id) error: could not apply fd4e09c... add a3 hint: after resolving the conflicts, mark the corrected paths hint: with 'git add &lt;paths&gt;' or 'git rm &lt;paths&gt;' hint: and commit the result with 'git commit' //.
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
 </div>
 <nav class="pagination" role="navigation">
 
   <hr />
 
 
-  <span class="page-number">Page 1 of 2</span>
+  <span class="page-number">Page 1 of 3</span>
 
 <a class="older-posts" href="/page/2/">Older Posts <span aria-hidden="true">&raquo;</span></a>
 

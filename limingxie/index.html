@@ -84,6 +84,45 @@
   <hr/>
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/solid_1/">solid原则的再次整理</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-06-06T07:28:49&#43;08:00">
+          Jun 6, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    最近对代码结构比较感兴趣。
+使得让我再次关注solid原则。
+SRP	The Single Responsibility Principle	单一责任原则 OCP	The Open Closed Principle	开放封闭原则 LSP	The Liskov Substitution Principle	里氏替换原则 ISP	The Interface Segregation Principle	接口分离原则 DIP	The Dependency Inversion Principle	依赖倒置原则  ◆ 单一责任原则(The Single Responsibility Principle)
+一个类只完成它应该完成的职责。  一个class，一个library, 一个package &hellip; 只完成自己的单一职责。
+但是也很容易走极端。 比如一个微服务只完成一个功能？
+我也不知道这么做好不好，但是我还是倾向于符合自己的实际情况。
+比如有职员类，有销售登记和配送管理函数。
+这时你可以拆分店员和物流管理人员2个类。
+但是这个类只包含这两个函数，那你何必要分着管呢？
+◆ 开放封闭原则(The Open Closed Principle)
+软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。  这其实就是要关注，增加新的功能的时候能不能不修改以前旧代码？
+增加新功能，需要大概旧代码，说明没做好开放封闭原则。
+◆ 里氏替换原则(The Liskov Substitution Principle)
+只有在确定是 is-a 的关系时才能使用继承。  其实就是替换别的模块的时候不要修改原有的旧模块。
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/solid_1/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/err_return/">Go项目:error错误处理</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -844,13 +883,13 @@ Mock Mock 是由 Mock 链接库动态建立 (其他通常是由测试开发人�
     上一篇文章介绍了最基本的测试代码的写法。
 Go项目的测试代码（基础）
 这里简单的共享一下我在项目中使用的方式。
-项目结构 我们实际项目中, 结构简单地分了控制层controllers和模块层models
+项目结构 我们实际项目中, 结构简单地分了controller和model
  因为现在都已微服务的形式开发，没必要太复杂的结构。
-分控制层和模块层已经能满足我们的需求，不需要再细分了。
- |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; 控制层，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; 模块层，所有的业务都是在模块层里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
+分controller和model已经能满足我们的需求，不需要再细分了。
+ |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; controller，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; model，所有的业务都是在这里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
 有些人喜欢把测试方法分另一个package里写，也可以~ 不同人有不同的喜好。 我也试过这种方式，但是还是喜欢写在同一个package里面，这么写简单方便。
- 控制层controllers和模块层models的不同方式 控制层controllers
-控制层是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
+ controllers和models的不同方式 controllers
+controller是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
 我喜欢在这里写参数验证，业务验证等等主要功能的测试。
   </div>
   

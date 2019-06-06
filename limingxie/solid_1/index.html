@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" solid原则的再次整理 &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/limingxie/solid_1/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2019-06-06T07:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     solid原则的再次整理 &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">solid原则的再次整理</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-06-06T07:28:49&#43;08:00">
+          Jun 6, 2019
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>最近对代码结构比较感兴趣。<br />
+使得让我再次关注solid原则。</p>
+
+<pre><code>SRP	    The Single Responsibility Principle	    单一责任原则
+OCP	    The Open Closed Principle	            开放封闭原则
+LSP	    The Liskov Substitution Principle	    里氏替换原则
+ISP	    The Interface Segregation Principle	    接口分离原则
+DIP	    The Dependency Inversion Principle	    依赖倒置原则
+</code></pre>
+
+<p><strong>◆ 单一责任原则(The Single Responsibility Principle)</strong></p>
+
+<pre><code>一个类只完成它应该完成的职责。
+</code></pre>
+
+<p>一个class，一个library, 一个package &hellip; 只完成自己的单一职责。<br />
+但是也很容易走极端。
+比如一个微服务只完成一个功能？<br />
+我也不知道这么做好不好，但是我还是倾向于符合自己的实际情况。</p>
+
+<p>比如有职员类，有销售登记和配送管理函数。<br />
+这时你可以拆分店员和物流管理人员2个类。<br />
+但是这个类只包含这两个函数，那你何必要分着管呢？</p>
+
+<p><strong>◆ 开放封闭原则(The Open Closed Principle)</strong></p>
+
+<pre><code>软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。
+</code></pre>
+
+<p>这其实就是要关注，增加新的功能的时候能不能不修改以前旧代码？<br />
+增加新功能，需要大概旧代码，说明没做好开放封闭原则。</p>
+
+<p><strong>◆ 里氏替换原则(The Liskov Substitution Principle)</strong></p>
+
+<pre><code>只有在确定是 is-a 的关系时才能使用继承。
+</code></pre>
+
+<p>其实就是替换别的模块的时候不要修改原有的旧模块。<br />
+遵守 is-a 的继承规则。</p>
+
+<p><strong>◆ 接口分离原则(The Interface Segregation Principle)</strong></p>
+
+<pre><code>如果一个接口包含了过多的方法，应该通过分离接口将其拆分。
+</code></pre>
+
+<p>如果依赖和自己没有关系或不需要的东西，需要应该把他拆分，只依赖和自己有关系的不封。</p>
+
+<p><strong>◆ 依赖倒置原则(The Dependency Inversion Principle)</strong></p>
+
+<pre><code>上层(抽象)不应该依赖于下层(实体)，下层(实体)应该依赖于上层(抽象)。
+</code></pre>
+
+<p>下层依赖上层，上层控制下层。程序的调用应是上层留到下层。
+<br />
+<br /></p>
+
+<h5 id="感觉还是没有理解透-下次有更深的理解-再次整理我的最爱-solid原则"><strong>感觉还是没有理解透，下次有更深的理解，再次整理我的最爱<code>solid原则</code>。</strong></h5>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/limingxie/err_return/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
