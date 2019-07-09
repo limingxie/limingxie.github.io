@@ -14,7 +14,7 @@ ISP	    Interface Segregation Principle	    接口分离原则
 DIP	    Dependency Inversion Principle	    依赖反转原则
 ```
 
-
+<br/>
 **◆ SRP:单一责任原则(Single Responsibility Principle)**  
 ```
 一个类只完成它应该完成的职责。
@@ -48,8 +48,7 @@ DIP	    Dependency Inversion Principle	    依赖反转原则
 换句话说上层策略性代码不应该依赖底层细节性代码，  
 底层细节性代码应该依赖上层策略性的代码。
 
-<br />
-<br />
+--------------------------------------------
 ##### **包的内聚性三原則**
 
 **◆ REP:复用/发布等同原则(Release Reuse Equivalency Principle)**  
@@ -73,6 +72,7 @@ DIP	    Dependency Inversion Principle	    依赖反转原则
 为了不必要的发布，切分没有关联的功能。
 告诉我们哪些不一应该放在一起，倾向于把组件个体变小。
 
+--------------------------------------------
 ##### **包的耦合性三原则**
 
 **◆ ADP:无依赖环原则(Acyclic Dependencies Principle)**  
