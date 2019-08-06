@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" Algorithms &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/algorithm/" />
+  
+  
+  <meta property="og:type" content="website" />
+  
+
+  <title>
+     Algorithms &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+      <a href="https://limingxie.github.io/algorithm/index.xml" class="btn-header btn-subscribe hidden-xs">
+        <i class="fa fa-rss" aria-hidden="true"></i>
+        &nbsp;Subscribe
+      </a>
+      
+    </section>
+  </header>
+  <main class="container">
+
+<section class="article-list">
+  <h1>Algorithms</h1>
+  
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/algorithm/recursion/">递归(recursion)</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-08-03T07:28:49&#43;08:00">
+          Aug 3, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    最近在研究算法&hellip;^^ 算法中最基本的是排序。
+排序当中最常见的是快速排序(Quick Sort)。
+理解快速排序的代码，那就离不开递归了。
+递归以前听过，但是真正去了解和研究是最近为了对算法的了解。
+ 递归感觉很绕？
+ 但是理解其原理的话还是可以接受的，甚至有时候会喜欢这种方式。
+ 递归不像传说中的那么麻烦。弄清楚
+基线条件（base case）和 递归条件（recursive case）
+ 绝大多数的递归都是这种结构
+function(parameter){ if 基线条件（base case）{ //离开递归的条件，这条件如果不明确，或是满足不了。很容易进入死循环。 return } XXXX...XXXX //处理业务逻辑 if 递归条件（recursive case）{ //进入递归的条件 function(parameter) } }  来看看一个简单的例子吧。详细内容可以看这里
+https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528
+卡拉兹(Callatz)猜想： 对任何一个正整数 n，如果它是偶数，那么把它砍掉一半； 如果它是奇数，那么把 (3n+1) 砍掉一半。这样一直反复砍下去，最后一定在某一步得到 n=1。 我们假设 n &lt; 1000 输入样例： 3 输出样例： 5  一般情况下我们是直接用while或for循环处理。
+#include &lt;stdio.h&gt; int main() { int step = 0; //记录步数 int n = 0; scanf(&quot;%d&quot;, &amp;n); while (n !
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/algorithm/recursion/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/algorithm/sort/">算法(排序)</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-07-09T07:28:49&#43;08:00">
+          Jul 9, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    感觉现在越来越重视算法了。
+因为我不是计算机专业的，所以对这些算法没怎么注意过。
+这么高领的程序员居然才接触到这些算法，真是惭愧啊&hellip;^^;;
+以下代码都是用golang写的，算是给自己看的笔记~
+(1) 冒泡排序(Bubble Sort) (2) 选择排序(Selection Sort) (3) 插入排序(Insertion Sort) (4) 希尔排序(Shell Sort) (5) 归并排序(Merge Sort) (6) 快速排序(Quick Sort) (7) 基数排序(Radix Sort) (8) 堆排序(Heap Sort)   ◆ 冒泡排序(Bubble Sort)
+图片备用地址
+//泡沫排序 func BubbleSort() { data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1} for i := 0; i &lt; len(data); i++ { for j := 0; j &lt; len(data)-i; j++ { if data[j] &gt; data[j+1] { v := data[j] data[j] = data[j+1] data[j+1] = v } } } fmt.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/algorithm/sort/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+</section>
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
+
