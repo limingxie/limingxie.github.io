@@ -23,9 +23,8 @@ draft: true
 
 <br/>
 **◆ 冒泡排序(Bubble Sort)**  
-<!-- [图片备用地址](https://limingxie.github.io/images/git/git5_2.png)  
-![52](http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git5_2.png) -->
-![bubble_sort_03](http://localhost:1313/gif/sort/bubble_sort_03.gif)
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/bubble_sort_03.gif)  
+![bubble_sort_03](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/bubble_sort_03.gif)
 
 ```go
 //泡沫排序
@@ -48,7 +47,8 @@ func BubbleSort() {
 
 --------------------------------------------
 **◆ 选择排序(Selection Sort)**  
-![selection_sort_01](http://localhost:1313/gif/sort/selection_sort_01.gif)  
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/selection_sort_01.gif)  
+![selection_sort_01](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/selection_sort_01.gif)  
 
 ```go
 //选择排序
@@ -74,7 +74,8 @@ func SelectionSort() {
 
 --------------------------------------------
 **◆ 插入排序(Insertion Sort)**  
-![insertion_sort_01](http://localhost:1313/gif/sort/insertion_sort_01.gif)  
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif)  
+![insertion_sort_01](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif)  
 
 ```go
 //直接插入排序
@@ -98,7 +99,8 @@ func InsertionSort() {
 ```
 
 **◆ 希尔排序(Shell Sort)**  
-![shell_sort_01](http://localhost:1313/gif/sort/shell_sort_01.gif)  
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/shell_sort_01.gif)  
+![shell_sort_01](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/shell_sort_01.gif)  
 
 ```go
 //网上的优雅的写法
@@ -149,20 +151,24 @@ func ShellSort1() {
 
 --------------------------------------------
 **◆ 归并排序(Merge Sort)**  
-![merge_sort_01](http://localhost:1313/gif/sort/merge_sort_01.gif)  
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/merge_sort_01.gif)  
+![merge_sort_01](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/merge_sort_01.gif)  
 #### **未完待续**
 
 --------------------------------------------
 **◆ 快速排序(Quick Sort)**  
-![quick_sort_02](http://localhost:1313/gif/sort/quick_sort_02.gif)  
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/quick_sort_02.gif)  
+![quick_sort_02](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/quick_sort_02.gif)  
 #### **未完待续**
 --------------------------------------------
 **◆ 基数排序(Radix Sort)**  
-![radix_sort_01](http://localhost:1313/gif/sort/radix_sort_01.gif)  
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/radix_sort_01.gif)  
+![radix_sort_01](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/radix_sort_01.gif)  
 
 --------------------------------------------
 **◆ 堆排序(Heap Sort)**  
-![heap_sort_01](http://localhost:1313/gif/sort/heap_sort_01.gif) 
+[图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/heap_sort_01.gif)  
+![heap_sort_01](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/heap_sort_01.gif) 
 #### **未完待续**
 
 ----------------------------------------------
