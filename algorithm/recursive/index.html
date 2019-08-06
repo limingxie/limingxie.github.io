@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" 递归(recursive) &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/algorithm/recursive/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2019-08-03T07:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     递归(recursive) &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">递归(recursive)</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-08-03T07:28:49&#43;08:00">
+          Aug 3, 2019
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    <p>最近在研究算法&hellip;^^ 算法中最基本的是排序。<br />
+排序当中最常见的是快速排序(Quick Sort)。<br />
+理解快速排序的代码，那就离不开递归了。<br />
+递归以前听过，但是真正去了解和研究是最近为了对算法的了解。</p>
+
+<blockquote>
+<p>递归感觉很绕？</p>
+</blockquote>
+
+<p>但是理解其原理的话还是可以接受的，甚至有时候会喜欢这种方式。</p>
+
+<blockquote>
+<p>递归不像传说中的那么麻烦。弄清楚<br />
+基线条件（base case）和 递归条件（recursive case）</p>
+</blockquote>
+
+<p>绝大多数的递归都是这种结构</p>
+
+<pre><code>function(parameter){
+    if 基线条件（base case）{ //离开递归的条件，这条件如果不明确，或是满足不了。很容易进入死循环。
+        return
+    }
+
+    XXXX...XXXX //处理业务逻辑
+
+    if 递归条件（recursive case）{ //进入递归的条件
+        function(parameter)
+    }
+}
+</code></pre>
+
+<hr />
+
+<p>来看看一个简单的例子吧。详细内容可以看这里<br />
+<a href="https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528">https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528</a></p>
+
+<pre><code>卡拉兹(Callatz)猜想：
+
+对任何一个正整数 n，如果它是偶数，那么把它砍掉一半；
+如果它是奇数，那么把 (3n+1) 砍掉一半。这样一直反复砍下去，最后一定在某一步得到 n=1。
+我们假设 n &lt; 1000
+
+输入样例：
+3
+输出样例：
+5
+</code></pre>
+
+<p>一般情况下我们是直接用while或for循环处理。</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int step = 0; //记录步数
+    int n = 0; 
+
+    scanf(&quot;%d&quot;, &amp;n); 
+    while (n != 1)
+    {
+        if (n % 2 == 0) //判断是不是偶数
+        {
+            n = n / 2;
+        }
+        else
+        {
+            n = (3 * n + 1) / 2;
+        }
+        step++; //+步数
+    }
+    printf(&quot;%d\n&quot;, step);
+    return 0;
+}
+</code></pre>
+
+<hr />
+
+<p>那用递归如何去写呢？</p>
+
+<p>我们先看看这里的 <code>基线条件(base case)</code> 和 <code>递归条件(recursive case)</code>是什么?</p>
+
+<pre><code>function(parameter){
+    if n == 1 //基线条件(base case)
+        return
+    }
+
+    XXXXX // 这里需要些算法逻辑
+
+    function(parameter){} //递归条件(recursive case)什么时候进入递归呢？ 是没满足基线条件
+}
+</code></pre>
+
+<p>只要找到<code>基线条件(base case)</code> 和 <code>递归条件(recursive case)</code>这代码就好写了。<br />
+我们看看详细的代码？</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+
+void b1001(int &amp;step, int n) // 这里是step的引用值，不想这么用的话直接上面声明全局变量
+{
+    if (n == 1 or n == 0) //基线条件（base case）满足这条件就退出
+    {
+        return;
+    }
+
+    if (n % 2 == 0)     //这个if else 是处理算法逻辑
+    {
+        n = n / 2;
+    }
+    else
+    {
+        n = (3 * n + 1) / 2;
+    }
+
+    step = step + 1; // 处理算法逻辑后 加步骤数
+
+    b1001(step, n); //递归条件(recursive case)是没满足 基线条件(base case)而进入递归方法
+}
+
+int main()
+{
+    int step, n = 0; //步数
+    int n = 0; //接收值
+
+    scanf(&quot;%d&quot;, &amp;n);
+    b1001(step, n);
+    printf(&quot;%d\n&quot;, step);
+    return 0;
+}
+
+</code></pre>
+
+<p>大部分的递归逻辑都不会离开这最基本的模式。<br />
+不要一看到递归就害怕。静下心来先找找<code>基线条件(base case)</code> 和 <code>递归条件(recursive case)</code><br />
+会很容易的看出里面的逻辑的。</p>
+
+<p>超级简单吧？
+(更复杂的方式会在后面的快速排序，深度搜索等算法里去介绍了&hellip;)</p>
+
+<p>还有平时处理公司业务逻辑的时候, <code>能用循环解决的尽量不要用递归。</code><br />
+<strong>大部分场景是可以用循环解决问题的。别把事情搞大..</strong><br />
+原因很简单，毕竟大部分的队友会看到递归的代码第一反应是先骂人~</p>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/algorithm/sort/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
