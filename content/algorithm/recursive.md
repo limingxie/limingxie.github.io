@@ -1,5 +1,5 @@
 ---
-title: "递归(recursion)"
+title: "递归(recursive)"
 date: 2019-08-03T07:28:49+08:00
 draft: true
 ---
