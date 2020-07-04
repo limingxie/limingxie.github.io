@@ -80,6 +80,51 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/java/serialization/">【java笔记】序列化和反序列化</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-02T07:28:49&#43;08:00">
+          Jul 2, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    当做你笔记简单了记录了一下。
+1. 序列化和反序列化是什么？ 序列化(serializable):
+把对象转化为可传输的字节序列过程称为序列化。  反序列化(deserialization):
+把字节序列还原为对象的过程称为反序列化。  
+我觉得网上的这个比喻做的很恰当
+ 如果我们要把一栋房子从一个地方运输到另一个地方去，
+序列化就是我把房子拆成一个个的砖块放到车子里，
+然后留下一张房子原来结构的图纸，
+反序列化就是我们把房子运输到了目的地以后，
+根据图纸把一块块砖头还原成房子原来面目的过程。
+ 
+2. 什么时候会用到序列化？ 需要进行跨平台存储和网络传输的数据，都需要进行序列化。
+对象的序列化主要有两种用途： 1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中； 2） 在网络上传送对象的字节序列。  
+3. 序列化版本 在序列化过程中，可以使用序列化对象中的serialVersionUID字段做版本控制。
+一个对象数据，在反序列化过程中，序列化串中的serialVersionUID与当前对象值不同，反序列化会失败。
+4. java实现序列化 java 实现序列化有两种方式。
+1.实现Serializable 接口。 2.实现Externalizable 接口(它是Serializable接口的子类)  下面是用Serializable接口实现的简单例子:
+import java.io.Serializable; public class Person implements Serializable{ // 如果不指定，JDK工具会自动生成对应的版本号， // 序列化和反序列化的版本号不一样，则反序列化会失败。 private final static long serialVersionUID = 123456789L; // 年龄 private int age; // 名字 private String name ; // 体重，Transient 属性不会被序列化 private transient int weight; public int getAge() { return age; } public void setAge(int age) { this.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/serialization/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/k8s/k8s/">【k8s】kubernetes基本的概念</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -91,7 +136,7 @@
     </div>
   </header>
   <div>
-    最近抽时间去了解Kubernetes。那些网上和官方的材料都讲得很深，很细。
+    最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。
 我平时也用不上这些技术，不需要知道的这么深这么细，
 花这么多少时间去了解，过几天没怎么用还会忘记的&hellip;ㅠㅠ
 其实我想知道的是其大致的结构。
@@ -471,85 +516,6 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/limingxie/development_responsibility/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/do_change/">一个小小变化的威力</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-11-11T05:28:49&#43;08:00">
-          Nov 11, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    今天是双11，本想来公司凑凑热闹&hellip;^^
-结果主要问题都是在我的服务里，还把登录给整瘫了半个多小时&hellip;ㅠㅠ
-高峰过去了，可以松口气了~ 抽个时间写写博文。
-这次我想共享我们公司一个部门遇到的事情。
-那天我正在为拆分服务的问题而苦恼着。
-(本来是一个的服务拆分成4个服务，问题巨多&hellip;ㅠㅠ)
-有位同事(韩国人)跟我说，看到了一些不太正常的请求。
-希望我帮他和相关负责人沟通。(我是朝鲜族，有时候会帮他们沟通)。
-在沟通的过程当中，我感觉到这是一个很有趣的问题。
-◆ 为什么会有这么多的请求？ 先简单的说一下业务吧。
-线上(天猫商城)出售一笔商品，线下的卖场会把这个单子抢过来，自行给购物者发货。
-全国各地的卖场会积极的抢线上出售过的单子，因为每抢到一笔单子，他们就有提成赚。
-所以比较勤奋的卖场人员只要店里没有顾客的话就会不停的刷单。
-(不停的给服务器发Request请求，看看有没有可抢的单子。)
-有些喜欢思考的人就会问，那不能做成推单吗？
-这样就没有这种查询的压力了。为什么不那么做的种种原因这里就不做解释了。
-那问题是什么呢？其实就是请求量异常的的多。
-在我们不怎么注意的情况下，Request请求量1个月内翻了6倍！
-不可能吧？当时是9~10月份。又不是双11，又不是做了什么活动&hellip;
-卖场数量没什么太多的变化，这请求数量怎么会上升的这么快？
-◆ 原来是有人用脚本刷单啊？ 我们赶紧查看了一下日志，发现有几个卖场的请求比较异常。
-1个卖场1天内请求量居然达到了10万次。
-1秒一次也是刷20个小时也只能刷7.2万次。10万次太夸张了吧？
-而且我们在前端做了限制3秒才能刷一次。
-问题应该明确了，这几家卖场肯定是在用脚本刷单。
-而且是有写计算机基础的人获取后台api的url刷单。
-◆ 好像不对？日志证明不了有人用脚本刷单 但是我们看了前一天的日志，傻眼了。
-请求量最高的卖场不停的变。
-这就不能证明这些卖场人员是用脚本刷单了。
-用脚本刷单的卖场，应该是每天都会刷单吧？ 而且请求量最高的卖场分布在全国各地区，
-今天是这家卖场，明天又是另一家卖场&hellip;.ㅠㅠ
-我们开始怀疑我们的程序有问题了。
-前端是不是有bug在特定的情况下会不停的发请求?
-企业微信是不是有我们不知道的bug? (我的的应用是嵌套到企业微信的。) 开始争辩:
-项目的负责人说我们的程序绝不会有这样的问题。
-我们反问你怎么证明你的程序是没问题？
-如果是企业微信的问题，我们怎么证明这是企业微信的问题？
-◆ 虽然不知道怎么办，但是我们可以做一些改变 争论一番后，大家都累了。不知道怎么解决这件事情。
-大家你看我，我看你~ 都等着别人出方案&hellip;^^;;
-这怎么办啊？联系了卖场，卖场负责人说我们这里没有异常~ 也不承认自己用了什么脚本。
-(这举动很傻，如果我是卖场人员，即使用了我也不会承认自己用了脚本刷单。)
-这时候我们发现这个api没有做身份验证。我们提议要不要做身份验证？
-(至于为什么不做身份验证，好不专业之类的评价我不做解释了~)
-这是一个比较古老的api，而且过些日子会有新的api代替他的。
-所以相关的负责人是不怎么希望动这套代码。
-而且做身份验证是解决不了这个古怪的现象的。
-最后我们决定加身份验证看看，当时大部分的人都认为做身份验证没什么用。
-没事找事，这老代码改动后，万一报错怎么办？
-虽然我们不知道有什么效果，或是给我们带来什么？
-总比什么都不做强吧？
-◆ 加了身份验证没什么效果啊？ 添加身份验证功能以后，早上我们紧急发布了新版本。
-看了日志，我们失算了~ 没效果&hellip;ㅠㅠ
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/do_change/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   

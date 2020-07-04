@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" Javas &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/java/" />
+  
+  
+  <meta property="og:type" content="website" />
+  
+
+  <title>
+     Javas &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+      <a href="https://limingxie.github.io/java/index.xml" class="btn-header btn-subscribe hidden-xs">
+        <i class="fa fa-rss" aria-hidden="true"></i>
+        &nbsp;Subscribe
+      </a>
+      
+    </section>
+  </header>
+  <main class="container">
+
+<section class="article-list">
+  <h1>Javas</h1>
+  
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/serialization/">【java笔记】序列化和反序列化</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-02T07:28:49&#43;08:00">
+          Jul 2, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    当做你笔记简单了记录了一下。
+1. 序列化和反序列化是什么？ 序列化(serializable):
+把对象转化为可传输的字节序列过程称为序列化。  反序列化(deserialization):
+把字节序列还原为对象的过程称为反序列化。  
+我觉得网上的这个比喻做的很恰当
+ 如果我们要把一栋房子从一个地方运输到另一个地方去，
+序列化就是我把房子拆成一个个的砖块放到车子里，
+然后留下一张房子原来结构的图纸，
+反序列化就是我们把房子运输到了目的地以后，
+根据图纸把一块块砖头还原成房子原来面目的过程。
+ 
+2. 什么时候会用到序列化？ 需要进行跨平台存储和网络传输的数据，都需要进行序列化。
+对象的序列化主要有两种用途： 1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中； 2） 在网络上传送对象的字节序列。  
+3. 序列化版本 在序列化过程中，可以使用序列化对象中的serialVersionUID字段做版本控制。
+一个对象数据，在反序列化过程中，序列化串中的serialVersionUID与当前对象值不同，反序列化会失败。
+4. java实现序列化 java 实现序列化有两种方式。
+1.实现Serializable 接口。 2.实现Externalizable 接口(它是Serializable接口的子类)  下面是用Serializable接口实现的简单例子:
+import java.io.Serializable; public class Person implements Serializable{ // 如果不指定，JDK工具会自动生成对应的版本号， // 序列化和反序列化的版本号不一样，则反序列化会失败。 private final static long serialVersionUID = 123456789L; // 年龄 private int age; // 名字 private String name ; // 体重，Transient 属性不会被序列化 private transient int weight; public int getAge() { return age; } public void setAge(int age) { this.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/serialization/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+</section>
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
+
