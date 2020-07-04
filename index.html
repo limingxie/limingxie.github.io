@@ -80,6 +80,67 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/k8s/k8s/">【k8s】kubernetes基本的概念</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-01T07:28:49&#43;08:00">
+          Jul 1, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    最近抽时间去了解Kubernetes。那些网上和官方的材料都讲得很深，很细。
+我平时也用不上这些技术，不需要知道的这么深这么细，
+花这么多少时间去了解，过几天没怎么用还会忘记的&hellip;ㅠㅠ
+其实我想知道的是其大致的结构。
+下面我是以笔记的形式见得整理了其结构。希望对刚刚接触的人的了解有所帮助。
+1.基本概念 ◆ Kubernetes 是什么？
+引用官方的解释：
+ Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。
+Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。
+ 以我的理解：
+Kubernetes(简称k8s)是一个可以操作容器和自动化部署的开源平台。
+还不理解？ 没关系~
+简单的说手动管理docker container太累，用Kubernetes管理吧~
+一个服务器可以有多个docker container，多个服务器形成一个集群。
+下面简单的介绍一下Kubernetes集群的结构。
+2.Kubernetes集群结构 备用图片
+图片来源于:https://kubernetes.io/docs/concepts/overview/components/
+备用图片 图片来源于:http://omerio.com/2015/12/18/learn-the-kubernetes-key-concepts-in-10-minutes/
+其他结构图： 备用图片1 备用图片2
+简单的说：
+每个Kubernetes集群都有他自己的master节点。
+这里包含着kube-apiserver，kube-controller-manager，kube-scheduler，etcd。
+看图和名字可以大致的猜到:
+`kube-apiserver`是通讯枢纽。 `kube-controller-manager`是控制器。 `kube-scheduler`是调度器。 `etcd`是键值数据库。  普通的节点包含着kubelet, kube-proxy。
+`kubelet`跟master节点通讯。 `kube-proxy`是网络代理。  下面具体的介绍一下比较重要的组件。
+3.Kubernetes组件 ◆ Kubernetes Master
+每个k8s集群里至少需要一个Master节点来负责整个集群的管理和控制，
+所有控制命令都是发给它，它来负责具体的调度和执行。
+master节点包含三个进程和一个键值数据库etcd。
+三个进程都运行在集群中的某个节点上，主控组件通常这个节点被称为 master 节点。
+这些进程包括：kube-apiserver、kube-controller-manager 和 kube-scheduler。
+kube-apiserver:
+集群内各个功能模块之间数据交互和通信的中心枢纽。 所有从集群到master的通信路径都终止于apiserver。  kube-controller-manager:
+通过apiserver监控集群的公共状态，并致力于将当前状态转变为期望的状态。  kube-scheduler:
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/k8s/k8s/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/algorithm/recursive/">递归(recursive)</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -489,59 +550,6 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/limingxie/do_change/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/work_sharing/share_001/">技术Leader需要哪些能力？</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-09-24T07:28:49&#43;08:00">
-          Sep 24, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    身为一个高龄开发者(30岁以上应该都属于高领开发者吧？ 这世道&hellip;ㅠㅠ)，
-我也一样(35岁&hellip;ㅠㅠ)，对以后的职业发展有很多苦恼。
-我是幸运的，因为我们公司有一位高龄的技术牛人。
-让我看到了一丝希望。原来做技术也可以做到这种程度。
-(写了好几本书，开源代码社区的CodeReviewer，我问的问题没有一个回答不了的。)
-前些天有幸和这位牛人做了一些工作上的交流，
-如何做好技术Leader，让我感触特别的深刻。
-以下是他给我的建议以及我自己的感触，想和大家一起分享。
-快速的转换思维的能力 我们写代码的时候不喜欢被打扰，谁也不喜欢自己聚精会神的工作的时候有人过来打扰自己。
-但是大部分的情况下，我们不是单打独斗。
-身为技术Leader，我们就有义务去协助组员。
-当我们有一定的能力以后，甚至需要协助几个小组或全公司的技术。
-在这种情况下，如果拒绝被打扰，等于是不想做这个技术Leader。
-我们需要学会`快速的进入角色`，进入时间越短越好。 一般情况下，别人做一些复杂的开发的时候需要5~10分钟去`从新进入状态`的话， 我们要在1分钟内，甚至30秒内要进入状态。 哪怕是自己的开发，或是其他人问题的解答。`必须快速的进入状态去解决问题。` A过来问，解答后我们用5分钟的时间调整状态做自己的事情，刚准备好B过来了。 等把B的问题看完后，再用5分钟的时间调节自己的状态，过了不到10分钟，C又过来问.... 等着晚上加班做自己的事情吧...^^||  所以快速的转换思维进入状态能力很重要，需要有意的去提高这个能力才行。
-细分工作的能力 身为技术Leader现在准备好随时被打扰了吗？
-随时被打扰，我们的工作就不做了吗？
-所以我们还需要细分工作，分的颗粒度越小越好。
-我一般喜欢这种编程方式。 觉得这是一个比较复杂的内容，'就直接写个空的方法。先返回null。' 走下一个逻辑。`先把这个流程或是这个逻辑走完。` 之后再写刚才觉得复杂的那个方法。 这么写话，每个函数所实现的内容不多，中间被打断也是很容易从新进入状态。 也可以先让问问题的人等几分钟，先把这个逻辑写完后，再一起讨论他的问题。  所以提高细分工作的能力会让不断的打扰中，保持工作的节奏和状态。
-不断的摸索提高自己的开发效率的方法 不断的被打扰，不断的开会。
-让技术Leader们很难有充分的时间去编程。
-那技术Leader就不需要写代码吗？
-或是写很少一部分的代码就可以了吗？
-其实不是，为了保持自己对技术感觉，我们还需要不断的写代码。
-那怎么办？
-这会要求我们别人写2个小时的内容，我么是要在1小时甚至半小时内写完。
-需要不断的去找合适自己，提高自己效率的方法。 举例子，合理的运用快捷键。command + ~ , command + -&gt;... git的gcb, ga, gcmsg, ggpull, ggpush, glum, glog ... vsCode的多行修改， opton + 方向键，control + -&gt; ... 合理的分配屏幕的结构，左边数据库，中间代码窗，下面zsh窗，右边postman等等... 我们需要不断思考，寻找对自己合适的开发方式。 还有最重要的一项'提高整体的技术能力以及思维能力。'  不断的摸索提高自己的开发效率的方法，学会短时间内出满意的产出物。
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/work_sharing/share_001/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   

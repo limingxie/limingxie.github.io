@@ -7,10 +7,52 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>limingxie - blog</copyright>
-    <lastBuildDate>Sat, 03 Aug 2019 07:28:49 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 07:28:49 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>【k8s】kubernetes基本的概念</title>
+      <link>https://limingxie.github.io/k8s/k8s/</link>
+      <pubDate>Wed, 01 Jul 2020 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/k8s/k8s/</guid>
+      <description>最近抽时间去了解Kubernetes。那些网上和官方的材料都讲得很深，很细。
+我平时也用不上这些技术，不需要知道的这么深这么细，
+花这么多少时间去了解，过几天没怎么用还会忘记的&amp;hellip;ㅠㅠ
+其实我想知道的是其大致的结构。
+下面我是以笔记的形式见得整理了其结构。希望对刚刚接触的人的了解有所帮助。
+1.基本概念 ◆ Kubernetes 是什么？
+引用官方的解释：
+ Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。
+Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。
+ 以我的理解：
+Kubernetes(简称k8s)是一个可以操作容器和自动化部署的开源平台。
+还不理解？ 没关系~
+简单的说手动管理docker container太累，用Kubernetes管理吧~
+一个服务器可以有多个docker container，多个服务器形成一个集群。
+下面简单的介绍一下Kubernetes集群的结构。
+2.Kubernetes集群结构 备用图片
+图片来源于:https://kubernetes.io/docs/concepts/overview/components/
+备用图片 图片来源于:http://omerio.com/2015/12/18/learn-the-kubernetes-key-concepts-in-10-minutes/
+其他结构图： 备用图片1 备用图片2
+简单的说：
+每个Kubernetes集群都有他自己的master节点。
+这里包含着kube-apiserver，kube-controller-manager，kube-scheduler，etcd。
+看图和名字可以大致的猜到:
+`kube-apiserver`是通讯枢纽。 `kube-controller-manager`是控制器。 `kube-scheduler`是调度器。 `etcd`是键值数据库。  普通的节点包含着kubelet, kube-proxy。
+`kubelet`跟master节点通讯。 `kube-proxy`是网络代理。  下面具体的介绍一下比较重要的组件。
+3.Kubernetes组件 ◆ Kubernetes Master
+每个k8s集群里至少需要一个Master节点来负责整个集群的管理和控制，
+所有控制命令都是发给它，它来负责具体的调度和执行。
+master节点包含三个进程和一个键值数据库etcd。
+三个进程都运行在集群中的某个节点上，主控组件通常这个节点被称为 master 节点。
+这些进程包括：kube-apiserver、kube-controller-manager 和 kube-scheduler。
+kube-apiserver:
+集群内各个功能模块之间数据交互和通信的中心枢纽。 所有从集群到master的通信路径都终止于apiserver。  kube-controller-manager:
+通过apiserver监控集群的公共状态，并致力于将当前状态转变为期望的状态。  kube-scheduler:</description>
+    </item>
     
     <item>
       <title>递归(recursive)</title>

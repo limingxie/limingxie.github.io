@@ -80,6 +80,44 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/my_go_test1/">Go项目的测试代码2（项目运用）</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-05-27T20:37:02&#43;08:00">
+          May 27, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章介绍了最基本的测试代码的写法。
+Go项目的测试代码（基础）
+这里简单的共享一下我在项目中使用的方式。
+项目结构 我们实际项目中, 结构简单地分了controller和model
+ 因为现在都已微服务的形式开发，没必要太复杂的结构。
+分controller和model已经能满足我们的需求，不需要再细分了。
+ |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; controller，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; model，所有的业务都是在这里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
+有些人喜欢把测试方法分另一个package里写，也可以~ 不同人有不同的喜好。 我也试过这种方式，但是还是喜欢写在同一个package里面，这么写简单方便。
+ controllers和models的不同方式 controllers
+controller是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
+我喜欢在这里写参数验证，业务验证等等主要功能的测试。
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test1/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/my_go_test/">Go项目的测试代码1（基础）</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
