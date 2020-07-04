@@ -1,107 +1,133 @@
 ---
 title: "【java笔记】序列化和反序列化"
-date: 2120-06-10T07:28:49+08:00
+date: 2020-07-02T07:28:49+08:00
 draft: true
 ---
-### **1.基本概念**
-这些天因为项目性能上的问题，采用了Redis缓存。  
-做了一些简单的笔记。
+当做你笔记简单了记录了一下。
 
-**◆ Redis**  
-Redis(REmote DIctionary Server)是一个key-value存储系统。  
-它支持存储的value类型很多，包括string、list、set、hash等等...  
-我最喜欢用 key-json字符。
+### **1. 序列化和反序列化是什么？**
 
-**◆ 应用**  
-用的也简单，代码逻辑中读取相应的信息的时候先去Redis读取，  
-没有数据，再去数据库(mysql)读取。保存到Redis后，返回结果集。  
-因为Redis的数据是保存在内存里的(分保存的方式，暂且可以理解成保存在内存)，  
-所以查询速度会很快。  
+**序列化(serializable):** 
 
-**◆ 缺点**   
-也很容易看到他的缺点，  
-1. `一致性问题`。 为了高效查询性能，付出的代价是数据的一致性。  
-2. 而且内存的资源是有限的，所以要控制数据量的大小。
+    把对象转化为可传输的字节序列过程称为序列化。 
 
-**◆ 如何去解决的？**   
-如果没有太高的一致性需求的话，  
-可以直接`设置比较短的缓存时间`来解决`一致性`的问题。  
-比方说缓存时间设置为5分钟，5分钟后数据无效，那再次去数据库查询。
+**反序列化(deserialization):** 
 
-要么做定时任务，每隔一段时间做数据同步。
-
-如果数据一致性需求很高，  
-建议每次`数据有变动代码里需要添加删除Redis数据的逻辑`。  
-(万一这数据的Mapping关系比较复杂的话，光是删掉这些有关系的数据也会让你哭死...)  
-只要删掉了，下次查询会从新去数据库查询数据。
+    把字节序列还原为对象的过程称为反序列化。  
 
 <br />
-##### 我这只是简单应用，没什么深度，哈~
-##### 下面简单的整理了一下语法
------------------------
-  
-**1. 安装Redis** (我比较喜欢下docker镜像安装，如果不想这么做可以搜一下...^^)
+我觉得网上的这个比喻做的很恰当  
+
+>
+如果我们要把一栋房子从一个地方运输到另一个地方去，  
+序列化就是我把房子拆成一个个的砖块放到车子里，  
+然后留下一张房子原来结构的图纸，  
+反序列化就是我们把房子运输到了目的地以后，  
+根据图纸把一块块砖头还原成房子原来面目的过程。  
+
+<br />
+
+### **2. 什么时候会用到序列化？**
+
+需要进行`跨平台存储`和`网络传输`的数据，都需要进行序列化。  
 
 ```
-$ docker run --name test-redis -p 33201:6379 -d redis:latest
-```
-* ---name 后面的是docker容器名
-* -p 32xxx:6379 这里需要注意 `32xxx` 是你**链接redis的时候的`Port`。**
-* -d redis:latest 是你的镜像标签和版本
-
-**2. 在shell中访问redis**
-
-```
-$ redis-cli -h 127.0.0.1 -p 33201           //链接redis
-127.0.0.1:33201> set key01 'hello world'    //赋值
-OK
-127.0.0.1:33201> get key01                  //查询
-"hello world"
-127.0.0.1:33201> del key01                  //删除
-(integer) 1
-127.0.0.1:33201>
+对象的序列化主要有两种用途：  
+1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中；  
+2） 在网络上传送对象的字节序列。  
 ```
 
-**2. 设置密码**
+<br />
+
+### **3. 序列化版本**
+
+在序列化过程中，可以使用序列化对象中的serialVersionUID字段做版本控制。  
+一个对象数据，在反序列化过程中，序列化串中的serialVersionUID与当前对象值不同，反序列化会失败。
+
+### **4. java实现序列化**
+
+java 实现序列化有两种方式。  
+
+    1.实现Serializable 接口。  
+    2.实现Externalizable 接口(它是Serializable接口的子类)  
+
+**下面是用Serializable接口实现的简单例子:**
+
+```java
+import java.io.Serializable;
+
+public class Person implements Serializable{
+    // 如果不指定，JDK工具会自动生成对应的版本号，
+    // 序列化和反序列化的版本号不一样，则反序列化会失败。
+    private final static long serialVersionUID = 123456789L;
+    // 年龄
+    private int age;
+    // 名字
+    private String name ;
+    // 体重，Transient 属性不会被序列化
+    private transient int weight;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 ```
-127.0.0.1:33201> config set requirepass test123     //密码设置为 test123
-OK
-127.0.0.1:33201> get key01                          //因为设置了密码，验证失败
-(error) NOAUTH Authentication required.
-127.0.0.1:33201> auth test123                       //登录验证
-OK
-127.0.0.1:33201> get key01                          //正常
-"hello world"
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class main {
+    public static void main(String[] args) throws Exception {
+        FileOutputStream fos = new FileOutputStream("/Users/xxxx/java/temp.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        Person personOutput = new Person();
+        personOutput.setAge(12);
+        personOutput.setName("heiheiheiheihei");
+
+        oos.writeObject(personOutput);
+
+        oos.flush();
+        oos.close();
+
+        FileInputStream fis = new FileInputStream("/Users/xxxx/java/temp.txt");
+        ObjectInputStream oin = new ObjectInputStream(fis);
+        Person personInput = (Person) oin.readObject();
+        System.out.println("age = " + personInput.getAge());
+        System.out.println("name = " + personInput.getName());
+        System.out.println("weight = " + personInput.getWeight());
+    }
+}
 ```
 
-**3. 几个常用的命令**
+**执行结果:**
 
-```
-#查看所有key
-keys *  或  keys "*"
-
-#查看匹配前缀的keys
-keys "miao*"
-
-#清空redis
-flushdb
-
-#随机取出一个key
-randomkey
-
-#查看key的类型
-type key
-
-#查看数据库中key的数量
-dbsize
-
-#查看服务器信息
-info
-
-#查看日志
-slowlog get
-slowlog get 10
-```
+    $ javac main.java && java main
+    age = 12
+    name = heiheiheiheihei
+    weight = 0  //Transient 属性不会被序列化
 
 
 ----------------------------------------------
