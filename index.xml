@@ -43,7 +43,7 @@ import java.io.Serializable; public class Person implements Serializable{ // 如
       <guid>https://limingxie.github.io/java/abstract_test/</guid>
       <description>从新又要接触，抽象，继承，多态，封装的java了。
 为了加深理解自己做了一个简单的实验。
-简答的巩固一下这些规则。
+简单的说需要满足一下条件。
  1.类只能继承一个。
 2.抽象类也只能继承一个。
 3.接口可以继承多个。
