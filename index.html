@@ -122,6 +122,46 @@ import java.io.Serializable; public class Person implements Serializable{ // 如
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/java/abstract_test/">【java笔记】类, 抽象类, 接口的简单试验</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-02T07:28:49&#43;08:00">
+          Jul 2, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    从新又要接触，抽象，继承，多态，封装的java了。
+为了加深理解自己做了一个简单的实验。
+简答的巩固一下这些规则。
+ 1.类只能继承一个。
+2.抽象类也只能继承一个。
+3.接口可以继承多个。
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。
+ 我先创建了以下文件。 图片备用地址
+先看看每个文件的代码
+【AnimalAbstract】抽象类里添加了2个函数，其中一个是抽象函数。
+package animals.animal; public abstract class AnimalAbstract { public void eat(String name){ System.out.println(&quot;eat:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; public abstract void sleep(String name); }  【AnimalClass】一个普通的类和函数。
+package animals.animal; public class AnimalClass { public void smile(String name){ System.out.println(&quot;smile:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; }  【AnimalClass】两个不同的接口。
+package animals.animal; public interface AnimalInterfaceJump { public void jump (String name); }  package animals.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/abstract_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/k8s/k8s/">【k8s】kubernetes基本的概念</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -448,71 +488,6 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/limingxie/go_socket/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/development_responsibility/">我们(开发者)的责任</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-11-14T05:28:49&#43;08:00">
-          Nov 14, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    开发者写错的代码发布到运营，出问题了。
-谁来承担责任？
-◆ 运营发布后出了问题，第一责任人不是我们 经常听到的解释是写代码的开发者不是第一责任人。
-第一责任人应该是公司老板，
-之后是项目负责人，
-之后是QA,
-之后是CodeReview的人，
-最后才轮到写代码的开发者。
-那我们开发者真的没有责任吗？
-我们开发者的责任是什么？
-◆ 我们不用承担任何的责任吗？ 举一个例子。你跟家人一起在海边度假。 你写的项目出问题了，你的同事解决不了问题。 联系上你了。你会怎么做？ 你会说CodeReview的时候怎么没发现？ QA怎么没发现？... 出了问题让我牺牲个人休假的时间解决问题？  我有女儿，现在上幼儿园。 在幼儿园不小心打哭了别家小朋友。怎么办？ 论责任第一责任当然是幼儿园老师没有看好孩子。 那我就没有一点的责任吗？我不需要做任何的事情吗？ 至少应该像孩子的父母道歉，之后教孩子不要犯同样的错误。  那我写的代码呢？
-把自己写的代码看做为自己的孩子，这么高尚的话可能不适合我们。
-但是身为成年人，我们都知道自己做错的事情，自己需要承担责任。
-其实工作中我不太喜欢责任这个单词
-因为追究责任很容易发生相互推卸责任。当发生事故，或是错误的时候，
-我们第一反应该是如何去解决这个问题。而不是寻找责任人是谁，谁来背这个黑锅。
-◆ 那我们应该怎么做？ 回到上面举得例子。出问题了。
-你会放弃你的度假，解决这次问题吗？
-还是先拖着尽可能让你的同事帮你解决？ 或是晚上回到宾馆再帮他们处理吗？
-我们希望当然是后者，事情不紧急的时候我们完全不需要牺牲你的假期。
-但是万一这是十分紧急的事情呢？
-很遗憾的告诉你，你不想听的建议：
-兄弟，你应该回去处理。因为这才是专业表现
-(这里指的当然不是公司，你需要去有电脑，有网的地方解决问题。)
-无论你在做什么？ 你要对自己的写的代码负起责任。
-因为程序的错误而产生的经济损失，有可能是你的老板去承担。
-但是至少你有责任，把有问题的代码修改正确。
-什么时候改？ 不紧急，你可以慢慢改。
-紧急? 对不起，你得马上处理了。
-你的女人在幼儿园打了别的小朋友你不管吗？
-你也可以不管，你可以表现的不专业。
-之后这件事情会传遍幼儿园。
-其他家长远离你，其他孩子远离你的孩子。
-◆ 我们需要对自己写的代码负责 哪怕是10年前写代码，如果是你写过的代码。(前提是没有人动过~)
-因为你写错的原因出的bug你就有责任去修改它。
-(这里不包含新需求的添加，以及环境的变化出现的问题。) 
-
- 是的，我们是开发者。 我们需要负的责任就是我们自己写的代码。  欢迎大家的意见和交流
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/development_responsibility/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   

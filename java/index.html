@@ -121,6 +121,44 @@ import java.io.Serializable; public class Person implements Serializable{ // 如
 </article>
 
   
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/abstract_test/">【java笔记】类, 抽象类, 接口的简单试验</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-02T07:28:49&#43;08:00">
+          Jul 2, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    从新又要接触，抽象，继承，多态，封装的java了。
+为了加深理解自己做了一个简单的实验。
+简答的巩固一下这些规则。
+ 1.类只能继承一个。
+2.抽象类也只能继承一个。
+3.接口可以继承多个。
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。
+ 我先创建了以下文件。 图片备用地址
+先看看每个文件的代码
+【AnimalAbstract】抽象类里添加了2个函数，其中一个是抽象函数。
+package animals.animal; public abstract class AnimalAbstract { public void eat(String name){ System.out.println(&quot;eat:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; public abstract void sleep(String name); }  【AnimalClass】一个普通的类和函数。
+package animals.animal; public class AnimalClass { public void smile(String name){ System.out.println(&quot;smile:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; }  【AnimalClass】两个不同的接口。
+package animals.animal; public interface AnimalInterfaceJump { public void jump (String name); }  package animals.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/abstract_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
 </section>
   </main>
   <footer class="container global-footer">
