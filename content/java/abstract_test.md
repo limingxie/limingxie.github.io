@@ -134,6 +134,7 @@ public class main {
         // 只能调用接口内的实现好的函数
         AnimalInterfaceRun animalInterfaceRun = new Sheep();
         animalInterfaceRun.run("sheepName");
+        //animalInterfaceRun.jump("sheepName"); 这么写会出错，原因大家应该明白...^^
         AnimalInterfaceJump animalInterfaceJump = new Sheep();
         animalInterfaceJump.jump("sheepName");
     }
