@@ -141,7 +141,7 @@ public class main {
 }
 ```
 
-** 编译以后，可以查看结果**
+**编译以后，可以查看结果**
 ```
 $ javac animals/animal/AnimalAbstract.java animals/animal/AnimalClass.java animals/animal/AnimalInterfaceRun.java animals/animal/AnimalInterfaceJump.java animals/MammalInt/Cat.java animals/MammalInt/Dog.java animals/MammalInt/Sheep.java animals/main.java
 
