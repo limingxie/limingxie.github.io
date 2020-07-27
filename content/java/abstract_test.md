@@ -1,13 +1,11 @@
 ---
 title: "【java笔记】类, 抽象类, 接口的简单实验"
-date: 2020-07-02T07:28:49+08:00
+date: 2020-07-26T07:28:49+08:00
 draft: true
 ---
 
-从新又要接触，抽象，继承，多态，封装的java了。  
+要接触，抽象，继承，多态，封装的java了。  
 为了加深理解自己做了一个简单的实验。  
-
-简单的说需要满足一下条件。  
 
 > 
 1.类只能继承一个。  
@@ -17,7 +15,7 @@ draft: true
 
 我先创建了以下文件。
 [图片备用地址](https://limingxie.github.io/images/java/abstract/abstract_test1.png)  
-![abstract_test1](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/abstract/abstract_test1.png)
+![文件目录结构](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/abstract/abstract_test1.png)
 
 先看看每个文件的代码
 
