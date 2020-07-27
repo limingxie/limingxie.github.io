@@ -84,6 +84,85 @@
   <hr/>
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/java/this_super/">【java笔记】this和super简介</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-26T12:28:49&#43;08:00">
+          Jul 26, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    本来是确认构造函数的运行方式的。
+结果看到继承以及super关键字了&hellip;^^;;
+都说this是类似于指自己的一个指针，super是更像一个关键字。
+可能我的了解不是那么深入，觉得this就是指自己super就是指父类。其余没感觉到什么特别。
+而且感觉前期了解这些就可以了，后面对Java有更深层次的了解后继续在研究~
+下面是我简单的试一试，做个记录&hellip;^^
+ 1.this指向自己。
+2.super指向父类。
+3.多层继承时，super指向离自己最近的上一层父类。
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。
+5.构造函数中使用this或super时，必须写在第一行。而且不能同时使用。
+ 我先创建了以下文件。
+图片备用地址
+先看看每个文件的代码
+【Animal】一个普通的类和函数。
+package supertest.animal; public class Animal { // 姓名属性，和子类的值不一样 protected String name = &quot;animalName&quot;; // 无参构造函数 public Animal() { System.out.println(&quot;Animal: There are no parameters&quot;); } // 有参构造函数 public Animal(String str) { System.out.println(&quot;parameters:&quot; + str); } // 父类的函数，子类会重写这个函数 public void run(String str) { System.out.println(str+ &quot;:&quot; + Animal.class); } }  【Horse】子类继承了Animal父类
+package supertest.MammalInt; import supertest.animal.Animal; public class Horse extends Animal { // 姓名属性，和父类的值不一样 protected String name = &quot;horseName&quot;; // 无参构造函数 public Horse() { // 这里执行父类有参的构造函数 super(&quot;super has parameters&quot;); System.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/this_super/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/abstract_test/">【java笔记】类, 抽象类, 接口的简单实验</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-26T07:28:49&#43;08:00">
+          Jul 26, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    要接触，抽象，继承，多态，封装的java了。
+为了加深理解自己做了一个简单的实验。
+ 1.类只能继承一个。
+2.抽象类也只能继承一个。
+3.接口可以继承多个。
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。
+ 我先创建了以下文件。 图片备用地址
+先看看每个文件的代码
+【AnimalAbstract】抽象类里添加了2个函数，其中一个是抽象函数。
+package animals.animal; public abstract class AnimalAbstract { public void eat(String name){ System.out.println(&quot;eat:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; public abstract void sleep(String name); }  【AnimalClass】一个普通的类和函数。
+package animals.animal; public class AnimalClass { public void smile(String name){ System.out.println(&quot;smile:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; }  【AnimalClass】两个不同的接口。
+package animals.animal; public interface AnimalInterfaceJump { public void jump (String name); }  package animals.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/abstract_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/java/serialization/">【java笔记】序列化和反序列化</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -124,37 +203,59 @@ import java.io.Serializable; public class Person implements Serializable{ // 如
   <hr/>
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/java/abstract_test/">【java笔记】类, 抽象类, 接口的简单实验</a></h2>
+    <h2><a href="https://limingxie.github.io/java/encapsulation/"></a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
-        <time datetime="2020-07-02T07:28:49&#43;08:00">
-          Jul 2, 2020
+        <time datetime="0001-01-01T00:00:00Z">
+          Jan 1, 0001
         </time>
       </div>
     </div>
   </header>
   <div>
-    从新又要接触，抽象，继承，多态，封装的java了。
-为了加深理解自己做了一个简单的实验。
-简单的说需要满足一下条件。
- 1.类只能继承一个。
-2.抽象类也只能继承一个。
-3.接口可以继承多个。
-4.不能同时继承类和接口，也不能同时继承抽象类和接口。
- 我先创建了以下文件。 图片备用地址
-先看看每个文件的代码
-【AnimalAbstract】抽象类里添加了2个函数，其中一个是抽象函数。
-package animals.animal; public abstract class AnimalAbstract { public void eat(String name){ System.out.println(&quot;eat:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; public abstract void sleep(String name); }  【AnimalClass】一个普通的类和函数。
-package animals.animal; public class AnimalClass { public void smile(String name){ System.out.println(&quot;smile:&quot; + AnimalAbstract.class + &quot; | name:&quot; + name); }; }  【AnimalClass】两个不同的接口。
-package animals.animal; public interface AnimalInterfaceJump { public void jump (String name); }  package animals.
+    
   </div>
   
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/java/abstract_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/inheritance/"></a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="0001-01-01T00:00:00Z">
+          Jan 1, 0001
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    
+  </div>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/polymorphism/"></a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="0001-01-01T00:00:00Z">
+          Jan 1, 0001
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    
+  </div>
   
 </article>
 

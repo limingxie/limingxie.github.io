@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" 【java笔记】this和super简介 &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/java/this_super/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2020-07-26T12:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     【java笔记】this和super简介 &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">【java笔记】this和super简介</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-26T12:28:49&#43;08:00">
+          Jul 26, 2020
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    <p>本来是确认构造函数的运行方式的。<br />
+结果看到继承以及super关键字了&hellip;^^;;</p>
+
+<p>都说this是类似于指自己的一个指针，super是更像一个关键字。<br />
+可能我的了解不是那么深入，觉得this就是指自己super就是指父类。其余没感觉到什么特别。<br />
+而且感觉前期了解这些就可以了，后面对Java有更深层次的了解后继续在研究~<br />
+下面是我简单的试一试，做个记录&hellip;^^</p>
+
+<blockquote>
+<p>1.this指向自己。<br />
+2.super指向父类。<br />
+3.多层继承时，super指向离自己最近的上一层父类。<br />
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。<br />
+5.构造函数中使用this或super时，必须写在第一行。而且不能同时使用。</p>
+</blockquote>
+
+<p>我先创建了以下文件。<br />
+<a href="https://limingxie.github.io/images/java/super/super_test.png">图片备用地址</a><br />
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/super/super_test.png" alt="文件目录结构" /></p>
+
+<p>先看看每个文件的代码</p>
+
+<p><strong>【Animal】一个普通的类和函数。</strong></p>
+
+<pre><code class="language-java">package supertest.animal;
+
+public class Animal {
+    // 姓名属性，和子类的值不一样
+    protected String name = &quot;animalName&quot;;
+
+    // 无参构造函数
+    public Animal() {
+        System.out.println(&quot;Animal: There are no parameters&quot;);
+    }
+
+    // 有参构造函数
+    public Animal(String str) {
+        System.out.println(&quot;parameters:&quot; + str);
+    }
+
+    // 父类的函数，子类会重写这个函数
+    public void run(String str) {
+        System.out.println(str+ &quot;:&quot; + Animal.class);
+    }
+}
+</code></pre>
+
+<p><strong>【Horse】子类继承了Animal父类</strong></p>
+
+<pre><code class="language-java">package supertest.MammalInt;
+
+import supertest.animal.Animal;
+
+public class Horse extends Animal {
+    // 姓名属性，和父类的值不一样
+    protected String name = &quot;horseName&quot;;
+
+    // 无参构造函数
+    public Horse() {
+        // 这里执行父类有参的构造函数
+        super(&quot;super has parameters&quot;);
+        System.out.println(&quot;Horse: There are no parameters.&quot;);
+    }
+
+    // 有参构造函数
+    public Horse(String str) {
+        System.out.println(&quot;parameters:&quot; + str);
+    }
+
+    // 查看this和super的name
+    public void printName(){
+        System.out.println(&quot;---------------------this.name------------------------&quot;);
+        System.out.println(&quot;this.name:&quot; + this.name);
+        System.out.println(&quot;---------------------super.name-----------------------&quot;);
+        System.out.println(&quot;super.name:&quot; + super.name);
+    }
+
+    // 重写了父类的run函数
+    public void run(String str) {
+        System.out.println(str+ &quot;:&quot; + Horse.class);
+    }
+
+    // 查看this和super的run函数
+    public void testRun(String name) {
+        System.out.println(&quot;---------------------this.run-------------------------&quot;);
+        this.run(name);
+        System.out.println(&quot;---------------------super.run------------------------&quot;);
+        super.run(name);
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">package test.supertest;
+
+import test.supertest.animal.Animal;
+import test.supertest.MammalInt.Horse;
+
+public class main {
+    public static void main(String[] args) {
+        // 先执行父类的构造函数，然后在执行子类的构造函数
+        System.out.println(&quot;---------------------constructor----------------------&quot;);
+        Horse horse = new Horse();
+
+        // 查看this和super的name
+        horse.printName();
+
+        // 查看this和super的函数
+        horse.testRun(&quot;testRun&quot;);
+    }
+}
+</code></pre>
+
+<p><strong>编译以后，可以查看结果</strong></p>
+
+<pre><code>$ javac supertest/animal/Animal.java supertest/MammalInt/Horse.java supertest/main.java
+
+$ java supertest.main
+---------------------constructor----------------------
+parameters:super has parameters
+Horse: There are no parameters.
+---------------------this.name------------------------
+this.name:horseName
+---------------------super.name-----------------------
+super.name:animalName
+---------------------this.run-------------------------
+testRun:class supertest.MammalInt.Horse
+---------------------super.run------------------------
+testRun:class supertest.animal.Animal
+</code></pre>
+
+<p>做了最最基本的简单测试，别见笑&hellip;^^</p>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/java/abstract_test/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

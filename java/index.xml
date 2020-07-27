@@ -7,10 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>limingxie - blog</copyright>
-    <lastBuildDate>Thu, 02 Jul 2020 07:28:49 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 12:28:49 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>【java笔记】this和super简介</title>
+      <link>https://limingxie.github.io/java/this_super/</link>
+      <pubDate>Sun, 26 Jul 2020 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/this_super/</guid>
+      <description>本来是确认构造函数的运行方式的。
+结果看到继承以及super关键字了&amp;hellip;^^;;
+都说this是类似于指自己的一个指针，super是更像一个关键字。
+可能我的了解不是那么深入，觉得this就是指自己super就是指父类。其余没感觉到什么特别。
+而且感觉前期了解这些就可以了，后面对Java有更深层次的了解后继续在研究~
+下面是我简单的试一试，做个记录&amp;hellip;^^
+ 1.this指向自己。
+2.super指向父类。
+3.多层继承时，super指向离自己最近的上一层父类。
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。
+5.构造函数中使用this或super时，必须写在第一行。而且不能同时使用。
+ 我先创建了以下文件。
+图片备用地址
+先看看每个文件的代码
+【Animal】一个普通的类和函数。
+package supertest.animal; public class Animal { // 姓名属性，和子类的值不一样 protected String name = &amp;quot;animalName&amp;quot;; // 无参构造函数 public Animal() { System.out.println(&amp;quot;Animal: There are no parameters&amp;quot;); } // 有参构造函数 public Animal(String str) { System.out.println(&amp;quot;parameters:&amp;quot; + str); } // 父类的函数，子类会重写这个函数 public void run(String str) { System.out.println(str+ &amp;quot;:&amp;quot; + Animal.class); } }  【Horse】子类继承了Animal父类
+package supertest.MammalInt; import supertest.animal.Animal; public class Horse extends Animal { // 姓名属性，和父类的值不一样 protected String name = &amp;quot;horseName&amp;quot;; // 无参构造函数 public Horse() { // 这里执行父类有参的构造函数 super(&amp;quot;super has parameters&amp;quot;); System.</description>
+    </item>
+    
+    <item>
+      <title>【java笔记】类, 抽象类, 接口的简单实验</title>
+      <link>https://limingxie.github.io/java/abstract_test/</link>
+      <pubDate>Sun, 26 Jul 2020 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/abstract_test/</guid>
+      <description>要接触，抽象，继承，多态，封装的java了。
+为了加深理解自己做了一个简单的实验。
+ 1.类只能继承一个。
+2.抽象类也只能继承一个。
+3.接口可以继承多个。
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。
+ 我先创建了以下文件。 图片备用地址
+先看看每个文件的代码
+【AnimalAbstract】抽象类里添加了2个函数，其中一个是抽象函数。
+package animals.animal; public abstract class AnimalAbstract { public void eat(String name){ System.out.println(&amp;quot;eat:&amp;quot; + AnimalAbstract.class + &amp;quot; | name:&amp;quot; + name); }; public abstract void sleep(String name); }  【AnimalClass】一个普通的类和函数。
+package animals.animal; public class AnimalClass { public void smile(String name){ System.out.println(&amp;quot;smile:&amp;quot; + AnimalAbstract.class + &amp;quot; | name:&amp;quot; + name); }; }  【AnimalClass】两个不同的接口。
+package animals.animal; public interface AnimalInterfaceJump { public void jump (String name); }  package animals.</description>
+    </item>
     
     <item>
       <title>【java笔记】序列化和反序列化</title>
@@ -36,24 +81,30 @@ import java.io.Serializable; public class Person implements Serializable{ // 如
     </item>
     
     <item>
-      <title>【java笔记】类, 抽象类, 接口的简单实验</title>
-      <link>https://limingxie.github.io/java/abstract_test/</link>
-      <pubDate>Thu, 02 Jul 2020 07:28:49 +0800</pubDate>
+      <title></title>
+      <link>https://limingxie.github.io/java/encapsulation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://limingxie.github.io/java/abstract_test/</guid>
-      <description>从新又要接触，抽象，继承，多态，封装的java了。
-为了加深理解自己做了一个简单的实验。
-简单的说需要满足一下条件。
- 1.类只能继承一个。
-2.抽象类也只能继承一个。
-3.接口可以继承多个。
-4.不能同时继承类和接口，也不能同时继承抽象类和接口。
- 我先创建了以下文件。 图片备用地址
-先看看每个文件的代码
-【AnimalAbstract】抽象类里添加了2个函数，其中一个是抽象函数。
-package animals.animal; public abstract class AnimalAbstract { public void eat(String name){ System.out.println(&amp;quot;eat:&amp;quot; + AnimalAbstract.class + &amp;quot; | name:&amp;quot; + name); }; public abstract void sleep(String name); }  【AnimalClass】一个普通的类和函数。
-package animals.animal; public class AnimalClass { public void smile(String name){ System.out.println(&amp;quot;smile:&amp;quot; + AnimalAbstract.class + &amp;quot; | name:&amp;quot; + name); }; }  【AnimalClass】两个不同的接口。
-package animals.animal; public interface AnimalInterfaceJump { public void jump (String name); }  package animals.</description>
+      <guid>https://limingxie.github.io/java/encapsulation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://limingxie.github.io/java/inheritance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://limingxie.github.io/java/inheritance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://limingxie.github.io/java/polymorphism/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://limingxie.github.io/java/polymorphism/</guid>
+      <description></description>
     </item>
     
   </channel>
