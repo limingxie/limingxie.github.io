@@ -80,6 +80,66 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/blockchain_2/">区块链blockchain基础入门(二)</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-06-22T07:28:49&#43;08:00">
+          Jun 22, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章简单的介绍了一下区块链blockchain到底是什么。
+区块链blockchain零基础入门(一)
+接下来继续简单的介绍一下区块链blockchain的结构。
+◆ 区块Block + 链Chain 区块链blockchain是由一个个区块block组成，每次交易的数据是写入到一个区块block中。
+每个区块是由区块头Heather和去块体Body组成。
+区块头Heather: 包含着生成时间，区块体Body的地址(Hash值)，以及上一个区块block的地址(Hash值)。 区块体Body: 详细的数据。  下图是简单的结构
+图片备用地址 实际的Header的结构是这样的，不是IT行业的话可以略过下图。
+图片备用地址 如上图所示，每个区块Block都保存前一个区块Block的地址(Hash值)。
+这样我们就可以把每个区块block连接到上一个区块Block，组成很长的链chain。
+这就是区块链blockchain名字的由来。
+◆ 节点node 区块链blockchain中的数据是分布式存储。
+这些数据会分布在不同的地方存储，存储数据的每一个点我们叫它为节点node。
+(仅仅是在区块链blockchain中是可以这么理解)。
+以比特币为例(比特币是第一个成功的区块链blockchain技术)。
+比特币网络是由很多个节点node组成，而且每个节点node都保存所有的交易数据。
+(这会导致很多的重复数据，我感觉这是一种浪费。哈~ )  打个比方，每个节点node都拥有同样的账本。
+当某一个节点node增加新的交易数据(新的区块block)。
+它会把这份交易数据(新的区块block)分发给各各节点node，
+其他节点node收到账本的新一页(新的区块block)后，
+把这份交易数据(新的区块block)放在自己账本(整个交易数据)的最后一页。
+这样确保所有的节点node的账本是一致的。==&gt; (分布式存储)
+图片备用地址 ◆ 挖矿mining 那万一2个以上的节点node同时创建新的区块block岂不是乱了吗？
+这里牵扯到区块认证。比特币是大约10分钟一次创建新的区块block。
+在这10分钟内的交易数据是以工作量证明(PoW)Proof-Of-Work方式，获得新建区块block权利。
+什么意思？不太明白？
+简单的说想要在区块链blockchain中添加新的区块block的话，
+你需要要获得创建新区块Block的权利。
+怎么获取添加新建区块block的权利呢？ 算一道题。 什么样的题？ 可以理解成一个猜数字游戏。1到10000中有一个数据是正确的让你去猜。 怎么办？没办法，只能暴力破解。 是不是5000？ 不是! 是不是5301？ 不是! 是不是xxx ？ 不是！ 是不是xxx ？。。。  这题猜中的偶然性很高，也有运气的成分。
+但是如果你的服务器性能好的话，猜的次数越多，猜对的可能性也变得高。
+猜对了，获得权利。你可以创建新的区块block，分发到网络。
+大声告诉大家: “这道题我猜对了，我已经新建了一个区块block了，你们不用再算了。”
+然后把自己建好的区块block分发给其他的节点node。
+难度系数difficulty
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/blockchain_2/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/blockchain_introduction/">区块链blockchain零基础入门(一)</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -437,28 +497,6 @@ $ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users
 </article>
 
   
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/java/polymorphism/"></a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="0001-01-01T00:00:00Z">
-          Jan 1, 0001
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    
-  </div>
-  
-</article>
-
-  
 </div>
 <nav class="pagination" role="navigation">
 
@@ -467,7 +505,9 @@ $ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users
 
 <a class="newer-posts" href="/page/2/"><span aria-hidden="true">&laquo;</span> Newer Posts</a>
 
-  <span class="page-number">Page 3 of 3</span>
+  <span class="page-number">Page 3 of 4</span>
+
+<a class="older-posts" href="/page/4/">Older Posts <span aria-hidden="true">&raquo;</span></a>
 
 </nav>
 

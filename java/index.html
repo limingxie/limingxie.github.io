@@ -84,6 +84,36 @@
   <hr/>
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/java/reflect/">【java笔记】反射的简单应用</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-07-30T23:28:49&#43;08:00">
+          Jul 30, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    今天在代码中看到了invoke方法，了解到原来是使用了反射的机制。
+以前没怎么用过这种方式，所以简单的了解一下。
+具体内容是简单的写了一套代码。
+声明Animal类
+import java.lang.reflect.Constructor; import java.lang.reflect.Field; import java.lang.reflect.Method; class Animal { public Animal() { } public Animal(String name, int age) { this.name = name; this.age = age; } private int age; public String name; public int getAge() { return age; } public void setAge(int age) { this.age = age; } public String getName() { return name; } public void setName(String name) { this.name = name; }  普通的方法和使用反射
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/reflect/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  <hr/>
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/java/this_super/">【java笔记】this和super简介</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">

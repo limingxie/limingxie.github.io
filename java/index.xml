@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>limingxie - blog</copyright>
-    <lastBuildDate>Sun, 26 Jul 2020 12:28:49 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jul 2020 23:28:49 +0800</lastBuildDate>
     
 	<atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>【java笔记】反射的简单应用</title>
+      <link>https://limingxie.github.io/java/reflect/</link>
+      <pubDate>Thu, 30 Jul 2020 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/reflect/</guid>
+      <description>今天在代码中看到了invoke方法，了解到原来是使用了反射的机制。
+以前没怎么用过这种方式，所以简单的了解一下。
+具体内容是简单的写了一套代码。
+声明Animal类
+import java.lang.reflect.Constructor; import java.lang.reflect.Field; import java.lang.reflect.Method; class Animal { public Animal() { } public Animal(String name, int age) { this.name = name; this.age = age; } private int age; public String name; public int getAge() { return age; } public void setAge(int age) { this.age = age; } public String getName() { return name; } public void setName(String name) { this.name = name; }  普通的方法和使用反射</description>
+    </item>
     
     <item>
       <title>【java笔记】this和super简介</title>
