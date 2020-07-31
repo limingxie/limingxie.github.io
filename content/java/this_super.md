@@ -134,8 +134,6 @@ testRun:class supertest.MammalInt.Horse
 testRun:class supertest.animal.Animal
 ```
 
-做了最最基本的简单测试，别见笑...^^
-
 ----------------------------------------------
 欢迎大家的意见和交流
 
