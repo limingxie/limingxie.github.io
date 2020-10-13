@@ -80,6 +80,120 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/solid_1/">设计原则那些事儿</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-06-06T07:28:49&#43;08:00">
+          Jun 6, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    代码架构的设计原则中最普遍的是solid原则。
+SRP	Single Responsibility Principle	单一责任原则 OCP	Open Closed Principle	开放封闭原则 LSP	Liskov Substitution Principle	里氏替换原则 ISP	Interface Segregation Principle	接口分离原则 DIP	Dependency Inversion Principle	依赖反转原则   ◆ SRP:单一责任原则(Single Responsibility Principle)
+一个类只完成它应该完成的职责。  任何一个软件模块都应该只对某一类行为者负责。 它的作用就是告诉我们在哪里划清边界。
+◆ OCP:开放封闭原则(Open Closed Principle)
+软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。  这其实就是要关注，增加新的功能的时候能不能不修改以前旧代码？
+增加新功能，需要大改旧代码，说明没做好开放封闭原则。
+◆ LSP:里氏替换原则(Liskov Substitution Principle)
+模块之间应能自由替换。  其实就是替换别的模块的时候不应该影响别的模块，导致发生修改事项。
+◆ ISP:接口分离原则(Interface Segregation Principle)
+如果一个接口包含了过多的方法，应该通过分离接口将其拆分。  如果依赖和自己没有关系或不需要的东西，需要应该把他拆分，只依赖和自己有关系的不分。
+◆ DIP:依赖反转原则(Dependency Inversion Principle)
+上层(抽象)不应该依赖于下层(实体)，下层(实体)应该依赖于上层(抽象)。  换句话说上层策略性代码不应该依赖底层细节性代码，
+底层细节性代码应该依赖上层策略性的代码。
+包的内聚性三原則 ◆ REP:复用/发布等同原则(Release Reuse Equivalency Principle)
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/solid_1/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/limingxie/err_return/">Go项目:error错误处理</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-02-14T08:38:02&#43;08:00">
+          Feb 14, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章我介绍了拆分服务后如何去写测试代码。
+Go项目:傻瓜式联合测试
+今天想共享一下，我是如何处理error。
+其实error是一个普通的处理。
+但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。
+有A,B,C 3个服务。 A服务提供的一个功能是需要 B和C 服务的信息。 该功能执行的时候出问题，单凭返回的信息，你是很难一眼看出问题点是在哪里。 (go 的错误提示过于简单...^^;;)  所以我自己写了处理error的一个package。
+https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go 实际运用例子 这是普通的处理方式
+package main import ( &quot;fmt&quot; &quot;strconv&quot; ) func main() { value, err := returnValue() if err != nil { //普通的处理 fmt.Println(err) } else { fmt.Println(value) } } func returnValue() (int, error) { value, err := strconv.Atoi(&quot;string&quot;) if err != nil { //普通的处理 return 0, err } return value, nil }  执行结果
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/err_return/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/limingxie/my_go_test4/">Go项目:傻瓜式联合测试</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2019-02-12T08:38:02&#43;08:00">
+          Feb 12, 2019
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。
+感觉有些内容不应该在同一个服务里。
+于是我做了一个决定: 拆分服务。
+分了4个服务后发现每个服务都不到8个表。每个服务的业务复杂度都不高。 心理暗自高兴，都说微服务，微服务，原来这么好？ 这种好心情维持不到半天，后面出的问题让我晕头转向。 踩了N多个坑...ㅠㅠ  今天我想说说其中的测试代码。
+当我分了服务后写单元测试，其实没遇到过什么大问题。
+可以使用上一篇文章介绍的测试替身。
+Go项目的测试代码3（测试替身Test Double）
+问题是每个服务的功能是需要调用其他的服务。 `单元测试没问题，不能确保联合调用没问题`。 (初期把单元测试过的代码直接发布运营，把我害惨了...)  我做了所有人都能想到的傻瓜式的联合测试方法。
+简单，傻瓜式，但是很实用。 联合测试思路 就是把数据库(我是用mysql)和几个服务用docker容器启动，执行联合测试代码。
+这跟本地运行每个服务后，运行测试代码有什么区别吗？(嘿嘿~ 自己想想吧。我也不知道~) 实际运用例子 有点linux和docker基础的人，不看下面的例子也能应该能想到怎么做的吧？
+#deleted container and image, network docker rm -f a-service-api-container b-service-api-container... my-mysql 2&gt; /dev/null docker rmi -f a-service-api-image b-service-api-image ... 2&gt; /dev/null docker network rm my-network 2&gt; /dev/null echo '' echo '&lt;============== start =============&gt;' #create docker network docker network create my-network echo 'mysql starting .
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test4/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/work_note/">工作中我们常见的误解</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -434,156 +548,6 @@ SRP	The Single Responsibility Principle	单一责任原则 OCP	The Open Closed P
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/limingxie/solid/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">git命令 cherry-pick 的使用简介</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-07-30T07:28:49&#43;08:00">
-          Jul 30, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    上一篇文章介绍了merge和rebase的用法以及原理。
-git命令merge和rebase的简单应用
-这里简单的介绍一下 cherry-pick 的用法。
-什么时候会用到 cherry-pick 命令？
-代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。
-只合并某个分支上的某次修改commit到指定的分支上。
-这时候就可以使用cherry-pick命令来操作。
-$ git cherry-pick commit_id //想合并的commit_id  图片备用地址
-如果是图1这样使用cherry-pick命令的话，
-会有 a1, a2, a3 的合并项，在代码中需要删除 a1, a2 再次提交解决冲突才行。
-喜欢找茬的人会这么问：这么一来和merge有什么区别吗？
-merge的话也不是把 a1, a2, a3 的代码合并过来吗？
-merge合并后把 a1, a2 删掉的话跟cherry-pick有什么区别？
-区别在于日志。
-$ git cherry-pick fd4e09c(a3的 commit_id) error: could not apply fd4e09c... add a3 hint: after resolving the conflicts, mark the corrected paths hint: with 'git add &lt;paths&gt;' or 'git rm &lt;paths&gt;' hint: and commit the result with 'git commit' //.
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">git命令merge和rebase的简单应用</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-07-29T07:28:49&#43;08:00">
-          Jul 29, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    因为工作的需求，项目分了几个大分支管理了。
-不同的环境需要的功能也不一样，在不同的分支里修改。
-虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。 (我比较倾向，有一个主分支，发布在不同的环境是应该由不同的配置和适当的继承来实现。
-如果这么做实在太麻烦的话，应该另分出一个仓库repository管理。)
-以下是我简单整理的内容。
-◆ merge merge就是合并不同分支的代码。
-先举个简单的使用场景例子。
-从master分支分出一个dev分支开发。
-期间我们master分支有 m1,m2,m3 的提交记录。
-dev分支有 d1,d2 的提交记录。
-2个分支需要合并代码。
-$ git merge dev --在master分支把dev分支的代码合并过来。  把2支分支合并，有冲突，解决冲突后需要提交一次合并代码记录。
-(为了简单，下图是没有冲突时的场景。)
-图片备用地址
-◆ rebase rebase其实就是重置代码历史，手动的修改提交记录和代码。
-一般项目当中有两种用法。
-1. 合并记录
-这是一般开发者处理完Issue后，给主分支发出合并请求了。
-但是CodeReview的时候发现有不合适的代码，或是有个小Bug需要修改。
-修改后又出现一个提交记录，1个Issue有2个提交记录，看着不舒服。
-这时候用以下方式处理。
-$ git rebase -i HEAD~2 --2代表要修改最近2个记录  图片备用地址
-2. 调整顺序
-git merge语法是按照时间顺序合并代码的。
-图1所示merge是时间的顺序来合并代码的。
-master: m1 -&gt; m2 -&gt; m3 dev: d1 -&gt; d2 ==&gt; -- 合并的代码记录是按照时间的排序 master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3  当开发到 m2 的时候我们发布了一个版本，合并了d1,d2后发布出现问题了。
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/redis/">Redis简单应用</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-07-01T07:28:49&#43;08:00">
-          Jul 1, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    这些天因为项目性能上的问题，采用了Redis缓存。
-做了一些简单的笔记。
-◆ Redis
-Redis(REmote DIctionary Server)是一个key-value存储系统。
-它支持存储的value类型很多，包括string、list、set、hash等等&hellip;
-我最喜欢用 key-json字符。
-◆ 应用
-用的也简单，代码逻辑中读取相应的信息的时候先去Redis读取，
-没有数据，再去数据库(mysql)读取。保存到Redis后，返回结果集。
-因为Redis的数据是保存在内存里的(分保存的方式，暂且可以理解成保存在内存)，
-所以查询速度会很快。
-◆ 缺点
-也很容易看到他的缺点，
-1. 一致性问题。 为了高效查询性能，付出的代价是数据的一致性。
-2. 而且内存的资源是有限的，所以要控制数据量的大小。
-◆ 如何去解决的？
-如果没有太高的一致性需求的话，
-可以直接设置比较短的缓存时间来解决一致性的问题。
-比方说缓存时间设置为5分钟，5分钟后数据无效，那再次去数据库查询。
-要么做定时任务，每隔一段时间做数据同步。
-如果数据一致性需求很高，
-建议每次数据有变动代码里需要添加删除Redis数据的逻辑。
-(万一这数据的Mapping关系比较复杂的话，光是删掉这些有关系的数据也会让你哭死&hellip;)
-只要删掉了，下次查询会从新去数据库查询数据。
-
-我这只是简单应用，没什么深度，哈~ 下面简单的整理了一下语法 1. 安装Redis (我比较喜欢下docker镜像安装，如果不想这么做可以搜一下&hellip;^^)
-$ docker run --name test-redis -p 33201:6379 -d redis:latest   &mdash;name 后面的是docker容器名 -p 32xxx:6379 这里需要注意 32xxx 是你链接redis的时候的Port。 -d redis:latest 是你的镜像标签和版本  2. 在shell中访问redis
-$ redis-cli -h 127.0.0.1 -p 33201 //链接redis 127.
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/redis/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   

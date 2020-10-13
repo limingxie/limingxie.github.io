@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" java中的栈内存, 堆内存 &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/java/java_stack_heap/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2020-10-13T12:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     java中的栈内存, 堆内存 &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">java中的栈内存, 堆内存</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-10-13T12:28:49&#43;08:00">
+          Oct 13, 2020
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>上一篇文章简单整理了<a href="https://limingxie.github.io/basic/stack/">栈(stack), 堆(heap), 队列(queue)的结构</a><br />
+这一篇继续整理java中的 占内存，堆内存。</p>
+
+<p>Java把内存划分成两种：一种是栈内存，一种是堆内存。<br />
+这里需要解释一下, 这里的堆内存是跟数据结构的堆是完全两码事。</p>
+
+<h3 id="一-栈内存"><strong>一、栈内存</strong></h3>
+
+<p>存放基本类型的变量，以及对象的引用值和函数主体，遵循先入后出的原则。</p>
+
+<p>栈内存在函数中定义的<code>一些基本类型的变量和对象的引用变量</code>都在函数的栈内存中分配。<br />
+当在一段代码块定义一个变量时:</p>
+
+<pre><code>Java在栈中为变量分配内存空间，当超过变量的作用在域后，
+Java会自动释放掉为该变量所分配的内存空间，该内存空间可以立即被另作他用。
+</code></pre>
+
+<p><code>Java中的代码是在函数体中执行</code>的，每个函数主体都会被放在栈内存中，</p>
+
+<pre><code>举例子有一个main()函数。  
+main()函数里调用了save()函数，那么栈低存储的是main()函数其上面是save()函数。  
+等save()函数执行后，先销毁save()函数，再销毁main()函数。  
+</code></pre>
+
+<blockquote>
+<p>栈的优势是，栈内存与堆内存相比是非常小的，存取速度比堆要快，栈数据可以共享。<br />
+但缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。</p>
+</blockquote>
+
+<hr />
+
+<h3 id="二-堆内存"><strong>二、堆内存</strong></h3>
+
+<p>给我的感觉是所有的引用类型的值是存在堆内存中，地址(指针)是存在栈内存中。</p>
+
+<p>堆内存是区别于栈区、全局数据区和代码区的另一个内存区域。<br />
+<code>堆内存在程序运行中，可以动态的调整申请大小</code>。</p>
+
+<h4 id="堆内存的分配过程"><strong>堆内存的分配过程</strong></h4>
+
+<pre><code>当接收到程序的内存申请时:
+1. 先游遍操作系统中的记录空闲内存地址的链表，寻找第一个复合大小的节点。  
+2. 分配给程序该节点的空间，内存空间中的首地址会记录本次分配的大小，为删除的时能正确的获取长度。  
+3. 把该节点从操作系统的空闲节点中删除。
+</code></pre>
+
+<p>找到的堆节点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。
+由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。<br />
+堆内存的大小受限于计算机系统中有效的虚拟内存。所以堆内存获得的空间比较灵活，也比较大。<br />
+但是也是因为这些原因容易产生内存碎片，存取速度也比较慢。</p>
+
+<hr />
+
+<h3 id="三-内存回收"><strong>三、内存回收</strong></h3>
+
+<pre><code>`栈内存`变量基本上用完就回收了。  
+`堆内存`中:  
+数组和对象等引用类型在没有变量指向它的时候才被视为垃圾。  
+在随后的一个`不确定的时间`被垃圾回收器释放掉。  
+因为这些原因回收内存之前会一直占用资源, 也不知道这些资源什么会回收释放。
+</code></pre>
+
+<h3 id="四-其他数据存储"><strong>四、其他数据存储</strong></h3>
+
+<p>1、常量池：存放基本类型常量和字符串常量
+2、静态域(static)：存放静态成员(static定义的)编译的时候直接分配空间。要求程序代码中不允许有可变数据结构(比如可变数组)的存在.
+3、非RAM存储：硬盘等永久存储空间</p>
+
+<h3 id="五-编译时分配的空间"><strong>五、编译时分配的空间</strong></h3>
+
+<p>最后我们再次已编译的角度去理解静态, 栈, 堆的存储方式。<br />
+<strong>1. 静态存储分配:</strong><br />
+<code>编译的时候直接分配空间</code>, 所以会要求程序代码中不允许有可变数据结构(比如可变数组)的存在。<br />
+<strong>2. 栈存储分配:</strong><br />
+是编译的时候时未知的, 但是运行中进入一个程序模块时,<code>必须知道该程序模块所需的数据区大小才能够为其分配内存。</code><br />
+<strong>3. 堆存储分配:</strong><br />
+是编译的时候时未知的, 运行时模块入口处都无法确定存储要求 数据结构的内存分配, <code>执行的过程也是可变的</code>。所以存取速度也比较慢。</p>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/basic/stack/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

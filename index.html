@@ -80,6 +80,148 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/java/java_stack_heap/">java中的栈内存, 堆内存</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-10-13T12:28:49&#43;08:00">
+          Oct 13, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章简单整理了栈(stack), 堆(heap), 队列(queue)的结构
+这一篇继续整理java中的 占内存，堆内存。
+Java把内存划分成两种：一种是栈内存，一种是堆内存。
+这里需要解释一下, 这里的堆内存是跟数据结构的堆是完全两码事。
+一、栈内存 存放基本类型的变量，以及对象的引用值和函数主体，遵循先入后出的原则。
+栈内存在函数中定义的一些基本类型的变量和对象的引用变量都在函数的栈内存中分配。
+当在一段代码块定义一个变量时:
+Java在栈中为变量分配内存空间，当超过变量的作用在域后， Java会自动释放掉为该变量所分配的内存空间，该内存空间可以立即被另作他用。  Java中的代码是在函数体中执行的，每个函数主体都会被放在栈内存中，
+举例子有一个main()函数。 main()函数里调用了save()函数，那么栈低存储的是main()函数其上面是save()函数。 等save()函数执行后，先销毁save()函数，再销毁main()函数。   栈的优势是，栈内存与堆内存相比是非常小的，存取速度比堆要快，栈数据可以共享。
+但缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。
+ 二、堆内存 给我的感觉是所有的引用类型的值是存在堆内存中，地址(指针)是存在栈内存中。
+堆内存是区别于栈区、全局数据区和代码区的另一个内存区域。
+堆内存在程序运行中，可以动态的调整申请大小。
+堆内存的分配过程 当接收到程序的内存申请时: 1. 先游遍操作系统中的记录空闲内存地址的链表，寻找第一个复合大小的节点。 2. 分配给程序该节点的空间，内存空间中的首地址会记录本次分配的大小，为删除的时能正确的获取长度。 3. 把该节点从操作系统的空闲节点中删除。  找到的堆节点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。 由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。
+堆内存的大小受限于计算机系统中有效的虚拟内存。所以堆内存获得的空间比较灵活，也比较大。
+但是也是因为这些原因容易产生内存碎片，存取速度也比较慢。
+三、内存回收 `栈内存`变量基本上用完就回收了。 `堆内存`中: 数组和对象等引用类型在没有变量指向它的时候才被视为垃圾。 在随后的一个`不确定的时间`被垃圾回收器释放掉。 因为这些原因回收内存之前会一直占用资源, 也不知道这些资源什么会回收释放。  四、其他数据存储 1、常量池：存放基本类型常量和字符串常量 2、静态域(static)：存放静态成员(static定义的)编译的时候直接分配空间。要求程序代码中不允许有可变数据结构(比如可变数组)的存在. 3、非RAM存储：硬盘等永久存储空间
+五、编译时分配的空间 最后我们再次已编译的角度去理解静态, 栈, 堆的存储方式。
+1. 静态存储分配:
+编译的时候直接分配空间, 所以会要求程序代码中不允许有可变数据结构(比如可变数组)的存在。
+2. 栈存储分配:
+是编译的时候时未知的, 但是运行中进入一个程序模块时,必须知道该程序模块所需的数据区大小才能够为其分配内存。
+3. 堆存储分配:
+是编译的时候时未知的, 运行时模块入口处都无法确定存储要求 数据结构的内存分配, 执行的过程也是可变的。所以存取速度也比较慢。
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/java_stack_heap/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/basic/stack/">栈(stack), 堆(heap), 队列(queue) 是什么？</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-10-12T23:28:49&#43;08:00">
+          Oct 12, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    我们平时经常遇到栈(stack), 队列(queue), 堆(heap)这些词语。
+像我这样不是计算机专业毕业的程序原来说，为了更好的理解这些内容，
+我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。
+希望有些帮助。
+ 栈(stack), 队列(queue), 堆(heap)都是一个数据结构。
+ 一. 栈(stack) 是计算机科学里最重要且最基础的数据结构之一。 (直接看下图更容易理解)
+1.常用的几个名词 栈顶(top), 栈底(bottom), 进栈(push), 出栈(pop)。 栈中的每个元素称为一个frame。  2.一个很重要的特点 先进后出: FILO（First In Last Out）的原则存储数据。  它按照先进后出的原则存储数据，先进入的数据被压入栈底，最后的数据在栈顶,
+需要读数据的时候从栈顶开始弹出数据（最后一个数据被第一个读出来）。
+图片备用地址
+3.最经典的计算机应用是函数调用 每个进程都会有一个栈，每个frame中记录了调用函数的参数，自动变量和返回地址。
+当该函数调用一个新的函数时，栈中会 push一个frame。
+当函数执行完毕返回时，该frame会pop，从而进入调用该函数的原函数，继续执行。
+4.比较常用的应用场景 1) 子程序的调用：在跳往子程序前，会先将下个指令的地址存到堆栈中， 直到子程序执行完后再将地址取出，以回到原来的程序中。 2) 递归的调用：可以用来在函数调用的时候存储断点， 储存下一个指令的地址外，也将参数、区域变量等数据存入栈中。 3) 表达式的转换[中缀表达式转后缀表达式]与求值(实际解决)。 4) 二叉树的遍历。 5) 图形的深度优先(depth一first)搜索法。  二. 堆(heap) 堆(Heap)是计算机科学中的一种特别的完全二叉树。(直接看下图更容易理解)
+维基百科是这么解释的:
+若是满足以下特性，即可称为堆： “给定堆中任意节点P和C，若P是C的父节点，那么P的值会小于等于（或大于等于）C的值”。 若父节点的值恒小于等于子节点的值，此堆称为最小堆(min heap); 反之，若父节点的值恒大于等于子节点的值，此堆称为最大堆(max heap)。 在堆中最顶端的那一个节点，称作根节点（root node），根节点本身没有父节点(parent node)  堆总是满足下列性质：
+ 堆中某个节点的值总是不大于或不小于其父节点的值
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/basic/stack/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/compile/">简单整理java的编译流程？</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-09-28T08:28:49&#43;08:00">
+          Sep 28, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    如图所示, 先是由 javac 命令把 .java 文件编译成 .class文件。
+.class是可以加载到JVM中运行。当类文件在JVM加载过程中通常会被处理和修改。 转换后的 .class 文件通过解释器解析成可执行代码。 最后由JIT编译器编译成机器码。
+图片备用地址
+先大致的了解一下，等有时间在详细整理。 同步、异步、阻塞、非阻塞都是和IO（输入输出）有关的概念。最简单的文件读取就是IO操作。而在文件读取这件事儿上，可以有多种方式。
+IO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换的地方，通常是磁盘、网络等，就需要IO接口。 在计算机科学中指计算机之间或人与计算机之间的信息交换。比如两台计算机通过网卡进行交互，比如向硬盘写入数据或读取硬盘数据，比如人敲击鼠标键盘等，都是I/O。具体的参见上面的详细说明。 狭义上是读写硬盘的操作。广义上只要不需要cpu参与的都是io操作。
+I/O（英语：Input/Output），即输入／输出，通常指数据在存储器（内部和外部）或其他周边设备之间的输入和输出，是信息处理系统（例如计算机）与外部世界（可能是人类或另一信息处理系统）之间的通信。输入是系统接收的信号或数据，输出则是从其发送的信号或数据。该术语也可以用作行动的一部分；到“运行I/O”是运行输入或输出的操作。
+由于CPU和内存的速度远远高于外设的速度，所以，在IO编程中，就存在速度严重不匹配的问题。举个例子来说，比如要把100M的数据写入磁盘，CPU输出100M的数据只需要0.01秒，可是磁盘要接收这100M数据可能需要10秒，怎么办呢？有两种办法：
+第一种是CPU等着，也就是程序暂停执行后续代码，等100M的数据在10秒后写入磁盘，再接着往下执行，这种模式称为同步IO；
+另一种方法是CPU不等待，只是告诉磁盘，“您老慢慢写，不着急，我接着干别的事去了”，于是，后续代码可以立刻接着执行，这种模式称为异步IO。
+Java中的三种IO模型 在Java语言中，一共提供了三种IO模型，分别是阻塞IO（BIO）、非阻塞IO（NIO）、异步IO（AIO）。这里面的BIO和NIO都是同步的IO模型，即同步阻塞IO和同步非阻塞IO，异步IO指的是异步非阻塞IO。BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。NIO （New I/O）：同时支持阻塞与非阻塞模式，但主要是使用同步非阻塞IO。AIO （Asynchronous I/O）：异步非阻塞I/O模型。
+同步请求，A调用B，B的处理是同步的，在处理完之前他不会通知A，只有处理完之后才会明确的通知A。
+异步请求，A调用B，B的处理是异步的，B在接到请求后先告诉A我已经接到请求了，然后异步去处理，处理完之后通过回调等方式再通知A。
+那么阻塞（blocking IO）和非阻塞（non-blocking IO）的区别就在于第一个阶段，如果数据没有就绪，在查看数据是否就绪的过程中是一直等待，还是直接返回一个标志信息。
+阻塞请求，A调用B，A一直等着B的返回，别的事情什么也不干。
+非阻塞请求，A调用B，A不用一直等着B的返回，先去忙别的事情了。
+阻塞就是：当某个事件或者任务在执行过程中，它发出一个请求操作，但是由于该请求操作需要的条件不满足，那么就会一直在那等待，直至条件满足；
+非阻塞就是：当某个事件或者任务在执行过程中，它发出一个请求操作，如果该请求操作需要的条件不满足，会立即返回一个标志信息告知条件不满足，不会一直在那等待。
+这就是阻塞和非阻塞的区别。也就是说阻塞和非阻塞的区别关键在于 当发出请求一个操作时，如果条件不满足，是会一直等待还是返回一个标志信息。
+阻塞和非阻塞指的是执行一个操作是等操作结束再返回，还是马上返回。
+比如餐馆的服务员为用户点菜，当有用户点完菜后，服务员将菜单给后台厨师，此时有两种方式：
+· 第一种：就在出菜窗口等待，直到厨师炒完菜后将菜送到窗口，然后服务员再将菜送到用户手中；
+· 第二种：等一会再到窗口来问厨师，某个菜好了没？如果没有先处理其他事情，等会再去问一次；
+第一种就是阻塞方式，第二种则是非阻塞的。
+同步和异步又是另外一个概念，它是事件本身的一个属性。还拿前面点菜为例，服务员直接跟厨师打交道，菜出来没出来，服务员直接指导，但只有当厨师将菜送到服务员手上，这个过程才算正常完成，这就是同步的事件。同样是点菜，有些餐馆有专门的传菜人员，当厨师炒好菜后，传菜员将菜送到传菜窗口，并通知服务员，这就变成异步的了。其实异步还可以分为两种：带通知的和不带通知的。前面说的那种属于带通知的。有些传菜员干活可能主动性不是很够，不会主动通知你，你就需要时不时的去关注一下状态。这种就是不带通知的异步。
+对于同步的事件，你只能以阻塞的方式去做。而对于异步的事件，阻塞和非阻塞都是可以的。非阻塞又有两种方式：主动查询和被动接收消息。被动不意味着一定不好，在这里它恰恰是效率更高的，因为在主动查询里绝大部分的查询是在做无用功。对于带通知的异步事件，两者皆可。而对于不带通知的，则只能用主动查询。
+欢迎大家的意见和交流
+email: li_mingxie@163.com
+  </div>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/java/reflect/">【java笔记】反射的简单应用</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -361,120 +503,6 @@ https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/algorithm/sort/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/solid_1/">设计原则那些事儿</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2019-06-06T07:28:49&#43;08:00">
-          Jun 6, 2019
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    代码架构的设计原则中最普遍的是solid原则。
-SRP	Single Responsibility Principle	单一责任原则 OCP	Open Closed Principle	开放封闭原则 LSP	Liskov Substitution Principle	里氏替换原则 ISP	Interface Segregation Principle	接口分离原则 DIP	Dependency Inversion Principle	依赖反转原则   ◆ SRP:单一责任原则(Single Responsibility Principle)
-一个类只完成它应该完成的职责。  任何一个软件模块都应该只对某一类行为者负责。 它的作用就是告诉我们在哪里划清边界。
-◆ OCP:开放封闭原则(Open Closed Principle)
-软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。  这其实就是要关注，增加新的功能的时候能不能不修改以前旧代码？
-增加新功能，需要大改旧代码，说明没做好开放封闭原则。
-◆ LSP:里氏替换原则(Liskov Substitution Principle)
-模块之间应能自由替换。  其实就是替换别的模块的时候不应该影响别的模块，导致发生修改事项。
-◆ ISP:接口分离原则(Interface Segregation Principle)
-如果一个接口包含了过多的方法，应该通过分离接口将其拆分。  如果依赖和自己没有关系或不需要的东西，需要应该把他拆分，只依赖和自己有关系的不分。
-◆ DIP:依赖反转原则(Dependency Inversion Principle)
-上层(抽象)不应该依赖于下层(实体)，下层(实体)应该依赖于上层(抽象)。  换句话说上层策略性代码不应该依赖底层细节性代码，
-底层细节性代码应该依赖上层策略性的代码。
-包的内聚性三原則 ◆ REP:复用/发布等同原则(Release Reuse Equivalency Principle)
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/solid_1/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/err_return/">Go项目:error错误处理</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2019-02-14T08:38:02&#43;08:00">
-          Feb 14, 2019
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    上一篇文章我介绍了拆分服务后如何去写测试代码。
-Go项目:傻瓜式联合测试
-今天想共享一下，我是如何处理error。
-其实error是一个普通的处理。
-但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。
-有A,B,C 3个服务。 A服务提供的一个功能是需要 B和C 服务的信息。 该功能执行的时候出问题，单凭返回的信息，你是很难一眼看出问题点是在哪里。 (go 的错误提示过于简单...^^;;)  所以我自己写了处理error的一个package。
-https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go 实际运用例子 这是普通的处理方式
-package main import ( &quot;fmt&quot; &quot;strconv&quot; ) func main() { value, err := returnValue() if err != nil { //普通的处理 fmt.Println(err) } else { fmt.Println(value) } } func returnValue() (int, error) { value, err := strconv.Atoi(&quot;string&quot;) if err != nil { //普通的处理 return 0, err } return value, nil }  执行结果
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/err_return/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/my_go_test4/">Go项目:傻瓜式联合测试</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2019-02-12T08:38:02&#43;08:00">
-          Feb 12, 2019
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。
-感觉有些内容不应该在同一个服务里。
-于是我做了一个决定: 拆分服务。
-分了4个服务后发现每个服务都不到8个表。每个服务的业务复杂度都不高。 心理暗自高兴，都说微服务，微服务，原来这么好？ 这种好心情维持不到半天，后面出的问题让我晕头转向。 踩了N多个坑...ㅠㅠ  今天我想说说其中的测试代码。
-当我分了服务后写单元测试，其实没遇到过什么大问题。
-可以使用上一篇文章介绍的测试替身。
-Go项目的测试代码3（测试替身Test Double）
-问题是每个服务的功能是需要调用其他的服务。 `单元测试没问题，不能确保联合调用没问题`。 (初期把单元测试过的代码直接发布运营，把我害惨了...)  我做了所有人都能想到的傻瓜式的联合测试方法。
-简单，傻瓜式，但是很实用。 联合测试思路 就是把数据库(我是用mysql)和几个服务用docker容器启动，执行联合测试代码。
-这跟本地运行每个服务后，运行测试代码有什么区别吗？(嘿嘿~ 自己想想吧。我也不知道~) 实际运用例子 有点linux和docker基础的人，不看下面的例子也能应该能想到怎么做的吧？
-#deleted container and image, network docker rm -f a-service-api-container b-service-api-container... my-mysql 2&gt; /dev/null docker rmi -f a-service-api-image b-service-api-image ... 2&gt; /dev/null docker network rm my-network 2&gt; /dev/null echo '' echo '&lt;============== start =============&gt;' #create docker network docker network create my-network echo 'mysql starting .
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test4/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   

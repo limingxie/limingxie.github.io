@@ -80,6 +80,156 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">git命令 cherry-pick 的使用简介</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-30T07:28:49&#43;08:00">
+          Jul 30, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    上一篇文章介绍了merge和rebase的用法以及原理。
+git命令merge和rebase的简单应用
+这里简单的介绍一下 cherry-pick 的用法。
+什么时候会用到 cherry-pick 命令？
+代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。
+只合并某个分支上的某次修改commit到指定的分支上。
+这时候就可以使用cherry-pick命令来操作。
+$ git cherry-pick commit_id //想合并的commit_id  图片备用地址
+如果是图1这样使用cherry-pick命令的话，
+会有 a1, a2, a3 的合并项，在代码中需要删除 a1, a2 再次提交解决冲突才行。
+喜欢找茬的人会这么问：这么一来和merge有什么区别吗？
+merge的话也不是把 a1, a2, a3 的代码合并过来吗？
+merge合并后把 a1, a2 删掉的话跟cherry-pick有什么区别？
+区别在于日志。
+$ git cherry-pick fd4e09c(a3的 commit_id) error: could not apply fd4e09c... add a3 hint: after resolving the conflicts, mark the corrected paths hint: with 'git add &lt;paths&gt;' or 'git rm &lt;paths&gt;' hint: and commit the result with 'git commit' //.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/git_cherry_pick/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">git命令merge和rebase的简单应用</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-29T07:28:49&#43;08:00">
+          Jul 29, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    因为工作的需求，项目分了几个大分支管理了。
+不同的环境需要的功能也不一样，在不同的分支里修改。
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。 (我比较倾向，有一个主分支，发布在不同的环境是应该由不同的配置和适当的继承来实现。
+如果这么做实在太麻烦的话，应该另分出一个仓库repository管理。)
+以下是我简单整理的内容。
+◆ merge merge就是合并不同分支的代码。
+先举个简单的使用场景例子。
+从master分支分出一个dev分支开发。
+期间我们master分支有 m1,m2,m3 的提交记录。
+dev分支有 d1,d2 的提交记录。
+2个分支需要合并代码。
+$ git merge dev --在master分支把dev分支的代码合并过来。  把2支分支合并，有冲突，解决冲突后需要提交一次合并代码记录。
+(为了简单，下图是没有冲突时的场景。)
+图片备用地址
+◆ rebase rebase其实就是重置代码历史，手动的修改提交记录和代码。
+一般项目当中有两种用法。
+1. 合并记录
+这是一般开发者处理完Issue后，给主分支发出合并请求了。
+但是CodeReview的时候发现有不合适的代码，或是有个小Bug需要修改。
+修改后又出现一个提交记录，1个Issue有2个提交记录，看着不舒服。
+这时候用以下方式处理。
+$ git rebase -i HEAD~2 --2代表要修改最近2个记录  图片备用地址
+2. 调整顺序
+git merge语法是按照时间顺序合并代码的。
+图1所示merge是时间的顺序来合并代码的。
+master: m1 -&gt; m2 -&gt; m3 dev: d1 -&gt; d2 ==&gt; -- 合并的代码记录是按照时间的排序 master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3  当开发到 m2 的时候我们发布了一个版本，合并了d1,d2后发布出现问题了。
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/git_merge_rebase/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/limingxie/redis/">Redis简单应用</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-01T07:28:49&#43;08:00">
+          Jul 1, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    这些天因为项目性能上的问题，采用了Redis缓存。
+做了一些简单的笔记。
+◆ Redis
+Redis(REmote DIctionary Server)是一个key-value存储系统。
+它支持存储的value类型很多，包括string、list、set、hash等等&hellip;
+我最喜欢用 key-json字符。
+◆ 应用
+用的也简单，代码逻辑中读取相应的信息的时候先去Redis读取，
+没有数据，再去数据库(mysql)读取。保存到Redis后，返回结果集。
+因为Redis的数据是保存在内存里的(分保存的方式，暂且可以理解成保存在内存)，
+所以查询速度会很快。
+◆ 缺点
+也很容易看到他的缺点，
+1. 一致性问题。 为了高效查询性能，付出的代价是数据的一致性。
+2. 而且内存的资源是有限的，所以要控制数据量的大小。
+◆ 如何去解决的？
+如果没有太高的一致性需求的话，
+可以直接设置比较短的缓存时间来解决一致性的问题。
+比方说缓存时间设置为5分钟，5分钟后数据无效，那再次去数据库查询。
+要么做定时任务，每隔一段时间做数据同步。
+如果数据一致性需求很高，
+建议每次数据有变动代码里需要添加删除Redis数据的逻辑。
+(万一这数据的Mapping关系比较复杂的话，光是删掉这些有关系的数据也会让你哭死&hellip;)
+只要删掉了，下次查询会从新去数据库查询数据。
+
+我这只是简单应用，没什么深度，哈~ 下面简单的整理了一下语法 1. 安装Redis (我比较喜欢下docker镜像安装，如果不想这么做可以搜一下&hellip;^^)
+$ docker run --name test-redis -p 33201:6379 -d redis:latest   &mdash;name 后面的是docker容器名 -p 32xxx:6379 这里需要注意 32xxx 是你链接redis的时候的Port。 -d redis:latest 是你的镜像标签和版本  2. 在shell中访问redis
+$ redis-cli -h 127.0.0.1 -p 33201 //链接redis 127.
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/limingxie/redis/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/limingxie/blockchain_2/">区块链blockchain基础入门(二)</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -416,83 +566,6 @@ docker exec -it mingxie-mysql bash root@7c289aa0ca95:/# mysql -uroot -p -h local
       <li class="next"><a href="https://limingxie.github.io/limingxie/docker_mysql/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/hugo_create/">用hugo搭建个人博客</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-03-14T10:14:08&#43;08:00">
-          Mar 14, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    这几天研究了用hugo搭建个人博客。
-简单的整理了一下。
-1.安装hugo（windows 请查看官网介绍 https://gohugo.io/getting-started/installing/）
-$ brew install hugo  之后检查版本
-$ hugo version Hugo Static Site Generator v0.37.1 darwin/amd64 BuildDate:  2.创建hugo 项目
-$ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users/limingxie/Projects/my-blog. Just a few more steps and you're ready to go: 1. Download a theme into the same-named folder. Choose a theme from https://themes.gohugo.io/, or create your own with the &quot;hugo new theme &lt;THEMENAME&gt;&quot; command.
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/hugo_create/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/java/encapsulation/"></a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="0001-01-01T00:00:00Z">
-          Jan 1, 0001
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    
-  </div>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/java/inheritance/"></a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="0001-01-01T00:00:00Z">
-          Jan 1, 0001
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    
-  </div>
   
 </article>
 
