@@ -1,5 +1,5 @@
 ---
-title: "Java Platform SE 8 的简单介绍"
+title: "JDK, JRE, JVM简介"
 date: 2020-10-26T08:28:49+08:00
 draft: true
 ---
@@ -20,22 +20,30 @@ Java SE开发工具包(JDK)8 和 Java SE运行时环境(JRE)8。
 ![description_of_java_conceptual_diagram](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/description_of_java_conceptual_diagram.png)  
 <div align='center' >图片来源: [https://docs.oracle.com/javase/8/docs/index.html](https://docs.oracle.com/javase/8/docs/index.html)</div>
 
-#### **一. JDK（Java Development Kit，Java开发工具包）**  
+----------------------------------------------
+
+#### **1. JDK（Java Development Kit，Java开发工具包）**  
 JDK包含了java所有的内容，包含了JRE和JVM。  
 比JRE包含了更多的是开发需要的的工具，比如javac，javadoc等等...
 
-#### **二. JRE（Java Runtime Environment， Java运行环境）** 
-是Java平台，所有的程序都要在JRE下才能够运行。  
-包括JVM和Java核心类库和支持文件。 
+----------------------------------------------
+
+#### **2. JRE（Java Runtime Environment， Java运行环境）** 
+是Java平台，所有的程序需要要在JRE(运行环境)下才能够运行。    
+包括JVM和Java核心类库和支持文件。  
 因为是运行环境，所以比起JDK少了那些开发工具。  
 
-#### **三. JVM（Java Virtual Machine， Java虚拟机）** 
+----------------------------------------------
+
+#### **3. JVM（Java Virtual Machine， Java虚拟机）** 
 无论JDK和JRE都包含着JVM。  
 因为java编译后的字节码是通过JVM和运行环境的操作系统做互动的。  
-Java可以跨平台也是因为Java程序和操作系统中间夹着这个JVM。
+Java可以跨平台也是因为Java程序和操作系统中间夹着这个JVM。  
 不同的操作系统会有不同的JVM映射规则，完成跨平台性。
 
-#### **四. JDK, JRE, JVM的相互关系** 
+----
+
+#### **4. JDK, JRE, JVM的相互关系** 
 我们开发系统的时候需要安装JDK, 因为JDK包含着开发需要的开发工具。  
 开发完成之后的运行环境(正式服务器)就不需要JDK了，只有安装JRE即可。  
 开发完成的代码编译成字节码以后，通过JVM和真实操作系统互动。  

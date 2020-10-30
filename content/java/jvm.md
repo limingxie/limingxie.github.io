@@ -1,6 +1,6 @@
 ---
 title: "JVM的内存结构"
-date: 2020-09-28T08:28:49+08:00
+date: 2020-10-28T08:28:49+08:00
 draft: true
 ---
 
@@ -11,7 +11,8 @@ draft: true
 ![description_of_java_conceptual_diagram](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/description_of_java_conceptual_diagram.png)  
 <div align='center' >图片来源: [https://docs.oracle.com/javase/8/docs/index.html](https://docs.oracle.com/javase/8/docs/index.html)</div>
 
-二、JRE、JDK和JVM的关系JRE（Java Runtime Environment， Java运行环境）是Java平台，所有的程序都要在JRE下才能够运行。包括JVM和Java核心类库和支持文件。JDK（Java Development Kit，Java开发工具包）是用来编译、调试Java程序的开发工具包。包括Java工具（javac/java/jdb等）和Java基础的类库（java API ）。JVM（Java Virtual Machine， Java虚拟机）是JRE的一部分。JVM主要工作是解释自己的指令集（即字节码）并映射到本地的CPU指令集和OS的系统调用。Java语言是跨平台运行的，不同的操作系统会有不同的JVM映射规则，使之与操作系统无关，完成跨平台性。
+[图片备用地址](https://limingxie.github.io/images/java/compile/java_compile_execut.png)  
+![java编译以及执行的简介](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/compile/java_compile_execut.png)
 
 JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。
 引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。
