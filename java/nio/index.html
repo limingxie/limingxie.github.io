@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" 简单整理java的编译流程？ &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/java/nio/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2020-09-28T08:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     简单整理java的编译流程？ &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">简单整理java的编译流程？</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-09-28T08:28:49&#43;08:00">
+          Sep 28, 2020
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>如图所示, 先是由 javac 命令把 .java 文件编译成 .class文件。<br />
+.class是可以加载到JVM中运行。当类文件在JVM加载过程中通常会被处理和修改。
+转换后的 .class 文件通过解释器解析成可执行代码。
+最后由JIT编译器编译成机器码。</p>
+
+<p><a href="https://limingxie.github.io/images/java/compile/compile.png">图片备用地址</a><br />
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/compile/compile.png" alt="stack" /></p>
+
+<h4 id="先大致的了解一下-等有时间在详细整理"><strong>先大致的了解一下，等有时间在详细整理。</strong></h4>
+
+<p>同步、异步、阻塞、非阻塞都是和IO（输入输出）有关的概念。最简单的文件读取就是IO操作。而在文件读取这件事儿上，可以有多种方式。</p>
+
+<p>IO在计算机中指Input/Output，也就是输入和输出。由于程序和运行时数据是在内存中驻留，由CPU这个超快的计算核心来执行，涉及到数据交换的地方，通常是磁盘、网络等，就需要IO接口。
+在计算机科学中指计算机之间或人与计算机之间的信息交换。比如两台计算机通过网卡进行交互，比如向硬盘写入数据或读取硬盘数据，比如人敲击鼠标键盘等，都是I/O。具体的参见上面的详细说明。
+狭义上是读写硬盘的操作。广义上只要不需要cpu参与的都是io操作。</p>
+
+<p>I/O（英语：Input/Output），即输入／输出，通常指数据在存储器（内部和外部）或其他周边设备之间的输入和输出，是信息处理系统（例如计算机）与外部世界（可能是人类或另一信息处理系统）之间的通信。输入是系统接收的信号或数据，输出则是从其发送的信号或数据。该术语也可以用作行动的一部分；到“运行I/O”是运行输入或输出的操作。</p>
+
+<p>由于CPU和内存的速度远远高于外设的速度，所以，在IO编程中，就存在速度严重不匹配的问题。举个例子来说，比如要把100M的数据写入磁盘，CPU输出100M的数据只需要0.01秒，可是磁盘要接收这100M数据可能需要10秒，怎么办呢？有两种办法：</p>
+
+<p>第一种是CPU等着，也就是程序暂停执行后续代码，等100M的数据在10秒后写入磁盘，再接着往下执行，这种模式称为同步IO；</p>
+
+<p>另一种方法是CPU不等待，只是告诉磁盘，“您老慢慢写，不着急，我接着干别的事去了”，于是，后续代码可以立刻接着执行，这种模式称为异步IO。</p>
+
+<p>Java中的三种IO模型
+在Java语言中，一共提供了三种IO模型，分别是阻塞IO（BIO）、非阻塞IO（NIO）、异步IO（AIO）。这里面的BIO和NIO都是同步的IO模型，即同步阻塞IO和同步非阻塞IO，异步IO指的是异步非阻塞IO。BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。NIO （New I/O）：同时支持阻塞与非阻塞模式，但主要是使用同步非阻塞IO。AIO （Asynchronous I/O）：异步非阻塞I/O模型。</p>
+
+<p>同步请求，A调用B，B的处理是同步的，在处理完之前他不会通知A，只有处理完之后才会明确的通知A。</p>
+
+<p>异步请求，A调用B，B的处理是异步的，B在接到请求后先告诉A我已经接到请求了，然后异步去处理，处理完之后通过回调等方式再通知A。</p>
+
+<p>那么阻塞（blocking IO）和非阻塞（non-blocking IO）的区别就在于第一个阶段，如果数据没有就绪，在查看数据是否就绪的过程中是一直等待，还是直接返回一个标志信息。</p>
+
+<p>阻塞请求，A调用B，A一直等着B的返回，别的事情什么也不干。</p>
+
+<p>非阻塞请求，A调用B，A不用一直等着B的返回，先去忙别的事情了。</p>
+
+<p>阻塞就是：当某个事件或者任务在执行过程中，它发出一个请求操作，但是由于该请求操作需要的条件不满足，那么就会一直在那等待，直至条件满足；</p>
+
+<p>非阻塞就是：当某个事件或者任务在执行过程中，它发出一个请求操作，如果该请求操作需要的条件不满足，会立即返回一个标志信息告知条件不满足，不会一直在那等待。</p>
+
+<p>这就是阻塞和非阻塞的区别。也就是说阻塞和非阻塞的区别关键在于 当发出请求一个操作时，如果条件不满足，是会一直等待还是返回一个标志信息。</p>
+
+<p>阻塞和非阻塞指的是执行一个操作是等操作结束再返回，还是马上返回。</p>
+
+<p>比如餐馆的服务员为用户点菜，当有用户点完菜后，服务员将菜单给后台厨师，此时有两种方式：</p>
+
+<p>· 第一种：就在出菜窗口等待，直到厨师炒完菜后将菜送到窗口，然后服务员再将菜送到用户手中；</p>
+
+<p>· 第二种：等一会再到窗口来问厨师，某个菜好了没？如果没有先处理其他事情，等会再去问一次；</p>
+
+<p>第一种就是阻塞方式，第二种则是非阻塞的。</p>
+
+<p>同步和异步又是另外一个概念，它是事件本身的一个属性。还拿前面点菜为例，服务员直接跟厨师打交道，菜出来没出来，服务员直接指导，但只有当厨师将菜送到服务员手上，这个过程才算正常完成，这就是同步的事件。同样是点菜，有些餐馆有专门的传菜人员，当厨师炒好菜后，传菜员将菜送到传菜窗口，并通知服务员，这就变成异步的了。其实异步还可以分为两种：带通知的和不带通知的。前面说的那种属于带通知的。有些传菜员干活可能主动性不是很够，不会主动通知你，你就需要时不时的去关注一下状态。这种就是不带通知的异步。</p>
+
+<p>对于同步的事件，你只能以阻塞的方式去做。而对于异步的事件，阻塞和非阻塞都是可以的。非阻塞又有两种方式：主动查询和被动接收消息。被动不意味着一定不好，在这里它恰恰是效率更高的，因为在主动查询里绝大部分的查询是在做无用功。对于带通知的异步事件，两者皆可。而对于不带通知的，则只能用主动查询。</p>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/java/reflect/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="https://limingxie.github.io/basic/stack/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" JDK, JRE, JVM简介 &middot;  li_mingxie - Blog" />
+  
+  <meta name="theme-color" content="#hexcolor" />
+ 
+  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:url" content="https://limingxie.github.io/java/java_plateform_se_8/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2020-10-26T08:28:49&#43;08:00" />
+  
+  
+
+  <title>
+     JDK, JRE, JVM简介 &middot;  li_mingxie - Blog
+  </title>
+
+  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
+ 
+  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+      
+      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">JDK, JRE, JVM简介</h1>
+    <div class="post-meta clearfix">
+    
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-10-26T08:28:49&#43;08:00">
+          Oct 26, 2020
+        </time>
+      </div>
+    
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>刚接触到java后，我经常听到的JDK，JRE，JVM这些缩写词。<br />
+对我这个java菜鸟来说有时候会没来得及反应过来..^^;;<br />
+借助这次机会好好地整理和明确一下这些概念。</p>
+
+<h2 id="description-of-java-conceptual-diagram"><strong>Description of Java Conceptual Diagram</strong></h2>
+
+<p>Oracle提供两个Java平台标准版(Java SE)8的产品:<br />
+Java SE开发工具包(JDK)8 和 Java SE运行时环境(JRE)8。<br />
+他两的区别是什么？</p>
+
+<p>先看一下官方提供的结构图，看这个图大部分的结构会看的很清楚的。<br />
+(下面的解释是不是多余的了? ^^!!)</p>
+
+<p><a href="https://limingxie.github.io/images/java/jvm/description_of_java_conceptual_diagram.png">图片备用地址</a><br />
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/description_of_java_conceptual_diagram.png" alt="description_of_java_conceptual_diagram" /><br />
+<div align='center' >图片来源: <a href="https://docs.oracle.com/javase/8/docs/index.html">https://docs.oracle.com/javase/8/docs/index.html</a></div></p>
+
+<hr />
+
+<h4 id="1-jdk-java-development-kit-java开发工具包"><strong>1. JDK（Java Development Kit，Java开发工具包）</strong></h4>
+
+<p>JDK包含了java所有的内容，包含了JRE和JVM。<br />
+比JRE包含了更多的是开发需要的的工具，比如javac，javadoc等等&hellip;</p>
+
+<hr />
+
+<h4 id="2-jre-java-runtime-environment-java运行环境"><strong>2. JRE（Java Runtime Environment， Java运行环境）</strong></h4>
+
+<p>是Java平台，所有的程序需要要在JRE(运行环境)下才能够运行。<br />
+包括JVM和Java核心类库和支持文件。<br />
+因为是运行环境，所以比起JDK少了那些开发工具。</p>
+
+<hr />
+
+<h4 id="3-jvm-java-virtual-machine-java虚拟机"><strong>3. JVM（Java Virtual Machine， Java虚拟机）</strong></h4>
+
+<p>无论JDK和JRE都包含着JVM。<br />
+因为java编译后的字节码是通过JVM和运行环境的操作系统做互动的。<br />
+Java可以跨平台也是因为Java程序和操作系统中间夹着这个JVM。<br />
+不同的操作系统会有不同的JVM映射规则，完成跨平台性。</p>
+
+<hr />
+
+<h4 id="4-jdk-jre-jvm的相互关系"><strong>4. JDK, JRE, JVM的相互关系</strong></h4>
+
+<p>我们开发系统的时候需要安装JDK, 因为JDK包含着开发需要的开发工具。<br />
+开发完成之后的运行环境(正式服务器)就不需要JDK了，只有安装JRE即可。<br />
+开发完成的代码编译成字节码以后，通过JVM和真实操作系统互动。</p>
+
+<hr />
+
+<p>欢迎大家的意见和交流</p>
+
+<p><code>email: li_mingxie@163.com</code></p>
+
+  </section>
+  <footer>
+    
+    
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+      <div class="author-contact col-md-4">
+        <a href="mailto:li_mingxie@163.com">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          &nbsp;Contact me
+        </a>
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="https://limingxie.github.io/java/java_stack_heap/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="https://limingxie.github.io/java/jvm/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      limingxie - blog
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="mailto:li_mingxie@163.com">
+    <i class="fa fa-envelope"></i>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

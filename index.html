@@ -80,6 +80,140 @@
   
   <article>
   <header>
+    <h2><a href="https://limingxie.github.io/java/compile_c/">C语言的的编译和执行过程</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-10-30T08:28:49&#43;08:00">
+          Oct 30, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    没有系统的学过C语言，为了了解java编译流程。
+先简单粗暴的略过了一下C语言的编译过程。
+(为了防止过段时间忘掉，写个笔记做记录。)
+C语言在Linux系统下编译是有4个过程  预处理Pre-processing 编译Compilation 汇编Assemble 链接Linking  如下图所示每个过程会生成不同的文件。
+这些文件会被RAM读取loading后，在系统中运行。
+图片备用地址
+1.预处理Pre-processing 简单的说预处理就是处理#开头的命令。
+ 删除注释: 去掉没必要的注释。 宏定义指令: 如#difine, #undef。(替换这些值) 头文件包含指令: 如#include。(直接插入include的代码) 条件编译指令: 如#ifdef，#ifndef，#else，#elif，#endif等。 特殊符号: 如在源程序中出现的#line标识将被解释为当前行号。  下面简单的写代码看一下过程。
+#include &lt;stdio.h&gt; #define A 10 #define B 20 int main(){ int a=A; int b=B; int c=a+b; printf(&quot;%d + %d = %d\n&quot;,a,b,c); }  创建first.i文件
+$ gcc -E first.c -o first.i  查看一下first.i内容
+$ cat first.i # 1 &quot;first.c&quot; # 1 &quot;&lt;built-in&gt;&quot; 1 .
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/java/compile_c/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/jvm/">JVM的内存结构</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-10-28T08:28:49&#43;08:00">
+          Oct 28, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    图片备用地址
+图片备用地址
+图片来源: https://docs.oracle.com/javase/8/docs/index.html
+图片备用地址
+JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。 引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。
+Java虚拟机有自己完善的硬件架构，如处理器、堆栈等，还具有相应的指令系统。 Java虚拟机本质上就是一个程序，当它在命令行上启动的时候，就开始执行保存在某字节码文件中的指令。Java语言的可移植性正是建立在Java虚拟机的基础上。任何平台只要装有针对于该平台的Java虚拟机，字节码文件（.class）就可以在该平台上运行。这就是“一次编译，多次运行”。 Java虚拟机不仅是一种跨平台的软件，而且是一种新的网络计算平台。该平台包括许多相关的技术，如符合开放接口标准的各种API、优化技术等。Java技术使同一种应用可以运行在不同的平台上。Java平台可分为两部分，即Java虚拟机（Java virtual machine，JVM）和Java API类库。
+Java堆（Heap） 对于大多数应用来说，Java堆（Java Heap）是Java虚拟机所管理的内存中最大的一块。Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。
+Java堆是垃圾收集器管理的主要区域，因此很多时候也被称做“GC堆”。如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，所以Java堆中还可以细分为：新生代和老年代；再细致一点的有Eden空间、From Survivor空间、To Survivor空间等。
+根据Java虚拟机规范的规定，Java堆可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样。在实现时，既可以实现成固定大小的，也可以是可扩展的，不过当前主流的虚拟机都是按照可扩展来实现的（通过-Xmx和-Xms控制）。
+如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将会抛出OutOfMemoryError异常。
+方法区（Method Area） 方法区（Method Area）与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。虽然Java虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做Non-Heap（非堆），目的应该是与Java堆区分开来。
+对于习惯在HotSpot虚拟机上开发和部署程序的开发者来说，很多人愿意把方法区称为“永久代”（Permanent Generation），本质上两者并不等价，仅仅是因为HotSpot虚拟机的设计团队选择把GC分代收集扩展至方法区，或者说使用永久代来实现方法区而已。
+Java虚拟机规范对这个区域的限制非常宽松，除了和Java堆一样不需要连续的内存和可以选择固定大小或者可扩展外，还可以选择不实现垃圾收集。相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入了方法区就如永久代的名字一样“永久”存在了。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载，一般来说这个区域的回收“成绩”比较难以令人满意，尤其是类型的卸载，条件相当苛刻，但是这部分区域的回收确实是有必要的。
+根据Java虚拟机规范的规定，当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。
+方法区有时被称为持久代（PermGen）。
+所有的对象在实例化后的整个运行周期内，都被存放在堆内存中。堆内存又被划分成不同的部分：伊甸区(Eden)，幸存者区域(Survivor Sapce)，老年代（Old Generation Space）。
+方法的执行都是伴随着线程的。原始类型的本地变量以及引用都存放在线程栈中。而引用关联的对象比如String，都存在在堆中。为了更好的理解上面这段话，我们可以看一个例子：
+这段程序的数据在内存中的存放如下：
+通过JConsole工具可以查看运行中的Java程序（比如Eclipse）的一些信息：堆内存的分配，线程的数量以及加载的类的个数；
+程序计数器（Program Counter Register） 程序计数器（Program Counter Register）是一块较小的内存空间，它的作用可以看做是当前线程所执行的字节码的行号指示器。在虚拟机的概念模型里（仅是概念模型，各种虚拟机可能会通过一些更高效的方式去实现），字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。
+由于Java虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）只会执行一条线程中的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间的计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。
+如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是Natvie方法，这个计数器值则为空（Undefined）。
+此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。
+JVM栈（JVM Stacks） 与程序计数器一样，Java虚拟机栈（Java Virtual Machine Stacks）也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame）用于存储局部变量表、操作栈、动态链接、方法出口等信息。每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。
+局部变量表存放了编译期可知的各种基本数据类型（boolean、byte、char、short、int、float、long、double）、对象引用（reference类型，它不等同于对象本身，根据不同的虚拟机实现，它可能是一个指向对象起始地址的引用指针，也可能指向一个代表对象的句柄或者其他与此对象相关的位置）和returnAddress类型（指向了一条字节码指令的地址）。
+其中64位长度的long和double类型的数据会占用2个局部变量空间（Slot），其余的数据类型只占用1个。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。
+在Java虚拟机规范中，对这个区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError异常；如果虚拟机栈可以动态扩展（当前大部分的Java虚拟机都可动态扩展，只不过Java虚拟机规范中也允许固定长度的虚拟机栈），当扩展时无法申请到足够的内存时会抛出OutOfMemoryError异常。
+本地方法栈（Native Method Stacks） 本地方法栈（Native Method Stacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是虚拟机栈为虚拟机执行Java方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native方法服务。虚拟机规范中对本地方法栈中的方法使用的语言、使用方式与数据结构并没有强制规定，因此具体的虚拟机可以自由实现它。甚至有的虚拟机（譬如Sun HotSpot虚拟机）直接就把本地方法栈和虚拟机栈合二为一。与虚拟机栈一样，本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。
+欢迎大家的意见和交流
+email: li_mingxie@163.com
+  </div>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/java/java_plateform_se_8/">JDK, JRE, JVM简介</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2020-10-26T08:28:49&#43;08:00">
+          Oct 26, 2020
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    刚接触到java后，我经常听到的JDK，JRE，JVM这些缩写词。
+对我这个java菜鸟来说有时候会没来得及反应过来..^^;;
+借助这次机会好好地整理和明确一下这些概念。
+Description of Java Conceptual Diagram Oracle提供两个Java平台标准版(Java SE)8的产品:
+Java SE开发工具包(JDK)8 和 Java SE运行时环境(JRE)8。
+他两的区别是什么？
+先看一下官方提供的结构图，看这个图大部分的结构会看的很清楚的。
+(下面的解释是不是多余的了? ^^!!)
+图片备用地址
+图片来源: https://docs.oracle.com/javase/8/docs/index.html
+1. JDK（Java Development Kit，Java开发工具包） JDK包含了java所有的内容，包含了JRE和JVM。
+比JRE包含了更多的是开发需要的的工具，比如javac，javadoc等等&hellip;
+2. JRE（Java Runtime Environment， Java运行环境） 是Java平台，所有的程序需要要在JRE(运行环境)下才能够运行。
+包括JVM和Java核心类库和支持文件。
+因为是运行环境，所以比起JDK少了那些开发工具。
+3. JVM（Java Virtual Machine， Java虚拟机） 无论JDK和JRE都包含着JVM。
+因为java编译后的字节码是通过JVM和运行环境的操作系统做互动的。
+Java可以跨平台也是因为Java程序和操作系统中间夹着这个JVM。
+不同的操作系统会有不同的JVM映射规则，完成跨平台性。
+4. JDK, JRE, JVM的相互关系 我们开发系统的时候需要安装JDK, 因为JDK包含着开发需要的开发工具。
+开发完成之后的运行环境(正式服务器)就不需要JDK了，只有安装JRE即可。
+开发完成的代码编译成字节码以后，通过JVM和真实操作系统互动。
+欢迎大家的意见和交流
+email: li_mingxie@163.com
+  </div>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
     <h2><a href="https://limingxie.github.io/java/java_stack_heap/">java中的栈内存, 堆内存</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -107,7 +241,9 @@ Java在栈中为变量分配内存空间，当超过变量的作用在域后， 
 堆内存的分配过程 当接收到程序的内存申请时: 1. 先游遍操作系统中的记录空闲内存地址的链表，寻找第一个复合大小的节点。 2. 分配给程序该节点的空间，内存空间中的首地址会记录本次分配的大小，为删除的时能正确的获取长度。 3. 把该节点从操作系统的空闲节点中删除。  找到的堆节点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。 由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。
 堆内存的大小受限于计算机系统中有效的虚拟内存。所以堆内存获得的空间比较灵活，也比较大。
 但是也是因为这些原因容易产生内存碎片，存取速度也比较慢。
-三、内存回收 `栈内存`变量基本上用完就回收了。 `堆内存`中: 数组和对象等引用类型在没有变量指向它的时候才被视为垃圾。 在随后的一个`不确定的时间`被垃圾回收器释放掉。 因为这些原因回收内存之前会一直占用资源, 也不知道这些资源什么会回收释放。  四、其他数据存储 1、常量池：存放基本类型常量和字符串常量 2、静态域(static)：存放静态成员(static定义的)编译的时候直接分配空间。要求程序代码中不允许有可变数据结构(比如可变数组)的存在. 3、非RAM存储：硬盘等永久存储空间
+三、内存回收 `栈内存`变量基本上用完就回收了。 `堆内存`中: 数组和对象等引用类型在没有变量指向它的时候才被视为垃圾。 在随后的一个`不确定的时间`被垃圾回收器释放掉。 因为这些原因回收内存之前会一直占用资源, 也不知道这些资源什么会回收释放。  四、其他数据存储 1、常量池：存放基本类型常量和字符串常量
+2、静态域(static)：存放静态成员(static定义的)编译的时候直接分配空间。要求程序代码中不允许有可变数据结构(比如可变数组)的存在。
+3、非RAM存储：硬盘等永久存储空间
 五、编译时分配的空间 最后我们再次已编译的角度去理解静态, 栈, 堆的存储方式。
 1. 静态存储分配:
 编译的时候直接分配空间, 所以会要求程序代码中不允许有可变数据结构(比如可变数组)的存在。
@@ -174,7 +310,7 @@ Java在栈中为变量分配内存空间，当超过变量的作用在域后， 
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/java/compile/">简单整理java的编译流程？</a></h2>
+    <h2><a href="https://limingxie.github.io/java/nio/">简单整理java的编译流程？</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -368,141 +504,6 @@ import java.io.Serializable; public class Person implements Serializable{ // 如
   <footer>
     <ul class="pager">
       <li class="next"><a href="https://limingxie.github.io/java/serialization/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/k8s/k8s/">【k8s】kubernetes基本的概念</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2020-07-01T07:28:49&#43;08:00">
-          Jul 1, 2020
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。
-我平时也用不上这些技术，不需要知道的这么深这么细，
-花这么多少时间去了解，过几天没怎么用还会忘记的&hellip;ㅠㅠ
-其实我想知道的是其大致的结构。
-下面我是以笔记的形式见得整理了其结构。希望对刚刚接触的人的了解有所帮助。
-1.基本概念 ◆ Kubernetes 是什么？
-引用官方的解释：
- Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。
-Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。
- 以我的理解：
-Kubernetes(简称k8s)是一个可以操作容器和自动化部署的开源平台。
-还不理解？ 没关系~
-简单的说手动管理docker container太累，用Kubernetes管理吧~
-一个服务器可以有多个docker container，多个服务器形成一个集群。
-下面简单的介绍一下Kubernetes集群的结构。
-2.Kubernetes集群结构 备用图片
-图片来源于:https://kubernetes.io/docs/concepts/overview/components/
-备用图片 图片来源于:http://omerio.com/2015/12/18/learn-the-kubernetes-key-concepts-in-10-minutes/
-其他结构图： 备用图片1 备用图片2
-简单的说：
-每个Kubernetes集群都有他自己的master节点。
-这里包含着kube-apiserver，kube-controller-manager，kube-scheduler，etcd。
-看图和名字可以大致的猜到:
-`kube-apiserver`是通讯枢纽。 `kube-controller-manager`是控制器。 `kube-scheduler`是调度器。 `etcd`是键值数据库。  普通的节点包含着kubelet, kube-proxy。
-`kubelet`跟master节点通讯。 `kube-proxy`是网络代理。  下面具体的介绍一下比较重要的组件。
-3.Kubernetes组件 ◆ Kubernetes Master
-每个k8s集群里至少需要一个Master节点来负责整个集群的管理和控制，
-所有控制命令都是发给它，它来负责具体的调度和执行。
-master节点包含三个进程和一个键值数据库etcd。
-三个进程都运行在集群中的某个节点上，主控组件通常这个节点被称为 master 节点。
-这些进程包括：kube-apiserver、kube-controller-manager 和 kube-scheduler。
-kube-apiserver:
-集群内各个功能模块之间数据交互和通信的中心枢纽。 所有从集群到master的通信路径都终止于apiserver。  kube-controller-manager:
-通过apiserver监控集群的公共状态，并致力于将当前状态转变为期望的状态。  kube-scheduler:
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/k8s/k8s/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/algorithm/recursive/">递归(recursive)</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2019-08-03T07:28:49&#43;08:00">
-          Aug 3, 2019
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    最近在研究算法&hellip;^^ 算法中最基本的是排序。
-排序当中最常见的是快速排序(Quick Sort)。
-理解快速排序的代码，那就离不开递归了。
-递归以前听过，但是真正去了解和研究是最近为了对算法的了解。
- 递归感觉很绕？
- 但是理解其原理的话还是可以接受的，甚至有时候会喜欢这种方式。
- 递归不像传说中的那么麻烦。弄清楚
-基线条件（base case）和 递归条件（recursive case）
- 绝大多数的递归都是这种结构
-function(parameter){ if 基线条件（base case）{ //离开递归的条件，这条件如果不明确，或是满足不了。很容易进入死循环。 return } XXXX...XXXX //处理业务逻辑 if 递归条件（recursive case）{ //进入递归的条件 function(parameter) } }  来看看一个简单的例子吧。详细内容可以看这里
-https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528
-卡拉兹(Callatz)猜想： 对任何一个正整数 n，如果它是偶数，那么把它砍掉一半； 如果它是奇数，那么把 (3n+1) 砍掉一半。这样一直反复砍下去，最后一定在某一步得到 n=1。 我们假设 n &lt; 1000 输入样例： 3 输出样例： 5  一般情况下我们是直接用while或for循环处理。
-#include &lt;stdio.h&gt; int main() { int step = 0; //记录步数 int n = 0; scanf(&quot;%d&quot;, &amp;n); while (n !
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/algorithm/recursive/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/algorithm/sort/">算法(排序)</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2019-07-09T07:28:49&#43;08:00">
-          Jul 9, 2019
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    感觉现在越来越重视算法了。
-因为我不是计算机专业的，所以对这些算法没怎么注意过。
-这么高领的程序员居然才接触到这些算法，真是惭愧啊&hellip;^^;;
-以下代码都是用golang写的，算是给自己看的笔记~
-(1) 冒泡排序(Bubble Sort) (2) 选择排序(Selection Sort) (3) 插入排序(Insertion Sort) (4) 希尔排序(Shell Sort) (5) 归并排序(Merge Sort) (6) 快速排序(Quick Sort) (7) 基数排序(Radix Sort) (8) 堆排序(Heap Sort)   ◆ 冒泡排序(Bubble Sort)
-图片备用地址
-//泡沫排序 func BubbleSort() { data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1} for i := 0; i &lt; len(data); i++ { for j := 0; j &lt; len(data)-i; j++ { if data[j] &gt; data[j+1] { v := data[j] data[j] = data[j+1] data[j+1] = v } } } fmt.
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/algorithm/sort/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
