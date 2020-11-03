@@ -39,7 +39,7 @@ draft: true
 <Br />
 
 #### **实际运用例子**
-有点linux和docker基础的人，不看下面的例子也能应该能想到怎么做的吧？
+有点linux和docker基础的人，看下面的脚本应该能想到怎么做的吧？
 
 ```
 #deleted container and image, network
