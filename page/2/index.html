@@ -311,7 +311,7 @@ package main import ( &quot;fmt&quot; &quot;strconv&quot; ) func main() { value,
 Go项目的测试代码3（测试替身Test Double）
 问题是每个服务的功能是需要调用其他的服务。 `单元测试没问题，不能确保联合调用没问题`。 (初期把单元测试过的代码直接发布运营，把我害惨了...)  我做了所有人都能想到的傻瓜式的联合测试方法。
 简单，傻瓜式，但是很实用。 联合测试思路 就是把数据库(我是用mysql)和几个服务用docker容器启动，执行联合测试代码。
-这跟本地运行每个服务后，运行测试代码有什么区别吗？(嘿嘿~ 自己想想吧。我也不知道~) 实际运用例子 有点linux和docker基础的人，不看下面的例子也能应该能想到怎么做的吧？
+这跟本地运行每个服务后，运行测试代码有什么区别吗？(嘿嘿~ 自己想想吧。我也不知道~) 实际运用例子 有点linux和docker基础的人，看下面的脚本应该能想到怎么做的吧？
 #deleted container and image, network docker rm -f a-service-api-container b-service-api-container... my-mysql 2&gt; /dev/null docker rmi -f a-service-api-image b-service-api-image ... 2&gt; /dev/null docker network rm my-network 2&gt; /dev/null echo '' echo '&lt;============== start =============&gt;' #create docker network docker network create my-network echo 'mysql starting .
   </div>
   
