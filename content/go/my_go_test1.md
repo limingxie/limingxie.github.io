@@ -73,7 +73,7 @@ controller是提供接口api的直接入口，所以那些重要的api都需要�
 每个package里有 init_test.go文件  
 这里写 init()方法 执行 go test的时候的`初始化方法`。
 
-```
+```go
 package controllers
 
 var (
@@ -120,7 +120,7 @@ func init() {
 
 刚开始的时候我觉得可以直接写。  
 如下:
-```
+```go 
 var (
 	tenants = []Tenant{
 		{Id: 1, Code: "eland", Name: "上海衣恋", Enable: true},
@@ -149,7 +149,7 @@ func Seed(xormEngine *xorm.Engine) {
 这时候可以先把数据添加到`mysql数据库`(使用流行的工具应该还不错吧？)。  
 `sqlite`的可视化工具太难用果断放弃。
 
-```
+```go
 func Seed(xormEngine *xorm.Engine, executeMode configutil.ExecuteMode) {
 	//建立原始数据的连接
 	driverName := os.Getenv("TEST_SERVICE_DRIVER")
@@ -201,7 +201,7 @@ func Tenant_SetTestData(testXormEngine *xorm.Engine, xormEngine *xorm.Engine) {
 ## 接口api测试代码
 繁琐的准备工作已经做完，终于可以写测试代码了...^^
 
-```
+```go
 func Test_ColleagueApiController_GetColleagues(t *testing.T) {
 	//需要测试的api
 	req := httptest.NewRequest(echo.GET, "/api/v1/colleagues/:id", nil)
@@ -247,7 +247,7 @@ func Test_ColleagueApiController_GetColleagues(t *testing.T) {
 ### init() 函数
 和controllers 的init()方法没什么区别
 
-```
+```go
 var (
 	appEnv     = flag.String("app-env", os.Getenv("APP_ENV"), "app env")
 	xormEngine *xorm.Engine
@@ -273,14 +273,14 @@ func init() {
 ```
 多写了一个`GetContext()方法`
 如果需要数据连接先调用。
-```
+```go
 func GetContextForTest() context.Context {
 	return context.WithValue(context.Background(), echomiddleware.ContextDBName, xormEngine.NewSession())
 }
 ```
 ### 测试代码
 models的测试代码如下：
-```
+```go
 func Test_GetTenantAppInfosFromAppContainers(t *testing.T) {
 	// 因为这个方法不需要连数据库所以也不需要这些操作
 	// ctx := GetContextForTest()

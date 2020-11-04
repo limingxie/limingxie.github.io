@@ -76,7 +76,7 @@ Mock 是由 Mock 链接库动态建立 (其他通常是由测试开发人员使�
 没必要在别人的接口里耗精力, 甚至去考虑怎么和其他模块做联动。  
 
 例子：
-```
+```go
 var key string
 if config.AppEnv == "test" || config.AppEnv == "dev" { //测试或是开发环境的时候直接赋值
 	key = "23836728366"
@@ -95,7 +95,7 @@ if config.AppEnv == "test" || config.AppEnv == "dev" { //测试或是开发环�
 可以写根据参数或设定返回不同值的方法。满足不同场景下有不同返回值的需求。
 
 例子：
-```
+```go
 var key string
 if config.AppEnv == "test" || config.AppEnv == "dev" { 
 	key = GetKeyForLoginForTest(ctx, code) //测试或是开发环境的时候直接赋值
@@ -106,7 +106,8 @@ if config.AppEnv == "test" || config.AppEnv == "dev" {
 	}
 }
 ```
-```
+
+```go
 func GetKeyForLoginForTest(ctx context.Context, code string) string {
 	var key string
 	switch code {
@@ -131,7 +132,7 @@ func GetKeyForLoginForTest(ctx context.Context, code string) string {
 根据自己的实际情况来决定要不要这么做。
 
 例子：
-```
+```go
 type LoginTest interface {
 	GetKeyForLoginForTest(ctx context.Context, code string) string
 }
@@ -166,7 +167,7 @@ func BuildManagedObject(ctx context.Context, condition string) string {
 }
 ```
 
-```
+```go
 var key string
 if config.AppEnv == "test" || config.AppEnv == "dev" { 
 	var loginTest LoginTest

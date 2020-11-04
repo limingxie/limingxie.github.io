@@ -26,7 +26,7 @@ demo大致构建了如下的场景。
 <!-- ![1](http://localhost:1313/images/go_socket/go_socket1.png)   -->
 
 #### **Dial(用户)**
-```
+```go
 package main
 
 import (
@@ -59,7 +59,8 @@ func main() {
 ```
 <br />
 #### **Handle(SocketServer)**
-```
+
+```go
 package main
 
 import (

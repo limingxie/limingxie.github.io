@@ -57,7 +57,7 @@ int main(){
 $ gcc -E first.c -o first.i
 ```
 查看一下first.i内容
-```
+```C
 $ cat first.i
 # 1 "first.c"
 # 1 "<built-in>" 1

@@ -34,7 +34,7 @@ https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go
 
 #### **实际运用例子**
 这是普通的处理方式
-```
+```go
 package main
 
 import (
@@ -72,7 +72,7 @@ strconv.Atoi: parsing "string": invalid syntax
 ------------
 返回err的时候，使用errs.Trace()函数
 
-```
+```go
 package main
 
 import (

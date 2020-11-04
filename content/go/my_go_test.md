@@ -17,7 +17,7 @@ categories: [
 
 先看看简单的测试代码
 
-```
+```go
 // add_test.go  ==> 文件名 _test.go 结尾的默认为测试代码文件
 package models
 
@@ -42,7 +42,7 @@ func TestAdd(t *testing.T) {
 }
 ```
 
-```
+```go
 // add.go
 package models
 
@@ -72,7 +72,7 @@ ok      gotest/test5    0.006s
 
 **如果测试不通过呢？**
 
-```
+```go
 //assert
 if result != 6 { //==>结果改成 6
 	t.Fatal("Add的结果不正确")
@@ -116,6 +116,7 @@ if result != 6 { //==>结果改成 6
 //assert
 test.Equal(t, result, 6)
 ```
+
 输出测试未通过的代码位置，以及比较结果。
 ```
 $ go test
