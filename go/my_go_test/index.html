@@ -146,35 +146,35 @@
 
             <p>最近写了测试代码，整理了一下。</p>
 <p>先看看简单的测试代码</p>
-<pre><code>// add_test.go  ==&gt; 文件名 _test.go 结尾的默认为测试代码文件
-package models
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// add_test.go  ==&gt; 文件名 _test.go 结尾的默认为测试代码文件
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">models</span>
 
-import (
-	&quot;testing&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;testing&#34;</span>
 )
 
-//Test开头的默认为测试方法
-func TestAdd(t *testing.T) {
-	//arrange
-	var x, y, res int
-	x = 2
-	y = 3
+<span style="color:#75715e">//Test开头的默认为测试方法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestAdd</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#75715e">//arrange
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">res</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">2</span>
+	<span style="color:#a6e22e">y</span> = <span style="color:#ae81ff">3</span>
 
-	//act
-	result = Add(x, y)
+	<span style="color:#75715e">//act
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>)
 
-	//assert
-	if result != 5 {
-		t.Fatal(&quot;Add的结果不正确&quot;)
+	<span style="color:#75715e">//assert
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;Add的结果不正确&#34;</span>)
 	}
 }
-</code></pre><pre><code>// add.go
-package models
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// add.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">models</span>
 
-func Add(x, y int) int {
-	return x + y
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>
 }
-</code></pre><p>查看测试结构。</p>
+</code></pre></div><p>查看测试结构。</p>
 <pre><code>$ go test -v    ==&gt; 依次运行当前package的 _test.go文件的测试方法。
 === RUN   TestAdd
 --- PASS: TestAdd (0.00s)
@@ -189,11 +189,11 @@ ok      gotest/test5    0.006s
 </blockquote>
 <hr>
 <p><strong>如果测试不通过呢？</strong></p>
-<pre><code>//assert
-if result != 6 { //==&gt;结果改成 6
-	t.Fatal(&quot;Add的结果不正确&quot;)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//assert
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">6</span> { <span style="color:#75715e">//==&gt;结果改成 6
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;Add的结果不正确&#34;</span>)
 }
-</code></pre><pre><code>$ go test
+</code></pre></div><pre><code>$ go test
 --- FAIL: TestAdd (0.00s)
         add_test.go:36: Add的结果不正确
 FAIL

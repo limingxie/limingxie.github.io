@@ -180,17 +180,17 @@
 </code></pre></div><p>创建first.i文件</p>
 <pre><code>$ gcc -E first.c -o first.i
 </code></pre><p>查看一下first.i内容</p>
-<pre><code>$ cat first.i
-# 1 &quot;first.c&quot;
-# 1 &quot;&lt;built-in&gt;&quot; 1
-... ...
-int main(){
-        int a=10;
-        int b=20;
-        int c=a+b;
-        printf(&quot;%d + %d = %d\n&quot;,a,b,c);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#960050;background-color:#1e0010">$</span> cat first.i
+<span style="color:#75715e"># 1 &#34;first.c&#34;
+</span><span style="color:#75715e"># 1 &#34;&lt;built-in&gt;&#34; 1
+</span><span style="color:#75715e"></span>... ...
+<span style="color:#66d9ef">int</span> main(){
+        <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>;
+        <span style="color:#66d9ef">int</span> b<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>;
+        <span style="color:#66d9ef">int</span> c<span style="color:#f92672">=</span>a<span style="color:#f92672">+</span>b;
+        printf(<span style="color:#e6db74">&#34;%d + %d = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,a,b,c);
 }
-</code></pre><p><code>可以看出A的值被替换了， stdio.h的内容也插入进来了。</code></p>
+</code></pre></div><p><code>可以看出A的值被替换了， stdio.h的内容也插入进来了。</code></p>
 <hr>
 <h4 id="2编译compilation"><strong>2.编译Compilation</strong></h4>
 <p>做完预处理后，Compiler会做编译成Assemble。<br>

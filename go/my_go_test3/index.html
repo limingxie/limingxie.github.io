@@ -188,91 +188,91 @@ Spy 还会记录叫用了哪些成员，好让单元测试验证所叫用的成�
 初期我们应该把所有的精力放在<code>自己模块的功能和稳定性</code>。<br>
 没必要在别人的接口里耗精力, 甚至去考虑怎么和其他模块做联动。</p>
 <p>例子：</p>
-<pre><code>var key string
-if config.AppEnv == &quot;test&quot; || config.AppEnv == &quot;dev&quot; { //测试或是开发环境的时候直接赋值
-	key = &quot;23836728366&quot;
-} else {
-	key, err = (Login{}).GetKeyForLogin(ctx, code) //实际调用的接口写在这里
-	if err != nil {
-		return nil, err
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">AppEnv</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">AppEnv</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;dev&#34;</span> { <span style="color:#75715e">//测试或是开发环境的时候直接赋值
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">key</span> = <span style="color:#e6db74">&#34;23836728366&#34;</span>
+} <span style="color:#66d9ef">else</span> {
+	<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">err</span> = (<span style="color:#a6e22e">Login</span>{}).<span style="color:#a6e22e">GetKeyForLogin</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">code</span>) <span style="color:#75715e">//实际调用的接口写在这里
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
 	}
 }
-</code></pre><h4 id="项目中期二阶段"><strong>项目中期(二阶段)</strong></h4>
+</code></pre></div><h4 id="项目中期二阶段"><strong>项目中期(二阶段)</strong></h4>
 <p>硬代码hardcode<code>改写函数function</code>。</p>
 <p>可以写根据参数或设定返回不同值的方法。满足不同场景下有不同返回值的需求。</p>
 <p>例子：</p>
-<pre><code>var key string
-if config.AppEnv == &quot;test&quot; || config.AppEnv == &quot;dev&quot; { 
-	key = GetKeyForLoginForTest(ctx, code) //测试或是开发环境的时候直接赋值
-} else {
-	key, err = (Login{}).GetKeyForLogin(ctx, code) //实际调用的接口写在这里
-	if err != nil {
-		return nil, err
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">AppEnv</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">AppEnv</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;dev&#34;</span> { 
+	<span style="color:#a6e22e">key</span> = <span style="color:#a6e22e">GetKeyForLoginForTest</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">code</span>) <span style="color:#75715e">//测试或是开发环境的时候直接赋值
+</span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
+	<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">err</span> = (<span style="color:#a6e22e">Login</span>{}).<span style="color:#a6e22e">GetKeyForLogin</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">code</span>) <span style="color:#75715e">//实际调用的接口写在这里
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
 	}
 }
-</code></pre><pre><code>func GetKeyForLoginForTest(ctx context.Context, code string) string {
-	var key string
-	switch code {
-	case &quot;code1&quot;:
-		key = &quot;key1&quot;
-	case &quot;code2&quot;:
-		key = &quot;key2&quot;
-	case :
-		......
-	default:
-		key = &quot;key3&quot;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetKeyForLoginForTest</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">code</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">code</span> {
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;code1&#34;</span>:
+		<span style="color:#a6e22e">key</span> = <span style="color:#e6db74">&#34;key1&#34;</span>
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;code2&#34;</span>:
+		<span style="color:#a6e22e">key</span> = <span style="color:#e6db74">&#34;key2&#34;</span>
+	<span style="color:#66d9ef">case</span> :
+		<span style="color:#f92672">......</span>
+	<span style="color:#66d9ef">default</span>:
+		<span style="color:#a6e22e">key</span> = <span style="color:#e6db74">&#34;key3&#34;</span>
 	}
-	return key
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">key</span>
 }
-</code></pre><h4 id="项目后期三阶段"><strong>项目后期(三阶段)</strong></h4>
+</code></pre></div><h4 id="项目后期三阶段"><strong>项目后期(三阶段)</strong></h4>
 <p>函数function升<code>类或package</code>。</p>
 <p>这个阶段是可选项，因为这里开始需要耗精力去管理自己的“替身”了。<br>
 根据自己的实际情况来决定要不要这么做。</p>
 <p>例子：</p>
-<pre><code>type LoginTest interface {
-	GetKeyForLoginForTest(ctx context.Context, code string) string
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LoginTest</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">GetKeyForLoginForTest</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">code</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>
 }
 
-type SellerTest struct {
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SellerTest</span> <span style="color:#66d9ef">struct</span> {
 }
 
-func (SellerTest) GetKeyForLoginForTest(ctx context.Context, code string) string {
-	//销售员业务处理...
-	return &quot;SellerKey&quot;
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">SellerTest</span>) <span style="color:#a6e22e">GetKeyForLoginForTest</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">code</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#75715e">//销售员业务处理...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;SellerKey&#34;</span>
 }
 
-type ManagerTest struct {
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ManagerTest</span> <span style="color:#66d9ef">struct</span> {
 }
 
-func (ManagerTest) GetKeyForLoginForTest(ctx context.Context, code string) string {
-	//业务处理...
-	return &quot;ManagerKey&quot;
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">ManagerTest</span>) <span style="color:#a6e22e">GetKeyForLoginForTest</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">code</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#75715e">//业务处理...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;ManagerKey&#34;</span>
 }
 
-func BuildManagedObject(ctx context.Context, condition string) string {
-	switch condition {
-	case &quot;condition1&quot;:
-		return SellerTest{}
-	case &quot;condition2&quot;:
-		return ManagerTest{}
-	case :
-		......
-	default:
-		return SellerTest{}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BuildManagedObject</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">condition</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">condition</span> {
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;condition1&#34;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">SellerTest</span>{}
+	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;condition2&#34;</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ManagerTest</span>{}
+	<span style="color:#66d9ef">case</span> :
+		<span style="color:#f92672">......</span>
+	<span style="color:#66d9ef">default</span>:
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">SellerTest</span>{}
 	}
 }
-</code></pre><pre><code>var key string
-if config.AppEnv == &quot;test&quot; || config.AppEnv == &quot;dev&quot; { 
-	var loginTest LoginTest
-	loginTest = BuildManagedObject(condition)
-	key = loginTest.GetKeyForLoginForTest(ctx, code) //测试或是开发环境的时候直接赋值
-} else {
-	key, err = (Login{}).GetKeyForLogin(ctx, code) //实际调用的接口写在这里
-	if err != nil {
-		return nil, err
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">AppEnv</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">AppEnv</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;dev&#34;</span> { 
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">loginTest</span> <span style="color:#a6e22e">LoginTest</span>
+	<span style="color:#a6e22e">loginTest</span> = <span style="color:#a6e22e">BuildManagedObject</span>(<span style="color:#a6e22e">condition</span>)
+	<span style="color:#a6e22e">key</span> = <span style="color:#a6e22e">loginTest</span>.<span style="color:#a6e22e">GetKeyForLoginForTest</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">code</span>) <span style="color:#75715e">//测试或是开发环境的时候直接赋值
+</span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
+	<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">err</span> = (<span style="color:#a6e22e">Login</span>{}).<span style="color:#a6e22e">GetKeyForLogin</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">code</span>) <span style="color:#75715e">//实际调用的接口写在这里
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
 	}
 }
-</code></pre><hr>
+</code></pre></div><hr>
 <p>这么做其实能解决大部分的问题。<br>
 不知道我做的项目小或范围小，总之还没有碰到过用以上方式不能解决的问题。<br>
 <code>有什么不太恰当的部分随时欢迎指正。</code></p>

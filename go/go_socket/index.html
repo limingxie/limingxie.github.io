@@ -155,164 +155,164 @@ demo大致构建了如下的场景。</p>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go_socket/go_socket1.png" alt="1"></p>
 <!-- raw HTML omitted -->
 <h4 id="dial用户"><strong>Dial(用户)</strong></h4>
-<pre><code>package main
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import (
-	&quot;log&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;log&#34;</span>
 
-	&quot;golang.org/x/net/websocket&quot;
+	<span style="color:#e6db74">&#34;golang.org/x/net/websocket&#34;</span>
 )
 
-func main() {
-    origin := &quot;http://localhost/&quot;
-    url := &quot;ws://localhost:5001/test&quot;
-    //创建websocket链接
-    ws, err := websocket.Dial(url, &quot;&quot;, origin)
-    if err != nil {
-        log.Fatal(err)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">origin</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;http://localhost/&#34;</span>
+    <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;ws://localhost:5001/test&#34;</span>
+    <span style="color:#75715e">//创建websocket链接
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">ws</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Dial</span>(<span style="color:#a6e22e">url</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">origin</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
     }
 
-    var s string
-    for {
-        //等待websocket的消息(这个过程是bolck)
-        err := websocket.Message.Receive(ws, &amp;s)
-        if err != nil {
-            log.Println(err)
-            ws.Close()
-            break
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#66d9ef">for</span> {
+        <span style="color:#75715e">//等待websocket的消息(这个过程是bolck)
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">Receive</span>(<span style="color:#a6e22e">ws</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+            <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+            <span style="color:#a6e22e">ws</span>.<span style="color:#a6e22e">Close</span>()
+            <span style="color:#66d9ef">break</span>
         }
-        log.Println(s)
+        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)
     }
 }
-</code></pre><p><!-- raw HTML omitted --></p>
+</code></pre></div><p><!-- raw HTML omitted --></p>
 <h4 id="handlesocketserver"><strong>Handle(SocketServer)</strong></h4>
-<pre><code>package main
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import (
-	&quot;log&quot;
-	&quot;net/http&quot;
-	&quot;sync&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;net/http&#34;</span>
+	<span style="color:#e6db74">&#34;sync&#34;</span>
 
-	&quot;github.com/labstack/echo&quot;
-	&quot;github.com/labstack/echo/middleware&quot;
-	&quot;golang.org/x/net/websocket&quot;
+	<span style="color:#e6db74">&#34;github.com/labstack/echo&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/labstack/echo/middleware&#34;</span>
+	<span style="color:#e6db74">&#34;golang.org/x/net/websocket&#34;</span>
 )
 
-var socketServer *SocketServer
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">socketServer</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SocketServer</span>
 
-type SocketServer struct {
-	pathPattern       string                    //socket server path
-	ClientConnections map[int]*ClientConnection //connect socket server client
-	SendmsgCh         chan string               //push message
-	mutex             *sync.Mutex
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SocketServer</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">pathPattern</span>       <span style="color:#66d9ef">string</span>                    <span style="color:#75715e">//socket server path
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ClientConnections</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">ClientConnection</span> <span style="color:#75715e">//connect socket server client
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SendmsgCh</span>         <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>               <span style="color:#75715e">//push message
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">mutex</span>             <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>
 }
 
-type ClientConnection struct {
-	id     int
-	Ws     *websocket.Conn
-	Server *SocketServer
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ClientConnection</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">id</span>     <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Ws</span>     <span style="color:#f92672">*</span><span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Conn</span>
+	<span style="color:#a6e22e">Server</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SocketServer</span>
 }
 
-func main() {
-	socketServer = NewSocketServer(&quot;/msg&quot;)
-	go socketServer.Listen()
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">socketServer</span> = <span style="color:#a6e22e">NewSocketServer</span>(<span style="color:#e6db74">&#34;/msg&#34;</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">socketServer</span>.<span style="color:#a6e22e">Listen</span>()
 
-	// Echo instance
-	e := echo.New()
+	<span style="color:#75715e">// Echo instance
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	<span style="color:#75715e">// Middleware
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Logger</span>())
+	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Recover</span>())
 
-	// Routes
-	e.POST(&quot;/send-message&quot;, sendMessage)
+	<span style="color:#75715e">// Routes
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/send-message&#34;</span>, <span style="color:#a6e22e">sendMessage</span>)
 
-	// Start socket server
-	go func() {
-		log.Fatal(http.ListenAndServe(&quot;:5001&quot;, nil))
+	<span style="color:#75715e">// Start socket server
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:5001&#34;</span>, <span style="color:#66d9ef">nil</span>))
 	}()
 
-	// Start api server
-	e.Logger.Fatal(e.Start(&quot;:5000&quot;))
+	<span style="color:#75715e">// Start api server
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:5000&#34;</span>))
 
 }
 
-func NewSocketServer(pathPattern string) *SocketServer {
-	clients := make(map[int]*ClientConnection)
-	sendmsgCh := make(chan string)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewSocketServer</span>(<span style="color:#a6e22e">pathPattern</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">SocketServer</span> {
+	<span style="color:#a6e22e">clients</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">ClientConnection</span>)
+	<span style="color:#a6e22e">sendmsgCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>)
 
-	return &amp;SocketServer{
-		pathPattern:       pathPattern,
-		ClientConnections: clients,
-		SendmsgCh:         sendmsgCh,
-		mutex:             &amp;sync.Mutex{},
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">SocketServer</span>{
+		<span style="color:#a6e22e">pathPattern</span>:       <span style="color:#a6e22e">pathPattern</span>,
+		<span style="color:#a6e22e">ClientConnections</span>: <span style="color:#a6e22e">clients</span>,
+		<span style="color:#a6e22e">SendmsgCh</span>:         <span style="color:#a6e22e">sendmsgCh</span>,
+		<span style="color:#a6e22e">mutex</span>:             <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>{},
 	}
 }
 
-// Handler
-func sendMessage(c echo.Context) error {
-	var v struct {
-		Message string `json:&quot;message&quot;`
+<span style="color:#75715e">// Handler
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sendMessage</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">struct</span> {
+		<span style="color:#a6e22e">Message</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;message&#34;`</span>
 	}
-	if err := c.Bind(&amp;v); err != nil {
-		log.Println(err.Error())
-	}
-
-	/*
-		可以把socketServer放在Middleware。如下获取
-		socketServer := c.Value(&quot;SocketServer&quot;)
-		例子我是为了方便直接设成全局变量了
-	*/
-
-	for _, clientConnection := range socketServer.ClientConnections {
-		//send message to all client
-		clientConnection.Server.SendmsgCh &lt;- v.Message
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
 	}
 
-	return c.String(http.StatusOK, &quot;Send OK!&quot;)
+	<span style="color:#75715e">/*
+</span><span style="color:#75715e">		可以把socketServer放在Middleware。如下获取
+</span><span style="color:#75715e">		socketServer := c.Value(&#34;SocketServer&#34;)
+</span><span style="color:#75715e">		例子我是为了方便直接设成全局变量了
+</span><span style="color:#75715e">	*/</span>
+
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">clientConnection</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">socketServer</span>.<span style="color:#a6e22e">ClientConnections</span> {
+		<span style="color:#75715e">//send message to all client
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">clientConnection</span>.<span style="color:#a6e22e">Server</span>.<span style="color:#a6e22e">SendmsgCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Message</span>
+	}
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;Send OK!&#34;</span>)
 }
 
-//golang websocket package
-func (s *SocketServer) Listen() {
-	log.Println(&quot;Listening my_server...&quot;)
+<span style="color:#75715e">//golang websocket package
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SocketServer</span>) <span style="color:#a6e22e">Listen</span>() {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Listening my_server...&#34;</span>)
 
-	// websocket handler
-	onConnected := func(ws *websocket.Conn) {
-		clientConnection := NewClientConnection(ws, s)
-		s.mutex.Lock()
-		s.ClientConnections[clientConnection.id] = clientConnection
-		s.mutex.Unlock()
+	<span style="color:#75715e">// websocket handler
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">onConnected</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">ws</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Conn</span>) {
+		<span style="color:#a6e22e">clientConnection</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewClientConnection</span>(<span style="color:#a6e22e">ws</span>, <span style="color:#a6e22e">s</span>)
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">Lock</span>()
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">ClientConnections</span>[<span style="color:#a6e22e">clientConnection</span>.<span style="color:#a6e22e">id</span>] = <span style="color:#a6e22e">clientConnection</span>
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">Unlock</span>()
 
-		for {
-			select {
-			case msg := &lt;-s.SendmsgCh:
-				log.Println(msg)
-				websocket.Message.Send(clientConnection.Ws, msg)
+		<span style="color:#66d9ef">for</span> {
+			<span style="color:#66d9ef">select</span> {
+			<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">msg</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">SendmsgCh</span>:
+				<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">msg</span>)
+				<span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">clientConnection</span>.<span style="color:#a6e22e">Ws</span>, <span style="color:#a6e22e">msg</span>)
 			}
 		}
 	}
-	http.Handle(s.pathPattern, websocket.Handler(onConnected))
-	log.Println(&quot;SocketServer Handler Created&quot;)
+	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Handle</span>(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">pathPattern</span>, <span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Handler</span>(<span style="color:#a6e22e">onConnected</span>))
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;SocketServer Handler Created&#34;</span>)
 
 }
 
-var maxClientConnectionId int = 0
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">maxClientConnectionId</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">0</span>
 
-func NewClientConnection(ws *websocket.Conn, server *SocketServer) *ClientConnection {
-	if ws == nil {
-		panic(&quot;ws cannot be nil&quot;)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewClientConnection</span>(<span style="color:#a6e22e">ws</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">websocket</span>.<span style="color:#a6e22e">Conn</span>, <span style="color:#a6e22e">server</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SocketServer</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">ClientConnection</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ws</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#e6db74">&#34;ws cannot be nil&#34;</span>)
 	}
 
-	if server == nil {
-		panic(&quot;server cannot be nil&quot;)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">server</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#e6db74">&#34;server cannot be nil&#34;</span>)
 	}
 
-	maxClientConnectionId++
+	<span style="color:#a6e22e">maxClientConnectionId</span><span style="color:#f92672">++</span>
 
-	return &amp;ClientConnection{
-		maxClientConnectionId, ws, server}
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ClientConnection</span>{
+		<span style="color:#a6e22e">maxClientConnectionId</span>, <span style="color:#a6e22e">ws</span>, <span style="color:#a6e22e">server</span>}
 }
-</code></pre><p><strong>我们可以用postman调用发送信息的api</strong><br>
+</code></pre></div><p><strong>我们可以用postman调用发送信息的api</strong><br>
 <a href="https://limingxie.github.io/images/go_socket/go_socket2.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go_socket/go_socket2.png" alt="2"></p>
 <!-- raw HTML omitted -->

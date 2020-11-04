@@ -161,65 +161,65 @@ A服务提供的一个功能是需要 B和C 服务的信息。
 <!-- raw HTML omitted --></p>
 <h4 id="实际运用例子"><strong>实际运用例子</strong></h4>
 <p>这是普通的处理方式</p>
-<pre><code>package main
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import (
-	&quot;fmt&quot;
-	&quot;strconv&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;strconv&#34;</span>
 )
 
-func main() {
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 
-	value, err := returnValue()
-	if err != nil {
-        //普通的处理
-		fmt.Println(err)
-	} else {
-		fmt.Println(value)
+	<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">returnValue</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#75715e">//普通的处理
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>)
 	}
 
 }
-func returnValue() (int, error) {
-	value, err := strconv.Atoi(&quot;string&quot;)
-	if err != nil {
-        //普通的处理
-		return 0, err
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">returnValue</span>() (<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#e6db74">&#34;string&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#75715e">//普通的处理
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">err</span>
 	}
-	return value, nil
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">value</span>, <span style="color:#66d9ef">nil</span>
 }
-</code></pre><p>执行结果</p>
+</code></pre></div><p>执行结果</p>
 <pre><code>$ go run main.go
 strconv.Atoi: parsing &quot;string&quot;: invalid syntax
 </code></pre><hr>
 <p>返回err的时候，使用errs.Trace()函数</p>
-<pre><code>package main
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import (
-	&quot;fmt&quot;
-	&quot;strconv&quot;
-	&quot;testCode/errTest/errs&quot;
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;strconv&#34;</span>
+	<span style="color:#e6db74">&#34;testCode/errTest/errs&#34;</span>
 )
 
-func main() {
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 
-	value, err := returnValue()
-	if err != nil {
-        //errs.Trace()处理
-		fmt.Println(errs.Trace(err))
-	} else {
-		fmt.Println(value)
+	<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">returnValue</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#75715e">//errs.Trace()处理
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">errs</span>.<span style="color:#a6e22e">Trace</span>(<span style="color:#a6e22e">err</span>))
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>)
 	}
 
 }
-func returnValue() (int, error) {
-	value, err := strconv.Atoi(&quot;string&quot;)
-	if err != nil {
-        //errs.Trace()处理
-		return 0, errs.Trace(err)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">returnValue</span>() (<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#e6db74">&#34;string&#34;</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#75715e">//errs.Trace()处理
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">errs</span>.<span style="color:#a6e22e">Trace</span>(<span style="color:#a6e22e">err</span>)
 	}
-	return value, nil
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">value</span>, <span style="color:#66d9ef">nil</span>
 }
-</code></pre><p>其结果是</p>
+</code></pre></div><p>其结果是</p>
 <pre><code>$ go run main.go
 strconv.Atoi: parsing &quot;string&quot;: invalid syntax
 testCode/errTest/main.go:22: 
