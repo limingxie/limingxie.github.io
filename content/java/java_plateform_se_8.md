@@ -1,12 +1,22 @@
 ---
+author: "li_mingxie"
 title: "JDK, JRE, JVM简介"
-date: 2020-10-26T08:28:49+08:00
-draft: true
+date:  2020-10-29T08:28:49+08:00
+tags: [
+    "Java",
+    "JVM",
+    "JRE",
+    "JDK",
+]
+categories: [
+    "Java",
+    "Java SE8",
+]
 ---
 
-刚接触到java后，我经常听到的JDK，JRE，JVM这些缩写词。  
+刚接触到java后，我经常听到的JDK，JRE，JVM这些缩写词。<!--more-->   
 对我这个java菜鸟来说有时候会没来得及反应过来..^^;;    
-借助这次机会好好地整理和明确一下这些概念。  
+借助这次机会好好地整理和明确一下这些概念。   
 
 ## **Description of Java Conceptual Diagram**  
 Oracle提供两个Java平台标准版(Java SE)8的产品:  

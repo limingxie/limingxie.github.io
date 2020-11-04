@@ -1,12 +1,21 @@
 ---
+author: "li_mingxie"
 title: "Go项目:error错误处理"
 date: 2019-02-14T08:38:02+08:00
-draft: true
+tags: [
+    "go",
+    "error",
+    "golang",
+]
+categories: [
+    "Go",
+    "golang",
+]
 ---
 
 上一篇文章我介绍了拆分服务后如何去写测试代码。   
-[Go项目:傻瓜式联合测试](https://limingxie.github.io/limingxie/my_go_test4/)  
-今天想共享一下，我是如何处理error。
+[Go项目:傻瓜式联合测试](https://limingxie.github.io/go/my_go_test4/)  
+今天想共享一下，我是如何处理error。<!--more-->
 
 其实error是一个普通的处理。  
 但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。

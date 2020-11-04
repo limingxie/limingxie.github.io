@@ -1,12 +1,17 @@
 ---
+author: "li_mingxie"
 title: "Mac 安装和简单的使用GunPG（GPG） "
 date: 2120-06-04T20:38:02+08:00
-draft: true
-user: 李明燮
+tags: [
+    "gpg",
+]
+categories: [
+    "gpg",
+]
 ---
 
 Gnu Privacy Guard 是一种加密的软件？
-具体GPG是什么？ PGP是什么？ 可以百度谷歌一下...^^
+具体GPG是什么？ PGP是什么？ 可以百度谷歌一下...^^<!--more-->
 
 安装
 ```

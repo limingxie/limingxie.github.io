@@ -1,7 +1,13 @@
 ---
+author: "li_mingxie"
 title: "【docker】docker基本的概念"
 date: 2099-07-01T07:28:49+08:00
-draft: true
+tags: [
+    "docker",
+]
+categories: [
+    "docker"
+]
 ---
 ### **1.基本概念**
 
@@ -10,7 +16,7 @@ draft: true
 
 >
 Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。  
-Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。  
+Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。<!--more-->  
 
 以我的理解：  
 **Kubernetes(简称k8s)是一个可以操作容器和自动化部署的开源平台。**  

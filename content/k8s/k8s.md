@@ -1,10 +1,18 @@
 ---
+author: "li_mingxie"
 title: "【k8s】kubernetes基本的概念"
 date: 2020-07-01T07:28:49+08:00
-draft: true
+tags: [
+    "k8s",
+    "kubernetes",
+]
+categories: [
+    "k8s",
+    "kubernetes",
+]
 ---
 
-最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。  
+最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。<!--more-->  
 
 我平时也用不上这些技术，不需要知道的这么深这么细，  
 花这么多少时间去了解，过几天没怎么用还会忘记的...ㅠㅠ  

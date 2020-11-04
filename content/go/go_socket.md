@@ -1,11 +1,20 @@
 ---
+author: "li_mingxie"
 title: "go websocket的简单应用"
 date: 2018-12-06T07:28:49+08:00
-draft: true
+tags: [
+    "go",
+    "socket",
+    "golang",
+]
+categories: [
+    "Go",
+    "golang",
+]
 ---
 
 因为我们是做企业ERP系统，没什么机会接触socket。  
-这次准备做消息推送才了解到还有socket这种技术...ㅠㅠ  
+这次准备做消息推送才了解到还有socket这种技术...ㅠㅠ<!--more-->  
 (做了这么多年的程序员，连这个也不知道...ㅠㅠ)  
 具体的概念就不在这里多做解释了，可以百度或谷歌搜一下。  
 

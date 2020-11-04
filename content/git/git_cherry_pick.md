@@ -1,13 +1,20 @@
 ---
+author: "li_mingxie"
 title: "git命令 cherry-pick 的使用简介"
 date: 2018-07-30T07:28:49+08:00
-draft: true
+tags: [
+    "git",
+    "cherry-pick",
+]
+categories: [
+    "git"
+]
 ---
 上一篇文章介绍了merge和rebase的用法以及原理。   
-[git命令merge和rebase的简单应用](https://limingxie.github.io/limingxie/git_merge_rebase/)
+[git命令merge和rebase的简单应用](https://limingxie.github.io/git/git_merge_rebase/)
 
 这里简单的介绍一下 cherry-pick 的用法。  
-什么时候会用到 cherry-pick 命令？  
+什么时候会用到 cherry-pick 命令？<!--more-->  
 
 代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。  
 `只合并某个分支上的某次修改commit到指定的分支上`。  

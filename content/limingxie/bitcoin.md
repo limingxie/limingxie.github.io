@@ -1,11 +1,19 @@
 ---
+author: "li_mingxie"
 title: "比特币BitCoin简单整理"
 date: 2120-06-21T07:28:49+08:00
-draft: true
+tags: [
+    "bitcoin",
+    "比特币",
+    "虚拟货币",
+]
+categories: [
+    "bitcoin",
+]
 ---
 
 区块链blockchain是这几年比较火爆的词。
-特意去了解了一下，以下是按我的理解简单整理的内容。
+特意去了解了一下，以下是按我的理解简单整理的内容。<!--more-->
 
 区块链blockchain到底是什么？
 是一个软件吗？是一个服务吗？ 或是一个网站？

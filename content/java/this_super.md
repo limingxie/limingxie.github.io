@@ -1,11 +1,19 @@
 ---
+author: "li_mingxie"
 title: "【java笔记】this和super简介"
 date: 2020-07-26T12:28:49+08:00
-draft: true
+tags: [
+    "java",
+    "this",
+    "super",
+]
+categories: [
+    "java"
+]
 ---
 
 本来是确认构造函数的运行方式的。  
-结果看到继承以及super关键字了...^^;;   
+结果看到继承以及super关键字了...^^;;<!--more-->   
 
 都说this是类似于指自己的一个指针，super是更像一个关键字。  
 可能我的了解不是那么深入，觉得this就是指自己super就是指父类。其余没感觉到什么特别。  

@@ -1,11 +1,20 @@
 ---
+author: "li_mingxie"
 title: "C语言的编译和执行过程"
-date: 2020-10-30T08:28:49+08:00
-draft: true
+date:  2020-10-30T08:28:49+08:00
+description: "C语言的编译和执行过程。"
+tags: [
+    "C",
+    "compile",
+    "编译",
+]
+categories: [
+    "basic"
+]
 ---
 
 没有系统的学过C语言，为了了解java编译流程。  
-先简单的略过了一下C语言的编译过程。  
+先简单的略过了一下C语言的编译过程。<!--more-->  
 
 #### **C语言在Linux系统下编译是有4个过程**
 

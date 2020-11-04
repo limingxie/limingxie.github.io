@@ -1,10 +1,17 @@
 ---
+author: "li_mingxie"
 title: "设计原则那些事儿"
 date: 2019-06-06T07:28:49+08:00
-draft: true
+tags: [
+    "solid",
+    "design",
+]
+categories: [
+    "design",
+]
 ---
 
-代码架构的设计原则中最普遍的是solid原则。  
+代码架构的设计原则中最普遍的是solid原则。<!--more-->  
 
 ```
 SRP	    Single Responsibility Principle	    单一责任原则

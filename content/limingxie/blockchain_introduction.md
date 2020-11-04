@@ -1,11 +1,19 @@
 ---
+author: "li_mingxie"
 title: "区块链blockchain零基础入门(一)"
 date: 2018-06-22T07:28:49+08:00
-draft: true
+tags: [
+    "bitcoin",
+    "比特币",
+    "虚拟货币",
+]
+categories: [
+    "bitcoin",
+]
 ---
 
 区块链blockchain这几年比较火爆的词。  
-不是计算机行业的人如何去理解这么技术呢？  
+不是计算机行业的人如何去理解这么技术呢？<!--more-->  
 我简单的整理了一下，适合完全没有基础的人去看...^^
 
 区块链blockchain到底是什么？  

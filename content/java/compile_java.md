@@ -1,7 +1,16 @@
 ---
+author: "li_mingxie"
 title: "java的编译流程？"
 date: 2920-09-28T08:28:49+08:00
-draft: true
+tags: [
+    "java",
+    "class",
+    "interface",
+    "abstract",
+]
+categories: [
+    "Java",
+]
 ---
 
 如图所示, 先是由 javac 命令把 .java 文件编译成 .class文件。  

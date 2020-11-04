@@ -1,7 +1,14 @@
 ---
+author: "li_mingxie"
 title: "【java笔记】package"
 date: 2099-07-01T07:28:49+08:00
-draft: true
+tags: [
+    "java",
+    "package",
+]
+categories: [
+    "java"
+]
 ---
 ### **1.基本概念**
 这些天因为项目性能上的问题，采用了Redis缓存。  

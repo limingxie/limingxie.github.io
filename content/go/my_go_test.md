@@ -1,10 +1,19 @@
 ---
+author: "li_mingxie"
 title: "Go项目的测试代码1（基础）"
 date: 2018-05-27T20:36:02+08:00
-draft: true
+tags: [
+    "go",
+    "test",
+    "golang",
+]
+categories: [
+    "Go",
+    "golang",
+]
 ---
 
-最近写了测试代码，整理了一下。
+最近写了测试代码，整理了一下。<!--more-->
 
 先看看简单的测试代码
 
@@ -137,7 +146,7 @@ go tool cover -html=./coverage.out
 -----
 
 下篇文章介绍项目中我是怎么写测试代码的...^^  
-[Go项目的测试代码（项目运用）](https://limingxie.github.io/limingxie/my_go_test1/)
+[Go项目的测试代码（项目运用）](https://limingxie.github.io/go/my_go_test1/)
 
 ### 未完继续
 

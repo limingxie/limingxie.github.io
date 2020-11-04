@@ -1,11 +1,19 @@
 ---
+author: "li_mingxie"
 title: "java中的栈内存, 堆内存"
 date: 2020-10-13T12:28:49+08:00
-draft: true
+tags: [
+    "stack",
+    "heap",
+    "java",
+]
+categories: [
+    "Java",
+]
 ---
 
 上一篇文章简单整理了[栈(stack), 堆(heap), 队列(queue)的结构](https://limingxie.github.io/basic/stack/)  
-这一篇继续整理java中的 占内存，堆内存。
+这一篇继续整理java中的 占内存，堆内存。<!--more-->
 
 Java把内存划分成两种：一种是栈内存，一种是堆内存。  
 这里需要解释一下, 这里的堆内存是跟数据结构的堆是完全两码事。

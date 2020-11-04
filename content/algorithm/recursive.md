@@ -1,10 +1,19 @@
 ---
+author: "li_mingxie"
 title: "递归(recursive)"
 date: 2019-08-03T07:28:49+08:00
-draft: true
+tags: [
+    "递归",
+    "recursive",
+    "算法",
+    "algorithm",
+]
+categories: [
+    "algorithm"
+]
 ---
 
-最近在研究算法...^^ 算法中最基本的是排序。  
+最近在研究算法...^^ 算法中最基本的是排序。<!--more-->  
 排序当中最常见的是快速排序(Quick Sort)。  
 理解快速排序的代码，那就离不开递归了。  
 递归以前听过，但是真正去了解和研究是最近为了对算法的了解。

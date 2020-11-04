@@ -1,11 +1,17 @@
 ---
+author: "li_mingxie"
 title: "linux 常用命令整理(一)"
 date: 2018-09-02T07:28:49+08:00
-draft: true
+tags: [
+    "linux",
+]
+categories: [
+    "linux",
+]
 ---
 
 这么晚了才认识了linux系统。感觉越来越喜欢linux系统了。  
-废话少说，这几天自己做的笔记，炫耀一下....^^  
+废话少说，这几天自己做的笔记，炫耀一下....^^<!--more-->  
 方便以后用的时候查找。  
 
 

@@ -1,13 +1,21 @@
 ---
+
 title: "栈(stack), 堆(heap), 队列(queue) 是什么？"
 date: 2020-10-12T23:28:49+08:00
-draft: true
+tags: [
+    "stack",
+    "heap",
+    "queue",
+]
+categories: [
+    "basic"
+]
 ---
 
 我们平时经常遇到栈(stack), 队列(queue), 堆(heap)这些词语。  
 像我这样不是计算机专业毕业的程序原来说，为了更好的理解这些内容，  
 我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。  
-希望有些帮助。    
+希望有些帮助。<!--more-->    
 
 > 栈(stack), 队列(queue), 堆(heap)都是一个数据结构。
 

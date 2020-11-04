@@ -1,7 +1,14 @@
 ---
+author: "li_mingxie"
 title: "简单整理java的编译流程？"
-date: 2020-09-28T08:28:49+08:00
-draft: true
+date: 2920-09-28T08:28:49+08:00
+tags: [
+    "JVM",
+    "java",
+]
+categories: [
+    "java"
+]
 ---
 
 如图所示, 先是由 javac 命令把 .java 文件编译成 .class文件。  

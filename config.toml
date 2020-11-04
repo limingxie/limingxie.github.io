@@ -1,35 +1,112 @@
 baseurl = "https://limingxie.github.io/"
-languageCode = "en-us"
-title = "li_mingxie - Blog"
-# Copyright notice. This is displayer in the footer.
-copyright = "limingxie - blog"
-theme = "vienna"
+languageCode = "en"
+DefaultContentLanguage = "en"
+title = "Website of li_mingxie"
+theme = "anatole"
+summarylength = 10
+enableEmoji = true
+enableRobotsTXT = true
+
+# Enable Disqus
+#disqusShortname = ""
+
+# Google Analytics
+#googleAnalytics = "UA-123-45"
 
 [params]
-    # Social accounts. Link to these accounts are displayed in the header and
-    # footer.
-    # twitter = "Your Twitter username"
-    # github = "Your GitHub username"
-    # gitlab = "Your GitLab username"
-    # linkedin = "Your LinkedIn username"
-    # googleplus = "Your Google+ user id"
-    # facebook = "Your Facebook username"
-    # reddit = "Your Reddit username"
-    # hackernews = "Your Hacker News username"
-    # stackoverflow = "Your Stackoverflow user id (number)"
-    # keybase = "Your keybase.io username"
-    # instagram = "Your Instagram username"
-    # Disqus shortname
-    # disqus = "Your disqus shortname"
-    # Google Analytics API key.
-    # ga_api_key = "Your Google Analytics tracking id"
-    # Mixpanel API key.
-    # mixpanel_api_key = "Your Mixpanel API key"
-    # author = "Your Name"
-    # avatar = "/path/to/avatar"
-    contact = "mailto:li_mingxie@163.com"
-    # bio = "This is limingxie-blog Technology sharing"
-    # Short subtitle/tagline. This is displayed in the header.
-    # subtitle = "Short subtitle/tagline of your blog "
-    themecolor = "#hexcolor" # Defines the tab color in Chrome for Android.theme = "vienna"
+title = "爱锻炼的程序员"
+author = "李明燮(li_mingxie)"
+description = "宅男 + 屌丝 + 程序员"
+profilePicture = "images/limingxie.png"
+keywords = ""
+favicon = "favicons/"
+customCss = []
+customJs = []
+mainSections = ["java"]
+images = ["images/site-feature-image.png"]
+# Google Site Verification
+#googleSiteVerify = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
+## Math settings
+[params.math]
+enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
+use = "katex"  # options: "katex", "mathjax". default is "katex".
+
+## Social links
+# use 'fab' when brand icons, use 'fas' when standard solid icons.
+# [[params.socialIcons]]
+# icon = "fab fa-linkedin"
+# title = "Linkedin"
+# url = "https://de.linkedin.com/"
+
+# [[params.socialIcons]]
+# icon = "fab fa-github"
+# title = "GitHub"
+# url = "https://github.com/lxndrblz/anatole/"
+
+# [[params.socialIcons]]
+# icon = "fab fa-instagram"
+# title = "instagram"
+# url = "https://www.instagram.com/"
+
+[[params.socialIcons]]
+icon = "fas fa-envelope"
+title = "e-mail"
+url = "mailto:li_mingxie@163.com"
+
+## Menu items
+
+[menu]
+  [[menu.main]]
+  name = "Home"
+  identifier = "Home"
+  weight = 100
+  url = "/"
+
+  [[menu.main]]
+  name = "随笔"
+  identifier = "随笔"
+  weight = 100
+  url = "/limingxie/"
+
+  [[menu.main]]
+  name = "Java"
+  weight = 200
+  identifier = "Java"
+  url = "/java/"
+
+  [[menu.main]]
+  name = "Golang"
+  weight = 300
+  identifier = "Golang"
+  url = "/go/"
+
+  [[menu.main]]
+  name = "环境"
+  weight = 400
+  identifier = "环境"
+  url = "/k8s/"
+
+  [[menu.main]]
+  name = "Git"
+  weight = 500
+  identifier = "Git"
+  url = "/git/"
+
+  [[menu.main]]
+  name = "基础"
+  weight = 600
+  identifier = "基础"
+  url = "/basic/"
+
+  [[menu.main]]
+  name = "算法"
+  weight = 700
+  identifier = "算法"
+  url = "/algorithm/"
+
+  [[menu.main]]
+  name = "杂谈"
+  weight = 800
+  identifier = "杂谈"
+  url = "/work_sharing/"

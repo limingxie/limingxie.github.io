@@ -1,11 +1,19 @@
 ---
+author: "li_mingxie"
 title: "Redis简单应用"
 date: 2018-07-01T07:28:49+08:00
-draft: true
+tags: [
+    "redis",
+    "docker",
+]
+categories: [
+    "redis",
+    "docker",
+]
 ---
 
 这些天因为项目性能上的问题，采用了Redis缓存。  
-做了一些简单的笔记。
+做了一些简单的笔记。<!--more-->
 
 **◆ Redis**  
 Redis(REmote DIctionary Server)是一个key-value存储系统。  

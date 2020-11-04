@@ -1,14 +1,24 @@
 ---
+author: "li_mingxie"
 title: "Go项目的测试代码3（测试替身Test Double）"
 date: 2018-05-27T20:38:02+08:00
-draft: true
+tags: [
+    "go",
+    "test",
+    "test double",
+    "golang",
+]
+categories: [
+    "Go",
+    "golang",
+]
 ---
 
 上一篇文章介绍了项目中测试代码的写法。   
-[Go项目的测试代码2（项目运用）](https://limingxie.github.io/limingxie/my_go_test1/)
+[Go项目的测试代码2（项目运用）](https://limingxie.github.io/go/my_go_test1/)
    
   
-这里简单的共享一下测试替身。
+这里简单的共享一下测试替身。<!--more-->
 
 当我们写测试代码的时候，经常遇到一个问题。  
 跟别的模块或服务`有依赖性`，可是功能还没开发完。  
@@ -182,3 +192,7 @@ if config.AppEnv == "test" || config.AppEnv == "dev" {
 > 组员：这次项目依赖性很高, 其他模块的功能还没完善, 开发都很麻烦别说写测试代码了。    
 > 我：`你用过测试替身吗？可以很简单的解决这些问题。`
 
+----------------------------------------------
+欢迎大家的意见和交流
+
+`email: li_mingxie@163.com`

@@ -1,12 +1,22 @@
 ---
+author: "li_mingxie"
 title: "Go项目:傻瓜式联合测试"
 date: 2019-02-12T08:38:02+08:00
-draft: true
+tags: [
+    "go",
+    "test",
+    "join test",
+    "golang",
+]
+categories: [
+    "Go",
+    "golang",
+]
 ---
 
 现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。  
 感觉有些内容不应该在同一个服务里。   
-于是我做了一个决定: **`拆分服务`**。  
+于是我做了一个决定: **`拆分服务`**。<!--more-->  
 
 ```
 分了4个服务后发现每个服务都不到8个表。每个服务的业务复杂度都不高。  
@@ -19,7 +29,7 @@ draft: true
 今天我想说说其中的测试代码。  
 当我分了服务后写单元测试，其实没遇到过什么大问题。  
 可以使用上一篇文章介绍的测试替身。   
-[Go项目的测试代码3（测试替身Test Double）](https://limingxie.github.io/limingxie/my_go_test3/)
+[Go项目的测试代码3（测试替身Test Double）](https://limingxie.github.io/go/my_go_test3/)
 
 ```
 问题是每个服务的功能是需要调用其他的服务。   

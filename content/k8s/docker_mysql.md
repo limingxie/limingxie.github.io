@@ -1,10 +1,18 @@
 ---
+author: "li_mingxie"
 title: "使用docker运行mysql"
 date: 2018-03-27T07:28:49+08:00
-draft: true
+tags: [
+    "docker",
+    "mysql",
+    "super",
+]
+categories: [
+    "docker"
+]
 ---
 
-以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。
+以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。<!--more-->
 
 为了避免这种现象，还是链接本地mysql开发还是更稳定的，
 可是开发的项目多了后，本地的mysql库看起来好乱。

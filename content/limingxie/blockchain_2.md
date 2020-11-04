@@ -1,13 +1,21 @@
 ---
+author: "li_mingxie"
 title: "区块链blockchain基础入门(二)"
 date: 2018-06-22T07:28:49+08:00
-draft: true
+tags: [
+    "bitcoin",
+    "比特币",
+    "虚拟货币",
+]
+categories: [
+    "bitcoin",
+]
 ---
 
 上一篇文章简单的介绍了一下区块链blockchain到底是什么。   
 [区块链blockchain零基础入门(一)](https://limingxie.github.io/limingxie/blockchain_introduction/)
 
-接下来继续简单的介绍一下区块链blockchain的结构。
+接下来继续简单的介绍一下区块链blockchain的结构。<!--more-->
 
 ### **◆ 区块Block + 链Chain**  
  

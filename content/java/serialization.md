@@ -1,10 +1,19 @@
 ---
+author: "li_mingxie"
 title: "【java笔记】序列化和反序列化"
 date: 2020-07-02T07:28:49+08:00
-draft: true
+tags: [
+    "java",
+    "serializable",
+    "序列化",
+    "反序列化",
+]
+categories: [
+    "java"
+]
 ---
 
-当做笔记简单了记录了一下。
+当做笔记简单了记录了一下。<!--more-->
 
 ### **1. 序列化和反序列化是什么？**
 

@@ -1,7 +1,15 @@
 ---
+author: "li_mingxie"
 title: "JVM的内存结构"
-date: 2020-10-28T08:28:49+08:00
-draft: true
+date: 2920-09-28T08:28:49+08:00
+description: "简单的介绍JVM的内存结构。"
+tags: [
+    "JVM",
+    "java",
+]
+categories: [
+    "java"
+]
 ---
 
 [图片备用地址](https://limingxie.github.io/images/java/jvm/java_memory_model.png)  

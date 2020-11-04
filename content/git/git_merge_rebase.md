@@ -1,12 +1,20 @@
 ---
+author: "li_mingxie"
 title: "git命令merge和rebase的简单应用"
 date: 2018-07-29T07:28:49+08:00
-draft: true
+tags: [
+    "git",
+    "merge",
+    "rebase",
+]
+categories: [
+    "git"
+]
 ---
 
 因为工作的需求，项目分了几个大分支管理了。  
 不同的环境需要的功能也不一样，在不同的分支里修改。  
-虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。<!--more-->
 (我比较倾向，有一个主分支，发布在不同的环境是应该由不同的配置和适当的继承来实现。  
 如果这么做实在太麻烦的话，应该另分出一个仓库repository管理。)
 
@@ -132,7 +140,7 @@ $ git rebase master     --在dev分支先把master分支的记录拉倒自己的
 (但是你只知道这些，仍然是个菜鸟。包括我，哈哈~)
 
 下一遍文章继续介绍cherry-pick的简单应用。  
-[git命令cherry-pick的简单应用](https://limingxie.github.io/limingxie/git_cherry_pick/)
+[git命令cherry-pick的简单应用](https://limingxie.github.io/git/git_cherry_pick/)
 
 ----------------------------------------------
 欢迎大家的意见和交流

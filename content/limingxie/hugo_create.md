@@ -1,13 +1,18 @@
 ---
+author: "li_mingxie"
 title: "用hugo搭建个人博客"
 date: 2018-03-14T10:14:08+08:00
-draft: true
-user: 李明燮
+tags: [
+    "hugo",
+]
+categories: [
+    "hugo",
+]
 ---
 
 这几天研究了用hugo搭建个人博客。
 
-简单的整理了一下。
+简单的整理了一下。<!--more-->
 
 **1.安装hugo**（windows 请查看官网介绍 https://gohugo.io/getting-started/installing/）
 
