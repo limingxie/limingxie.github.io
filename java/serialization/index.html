@@ -1,296 +1,286 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head prefix="og: http://ogp.me/ns#">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" 【java笔记】序列化和反序列化 &middot;  li_mingxie - Blog" />
-  
-  <meta name="theme-color" content="#hexcolor" />
- 
-  <meta property="og:site_name" content="li_mingxie - Blog" />
-  <meta property="og:url" content="https://limingxie.github.io/java/serialization/" />
-  
-  
-  <meta property="og:type" content="article" />
-  
-  <meta property="og:article:published_time" content="2020-07-02T07:28:49&#43;08:00" />
-  
-  
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【java笔记】序列化和反序列化 </title>
 
-  <title>
-     【java笔记】序列化和反序列化 &middot;  li_mingxie - Blog
-  </title>
-
-  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
- 
-  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
-  
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
     
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="宅男 &#43; 屌丝 &#43; 程序员">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/java/serialization/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="【java笔记】序列化和反序列化"/>
+<meta name="twitter:description" content="当做笔记简单了记录了一下。"/>
+
 </head>
-<body>
-    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
-    <section class="header-text">
-      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
-      
-      <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">爱锻炼的程序员</a></h3>
+            <div class="description">
+                <p>宅男 &#43; 屌丝 &#43; 程序员</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">杂谈</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
 </div>
 
-      
-      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-        &nbsp;Home
-      </a>
-      
-      
-    </section>
-  </header>
-  <main class="container">
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
 
+            <div class="post-title">
+                <h3>【java笔记】序列化和反序列化</h3>
+                
+            </div>
 
-<article>
-  <header>
-    <h1 class="text-primary">【java笔记】序列化和反序列化</h1>
-    <div class="post-meta clearfix">
-    
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2020-07-02T07:28:49&#43;08:00">
-          Jul 2, 2020
-        </time>
-      </div>
-    
-      <div class="pull-right">
-        
-      </div>
-    </div>
-  </header>
-  <section>
-    
-
-<p>当做笔记简单了记录了一下。</p>
-
+            <p>当做笔记简单了记录了一下。</p>
 <h3 id="1-序列化和反序列化是什么"><strong>1. 序列化和反序列化是什么？</strong></h3>
-
 <p><strong>序列化(serializable):</strong></p>
-
 <pre><code>把对象转化为可传输的字节序列过程称为序列化。 
 </code></pre>
-
 <p><strong>反序列化(deserialization):</strong></p>
-
 <pre><code>把字节序列还原为对象的过程称为反序列化。  
 </code></pre>
-
 <p>我觉得网上的这个比喻做的很恰当</p>
-
 <blockquote>
-<p>如果我们要把一栋房子从一个地方运输到另一个地方去，<br />
-序列化就是我把房子拆成一个个的砖块放到车子里，<br />
-然后留下一张房子原来结构的图纸，<br />
-反序列化就是我们把房子运输到了目的地以后，<br />
-根据图纸把一块块砖头还原成房子原来面目的过程。</p>
 </blockquote>
-
+<p>如果我们要把一栋房子从一个地方运输到另一个地方去，<br>
+序列化就是我把房子拆成一个个的砖块放到车子里，<br>
+然后留下一张房子原来结构的图纸，<br>
+反序列化就是我们把房子运输到了目的地以后，<br>
+根据图纸把一块块砖头还原成房子原来面目的过程。</p>
 <h3 id="2-什么时候会用到序列化"><strong>2. 什么时候会用到序列化？</strong></h3>
-
 <p>需要进行<code>跨平台存储</code>和<code>网络传输</code>的数据，都需要进行序列化。</p>
-
 <pre><code>对象的序列化主要有两种用途：  
 1） 把对象的字节序列永久地保存到硬盘上，通常存放在一个文件中；  
 2） 在网络上传送对象的字节序列。  
-</code></pre>
-
-<h3 id="3-序列化版本"><strong>3. 序列化版本</strong></h3>
-
-<p>在序列化过程中，可以使用序列化对象中的serialVersionUID字段做版本控制。<br />
+</code></pre><h3 id="3-序列化版本"><strong>3. 序列化版本</strong></h3>
+<p>在序列化过程中，可以使用序列化对象中的serialVersionUID字段做版本控制。<br>
 一个对象数据，在反序列化过程中，序列化串中的serialVersionUID与当前对象值不同，反序列化会失败。</p>
-
 <h3 id="4-java实现序列化"><strong>4. java实现序列化</strong></h3>
-
 <p>java 实现序列化有两种方式。</p>
-
 <pre><code>1.实现Serializable 接口。  
 2.实现Externalizable 接口(它是Serializable接口的子类)  
 </code></pre>
-
 <p><strong>下面是用Serializable接口实现的简单例子:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.Serializable<span style="color:#f92672">;</span>
 
-<pre><code class="language-java">import java.io.Serializable;
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">implements</span> Serializable<span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 如果不指定，JDK工具会自动生成对应的版本号，
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 序列化和反序列化的版本号不一样，则反序列化会失败。
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> serialVersionUID <span style="color:#f92672">=</span> 123456789L<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 年龄
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 名字
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String name <span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 体重，Transient 属性不会被序列化
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">transient</span> <span style="color:#66d9ef">int</span> weight<span style="color:#f92672">;</span>
 
-public class Person implements Serializable{
-    // 如果不指定，JDK工具会自动生成对应的版本号，
-    // 序列化和反序列化的版本号不一样，则反序列化会失败。
-    private final static long serialVersionUID = 123456789L;
-    // 年龄
-    private int age;
-    // 名字
-    private String name ;
-    // 体重，Transient 属性不会被序列化
-    private transient int weight;
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getAge</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public int getAge() {
-        return age;
-    }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public String getName() {
-        return name;
-    }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getWeight</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> weight<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public int getWeight() {
-        return weight;
-    }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setWeight</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> weight<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span> <span style="color:#f92672">=</span> weight<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.FileInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.FileOutputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.ObjectOutputStream<span style="color:#f92672">;</span>
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-</code></pre>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">main</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        FileOutputStream fos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/Users/xxxx/java/temp.txt&#34;</span><span style="color:#f92672">);</span>
+        ObjectOutputStream oos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectOutputStream<span style="color:#f92672">(</span>fos<span style="color:#f92672">);</span>
 
-<pre><code class="language-java">import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+        Person personOutput <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">();</span>
+        personOutput<span style="color:#f92672">.</span><span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span>12<span style="color:#f92672">);</span>
+        personOutput<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;heiheiheiheihei&#34;</span><span style="color:#f92672">);</span>
 
-public class main {
-    public static void main(String[] args) throws Exception {
-        FileOutputStream fos = new FileOutputStream(&quot;/Users/xxxx/java/temp.txt&quot;);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>personOutput<span style="color:#f92672">);</span>
 
-        Person personOutput = new Person();
-        personOutput.setAge(12);
-        personOutput.setName(&quot;heiheiheiheihei&quot;);
+        oos<span style="color:#f92672">.</span><span style="color:#a6e22e">flush</span><span style="color:#f92672">();</span>
+        oos<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
 
-        oos.writeObject(personOutput);
-
-        oos.flush();
-        oos.close();
-
-        FileInputStream fis = new FileInputStream(&quot;/Users/xxxx/java/temp.txt&quot;);
-        ObjectInputStream oin = new ObjectInputStream(fis);
-        Person personInput = (Person) oin.readObject();
-        System.out.println(&quot;age = &quot; + personInput.getAge());
-        System.out.println(&quot;name = &quot; + personInput.getName());
-        System.out.println(&quot;weight = &quot; + personInput.getWeight());
-    }
-}
-</code></pre>
-
-<p><strong>执行结果:</strong></p>
-
+        FileInputStream fis <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/Users/xxxx/java/temp.txt&#34;</span><span style="color:#f92672">);</span>
+        ObjectInputStream oin <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectInputStream<span style="color:#f92672">(</span>fis<span style="color:#f92672">);</span>
+        Person personInput <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Person<span style="color:#f92672">)</span> oin<span style="color:#f92672">.</span><span style="color:#a6e22e">readObject</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;age = &#34;</span> <span style="color:#f92672">+</span> personInput<span style="color:#f92672">.</span><span style="color:#a6e22e">getAge</span><span style="color:#f92672">());</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;name = &#34;</span> <span style="color:#f92672">+</span> personInput<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;weight = &#34;</span> <span style="color:#f92672">+</span> personInput<span style="color:#f92672">.</span><span style="color:#a6e22e">getWeight</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>执行结果:</strong></p>
 <pre><code>$ javac main.java &amp;&amp; java main
 age = 12
 name = heiheiheiheihei
 weight = 0  //Transient 属性不会被序列化
 </code></pre>
-
-<hr />
-
+<hr>
 <p>欢迎大家的意见和交流</p>
-
 <p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/java/">java</a></span>
 
-  </section>
-  <footer>
-    
-    
-    
-    <section class="author-info row">
-      <div class="author-avatar col-md-2">
-        
-      </div>
-      <div class="author-meta col-md-6">
-        
-        
-      </div>
-      
-      <div class="author-contact col-md-4">
-        <a href="mailto:li_mingxie@163.com">
-          <i class="fa fa-envelope-o" aria-hidden="true"></i>
-          &nbsp;Contact me
-        </a>
-      </div>
-      
-    </section>
-    <ul class="pager">
-      
-      <li class="previous"><a href="https://limingxie.github.io/k8s/k8s/"><span aria-hidden="true">&larr;</span> Older</a></li>
-      
-      
-      <li class="next"><a href="https://limingxie.github.io/java/abstract_test/">Newer <span aria-hidden="true">&rarr;</span></a></li>
-      
-    </ul>
-  </footer>
-</article>
+                <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/serializable/">serializable</a><a class="tag" href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/">序列化</a><a class="tag" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a></span>
 
-  </main>
-  <footer class="container global-footer">
-    <div class="copyright-note pull-left">
-      limingxie - blog
+            </div>
+        </div>
+
+        
     </div>
-    <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+        </div>
+    </div>
 </div>
 
-  </footer>
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
 
-  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
-  
-  
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>

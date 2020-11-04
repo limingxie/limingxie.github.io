@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/java/</link>
+    <description>Recent content in java on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 29 Oct 2020 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JDK, JRE, JVM简介</title>
+      <link>https://limingxie.github.io/java/java_plateform_se_8/</link>
+      <pubDate>Thu, 29 Oct 2020 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/java_plateform_se_8/</guid>
+      <description>&lt;p&gt;刚接触到java后，我经常听到的JDK，JRE，JVM这些缩写词。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>java中的栈内存, 堆内存</title>
+      <link>https://limingxie.github.io/java/java_stack_heap/</link>
+      <pubDate>Tue, 13 Oct 2020 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/java_stack_heap/</guid>
+      <description>&lt;p&gt;上一篇文章简单整理了&lt;a href=&#34;https://limingxie.github.io/basic/stack/&#34;&gt;栈(stack), 堆(heap), 队列(queue)的结构&lt;/a&gt;&lt;br&gt;
+这一篇继续整理java中的 占内存，堆内存。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【java笔记】反射的简单应用</title>
+      <link>https://limingxie.github.io/java/reflect/</link>
+      <pubDate>Thu, 30 Jul 2020 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/reflect/</guid>
+      <description>&lt;p&gt;今天在代码中看到了invoke方法，了解到原来是使用了反射的机制。&lt;br&gt;
+以前没怎么用过这种方式，所以简单的了解一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【java笔记】this和super简介</title>
+      <link>https://limingxie.github.io/java/this_super/</link>
+      <pubDate>Sun, 26 Jul 2020 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/this_super/</guid>
+      <description>&lt;p&gt;本来是确认构造函数的运行方式的。&lt;br&gt;
+结果看到继承以及super关键字了&amp;hellip;^^;;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【java笔记】类, 抽象类, 接口的简单实验</title>
+      <link>https://limingxie.github.io/java/abstract_test/</link>
+      <pubDate>Sun, 26 Jul 2020 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/abstract_test/</guid>
+      <description>&lt;p&gt;要接触，抽象，继承，多态，封装的java了。&lt;br&gt;
+为了加深理解自己做了一个简单的实验。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【java笔记】序列化和反序列化</title>
+      <link>https://limingxie.github.io/java/serialization/</link>
+      <pubDate>Thu, 02 Jul 2020 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/serialization/</guid>
+      <description>&lt;p&gt;当做笔记简单了记录了一下。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

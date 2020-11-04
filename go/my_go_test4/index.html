@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | Go项目:傻瓜式联合测试 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="宅男 &#43; 屌丝 &#43; 程序员">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/go/my_go_test4/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Go项目:傻瓜式联合测试"/>
+<meta name="twitter:description" content="现在微服务很流行，加上我的项目从10个表增加到30&#43;表的业务量。
+感觉有些内容不应该在同一个服务里。
+于是我做了一个决定: 拆分服务。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">爱锻炼的程序员</a></h3>
+            <div class="description">
+                <p>宅男 &#43; 屌丝 &#43; 程序员</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">杂谈</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>Go项目:傻瓜式联合测试</h3>
+                
+            </div>
+
+            <p>现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。<br>
+感觉有些内容不应该在同一个服务里。<br>
+于是我做了一个决定: <strong><code>拆分服务</code></strong>。</p>
+<pre><code>分了4个服务后发现每个服务都不到8个表。每个服务的业务复杂度都不高。  
+心理暗自高兴，都说微服务，微服务，原来这么好？
+
+这种好心情维持不到半天，后面出的问题让我晕头转向。
+踩了N多个坑...ㅠㅠ
+</code></pre><p>今天我想说说其中的测试代码。<br>
+当我分了服务后写单元测试，其实没遇到过什么大问题。<br>
+可以使用上一篇文章介绍的测试替身。<br>
+<a href="https://limingxie.github.io/go/my_go_test3/">Go项目的测试代码3（测试替身Test Double）</a></p>
+<pre><code>问题是每个服务的功能是需要调用其他的服务。   
+`单元测试没问题，不能确保联合调用没问题`。  
+(初期把单元测试过的代码直接发布运营，把我害惨了...)
+</code></pre><p>我做了所有人都能想到的傻瓜式的联合测试方法。<br>
+简单，傻瓜式，但是很实用。
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+<h4 id="联合测试思路"><strong>联合测试思路</strong></h4>
+<p>就是把数据库(我是用mysql)和几个服务用docker容器启动，执行联合测试代码。<br>
+这跟本地运行每个服务后，运行测试代码有什么区别吗？(嘿嘿~ 自己想想吧。我也不知道~)
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+<h4 id="实际运用例子"><strong>实际运用例子</strong></h4>
+<p>有点linux和docker基础的人，看下面的脚本应该能想到怎么做的吧？</p>
+<pre><code>#deleted container and image, network
+docker rm -f a-service-api-container b-service-api-container... my-mysql 2&gt; /dev/null
+docker rmi -f a-service-api-image  b-service-api-image ... 2&gt; /dev/null
+docker network rm my-network 2&gt; /dev/null
+echo ''
+echo '&lt;============== start =============&gt;'
+
+#create docker network
+docker network create my-network
+
+echo 'mysql starting ...'
+docker run --name my-mysql --network my-network -p 40000:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest
+
+export DBSCRIPT=create_db.sql
+export MYSQL_PWD=1234
+
+#等待mysql容器正常启动
+while true; do
+    sleep 1
+    date #打印时间，解解闷
+    mysqladmin -h 127.0.0.1 -P 40000 -uroot ping 2&gt; /dev/null &amp;&amp; break
+done
+
+echo &quot;CREATE DATABASE a_database_test CHARACTER SET utf8 COLLATE utf8_general_ci;&quot;  &gt; ${DBSCRIPT}
+echo &quot;CREATE DATABASE b_database_test CHARACTER SET utf8 COLLATE utf8_general_ci;&quot;  &gt;&gt; ${DBSCRIPT}
+... ...
+( mysql -h 127.0.0.1 -P 40000 -uroot &lt; ${DBSCRIPT} || exit ) &amp;&amp; rm ${DBSCRIPT}
+
+#先创建a-service-api的镜像
+docker build -f ./a-service-api/Dockerfile_jointest --force-rm=true -t a-service-api-image:latest .
+
+#启用容器 需要注意的是，你启动容器的时候，需要多一个添加初始数据的操作
+docker run -d --name a-service-api-container -i  -p 40001:8081 \
+--network my-network \
+-e DATABASE_DRIVER=&quot;mysql&quot; \ 
+-e DATABASE_CONNECTION=&quot;root:1234@tcp(my-mysql)/a_database_test&quot; \
+-e ... ...
+a-service-api-image:latest
+
+#b-service-api 也一样
+docker build -f ./b-service-api/Dockerfile_jointest --force-rm=true -t b-service-api-image:latest .
+
+docker run -d --name b-service-api-container -i  -p 40002:8082 \
+--network my-network \
+-e DATABASE_DRIVER=&quot;mysql&quot; \
+-e DATABASE_CONNECTION=&quot;root:1234@tcp(my-mysql)/b_database_test&quot; \
+-e ... ...
+b-service-api-image:latest
+
+... ...
+... ...
+
+#之后等待容器正常启动
+while true; do
+    curl http://localhost:40001/ping 2&gt; /dev/null &amp;&amp; break
+    sleep 1
+done
+
+while true; do
+    curl http://localhost:40002/ping 2&gt; /dev/null &amp;&amp; break
+    sleep 1
+done
+
+... ...
+... ...
+
+
+echo ''
+echo '&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;'
+echo ''
+echo 'test start ....... '
+
+#运营你的测试代码
+go test ./a-service-api/controllers
+go test ./a-service-api/models
+go test ./b-service-api/controllers
+go test ./b-service-api/models
+... ...
+... ...
+go test ./service-test
+echo 'test end!'
+echo ''
+echo '&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;'
+
+
+#delete invalid container
+docker container prune -f 1&gt; /dev/null
+#delete invalid image
+docker image prune -f 1&gt; /dev/null
+#delete container
+docker rm -f a-service-api-container b-service-api-container ... ... my-mysql 1&gt; /dev/null
+#delete images
+docker rmi -f a-service-api-image  b-service-api-image ... ... 1&gt; /dev/null
+#delete invalid network
+docker network prune -f 1&gt; /dev/null
+docker network rm my-network 2&gt; /dev/null
+
+echo ''
+echo '&lt;============== end ===============&gt;'
+</code></pre><hr>
+<p>上面的脚本里，创建镜像的时候用到了 Dockerfile 是这么写的。<br>
+(老鸟就不用看了，为了不熟悉的人才上传的)</p>
+<pre><code>FROM golang:builder AS builder
+WORKDIR /go/src/a-service-api/
+COPY ./a-service-api/ /go/src/xxxx/a-service-api/
+
+# disable cgo 这个需要注意，因为编译的环境和运行环境不一样的话需要设置这个选项
+ENV CGO_ENABLED=0
+# build steps
+WORKDIR /go/src/xxxx/a-service-api/
+RUN echo &quot;&gt;&gt;&gt; 1: go version&quot; &amp;&amp; go version
+RUN echo &quot;&gt;&gt;&gt; 2: go get&quot; &amp;&amp; go get -v -d
+RUN echo &quot;&gt;&gt;&gt; 3: go install&quot; &amp;&amp; go install
+ 
+# make application docker image use alpine
+FROM alpine:3.6
+# using timezone
+COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo &quot;Asia/Shanghai&quot; &gt;  /etc/timezone
+
+# copy config file to image 
+RUN mkdir config
+COPY --from=builder /go/src/xxxx/a-service-api/config/config.yml ./config/
+
+# copy execute file to image
+COPY --from=builder /go/bin/a-service-api/ bin/
+EXPOSE 8081
+
+# 需要注意的是，你启动api服务的时候需要先添加联合测试的初始数据以后再启动api服务
+CMD [&quot;bin/a-service-api&quot;, &quot;join-test&quot;]
+</code></pre><hr>
+<p>看看执行结果？</p>
+<pre><code>... ...
+... ...
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+
+test start .......
+ok  	xxxx/a-service-api-api/controllers	(cached)
+ok  	xxxx/a-service-api-api/models	(cached)
+ok  	xxxx/b-service-api-api/controllers	(cached)
+ok  	xxxx/b-service-api-api/models	(cached)
+... ... 
+ok  	xxxx/service-test	(cached)
+test end!
+
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+
+&lt;============== end ===============&gt;
+</code></pre><h4 id="好了-可以发布了"><strong>好了~ 可以发布了&hellip;^^</strong></h4>
+<hr>
+<p>备注：<br>
+很多人跟我说这种功能使用 Docker Compose 会很简单，刚开始的时候我也想用过，<br>
+但是我是linux的菜鸟，我想通过这次机会了解一下这些最基础的脚本编写方式。<br>
+实现这些功能，我也断断续续的花了4，5天的时间。<br>
+(因为没基础，出了问题自己折腾大半天也找不出原因，还找公司的大牛帮忙看的&hellip;^^;;)<br>
+下次有机会再用 Docker Compose 完善一下吧，哈~</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/go/">Go</a><a class="category" href="/categories/golang/">golang</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/go/">go</a><a class="tag" href="/tags/test/">test</a><a class="tag" href="/tags/join-test/">join test</a><a class="tag" href="/tags/golang/">golang</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

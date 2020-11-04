@@ -1,254 +1,289 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head prefix="og: http://ogp.me/ns#">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" 【java笔记】反射的简单应用 &middot;  li_mingxie - Blog" />
-  
-  <meta name="theme-color" content="#hexcolor" />
- 
-  <meta property="og:site_name" content="li_mingxie - Blog" />
-  <meta property="og:url" content="https://limingxie.github.io/java/reflect/" />
-  
-  
-  <meta property="og:type" content="article" />
-  
-  <meta property="og:article:published_time" content="2020-07-30T23:28:49&#43;08:00" />
-  
-  
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【java笔记】反射的简单应用 </title>
 
-  <title>
-     【java笔记】反射的简单应用 &middot;  li_mingxie - Blog
-  </title>
-
-  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
- 
-  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
-  
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
     
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="宅男 &#43; 屌丝 &#43; 程序员">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/java/reflect/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="【java笔记】反射的简单应用"/>
+<meta name="twitter:description" content="今天在代码中看到了invoke方法，了解到原来是使用了反射的机制。
+以前没怎么用过这种方式，所以简单的了解一下。"/>
+
 </head>
-<body>
-    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
-    <section class="header-text">
-      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
-      
-      <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">爱锻炼的程序员</a></h3>
+            <div class="description">
+                <p>宅男 &#43; 屌丝 &#43; 程序员</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">杂谈</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
 </div>
 
-      
-      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-        &nbsp;Home
-      </a>
-      
-      
-    </section>
-  </header>
-  <main class="container">
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
 
+            <div class="post-title">
+                <h3>【java笔记】反射的简单应用</h3>
+                
+            </div>
 
-<article>
-  <header>
-    <h1 class="text-primary">【java笔记】反射的简单应用</h1>
-    <div class="post-meta clearfix">
-    
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2020-07-30T23:28:49&#43;08:00">
-          Jul 30, 2020
-        </time>
-      </div>
-    
-      <div class="pull-right">
-        
-      </div>
-    </div>
-  </header>
-  <section>
-    <p>今天在代码中看到了invoke方法，了解到原来是使用了反射的机制。<br />
+            <p>今天在代码中看到了invoke方法，了解到原来是使用了反射的机制。<br>
 以前没怎么用过这种方式，所以简单的了解一下。</p>
-
 <p>具体内容是简单的写了一套代码。</p>
-
 <p><strong>声明Animal类</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.lang.reflect.Constructor<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.reflect.Field<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.reflect.Method<span style="color:#f92672">;</span>
 
-<pre><code class="language-java">import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Animal</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">}</span>
 
-class Animal {
-    public Animal() {
-    }
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Animal</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public Animal(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> String name<span style="color:#f92672">;</span>
 
-    private int age;
-    public String name;
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getAge</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public int getAge() {
-        return age;
-    }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
 
-    public String getName() {
-        return name;
-    }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p><strong>普通的方法和使用反射</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unchecked&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fanshe</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------正常调用----------&#34;</span><span style="color:#f92672">);</span>
+            Animal animal <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Animal<span style="color:#f92672">();</span>
+            animal<span style="color:#f92672">.</span><span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;animal age:&#34;</span> <span style="color:#f92672">+</span> animal<span style="color:#f92672">.</span><span style="color:#a6e22e">getAge</span><span style="color:#f92672">());</span>
 
-    public void setName(String name) {
-        this.name = name;
-    }
-</code></pre>
-
-<p><strong>普通的方法和使用反射</strong></p>
-
-<pre><code class="language-java">    @SuppressWarnings(&quot;unchecked&quot;)
-    public void fanshe() throws Exception {
-        try {
-            System.out.println(&quot;-----------正常调用----------&quot;);
-            Animal animal = new Animal();
-            animal.setAge(10);
-            System.out.println(&quot;animal age:&quot; + animal.getAge());
-
-            System.out.println(&quot;-----------使用反射----------&quot;);
-            // 获取需调用的类
-            Class clz = Class.forName(&quot;Animal&quot;);
-            // 获取需调用的函数
-            Method setPriceMethod = clz.getMethod(&quot;setAge&quot;, int.class);
-            // 根据class的实例，获取Constructor实例
-            Constructor animalConstructor = clz.getConstructor();
-            // 根据Constructor实例的newInstance()，获取反射类
-            Object animalObj = animalConstructor.newInstance();
-            // 使用invoke方法调用反射类的函数
-            setPriceMethod.invoke(animalObj, 15);
-            // 只调用方法，只需要下面两个步骤
-            Method getPriceMethod = clz.getMethod(&quot;getAge&quot;);
-            Object age = getPriceMethod.invoke(animalObj);
-            System.out.println(&quot;animal age:&quot; + age);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-</code></pre>
-
-<p><strong>反射的常用方法</strong></p>
-
-<pre><code class="language-java">    @SuppressWarnings(&quot;unchecked&quot;)
-    public void fansheTest() throws Exception {
-        try {
-            // 使用.forName 获取类的对象
-            Class clz1 = Class.forName(&quot;java.lang.String&quot;);
-            System.out.println(&quot;-----------Class1----------&quot;);
-            System.out.println(clz1);
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------使用反射----------&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#75715e">// 获取需调用的类
+</span><span style="color:#75715e"></span>            Class clz <span style="color:#f92672">=</span> Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Animal&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#75715e">// 获取需调用的函数
+</span><span style="color:#75715e"></span>            Method setPriceMethod <span style="color:#f92672">=</span> clz<span style="color:#f92672">.</span><span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;setAge&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+            <span style="color:#75715e">// 根据class的实例，获取Constructor实例
+</span><span style="color:#75715e"></span>            Constructor animalConstructor <span style="color:#f92672">=</span> clz<span style="color:#f92672">.</span><span style="color:#a6e22e">getConstructor</span><span style="color:#f92672">();</span>
+            <span style="color:#75715e">// 根据Constructor实例的newInstance()，获取反射类
+</span><span style="color:#75715e"></span>            Object animalObj <span style="color:#f92672">=</span> animalConstructor<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">();</span>
+            <span style="color:#75715e">// 使用invoke方法调用反射类的函数
+</span><span style="color:#75715e"></span>            setPriceMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>animalObj<span style="color:#f92672">,</span> 15<span style="color:#f92672">);</span>
+            <span style="color:#75715e">// 只调用方法，只需要下面两个步骤
+</span><span style="color:#75715e"></span>            Method getPriceMethod <span style="color:#f92672">=</span> clz<span style="color:#f92672">.</span><span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getAge&#34;</span><span style="color:#f92672">);</span>
+            Object age <span style="color:#f92672">=</span> getPriceMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>animalObj<span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;animal age:&#34;</span> <span style="color:#f92672">+</span> age<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p><strong>反射的常用方法</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unchecked&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fansheTest</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// 使用.forName 获取类的对象
+</span><span style="color:#75715e"></span>            Class clz1 <span style="color:#f92672">=</span> Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;java.lang.String&#34;</span><span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------Class1----------&#34;</span><span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>clz1<span style="color:#f92672">);</span>
 
 
-            // 使用 .class 获取类的对象
-            Class clz2 = String.class;
-            System.out.println(&quot;-----------Class2----------&quot;);
-            System.out.println(clz2);
+            <span style="color:#75715e">// 使用 .class 获取类的对象
+</span><span style="color:#75715e"></span>            Class clz2 <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------Class2----------&#34;</span><span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>clz2<span style="color:#f92672">);</span>
 
-            // 实例的 .getClass 获取类对象
-            String str = new String(&quot;Hello&quot;);
-            Class clz3 = str.getClass();
-            System.out.println(&quot;-----------Class3----------&quot;);
-            System.out.println(clz3);
-
-
-            // 获取反射类，直接调用class的 newInstance()方法获取
-            Class clz4 = Animal.class;
-            Animal animal4 = (Animal) clz4.newInstance();
-            System.out.println(&quot;-----------Class4----------&quot;);
-            System.out.println(animal4.getClass());
-
-            // 获取反射类，通过Constructor的newInstance()方法获取
-            Class clz5 = Animal.class;
-            Constructor constructor5 = clz5.getConstructor();
-            Animal animal5 = (Animal) constructor5.newInstance();
-            System.out.println(&quot;-----------Class5----------&quot;);
-            System.out.println(animal5.getClass());
-
-            // 获取反射类，指定构造函数的时候
-            Class clz6 = Animal.class;
-            Constructor constructor6 = clz4.getConstructor(String.class, int.class);
-            Animal animal6 = (Animal) constructor6.newInstance(&quot;马&quot;, 15);
-            System.out.println(&quot;-----------Class6----------&quot;);
-            System.out.println(animal6.getClass());
+            <span style="color:#75715e">// 实例的 .getClass 获取类对象
+</span><span style="color:#75715e"></span>            String str <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello&#34;</span><span style="color:#f92672">);</span>
+            Class clz3 <span style="color:#f92672">=</span> str<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">();</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------Class3----------&#34;</span><span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>clz3<span style="color:#f92672">);</span>
 
 
-            Class clz = Animal.class;
-            // 获取类的属性(查不到private属性)
-            Field[] fields1 = clz.getFields();
-            System.out.println(&quot;-----------fields1----------&quot;);
-            for (Field field : fields1) {
-                System.out.println(field.getName());
-            }
+            <span style="color:#75715e">// 获取反射类，直接调用class的 newInstance()方法获取
+</span><span style="color:#75715e"></span>            Class clz4 <span style="color:#f92672">=</span> Animal<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+            Animal animal4 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Animal<span style="color:#f92672">)</span> clz4<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">();</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------Class4----------&#34;</span><span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>animal4<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">());</span>
 
-            // 获取声明的类所有属性
-            System.out.println(&quot;-----------fields2----------&quot;);
-            Field[] fields2 = clz.getDeclaredFields();
-            for (Field field : fields2) {
-                System.out.println(field.getName());
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-}
-</code></pre>
+            <span style="color:#75715e">// 获取反射类，通过Constructor的newInstance()方法获取
+</span><span style="color:#75715e"></span>            Class clz5 <span style="color:#f92672">=</span> Animal<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+            Constructor constructor5 <span style="color:#f92672">=</span> clz5<span style="color:#f92672">.</span><span style="color:#a6e22e">getConstructor</span><span style="color:#f92672">();</span>
+            Animal animal5 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Animal<span style="color:#f92672">)</span> constructor5<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">();</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------Class5----------&#34;</span><span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>animal5<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">());</span>
 
-<p><strong>main里执行</strong></p>
+            <span style="color:#75715e">// 获取反射类，指定构造函数的时候
+</span><span style="color:#75715e"></span>            Class clz6 <span style="color:#f92672">=</span> Animal<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+            Constructor constructor6 <span style="color:#f92672">=</span> clz4<span style="color:#f92672">.</span><span style="color:#a6e22e">getConstructor</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+            Animal animal6 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Animal<span style="color:#f92672">)</span> constructor6<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;马&#34;</span><span style="color:#f92672">,</span> 15<span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------Class6----------&#34;</span><span style="color:#f92672">);</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>animal6<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">());</span>
 
-<pre><code class="language-java">public class main {
-    public static void main(String[] args){
-        Animal animal = new Animal();
-        try{
-            animal.fanshe();
-            animal.fansheTest();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-}
 
-</code></pre>
+            Class clz <span style="color:#f92672">=</span> Animal<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+            <span style="color:#75715e">// 获取类的属性(查不到private属性)
+</span><span style="color:#75715e"></span>            Field<span style="color:#f92672">[]</span> fields1 <span style="color:#f92672">=</span> clz<span style="color:#f92672">.</span><span style="color:#a6e22e">getFields</span><span style="color:#f92672">();</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------fields1----------&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Field field <span style="color:#f92672">:</span> fields1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>field<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+            <span style="color:#f92672">}</span>
 
-<p><strong>编译以后，可以查看结果</strong></p>
+            <span style="color:#75715e">// 获取声明的类所有属性
+</span><span style="color:#75715e"></span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------fields2----------&#34;</span><span style="color:#f92672">);</span>
+            Field<span style="color:#f92672">[]</span> fields2 <span style="color:#f92672">=</span> clz<span style="color:#f92672">.</span><span style="color:#a6e22e">getDeclaredFields</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Field field <span style="color:#f92672">:</span> fields2<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>field<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>main里执行</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">main</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">){</span>
+        Animal animal <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Animal<span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
+            animal<span style="color:#f92672">.</span><span style="color:#a6e22e">fanshe</span><span style="color:#f92672">();</span>
+            animal<span style="color:#f92672">.</span><span style="color:#a6e22e">fansheTest</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
 
+</code></pre></div><p><strong>编译以后，可以查看结果</strong></p>
 <pre><code>$ javac main.java
 
 $ java main
@@ -273,79 +308,44 @@ name
 -----------fields2----------
 age
 name
-</code></pre>
-
-<hr />
-
+</code></pre><hr>
 <p>欢迎大家的意见和交流</p>
-
 <p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/java/">java</a></span>
 
-  </section>
-  <footer>
-    
-    
-    
-    <section class="author-info row">
-      <div class="author-avatar col-md-2">
-        
-      </div>
-      <div class="author-meta col-md-6">
-        
-        
-      </div>
-      
-      <div class="author-contact col-md-4">
-        <a href="mailto:li_mingxie@163.com">
-          <i class="fa fa-envelope-o" aria-hidden="true"></i>
-          &nbsp;Contact me
-        </a>
-      </div>
-      
-    </section>
-    <ul class="pager">
-      
-      <li class="previous"><a href="https://limingxie.github.io/java/this_super/"><span aria-hidden="true">&larr;</span> Older</a></li>
-      
-      
-      <li class="next"><a href="https://limingxie.github.io/java/nio/">Newer <span aria-hidden="true">&rarr;</span></a></li>
-      
-    </ul>
-  </footer>
-</article>
+                <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/reflect/">reflect</a></span>
 
-  </main>
-  <footer class="container global-footer">
-    <div class="copyright-note pull-left">
-      limingxie - blog
+            </div>
+        </div>
+
+        
     </div>
-    <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+        </div>
+    </div>
 </div>
 
-  </footer>
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
 
-  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
-  
-  
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>

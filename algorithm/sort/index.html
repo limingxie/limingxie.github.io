@@ -1,108 +1,153 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head prefix="og: http://ogp.me/ns#">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" 算法(排序) &middot;  li_mingxie - Blog" />
-  
-  <meta name="theme-color" content="#hexcolor" />
- 
-  <meta property="og:site_name" content="li_mingxie - Blog" />
-  <meta property="og:url" content="https://limingxie.github.io/algorithm/sort/" />
-  
-  
-  <meta property="og:type" content="article" />
-  
-  <meta property="og:article:published_time" content="2019-07-09T07:28:49&#43;08:00" />
-  
-  
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 算法(排序) </title>
 
-  <title>
-     算法(排序) &middot;  li_mingxie - Blog
-  </title>
-
-  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
- 
-  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
-  
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
     
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="宅男 &#43; 屌丝 &#43; 程序员">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/algorithm/sort/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="算法(排序)"/>
+<meta name="twitter:description" content="感觉现在越来越重视算法了。"/>
+
 </head>
-<body>
-    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
-    <section class="header-text">
-      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
-      
-      <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">爱锻炼的程序员</a></h3>
+            <div class="description">
+                <p>宅男 &#43; 屌丝 &#43; 程序员</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">杂谈</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
 </div>
 
-      
-      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-        &nbsp;Home
-      </a>
-      
-      
-    </section>
-  </header>
-  <main class="container">
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
 
+            <div class="post-title">
+                <h3>算法(排序)</h3>
+                
+            </div>
 
-<article>
-  <header>
-    <h1 class="text-primary">算法(排序)</h1>
-    <div class="post-meta clearfix">
-    
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2019-07-09T07:28:49&#43;08:00">
-          Jul 9, 2019
-        </time>
-      </div>
-    
-      <div class="pull-right">
-        
-      </div>
-    </div>
-  </header>
-  <section>
-    
-
-<p>感觉现在越来越重视算法了。<br />
-因为我不是计算机专业的，所以对这些算法没怎么注意过。<br />
+            <p>感觉现在越来越重视算法了。</p>
+<p>因为我不是计算机专业的，所以对这些算法没怎么注意过。<br>
 这么高领的程序员居然才接触到这些算法，真是惭愧啊&hellip;^^;;</p>
-
 <p>以下代码都是用golang写的，算是给自己看的笔记~</p>
-
 <pre><code>(1) 冒泡排序(Bubble Sort)
 (2) 选择排序(Selection Sort)
 (3) 插入排序(Insertion Sort)
@@ -111,123 +156,106 @@
 (6) 快速排序(Quick Sort)
 (7) 基数排序(Radix Sort)
 (8) 堆排序(Heap Sort)
-</code></pre>
+</code></pre><!-- raw HTML omitted -->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//泡沫排序
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BubbleSort</span>() {
+	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">1</span>}
 
-<p><br/>
-<strong>◆ 冒泡排序(Bubble Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/bubble_sort_03.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/bubble_sort_03.gif" alt="bubble_sort_03" /></p>
-
-<pre><code class="language-go">//泡沫排序
-func BubbleSort() {
-	data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1}
-
-	for i := 0; i &lt; len(data); i++ {
-		for j := 0; j &lt; len(data)-i; j++ {
-			if data[j] &gt; data[j+1] {
-				v := data[j]
-				data[j] = data[j+1]
-				data[j+1] = v
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">data</span>)<span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] &gt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] {
+				<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
+				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]
+				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">v</span>
 			}
 		}
 	}
 
-	fmt.Println(data)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
 }
-</code></pre>
+</code></pre></div><hr>
+<p><strong>◆ 选择排序(Selection Sort)</strong><br>
+<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/selection_sort_01.gif">图片备用地址</a><br>
+<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/selection_sort_01.gif" alt="selection_sort_01"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//选择排序
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SelectionSort</span>() {
+	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">1</span>}
 
-<hr />
-
-<p><strong>◆ 选择排序(Selection Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/selection_sort_01.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/selection_sort_01.gif" alt="selection_sort_01" /></p>
-
-<pre><code class="language-go">//选择排序
-func SelectionSort() {
-	data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1}
-
-	var book int
-	for i := 0; i &lt; len(data); i++ {
-		v := data[i]
-		for j := i; j &lt; len(data); j++ {
-			if v &gt;= data[j] {
-				book = j
-				v = data[j]
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">book</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] {
+				<span style="color:#a6e22e">book</span> = <span style="color:#a6e22e">j</span>
+				<span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
 			}
 		}
-		data[book] = data[i]
-		data[i] = v
+		<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">book</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
+		<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">v</span>
 	}
 
-	fmt.Println(data)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
 }
-</code></pre>
+</code></pre></div><hr>
+<p><strong>◆ 插入排序(Insertion Sort)</strong><br>
+<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif">图片备用地址</a><br>
+<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif" alt="insertion_sort_01"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//直接插入排序
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertionSort</span>() {
+	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">1</span>}
 
-<hr />
-
-<p><strong>◆ 插入排序(Insertion Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif" alt="insertion_sort_01" /></p>
-
-<pre><code class="language-go">//直接插入排序
-func InsertionSort() {
-	data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1}
-
-	for i := 0; i &lt; len(data); i++ {
-		for j := 0; j &lt; i; j++ {
-			if data[j] &gt; data[i] {
-				v := data[i]
-				for k := i; k &gt; j; k-- {
-					data[k] = data[k-1]
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] &gt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>] {
+				<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
+				<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">k</span> &gt; <span style="color:#a6e22e">j</span>; <span style="color:#a6e22e">k</span><span style="color:#f92672">--</span> {
+					<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 				}
-				data[j] = v
+				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">v</span>
 			}
 		}
 	}
 
-	fmt.Println(data)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
 }
-</code></pre>
+</code></pre></div><p><strong>◆ 希尔排序(Shell Sort)</strong><br>
+<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/shell_sort_01.gif">图片备用地址</a><br>
+<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/shell_sort_01.gif" alt="shell_sort_01"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//网上的优雅的写法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ShellSort</span>() {
+	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">1</span>}
 
-<p><strong>◆ 希尔排序(Shell Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/shell_sort_01.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/shell_sort_01.gif" alt="shell_sort_01" /></p>
-
-<pre><code class="language-go">//网上的优雅的写法
-func ShellSort() {
-	data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1}
-
-	for step := len(data) / 2; step &gt; 0; step /= 2 {
-		//开始插入排序
-		for i := step; i &lt; len(data); i++ {
-			//满足条件则插入
-			for j := i - step; j &gt;= 0 &amp;&amp; data[j+step] &lt; data[j]; j -= step {
-				data[j], data[j+step] = data[j+step], data[j]
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">data</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">step</span> &gt; <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">step</span> <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span> {
+		<span style="color:#75715e">//开始插入排序
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">step</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#75715e">//满足条件则插入
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">step</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">step</span>] &lt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]; <span style="color:#a6e22e">j</span> <span style="color:#f92672">-=</span> <span style="color:#a6e22e">step</span> {
+				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">step</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">step</span>], <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
 			}
 		}
 	}
 
-	fmt.Println(data)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
 }
 
-//我自己琢磨了半天才写出来的复杂版..ㅠㅠ
-func ShellSort1() {
-	data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1}
+<span style="color:#75715e">//我自己琢磨了半天才写出来的复杂版..ㅠㅠ
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ShellSort1</span>() {
+	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">1</span>}
 
-	//先按照增量循环
-	for step := len(data) / 2; step &gt; 0; step = step / 2 {
-		//每次增量的循环数
-		for i := 0; i &lt; step; i++ {
-			//插入排序
-			for j := i; j &lt; len(data); j = j + step {
-				for k := i; k &lt; j; k = k + step {
-					if data[k] &gt; data[j] {
-						v := data[j]
-						//为了插入往右挪数据
-						for l := j; l &gt; k; l = l - step {
-							data[l] = data[l-step]
+	<span style="color:#75715e">//先按照增量循环
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">step</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">data</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">step</span> &gt; <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">step</span> = <span style="color:#a6e22e">step</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> {
+		<span style="color:#75715e">//每次增量的循环数
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">step</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+			<span style="color:#75715e">//插入排序
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">j</span> = <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">step</span> {
+				<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">k</span> &lt; <span style="color:#a6e22e">j</span>; <span style="color:#a6e22e">k</span> = <span style="color:#a6e22e">k</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">step</span> {
+					<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span>] &gt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] {
+						<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
+						<span style="color:#75715e">//为了插入往右挪数据
+</span><span style="color:#75715e"></span>						<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">l</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">j</span>; <span style="color:#a6e22e">l</span> &gt; <span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">l</span> = <span style="color:#a6e22e">l</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">step</span> {
+							<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">l</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">l</span><span style="color:#f92672">-</span><span style="color:#a6e22e">step</span>]
 						}
-						data[k] = v
+						<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">v</span>
 					}
 				}
 
@@ -235,111 +263,65 @@ func ShellSort1() {
 		}
 	}
 
-	fmt.Println(data)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
 }
-</code></pre>
-
-<hr />
-
-<p><strong>◆ 归并排序(Merge Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/merge_sort_01.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/merge_sort_01.gif" alt="merge_sort_01" /></p>
-
+</code></pre></div><hr>
+<p><strong>◆ 归并排序(Merge Sort)</strong><br>
+<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/merge_sort_01.gif">图片备用地址</a><br>
+<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/merge_sort_01.gif" alt="merge_sort_01"></p>
 <h4 id="未完待续"><strong>未完待续</strong></h4>
-
-<hr />
-
-<p><strong>◆ 快速排序(Quick Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/quick_sort_02.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/quick_sort_02.gif" alt="quick_sort_02" /></p>
-
+<hr>
+<p><strong>◆ 快速排序(Quick Sort)</strong><br>
+<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/quick_sort_02.gif">图片备用地址</a><br>
+<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/quick_sort_02.gif" alt="quick_sort_02"></p>
 <h4 id="未完待续-1"><strong>未完待续</strong></h4>
-
-<hr />
-
-<p><strong>◆ 基数排序(Radix Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/radix_sort_01.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/radix_sort_01.gif" alt="radix_sort_01" /></p>
-
-<hr />
-
-<p><strong>◆ 堆排序(Heap Sort)</strong><br />
-<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/heap_sort_01.gif">图片备用地址</a><br />
-<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/heap_sort_01.gif" alt="heap_sort_01" /></p>
-
+<hr>
+<p><strong>◆ 基数排序(Radix Sort)</strong><br>
+<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/radix_sort_01.gif">图片备用地址</a><br>
+<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/radix_sort_01.gif" alt="radix_sort_01"></p>
+<hr>
+<p><strong>◆ 堆排序(Heap Sort)</strong><br>
+<a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/heap_sort_01.gif">图片备用地址</a><br>
+<img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/heap_sort_01.gif" alt="heap_sort_01"></p>
 <h4 id="未完待续-2"><strong>未完待续</strong></h4>
-
-<hr />
-
+<hr>
 <p>欢迎大家的意见和交流</p>
-
 <p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/algorithm/">algorithm</a></span>
 
-  </section>
-  <footer>
-    
-    
-    
-    <section class="author-info row">
-      <div class="author-avatar col-md-2">
-        
-      </div>
-      <div class="author-meta col-md-6">
-        
-        
-      </div>
-      
-      <div class="author-contact col-md-4">
-        <a href="mailto:li_mingxie@163.com">
-          <i class="fa fa-envelope-o" aria-hidden="true"></i>
-          &nbsp;Contact me
-        </a>
-      </div>
-      
-    </section>
-    <ul class="pager">
-      
-      <li class="previous"><a href="https://limingxie.github.io/limingxie/solid_1/"><span aria-hidden="true">&larr;</span> Older</a></li>
-      
-      
-      <li class="next"><a href="https://limingxie.github.io/algorithm/recursive/">Newer <span aria-hidden="true">&rarr;</span></a></li>
-      
-    </ul>
-  </footer>
-</article>
+                <span class="separator"><a class="tag" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a><a class="tag" href="/tags/sort/">sort</a><a class="tag" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="tag" href="/tags/algorithm/">algorithm</a></span>
 
-  </main>
-  <footer class="container global-footer">
-    <div class="copyright-note pull-left">
-      limingxie - blog
+            </div>
+        </div>
+
+        
     </div>
-    <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+        </div>
+    </div>
 </div>
 
-  </footer>
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
 
-  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
-  
-  
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>

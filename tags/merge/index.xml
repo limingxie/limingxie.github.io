@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>merge on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/merge/</link>
+    <description>Recent content in merge on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 29 Jul 2018 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/merge/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git命令merge和rebase的简单应用</title>
+      <link>https://limingxie.github.io/git/git_merge_rebase/</link>
+      <pubDate>Sun, 29 Jul 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/git/git_merge_rebase/</guid>
+      <description>&lt;p&gt;因为工作的需求，项目分了几个大分支管理了。&lt;br&gt;
+不同的环境需要的功能也不一样，在不同的分支里修改。&lt;br&gt;
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

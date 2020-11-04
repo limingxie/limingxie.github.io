@@ -1,214 +1,250 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head prefix="og: http://ogp.me/ns#">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" 【java笔记】this和super简介 &middot;  li_mingxie - Blog" />
-  
-  <meta name="theme-color" content="#hexcolor" />
- 
-  <meta property="og:site_name" content="li_mingxie - Blog" />
-  <meta property="og:url" content="https://limingxie.github.io/java/this_super/" />
-  
-  
-  <meta property="og:type" content="article" />
-  
-  <meta property="og:article:published_time" content="2020-07-26T12:28:49&#43;08:00" />
-  
-  
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【java笔记】this和super简介 </title>
 
-  <title>
-     【java笔记】this和super简介 &middot;  li_mingxie - Blog
-  </title>
-
-  <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/main.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://limingxie.github.io/css/github.css" />
- 
-  <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
-  
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?1333035c981597c935706422cb31b76b";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
     
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="宅男 &#43; 屌丝 &#43; 程序员">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/java/this_super/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="【java笔记】this和super简介"/>
+<meta name="twitter:description" content="本来是确认构造函数的运行方式的。
+结果看到继承以及super关键字了&hellip;^^;;"/>
+
 </head>
-<body>
-    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
-    <section class="header-text">
-      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
-      
-      <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">爱锻炼的程序员</a></h3>
+            <div class="description">
+                <p>宅男 &#43; 屌丝 &#43; 程序员</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">杂谈</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
 </div>
 
-      
-      <a href="https://limingxie.github.io/" class="btn-header btn-back hidden-xs">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-        &nbsp;Home
-      </a>
-      
-      
-    </section>
-  </header>
-  <main class="container">
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
 
+            <div class="post-title">
+                <h3>【java笔记】this和super简介</h3>
+                
+            </div>
 
-<article>
-  <header>
-    <h1 class="text-primary">【java笔记】this和super简介</h1>
-    <div class="post-meta clearfix">
-    
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2020-07-26T12:28:49&#43;08:00">
-          Jul 26, 2020
-        </time>
-      </div>
-    
-      <div class="pull-right">
-        
-      </div>
-    </div>
-  </header>
-  <section>
-    <p>本来是确认构造函数的运行方式的。<br />
+            <p>本来是确认构造函数的运行方式的。<br>
 结果看到继承以及super关键字了&hellip;^^;;</p>
-
-<p>都说this是类似于指自己的一个指针，super是更像一个关键字。<br />
-可能我的了解不是那么深入，觉得this就是指自己super就是指父类。其余没感觉到什么特别。<br />
-而且感觉前期了解这些就可以了，后面对Java有更深层次的了解后继续在研究~<br />
+<p>都说this是类似于指自己的一个指针，super是更像一个关键字。<br>
+可能我的了解不是那么深入，觉得this就是指自己super就是指父类。其余没感觉到什么特别。<br>
+而且感觉前期了解这些就可以了，后面对Java有更深层次的了解后继续在研究~<br>
 下面是我简单的试一试，做个记录&hellip;^^</p>
-
 <blockquote>
-<p>1.this指向自己。<br />
-2.super指向父类。<br />
-3.多层继承时，super指向离自己最近的上一层父类。<br />
-4.不能同时继承类和接口，也不能同时继承抽象类和接口。<br />
-5.构造函数中使用this或super时，必须写在第一行。而且不能同时使用。</p>
 </blockquote>
-
-<p>我先创建了以下文件。<br />
-<a href="https://limingxie.github.io/images/java/super/super_test.png">图片备用地址</a><br />
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/super/super_test.png" alt="文件目录结构" /></p>
-
+<p>1.this指向自己。<br>
+2.super指向父类。<br>
+3.多层继承时，super指向离自己最近的上一层父类。<br>
+4.不能同时继承类和接口，也不能同时继承抽象类和接口。<br>
+5.构造函数中使用this或super时，必须写在第一行。而且不能同时使用。</p>
+<p>我先创建了以下文件。<br>
+<a href="https://limingxie.github.io/images/java/super/super_test.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/super/super_test.png" alt="文件目录结构"></p>
 <p>先看看每个文件的代码</p>
-
 <p><strong>【Animal】一个普通的类和函数。</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> supertest.animal<span style="color:#f92672">;</span>
 
-<pre><code class="language-java">package supertest.animal;
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 姓名属性，和子类的值不一样
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">protected</span> String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;animalName&#34;</span><span style="color:#f92672">;</span>
 
-public class Animal {
-    // 姓名属性，和子类的值不一样
-    protected String name = &quot;animalName&quot;;
+    <span style="color:#75715e">// 无参构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Animal</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Animal: There are no parameters&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
 
-    // 无参构造函数
-    public Animal() {
-        System.out.println(&quot;Animal: There are no parameters&quot;);
-    }
+    <span style="color:#75715e">// 有参构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Animal</span><span style="color:#f92672">(</span>String str<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;parameters:&#34;</span> <span style="color:#f92672">+</span> str<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
 
-    // 有参构造函数
-    public Animal(String str) {
-        System.out.println(&quot;parameters:&quot; + str);
-    }
+    <span style="color:#75715e">// 父类的函数，子类会重写这个函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>String str<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>str<span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> Animal<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>【Horse】子类继承了Animal父类</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> supertest.MammalInt<span style="color:#f92672">;</span>
 
-    // 父类的函数，子类会重写这个函数
-    public void run(String str) {
-        System.out.println(str+ &quot;:&quot; + Animal.class);
-    }
-}
-</code></pre>
+<span style="color:#f92672">import</span> supertest.animal.Animal<span style="color:#f92672">;</span>
 
-<p><strong>【Horse】子类继承了Animal父类</strong></p>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Horse</span> <span style="color:#66d9ef">extends</span> Animal <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 姓名属性，和父类的值不一样
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">protected</span> String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;horseName&#34;</span><span style="color:#f92672">;</span>
 
-<pre><code class="language-java">package supertest.MammalInt;
+    <span style="color:#75715e">// 无参构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Horse</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 这里执行父类有参的构造函数
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;super has parameters&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Horse: There are no parameters.&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
 
-import supertest.animal.Animal;
+    <span style="color:#75715e">// 有参构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Horse</span><span style="color:#f92672">(</span>String str<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;parameters:&#34;</span> <span style="color:#f92672">+</span> str<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
 
-public class Horse extends Animal {
-    // 姓名属性，和父类的值不一样
-    protected String name = &quot;horseName&quot;;
+    <span style="color:#75715e">// 查看this和super的name
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printName</span><span style="color:#f92672">(){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;---------------------this.name------------------------&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;this.name:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;---------------------super.name-----------------------&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;super.name:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
 
-    // 无参构造函数
-    public Horse() {
-        // 这里执行父类有参的构造函数
-        super(&quot;super has parameters&quot;);
-        System.out.println(&quot;Horse: There are no parameters.&quot;);
-    }
+    <span style="color:#75715e">// 重写了父类的run函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>String str<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>str<span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> Horse<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
 
-    // 有参构造函数
-    public Horse(String str) {
-        System.out.println(&quot;parameters:&quot; + str);
-    }
+    <span style="color:#75715e">// 查看this和super的run函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testRun</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;---------------------this.run-------------------------&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>name<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;---------------------super.run------------------------&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>name<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> test.supertest<span style="color:#f92672">;</span>
 
-    // 查看this和super的name
-    public void printName(){
-        System.out.println(&quot;---------------------this.name------------------------&quot;);
-        System.out.println(&quot;this.name:&quot; + this.name);
-        System.out.println(&quot;---------------------super.name-----------------------&quot;);
-        System.out.println(&quot;super.name:&quot; + super.name);
-    }
+<span style="color:#f92672">import</span> test.supertest.animal.Animal<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> test.supertest.MammalInt.Horse<span style="color:#f92672">;</span>
 
-    // 重写了父类的run函数
-    public void run(String str) {
-        System.out.println(str+ &quot;:&quot; + Horse.class);
-    }
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">main</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 先执行父类的构造函数，然后在执行子类的构造函数
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;---------------------constructor----------------------&#34;</span><span style="color:#f92672">);</span>
+        Horse horse <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Horse<span style="color:#f92672">();</span>
 
-    // 查看this和super的run函数
-    public void testRun(String name) {
-        System.out.println(&quot;---------------------this.run-------------------------&quot;);
-        this.run(name);
-        System.out.println(&quot;---------------------super.run------------------------&quot;);
-        super.run(name);
-    }
-}
-</code></pre>
+        <span style="color:#75715e">// 查看this和super的name
+</span><span style="color:#75715e"></span>        horse<span style="color:#f92672">.</span><span style="color:#a6e22e">printName</span><span style="color:#f92672">();</span>
 
-<pre><code class="language-java">package test.supertest;
-
-import test.supertest.animal.Animal;
-import test.supertest.MammalInt.Horse;
-
-public class main {
-    public static void main(String[] args) {
-        // 先执行父类的构造函数，然后在执行子类的构造函数
-        System.out.println(&quot;---------------------constructor----------------------&quot;);
-        Horse horse = new Horse();
-
-        // 查看this和super的name
-        horse.printName();
-
-        // 查看this和super的函数
-        horse.testRun(&quot;testRun&quot;);
-    }
-}
-</code></pre>
-
-<p><strong>编译以后，可以查看结果</strong></p>
-
+        <span style="color:#75715e">// 查看this和super的函数
+</span><span style="color:#75715e"></span>        horse<span style="color:#f92672">.</span><span style="color:#a6e22e">testRun</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;testRun&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>编译以后，可以查看结果</strong></p>
 <pre><code>$ javac supertest/animal/Animal.java supertest/MammalInt/Horse.java supertest/main.java
 
 $ java supertest.main
@@ -223,79 +259,44 @@ super.name:animalName
 testRun:class supertest.MammalInt.Horse
 ---------------------super.run------------------------
 testRun:class supertest.animal.Animal
-</code></pre>
-
-<hr />
-
+</code></pre><hr>
 <p>欢迎大家的意见和交流</p>
-
 <p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/java/">java</a></span>
 
-  </section>
-  <footer>
-    
-    
-    
-    <section class="author-info row">
-      <div class="author-avatar col-md-2">
-        
-      </div>
-      <div class="author-meta col-md-6">
-        
-        
-      </div>
-      
-      <div class="author-contact col-md-4">
-        <a href="mailto:li_mingxie@163.com">
-          <i class="fa fa-envelope-o" aria-hidden="true"></i>
-          &nbsp;Contact me
-        </a>
-      </div>
-      
-    </section>
-    <ul class="pager">
-      
-      <li class="previous"><a href="https://limingxie.github.io/java/abstract_test/"><span aria-hidden="true">&larr;</span> Older</a></li>
-      
-      
-      <li class="next"><a href="https://limingxie.github.io/java/reflect/">Newer <span aria-hidden="true">&rarr;</span></a></li>
-      
-    </ul>
-  </footer>
-</article>
+                <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/this/">this</a><a class="tag" href="/tags/super/">super</a></span>
 
-  </main>
-  <footer class="container global-footer">
-    <div class="copyright-note pull-left">
-      limingxie - blog
+            </div>
+        </div>
+
+        
     </div>
-    <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+        </div>
+    </div>
 </div>
 
-  </footer>
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
 
-  <script src="https://limingxie.github.io/js/highlight.pack.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
-  
-  
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>

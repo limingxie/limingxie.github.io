@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gos on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/go/</link>
+    <description>Recent content in Gos on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 14 Feb 2019 08:38:02 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go项目:error错误处理</title>
+      <link>https://limingxie.github.io/go/err_return/</link>
+      <pubDate>Thu, 14 Feb 2019 08:38:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/err_return/</guid>
+      <description>&lt;p&gt;上一篇文章我介绍了拆分服务后如何去写测试代码。&lt;br&gt;
+&lt;a href=&#34;https://limingxie.github.io/go/my_go_test4/&#34;&gt;Go项目:傻瓜式联合测试&lt;/a&gt;&lt;br&gt;
+今天想共享一下，我是如何处理error。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go项目:傻瓜式联合测试</title>
+      <link>https://limingxie.github.io/go/my_go_test4/</link>
+      <pubDate>Tue, 12 Feb 2019 08:38:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/my_go_test4/</guid>
+      <description>&lt;p&gt;现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。&lt;br&gt;
+感觉有些内容不应该在同一个服务里。&lt;br&gt;
+于是我做了一个决定: &lt;strong&gt;&lt;code&gt;拆分服务&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>go websocket的简单应用</title>
+      <link>https://limingxie.github.io/go/go_socket/</link>
+      <pubDate>Thu, 06 Dec 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/go_socket/</guid>
+      <description>&lt;p&gt;因为我们是做企业ERP系统，没什么机会接触socket。&lt;br&gt;
+这次准备做消息推送才了解到还有socket这种技术&amp;hellip;ㅠㅠ&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go项目的测试代码3（测试替身Test Double）</title>
+      <link>https://limingxie.github.io/go/my_go_test3/</link>
+      <pubDate>Sun, 27 May 2018 20:38:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/my_go_test3/</guid>
+      <description>&lt;p&gt;上一篇文章介绍了项目中测试代码的写法。&lt;br&gt;
+&lt;a href=&#34;https://limingxie.github.io/go/my_go_test1/&#34;&gt;Go项目的测试代码2（项目运用）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这里简单的共享一下测试替身。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go项目的测试代码2（项目运用）</title>
+      <link>https://limingxie.github.io/go/my_go_test1/</link>
+      <pubDate>Sun, 27 May 2018 20:37:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/my_go_test1/</guid>
+      <description>&lt;p&gt;上一篇文章介绍了最基本的测试代码的写法。&lt;br&gt;
+&lt;a href=&#34;https://limingxie.github.io/go/my_go_test/&#34;&gt;Go项目的测试代码（基础）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这里简单的共享一下我在项目中使用的方式。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Go项目的测试代码1（基础）</title>
+      <link>https://limingxie.github.io/go/my_go_test/</link>
+      <pubDate>Sun, 27 May 2018 20:36:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/my_go_test/</guid>
+      <description>&lt;p&gt;最近写了测试代码，整理了一下。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

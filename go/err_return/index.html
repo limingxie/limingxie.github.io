@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | Go项目:error错误处理 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="宅男 &#43; 屌丝 &#43; 程序员">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/go/err_return/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Go项目:error错误处理"/>
+<meta name="twitter:description" content="上一篇文章我介绍了拆分服务后如何去写测试代码。
+Go项目:傻瓜式联合测试
+今天想共享一下，我是如何处理error。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">爱锻炼的程序员</a></h3>
+            <div class="description">
+                <p>宅男 &#43; 屌丝 &#43; 程序员</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">杂谈</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>Go项目:error错误处理</h3>
+                
+            </div>
+
+            <p>上一篇文章我介绍了拆分服务后如何去写测试代码。<br>
+<a href="https://limingxie.github.io/go/my_go_test4/">Go项目:傻瓜式联合测试</a><br>
+今天想共享一下，我是如何处理error。</p>
+<p>其实error是一个普通的处理。<br>
+但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。</p>
+<pre><code>有A,B,C 3个服务。  
+A服务提供的一个功能是需要 B和C 服务的信息。  
+该功能执行的时候出问题，单凭返回的信息，你是很难一眼看出问题点是在哪里。  
+(go 的错误提示过于简单...^^;;)
+</code></pre><p>所以我自己写了处理error的一个package。<br>
+<a href="https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go">https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go</a>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+<h4 id="实际运用例子"><strong>实际运用例子</strong></h4>
+<p>这是普通的处理方式</p>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+	&quot;strconv&quot;
+)
+
+func main() {
+
+	value, err := returnValue()
+	if err != nil {
+        //普通的处理
+		fmt.Println(err)
+	} else {
+		fmt.Println(value)
+	}
+
+}
+func returnValue() (int, error) {
+	value, err := strconv.Atoi(&quot;string&quot;)
+	if err != nil {
+        //普通的处理
+		return 0, err
+	}
+	return value, nil
+}
+</code></pre><p>执行结果</p>
+<pre><code>$ go run main.go
+strconv.Atoi: parsing &quot;string&quot;: invalid syntax
+</code></pre><hr>
+<p>返回err的时候，使用errs.Trace()函数</p>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+	&quot;strconv&quot;
+	&quot;testCode/errTest/errs&quot;
+)
+
+func main() {
+
+	value, err := returnValue()
+	if err != nil {
+        //errs.Trace()处理
+		fmt.Println(errs.Trace(err))
+	} else {
+		fmt.Println(value)
+	}
+
+}
+func returnValue() (int, error) {
+	value, err := strconv.Atoi(&quot;string&quot;)
+	if err != nil {
+        //errs.Trace()处理
+		return 0, errs.Trace(err)
+	}
+	return value, nil
+}
+</code></pre><p>其结果是</p>
+<pre><code>$ go run main.go
+strconv.Atoi: parsing &quot;string&quot;: invalid syntax
+testCode/errTest/main.go:22: 
+testCode/errTest/main.go:13: 
+</code></pre><hr>
+<p>能感受的不同之处了吗？<br>
+api的返回err的时候<code>前面加个</code><strong><code>服务的名称</code></strong>，就可以知道是哪个服务第几行出问题了。</p>
+<hr>
+<h4 id="运营的时候怎么办"><strong>运营的时候怎么办？</strong></h4>
+<p>再怎么样的新手也知道，运营服务器出问题直接爆出这些代码信息是不行的。</p>
+<p>那怎么办？<br>
+其实很简单，大家都会留日志吧？只要把这些信息放到日志里就行了，</p>
+<p>只要管理好request_id就可以了。<br>
+只要有了request_id 通过它来查找这些错误信息。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/go/">Go</a><a class="category" href="/categories/golang/">golang</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/go/">go</a><a class="tag" href="/tags/error/">error</a><a class="tag" href="/tags/golang/">golang</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

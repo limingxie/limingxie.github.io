@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | Go项目的测试代码3（测试替身Test Double） </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="宅男 &#43; 屌丝 &#43; 程序员">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/go/my_go_test3/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Go项目的测试代码3（测试替身Test Double）"/>
+<meta name="twitter:description" content="上一篇文章介绍了项目中测试代码的写法。
+Go项目的测试代码2（项目运用）
+这里简单的共享一下测试替身。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">爱锻炼的程序员</a></h3>
+            <div class="description">
+                <p>宅男 &#43; 屌丝 &#43; 程序员</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">杂谈</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>Go项目的测试代码3（测试替身Test Double）</h3>
+                
+            </div>
+
+            <p>上一篇文章介绍了项目中测试代码的写法。<br>
+<a href="https://limingxie.github.io/go/my_go_test1/">Go项目的测试代码2（项目运用）</a></p>
+<p>这里简单的共享一下测试替身。</p>
+<p>当我们写测试代码的时候，经常遇到一个问题。<br>
+跟别的模块或服务<code>有依赖性</code>，可是功能还没开发完。<br>
+或是因为各种原因(安全，白名单，内网等等&hellip;)开发环境里无法调用相应的模块。<br>
+这时候我们应该如何去写测试代码？</p>
+<p>因此<code>测试替身Test Double</code>出现了。
+其功能和名字一样，做替身。</p>
+<p>测试替身Test Double的分以下类型。
+Dummy, Stub, Fake, Spy, Mock</p>
+<h2 id="dummy">Dummy</h2>
+<p>最简单、最原始的测试替身型别。Dummy 没有实作，最常用于需要参数值但不使用它的情况。<br>
+Null 可视为是 Dummy，但真的 Dummy 是接口或基类的衍生，且完全不包含实作。</p>
+<h2 id="stub">Stub</h2>
+<p>Dummy 的上一级，Stub 是接口或基类的最低限度实作。<br>
+会传回 Void 的方法通常完全不包含实作，而会传回值的方法通常会传回硬式编码的值。</p>
+<h2 id="spy">Spy</h2>
+<p>测试 Spy 类似 Stub，但除了提供客户端可叫用成员的实例，<br>
+Spy 还会记录叫用了哪些成员，好让单元测试验证所叫用的成员是否符合预期。</p>
+<h2 id="fake">Fake</h2>
+<p>Fake 包含更复杂的实作，通常涉及所继承型别之不同成员之间的互动。<br>
+虽然不是完整的生产实作，但 Fake 与生产实作很相似，尽管它会采取一些快捷方式。</p>
+<h2 id="mock">Mock</h2>
+<p>Mock 是由 Mock 链接库动态建立 (其他通常是由测试开发人员使用程序代码来产生)。<br>
+测试开发人员永远看不到实作接口或基类的实际程序代码，但是可以设定 Mock 以提供传回值、预期要叫用的特定成员&hellip;等等。<br>
+视其中的设定而定，Mock 的行为可能会像 Dummy、Stub 或 Spy。</p>
+<hr>
+<p><strong><code>上面是网上流行的概念和理论。</code></strong></p>
+<h1 id="我在项目中的运用">我在项目中的运用</h1>
+<p>我开发的是在企业微信中的应用，所以需要调用企业微信的API，<br>
+用过的人应该知道，这需要登记可信域名(简单的说<code>本地不能调用</code>，只能发布到服务器才能调用)。<br>
+也可以用第三方工具去模拟调试，但是这么做感觉很不方便。而且Debug也相当麻烦。</p>
+<p>我是这么处理的。</p>
+<h4 id="项目初期一阶段"><strong>项目初期(一阶段)</strong></h4>
+<p>直接写<code>硬代码hardcode</code>。</p>
+<p>一般我们都会说尽量避免写硬代码hardcode,<br>
+但是<code>项目初期我建议大家这么写</code>。<br>
+为什么？ 其实很简单。<br>
+初期我们应该把所有的精力放在<code>自己模块的功能和稳定性</code>。<br>
+没必要在别人的接口里耗精力, 甚至去考虑怎么和其他模块做联动。</p>
+<p>例子：</p>
+<pre><code>var key string
+if config.AppEnv == &quot;test&quot; || config.AppEnv == &quot;dev&quot; { //测试或是开发环境的时候直接赋值
+	key = &quot;23836728366&quot;
+} else {
+	key, err = (Login{}).GetKeyForLogin(ctx, code) //实际调用的接口写在这里
+	if err != nil {
+		return nil, err
+	}
+}
+</code></pre><h4 id="项目中期二阶段"><strong>项目中期(二阶段)</strong></h4>
+<p>硬代码hardcode<code>改写函数function</code>。</p>
+<p>可以写根据参数或设定返回不同值的方法。满足不同场景下有不同返回值的需求。</p>
+<p>例子：</p>
+<pre><code>var key string
+if config.AppEnv == &quot;test&quot; || config.AppEnv == &quot;dev&quot; { 
+	key = GetKeyForLoginForTest(ctx, code) //测试或是开发环境的时候直接赋值
+} else {
+	key, err = (Login{}).GetKeyForLogin(ctx, code) //实际调用的接口写在这里
+	if err != nil {
+		return nil, err
+	}
+}
+</code></pre><pre><code>func GetKeyForLoginForTest(ctx context.Context, code string) string {
+	var key string
+	switch code {
+	case &quot;code1&quot;:
+		key = &quot;key1&quot;
+	case &quot;code2&quot;:
+		key = &quot;key2&quot;
+	case :
+		......
+	default:
+		key = &quot;key3&quot;
+	}
+	return key
+}
+</code></pre><h4 id="项目后期三阶段"><strong>项目后期(三阶段)</strong></h4>
+<p>函数function升<code>类或package</code>。</p>
+<p>这个阶段是可选项，因为这里开始需要耗精力去管理自己的“替身”了。<br>
+根据自己的实际情况来决定要不要这么做。</p>
+<p>例子：</p>
+<pre><code>type LoginTest interface {
+	GetKeyForLoginForTest(ctx context.Context, code string) string
+}
+
+type SellerTest struct {
+}
+
+func (SellerTest) GetKeyForLoginForTest(ctx context.Context, code string) string {
+	//销售员业务处理...
+	return &quot;SellerKey&quot;
+}
+
+type ManagerTest struct {
+}
+
+func (ManagerTest) GetKeyForLoginForTest(ctx context.Context, code string) string {
+	//业务处理...
+	return &quot;ManagerKey&quot;
+}
+
+func BuildManagedObject(ctx context.Context, condition string) string {
+	switch condition {
+	case &quot;condition1&quot;:
+		return SellerTest{}
+	case &quot;condition2&quot;:
+		return ManagerTest{}
+	case :
+		......
+	default:
+		return SellerTest{}
+	}
+}
+</code></pre><pre><code>var key string
+if config.AppEnv == &quot;test&quot; || config.AppEnv == &quot;dev&quot; { 
+	var loginTest LoginTest
+	loginTest = BuildManagedObject(condition)
+	key = loginTest.GetKeyForLoginForTest(ctx, code) //测试或是开发环境的时候直接赋值
+} else {
+	key, err = (Login{}).GetKeyForLogin(ctx, code) //实际调用的接口写在这里
+	if err != nil {
+		return nil, err
+	}
+}
+</code></pre><hr>
+<p>这么做其实能解决大部分的问题。<br>
+不知道我做的项目小或范围小，总之还没有碰到过用以上方式不能解决的问题。<br>
+<code>有什么不太恰当的部分随时欢迎指正。</code></p>
+<hr>
+<p>组员不愿意写测试代码而找借口的时候你可以这么说了&hellip;^^</p>
+<blockquote>
+<p>组员：这次项目依赖性很高, 其他模块的功能还没完善, 开发都很麻烦别说写测试代码了。 <br>
+我：<code>你用过测试替身吗？可以很简单的解决这些问题。</code></p>
+</blockquote>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/go/">Go</a><a class="category" href="/categories/golang/">golang</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/go/">go</a><a class="tag" href="/tags/test/">test</a><a class="tag" href="/tags/test-double/">test double</a><a class="tag" href="/tags/golang/">golang</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
