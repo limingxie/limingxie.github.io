@@ -1,12 +1,12 @@
 ---
 author: "li_mingxie"
-title: "JDK, JRE, JVM简介"
+title: "【JVM】JDK, JRE, JVM简介"
 date:  2020-10-29T08:28:49+08:00
 tags: [
     "Java",
-    "JVM",
-    "JRE",
-    "JDK",
+    "jvm",
+    "jre",
+    "jdk",
 ]
 categories: [
     "Java",

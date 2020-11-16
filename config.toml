@@ -14,9 +14,9 @@ enableRobotsTXT = true
 #googleAnalytics = "UA-123-45"
 
 [params]
-title = "爱锻炼的程序员"
+title = "宅男 + 屌丝 + 程序员"
 author = "李明燮(li_mingxie)"
-description = "宅男 + 屌丝 + 程序员"
+description = "年纪大了做开发是没出息吗？"
 profilePicture = "images/limingxie.png"
 keywords = ""
 favicon = "favicons/"
@@ -106,7 +106,7 @@ url = "mailto:li_mingxie@163.com"
   url = "/algorithm/"
 
   [[menu.main]]
-  name = "杂谈"
+  name = "工作态度"
   weight = 800
   identifier = "杂谈"
   url = "/work_sharing/"

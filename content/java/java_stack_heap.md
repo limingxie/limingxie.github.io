@@ -1,6 +1,6 @@
 ---
 author: "li_mingxie"
-title: "java中的栈内存, 堆内存"
+title: "【JVM】java中的栈内存, 堆内存"
 date: 2020-10-13T12:28:49+08:00
 tags: [
     "stack",
