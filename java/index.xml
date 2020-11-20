@@ -6,9 +6,19 @@
     <description>Recent content in Javas on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 29 Oct 2020 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Nov 2020 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>JDK, JRE, JVM简介</title>
+      <title>【JVM】java大致的编译过程</title>
+      <link>https://limingxie.github.io/java/compile_java/</link>
+      <pubDate>Fri, 20 Nov 2020 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/compile_java/</guid>
+      <description>&lt;p&gt;我们先简单的了解一下java编译到执行的过程。&lt;br&gt;
+后续我会详细的介绍具体详细的方式。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【JVM】JDK, JRE, JVM简介</title>
       <link>https://limingxie.github.io/java/java_plateform_se_8/</link>
       <pubDate>Thu, 29 Oct 2020 08:28:49 +0800</pubDate>
       
@@ -17,7 +27,7 @@
     </item>
     
     <item>
-      <title>java中的栈内存, 堆内存</title>
+      <title>【JVM】java中的栈内存, 堆内存</title>
       <link>https://limingxie.github.io/java/java_stack_heap/</link>
       <pubDate>Tue, 13 Oct 2020 12:28:49 +0800</pubDate>
       

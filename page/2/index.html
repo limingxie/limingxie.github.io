@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 <head prefix="og: http://ogp.me/ns#">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" li_mingxie - Blog" />
+  <meta property="og:title" content=" Website of li_mingxie" />
   
-  <meta name="theme-color" content="#hexcolor" />
- 
-  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:site_name" content="Website of li_mingxie" />
   <meta property="og:url" content="https://limingxie.github.io/" />
   
   
@@ -15,7 +13,7 @@
   
 
   <title>
-     li_mingxie - Blog
+     Website of li_mingxie
   </title>
 
   <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
@@ -26,7 +24,7 @@
   <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
   <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
   
-  <link href="https://limingxie.github.io/index.xml" rel="alternate" type="application/rss+xml" title="li_mingxie - Blog" />
+  <link href="https://limingxie.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Website of li_mingxie" />
   
 
   <script>
@@ -43,13 +41,9 @@
 <body>
     <header class="global-header"  style="background-image:url( /images/bg.jpg )">
     <section class="header-text">
-      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      <h1><a href="https://limingxie.github.io/">Website of li_mingxie</a></h1>
       
       <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
   
   
   
@@ -80,67 +74,6 @@
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/k8s/k8s/">【k8s】kubernetes基本的概念</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2020-07-01T07:28:49&#43;08:00">
-          Jul 1, 2020
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。
-我平时也用不上这些技术，不需要知道的这么深这么细，
-花这么多少时间去了解，过几天没怎么用还会忘记的&hellip;ㅠㅠ
-其实我想知道的是其大致的结构。
-下面我是以笔记的形式见得整理了其结构。希望对刚刚接触的人的了解有所帮助。
-1.基本概念 ◆ Kubernetes 是什么？
-引用官方的解释：
- Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。
-Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。
- 以我的理解：
-Kubernetes(简称k8s)是一个可以操作容器和自动化部署的开源平台。
-还不理解？ 没关系~
-简单的说手动管理docker container太累，用Kubernetes管理吧~
-一个服务器可以有多个docker container，多个服务器形成一个集群。
-下面简单的介绍一下Kubernetes集群的结构。
-2.Kubernetes集群结构 备用图片
-图片来源于:https://kubernetes.io/docs/concepts/overview/components/
-备用图片 图片来源于:http://omerio.com/2015/12/18/learn-the-kubernetes-key-concepts-in-10-minutes/
-其他结构图： 备用图片1 备用图片2
-简单的说：
-每个Kubernetes集群都有他自己的master节点。
-这里包含着kube-apiserver，kube-controller-manager，kube-scheduler，etcd。
-看图和名字可以大致的猜到:
-`kube-apiserver`是通讯枢纽。 `kube-controller-manager`是控制器。 `kube-scheduler`是调度器。 `etcd`是键值数据库。  普通的节点包含着kubelet, kube-proxy。
-`kubelet`跟master节点通讯。 `kube-proxy`是网络代理。  下面具体的介绍一下比较重要的组件。
-3.Kubernetes组件 ◆ Kubernetes Master
-每个k8s集群里至少需要一个Master节点来负责整个集群的管理和控制，
-所有控制命令都是发给它，它来负责具体的调度和执行。
-master节点包含三个进程和一个键值数据库etcd。
-三个进程都运行在集群中的某个节点上，主控组件通常这个节点被称为 master 节点。
-这些进程包括：kube-apiserver、kube-controller-manager 和 kube-scheduler。
-kube-apiserver:
-集群内各个功能模块之间数据交互和通信的中心枢纽。 所有从集群到master的通信路径都终止于apiserver。  kube-controller-manager:
-通过apiserver监控集群的公共状态，并致力于将当前状态转变为期望的状态。  kube-scheduler:
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/k8s/k8s/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
     <h2><a href="https://limingxie.github.io/algorithm/recursive/">递归(recursive)</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
@@ -152,19 +85,7 @@ kube-apiserver:
     </div>
   </header>
   <div>
-    最近在研究算法&hellip;^^ 算法中最基本的是排序。
-排序当中最常见的是快速排序(Quick Sort)。
-理解快速排序的代码，那就离不开递归了。
-递归以前听过，但是真正去了解和研究是最近为了对算法的了解。
- 递归感觉很绕？
- 但是理解其原理的话还是可以接受的，甚至有时候会喜欢这种方式。
- 递归不像传说中的那么麻烦。弄清楚
-基线条件（base case）和 递归条件（recursive case）
- 绝大多数的递归都是这种结构
-function(parameter){ if 基线条件（base case）{ //离开递归的条件，这条件如果不明确，或是满足不了。很容易进入死循环。 return } XXXX...XXXX //处理业务逻辑 if 递归条件（recursive case）{ //进入递归的条件 function(parameter) } }  来看看一个简单的例子吧。详细内容可以看这里
-https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528
-卡拉兹(Callatz)猜想： 对任何一个正整数 n，如果它是偶数，那么把它砍掉一半； 如果它是奇数，那么把 (3n+1) 砍掉一半。这样一直反复砍下去，最后一定在某一步得到 n=1。 我们假设 n &lt; 1000 输入样例： 3 输出样例： 5  一般情况下我们是直接用while或for循环处理。
-#include &lt;stdio.h&gt; int main() { int step = 0; //记录步数 int n = 0; scanf(&quot;%d&quot;, &amp;n); while (n !
+    <p>最近在研究算法&hellip;^^ 算法中最基本的是排序。</p>
   </div>
   
   <footer>
@@ -192,13 +113,7 @@ https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528
     </div>
   </header>
   <div>
-    感觉现在越来越重视算法了。
-因为我不是计算机专业的，所以对这些算法没怎么注意过。
-这么高领的程序员居然才接触到这些算法，真是惭愧啊&hellip;^^;;
-以下代码都是用golang写的，算是给自己看的笔记~
-(1) 冒泡排序(Bubble Sort) (2) 选择排序(Selection Sort) (3) 插入排序(Insertion Sort) (4) 希尔排序(Shell Sort) (5) 归并排序(Merge Sort) (6) 快速排序(Quick Sort) (7) 基数排序(Radix Sort) (8) 堆排序(Heap Sort)   ◆ 冒泡排序(Bubble Sort)
-图片备用地址
-//泡沫排序 func BubbleSort() { data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1} for i := 0; i &lt; len(data); i++ { for j := 0; j &lt; len(data)-i; j++ { if data[j] &gt; data[j+1] { v := data[j] data[j] = data[j+1] data[j+1] = v } } } fmt.
+    <p>感觉现在越来越重视算法了。</p>
   </div>
   
   <footer>
@@ -226,20 +141,7 @@ https://pintia.cn/problem-sets/994805260223102976/problems/994805325918486528
     </div>
   </header>
   <div>
-    代码架构的设计原则中最普遍的是solid原则。
-SRP	Single Responsibility Principle	单一责任原则 OCP	Open Closed Principle	开放封闭原则 LSP	Liskov Substitution Principle	里氏替换原则 ISP	Interface Segregation Principle	接口分离原则 DIP	Dependency Inversion Principle	依赖反转原则   ◆ SRP:单一责任原则(Single Responsibility Principle)
-一个类只完成它应该完成的职责。  任何一个软件模块都应该只对某一类行为者负责。 它的作用就是告诉我们在哪里划清边界。
-◆ OCP:开放封闭原则(Open Closed Principle)
-软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。  这其实就是要关注，增加新的功能的时候能不能不修改以前旧代码？
-增加新功能，需要大改旧代码，说明没做好开放封闭原则。
-◆ LSP:里氏替换原则(Liskov Substitution Principle)
-模块之间应能自由替换。  其实就是替换别的模块的时候不应该影响别的模块，导致发生修改事项。
-◆ ISP:接口分离原则(Interface Segregation Principle)
-如果一个接口包含了过多的方法，应该通过分离接口将其拆分。  如果依赖和自己没有关系或不需要的东西，需要应该把他拆分，只依赖和自己有关系的不分。
-◆ DIP:依赖反转原则(Dependency Inversion Principle)
-上层(抽象)不应该依赖于下层(实体)，下层(实体)应该依赖于上层(抽象)。  换句话说上层策略性代码不应该依赖底层细节性代码，
-底层细节性代码应该依赖上层策略性的代码。
-包的内聚性三原則 ◆ REP:复用/发布等同原则(Release Reuse Equivalency Principle)
+    <p>代码架构的设计原则中最普遍的是solid原则。</p>
   </div>
   
   <footer>
@@ -256,7 +158,7 @@ SRP	Single Responsibility Principle	单一责任原则 OCP	Open Closed Principle
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/err_return/">Go项目:error错误处理</a></h2>
+    <h2><a href="https://limingxie.github.io/go/err_return/">Go项目:error错误处理</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -267,19 +169,14 @@ SRP	Single Responsibility Principle	单一责任原则 OCP	Open Closed Principle
     </div>
   </header>
   <div>
-    上一篇文章我介绍了拆分服务后如何去写测试代码。
-Go项目:傻瓜式联合测试
-今天想共享一下，我是如何处理error。
-其实error是一个普通的处理。
-但是你拆分服务后，一个功能调用多个api来实现的时候，错误处理是一件麻烦的事情。
-有A,B,C 3个服务。 A服务提供的一个功能是需要 B和C 服务的信息。 该功能执行的时候出问题，单凭返回的信息，你是很难一眼看出问题点是在哪里。 (go 的错误提示过于简单...^^;;)  所以我自己写了处理error的一个package。
-https://github.com/limingxie/taoyuan-kit/blob/master/errs/errs.go 实际运用例子 这是普通的处理方式
-package main import ( &quot;fmt&quot; &quot;strconv&quot; ) func main() { value, err := returnValue() if err != nil { //普通的处理 fmt.Println(err) } else { fmt.Println(value) } } func returnValue() (int, error) { value, err := strconv.Atoi(&quot;string&quot;) if err != nil { //普通的处理 return 0, err } return value, nil }  执行结果
+    <p>上一篇文章我介绍了拆分服务后如何去写测试代码。<br>
+<a href="https://limingxie.github.io/go/my_go_test4/">Go项目:傻瓜式联合测试</a><br>
+今天想共享一下，我是如何处理error。</p>
   </div>
   
   <footer>
     <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/err_return/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+      <li class="next"><a href="https://limingxie.github.io/go/err_return/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
@@ -291,7 +188,7 @@ package main import ( &quot;fmt&quot; &quot;strconv&quot; ) func main() { value,
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/my_go_test4/">Go项目:傻瓜式联合测试</a></h2>
+    <h2><a href="https://limingxie.github.io/go/my_go_test4/">Go项目:傻瓜式联合测试</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -302,22 +199,14 @@ package main import ( &quot;fmt&quot; &quot;strconv&quot; ) func main() { value,
     </div>
   </header>
   <div>
-    现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。
-感觉有些内容不应该在同一个服务里。
-于是我做了一个决定: 拆分服务。
-分了4个服务后发现每个服务都不到8个表。每个服务的业务复杂度都不高。 心理暗自高兴，都说微服务，微服务，原来这么好？ 这种好心情维持不到半天，后面出的问题让我晕头转向。 踩了N多个坑...ㅠㅠ  今天我想说说其中的测试代码。
-当我分了服务后写单元测试，其实没遇到过什么大问题。
-可以使用上一篇文章介绍的测试替身。
-Go项目的测试代码3（测试替身Test Double）
-问题是每个服务的功能是需要调用其他的服务。 `单元测试没问题，不能确保联合调用没问题`。 (初期把单元测试过的代码直接发布运营，把我害惨了...)  我做了所有人都能想到的傻瓜式的联合测试方法。
-简单，傻瓜式，但是很实用。 联合测试思路 就是把数据库(我是用mysql)和几个服务用docker容器启动，执行联合测试代码。
-这跟本地运行每个服务后，运行测试代码有什么区别吗？(嘿嘿~ 自己想想吧。我也不知道~) 实际运用例子 有点linux和docker基础的人，看下面的脚本应该能想到怎么做的吧？
-#deleted container and image, network docker rm -f a-service-api-container b-service-api-container... my-mysql 2&gt; /dev/null docker rmi -f a-service-api-image b-service-api-image ... 2&gt; /dev/null docker network rm my-network 2&gt; /dev/null echo '' echo '&lt;============== start =============&gt;' #create docker network docker network create my-network echo 'mysql starting .
+    <p>现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。<br>
+感觉有些内容不应该在同一个服务里。<br>
+于是我做了一个决定: <strong><code>拆分服务</code></strong>。</p>
   </div>
   
   <footer>
     <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test4/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+      <li class="next"><a href="https://limingxie.github.io/go/my_go_test4/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
@@ -329,7 +218,7 @@ Go项目的测试代码3（测试替身Test Double）
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/work_note/">工作中我们常见的误解</a></h2>
+    <h2><a href="https://limingxie.github.io/work_sharing/work_note/">工作中我们常见的误解</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -340,38 +229,15 @@ Go项目的测试代码3（测试替身Test Double）
     </div>
   </header>
   <div>
-    虽然我不是什么大领导或是一个高管。
-但是看那些尤其是不满5年的员工们对工作的误解。
-让我感到无法用语言形容的发闷。。。
-而且组长的真心建议组员们一般都会有反感，以为组长对自己做“洗脑工作”。
-我简单的整理了几个常见的误解。
-1. 我的组长是“加班狂”，“工作狂”。 我经常听到这句话： 组长总是加班，害的我不能及时下班。 每次下班的时候，总是要看组长的脸色。  其实组长也是人，他也有家庭。
-如果不是自己的公司，任何一个人都不会喜欢加班的！
-那他们为什么总是加班呢？
-很简单，要么工作还没做完，要么有什么苦恼。
-为什么啊？ 你觉得没有更多的事情要做啊？
-也很简单。
-要么你能力不够，不能把活分给你做。
-要么你在组长心目中的地位，连这些苦恼也不够分享。
-虽然这句话说的有点偏激。但是你如果不知道上司为什么加班。
-是不是要主动的尝试一下去了解或帮忙一起解决问题呢？
-2. 我需要私人空间，下班后不要找我。 我从事的工作是IT行业。
-有时候系统出问题，找相关负责人解决问题。 经常会听到这样的答复： 我没带有电脑，不太方便确认。 我会(明天)下周一去公司确认的。  这句话说得合情合理。 但是你如果不能及时处理这些事故，公司的损失会不会更大？
-你要明白这个道理：
-如果你不是24小时待命的状态，公司的核心业务永远不会和你有关系的。
-这是让人很不舒服的现实，你准备接受这个现实了吗？
-3. 我很努力工作，为什么还没晋升？ 有些人嘴里说很努力工作，但是实际行动却不是。
-上班的时间大家都很忙，不忙的是要被开除的人。
-我要成为专业技术人员(可是1年连一本技术书籍也不看) 我想成为优秀的领导(可是连公司的目标是什么都不知道) ... ...  真正有目标，有理想的人至少1天会多抽出工作以外的2，3个小时为自己投资。
-1周至少抽出10~20个小时，为自己的未来学习。
-其实大部分的新员工都只是沉浸在自己的世界里，认为自己很努力。
-习惯性的高估自己，其实你不是自己想象中的那么重要，厉害的人。
-每个人都有自己的观点，有自己的思想和想法。
-如果看了这个文章让你不舒服了，我感到抱歉。
-不同意我的观点，可以骂我，当我是一个装逼的傻鸟吧&hellip;^^
-欢迎大家的意见和交流
-email: li_mingxie@163.com
+    <p>虽然我不是什么大领导或是一个高管。 <br>
+但是看那些尤其是不满5年的员工们对工作的误解。</p>
   </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/work_sharing/work_note/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
   
 </article>
 
@@ -381,7 +247,7 @@ email: li_mingxie@163.com
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/go_socket/">go websocket的简单应用</a></h2>
+    <h2><a href="https://limingxie.github.io/go/go_socket/">go websocket的简单应用</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -392,20 +258,13 @@ email: li_mingxie@163.com
     </div>
   </header>
   <div>
-    因为我们是做企业ERP系统，没什么机会接触socket。
-这次准备做消息推送才了解到还有socket这种技术&hellip;ㅠㅠ
-(做了这么多年的程序员，连这个也不知道&hellip;ㅠㅠ)
-具体的概念就不在这里多做解释了，可以百度或谷歌搜一下。
-我做了一个简单的demo，以便于了解使用方式。
-demo大致构建了如下的场景。
-图片备用地址
-Dial(用户) package main import ( &quot;log&quot; &quot;golang.org/x/net/websocket&quot; ) func main() { origin := &quot;http://localhost/&quot; url := &quot;ws://localhost:5001/test&quot; //创建websocket链接 ws, err := websocket.Dial(url, &quot;&quot;, origin) if err != nil { log.Fatal(err) } var s string for { //等待websocket的消息(这个过程是bolck) err := websocket.Message.Receive(ws, &amp;s) if err != nil { log.Println(err) ws.Close() break } log.Println(s) } }  
-Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; &quot;sync&quot; &quot;github.
+    <p>因为我们是做企业ERP系统，没什么机会接触socket。<br>
+这次准备做消息推送才了解到还有socket这种技术&hellip;ㅠㅠ</p>
   </div>
   
   <footer>
     <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/go_socket/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+      <li class="next"><a href="https://limingxie.github.io/go/go_socket/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
@@ -417,7 +276,7 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/development_responsibility/">我们(开发者)的责任</a></h2>
+    <h2><a href="https://limingxie.github.io/work_sharing/development_responsibility/">我们(开发者)的责任</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -428,49 +287,13 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
     </div>
   </header>
   <div>
-    开发者写错的代码发布到运营，出问题了。
-谁来承担责任？
-◆ 运营发布后出了问题，第一责任人不是我们 经常听到的解释是写代码的开发者不是第一责任人。
-第一责任人应该是公司老板，
-之后是项目负责人，
-之后是QA,
-之后是CodeReview的人，
-最后才轮到写代码的开发者。
-那我们开发者真的没有责任吗？
-我们开发者的责任是什么？
-◆ 我们不用承担任何的责任吗？ 举一个例子。你跟家人一起在海边度假。 你写的项目出问题了，你的同事解决不了问题。 联系上你了。你会怎么做？ 你会说CodeReview的时候怎么没发现？ QA怎么没发现？... 出了问题让我牺牲个人休假的时间解决问题？  我有女儿，现在上幼儿园。 在幼儿园不小心打哭了别家小朋友。怎么办？ 论责任第一责任当然是幼儿园老师没有看好孩子。 那我就没有一点的责任吗？我不需要做任何的事情吗？ 至少应该像孩子的父母道歉，之后教孩子不要犯同样的错误。  那我写的代码呢？
-把自己写的代码看做为自己的孩子，这么高尚的话可能不适合我们。
-但是身为成年人，我们都知道自己做错的事情，自己需要承担责任。
-其实工作中我不太喜欢责任这个单词
-因为追究责任很容易发生相互推卸责任。当发生事故，或是错误的时候，
-我们第一反应该是如何去解决这个问题。而不是寻找责任人是谁，谁来背这个黑锅。
-◆ 那我们应该怎么做？ 回到上面举得例子。出问题了。
-你会放弃你的度假，解决这次问题吗？
-还是先拖着尽可能让你的同事帮你解决？ 或是晚上回到宾馆再帮他们处理吗？
-我们希望当然是后者，事情不紧急的时候我们完全不需要牺牲你的假期。
-但是万一这是十分紧急的事情呢？
-很遗憾的告诉你，你不想听的建议：
-兄弟，你应该回去处理。因为这才是专业表现
-(这里指的当然不是公司，你需要去有电脑，有网的地方解决问题。)
-无论你在做什么？ 你要对自己的写的代码负起责任。
-因为程序的错误而产生的经济损失，有可能是你的老板去承担。
-但是至少你有责任，把有问题的代码修改正确。
-什么时候改？ 不紧急，你可以慢慢改。
-紧急? 对不起，你得马上处理了。
-你的女人在幼儿园打了别的小朋友你不管吗？
-你也可以不管，你可以表现的不专业。
-之后这件事情会传遍幼儿园。
-其他家长远离你，其他孩子远离你的孩子。
-◆ 我们需要对自己写的代码负责 哪怕是10年前写代码，如果是你写过的代码。(前提是没有人动过~)
-因为你写错的原因出的bug你就有责任去修改它。
-(这里不包含新需求的添加，以及环境的变化出现的问题。) 
-
- 是的，我们是开发者。 我们需要负的责任就是我们自己写的代码。  欢迎大家的意见和交流
+    <p>开发者写错的代码发布到运营，出问题了。<br>
+谁来承担责任？</p>
   </div>
   
   <footer>
     <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/development_responsibility/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+      <li class="next"><a href="https://limingxie.github.io/work_sharing/development_responsibility/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
@@ -482,7 +305,7 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/do_change/">一个小小变化的威力</a></h2>
+    <h2><a href="https://limingxie.github.io/work_sharing/do_change/">一个小小变化的威力</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -493,63 +316,41 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
     </div>
   </header>
   <div>
-    今天是双11，本想来公司凑凑热闹&hellip;^^
-结果主要问题都是在我的服务里，还把登录给整瘫了半个多小时&hellip;ㅠㅠ
-高峰过去了，可以松口气了~ 抽个时间写写博文。
-这次我想共享我们公司一个部门遇到的事情。
-那天我正在为拆分服务的问题而苦恼着。
-(本来是一个的服务拆分成4个服务，问题巨多&hellip;ㅠㅠ)
-有位同事(韩国人)跟我说，看到了一些不太正常的请求。
-希望我帮他和相关负责人沟通。(我是朝鲜族，有时候会帮他们沟通)。
-在沟通的过程当中，我感觉到这是一个很有趣的问题。
-◆ 为什么会有这么多的请求？ 先简单的说一下业务吧。
-线上(天猫商城)出售一笔商品，线下的卖场会把这个单子抢过来，自行给购物者发货。
-全国各地的卖场会积极的抢线上出售过的单子，因为每抢到一笔单子，他们就有提成赚。
-所以比较勤奋的卖场人员只要店里没有顾客的话就会不停的刷单。
-(不停的给服务器发Request请求，看看有没有可抢的单子。)
-有些喜欢思考的人就会问，那不能做成推单吗？
-这样就没有这种查询的压力了。为什么不那么做的种种原因这里就不做解释了。
-那问题是什么呢？其实就是请求量异常的的多。
-在我们不怎么注意的情况下，Request请求量1个月内翻了6倍！
-不可能吧？当时是9~10月份。又不是双11，又不是做了什么活动&hellip;
-卖场数量没什么太多的变化，这请求数量怎么会上升的这么快？
-◆ 原来是有人用脚本刷单啊？ 我们赶紧查看了一下日志，发现有几个卖场的请求比较异常。
-1个卖场1天内请求量居然达到了10万次。
-1秒一次也是刷20个小时也只能刷7.2万次。10万次太夸张了吧？
-而且我们在前端做了限制3秒才能刷一次。
-问题应该明确了，这几家卖场肯定是在用脚本刷单。
-而且是有写计算机基础的人获取后台api的url刷单。
-◆ 好像不对？日志证明不了有人用脚本刷单 但是我们看了前一天的日志，傻眼了。
-请求量最高的卖场不停的变。
-这就不能证明这些卖场人员是用脚本刷单了。
-用脚本刷单的卖场，应该是每天都会刷单吧？ 而且请求量最高的卖场分布在全国各地区，
-今天是这家卖场，明天又是另一家卖场&hellip;.ㅠㅠ
-我们开始怀疑我们的程序有问题了。
-前端是不是有bug在特定的情况下会不停的发请求?
-企业微信是不是有我们不知道的bug? (我的的应用是嵌套到企业微信的。) 开始争辩:
-项目的负责人说我们的程序绝不会有这样的问题。
-我们反问你怎么证明你的程序是没问题？
-如果是企业微信的问题，我们怎么证明这是企业微信的问题？
-◆ 虽然不知道怎么办，但是我们可以做一些改变 争论一番后，大家都累了。不知道怎么解决这件事情。
-大家你看我，我看你~ 都等着别人出方案&hellip;^^;;
-这怎么办啊？联系了卖场，卖场负责人说我们这里没有异常~ 也不承认自己用了什么脚本。
-(这举动很傻，如果我是卖场人员，即使用了我也不会承认自己用了脚本刷单。)
-这时候我们发现这个api没有做身份验证。我们提议要不要做身份验证？
-(至于为什么不做身份验证，好不专业之类的评价我不做解释了~)
-这是一个比较古老的api，而且过些日子会有新的api代替他的。
-所以相关的负责人是不怎么希望动这套代码。
-而且做身份验证是解决不了这个古怪的现象的。
-最后我们决定加身份验证看看，当时大部分的人都认为做身份验证没什么用。
-没事找事，这老代码改动后，万一报错怎么办？
-虽然我们不知道有什么效果，或是给我们带来什么？
-总比什么都不做强吧？
-◆ 加了身份验证没什么效果啊？ 添加身份验证功能以后，早上我们紧急发布了新版本。
-看了日志，我们失算了~ 没效果&hellip;ㅠㅠ
+    <p>今天是双11，本想来公司凑凑热闹&hellip;^^<br>
+结果主要问题都是在我的服务里，还把登录给整瘫了半个多小时&hellip;ㅠㅠ</p>
   </div>
   
   <footer>
     <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/do_change/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+      <li class="next"><a href="https://limingxie.github.io/work_sharing/do_change/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+    </ul>
+  </footer>
+  
+</article>
+
+  
+  
+  <hr/>
+  
+  <article>
+  <header>
+    <h2><a href="https://limingxie.github.io/work_sharing/share_001/">技术Leader需要哪些能力？</a></h2>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-09-24T07:28:49&#43;08:00">
+          Sep 24, 2018
+        </time>
+      </div>
+    </div>
+  </header>
+  <div>
+    <p>身为一个高龄开发者(30岁以上应该都属于高领开发者吧？ 这世道&hellip;ㅠㅠ)，</p>
+  </div>
+  
+  <footer>
+    <ul class="pager">
+      <li class="next"><a href="https://limingxie.github.io/work_sharing/share_001/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
@@ -573,13 +374,9 @@ Handle(SocketServer) package main import ( &quot;log&quot; &quot;net/http&quot; 
   </main>
   <footer class="container global-footer">
     <div class="copyright-note pull-left">
-      limingxie - blog
+      
     </div>
     <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
   
   
   

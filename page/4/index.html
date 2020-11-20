@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 <head prefix="og: http://ogp.me/ns#">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" li_mingxie - Blog" />
+  <meta property="og:title" content=" Website of li_mingxie" />
   
-  <meta name="theme-color" content="#hexcolor" />
- 
-  <meta property="og:site_name" content="li_mingxie - Blog" />
+  <meta property="og:site_name" content="Website of li_mingxie" />
   <meta property="og:url" content="https://limingxie.github.io/" />
   
   
@@ -15,7 +13,7 @@
   
 
   <title>
-     li_mingxie - Blog
+     Website of li_mingxie
   </title>
 
   <link rel="stylesheet" href="https://limingxie.github.io/css/bootstrap.min.css" />
@@ -26,7 +24,7 @@
   <link rel="shortcut icon" href="https://limingxie.github.io/images/favicon.ico" />
   <link rel="apple-touch-icon" href="https://limingxie.github.io/images/apple-touch-icon.png" />
   
-  <link href="https://limingxie.github.io/index.xml" rel="alternate" type="application/rss+xml" title="li_mingxie - Blog" />
+  <link href="https://limingxie.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Website of li_mingxie" />
   
 
   <script>
@@ -43,13 +41,9 @@
 <body>
     <header class="global-header"  style="background-image:url( /images/bg.jpg )">
     <section class="header-text">
-      <h1><a href="https://limingxie.github.io/">li_mingxie - Blog</a></h1>
+      <h1><a href="https://limingxie.github.io/">Website of li_mingxie</a></h1>
       
       <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
   
   
   
@@ -80,45 +74,7 @@
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/my_go_test1/">Go项目的测试代码2（项目运用）</a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="2018-05-27T20:37:02&#43;08:00">
-          May 27, 2018
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    上一篇文章介绍了最基本的测试代码的写法。
-Go项目的测试代码（基础）
-这里简单的共享一下我在项目中使用的方式。
-项目结构 我们实际项目中, 结构简单地分了controller和model
- 因为现在都已微服务的形式开发，没必要太复杂的结构。
-分controller和model已经能满足我们的需求，不需要再细分了。
- |___config ||==&gt; 配置文件 | |___config.qa.go | |___config.production.go ... ... |___controllers ||==&gt; controller，只做参数的有效性和简单的逻辑处理 | |___app_api_test.go | |___app_api.go | |___init_test.go | |___tenant_api.go ... ... |___models ||==&gt; model，所有的业务都是在这里实现的 | |___app.go | |___app_test.go | |___init_test.go | |___tenant.go ... ... |___main.go ||==&gt; 系统的入口 |___factory ||| |___kit ||| ==&gt; 按需求自定义建立一个package方便使用 |___filters ||| ... ...   看项目结构的话，可以发现测试方法直接写在对应的package里面。
-有些人喜欢把测试方法分另一个package里写，也可以~ 不同人有不同的喜好。 我也试过这种方式，但是还是喜欢写在同一个package里面，这么写简单方便。
- controllers和models的不同方式 controllers
-controller是提供接口api的直接入口，所以那些重要的api都需要写测试方法。
-我喜欢在这里写参数验证，业务验证等等主要功能的测试。
-  </div>
-  
-  <footer>
-    <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test1/">Read more <span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/limingxie/my_go_test/">Go项目的测试代码1（基础）</a></h2>
+    <h2><a href="https://limingxie.github.io/go/my_go_test/">Go项目的测试代码1（基础）</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -129,15 +85,12 @@ controller是提供接口api的直接入口，所以那些重要的api都需要�
     </div>
   </header>
   <div>
-    最近写了测试代码，整理了一下。
-先看看简单的测试代码
-// add_test.go ==&gt; 文件名 _test.go 结尾的默认为测试代码文件 package models import ( &quot;testing&quot; ) //Test开头的默认为测试方法 func TestAdd(t *testing.T) { //arrange var x, y, res int x = 2 y = 3 //act result = Add(x, y) //assert if result != 5 { t.Fatal(&quot;Add的结果不正确&quot;) } }  // add.go package models func Add(x, y int) int { return x + y }  查看测试结构。
-$ go test -v ==&gt; 依次运行当前package的 _test.
+    <p>最近写了测试代码，整理了一下。</p>
   </div>
   
   <footer>
     <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/my_go_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+      <li class="next"><a href="https://limingxie.github.io/go/my_go_test/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
@@ -149,7 +102,7 @@ $ go test -v ==&gt; 依次运行当前package的 _test.
   
   <article>
   <header>
-    <h2><a href="https://limingxie.github.io/limingxie/docker_mysql/">使用docker运行mysql</a></h2>
+    <h2><a href="https://limingxie.github.io/k8s/docker_mysql/">使用docker运行mysql</a></h2>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
@@ -160,19 +113,12 @@ $ go test -v ==&gt; 依次运行当前package的 _test.
     </div>
   </header>
   <div>
-    以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。
-为了避免这种现象，还是链接本地mysql开发还是更稳定的， 可是开发的项目多了后，本地的mysql库看起来好乱。 而且有很多项目是实验性的项目，没有及时处理的话会产生很多垃圾数据。
-要不使用docker运行mysql，开发结束后把容器删掉 ?  前提是需要准备测试数据脚本，开发或测试的时候随时可以删除，添加数据。 这样就不会因为删除docker容器，重新添加数据而烦恼。 做测试数据很麻烦~ 但是写测试代码，这些测试数据脚本也是必要的。  废话有点多了，说说如何去做。来点干货&hellip;^^
-1. 安装docker (建议上官网下载安装包安装。)
-$ brew install docker  2. 下载mysql镜像
-$ docker pull mysql  3. 启动mysql实例
-$ docker run --name mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest   &mdash;name 后面的是docker容器名 -p 32xxx:3306 这里需要注意 32xxx 是你链接mysql的时候的Port。 -e MYSQL_ROOT_PASSWORD 是设置mysql的root账号密码 -d mysql 是你的镜像标签  4. 在shell中访问mysql
-docker exec -it mingxie-mysql bash root@7c289aa0ca95:/# mysql -uroot -p -h localhost Enter password:  输入密码即可。
+    <p>以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。</p>
   </div>
   
   <footer>
     <ul class="pager">
-      <li class="next"><a href="https://limingxie.github.io/limingxie/docker_mysql/">Read more <span aria-hidden="true">&raquo;</span></a></li>
+      <li class="next"><a href="https://limingxie.github.io/k8s/docker_mysql/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
   
@@ -195,12 +141,8 @@ docker exec -it mingxie-mysql bash root@7c289aa0ca95:/# mysql -uroot -p -h local
     </div>
   </header>
   <div>
-    这几天研究了用hugo搭建个人博客。
-简单的整理了一下。
-1.安装hugo（windows 请查看官网介绍 https://gohugo.io/getting-started/installing/）
-$ brew install hugo  之后检查版本
-$ hugo version Hugo Static Site Generator v0.37.1 darwin/amd64 BuildDate:  2.创建hugo 项目
-$ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users/limingxie/Projects/my-blog. Just a few more steps and you're ready to go: 1. Download a theme into the same-named folder. Choose a theme from https://themes.gohugo.io/, or create your own with the &quot;hugo new theme &lt;THEMENAME&gt;&quot; command.
+    <p>这几天研究了用hugo搭建个人博客。</p>
+<p>简单的整理了一下。</p>
   </div>
   
   <footer>
@@ -208,72 +150,6 @@ $ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users
       <li class="next"><a href="https://limingxie.github.io/limingxie/hugo_create/">Read more <span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </footer>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/java/encapsulation/"></a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="0001-01-01T00:00:00Z">
-          Jan 1, 0001
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    
-  </div>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/java/inheritance/"></a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="0001-01-01T00:00:00Z">
-          Jan 1, 0001
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    
-  </div>
-  
-</article>
-
-  
-  
-  <hr/>
-  
-  <article>
-  <header>
-    <h2><a href="https://limingxie.github.io/java/polymorphism/"></a></h2>
-    <div class="post-meta clearfix">
-      <div class="post-date pull-left">
-        Posted on
-        <time datetime="0001-01-01T00:00:00Z">
-          Jan 1, 0001
-        </time>
-      </div>
-    </div>
-  </header>
-  <div>
-    
-  </div>
   
 </article>
 
@@ -293,13 +169,9 @@ $ hugo new site my-blog Congratulations! Your new Hugo site is created in /Users
   </main>
   <footer class="container global-footer">
     <div class="copyright-note pull-left">
-      limingxie - blog
+      
     </div>
     <div class="sns-links hidden-print">
-  
-  <a href="mailto:li_mingxie@163.com">
-    <i class="fa fa-envelope"></i>
-  </a>
   
   
   
