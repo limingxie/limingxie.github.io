@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【JVM】浅谈java编译和执行过程 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/java/java_compile_runtime/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【JVM】浅谈java编译和执行过程"/>
+<meta name="twitter:description" content="上一篇【JVM】java大致的编译过程简单的解释了java编译执行过程。
+这里稍微再详细点说明其编译和执行过程。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie.png" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2020 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作态度</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【JVM】浅谈java编译和执行过程</h3>
+                
+            </div>
+
+            <p>上一篇<a href="https://limingxie.github.io/java/compile_java/">【JVM】java大致的编译过程</a>简单的解释了java编译执行过程。<br>
+这里稍微再详细点说明其编译和执行过程。</p>
+<h1 id="1-java代码到执行">1. java代码到执行</h1>
+<p>java是高级语言(High-level programming language)。<br>
+【<strong>执行</strong>】需【<strong>编译</strong>】成机器语言才能执行，如下所示。</p>
+<pre><code>java代码 =&gt; 编译 =&gt; 执行
+</code></pre><p>其中编译的内容我们需要用【<strong>class loader</strong>】加载到【<strong>JVM(Java Virtual Machine)</strong>】里才能执行。<br>
+把这些过程也加进去的话是如下的过程了。</p>
+<pre><code>java代码 =&gt; 编译 =&gt; 读取(class loader) =&gt; JVM环境 =&gt; 执行
+</code></pre><p>我们在上面的基础上再详细的了解这些过程。<br>
+Java代码编译以后将会生成【<strong>.class文件</strong>】。<br>
+类加载器(class loader)读取.class文件到JVM。<br>
+这时【<strong>执行引擎(execution engine)</strong>】把这些文件解析成【<strong>机器码(Binary Code)</strong>】,<br>
+存放到JVM的【<strong>运行数据区Runtime Data Area</strong>】后，执行程序。</p>
+<p>这一过程可以如下图标是。</p>
+<p><a href="https://limingxie.github.io/images/java/compile/java_compile_execut.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/compile/java_compile_execut.png?x-oss-process=image/resize,h_600,m_lfit" alt="java_compile_execut"></p>
+<h1 id="2-类加载器class-loader">2. 类加载器Class Loader</h1>
+<p>.java文件编译后生成.class文件。<br>
+类加载器Class Loader的工作就是把.class文件读取到JVM中。<br>
+这过程类加载器Class Loader会做三件事情 1.加载 2.链接 3.初始化</p>
+<h3 id="21-加载loading">2.1 加载Loading</h3>
+<p>一般情况下类加载器分3层结构。</p>
+<p><strong>2.1.1. 引导(启动)类加载器Bootstrap ClassLoader</strong></p>
+<ul>
+<li>最上层类。加载&lt;JAVA_HOME&gt;/jre/lib内容。用Native C编写。</li>
+</ul>
+<p><strong>2.1.2. 扩展类加载器Extension ClassLoader</strong></p>
+<ul>
+<li>加载&lt;JAVA_HOME&gt;/jre/lib/ext内容。用Java编写。</li>
+</ul>
+<p><strong>2.1.3. 应用程序类加载器Application ClassLoader</strong></p>
+<ul>
+<li>加载 -classpath(或 -cp)的内容。用Java编写。</li>
+</ul>
+<p>这3层结构准守一下原则。</p>
+<blockquote>
+<ol>
+<li>Delegation Principle =&gt; 从上到下委派加载任务。</li>
+<li>Visibility Principle =&gt; 子类加载可以使用父类加载，相反是不可以。</li>
+<li>Uniqueness Principle =&gt; 子类加载时不会再次加载父类加载的内容。</li>
+</ol>
+</blockquote>
+<h3 id="22-链接linking">2.2 链接Linking</h3>
+<p>加载完成以后，会做链接Linking。<br>
+链接也分3个步骤进行。</p>
+<p><strong>2.2.1. 验证Verify</strong></p>
+<ul>
+<li>确保加载的内容的正确性和安全性。</li>
+</ul>
+<p><strong>2.2.2. 准备Prepare</strong></p>
+<ul>
+<li>为类的静态变量分配内存，并设置默认初始值。</li>
+</ul>
+<p><strong>2.2.3. 解析Resolve</strong></p>
+<ul>
+<li>将常量池内的符号引用转换为直接引用的过程。</li>
+</ul>
+<h3 id="23-初始化">2.3 初始化</h3>
+<p>初始化是为类的静态变量赋予正确的初始值。<br>
+这个初始化不需要定义，是javac编译器自动收集类中的所有类变量的赋值和静态代码。<br>
+有父类先执行父类的初始化方法，再执行子类的初始化方法。</p>
+<p><a href="https://limingxie.github.io/images/java/jvm/class_loader.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/class_loader.png?x-oss-process=image/resize,h_600,m_lfit" alt="class_loader"></p>
+<h1 id="3执行引擎execution-engine">3.执行引擎Execution Engine</h1>
+<p>用于执行字节码或者本地方法。 <br>
+执行的过程一般会用解释模式和JIT编译模式的混合模式。</p>
+<p><a href="https://limingxie.github.io/images/java/jvm/java_version.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/java_version.png" alt="java_version"></p>
+<h3 id="31-解释器interpreter">3.1 解释器Interpreter</h3>
+<p>执行引擎会把类加载器读取过来的.class文件的字节码，<br>
+效验合法性和安全性后，边读取边执行。</p>
+<h3 id="32-jit编译器jitjust-in-time-compiler">3.2 JIT编译器JIT(just in time) Compiler</h3>
+<p>当解释模式运行的代码满足一定的条件以后，会编译到JVM的缓存中。<br>
+下一次执行的时候因为不需要在编译提高执行速度。</p>
+<blockquote>
+<p>如果偶尔执行一次的代码或是只执行一次的话解释模式执行的速度会更快。<br>
+频繁的调用执行的代码的话，JIT编译模式下第一次执行速度会比较慢，后续会提高执行速度。<br>
+大部分情况下都会有混合模式。适用JIT编译模式的条件可以在不同的场景下需要做一些调整。</p>
+</blockquote>
+<h3 id="33-垃圾回收器garbage-collector">3.3 垃圾回收器Garbage Collector</h3>
+<p>执行引擎还跟垃圾回收器Garbage Collector有关。 <br>
+一般情况下垃圾回收期会回收运行数据区Runtime Data Area的堆内存。 <br>
+它会释放栈区里已经用完，找不到相对应地址的堆内存。<br>
+这些内存会分伊甸区，幸存区，老年区&hellip; 用一些算法来管理和清理回收内存。<br>
+这些细节会再后续的文章里再做分析讨论~</p>
+<p><strong>其实执行引擎是操控着这些编译和回收器，而不是它们属于执行引擎</strong><br>
+<a href="https://limingxie.github.io/images/java/jvm/execution_engine.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/execution_engine.png" alt="execution_engine"></p>
+<h1 id="4-运行数据区runtime-data-area">4. 运行数据区Runtime Data Area</h1>
+<p>为了执行程序，给JVM分配的内存空间。<br>
+可以分 共享线程区(堆区，方法区，直接内存区）和私有线程区(栈区，程序计数器，本地方法栈)</p>
+<h3 id="41-方法区method-area">4.1 方法区Method Area</h3>
+<p>是各个线程共享的内存区域，它用于存储已被JVM加载的<br>
+类class，函数function，常量final variable，静态变量static variable，实例变量member variable<br>
+以及被即时编译器(JIT)编译后的代码都会存放在这里。<br>
+方法区有时被称为持久代（PermGen）。</p>
+<h3 id="42-堆heap">4.2 堆Heap</h3>
+<p>通过 New 创建的实例instance，队列等引用reference类型，Method Area的class才能声明在这里。<br>
+此内存区域就是存放对象实例，几乎所有的对象实例都在这里分配内存。<br>
+Java堆是垃圾收集器管理的主要区域，因此很多时候也被称做“GC堆”。<br>
+如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，<br>
+所以Java堆中还可以细分为：新生代和老年代；再细致一点的有Eden空间、From Survivor空间、To Survivor空间等。<br>
+如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将会抛出OutOfMemoryError异常。</p>
+<p><a href="https://limingxie.github.io/images/java/jvm/heap_memory.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/heap_memory.png" alt="heap_memory"></p>
+<h3 id="43-直接内存堆外内存direct-memory">4.3 直接内存(堆外内存)Direct Memory</h3>
+<p>在JDK1.4中新加入了NIO(New INput/Output)类，其实不完全的被JVM所控制。<br>
+它可以使用Native函数库直接分配堆外内存，避免堆和Native堆来回复制数据，提高性能。</p>
+<h3 id="44-栈stack">4.4 栈Stack</h3>
+<p>它的生命周期与线程相同是一个临时储存空间。
+存变量(boolean、byte、char、short、int、float、long、double)，返回值， <br>
+对象引用类型(指向一条字节码指令的地址，其实体是存在堆Heap区域)<br>
+这些值遵守LIFO(Last In First Out) 当函数执行完成以后会删除掉。</p>
+<h3 id="45-pc寄存器program-counter-register">4.5 PC寄存器Program Counter Register</h3>
+<p>每个线程thread都有一个。记录每个线程用哪个指令执行哪部分的内容，存储着现在执行中的JVM命令地址。<br>
+若该方法为native的，则PC寄存器中不存储任何信息。<br>
+Java多线程情况下，每个线程都有一个自己的PC，以便完成不同线程上下文环境的切换。</p>
+<h3 id="46-本地方法栈native-method-stack">4.6 本地方法栈Native Method Stack</h3>
+<p>为了调用java以外的其它语言的方法分配的空间。<br>
+java调用C/C++方法是使用的stack领域就是这里。</p>
+<p><strong>其实直接内存不是完全属于JVM的运行数据区Runtime Data Area</strong><br>
+<a href="https://limingxie.github.io/images/java/jvm/runtime_data_area.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/runtime_data_area.png" alt="runtime_data_area"></p>
+<h2 id="5-jvmjava-virtual-machine">5. JVM(Java Virtual Machine)</h2>
+<p>把上面的就是全部都结合起来就是JVM的结构了。<br>
+如下图所示:<br>
+<a href="https://limingxie.github.io/images/java/jvm/java_compile_runtime_detail.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/java_compile_runtime_detail.png" alt="java_compile_runtime_detail"></p>
+<h2 id="6-举例说明">6. 举例说明</h2>
+<p>一堆理论和概念会让人都晕的&hellip;^^;;<br>
+下面举一个例子，简单的说明一下这一过程。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Prodcut</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> ID<span style="color:#f92672">;</span>
+    String Code<span style="color:#f92672">;</span>
+    String Name<span style="color:#f92672">;</span>
+    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> Tags<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Prodcut<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getProdcuts</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> ProductID <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+        String ProductCode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ProductCode&#34;</span><span style="color:#f92672">;</span>
+        Tags <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;();</span>
+        Tags<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tag1&#34;</span><span style="color:#f92672">);</span>
+        Tags<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tag2&#34;</span><span style="color:#f92672">);</span>
+
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;查询商品&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertProdcuts</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Prodcut<span style="color:#f92672">&gt;</span> prodcuts<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;保存商品&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><pre><code>首先product.java通过java编译成product.class    
+然后Class Loader会把product.class和prodcut引用的Class Library加载到JVM环境。  
+这时Execution Engine做一些列验证和解析后(混合模式下，第一次不会直接走JIT编译)    
+把类信息和方法存放到Runtime Data Area的Method Area里。  
+
+当程序调用方法时，先把变量以及局部变量以及返回值加载到JVM的stack区域，    
+之后用New方式声明的实例或排列是存放到Heap区域，stack区域只保存对应的内存地址。  
+等方法结束后stack区域的值是跟着方法结束会一起清空，    
+但是heap区域的空间是需要等Garbage Collector来回收。  
+</code></pre><p><a href="https://limingxie.github.io/images/java/jvm/java_code_compile_runtime.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/java_code_compile_runtime.png" alt="java_code_compile_runtime"></p>
+<h2 id="7-结语">7. 结语</h2>
+<p>我了解JVM的过程中发现它不可能用一遍文章说清楚。<br>
+只能说是了解了一点皮毛，每一块都有很多内容去了解。<br>
+比如加载程序，垃圾回收，编译过程等等&hellip; &hellip;<br>
+后续看看能不能每个模块都深入的去了解一下。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/java/">Java</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/jvm/">jvm</a><a class="tag" href="/tags/compile/">compile</a><a class="tag" href="/tags/runtime/">runtime</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
