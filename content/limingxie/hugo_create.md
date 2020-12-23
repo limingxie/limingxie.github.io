@@ -99,7 +99,7 @@ theme = "vienna" // 你使用的theme 名称
 1) 首先在GitHub上创建一个Repository，命名为：limingxie.github.io (这要和你的baseURL一致。)
 2）在/Users/limingxie/Projects/my-blog目录下执行以下命令
 ```
-$ hugo --theme=vienna --buildDrafts --baseUrl="https://limingxie.github.io/"
+$ hugo --theme=anatole --buildDrafts --baseUrl="https://limingxie.github.io/"
 
                    | EN
 +------------------+----+

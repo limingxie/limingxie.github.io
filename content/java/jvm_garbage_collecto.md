@@ -13,14 +13,6 @@ categories: [
 ]
 ---
 
-JIT (Just In Time) Compiler
-Interpreter 방식의 단점을 보완하기 위해 도입된 방식으로,
-Interpreter 방식으로 실행하다가 적절한 시점에 바이트 코드 전체를 컴파일 하여 네이티브 코드로 변경하고,
-더 이상 Interpreting 하지 않고 네이티브 코드로 직접 실행하는 방식이다.
-네이티브 코드는 캐시에 보관되기 때문에 한 번 컴파일된 코드는 빠르게 실행할 수 있다.
-물론 한 번만 실행되는 코드라면 JIT 보다 Interpreter 방식이 유리하다.
-따라서 JVM은 해당 메소드가 얼마나 자주 수행되는지 체크하고, 일정 정도를 넘을 때 컴파일을 수행한다.
-
 JIT(Just In Time Compiler)编译器
 当JVM发现某个方法或代码块运行特别频繁时，就会把这些代码认定为“热点代码（Hot Spot Code）”，然后JVM会把这些代码编译成与本地平台相关的机器码，并进行各种层次的优化，完成这个任务的编译器称为：即时编译器（Just In Time Compiler，JIT）
 
