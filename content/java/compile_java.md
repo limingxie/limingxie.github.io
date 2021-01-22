@@ -16,7 +16,7 @@ categories: [
 后续我会详细的介绍具体详细的方式。<!--more-->
 
 [图片备用地址](https://limingxie.github.io/images/java/compile/java_simple_complie.png)  
-![stack](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/compile/java_simple_complie.png)
+![java_complie](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/compile/java_simple_complie.png)
 
 当我们执行代码的时候是如图所示，执行以下步骤。  
 

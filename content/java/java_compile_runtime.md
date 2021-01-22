@@ -29,7 +29,7 @@ java代码 => 编译 => 执行
 java代码 => 编译 => 读取(class loader) => JVM环境 => 执行
 ```
 我们在上面的基础上再详细的了解这些过程。  
-Java代码编译以后将会生成【**.class文件**】。  
+Java代码编译以后将会生成【**.class文件**】。(详细的javac编译过程可以参考[【JVM】javac的编译过程](https://limingxie.github.io/java/java_javac_compiler/))   
 类加载器(class loader)读取.class文件到JVM。  
 这时【**执行引擎(execution engine)**】把这些文件解析成【**机器码(Binary Code)**】,  
 存放到JVM的【**运行数据区Runtime Data Area**】后，执行程序。  
