@@ -13,9 +13,9 @@
       <pubDate>Mon, 04 Jan 2021 08:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/java/java_javac_compiler/</guid>
-      <description>Java 编译是先把xx.java文件编译成xx.class文件。xx.class是个中间状态的字节码(Byte Code)。
-类加载器(Class Loader)读取到JVM里后, 再一次解析成机器码(Binary Code)执行。
-也就是说Java是需要做两次编译，其中的第一次编译(.java =&amp;gt; .class)是如何执行的呢？</description>
+      <description>&lt;p&gt;Java 编译是先把xx.java文件编译成xx.class文件。xx.class是个中间状态的字节码(Byte Code)。&lt;br&gt;
+类加载器(Class Loader)读取到JVM里后, 再一次解析成机器码(Binary Code)执行。&lt;br&gt;
+也就是说Java是需要做两次编译，其中的第一次编译(.java =&amp;gt; .class)是如何执行的呢？&lt;/p&gt;</description>
     </item>
     
   </channel>
