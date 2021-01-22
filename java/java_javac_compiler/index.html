@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【JVM】javac的编译过程 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/java/java_javac_compiler/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【JVM】javac的编译过程"/>
+<meta name="twitter:description" content="类加载器的具体结构。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作态度</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【JVM】javac的编译过程</h3>
+                
+            </div>
+
+            <p>Java 编译是先把xx.java文件编译成xx.class文件。xx.class是个中间状态的字节码(Byte Code)。<br>
+类加载器(Class Loader)读取到JVM里后, 再一次解析成机器码(Binary Code)执行。<br>
+也就是说Java是需要做两次编译，其中的第一次编译(.java =&gt; .class)是如何执行的呢？</p>
+<p>之前介绍过C语言编译执行是需要4个步骤(预处理，编译，汇编，链接)。<br>
+(详细的可以参考之前写的<a href="https://limingxie.github.io/basic/compile_c/">【C语言的编译和执行过程】</a>)<br>
+那javac的编译是如何进行的呢？</p>
+<blockquote>
+<p>javac的编译(.java =&gt; .class)过程大体上可以分3个步骤。</p>
+<ol>
+<li>解析填充符号表Parse and Enter</li>
+<li>插入式注解处理器的注解处理过程Annotation Processing</li>
+<li>分析与字节码生产过程Analyse and Generate</li>
+</ol>
+</blockquote>
+<p>这三个步骤之间的关系和交互顺序如下图所示:<br>
+可以看到如果注解处理器在处理注解期间对语法树进行了修改，编译器将回到解析和填充符号表的过程进行重新处理。<br>
+直到注解处理器没有再对语法树进行修改为止。(不太明白也没关系，下面有详细的解释。)</p>
+<p><a href="https://limingxie.github.io/images/java/jvm/javac_compile.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/javac_compile.png?x-oss-process=image/resize,h_210,m_lfit" alt="javac_compile"></p>
+<p>下面详细的介绍一下每个过程是如何进行的。</p>
+<h3 id="1-解析填充符号表parse-and-enter">1. 解析填充符号表Parse and Enter</h3>
+<p>首先会做词法分析，语法分析以及填充符号表。</p>
+<h4 id="11-词法分析">1.1 词法分析</h4>
+<p>将源代码的字符流转变为最小单元的标记（Token）集合。<br>
+比如如“int a = b + 1”这句代码包含了 int、a、=、b、+、1 =&gt; 6个标记。</p>
+<h4 id="12-语法分析">1.2 语法分析</h4>
+<p>这里就对token流做语法分析了。比如if后面接的是不是返回值为bool的表达式之类的。<br>
+然后把符合规范的语法构造抽象语法树（AST，Abstract Syntax Tree）。</p>
+<h4 id="13-填充符号表">1.3 填充符号表</h4>
+<p>符号表是有一组符号地址和符号信息构成的表格。<br>
+填充符号表的过程的出口是一个待处理列表，包含了每一个抽象语法树（和package-info.java）的顶级节点。</p>
+<h3 id="2-插入式注解处理器的注解处理过程annotation-processing">2. 插入式注解处理器的注解处理过程Annotation Processing</h3>
+<p>注解处理器可以理解为抽象语法树的一组插件，这些插件可以对抽象语法树直接进行读取，修改，添加操作。<br>
+如果在解析注解期间，对语法树进行了修改，那么编译器回到解析及填充符号表的过程重新处理，<br>
+直到所有的插入式注解处理器没有对语法树进行修改为止。</p>
+<p>有了编译器注解处理的标准API后，我们的代码才有可能干涉编译器的行为，<br>
+由于语法树中的任意元素，甚至包括代码注释都可以在插件之中访问到，<br>
+所以通过插入式注解处理器实现的插件在功能上有很大的发挥空间。<br>
+只要有足够的创意，程序员可以使用插入式注解处理器来实现许多原本只能在编码中完成的事情。</p>
+<h3 id="3-分析与字节码生产过程analyse-and-generate">3. 分析与字节码生产过程Analyse and Generate</h3>
+<p>这部分看源代码的话(可以参考下面我截图的源代码compile2函数)可以分:标注检查，数据和控制流分析，解析语法糖以及生成字节码。<br>
+很多时候把标注检查，数据和控制流分析，解析语法糖合起来说语义分析。</p>
+<h4 id="31-语义分析">3.1 语义分析</h4>
+<p>语法分析后可以保证形成语法树以后不存在语法错误，但无法保证源程序是符合逻辑，所以需要对源程序上下文进行审查。<br>
+还有Java会有一些相对复杂的语法，语义分析的作用就是将这些复杂的语法翻译成更简单的语法。</p>
+<p><strong>3.1.1 标注检查：</strong><br>
+包括变量使用前是否已声明, 变量与赋值之间的数据类型是否匹配, 常量折叠：int a = 1  + 2 ==&gt; int a = 3</p>
+<p><strong>3.1.2 数据流分析和控制流分析：</strong><br>
+数据流及控制流的分析入口是flow()方法，具体操作由com.sun.tools.javac.comp.Flow类来完成。</p>
+<p><em>数据流分析</em><br>
+局部变量是否赋值，final修饰的变量不会被重复赋值，方法路径返回值验证，受检异常的正确处理，所有的语句是否都要被执行等等&hellip;</p>
+<p><em>控制流分析</em><br>
+去掉无用的代码，比如永假的if代码块，变量的自动转换，比如自动装箱拆箱等等&hellip;</p>
+<p><strong>3.1.3  解语法糖：</strong><br>
+泛型，装箱拆箱，for循环，条件编译等等等&hellip;<br>
+解语法糖的过程由desugar()方法触发，在com.sun.tools.javac.comp.TransTypes和com.sun.tools.javac.comp.Lower类中完成。</p>
+<h4 id="32-字节码生成">3.2 字节码生成：</h4>
+<p>字节码生成是 javac 编译过程的最后一个阶段。<br>
+这一阶段还进行少量的代码添加和转换工作。<br>
+比如实例构造器方法和类构造器方法就是在这个阶段添加到语法树之中。<br>
+这里的实例构造器并不是指默认的构造函数，而是指我们自己重载的构造函数。<br>
+完成了对语法树的遍历和调整之后，就会把填充了所有所需信息的符号表交给com.sun.tools.javac.jvm.ClassWriter类，<br>
+由这个类的writeClass()方法输出字节码，生成最终的class文件。</p>
+<h3 id="源代码">源代码</h3>
+<p>百闻不如一见，上面啰里啰嗦的说了一大堆不如看javac的源代码理解的会更快，<br>
+Javac编译动作的入口是com.sun.tools.javac.main.JavaCompiler类，<br>
+上述3个过程的代码逻辑集中在这个类的compile()和compile2()方法中，</p>
+<p><a href="https://limingxie.github.io/images/java/jvm/javac_compile_code.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/javac_compile_code.png?x-oss-process=image/resize,w_880,m_lfit" alt="javac_compile"></p>
+<h2 id="总结">总结</h2>
+<p>按照顺序我们可以这么简单的理解javac的编译过程。</p>
+<ol>
+<li>词法分析 =&gt; 把源代码转变为token</li>
+<li>语法分析 =&gt; 使用token生成抽象语法树</li>
+<li>语义分析 =&gt; 做一些逻辑上的验证，优化语法树</li>
+<li>生成字节码 =&gt; 调整完语法树后生成最终class文件。</li>
+</ol>
+<hr>
+<h3 id="题外话-class文件">题外话: class文件</h3>
+<p>从.java源文件辛辛苦苦编译成.class文件。那.class文件的结构又是如何呢？<br>
+先写一个经典HelloWorld程序:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClassTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello world!&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>使用javac命令编译以后，用 vi 命令查看一下里面的内容</p>
+<p><a href="https://limingxie.github.io/images/java/jvm/javac_class1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/java_class1.png" alt="javac_class"></p>
+<p>看不明白&hellip;^^;;<br>
+好像只能看出来初始化引用包以及我写的类名和大致的内容。<br>
+可以用IDEA直接打开.class文件查看里面的内容，会看的很舒服。</p>
+<p><a href="https://limingxie.github.io/images/java/jvm/javac_class1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/java/jvm/java_class2.png" alt="javac_class"></p>
+<p>里面具体的结构就去查其他资料吧&hellip;^^;;<br>
+还没研究过这里面的东西 哈~</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/java/">java</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/javac/">javac</a><a class="tag" href="/tags/compile/">compile</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -6,7 +6,18 @@
     <description>Recent content in Javas on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 20 Dec 2020 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jan 2021 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【JVM】javac的编译过程</title>
+      <link>https://limingxie.github.io/java/java_javac_compiler/</link>
+      <pubDate>Mon, 04 Jan 2021 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/java_javac_compiler/</guid>
+      <description>Java 编译是先把xx.java文件编译成xx.class文件。xx.class是个中间状态的字节码(Byte Code)。
+类加载器(Class Loader)读取到JVM里后, 再一次解析成机器码(Binary Code)执行。
+也就是说Java是需要做两次编译，其中的第一次编译(.java =&amp;gt; .class)是如何执行的呢？</description>
+    </item>
+    
     <item>
       <title>【JVM】浅谈java编译和执行过程</title>
       <link>https://limingxie.github.io/java/java_compile_runtime/</link>
