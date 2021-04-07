@@ -15,7 +15,7 @@ categories: [
 
 Java 编译是先把xx.java文件编译成xx.class文件。xx.class是个中间状态的字节码(Byte Code)。  
 类加载器(Class Loader)读取到JVM里后, 再一次解析成机器码(Binary Code)执行。  
-也就是说Java是需要做两次编译，其中的第一次编译(.java => .class)是如何执行的呢？
+也就是说Java是需要做两次编译，其中的第一次编译(.java => .class)是如何执行的呢？<!--more-->   
 
 之前介绍过C语言编译执行是需要4个步骤(预处理，编译，汇编，链接)。  
 (详细的可以参考之前写的[【C语言的编译和执行过程】](https://limingxie.github.io/basic/compile_c/))  
@@ -129,6 +129,7 @@ public class ClassTest {
 
 看不明白...^^;;   
 好像只能看出来初始化引用包以及我写的类名和大致的内容。  
+(用javap -v 命令可以查看详细内容。)
 可以用IDEA直接打开.class文件查看里面的内容，会看的很舒服。  
 
 [图片备用地址](https://limingxie.github.io/images/java/jvm/javac_class1.png)  
