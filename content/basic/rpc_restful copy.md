@@ -1,8 +1,8 @@
 ---
 author: "li_mingxie"
-title: "【笔记】RPC和RESTful的区别"
+title: "【笔记】RPC和REST的区别"
 date:  2021-06-16T20:28:49+08:00
-description: "RPC和RESTful的区别"
+description: "RPC和REST的区别"
 tags: [
     "RPC",
     "restful",
@@ -14,7 +14,7 @@ categories: [
 ---
 
 我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。
-那这RPC和RESTful到底是什么？有什么区别？
+那这RPC和REST到底是什么？有什么区别？
 
 ### RPC（Remote Promote Call）
 RPC是一种进程间通信方式。允许像调用本地服务一样调用远程服务。  
