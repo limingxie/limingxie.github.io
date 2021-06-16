@@ -2,7 +2,7 @@
 author: "li_mingxie"
 title: "TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介"
 date:  2021-06-16T18:28:49+08:00
-description: "RPC和RESTful的区别"
+description: "TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介"
 tags: [
     "TCP",
     "IP",
@@ -106,7 +106,7 @@ Http是**应用层协议**，基于请求/响应模式的、无状态的协议�
 一般可以理解为HTTP+SSL/TLS，通过 SSL证书来验证服务器的身份，并为浏览器和服务器之间的通信进行加密。  
 可以简单的理解成HTTP中添加了加密验证的方式，弥补上述HTTP中的问题的就是HTTPS。  
 至于如何加密和验证，感兴趣的人可以自行查一查~~  
-
+还有socket并不是一种协议, 它是一种链接方式。  
 ### 6.SOAP（Simple Object Access Protocol）
 SOAP是一种简单的基于XML的协议，它使应用程序通过HTTP来交换信息。  
 SOAP基于XML语言和XSD标准，其定义了一套编码规则，该规则定义如何将数据表示为消息，以及怎样通过HTTP协议来传输SOAP消息。  
