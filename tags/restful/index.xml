@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>restful on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/restful/</link>
+    <description>Recent content in restful on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 16 Jun 2021 20:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/restful/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【笔记】RPC和RESTful的区别</title>
+      <link>https://limingxie.github.io/basic/rpc_restful-copy/</link>
+      <pubDate>Wed, 16 Jun 2021 20:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/basic/rpc_restful-copy/</guid>
+      <description>我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。 那这RPC和RESTful到底是什么？有什么区别？
+RPC（Remote Promote Call） RPC是一种进程间通信方式。允许像调用本地服务一样调用远程服务。
+RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调用远程的方法，而对你来说这个调用是透明的，你并不知道这个调用的方法是部署哪里。
+通过RPC能解耦服务，这才是使用RPC的真正目的。RPC的原理主要用到了动态代理模式，至于http协议，只是传输协议而已。
+简单的实现可以参考spring remoting，复杂的实现可以参考dubbo。</description>
+    </item>
+    
+  </channel>
+</rss>
