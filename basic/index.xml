@@ -6,7 +6,33 @@
     <description>Recent content in Basics on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Oct 2020 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/basic/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Jun 2021 18:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/basic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介</title>
+      <link>https://limingxie.github.io/basic/communication_protocol/</link>
+      <pubDate>Wed, 16 Jun 2021 18:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/basic/communication_protocol/</guid>
+      <description>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。
+今天就按笔记的形式整理了一下我们常见的几种协议。
+先看看通讯协议是什么？ 维基百科是这么解释的。
+通信协议（Communications Protocol，传输协议） 在电信领域中指的是，在任何物理介质中允许两个或多个在传输系统中的终端之间传播信息的系统标准，也是指计算机通信或网络设备的共同语言。
+通信协议定义了通信中的语法学、语义学和同步规则以及可能存在的错误检测与纠正。通信协议在硬件、软件或两者之间皆可实现。
+很绕口&amp;hellip;^^;; 如果不是技术相关人员的话，可以这么去理解。</description>
+    </item>
+    
+    <item>
+      <title>URI,URL,URN的区别</title>
+      <link>https://limingxie.github.io/basic/uri_url_urn/</link>
+      <pubDate>Wed, 16 Jun 2021 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/basic/uri_url_urn/</guid>
+      <description>我们经常接触到 URI，URL，URN 这些名词。
+本以为都是同一个概念，但我发现它们还是有些区别的。
+先看看各自的单词意思。
+URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform Resource Locator）：统一资源定位符。 URN（Uniform Resource Name）：统一资源名称。 URI 可以进一步划分为定位符（URL），名称（URN）或两者兼备。 URL 和 URN 都是 URI 子集。</description>
+    </item>
+    
     <item>
       <title>C语言的编译和执行过程</title>
       <link>https://limingxie.github.io/basic/compile_c/</link>
