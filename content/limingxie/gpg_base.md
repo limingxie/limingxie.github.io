@@ -1,7 +1,7 @@
 ---
 author: "li_mingxie"
 title: "Mac 安装和简单的使用GunPG（GPG） "
-date: 2120-06-04T20:38:02+08:00
+date: 2920-06-04T20:38:02+08:00
 tags: [
     "gpg",
 ]
