@@ -6,7 +6,23 @@
     <description>Recent content in Javas on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jan 2021 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 Jul 2021 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【java笔记】HashMap, HashTable, ConcurrentHashMap, TreeMap, LinkedHashMap</title>
+      <link>https://limingxie.github.io/java/java_map/</link>
+      <pubDate>Wed, 14 Jul 2021 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/java_map/</guid>
+      <description>我们经常会遇到使用Map的情况。而且Map有很多衍生类。
+这些类之间有什么区别呢？在何种情况下用何种类呢？
+下面我大致整理了什么视情况使用哪种map比较合适，没有单独的去解释每个map的结构和原理。
+如想知道具体结构和原理，需每个都需要单独查一下&amp;hellip;^^;;
+1.HashMap 当我们需要用到key-value存储时，第一个想到的结构就是HashMap。
+HashMap是无序存储。所以不需要顺序的场景下，HashMap是一个很好用的结构。
+使用HashMap时，需注意以下两点。
+自动扩容 HashMap有自动扩容机制。</description>
+    </item>
+    
     <item>
       <title>【JVM】javac的编译过程</title>
       <link>https://limingxie.github.io/java/java_javac_compiler/</link>
