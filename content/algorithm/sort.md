@@ -15,7 +15,7 @@ categories: [
 
 感觉现在越来越重视算法了。<!--more-->  
 因为我不是计算机专业的，所以对这些算法没怎么注意过。  
-这么高领的程序员居然才接触到这些算法，真是惭愧啊...^^;;
+这么高年龄的程序员居然才接触到这些算法，真是惭愧啊...^^;;
 
 以下代码都是用golang写的，算是给自己看的笔记~
 
@@ -31,6 +31,7 @@ categories: [
 ```
 
 <br/>
+
 **◆ 冒泡排序(Bubble Sort)**  
 [图片备用地址](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/bubble_sort_03.gif)  
 ![bubble_sort_03](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/bubble_sort_03.gif)
