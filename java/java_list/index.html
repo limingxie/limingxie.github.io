@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【Java笔记】简单的了解List, ArrayList, LinkedList </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/java/java_list/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【Java笔记】简单的了解List, ArrayList, LinkedList"/>
+<meta name="twitter:description" content="List, ArrayList, LinkedList"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【Java笔记】简单的了解List, ArrayList, LinkedList</h3>
+                
+            </div>
+
+            <h3 id="1list">1.List</h3>
+<p>List是接口(不能直接实例化)，是Collection的子接口。拥有Collection所有方法外，还有一些对索引操作的方法。<br>
+常用的几个方法有</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> index<span style="color:#f92672">,</span> E element<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> index<span style="color:#f92672">,</span> Collection<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> E<span style="color:#f92672">&gt;</span> c<span style="color:#f92672">);</span>
+E <span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> index<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>Object o<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span>Object o<span style="color:#f92672">);</span>
+E <span style="color:#a6e22e">set</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> index<span style="color:#f92672">,</span> E element<span style="color:#f92672">);</span>
+E <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> index<span style="color:#f92672">);</span>
+List<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">subList</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> fromIndex<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> toIndex<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>Comparator<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> E<span style="color:#f92672">&gt;</span> c<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span>UnaryOperator<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> operator<span style="color:#f92672">);</span>
+</code></pre></div><h3 id="2arraylist">2.ArrayList</h3>
+<p>ArrayList 继承了AbstractList，实现了List。<br>
+<strong>ArrayList底层是数组</strong>，数组容量是不可变的，因此ArrayList<strong>需要动态扩容</strong>。在增加操作时，动态扩容会消耗时间。<br>
+由于ArrayList底层是数组，<strong>因此每个元素都带有索引</strong>，在查询效率上要比LinkedList高很多。</p>
+<p>简单的说有以下特点:<br>
+１、List的子类，底层的数据结构使用的是数组结构。<br>
+２、其特点是查询很快，增删改很慢。<br>
+３、其默认的长度为10，如果超过这个范围，则新new一个50%增长速度的数组，再将原数据copy进来。</p>
+<h3 id="3linkedlist">3.LinkedList</h3>
+<p>LinkedList继承于AbstractSequentialList，实现了List。<br>
+<strong>LinkedList底层是双向链表</strong>，新增元素就是在链表上新增节点，<strong>不存在扩容的问题</strong>，因此在增删改效率上较高。<br>
+但是由于不存在索引，<strong>每次查询都要遍历整个链表</strong>，查询效率较低。</p>
+<p>简单的说有以下特点:<br>
+１、List的子类，底层的数据结构使用的链表结构。<br>
+２、特点是增删改很快，但是查询的速度很慢。</p>
+<h3 id="4vector和copyonwritearraylist">4.Vector和CopyOnWriteArrayList</h3>
+<p>ArrayList和LinkedList是好用，但是他们不能保证线程安全。<br>
+所以到多线程的开发模式的话，需要用Vector或者CopyOnWriteArrayList。<br>
+可惜我没机会实际业务上使用过多线程的开发方式。<br>
+具体如何运用打击自行搜索吧&hellip;^^;;</p>
+<h3 id="5总结">5.总结</h3>
+<p>List是接口类所以不能直接实例化。<br>
+ArrayList底层是数组。更适合查询操作。<br>
+LinkedList底层是链表。更适合修改和增删等操作。<br>
+多线程时需要用Vector或者CopyOnWriteArrayList。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/java/">java</a><a class="category" href="/categories/jvm/">jvm</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/array/">Array</a><a class="tag" href="/tags/arraylist/">ArrayList</a><a class="tag" href="/tags/linkedlist/">LinkedList</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

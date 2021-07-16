@@ -6,7 +6,18 @@
     <description>Recent content in Javas on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 14 Jul 2021 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Jul 2021 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Java笔记】简单的了解List, ArrayList, LinkedList</title>
+      <link>https://limingxie.github.io/java/java_list/</link>
+      <pubDate>Fri, 16 Jul 2021 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/java/java_list/</guid>
+      <description>1.List List是接口(不能直接实例化)，是Collection的子接口。拥有Collection所有方法外，还有一些对索引操作的方法。
+常用的几个方法有
+void add(int index, E element); boolean addAll(int index, Collection&amp;lt;?</description>
+    </item>
+    
     <item>
       <title>【java笔记】HashMap, HashTable, ConcurrentHashMap, TreeMap, LinkedHashMap</title>
       <link>https://limingxie.github.io/java/java_map/</link>
