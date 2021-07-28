@@ -42,7 +42,7 @@ func BubbleSort() {
 	data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1}
 
 	for i := 0; i < len(data); i++ {
-		for j := 0; j < len(data)-i; j++ {
+		for j := 0; j < len(data)-1-i; j++ {
 			if data[j] > data[j+1] {
 				v := data[j]
 				data[j] = data[j+1]
@@ -67,15 +67,15 @@ func SelectionSort() {
 
 	var book int
 	for i := 0; i < len(data); i++ {
-		v := data[i]
+		book = i
 		for j := i; j < len(data); j++ {
-			if v >= data[j] {
+			if data[book] > data[j] {
 				book = j
-				v = data[j]
 			}
 		}
-		data[book] = data[i]
-		data[i] = v
+		v := data[i]
+		data[i] = data[book]
+		data[book] = v
 	}
 
 	fmt.Println(data)
@@ -88,18 +88,19 @@ func SelectionSort() {
 ![insertion_sort_01](https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif)  
 
 ```go
-//直接插入排序
+//直接插入排序。因为我太不喜欢直接串改数组数据，所以写的有点像倒过来的冒泡排序
 func InsertionSort() {
 	data := []int{8, 100, 99, 50, 22, 15, 16, 2, 99, 1000, 999, 1}
 
+	var v int
 	for i := 0; i < len(data); i++ {
-		for j := 0; j < i; j++ {
-			if data[j] > data[i] {
-				v := data[i]
-				for k := i; k > j; k-- {
-					data[k] = data[k-1]
-				}
-				data[j] = v
+		for j := i; j > 0; j-- {
+			if data[j] < data[j-1] {
+				v = data[j]
+				data[j] = data[j-1]
+				data[j-1] = v
+			} else {
+				break
 			}
 		}
 	}

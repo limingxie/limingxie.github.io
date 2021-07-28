@@ -1,6 +1,6 @@
 ---
 author: "li_mingxie"
-title: "【Java笔记】简单的了解List, ArrayList, LinkedList"
+title: "【Java笔记】简单了解List, ArrayList, LinkedList"
 date: 2021-07-16T08:28:49+08:00
 description: "List, ArrayList, LinkedList"
 tags: [
