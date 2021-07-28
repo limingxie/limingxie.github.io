@@ -36,7 +36,7 @@
 
 <meta name="twitter:title" content="【go笔记】new和make的区别"/>
 <meta name="twitter:description" content="new和make都是分配资源的命令，这两个命令很容易混淆。
-我们只要弄清楚其规则，很容易分清和区分。
+但是我们只要弄清楚其规则，区分起来不难。
 1. new 先看看go语言的官方说明文档是怎么解释的？
 new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。 也就是说，new(T) 会为类型为T的新项分配已置零的内存空间，并返回它的地址，也就是一个类型为 *T的值。 用Go的术语来说，它返回一个指针，该指针指向新分配的，类型为 T 的零值。 简单的说他会创建一个引用类型的地址(栈内存)，不会分配内存空间(堆内存)。"/>
 
@@ -148,7 +148,7 @@ new是用来分配内存的内建函数，但与其它语言中的同名函数�
             </div>
 
             <p>new和make都是分配资源的命令，这两个命令很容易混淆。<br>
-我们只要弄清楚其规则，很容易分清和区分。</p>
+但是我们只要弄清楚其规则，区分起来不难。</p>
 <h3 id="1-new">1. new</h3>
 <p>先看看go语言的官方说明文档是怎么解释的？</p>
 <pre><code>new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。  
@@ -271,7 +271,7 @@ type:   []int
 len:    10 
 cap:    50 
 [0 0 0 0 0 0 0 0 0 0]  //分了长度为10的空间，空间里默认存了0，预留的空间是50
-</code></pre><h4 id="所以make是跟new不一样会分配已初始化的值">所以make是跟new不一样会分配已初始化的值。</h4>
+</code></pre><p><strong>所以make是跟new不一样，会分配已初始化的值。</strong></p>
 <p>那很容易理解下面的写法虽然程序不会报错，但是不太合适吧？</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span>[]<span style="color:#66d9ef">int</span> = new([]<span style="color:#66d9ef">int</span>)
 <span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>)
@@ -288,7 +288,7 @@ cap:    50
 )
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========没有赋预留空间==========&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========没有预留空间==========&#34;</span>)
 
 	<span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%+v cap:%+v \n&#34;</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>))
@@ -298,7 +298,7 @@ cap:    50
 		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%+v cap:%+v \n&#34;</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>))
 	}
 
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========赋预留空间==========&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========留预留空间==========&#34;</span>)
 	<span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
 	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">6</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
 		<span style="color:#a6e22e">slice1</span> = append(<span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">i</span>)
@@ -307,7 +307,7 @@ cap:    50
 }
 </code></pre></div><p>执行结果如下</p>
 <pre><code>$ go run main.go
-==========没有赋预留空间==========
+==========没有预留空间==========
 len :0 cap:0 
 len :1 cap:1 
 len :2 cap:2 
@@ -319,7 +319,7 @@ len :7 cap:8
 len :8 cap:8 
 len :9 cap:16  //自动扩容
 len :10 cap:16 
-==========赋预留空间==========
+==========留预留空间==========
 len :1 cap:5 
 len :2 cap:5 
 len :3 cap:5 
@@ -329,9 +329,9 @@ len :6 cap:10  //自动扩容
 </code></pre><p>这些自动扩容机制大部分的开发语言都很相似。</p>
 <h3 id="3-总结">3. 总结</h3>
 <p>new函数返回的是执行内存的指针。<br>
-new日常开发中使用是比较少的，可以用直接声明的方式代替。<br>
+new日常开发中很少会使用，可以用直接声明的方式代替。<br>
 make函数只支持 slice, map, channel 三种类型。<br>
-make函数分配并初始化类型所需的内存空间和结构，并赋默认值。</p>
+make函数分配并初始化类型所需的内存空间和结构，并会赋默认值。</p>
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
