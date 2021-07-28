@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【go笔记】new和make的区别 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/go/go_new_make/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【go笔记】new和make的区别"/>
+<meta name="twitter:description" content="new和make都是分配资源的命令，这两个命令很容易混淆。
+我们只要弄清楚其规则，很容易分清和区分。
+1. new 先看看go语言的官方说明文档是怎么解释的？
+new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。 也就是说，new(T) 会为类型为T的新项分配已置零的内存空间，并返回它的地址，也就是一个类型为 *T的值。 用Go的术语来说，它返回一个指针，该指针指向新分配的，类型为 T 的零值。 简单的说他会创建一个引用类型的地址(栈内存)，不会分配内存空间(堆内存)。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【go笔记】new和make的区别</h3>
+                
+            </div>
+
+            <p>new和make都是分配资源的命令，这两个命令很容易混淆。<br>
+我们只要弄清楚其规则，很容易分清和区分。</p>
+<h3 id="1-new">1. new</h3>
+<p>先看看go语言的官方说明文档是怎么解释的？</p>
+<pre><code>new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。  
+也就是说，new(T) 会为类型为T的新项分配已置零的内存空间，并返回它的地址，也就是一个类型为 *T的值。  
+用Go的术语来说，它返回一个指针，该指针指向新分配的，类型为 T 的零值。  
+</code></pre><p>简单的说他会创建一个引用类型的地址(栈内存)，不会分配内存空间(堆内存)。<br>
+看看是不是真的是这样？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;reflect&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Id</span>   <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">user</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">User</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:   %+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">user</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;value:  %+v \n&#34;</span>, <span style="color:#a6e22e">user</span>)
+
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">user1</span> <span style="color:#a6e22e">User</span>
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:   %+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">user1</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;value:  %+v \n&#34;</span>, <span style="color:#a6e22e">user1</span>)
+
+
+	<span style="color:#a6e22e">user2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">User</span>{}
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:   %+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">user2</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;value:  %+v \n&#34;</span>, <span style="color:#a6e22e">user2</span>)
+}
+</code></pre></div><p>看一下执行结果</p>
+<pre><code>$ go run main.go
+type:   *main.User      //new 方式
+value:  &amp;{Id:0 Name:}   //new 方式
+type:   main.User       //var 声明
+value:  {Id:0 Name:}    //var 声明
+type:   main.User       //快速 声明
+value:  {Id:0 Name:}    //快速 声明
+</code></pre><h4 id="new分配的关键点是配置了零内存">new分配的关键点是配置了零内存。</h4>
+<h4 id="按照我们的通俗的语言说new返回了指针">按照我们的通俗的语言说：new返回了指针。</h4>
+<hr>
+<h3 id="2-make">2. make</h3>
+<p>先看看go语言的官方说明文档是怎么解释的？</p>
+<pre><code>make用于创建切片、映射和信道，并返回类型为 T（而非 *T）的一个已初始化 （而非置零）的值。  
+出现这种用差异的原因在于，这三种类型本质上为引用数据类型，它们在使用前必须初始化。  
+例如，切片是一个具有三项内容的描述符，包含一个指向（数组内部）数据的指针、长度以及容量， 在这三项被初始化之前，该切片为 nil。  
+对于切片、映射和信道，make 用于初始化其内部的数据结构并准备好将要使用的值。
+</code></pre><p>make是只用于切片(slice)、映射(map)和信道(channel)。 而且是已初始化 （而非置零）的值。<br>
+看看是不是真的是这样？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;reflect&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">a0</span> <span style="color:#f92672">:=</span> new([]<span style="color:#66d9ef">int</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========a0 := new([]int)=========&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:%+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">a0</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len:%+v \n&#34;</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">a0</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;cap:%+v \n&#34;</span>, cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">a0</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v \n&#34;</span>, <span style="color:#a6e22e">a0</span>)
+
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a1</span> []<span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========var a1 []int=========&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:%+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">a1</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len:%+v \n&#34;</span>, len(<span style="color:#a6e22e">a1</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;cap:%+v \n&#34;</span>, cap(<span style="color:#a6e22e">a1</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v \n&#34;</span>, <span style="color:#a6e22e">a1</span>)
+
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a2</span> [<span style="color:#ae81ff">10</span>]<span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========var a2 [10]int=========&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:%+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">a2</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len:%+v \n&#34;</span>, len(<span style="color:#a6e22e">a2</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;cap:%+v \n&#34;</span>, cap(<span style="color:#a6e22e">a2</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v \n&#34;</span>, <span style="color:#a6e22e">a2</span>)
+
+	<span style="color:#a6e22e">a3</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========a3 := make([]int, 10)=========&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:%+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">a3</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len:%+v \n&#34;</span>, len(<span style="color:#a6e22e">a3</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;cap:%+v \n&#34;</span>, cap(<span style="color:#a6e22e">a3</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v \n&#34;</span>, <span style="color:#a6e22e">a3</span>)
+
+	<span style="color:#a6e22e">a4</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">50</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========a4 := make([]int, 10, 50)=========&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:%+v \n&#34;</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">a4</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len:%+v \n&#34;</span>, len(<span style="color:#a6e22e">a4</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;cap:%+v \n&#34;</span>, cap(<span style="color:#a6e22e">a4</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v \n&#34;</span>, <span style="color:#a6e22e">a4</span>)
+}
+</code></pre></div><p>看一下执行结果</p>
+<pre><code>$ go run main.go
+==========a0 := new([]int)=========
+type:   *[]int   
+len:    0 
+cap:    0 
+&amp;[]         //跟上面做的测试一样，零内存，没分配空间。 
+==========var a1 []int=========
+type:   []int  
+len:    0 
+cap:    0 
+[]          //分了空间，空间长度是0
+==========var a2 [10]int=========
+type:   [10]int 
+len:    10 
+cap:    10 
+[0 0 0 0 0 0 0 0 0 0]  //分了长度为10的空间，空间里默认存了0
+==========a3 := make([]int, 10)=========
+type:   []int 
+len:    10 
+cap:    10 
+[0 0 0 0 0 0 0 0 0 0]  //分了长度为10的空间，空间里默认存了0，预留的空间也是10
+==========a4 := make([]int, 10, 50)=========
+type:   []int 
+len:    10 
+cap:    50 
+[0 0 0 0 0 0 0 0 0 0]  //分了长度为10的空间，空间里默认存了0，预留的空间是50
+</code></pre><h4 id="所以make是跟new不一样会分配已初始化的值">所以make是跟new不一样会分配已初始化的值。</h4>
+<p>那很容易理解下面的写法虽然程序不会报错，但是不太合适吧？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span>[]<span style="color:#66d9ef">int</span> = new([]<span style="color:#66d9ef">int</span>)
+<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>)
+</code></pre></div><h4 id="make的预留空间">make的预留空间</h4>
+<p>make函数有第三个参数，是给创建的类型留给的预留空间。<br>
+没有传这参数是默认是和长度一样，当空间不够的时候后会自动扩容。<br>
+<strong>每次扩容操作会增大1倍。</strong></p>
+<p>可以做一个简单的测试。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;reflect&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========没有赋预留空间==========&#34;</span>)
+
+	<span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%+v cap:%+v \n&#34;</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>))
+
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">slice</span> = append(<span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">i</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%+v cap:%+v \n&#34;</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>))
+	}
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==========赋预留空间==========&#34;</span>)
+	<span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">6</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">slice1</span> = append(<span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">i</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;len :%+v cap:%+v \n&#34;</span>, len(<span style="color:#a6e22e">slice1</span>), cap(<span style="color:#a6e22e">slice1</span>))
+	}
+}
+</code></pre></div><p>执行结果如下</p>
+<pre><code>$ go run main.go
+==========没有赋预留空间==========
+len :0 cap:0 
+len :1 cap:1 
+len :2 cap:2 
+len :3 cap:4  //自动扩容
+len :4 cap:4 
+len :5 cap:8  //自动扩容
+len :6 cap:8 
+len :7 cap:8 
+len :8 cap:8 
+len :9 cap:16  //自动扩容
+len :10 cap:16 
+==========赋预留空间==========
+len :1 cap:5 
+len :2 cap:5 
+len :3 cap:5 
+len :4 cap:5 
+len :5 cap:5 
+len :6 cap:10  //自动扩容
+</code></pre><p>这些自动扩容机制大部分的开发语言都很相似。</p>
+<h3 id="3-总结">3. 总结</h3>
+<p>new函数返回的是执行内存的指针。<br>
+new日常开发中使用是比较少的，可以用直接声明的方式代替。<br>
+make函数只支持 slice, map, channel 三种类型。<br>
+make函数分配并初始化类型所需的内存空间和结构，并赋默认值。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/go/">Go</a><a class="category" href="/categories/golang/">golang</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/go/">go</a><a class="tag" href="/tags/golang/">golang</a><a class="tag" href="/tags/new/">new</a><a class="tag" href="/tags/make/">make</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

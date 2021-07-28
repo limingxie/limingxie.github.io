@@ -165,7 +165,7 @@
 	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">1</span>}
 
 	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">data</span>)<span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">data</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
 			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] &gt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] {
 				<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
 				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]
@@ -186,15 +186,15 @@
 
 	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">book</span> <span style="color:#66d9ef">int</span>
 	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-		<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
+		<span style="color:#a6e22e">book</span> = <span style="color:#a6e22e">i</span>
 		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">book</span>] &gt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] {
 				<span style="color:#a6e22e">book</span> = <span style="color:#a6e22e">j</span>
-				<span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
 			}
 		}
-		<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">book</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
-		<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">v</span>
+		<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
+		<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">book</span>]
+		<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">book</span>] = <span style="color:#a6e22e">v</span>
 	}
 
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
@@ -203,18 +203,19 @@
 <p><strong>◆ 插入排序(Insertion Sort)</strong><br>
 <a href="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif">图片备用地址</a><br>
 <img src="https://pangpangimg.oss-cn-beijing.aliyuncs.com/gif/sort/insertion_sort_01.gif" alt="insertion_sort_01"></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//直接插入排序
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//直接插入排序。因为我太不喜欢直接串改数组数据，所以写的有点像倒过来的冒泡排序
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertionSort</span>() {
 	<span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">999</span>, <span style="color:#ae81ff">1</span>}
 
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">int</span>
 	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">data</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] &gt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>] {
-				<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>]
-				<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">k</span> &gt; <span style="color:#a6e22e">j</span>; <span style="color:#a6e22e">k</span><span style="color:#f92672">--</span> {
-					<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
-				}
-				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">v</span>
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span> &gt; <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">--</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] &lt; <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] {
+				<span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>]
+				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+				<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">v</span>
+			} <span style="color:#66d9ef">else</span> {
+				<span style="color:#66d9ef">break</span>
 			}
 		}
 	}

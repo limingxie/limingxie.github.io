@@ -6,7 +6,19 @@
     <description>Recent content in Gos on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 14 Feb 2019 08:38:02 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Jul 2021 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【go笔记】new和make的区别</title>
+      <link>https://limingxie.github.io/go/go_new_make/</link>
+      <pubDate>Tue, 27 Jul 2021 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/go_new_make/</guid>
+      <description>new和make都是分配资源的命令，这两个命令很容易混淆。
+我们只要弄清楚其规则，很容易分清和区分。
+1. new 先看看go语言的官方说明文档是怎么解释的？
+new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。 也就是说，new(T) 会为类型为T的新项分配已置零的内存空间，并返回它的地址，也就是一个类型为 *T的值。 用Go的术语来说，它返回一个指针，该指针指向新分配的，类型为 T 的零值。 简单的说他会创建一个引用类型的地址(栈内存)，不会分配内存空间(堆内存)。</description>
+    </item>
+    
     <item>
       <title>Go项目:error错误处理</title>
       <link>https://limingxie.github.io/go/err_return/</link>
