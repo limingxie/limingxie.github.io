@@ -8,6 +8,18 @@
     <language>en</language>
     <lastBuildDate>Tue, 27 Jul 2021 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/make/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【go笔记】 数组, 切片(slice), 映射(map)简介</title>
+      <link>https://limingxie.github.io/go/go_slice/</link>
+      <pubDate>Tue, 27 Jul 2021 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/go_slice/</guid>
+      <description>我们在日常变成中经常用到数组, 切片(slice), 映射(map)。
+这篇文章中简单的介绍一下这3中结构。
+1. 数组 数组是我们接触到的最基本的结构，在Go里面的数组有一些比较特别的地方。如下：
+ 数组是值。将一个数组赋予另一个数组会复制其所有元素。 若将某个数组传入某个函数，它将接收到该数组复制一份而非指针。 数组的大小是其类型的一部分。类型 [10]int 和 [20]int 是不同的。  数组为值的属性很有用，但代价也高，我们也可以传递一个指向该数组的指针。</description>
+    </item>
+    
+    <item>
       <title>【go笔记】new和make的区别</title>
       <link>https://limingxie.github.io/go/go_new_make/</link>
       <pubDate>Tue, 27 Jul 2021 07:28:49 +0800</pubDate>
