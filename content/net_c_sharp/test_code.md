@@ -129,7 +129,7 @@ public class StubUser implements User {
 + 测试时记录自身对象是否被调用，举例子的话邮件服务会记录发送了多少封邮件。  
 + 还会记录调用了哪些成员，好让单元测试验证所调用的成员是否符合预期。
 
-简单的说，Spy是需要确认特定函数是否正常的调用了，调用的是否正常时使用。  
+简单的说，Spy是多特定函数是否正常的调用的记录。  
 顺便也可以当做Stub使用。
 看看下面的例子：
 
@@ -154,13 +154,64 @@ public class MailService {
 像这样存储调用记录的类叫做Spy。
 
 #### Fake
-+ 则具有可以正常工作的实现，把复杂的内容简化后的对象。
++ 则具有可以正常工作的实现，不是完整的生产对象，是把复杂的内容简化后的对象。
 + 通常采用了一些不适合生产环境的便捷手段。（一个典型例子是内存数据库）。
 
-Fake 包含更复杂的实作，通常涉及所继承型别之不同成员之间的互动。  
-虽然不是完整的生产实作，但 Fake 与生产实作很相似，尽管它会采取一些快捷方式。
+简单的说Fake是模拟了和生产一样的对象，但是其内容是简化的。
+看看下面的例子：
 
-对象实际上有工作实现，但通常采取一些捷径，使它们不适合生产（InMemoryTestDatabase是一个很好的例子）。
+```java
+public class User {
+    private Long id;
+    private String name;
+    
+    protected User() {}
+    
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
+    public Long getId() {
+        return this.id;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+}
+
+public interface IUserService {
+    void save(User user);
+    User findById(long id);
+}
+
+public class FakeUserService implements IUserService {
+    private Collection<User> users = new ArrayList<>();
+    
+    @Override
+    public void save(User user) {
+        if (findById(user.getId()) == null) {
+            user.add(user);
+        }
+    }
+    
+    @Override
+    public User findById(long id) {
+        for (User user : users) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
+    }
+}
+```
+上面是一个很简单的使用Fack对象的例子。  
+用实际UserService里的保存和查询方法需要连接数据库。  
+在测试环境下，不影响主要测试内容的前提下，  
+可以使用Fack类来取代实际连数据库的操作。  
+像这样使用摸你的虚假类叫Fack。
 
 #### Mock
 就是我们这里所谈论的：它根据预先编写的逻辑，基于调用者所期望的返回值。
@@ -175,13 +226,20 @@ fake对象是一种虚假的实现，内部使用了固定的数据或逻辑，�
 
 
 
+Mock
+Mocks are objects that register calls they receive. In test assertion we can verify on Mocks that all expected actions were performed.Mocks 
+代指那些仅记录它们的调用信息的对象，在测试断言中我们需要验证 Mocks 被进行了符合期望的调用。
+当我们并不希望真的调用生产环境下的代码或者在测试中难于验证真实代码执行效果的时候，我们会用 Mock 来替代那些真实的对象。典型的例子即是对邮件发送服务的测试，我们并不希望每次进行测试的时候都发送一封邮件，毕竟我们很难去验证邮件是否真的被发出了或者被接收了。我们更多地关注于邮件服务是否按照我们的预期在合适的业务流中被调用，其概念如下图所示：
+
+Mock是行为的验证，Stub是对状态的验证
+
 #### 总结
-Dummy是一个空壳，
-Stub是给这个Dummy空壳加了些线路让他能模拟运行。
-Spy是给这个Stub加了存储器，让他有些记忆。
-到了Fake和Mock就是比较完整的替身了。
-那Fake和Mock作用是什么呢？
-Fack是一种实体的模拟，而Mock是对逻辑的模拟。
+Dummy是一个空壳。  
+Stub是给这个Dummy空壳加了些线路让他能模拟运行。  
+Spy是给这个Stub加了存储器，让他有些记忆。  
+到了Fake和Mock就是比较完整的替身了。  
+那Fake和Mock作用是什么？  
+Fack是一种实体的模拟(虚假实例)，而Mock是对行为逻辑的模拟(虚假行为)。  
 
 ----------------------------------------------
 欢迎大家的意见和交流
