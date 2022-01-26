@@ -16,13 +16,13 @@ categories: [
 ]
 ---
 
-最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。
+最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。  
 这次看资料比起以前研究golang的测试稍微详细了点，哈~ <!--more-->  
 
 ## **测试代码的基本结构**
 
 测试代码是用代码去测试开发的功能，所以目前普遍公认的测试代码模板结构。  
-分三个部分：arrange, act, assert。分别起的作用如下。
+分三个部分：arrange, act, assert。分别起的作用如下。  
 
 ------
 
@@ -33,7 +33,7 @@ categories: [
 -----
 
 看下代码更实在。懒得从新写了。  
-把以前的golang代码[Go项目的测试代码1（基础）](https://limingxie.github.io/go/my_go_test/)粘过来了...^^;;
+把以前的golang代码[Go项目的测试代码1（基础）](https://limingxie.github.io/go/my_go_test/)粘过来了...^^;;  
 
 ```go
 // add_test.go  ==> 文件名 _test.go 结尾的默认为测试代码文件
@@ -62,7 +62,7 @@ func TestAdd(t *testing.T) {
 
 这是我们能看到的最简单的测试代码，但是现实和理想还是有差距的。  
 当我们进行测试的时候很多时候是和其他模块有依赖或调用的关系的。  
-为了解决这些问题我们会使用测试替身(Test Double)。
+为了解决这些问题我们会使用测试替身(Test Double)。  
 
 ## **测试替身(Test Double)**
 
@@ -71,20 +71,20 @@ func TestAdd(t *testing.T) {
 Test Double(测试替身) 也是当我们需要用一些功能和依赖项时，可以使用“替身”。  
 这样我们可以专注于我们需要测试的代码，而不需要把时间浪费在"周围的关系"中。  
 
-测试替身的类型可以分为 Dummary、Fake、Stub、Spy、Mock。
-每个类型我都写了一些简单的代码，易于理解。
+测试替身的类型可以分为 Dummary、Fake、Stub、Spy、Mock。  
+每个类型我都写了一些简单的代码，易于理解。  
 
 [图片备用地址](https://limingxie.github.io/images/c_sharp/test_double.png)  
 ![test_double](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/c_sharp/test_double.png)
 
 #### Dummy
-+ 最简单、最原始的测试替身型别。
-+ 需要实体类，但是不需要其功能的时候会用。
-+ 调用Dummy类的函数不保障正常的使用。
-+ 只传对象，但不使用，通常只是被用来填充参数列表。
++ 最简单、最原始的测试替身型别。  
++ 需要实体类，但是不需要其功能的时候会用。  
++ 调用Dummy类的函数不保障正常的使用。  
++ 只传对象，但不使用，通常只是被用来填充参数列表。  
 
-简单的说，Dummy是一个执行过程中为需要创建的冒充的对象，不能保障正常的功能。
-看看下面的例子：
+简单的说，Dummy是一个执行过程中为需要创建的冒充的对象，不能保障正常的功能。  
+看看下面的例子：  
 
 ```java
 public interface People {
@@ -104,12 +104,13 @@ public class PeopleDummy implements People {
 像这样不能正常工作也不影响测试，测试时又需要的对象叫做Dummy对象。  
 
 #### Stub
-+ Dummy的上一级，可以模拟可执行的Dummy对象。
-+ Stub 是接口或基类的最低限度的实现。
++ Dummy的上一级，可以模拟可执行的Dummy对象。  
++ Stub 是接口或基类的最低限度的实现。  
 + 针对测试时的请求只返回约定好的结果值。  
++ 它是对状态的验证。  
 
-简单的说，Stub起到的作用是只返回约定好的结果值。
-看看下面的例子：
+简单的说，Stub起到的作用是只返回约定好的结果值。  
+看看下面的例子：  
 
 ```java
 public class StubUser implements User {
@@ -122,16 +123,16 @@ public class StubUser implements User {
 ```
 
 看上述代码调用StubUser类的findById方法时，返回接受的id和name是Test User的实体对象。  
-像这样只为测试返回特定值得对象叫做stub。
+像这样只为测试返回特定值得对象叫做stub。  
 
 #### Spy
-+ Stub的上一级，比起stub多记录自身被调用的情况。
++ Stub的上一级，比起stub多记录自身被调用的情况。  
 + 测试时记录自身对象是否被调用，举例子的话邮件服务会记录发送了多少封邮件。  
-+ 还会记录调用了哪些成员，好让单元测试验证所调用的成员是否符合预期。
++ 还会记录调用了哪些成员，好让单元测试验证所调用的成员是否符合预期。  
 
 简单的说，Spy是多特定函数是否正常的调用的记录。  
-顺便也可以当做Stub使用。
-看看下面的例子：
+顺便也可以当做Stub使用。  
+看看下面的例子：  
 
 ```java
 public class MailService {
@@ -151,14 +152,14 @@ public class MailService {
 
 这里调用MailService的sendMail方法时，会记录发送的次数。  
 后续可以通过getSendMailCount()获取发邮件的次数。  
-像这样存储调用记录的类叫做Spy。
+像这样存储调用记录的类叫做Spy。  
 
 #### Fake
-+ 则具有可以正常工作的实现，不是完整的生产对象，是把复杂的内容简化后的对象。
-+ 通常采用了一些不适合生产环境的便捷手段。（一个典型例子是内存数据库）。
++ 则具有可以正常工作的实现，不是完整的生产对象，是把复杂的内容简化后的对象。  
++ 通常采用了一些不适合生产环境的便捷手段。（一个典型例子是内存数据库）。  
 
-简单的说Fake是模拟了和生产一样的对象，但是其内容是简化的。
-看看下面的例子：
+简单的说Fake是模拟了和生产一样的对象，但是其内容是简化的。  
+看看下面的例子：  
 
 ```java
 public class User {
@@ -211,27 +212,72 @@ public class FakeUserService implements IUserService {
 用实际UserService里的保存和查询方法需要连接数据库。  
 在测试环境下，不影响主要测试内容的前提下，  
 可以使用Fack类来取代实际连数据库的操作。  
-像这样使用摸你的虚假类叫Fack。
+像这样使用摸你的虚假类叫Fack。  
 
 #### Mock
-就是我们这里所谈论的：它根据预先编写的逻辑，基于调用者所期望的返回值。
-Mock 是由 Mock 链接库动态建立 (其他通常是由测试开发人员使用程序代码来产生)。  
-测试开发人员永远看不到实作接口或基类的实际程序代码，但是可以设定 Mock 以提供传回值、预期要叫用的特定成员...等等。  
-视其中的设定而定，Mock 的行为可能会像 Dummy、Stub 或 Spy。
++ Mock使用的是虚假的行为，根据预先编写的逻辑，返回期望值。  
++ 如果接收到没有预先编写的请求，可以抛出异常或空值。  
 
-Mocks预先编程了期望，这些期望形成了他们期望接收的调用的规范。如果他们收到一个他们不期望的呼叫，并且在验证过程中被检查以确保他们收到了他们期望的所有呼叫，他们可以抛出异常。
+简单的说Mock是模拟了和生产一样的行为，其行为是简化的。  
+因为这次项目用的是C#，为了准确性Mock方式是基于我熟练的Moq写的，大家只看看大致的方式就行。  
+看看下面的例子：  
 
-mock对象是指对外面依赖系统的模拟，在运行时刻可以根据假设的需求提供期望的结果。
-fake对象是一种虚假的实现，内部使用了固定的数据或逻辑，只能返回特定的结果。
+```C#
+public interface IUserService
+{
+    bool IsHealthy(int weight, int height);
+}
 
+public class UserService : IUserService
+{
 
+    public bool IsHealthy(int weight, int height)
+    {
+        /*假想一下这里有很多逻辑和其他模块的依赖...^^;;*/
+        if (weight == 0 || height == 0)
+        {
+            return false;
+        }
+        if (weight / (height * height) >= 18.5 && weight / (height * height) <= 23.9)
+        {
+            return true;
+        }
+        return false;
+    }
+}
 
-Mock
-Mocks are objects that register calls they receive. In test assertion we can verify on Mocks that all expected actions were performed.Mocks 
-代指那些仅记录它们的调用信息的对象，在测试断言中我们需要验证 Mocks 被进行了符合期望的调用。
-当我们并不希望真的调用生产环境下的代码或者在测试中难于验证真实代码执行效果的时候，我们会用 Mock 来替代那些真实的对象。典型的例子即是对邮件发送服务的测试，我们并不希望每次进行测试的时候都发送一封邮件，毕竟我们很难去验证邮件是否真的被发出了或者被接收了。我们更多地关注于邮件服务是否按照我们的预期在合适的业务流中被调用，其概念如下图所示：
+public class UserServiceTest
+{
+    [Fact]
+    public void MockTest()
+    {
+        //这里创建了一个Mock的service, IsHealthy()函数可以想象成依赖了其他模块。
+        //给它指定了一个模拟的行为：接受100,170或是 110,170就返回true;其他都返回false了。(没有走实际的逻辑)
+        Mock<IUserService> userServiceMock = new Mock<IUserService>();
+        userServiceMock.Setup(x => x.IsHealthy(100, 170)).Returns(true);
+        userServiceMock.Setup(x => x.IsHealthy(110, 170)).Returns(true);
 
-Mock是行为的验证，Stub是对状态的验证
+        IUserService userService = userServiceMock.Object;
+
+        Assert.True(userService.IsHealthy(100, 170));
+
+        Assert.True(userService.IsHealthy(110, 170));
+
+        Assert.False(userService.IsHealthy(70, 180));
+    }
+}
+
+```
+
+如上述代码，做一些用户操作时需要先验证是否健康。  
+但是这验证健康的服务可能是第三方服务。  
+这时候我们会创建一个Mock行为。给指定参数的时候直接返回结果，模拟健康验证行为。  
+集中的测试核心业务。  
+
+那Fack和Mock有什么区别啊？ 其实就是概念上的区别。  
+Fack是虚假类，Mock是虚假行为。  
+实战中偏向于虚假行为的是Mock。  
+偏向于虚假类的是Fack。  
 
 #### 总结
 Dummy是一个空壳。  
