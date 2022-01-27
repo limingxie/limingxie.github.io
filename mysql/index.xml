@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mysqls on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/mysql/</link>
+    <description>Recent content in Mysqls on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Jan 2022 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【mysql】常见的4中存储引擎</title>
+      <link>https://limingxie.github.io/mysql/test_code/</link>
+      <pubDate>Thu, 27 Jan 2022 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/mysql/test_code/</guid>
+      <description>&lt;p&gt;我们一般用的mysql创建表的时候默认是使用了InnoBD存储引擎。&lt;br&gt;
+我本人不是计算机专业，所以刚接触mysql时没注意到它居然有好几种存储引擎。&lt;br&gt;
+在不同的场景下，mysql可以选择不同的存储引擎。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>使用docker运行mysql</title>
+      <link>https://limingxie.github.io/mysql/docker_mysql/</link>
+      <pubDate>Tue, 27 Mar 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/mysql/docker_mysql/</guid>
+      <description>&lt;p&gt;以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

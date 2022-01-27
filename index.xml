@@ -6,7 +6,41 @@
     <description>Recent content on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 27 Jul 2021 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Jan 2022 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【mysql】常见的4中存储引擎</title>
+      <link>https://limingxie.github.io/mysql/test_code/</link>
+      <pubDate>Thu, 27 Jan 2022 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/mysql/test_code/</guid>
+      <description>&lt;p&gt;我们一般用的mysql创建表的时候默认是使用了InnoBD存储引擎。&lt;br&gt;
+我本人不是计算机专业，所以刚接触mysql时没注意到它居然有好几种存储引擎。&lt;br&gt;
+在不同的场景下，mysql可以选择不同的存储引擎。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>测试代码的基本结构以及(Test Double)的种类</title>
+      <link>https://limingxie.github.io/net_c_sharp/test_code/</link>
+      <pubDate>Wed, 26 Jan 2022 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/net_c_sharp/test_code/</guid>
+      <description>&lt;p&gt;最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。&lt;br&gt;
+这次查看的资料比以前研究golang测试稍微详细了点。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>普通开发工作多年后的感触</title>
+      <link>https://limingxie.github.io/work_sharing/work_note_002/</link>
+      <pubDate>Thu, 06 Jan 2022 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/work_sharing/work_note_002/</guid>
+      <description>&lt;p&gt;最近刚换了工作，到了新的岗位，准备新的开始。&lt;br&gt;
+我到现在刚好工作了14年了。是在淘汰的边缘挣扎的高龄开发(38岁)&amp;hellip;^^;;&lt;br&gt;
+在这十多年的工作期间，发现除了“编程”还有一些额外的因素影响我们的职场。&lt;br&gt;
+一般的开发人员常年和电脑打交道，会忽略这些因素。&lt;br&gt;
+我希望通过这次分享能给初入职场的开发人员一些帮助。。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【go笔记】 数组, 切片(slice), 映射(map)简介</title>
       <link>https://limingxie.github.io/go/go_slice/</link>
@@ -121,19 +155,6 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     </item>
     
     <item>
-      <title>普通开发工作多年后的感触</title>
-      <link>https://limingxie.github.io/work_sharing/work_note_002/</link>
-      <pubDate>Wed, 06 Jan 2021 08:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/work_sharing/work_note_002/</guid>
-      <description>&lt;p&gt;最近刚换了工作，到了新的岗位，准备新的开始。&lt;br&gt;
-我到现在刚好工作了14年了。是在淘汰的边缘挣扎的高龄开发(38岁)&amp;hellip;^^;;&lt;br&gt;
-在这十多年的工作期间，发现除了“编程”还有一些额外的因素影响我们的职场。&lt;br&gt;
-一般的开发人员常年和电脑打交道，会忽略这些因素。&lt;br&gt;
-我希望通过这次分享能给初入职场的开发人员一些帮助。。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>【JVM】javac的编译过程</title>
       <link>https://limingxie.github.io/java/java_javac_compiler/</link>
       <pubDate>Mon, 04 Jan 2021 08:28:49 +0800</pubDate>
@@ -189,16 +210,6 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
       <guid>https://limingxie.github.io/basic/compile_c/</guid>
       <description>&lt;p&gt;没有系统的学过C语言，为了了解java编译流程。&lt;br&gt;
 先简单的略过了一下C语言的编译过程。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>测试代码的基本结构以及(Test Double)的种类</title>
-      <link>https://limingxie.github.io/net_c_sharp/test_code/</link>
-      <pubDate>Fri, 30 Oct 2020 08:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/net_c_sharp/test_code/</guid>
-      <description>&lt;p&gt;最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。&lt;br&gt;
-这次查看的资料比以前研究golang测试稍微详细了点。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -495,10 +506,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>使用docker运行mysql</title>
-      <link>https://limingxie.github.io/k8s/docker_mysql/</link>
+      <link>https://limingxie.github.io/mysql/docker_mysql/</link>
       <pubDate>Tue, 27 Mar 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/k8s/docker_mysql/</guid>
+      <guid>https://limingxie.github.io/mysql/docker_mysql/</guid>
       <description>&lt;p&gt;以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。&lt;/p&gt;</description>
     </item>
     
