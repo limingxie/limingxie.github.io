@@ -1,7 +1,7 @@
 ---
 author: "li_mingxie"
 title: "测试代码的基本结构以及(Test Double)的种类"
-date:  2020-10-30T08:28:49+08:00
+date:  2022-01-26T08:28:49+08:00
 description: ""
 tags: [
     "C#",

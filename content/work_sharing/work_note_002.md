@@ -1,7 +1,7 @@
 ---
 author: "li_mingxie"
 title: "普通开发工作多年后的感触"
-date:  2021-01-06T08:28:49+08:00
+date:  2022-01-06T08:28:49+08:00
 description: ""
 tags: [
     "work",

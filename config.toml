@@ -82,6 +82,18 @@ url = "mailto:li_mingxie@163.com"
   url = "/go/"
 
   [[menu.main]]
+  name = "C#"
+  weight = 330
+  identifier = "C#"
+  url = "/net_c_sharp/"
+
+  [[menu.main]]
+  name = "mysql"
+  weight = 360
+  identifier = "C#"
+  url = "/mysql/"
+
+  [[menu.main]]
   name = "环境"
   weight = 400
   identifier = "环境"
@@ -110,3 +122,5 @@ url = "mailto:li_mingxie@163.com"
   weight = 800
   identifier = "杂谈"
   url = "/work_sharing/"
+
+
