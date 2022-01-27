@@ -1,6 +1,6 @@
 ---
 author: "li_mingxie"
-title: "【mysql】常见的4中存储引擎"
+title: "【mysql】常见的4种存储引擎"
 date:  2022-01-27T08:28:49+08:00
 description: ""
 tags: [
