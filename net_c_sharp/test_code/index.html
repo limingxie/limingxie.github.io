@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 测试代码的基本结构以及(Test Double)的种类 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/net_c_sharp/test_code/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="测试代码的基本结构以及(Test Double)的种类"/>
+<meta name="twitter:description" content="最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。
+这次查看的资料比以前研究golang测试稍微详细了点。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+            
+            <li><a 
+                   href="/net_c_sharp/"
+                        
+                   title="">C#</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>测试代码的基本结构以及(Test Double)的种类</h3>
+                
+            </div>
+
+            <p>最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。<br>
+这次查看的资料比以前研究golang测试稍微详细了点。</p>
+<h2 id="测试代码的基本结构"><strong>测试代码的基本结构</strong></h2>
+<p>目前普遍公认的测试代码模板结构,<br>
+分三个部分：arrange, act, assert。分别起的作用如下。</p>
+<hr>
+<blockquote>
+<p>1）arrange: 测试之前需要准备的代码。<br>
+2）act: 实际要测试的方法。<br>
+3）assert: 结果确认。</p>
+</blockquote>
+<hr>
+<p>看下代码更实在。懒得从新写了。<br>
+把以前的golang代码<a href="https://limingxie.github.io/go/my_go_test/">Go项目的测试代码1（基础）</a>粘过来了&hellip;^^;;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// add_test.go  ==&gt; 文件名 _test.go 结尾的默认为测试代码文件
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">models</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;testing&#34;</span>
+)
+
+<span style="color:#75715e">//Test开头的默认为测试方法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestAdd</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#75715e">//arrange
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">res</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">2</span>
+	<span style="color:#a6e22e">y</span> = <span style="color:#ae81ff">3</span>
+
+	<span style="color:#75715e">//act
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>)
+
+	<span style="color:#75715e">//assert
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;Add的结果不正确&#34;</span>)
+	}
+}
+</code></pre></div><p>这是我们能看到的最简单的测试代码, 但是现实和理想还是有差距的。<br>
+当我们进行测试的时候, 很多情况是跟其他模块有依赖或调用的关系的。 <br>
+为了解决这些问题我们会使用测试替身(Test Double)。</p>
+<h2 id="测试替身test-double"><strong>测试替身(Test Double)</strong></h2>
+<p>测试替身起源于拍电影时，拍摄一些高难度或是危险动作时会用替身演员。</p>
+<p>Test Double(测试替身) 也是当我们需要用一些功能和依赖项时，可以使用“替身”。<br>
+这样我们可以专注于我们需要测试的代码，而不需要把时间浪费在&quot;周围的关系&quot;中。</p>
+<p>测试替身的类型可以分为 Dummary、Fake、Stub、Spy、Mock。<br>
+每个类型我都写了一些简单的代码，易于理解。</p>
+<p><a href="https://limingxie.github.io/images/c_sharp/test_double.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/c_sharp/test_double.png" alt="test_double"></p>
+<h4 id="dummy">Dummy</h4>
+<ul>
+<li>最简单、最原始的测试替身。</li>
+<li>需要实体类，但是不需要其功能的时候会用。</li>
+<li>调用Dummy类的函数不保障正常的使用。</li>
+<li>只传对象，但不使用，通常只是被用来填充参数列表。</li>
+</ul>
+<p>简单的说，Dummy是一个执行过程中为需要创建冒充的对象，不能保障正常的功能。<br>
+看看下面的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">People</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">running</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PeopleDummy</span> <span style="color:#66d9ef">implements</span> People <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">running</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 不采取任何操作
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>正常是需要实现running()方法，但是在特定的测试场景中不需要这些操作。<br>
+这时running()方法不会影响测试内容，也没必要去实现。<br>
+像这样不能正常工作也不影响测试，测试时又需要的对象叫做Dummy对象。</p>
+<h4 id="stub">Stub</h4>
+<ul>
+<li>Dummy的上一级，可以模拟可执行的Dummy对象。</li>
+<li>Stub 是接口或基类的最低限度的实现。</li>
+<li>针对测试时的请求只返回约定好的结果值。</li>
+<li>它是对状态的验证。</li>
+</ul>
+<p>简单的说，Stub起到的作用是只返回约定好的结果值。<br>
+看看下面的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StubUser</span> <span style="color:#66d9ef">implements</span> User <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Test User&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>看上述代码调用StubUser类的findById方法时，返回接受的id和name是Test User的实体对象。<br>
+像这样只为测试返回特定值得对象叫做stub。</p>
+<h4 id="spy">Spy</h4>
+<ul>
+<li>Stub的上一级，比起stub多记录自身被调用的情况。</li>
+<li>测试时记录自身对象是否被调用，举例子的话邮件服务会记录发送了多少封邮件。</li>
+<li>还会记录发了哪些成员，好让单元测试验证所调用的成员是否符合预期。</li>
+</ul>
+<p>简单的说，Spy是记录特定函数是否正常的调用的记录。<br>
+顺便也可以当做Stub使用。<br>
+看看下面的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MailService</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> sendMailCount <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Collection<span style="color:#f92672">&lt;</span>Mail<span style="color:#f92672">&gt;</span> mails <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sendMail</span><span style="color:#f92672">(</span>Mail mail<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        sendMailCount<span style="color:#f92672">++;</span>
+        mails<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>mail<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getSendMailCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> sendMailCount<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>这里调用MailService的sendMail方法时，会记录发送的次数。<br>
+后续可以通过getSendMailCount()获取发邮件的次数。<br>
+像这样存储调用记录的类叫做Spy。</p>
+<h4 id="fake">Fake</h4>
+<ul>
+<li>具有可以正常工作的实现，不是完整的生产对象，是把复杂的内容简化后的对象。</li>
+<li>通常采用了一些不适合生产环境的便捷手段。（一个典型例子是内存数据库）。</li>
+</ul>
+<p>简单的说Fake是模拟了和生产一样的对象，但是其内容是简化的。<br>
+看看下面的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> Long id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">protected</span> <span style="color:#a6e22e">User</span><span style="color:#f92672">()</span> <span style="color:#f92672">{}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">User</span><span style="color:#f92672">(</span>Long id<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> Long <span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IUserService</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">);</span>
+    User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FakeUserService</span> <span style="color:#66d9ef">implements</span> IUserService <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> Collection<span style="color:#f92672">&lt;</span>User<span style="color:#f92672">&gt;</span> users <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+    
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>findById<span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">())</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            user<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>User user <span style="color:#f92672">:</span> users<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>上面是一个很简单的使用Fack对象的例子。<br>
+用实际UserService里的保存和查询方法需要连接数据库。<br>
+在测试环境下，不影响主要测试内容的前提下，<br>
+可以使用Fack类来取代实际连数据库的操作。<br>
+像这样使用摸你的虚假类叫Fack。</p>
+<h4 id="mock">Mock</h4>
+<ul>
+<li>Mock是虚假的行为，根据预先编写的逻辑，返回期望值。</li>
+<li>如果接收到没有预先编写的请求，可以抛出异常或空值。</li>
+</ul>
+<p>简单的说Mock是模拟了和生产一样的行为，其行为是简化的。<br>
+因为这次项目用的是C#，Mock方式是基于比较熟悉的Moq写的，只看看大致的方式就行。<br>
+看看下面的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> IUserService
+{
+    <span style="color:#66d9ef">bool</span> IsHealthy(<span style="color:#66d9ef">int</span> weight, <span style="color:#66d9ef">int</span> height);
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserService</span> : IUserService
+{
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> IsHealthy(<span style="color:#66d9ef">int</span> weight, <span style="color:#66d9ef">int</span> height)
+    {
+        <span style="color:#75715e">/*假想一下这里有很多逻辑和其他模块的依赖...^^;;*/</span>
+        <span style="color:#66d9ef">if</span> (weight == <span style="color:#ae81ff">0</span> || height == <span style="color:#ae81ff">0</span>)
+        {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+        }
+        <span style="color:#66d9ef">if</span> (weight / (height * height) &gt;= <span style="color:#ae81ff">18.5</span> &amp;&amp; weight / (height * height) &lt;= <span style="color:#ae81ff">23.9</span>)
+        {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+        }
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+    }
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserServiceTest</span>
+{
+<span style="color:#a6e22e">    [Fact]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> MockTest()
+    {
+        <span style="color:#75715e">//这里创建了一个Mock的service, IsHealthy()函数可以想象成依赖了其他模块。
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//给它指定了一个模拟的行为：接受100,170或是 110,170就返回true;其他都返回false了。(没有走实际的逻辑)
+</span><span style="color:#75715e"></span>        Mock&lt;IUserService&gt; userServiceMock = <span style="color:#66d9ef">new</span> Mock&lt;IUserService&gt;();
+        userServiceMock.Setup(x =&gt; x.IsHealthy(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">170</span>)).Returns(<span style="color:#66d9ef">true</span>);
+        userServiceMock.Setup(x =&gt; x.IsHealthy(<span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">170</span>)).Returns(<span style="color:#66d9ef">true</span>);
+
+        IUserService userService = userServiceMock.Object;
+
+        Assert.True(userService.IsHealthy(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">170</span>));
+
+        Assert.True(userService.IsHealthy(<span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">170</span>));
+
+        Assert.False(userService.IsHealthy(<span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">180</span>));
+    }
+}
+
+</code></pre></div><p>如上述代码，做一些用户操作时需要先验证是否健康。<br>
+但是这验证健康的服务可能是第三方服务。<br>
+这时候我们会创建一个Mock行为。给指定参数的时候直接返回结果，模拟健康验证行为。<br>
+专注于其他业务的测试。</p>
+<p>那Fack和Mock有什么区别啊？ 其实就是概念上的区别。<br>
+Fack是虚假类，Mock是虚假行为。<br>
+实战中偏向于虚假行为的是Mock。<br>
+偏向于虚假类的是Fack。<br>
+实际开发中你会发现很多情况下，一个虚假的类会包含着虚假的行为。</p>
+<h4 id="总结">总结</h4>
+<p>Dummy是一个空壳。<br>
+Stub是给这个Dummy空壳加了些线路让他能模拟运行。<br>
+Spy是给这个Stub加了存储器，让他有些记忆。<br>
+到了Fake和Mock就是比较完整的替身了。<br>
+那Fake和Mock作用是什么？<br>
+Fack是一种实体的模拟(虚假实例)，而Mock是对行为逻辑的模拟(虚假行为)。</p>
+<p>概念归概念，实际开发中还是需要实事求是，<br>
+适用最合适与自己项目的方式就行，没必要过分的分清他们之间的界限。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/c/">C#</a><a class="category" href="/categories/test/">test</a><a class="category" href="/categories/dummary/">Dummary</a><a class="category" href="/categories/fake/">Fake</a><a class="category" href="/categories/stub/">Stub</a><a class="category" href="/categories/spy/">Spy</a><a class="category" href="/categories/mock/">Mock</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/c/">C#</a><a class="tag" href="/tags/test/">test</a><a class="tag" href="/tags/arrange/">arrange</a><a class="tag" href="/tags/act/">act</a><a class="tag" href="/tags/dummary/">Dummary</a><a class="tag" href="/tags/fake/">Fake</a><a class="tag" href="/tags/stub/">Stub</a><a class="tag" href="/tags/spy/">Spy</a><a class="tag" href="/tags/mock/">Mock</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
