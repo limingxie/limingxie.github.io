@@ -19,6 +19,17 @@
     </item>
     
     <item>
+      <title>【mysql】索引简介</title>
+      <link>https://limingxie.github.io/mysql/mysql_index/</link>
+      <pubDate>Thu, 27 Jan 2022 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/mysql/mysql_index/</guid>
+      <description>&lt;p&gt;我们一般用的mysql创建表的时候默认是使用了InnoBD存储引擎。&lt;br&gt;
+我本人不是计算机专业，所以刚接触mysql时没注意到它居然有好几种存储引擎。&lt;br&gt;
+在不同的场景下，mysql可以选择不同的存储引擎。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>使用docker运行mysql</title>
       <link>https://limingxie.github.io/mysql/docker_mysql/</link>
       <pubDate>Tue, 27 Mar 2018 07:28:49 +0800</pubDate>
