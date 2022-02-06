@@ -125,11 +125,11 @@ categories: [
 
 #### **3.基于数组的队列**  
 [图片备用地址](https://limingxie.github.io/images/basic/queue.png)  
-<div align=center>![queue](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/queue.png)</div>
+![queue](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/queue.png)
 
 #### **4.基于链表的队列**  
-[图片备用地址](https://limingxie.github.io/images/basic/queue.png)  
-<div align=center>![queue](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/queue_1.png)</div>
+[图片备用地址](https://limingxie.github.io/images/basic/queue_1.png)  
+![queue](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/queue_1.png)
 
 除了上面2种简单队列，还可以演化出下面的稍微复杂的循环队列，双端队列，优先队列。
 

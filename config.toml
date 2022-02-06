@@ -88,10 +88,10 @@ url = "mailto:li_mingxie@163.com"
   url = "/net_c_sharp/"
 
   [[menu.main]]
-  name = "mysql"
+  name = "database"
   weight = 360
-  identifier = "C#"
-  url = "/mysql/"
+  identifier = "database"
+  url = "/database/"
 
   [[menu.main]]
   name = "环境"
