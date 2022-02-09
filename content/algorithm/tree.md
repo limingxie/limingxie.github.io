@@ -41,8 +41,8 @@ Tree是什么？ [维基百科](https://zh.wikipedia.org/wiki/%E6%A0%91_(%E6%95%
 9. 森林: 由m（m≥0）棵互不相交的树构成一片森林。如果把一棵非空的树的根结点删除，则该树就变成了一片森林。
 ``` 
 
-[图片备用地址](https://limingxie.github.io/images/algorithm/tree_1.png)  
-![heap](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree_1.png?x-oss-process=image/resize,w_600,m_lfit)
+[图片备用地址](https://limingxie.github.io/images/algorithm/tree/tree_1.png)  
+![heap](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_1.png?x-oss-process=image/resize,w_600,m_lfit)
 
 ## 2.树(Tree)的特点
 
@@ -58,8 +58,8 @@ Tree是什么？ [维基百科](https://zh.wikipedia.org/wiki/%E6%A0%91_(%E6%95%
 
 这是[维基百科](https://zh.wikipedia.org/wiki/%E6%A0%91_(%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84))里的树的种类，超多~ 光看着就眩晕...ㅠㅠ
 
-[图片备用地址](https://limingxie.github.io/images/algorithm/tree_type.png)  
-![tree](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree_type.png?x-oss-process=image/resize,w_900,m_lfit)
+[图片备用地址](https://limingxie.github.io/images/algorithm/tree/tree_type.png)  
+![tree](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_type.png?x-oss-process=image/resize,w_900,m_lfit)
 
 上面那个就算了，只能看看，我们来个简化版的~  
 
@@ -96,13 +96,32 @@ Tree是什么？ [维基百科](https://zh.wikipedia.org/wiki/%E6%A0%91_(%E6%95%
 
 > 堆中某个节点的值总是不大于或不小于其父节点的值
 
-想了解更多可以参考一下，从我之前写的  
+想了解更多可以参考一下，我之前写的  
 [栈(STACK), 堆(HEAP), 队列(QUEUE) 是什么？](https://limingxie.github.io/basic/stack/)。
 
 #### 3.1.3 二叉树简单的代码实现
 
 百闻不如一见，我们是百见不如一试...^^  
 还是自己动手写一写代码，理解的会更快的。  
+
+[图片备用地址](https://limingxie.github.io/images/algorithm/tree/tree_2.png)  
+![tree](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_2.png)
+
+#### 1.前序遍历
+
+[图片备用地址](https://limingxie.github.io/images/algorithm/tree/tree_3.png)  
+![tree](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_3.png)
+
+#### 2.中顺遍历
+
+[图片备用地址](https://limingxie.github.io/images/algorithm/tree/tree_4.png)  
+![tree](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_4.png)
+
+#### 3.后序遍历
+
+[图片备用地址](https://limingxie.github.io/images/algorithm/tree/tree_5.png)  
+![tree](https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_5.png)
+
 
 ### 3.2 B树(B-tree)
 
