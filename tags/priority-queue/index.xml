@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Priority Queue on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/priority-queue/</link>
+    <description>Recent content in Priority Queue on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 15 Feb 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/priority-queue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【算法笔记】PriorityQueue的简单实践</title>
+      <link>https://limingxie.github.io/algorithm/priority_queue_code/</link>
+      <pubDate>Tue, 15 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/priority_queue_code/</guid>
+      <description>今天用go语言简单的写了一下PriorityQueue的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.优先队列(PriorityQueue) 维基百科里是这么解释的。
+ 优先队列是计算机科学中的一类抽象数据类型。优先队列中的每个元素都有各自的优先级，优先级最高的元素最先得到服务；
+优先级相同的元素按照其在优先队列中的顺序得到服务。优先队列往往用堆来实现。
+ 下面用go语言简单的实现了PriorityQueue。
+struct type PriorityQueue struct { Head *Node } type Node struct { Value string Priority int Next *Node } Push func (p *PriorityQueue) Push(value string, priority int) { if p.</description>
+    </item>
+    
+  </channel>
+</rss>

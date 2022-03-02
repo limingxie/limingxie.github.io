@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【算法笔记】排序二叉树(Binary Search Tree)的简单代码实现 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/algorithm/tree_code_bst/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【算法笔记】排序二叉树(Binary Search Tree)的简单代码实现"/>
+<meta name="twitter:description" content="简单的写了一下排序二叉树(Binary Search Treee)的查询，删除。
+加上树的遍历前序遍历，中序遍历，后序遍历。
+1.排序二叉树(Binary Search Tree)的结构 先声明一个BSTTree和TreeNode两个struct。
+type BSTTree struct { Root *TreeNode } type TreeNode struct { Value int Left *TreeNode Right *TreeNode } 2."/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/net_c_sharp/"
+                        
+                   title="">C#</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【算法笔记】排序二叉树(Binary Search Tree)的简单代码实现</h3>
+                
+            </div>
+
+            <p>简单的写了一下排序二叉树(Binary Search Treee)的查询，删除。<br>
+加上树的遍历前序遍历，中序遍历，后序遍历。</p>
+<h4 id="1排序二叉树binary-search-tree的结构">1.排序二叉树(Binary Search Tree)的结构</h4>
+<p>先声明一个BSTTree和TreeNode两个struct。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BSTTree</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Root</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">TreeNode</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Left</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>
+	<span style="color:#a6e22e">Right</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>
+}
+</code></pre></div><h4 id="2排序二叉树binary-search-tree的查询">2.排序二叉树(Binary Search Tree)的查询</h4>
+<ol>
+<li>从根(root)节点开始查看。值比根节点小的话查询左子树，大的话查询右子树。</li>
+<li>到下一个节点以后，还重复以上操作，直到找到值或到最底层跳出二叉树。</li>
+</ol>
+<p>详细的操作方式可以参考下图：</p>
+<p><a href="https://limingxie.github.io/images/algorithm/tree/bst_tree_search.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/bst_tree_search.png" alt="bst_tree_search"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BSTTree</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span> {
+	<span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">val</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">val</span> {
+			<span style="color:#66d9ef">break</span>
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> &gt; <span style="color:#a6e22e">val</span> {
+			<span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">currentNode</span>
+}
+</code></pre></div><h4 id="3排序二叉树binary-search-tree的插入">3.排序二叉树(Binary Search Tree)的插入</h4>
+<ol>
+<li>从根(root)节点开始查看。值比根节点小的话查询左子树，大的话查询右子树。</li>
+<li>到下一个节点以后，重复以上操作，直到找到节点的子节点为空的地方添加一个叶节点(Leaf)。</li>
+</ol>
+<p>详细的操作方式可以参考下图：</p>
+<p><a href="https://limingxie.github.io/images/algorithm/tree/bst_tree_insert.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/bst_tree_insert.png" alt="bst_tree_insert"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BSTTree</span>) <span style="color:#a6e22e">Insert</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">TreeNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">val</span>}
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span>
+	<span style="color:#a6e22e">parentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">currentNode</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">parentNode</span> = <span style="color:#a6e22e">currentNode</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> &gt; <span style="color:#a6e22e">val</span> {
+			<span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span>
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Left</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">TreeNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">val</span>}
+				<span style="color:#66d9ef">return</span>
+			}
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> &lt; <span style="color:#a6e22e">val</span> {
+			<span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Right</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">TreeNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">val</span>}
+				<span style="color:#66d9ef">return</span>
+			}
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#75715e">// currentNode.Value == val
+</span><span style="color:#75715e"></span>		}
+	}
+}
+</code></pre></div><h4 id="4排序二叉树binary-search-tree的删除">4.排序二叉树(Binary Search Tree)的删除</h4>
+<ol>
+<li>从根(root)节点开始查看。值比根节点小的话查询左子树，大的话查询右子树。</li>
+<li>到下一个节点以后，重复以上操作，直到找到要删除的节点。</li>
+<li>a) 如果删除节点没有叶节点，直接删除就行。<br>
+b) 如果删除节点只有左节点或右节点，给删除的parent节点链接剩余的子节点就行。<br>
+c) 如果删除节点左右都有子节点，则去寻找删除节点右节点的最小值(最左节点)，放到删除节点位置。<br>
+这个最小节点，如果有右节点需要还跟parent节点做链接。</li>
+</ol>
+<p>详细的操作方式可以参考下图(下图是c的情况)：</p>
+<p><a href="https://limingxie.github.io/images/algorithm/tree/bst_tree_delete.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/bst_tree_delete.png" alt="bst_tree_insert"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BSTTree</span>) <span style="color:#a6e22e">Delete</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;tree is empty!&#34;</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+	}
+	<span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span>
+	<span style="color:#a6e22e">parentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">currentNode</span>
+	<span style="color:#a6e22e">isLeftChild</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">val</span> {
+		<span style="color:#a6e22e">parentNode</span> = <span style="color:#a6e22e">currentNode</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">val</span> {
+			<span style="color:#66d9ef">break</span>
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Value</span> &gt; <span style="color:#a6e22e">val</span> {
+			<span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span>
+			<span style="color:#a6e22e">isLeftChild</span> = <span style="color:#66d9ef">true</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+			<span style="color:#a6e22e">isLeftChild</span> = <span style="color:#66d9ef">false</span>
+		}
+	}
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">currentNode</span> {
+			<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> = <span style="color:#66d9ef">nil</span>
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isLeftChild</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Left</span> = <span style="color:#66d9ef">nil</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Right</span> = <span style="color:#66d9ef">nil</span>
+		}
+	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">currentNode</span> {
+			<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span>
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isLeftChild</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Left</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Right</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span>
+		}
+	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">currentNode</span> {
+			<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isLeftChild</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Left</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Right</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+		}
+	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">treeNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">GetSubTreeForDelete</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">currentNode</span> {
+			<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Root</span> = <span style="color:#a6e22e">treeNode</span>
+		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isLeftChild</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Left</span> = <span style="color:#a6e22e">treeNode</span>
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Right</span> = <span style="color:#a6e22e">treeNode</span>
+		}
+	}
+
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#a6e22e">GetSubTreeForDelete</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span> {
+	<span style="color:#a6e22e">parentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">node</span>
+	<span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Right</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">break</span>
+		}
+		<span style="color:#a6e22e">parentNode</span> = <span style="color:#a6e22e">currentNode</span>
+		<span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span>
+
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Right</span> {
+		<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Right</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">parentNode</span>
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">Left</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span>
+		<span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Left</span> = <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Left</span>
+		<span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Right</span> = <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Right</span>
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">currentNode</span>
+	}
+}
+</code></pre></div><h4 id="5前序遍历pre-order-traversal">5.前序遍历(Pre-order Traversal)</h4>
+<p>顺序是根节点、左子树、右子树。如下图所示</p>
+<p><a href="https://limingxie.github.io/images/algorithm/tree/tree_pre_order.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_pre_order.png" alt="tree_pre_order"></p>
+<p>看代码是如何实现的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#a6e22e">PreOrderTraversalPrint</span>() {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Value</span>)
+	<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Left</span>.<span style="color:#a6e22e">PreOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Right</span>.<span style="color:#a6e22e">PreOrderTraversalPrint</span>()
+}
+</code></pre></div><h4 id="6后序遍历post-order-traversal">6.后序遍历(Post-order Traversal)</h4>
+<p>顺序是左子树、右子树、根节点。如下图所示</p>
+<p><a href="https://limingxie.github.io/images/algorithm/tree/tree_post_order.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_post_order.png" alt="tree_post_order"></p>
+<p>看代码是如何实现的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#a6e22e">PostOrderTraversalPrint</span>() {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Left</span>.<span style="color:#a6e22e">PostOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Right</span>.<span style="color:#a6e22e">PostOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Value</span>)
+}
+</code></pre></div><h4 id="7中序遍历in-order-traversal">7.中序遍历(In-order Traversal)</h4>
+<p>顺序是左子树、根节点、右子树。如下图所示</p>
+<p><a href="https://limingxie.github.io/images/algorithm/tree/tree_in_order.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/tree/tree_in_order.png" alt="trtree_in_orderee"></p>
+<p>看代码是如何实现的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">TreeNode</span>) <span style="color:#a6e22e">InOrderTraversalPrint</span>() {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span>
+	}
+	<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Left</span>.<span style="color:#a6e22e">InOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Value</span>)
+	<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Right</span>.<span style="color:#a6e22e">InOrderTraversalPrint</span>()
+}
+</code></pre></div><p><strong>有没有发现中序遍历是把BST树按照排序打出来了？</strong></p>
+<h4 id="8执行结果">8.执行结果</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">btsTree</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">BSTTree</span>{<span style="color:#a6e22e">Root</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">TreeNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#ae81ff">57</span>}}
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">21</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">88</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">12</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">36</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">69</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">97</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">7</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">14</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">24</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">47</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">61</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">73</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">92</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">99</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------------ Print --------------&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">PreOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">PostOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">InOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------------ Get 24 --------------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v&#34;</span>, <span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#ae81ff">24</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;----------- Insert 95 -------------&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#ae81ff">95</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">PreOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">PostOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">InOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;----------- Delete 88 -------------&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Delete</span>(<span style="color:#ae81ff">88</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">PreOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">PostOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">btsTree</span>.<span style="color:#a6e22e">Root</span>.<span style="color:#a6e22e">InOrderTraversalPrint</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+}
+</code></pre></div><p>执行结果为：</p>
+<pre><code>$ go run main.go
+------------ Print --------------
+57 21 12 7 14 36 24 47 88 69 61 73 97 92 99 
+7 14 12 24 47 36 21 61 73 69 92 99 97 88 57
+7 12 14 21 24 36 47 57 61 69 73 88 92 97 99
+------------ Get 24 --------------
+&amp;{Value:24 Left:&lt;nil&gt; Right:&lt;nil&gt;}
+----------- Insert 95 -------------
+57 21 12 7 14 36 24 47 88 69 61 73 97 92 95 99
+7 14 12 24 47 36 21 61 73 69 95 92 99 97 88 57
+7 12 14 21 24 36 47 57 61 69 73 88 92 95 97 99
+----------- Delete 88 -------------
+57 21 12 7 14 36 24 47 92 69 61 73 97 95 99
+7 14 12 24 47 36 21 61 73 69 95 99 97 92 57
+7 12 14 21 24 36 47 57 61 69 73 92 95 97 99
+</code></pre><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/algorithm/">algorithm</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/tree/">tree</a><a class="tag" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="tag" href="/tags/algorithm/">algorithm</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -6,7 +6,22 @@
     <description>Recent content in Array on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 16 Jul 2021 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/array/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Jan 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/array/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【算法笔记】数组(Array)的模拟实践</title>
+      <link>https://limingxie.github.io/algorithm/list_code/</link>
+      <pubDate>Tue, 25 Jan 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/list_code/</guid>
+      <description>今天用go语言简单的写了一下数组的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.数组(Array) 维基百科里是这么解释的。
+ 简称数组（英语：Array），是由相同类型的元素（element）的集合所组成的数据结构，分配一块连续的内存来存储。
+利用元素的索引（index）可以计算出该元素对应的存储地址。
+ 本想写个通用的方法，但是写着写着感觉需要处理的细节太多了，
+本人不才只能简单的写了一下[]int 的数组模式&amp;hellip;^^;;</description>
+    </item>
+    
     <item>
       <title>【Java笔记】简单了解List, ArrayList, LinkedList</title>
       <link>https://limingxie.github.io/java/java_list/</link>

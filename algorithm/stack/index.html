@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【算法笔记】stack的简单实践 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/algorithm/stack/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【算法笔记】stack的简单实践"/>
+<meta name="twitter:description" content="今天用go语言简单的写了一下stack的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.栈(Stack) 维基百科里是这么解释的。
+ 是计算机科学中的一种抽象资料类型，只允许在有序的线性资料集合的一端（称为堆栈顶端，英语：top）进行加入数据（英语：push）和移除数据（英语：pop）的运算。
+因而按照后进先出（LIFO, Last In First Out）的原理运作。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/net_c_sharp/"
+                        
+                   title="">C#</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【算法笔记】stack的简单实践</h3>
+                
+            </div>
+
+            <p>今天用go语言简单的写了一下stack的方法。<br>
+为了以后方便查看，当做笔记整理了一下~~</p>
+<h2 id="1栈stack">1.栈(Stack)</h2>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%A0%86%E6%A0%88">维基百科</a>里是这么解释的。</p>
+<blockquote>
+<p>是计算机科学中的一种抽象资料类型，只允许在有序的线性资料集合的一端（称为堆栈顶端，英语：top）进行加入数据（英语：push）和移除数据（英语：pop）的运算。<br>
+因而按照后进先出（LIFO, Last In First Out）的原理运作。</p>
+</blockquote>
+<p>具体的详解可以参考这篇文章里的Stack部分<a href="https://limingxie.github.io/basic/stack/">栈(STACK), 堆(HEAP), 队列(QUEUE) 是什么？</a></p>
+<h2 id="2数组栈">2.数组栈</h2>
+<h4 id="struct">struct</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stack</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Capacity</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Top</span>      <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Values</span>   []<span style="color:#66d9ef">int</span>
+}
+</code></pre></div><h4 id="进栈push">进栈(push)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Capacity</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Stack Overflow!&#34;</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+	}
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span><span style="color:#f92672">++</span>
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Values</span>[<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>] = <span style="color:#a6e22e">val</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+}
+</code></pre></div><h4 id="出栈pop">出栈(pop)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Pop</span>() <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> &lt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Stack Underflow!&#34;</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+	}
+	<span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Values</span>[<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>]
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span><span style="color:#f92672">--</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
+}
+</code></pre></div><h4 id="查看栈顶元素peek和isempty">查看栈顶元素(peek)和IsEmpty()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">Peek</span>() <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> &lt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Stack Underflow!&#34;</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+	}
+	<span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Values</span>[<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Stack</span>) <span style="color:#a6e22e">IsEmpty</span>() <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> &lt; <span style="color:#ae81ff">0</span>
+}
+</code></pre></div><h4 id="执行结果">执行结果</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">stack</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Stack</span>{}
+	<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Capacity</span> = <span style="color:#ae81ff">10</span>
+	<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Top</span> = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+	<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Values</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Capacity</span>)
+
+	<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">10</span>)
+	<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">11</span>)
+	<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">12</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- stack.Values  --------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v&#34;</span>, <span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Values</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- stack.IsEmpty()  --------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">IsEmpty</span>())
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- stack.Pop()  --------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Pop</span>())
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- stack.Peek()  --------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">Peek</span>())
+</code></pre></div><p>执行结果为：</p>
+<pre><code>$ go run main.go
+-------- stack.Values  --------
+[10 11 12 0 0 0 0 0 0 0]
+-------- stack.IsEmpty()  --------
+false
+-------- stack.Pop()  --------
+12
+-------- stack.Peek()  --------
+11
+</code></pre><h2 id="3链式栈">3.链式栈</h2>
+<h4 id="struct-1">struct</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LinkStack</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Top</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">StackNode</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StackNode</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">Next</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">StackNode</span>
+}
+</code></pre></div><h4 id="进栈push-1">进栈(push)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkStack</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#a6e22e">newNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">StackNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">val</span>}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">newNode</span>
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">newNode</span>.<span style="color:#a6e22e">Next</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">newNode</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+}
+</code></pre></div><h4 id="出栈pop-1">出栈(pop)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkStack</span>) <span style="color:#a6e22e">Pop</span>() <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;stack is empty!&#34;</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+	}
+	<span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> = <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">Next</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">Value</span>
+}
+</code></pre></div><h4 id="查看栈顶元素peek和isemptyprint">查看栈顶元素(peek)和IsEmpty()，Print()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkStack</span>) <span style="color:#a6e22e">Peek</span>() <span style="color:#66d9ef">int</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;stack is empty!&#34;</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span>.<span style="color:#a6e22e">Value</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkStack</span>) <span style="color:#a6e22e">IsEmpty</span>() <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Top</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">node</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">StackNode</span>) <span style="color:#a6e22e">Print</span>() {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+		<span style="color:#66d9ef">return</span>
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+		<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Print</span>()
+	}
+}
+</code></pre></div><h4 id="执行结果-1">执行结果</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">linkStack</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">LinkStack</span>{}
+	<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">Top</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">StackNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#ae81ff">10</span>}
+	<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">Top</span>.<span style="color:#a6e22e">Next</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">StackNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#ae81ff">11</span>}
+	<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">Top</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Next</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">StackNode</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#ae81ff">12</span>}
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- linkStack.Values  --------&#34;</span>)
+	<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">Top</span>.<span style="color:#a6e22e">Print</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- stack.IsEmpty()  --------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">IsEmpty</span>())
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- stack.Pop()  --------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">Pop</span>())
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- stack.Peek()  --------&#34;</span>)
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">Peek</span>())
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- linkStack.Values  --------&#34;</span>)
+	<span style="color:#a6e22e">linkStack</span>.<span style="color:#a6e22e">Top</span>.<span style="color:#a6e22e">Print</span>()
+</code></pre></div><p>执行结果为：</p>
+<pre><code>$ go run main.go
+-------- linkStack.Values  --------
+10 11 12 
+-------- stack.IsEmpty()  --------
+false
+-------- stack.Pop()  --------
+10
+-------- stack.Peek()  --------
+11
+-------- linkStack.Values  --------
+11 12 
+</code></pre><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/algorithm/">algorithm</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/linked-list/">Linked List</a><a class="tag" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="tag" href="/tags/algorithm/">algorithm</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

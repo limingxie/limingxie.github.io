@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【算法笔记】时间复杂度(Time complexity) 和 空间复杂度(Space Complexity) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/algorithm/time_complexity/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【算法笔记】时间复杂度(Time complexity) 和 空间复杂度(Space Complexity)"/>
+<meta name="twitter:description" content="我们讨论一些算法的时候，会经常听说时间复杂度和空间复杂度。
+之前的工作中一般不会用到算法，加上我又不是计算机专业，对这些不太熟悉。
+趁这几天有时间，简单的整理了一下时间复杂度和空间复杂度是什么。
+ 1.时间复杂度 首先时间复杂度是用大O表示的。
+我们看看维基百科是如何整理的。
+图片备用地址
+看这些眼花缭乱，初学者别看了&hellip;^^;;
+其实结合代码看的话，一些常用的时间复杂度还是很好理解的。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/net_c_sharp/"
+                        
+                   title="">C#</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【算法笔记】时间复杂度(Time complexity) 和 空间复杂度(Space Complexity)</h3>
+                
+            </div>
+
+            <p>我们讨论一些算法的时候，会经常听说时间复杂度和空间复杂度。<br>
+之前的工作中一般不会用到算法，加上我又不是计算机专业，对这些不太熟悉。<br>
+趁这几天有时间，简单的整理了一下时间复杂度和空间复杂度是什么。</p>
+<hr>
+<h2 id="1时间复杂度">1.时间复杂度</h2>
+<p>首先时间复杂度是用大<strong>O</strong>表示的。<br>
+我们看看<a href="https://zh.wikipedia.org/wiki/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">维基百科</a>是如何整理的。</p>
+<p><a href="https://limingxie.github.io/images/algorithm/base/time_complexity.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/base/time_complexity.png?x-oss-process=image/resize,w_900,m_lfit" alt="tree"></p>
+<p>看这些眼花缭乱，初学者别看了&hellip;^^;;<br>
+其实结合代码看的话，一些常用的时间复杂度还是很好理解的。</p>
+<h4 id="常数阶o1">常数阶O(1)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">i</span> = <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">j</span> = <span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">n</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">j</span>;
+<span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
+</code></pre></div><p>像这种无论代码执行了多少行，只要是没有循环等复杂结构，时间复杂度都是O(1)来表示。<br>
+为什么？ 因为再怎么复杂也是，只是执行了一遍而已。</p>
+<h4 id="线性阶on">线性阶O(n)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">j</span> = <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">i</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">n</span>; <span style="color:#f92672">++</span><span style="color:#a6e22e">i</span>)
+{
+   <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>;
+}
+</code></pre></div><p>for循环里执行n遍，消耗的时间是随着n的变化而变化的，<br>
+这类代码都可以用O(n)来表示它的时间复杂度。</p>
+<pre><code>这里补充说明一下，举例子: f(n) = 3n + 7。  
+时间复杂度是O(f(n)), 这里可以看出时间的复杂度是随着n的变化而变化。  
+所以时时间复杂度直接表示为 O(n), 也就是说O(f(n)) 直接简化成 O(n)。  
+</code></pre><h4 id="对数阶ologn">对数阶O(logN)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">i</span> = <span style="color:#ae81ff">1</span>;
+<span style="color:#a6e22e">while</span>(<span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">m</span>)
+{
+    <span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
+}
+</code></pre></div><p>这里的循环是，2的n次方小于m的时候结束。<br>
+所以这个时间复杂度是O(log2^n)。按照上述表示法，可以用O(logN)来表示了。</p>
+<h4 id="线性对数阶onlogn">线性对数阶O(nlogN)</h4>
+<p>如果理解上述的表示方式，这个就很好理解了。O(n)里有O(logN)的复杂度了。<br>
+可以参考下面的代码。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">m</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">m</span>&lt;<span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">m</span><span style="color:#f92672">++</span>)
+{
+    <span style="color:#a6e22e">i</span> = <span style="color:#ae81ff">1</span>;
+    <span style="color:#a6e22e">while</span>(<span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">n</span>)
+    {
+        <span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
+    }
+}
+</code></pre></div><h4 id="平方阶on">平方阶O(n²)</h4>
+<p>这也一样了，O(n)里在嵌O(n)了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">k</span> = <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">j</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>)
+{
+    <span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">i</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>)
+    {
+        <span style="color:#a6e22e">k</span><span style="color:#f92672">++</span>;
+    }
+}
+</code></pre></div><h4 id="立方阶on">立方阶O(n³),</h4>
+<p>那这就是O(n)里在嵌O(n)里面还有O(n)了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">k</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">k</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">k</span><span style="color:#f92672">++</span>)
+{
+    <span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">j</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">i</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>)
+        {
+            <span style="color:#a6e22e">x</span><span style="color:#f92672">++</span>;
+        }
+    }
+}
+</code></pre></div><p>剩余的可以自行了解&hellip;^^
+下面我们看看空间复杂度。</p>
+<hr>
+<h2 id="2空间复杂度">2.空间复杂度</h2>
+<p>空间复杂度通常也使用大<strong>O</strong>表示。<br>
+我们先看看<a href="https://zh.wikipedia.org/wiki/%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">维基百科</a>是如何整理的。</p>
+<blockquote>
+<p>空间复杂度是相应计算问题的输入值的长度的函数，它表示一个算法完全执行所需要的存储空间大小。<br>
+和时间复杂度类似，空间复杂度通常也使用大O记号来渐进地表示，例如O(n), O(nlogn), O(n^a), O(2^n)等；<br>
+其中n用来表示输入的长度，该值可以影响算法的空间复杂度。<br>
+就像时间复杂度的计算不考虑算法所使用的空间大小一样，空间复杂度也不考虑算法运行需要的时间长短。</p>
+</blockquote>
+<p>我们就简单的看看空间复杂度为O(n)的代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">m</span> = <span style="color:#a6e22e">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#a6e22e">n</span>]
+<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">i</span>=<span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;=</span><span style="color:#a6e22e">n</span>; <span style="color:#f92672">++</span><span style="color:#a6e22e">i</span>)
+{
+   <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>;
+}
+</code></pre></div><p>虽然这里做了一些循环，但是我们表示空间复杂度的时候，只考虑我们占有的空间，<br>
+所以第一行里分配了n的空间，空间复杂度为O(n)。<br>
+如果声明的是 int[n][n]的话空间复杂度就是O(n²)了。</p>
+<p>以上是我对时间复杂度和空间复杂度的整理。<br>
+实际运用的时候，根据运行环境合理的分配时间和空间。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/algorithm/">algorithm</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/time/">time</a><a class="tag" href="/tags/space/">space</a><a class="tag" href="/tags/complexity/">complexity</a><a class="tag" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="tag" href="/tags/algorithm/">algorithm</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

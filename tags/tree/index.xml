@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tree on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/tree/</link>
+    <description>Recent content in tree on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 17 Feb 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/tree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【算法笔记】排序二叉树(Binary Search Tree)的简单代码实现</title>
+      <link>https://limingxie.github.io/algorithm/tree_code_bst/</link>
+      <pubDate>Thu, 17 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/tree_code_bst/</guid>
+      <description>简单的写了一下排序二叉树(Binary Search Treee)的查询，删除。
+加上树的遍历前序遍历，中序遍历，后序遍历。
+1.排序二叉树(Binary Search Tree)的结构 先声明一个BSTTree和TreeNode两个struct。
+type BSTTree struct { Root *TreeNode } type TreeNode struct { Value int Left *TreeNode Right *TreeNode } 2.</description>
+    </item>
+    
+  </channel>
+</rss>

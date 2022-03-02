@@ -6,7 +6,120 @@
     <description>Recent content in Algorithms on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Aug 2019 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Feb 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【算法笔记】排序二叉树(Binary Search Tree)的简单代码实现</title>
+      <link>https://limingxie.github.io/algorithm/tree_code_bst/</link>
+      <pubDate>Thu, 17 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/tree_code_bst/</guid>
+      <description>简单的写了一下排序二叉树(Binary Search Treee)的查询，删除。
+加上树的遍历前序遍历，中序遍历，后序遍历。
+1.排序二叉树(Binary Search Tree)的结构 先声明一个BSTTree和TreeNode两个struct。
+type BSTTree struct { Root *TreeNode } type TreeNode struct { Value int Left *TreeNode Right *TreeNode } 2.</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】散列表(哈希表 Hash table)的简单实践</title>
+      <link>https://limingxie.github.io/algorithm/hash_table/</link>
+      <pubDate>Wed, 16 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/hash_table/</guid>
+      <description>今天用go语言简单的写了一下散列表(哈希表 Hash table)的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.散列表(Hash table) 我们先看看维基百科里是怎么解释的。
+ 根据键（Key）而直接访问在内存储存位置的数据结构。也就是说，它通过计算出一个键值的函数，将所需查询的数据映射到表中一个位置来让人访问，这加快了查找速度。
+这个映射函数称做散列函数，存放记录的数组称做散列表。</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】PriorityQueue的简单实践</title>
+      <link>https://limingxie.github.io/algorithm/priority_queue_code/</link>
+      <pubDate>Tue, 15 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/priority_queue_code/</guid>
+      <description>今天用go语言简单的写了一下PriorityQueue的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.优先队列(PriorityQueue) 维基百科里是这么解释的。
+ 优先队列是计算机科学中的一类抽象数据类型。优先队列中的每个元素都有各自的优先级，优先级最高的元素最先得到服务；
+优先级相同的元素按照其在优先队列中的顺序得到服务。优先队列往往用堆来实现。
+ 下面用go语言简单的实现了PriorityQueue。
+struct type PriorityQueue struct { Head *Node } type Node struct { Value string Priority int Next *Node } Push func (p *PriorityQueue) Push(value string, priority int) { if p.</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】queue的简单实践</title>
+      <link>https://limingxie.github.io/algorithm/queue_code/</link>
+      <pubDate>Mon, 14 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/queue_code/</guid>
+      <description>今天用go语言简单的写了一下queue的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.队列(QUEUE) 维基百科里是这么解释的。
+ 计算机科学中的一种抽象资料型别，是先进先出（FIFO, First-In-First-Out）的线性表。
+在具体应用中通常用链表或者数组来实现。队列只允许在后端（称为rear）进行插入操作，在前端（称为front）进行删除操作。
+队列的操作方式和堆栈类似，唯一的区别在于队列只允许新数据在后端进行添加。
+ 具体的详解可以参考这篇文章里的Queue部分栈(STACK), 堆(HEAP), 队列(QUEUE) 是什么？</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】stack的简单实践</title>
+      <link>https://limingxie.github.io/algorithm/stack/</link>
+      <pubDate>Sun, 13 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/stack/</guid>
+      <description>今天用go语言简单的写了一下stack的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.栈(Stack) 维基百科里是这么解释的。
+ 是计算机科学中的一种抽象资料类型，只允许在有序的线性资料集合的一端（称为堆栈顶端，英语：top）进行加入数据（英语：push）和移除数据（英语：pop）的运算。
+因而按照后进先出（LIFO, Last In First Out）的原理运作。</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】时间复杂度(Time complexity) 和 空间复杂度(Space Complexity)</title>
+      <link>https://limingxie.github.io/algorithm/time_complexity/</link>
+      <pubDate>Wed, 09 Feb 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/time_complexity/</guid>
+      <description>我们讨论一些算法的时候，会经常听说时间复杂度和空间复杂度。
+之前的工作中一般不会用到算法，加上我又不是计算机专业，对这些不太熟悉。
+趁这几天有时间，简单的整理了一下时间复杂度和空间复杂度是什么。
+ 1.时间复杂度 首先时间复杂度是用大O表示的。
+我们看看维基百科是如何整理的。
+图片备用地址
+看这些眼花缭乱，初学者别看了&amp;hellip;^^;;
+其实结合代码看的话，一些常用的时间复杂度还是很好理解的。</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】链表(Linked List)的简单实践</title>
+      <link>https://limingxie.github.io/algorithm/linked_list_code/</link>
+      <pubDate>Sat, 29 Jan 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/linked_list_code/</guid>
+      <description>今天用go语言简单的写了一下单向链表的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.链表(Linked List) 维基百科里是这么解释的。
+ 链表（Linked list）是一种常见的基础数据结构，是一种线性表，
+但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)。
+由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】数组(Array)的模拟实践</title>
+      <link>https://limingxie.github.io/algorithm/list_code/</link>
+      <pubDate>Tue, 25 Jan 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/list_code/</guid>
+      <description>今天用go语言简单的写了一下数组的方法。
+为了以后方便查看，当做笔记整理了一下~~
+1.数组(Array) 维基百科里是这么解释的。
+ 简称数组（英语：Array），是由相同类型的元素（element）的集合所组成的数据结构，分配一块连续的内存来存储。
+利用元素的索引（index）可以计算出该元素对应的存储地址。
+ 本想写个通用的方法，但是写着写着感觉需要处理的细节太多了，
+本人不才只能简单的写了一下[]int 的数组模式&amp;hellip;^^;;</description>
+    </item>
+    
     <item>
       <title>递归(recursive)</title>
       <link>https://limingxie.github.io/algorithm/recursive/</link>
