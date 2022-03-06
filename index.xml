@@ -6,7 +6,22 @@
     <description>Recent content on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 17 Feb 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Mar 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>72小时断食后记</title>
+      <link>https://limingxie.github.io/limingxie/-intermittent_fasting_72h/</link>
+      <pubDate>Sun, 06 Mar 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/limingxie/-intermittent_fasting_72h/</guid>
+      <description>很长时间在网上看过3天【72小时的断食】多么多么的好，
+说什么改善人体免疫系统，消化系统，排除毒素等等&amp;hellip;
+我以前减肥的时候也尝试过12,16,24小时的断食，也亲身体验过这些断食的好处。
+这是我简单的整理了减肥的过程。程序员减肥记
+这次挑战72小时断食。(还有7天断食,这就不挑战了&amp;hellip;^^;; 这个感觉需要专业知识。)
+1.前期准备 我看了好几个版本的72小时断食的介绍，无非有2种比较流行的方式。
+  早中晚都只喝蜂蜜水，适当的补充盐分。主要是为了清肠和排毒。(必要是需要做灌肠) 只喝水，适当的补充盐分，主要是为了最大范围的适用【自体吞噬泡(Autophagy)】的效果。   对间接性断食有一些了解的人都知道，人体空腹16个小时的时候会分泌成长荷尔蒙，以及出现自体吞噬泡(Autophagy)的现象。</description>
+    </item>
+    
     <item>
       <title>【算法笔记】排序二叉树(Binary Search Tree)的简单代码实现</title>
       <link>https://limingxie.github.io/algorithm/tree_code_bst/</link>
@@ -176,19 +191,6 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
 但是我们只要弄清楚其规则，区分起来不难。
 1. new 先看看go语言的官方说明文档是怎么解释的？
 new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。 也就是说，new(T) 会为类型为T的新项分配已置零的内存空间，并返回它的地址，也就是一个类型为 *T的值。 用Go的术语来说，它返回一个指针，该指针指向新分配的，类型为 T 的零值。 简单的说他会创建一个引用类型的地址(栈内存)，不会分配内存空间(堆内存)。</description>
-    </item>
-    
-    <item>
-      <title>【go笔记】指针, uintptr, unsafe.Pointer</title>
-      <link>https://limingxie.github.io/go/go_point/</link>
-      <pubDate>Tue, 27 Jul 2021 07:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/go/go_point/</guid>
-      <description>Go中的指针及与指针对指针的操作主要有以下三种：
-一普通的指针类型，例如 var intptr *T，定义一个T类型指针变量。
-二内置类型uintptr，本质是一个无符号的整型，它的长度是跟平台相关的，它的长度可以用来保存一个指针地址。
-三是unsafe包提供的Pointer，表示可以指向任意类型的指针。
-类型:普通指针类型，用于传递对象地址，不能进行指针运算。 unsafe.Pointer:通用指针类型，用于转换不同类型的指针，不能进行指针运算，不能读取内存存储的值（必须转换到某一类型的普通指针）。unsafe.Pointer 是桥梁，可以让任意类型的指针实现相互转换，也可以将任意类型的指针转换为 uintptr 进行指针运算。 uintptr:用于指针运算，GC 不把 uintptr 当指针，uintptr 无法持有对象。uintptr 类型的目标会被回收。比如要在某个指针地址上加上一个偏移量，做完加减法后，转换成Pointer，通过操作，取值，修改值，随意。</description>
     </item>
     
     <item>
