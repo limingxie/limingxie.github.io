@@ -6,7 +6,17 @@
     <description>Recent content in golang on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 27 Jul 2021 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Mar 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【go笔记】指针, uintptr, unsafe.Pointer</title>
+      <link>https://limingxie.github.io/go/go_point/</link>
+      <pubDate>Thu, 10 Mar 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/go_point/</guid>
+      <description>今天简单整理一下以下三种指针: 普通指针(*T), uintptr, unsafe.Pointer
+1. 普通指针(*T) 普通指针类型，用于传递对象地址，不能进行指针运算。 可以用 &amp;amp;(取地址) *(根据地址取值)。</description>
+    </item>
+    
     <item>
       <title>【go笔记】 数组, 切片(slice), 映射(map)简介</title>
       <link>https://limingxie.github.io/go/go_slice/</link>
