@@ -6,7 +6,23 @@
     <description>Recent content in golang on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 10 Mar 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Mar 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【go笔记】切片(slice)结构的简介</title>
+      <link>https://limingxie.github.io/go/go_slice_code/</link>
+      <pubDate>Sat, 12 Mar 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/go_slice_code/</guid>
+      <description>我们java里有个ArrayList， 那go有切片(slice)。
+看起来有点像，但是了解切片(slice)结构后，会发现这其实是个两个不同的结构。
+下面简单的整理了切片(slice)的结构。
+1.切片(slice) 切片(slice)是数组的一个引用，因此切片是引用类型。但自身是结构体，值拷贝传递。
+看看下图就应该能明白，为什么说是引用类型，可又说自身又是结构体。
+图片备用地址
+)
+Slice 的数据结构可以如下定义:</description>
+    </item>
+    
     <item>
       <title>【go笔记】指针, uintptr, unsafe.Pointer</title>
       <link>https://limingxie.github.io/go/go_point/</link>
