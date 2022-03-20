@@ -6,7 +6,20 @@
     <description>Recent content in golang on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 12 Mar 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Mar 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【go笔记】map结构的简介</title>
+      <link>https://limingxie.github.io/go/go_map/</link>
+      <pubDate>Sat, 19 Mar 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/go_map/</guid>
+      <description>go的hashtable是用map实现。
+今天简单的整理了map的结构。
+1.map的结构 hmap 在源码中, map的结构体是hmap, 它是hashmap的“缩写”。
+先看看看源码是怎么解释的。
+// A header for a Go map.</description>
+    </item>
+    
     <item>
       <title>【go笔记】切片(slice)结构的简介</title>
       <link>https://limingxie.github.io/go/go_slice_code/</link>
@@ -19,7 +32,6 @@
 1.切片(slice) 切片(slice)是数组的一个引用，因此切片是引用类型。但自身是结构体，值拷贝传递。
 看看下图就应该能明白，为什么说是引用类型，可又说自身又是结构体。
 图片备用地址
-)
 Slice 的数据结构可以如下定义:</description>
     </item>
     

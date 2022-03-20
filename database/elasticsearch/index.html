@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【ES笔记】Elasticsearch结构和常用API简介 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/database/elasticsearch/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【ES笔记】Elasticsearch结构和常用API简介"/>
+<meta name="twitter:description" content="简单的做一下Elasticsearch的结构和常用语法的记录。
+为以后方便查看&hellip;^^
+1.Elasticsearch基本概念 Cluster 集群 群集是一个或多个节点（服务器）的集合， 这些节点共同保存整个数据，并在所有节点上提供联合索引和搜索功能。
+一个集群由一个唯一集群ID确定，并指定一个集群名（默认为“elasticsearch”）。
+Node节点 节点是单个服务器实例，它是群集的一部分，可以存储数据，并参与群集的索引和搜索功能。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/net_c_sharp/"
+                        
+                   title="">C#</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【ES笔记】Elasticsearch结构和常用API简介</h3>
+                
+            </div>
+
+            <p>简单的做一下Elasticsearch的结构和常用语法的记录。<br>
+为以后方便查看&hellip;^^</p>
+<h2 id="1elasticsearch基本概念">1.Elasticsearch基本概念</h2>
+<h4 id="cluster-集群">Cluster 集群</h4>
+<p>群集是一个或多个节点（服务器）的集合， 这些节点共同保存整个数据，并在所有节点上提供联合索引和搜索功能。<br>
+一个集群由一个唯一集群ID确定，并指定一个集群名（默认为“elasticsearch”）。</p>
+<h4 id="node节点">Node节点</h4>
+<p>节点是单个服务器实例，它是群集的一部分，可以存储数据，并参与群集的索引和搜索功能。<br>
+节点的名称默认为一个随机的通用唯一标识符（UUID），确定在启动时分配给该节点。<br>
+我们可以通过群集名配置节点以连接特定的群集。默认情况下，每个节点设置加入名为“elasticSearch”的集群。</p>
+<h4 id="index索引">Index索引</h4>
+<p>索引是具有相似特性的文档集合。<br>
+类似于RDS的数据库(database)。</p>
+<h4 id="type类型">Type类型</h4>
+<p>在索引中，可以定义一个或多个类型。类型是索引的逻辑类别/分区。<br>
+类似于RDS的表(Table)。</p>
+<h4 id="document文档">Document文档</h4>
+<p>文档是可以被索引的信息的基本单位。本文件的表示形式为JSON（JavaScript Object Notation）格式。<br>
+类似于RDS的行(Row)。</p>
+<h4 id="field字段">Field(字段)</h4>
+<p>类似于RDS的列(Column)。</p>
+<h4 id="映射mapping">映射(Mapping)</h4>
+<p>类似于RDS的Schema。</p>
+<h4 id="分片shards-和-副本replicas">分片(Shards) 和 副本(Replicas)</h4>
+<p>当你创建一个索引，你可以简单地定义你想要的分片数量。<br>
+每个分片本身是一个全功能的、独立的“指数”，可以托管在集群中的任何节点。</p>
+<p>Shards分片的重要性主要体现在以下两个特征：</p>
+<ol>
+<li>副本为分片或节点失败提供了高可用性。但是一个副本的分片不会分配在同一个节点作为原始的或主分片，副本是从主分片那里复制过来的。</li>
+<li>副本允许用户扩展你的搜索量或吞吐量，因为搜索可以在所有副本上并行执行。</li>
+</ol>
+<h2 id="2elasticsearch常用api">2.Elasticsearch常用API</h2>
+<h4 id="21-查看健康状态">2.1 查看健康状态</h4>
+<pre><code>    curl -X GET 127.0.0.1:9200/_cat/health?v
+</code></pre><p>结果：</p>
+<pre><code>    epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
+    1564726309 06:11:49  elasticsearch yellow          1         1      3   3    0    0        1             0                  -                 75.0%
+</code></pre><h4 id="22-查询当前es集群中所有的indices">2.2 查询当前es集群中所有的indices</h4>
+<pre><code>    curl -X GET 127.0.0.1:9200/_cat/indices?v
+</code></pre><p>结果：</p>
+<pre><code>    health status index                uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+    green  open   .kibana_task_manager LUo-IxjDQdWeAbR-SYuYvQ   1   0          2            0     45.5kb         45.5kb
+    green  open   .kibana_1            PLvyZV1bRDWex05xkOrNNg   1   0          4            1     23.9kb         23.9kb
+    yellow open   user                 o42mIpDeSgSWZ6eARWUfKw   1   1          0            0       283b           283b
+</code></pre><h4 id="23-创建索引">2.3 创建索引</h4>
+<pre><code>    curl -X PUT 127.0.0.1:9200/www
+</code></pre><p>结果：</p>
+<pre><code>    {&quot;acknowledged&quot;:true,&quot;shards_acknowledged&quot;:true,&quot;index&quot;:&quot;www&quot;}
+</code></pre><h4 id="24-删除索引">2.4 删除索引</h4>
+<pre><code>    curl -X DELETE 127.0.0.1:9200/www
+</code></pre><p>结果：</p>
+<pre><code>    {&quot;acknowledged&quot;:true}
+</code></pre><h4 id="25-插入记录">2.5 插入记录</h4>
+<pre><code>    curl -H &quot;ContentType:application/json&quot; -X POST 127.0.0.1:9200/user/person -d '
+    {
+        &quot;name&quot;: &quot;LMH&quot;,
+        &quot;age&quot;: 18,
+        &quot;married&quot;: true
+    }'
+</code></pre><p>结果：</p>
+<pre><code>{
+    &quot;_index&quot;: &quot;user&quot;,
+    &quot;_type&quot;: &quot;person&quot;,
+    &quot;_id&quot;: &quot;MLcwUWwBvEa8j5UrLZj4&quot;,
+    &quot;_version&quot;: 1,
+    &quot;result&quot;: &quot;created&quot;,
+    &quot;_shards&quot;: {
+        &quot;total&quot;: 2,
+        &quot;successful&quot;: 1,
+        &quot;failed&quot;: 0
+    },
+    &quot;_seq_no&quot;: 3,
+    &quot;_primary_term&quot;: 1
+}
+</code></pre><h4 id="26-put方法需要传入id">2.6 PUT方法，需要传入id</h4>
+<pre><code>    curl -H &quot;ContentType:application/json&quot; -X PUT 127.0.0.1:9200/user/person/4 -d '
+    {
+        &quot;name&quot;: &quot;LMH&quot;,
+        &quot;age&quot;: 18,
+        &quot;married&quot;: false
+    }'
+</code></pre><h4 id="27-全检索">2.7 全检索：</h4>
+<pre><code>    curl -X GET 127.0.0.1:9200/user/person/_search
+</code></pre><h4 id="28-按条件检索">2.8 按条件检索：</h4>
+<pre><code>    curl -H &quot;ContentType:application/json&quot; -X PUT 127.0.0.1:9200/user/person/4 -d '
+    {
+        &quot;query&quot;:{
+            &quot;match&quot;: {&quot;name&quot;: &quot;LMH&quot;}
+        }    
+    }'
+</code></pre><h4 id="29-条件检索size字段">2.9 条件检索size字段</h4>
+<pre><code>    curl -H &quot;ContentType:application/json&quot; -X PUT 127.0.0.1:9200/user/person/4 -d '
+    {
+        &quot;query&quot;:{
+            &quot;match&quot;: {&quot;name&quot;: &quot;LMH&quot;},
+            &quot;size&quot;: 2
+        }    
+    }'
+</code></pre><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/database/">database</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/elasticsearch/">elasticsearch</a><a class="tag" href="/tags/es/">es</a><a class="tag" href="/tags/database/">database</a><a class="tag" href="/tags/index/">index</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -41,7 +41,6 @@
 1.切片(slice) 切片(slice)是数组的一个引用，因此切片是引用类型。但自身是结构体，值拷贝传递。
 看看下图就应该能明白，为什么说是引用类型，可又说自身又是结构体。
 图片备用地址
-)
 Slice 的数据结构可以如下定义:"/>
 
 </head>
@@ -170,7 +169,7 @@ Slice 的数据结构可以如下定义:"/>
 <p><strong>切片(slice)是数组的一个引用</strong>，因此切片是引用类型。但自身是结构体，值拷贝传递。<br>
 看看下图就应该能明白，为什么说是引用类型，可又说自身又是结构体。</p>
 <p><a href="https://limingxie.github.io/images/go/slice/slice_code_1.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/slice/slice_code_1.png?x-oss-process=image/resize,h_200,m_lfit" alt="slice_struct">)</p>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/slice/slice_code_1.png?x-oss-process=image/resize,h_200,m_lfit" alt="slice_struct"></p>
 <p>Slice 的数据结构可以如下定义:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">slice</span> <span style="color:#66d9ef">struct</span> {
     <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>  <span style="color:#75715e">//指向第一个元素的地址
