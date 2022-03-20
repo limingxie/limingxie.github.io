@@ -153,21 +153,25 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/java_list/">【Java笔记】简单了解List, ArrayList, LinkedList</a>
+                <h3><a href="/go/go_map/">【go笔记】map结构的简介</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>我们经常会用的几个List结构，那具体在什么样的场景下使用哪个List会更合适呢？</p></p></div>
+                <div class="p_part"><p>go的hashtable是用map实现。
+今天简单的整理了map的结构。
+1.map的结构 hmap 在源码中, map的结构体是hmap, 它是hashmap的“缩写”。
+先看看看源码是怎么解释的。
+// A header for a Go map.</p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Fri, Jul 16, 2021</span>
+                                class="date">Sat, Mar 19, 2022</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/array/">Array</a><a class="tag"
-                                   href="/tags/arraylist/">ArrayList</a><a class="tag"
-                                   href="/tags/linkedlist/">LinkedList</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/golang/">golang</a><a class="tag"
+                                   href="/tags/slice/">slice</a><a class="tag"
+                                   href="/tags/make/">make</a>
                     </div>
                 </div>
             </div>
@@ -175,26 +179,27 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/java_map/">【java笔记】HashMap, HashTable, ConcurrentHashMap, TreeMap, LinkedHashMap</a>
+                <h3><a href="/go/go_slice_code/">【go笔记】切片(slice)结构的简介</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>我们经常会遇到使用Map的情况。而且Map有很多衍生类。<br>
-这些类之间有什么区别呢？在何种情况下用何种类呢？<br>
-下面我大致整理了什么视情况使用哪种map比较合适，没有单独的去解释每个map的结构和原理。</p></p></div>
+                <div class="p_part"><p>我们java里有个ArrayList， 那go有切片(slice)。
+看起来有点像，但是了解切片(slice)结构后，会发现这其实是个两个不同的结构。
+下面简单的整理了切片(slice)的结构。
+1.切片(slice) 切片(slice)是数组的一个引用，因此切片是引用类型。但自身是结构体，值拷贝传递。
+看看下图就应该能明白，为什么说是引用类型，可又说自身又是结构体。
+图片备用地址
+Slice 的数据结构可以如下定义:</p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Wed, Jul 14, 2021</span>
+                                class="date">Sat, Mar 12, 2022</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/map/">Map</a><a class="tag"
-                                   href="/tags/hashmap/">HashMap</a><a class="tag"
-                                   href="/tags/hashtable/">HashTable</a><a class="tag"
-                                   href="/tags/concurrenthashmap/">ConcurrentHashMap</a><a class="tag"
-                                   href="/tags/treemap/">TreeMap</a><a class="tag"
-                                   href="/tags/linkedhashmap/">LinkedHashMap</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/golang/">golang</a><a class="tag"
+                                   href="/tags/slice/">slice</a><a class="tag"
+                                   href="/tags/make/">make</a>
                     </div>
                 </div>
             </div>
@@ -202,22 +207,21 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/java_javac_compiler/">【JVM】javac的编译过程</a>
+                <h3><a href="/go/go_point/">【go笔记】指针, uintptr, unsafe.Pointer</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>Java 编译是先把xx.java文件编译成xx.class文件。xx.class是个中间状态的字节码(Byte Code)。<br>
-类加载器(Class Loader)读取到JVM里后, 再一次解析成机器码(Binary Code)执行。<br>
-也就是说Java是需要做两次编译，其中的第一次编译(.java =&gt; .class)是如何执行的呢？</p></p></div>
+                <div class="p_part"><p>今天简单整理一下以下三种指针: 普通指针(*T), uintptr, unsafe.Pointer
+1. 普通指针(*T) 普通指针类型，用于传递对象地址，不能进行指针运算。 可以用 &amp;(取地址) *(根据地址取值)。</p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Mon, Jan 4, 2021</span>
+                                class="date">Thu, Mar 10, 2022</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/javac/">javac</a><a class="tag"
-                                   href="/tags/compile/">compile</a>
+                                   href="/tags/unsafe/">unsafe</a><a class="tag"
+                                   href="/tags/uintptr/">uintptr</a><a class="tag"
+                                   href="/tags/pointer/">pointer</a>
                     </div>
                 </div>
             </div>
@@ -225,22 +229,24 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/java_compile_runtime/">【JVM】浅谈java编译和执行过程</a>
+                <h3><a href="/go/go_slice/">【go笔记】 数组, 切片(slice), 映射(map)简介</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>上一篇<a href="https://limingxie.github.io/java/compile_java/">【JVM】java大致的编译过程</a>简单的解释了java编译执行过程。<br>
-这里稍微再详细点说明其编译和执行过程。</p></p></div>
+                <div class="p_part"><p>我们在日常变成中经常用到数组, 切片(slice), 映射(map)。
+这篇文章中简单的介绍一下这3中结构。
+1. 数组 数组是我们接触到的最基本的结构，在Go里面的数组有一些比较特别的地方。如下：
+ 数组是值。将一个数组赋予另一个数组会复制其所有元素。 若将某个数组传入某个函数，它将接收到该数组复制一份而非指针。 数组的大小是其类型的一部分。类型 [10]int 和 [20]int 是不同的。  数组为值的属性很有用，但代价也高，我们也可以传递一个指向该数组的指针。</p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Sun, Dec 20, 2020</span>
+                                class="date">Tue, Jul 27, 2021</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/jvm/">jvm</a><a class="tag"
-                                   href="/tags/compile/">compile</a><a class="tag"
-                                   href="/tags/runtime/">runtime</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/golang/">golang</a><a class="tag"
+                                   href="/tags/new/">new</a><a class="tag"
+                                   href="/tags/make/">make</a>
                     </div>
                 </div>
             </div>
@@ -248,21 +254,24 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/compile_java/">【JVM】java大致的编译过程</a>
+                <h3><a href="/go/go_new_make/">【go笔记】new和make的区别</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>我们先简单的了解一下java编译到执行的过程。<br>
-后续我会详细的介绍具体详细的方式。</p></p></div>
+                <div class="p_part"><p>new和make都是分配资源的命令，这两个命令很容易混淆。
+但是我们只要弄清楚其规则，区分起来不难。
+1. new 先看看go语言的官方说明文档是怎么解释的？
+new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。 也就是说，new(T) 会为类型为T的新项分配已置零的内存空间，并返回它的地址，也就是一个类型为 *T的值。 用Go的术语来说，它返回一个指针，该指针指向新分配的，类型为 T 的零值。 简单的说他会创建一个引用类型的地址(栈内存)，不会分配内存空间(堆内存)。</p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Fri, Nov 20, 2020</span>
+                                class="date">Tue, Jul 27, 2021</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/jvm/">jvm</a><a class="tag"
-                                   href="/tags/compile/">compile</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/golang/">golang</a><a class="tag"
+                                   href="/tags/new/">new</a><a class="tag"
+                                   href="/tags/make/">make</a>
                     </div>
                 </div>
             </div>
@@ -270,21 +279,22 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/java_plateform_se_8/">【JVM】JDK, JRE, JVM简介</a>
+                <h3><a href="/go/err_return/">Go项目:error错误处理</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>刚接触到java后，我经常听到的JDK，JRE，JVM这些缩写词。</p></p></div>
+                <div class="p_part"><p><p>上一篇文章我介绍了拆分服务后如何去写测试代码。<br>
+<a href="https://limingxie.github.io/go/my_go_test4/">Go项目:傻瓜式联合测试</a><br>
+今天想共享一下，我是如何处理error。</p></p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Thu, Oct 29, 2020</span>
+                                class="date">Thu, Feb 14, 2019</span>
                         <a class="tag"
-                                   href="/tags/java/">Java</a><a class="tag"
-                                   href="/tags/jvm/">jvm</a><a class="tag"
-                                   href="/tags/jre/">jre</a><a class="tag"
-                                   href="/tags/jdk/">jdk</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/error/">error</a><a class="tag"
+                                   href="/tags/golang/">golang</a>
                     </div>
                 </div>
             </div>
@@ -292,21 +302,23 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/java_stack_heap/">【JVM】java中的栈内存, 堆内存</a>
+                <h3><a href="/go/my_go_test4/">Go项目:傻瓜式联合测试</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>上一篇文章简单整理了<a href="https://limingxie.github.io/basic/stack/">栈(stack), 堆(heap), 队列(queue)的结构</a><br>
-这一篇继续整理java中的 占内存，堆内存。</p></p></div>
+                <div class="p_part"><p><p>现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。<br>
+感觉有些内容不应该在同一个服务里。<br>
+于是我做了一个决定: <strong><code>拆分服务</code></strong>。</p></p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Tue, Oct 13, 2020</span>
+                                class="date">Tue, Feb 12, 2019</span>
                         <a class="tag"
-                                   href="/tags/stack/">stack</a><a class="tag"
-                                   href="/tags/heap/">heap</a><a class="tag"
-                                   href="/tags/java/">java</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/test/">test</a><a class="tag"
+                                   href="/tags/join-test/">join test</a><a class="tag"
+                                   href="/tags/golang/">golang</a>
                     </div>
                 </div>
             </div>
@@ -314,20 +326,21 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/reflect/">【java笔记】反射的简单应用</a>
+                <h3><a href="/go/go_socket/">go websocket的简单应用</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>今天在代码中看到了invoke方法，了解到原来是使用了反射的机制。<br>
-以前没怎么用过这种方式，所以简单的了解一下。</p></p></div>
+                <div class="p_part"><p><p>因为我们是做企业ERP系统，没什么机会接触socket。<br>
+这次准备做消息推送才了解到还有socket这种技术&hellip;ㅠㅠ</p></p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Thu, Jul 30, 2020</span>
+                                class="date">Thu, Dec 6, 2018</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/reflect/">reflect</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/socket/">socket</a><a class="tag"
+                                   href="/tags/golang/">golang</a>
                     </div>
                 </div>
             </div>
@@ -335,21 +348,23 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/this_super/">【java笔记】this和super简介</a>
+                <h3><a href="/go/my_go_test3/">Go项目的测试代码3（测试替身Test Double）</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>本来是确认构造函数的运行方式的。<br>
-结果看到继承以及super关键字了&hellip;^^;;</p></p></div>
+                <div class="p_part"><p><p>上一篇文章介绍了项目中测试代码的写法。<br>
+<a href="https://limingxie.github.io/go/my_go_test1/">Go项目的测试代码2（项目运用）</a></p>
+<p>这里简单的共享一下测试替身。</p></p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Sun, Jul 26, 2020</span>
+                                class="date">Sun, May 27, 2018</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/this/">this</a><a class="tag"
-                                   href="/tags/super/">super</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/test/">test</a><a class="tag"
+                                   href="/tags/test-double/">test double</a><a class="tag"
+                                   href="/tags/golang/">golang</a>
                     </div>
                 </div>
             </div>
@@ -357,22 +372,22 @@
     
         <div class="post animated fadeInDown">
             <div class="post-title">
-                <h3><a href="/java/abstract_test/">【java笔记】类, 抽象类, 接口的简单实验</a>
+                <h3><a href="/go/my_go_test1/">Go项目的测试代码2（项目运用）</a>
                 </h3>
             </div>
             <div class="post-content">
-                <div class="p_part"><p><p>要接触，抽象，继承，多态，封装的java了。<br>
-为了加深理解自己做了一个简单的实验。</p></p></div>
+                <div class="p_part"><p><p>上一篇文章介绍了最基本的测试代码的写法。<br>
+<a href="https://limingxie.github.io/go/my_go_test/">Go项目的测试代码（基础）</a></p>
+<p>这里简单的共享一下我在项目中使用的方式。</p></p></div>
             </div>
             <div class="post-footer">
                 <div class="meta">
                     <div class="info"><em class="fa fa-sun-o"></em><span
-                                class="date">Sun, Jul 26, 2020</span>
+                                class="date">Sun, May 27, 2018</span>
                         <a class="tag"
-                                   href="/tags/java/">java</a><a class="tag"
-                                   href="/tags/class/">class</a><a class="tag"
-                                   href="/tags/interface/">interface</a><a class="tag"
-                                   href="/tags/abstract/">abstract</a>
+                                   href="/tags/go/">go</a><a class="tag"
+                                   href="/tags/test/">test</a><a class="tag"
+                                   href="/tags/golang/">golang</a>
                     </div>
                 </div>
             </div>
