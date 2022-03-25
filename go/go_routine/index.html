@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【go笔记】goroutine调度器的GMP模型简介 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/go/go_routine/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【go笔记】goroutine调度器的GMP模型简介"/>
+<meta name="twitter:description" content="说起go语言，离不开goroutine。
+之前使用go语言开发的时候，也没多少机会用到goroutine。
+趁这些天了解一下GMP模型G(goroutine) M(thread) P(Processor)。
+1.GMP模型 G -&gt; goroutine Go中，协程被称为goroutine，一个goroutine只占几KB。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/net_c_sharp/"
+                        
+                   title="">C#</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【go笔记】goroutine调度器的GMP模型简介</h3>
+                
+            </div>
+
+            <p>说起go语言，离不开goroutine。<br>
+之前使用go语言开发的时候，也没多少机会用到goroutine。<br>
+趁这些天了解一下GMP模型G(goroutine) M(thread) P(Processor)。</p>
+<h2 id="1gmp模型">1.GMP模型</h2>
+<h4 id="g---goroutine">G -&gt; goroutine</h4>
+<p>Go中，协程被称为goroutine，一个goroutine只占几KB。<br>
+而且调度也很灵活(是通过runtime调度的)。</p>
+<h4 id="p---processor">P -&gt; Processor</h4>
+<p>它包含了运行goroutine的资源，如果线程想运行goroutine，必须先获取P，P中还包含了可运行的G队列。</p>
+<h4 id="m---thread">M -&gt; thread</h4>
+<p>每个M都代表了1个内核线程，OS调度器负责把内核线程分配到CPU的核上执行。</p>
+<pre><code>协程是程序级别的，  
+协程是通过runtime调度器的Processor分配到thread。
+
+线程thread是操作系统级别的。  
+thread是通过操作系统OS调度器分配到CPU上执行内容。  
+</code></pre><p>看看下图：</p>
+<p><a href="https://limingxie.github.io/images/go/goroutine/gmp_1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/goroutine/gmp_1.png?x-oss-process=image/resize,w_650,m_lfit" alt="gmp"></p>
+<p>我们从下往上看每个节点的作用:</p>
+<blockquote>
+<p><strong>CPU</strong>:=&gt; 线程是在CPU中执行。每个CPU一次只能处理一个线程thread。<br>
+<strong>M(thread)</strong>:=&gt; M从P本地队列中获取G执行，执行后从P获取下一个G, 不断的重复下去。<br>
+<strong>OS调度器</strong>:=&gt; 管理M和CPU之间的调度。<br>
+<strong>P(Processor)</strong>:=&gt; P是M与G之间的协调。所有的P都在程序启动时创建，最多有GOMAXPROCS(可配置)个。P和M是1:1的关系。<br>
+<strong>goroutine调度器</strong>:=&gt; 管理P和G之间的调度。<br>
+<strong>P的本地队列</strong>:=&gt; 存放等待运行的G, 新建G时会优先加入到P的本地队列, 如果队列满了, 则会把本地队列中一半的G移动到全局队列。<br>
+<strong>全局队列(Global Queue)</strong>:=&gt; 存放等待运行的G。</p>
+</blockquote>
+<h2 id="2go调度器调度过程解析">2.Go调度器调度过程解析</h2>
+<p>下面分析一下调度器调度的过程。</p>
+<h4 id="func调度过程">◆func()调度过程</h4>
+<p>假设有一个 go func(), 简单的模拟一下调度的过程。</p>
+<ol>
+<li>=&gt; go func()</li>
+<li>=&gt; 创建G</li>
+<li>=&gt; G进入P的本地队列(满了进入全局队列)</li>
+<li>=&gt; 和P有关联的M通过P获取G(如空的话去别的本地列或全局队列里获取)</li>
+<li>=&gt; M在CPU中执行。</li>
+</ol>
+<h4 id="main调度过程">◆main()调度过程</h4>
+<p>看下一段代码执行的过程</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello world&#34;</span>)
+}
+</code></pre></div><ol>
+<li>=&gt; runtime 创建最初的线程 M0 和 G0，并把2者关联。</li>
+<li>=&gt; 调度器初始化：初始化 M0、栈、垃圾回收，以及创建和初始化由 GOMAXPROCS设定个数的P和P列表。</li>
+<li>=&gt; 代码经过编译后，runtime.main会调用main.main，程序启动时会为runtime.main创建goroutine，然后把main goroutine加入到P的本地队列。</li>
+<li>=&gt; 上述操作中，M0已经绑定了P0，会从P的本地队列获取G，获取到 main goroutine。</li>
+<li>=&gt; M根据G中的栈信息和调度信息设置运行环境后, M运行G。</li>
+<li>=&gt; 执行完G后退出，再次回到M获取可运行的G，这样重复下去，直到main.main退出，<br>
+runtime.main执行Defer和Panic处理，或调用runtime.exit退出程序。<br>
+runtime.main的goroutine 运行是调度器的真正开始，直到runtime.main结束。</li>
+</ol>
+<p>这里补充说明一下M0和G0</p>
+<p>M0 是启动程序后的编号为0的主线程，M0对应的实例会在全局变量 runtime.m0 中，不需要在heap上分配，<br>
+M0 负责执行初始化操作和启动第一个 G， 在之后M0就和其他的 M 一样了。</p>
+<p>G0 是每次启动一个M都会第一个创建的 gourtine，G0仅用于负责调度的G，G0不指向任何可执行的函数，每个M都会有一个自己的G0。<br>
+在调度或系统调用时会使用G0的栈空间，全局变量的G0是M0的G0。</p>
+<h4 id="深入解剖调度过程">◆深入解剖调度过程</h4>
+<p>看下图：<br>
+<strong>刚开始的时候G0会协调要执行的G协程，执行G1的时候有又需要执行G2，这时候优先会放到自己的P本地队列，</strong><br>
+<strong>G1执行完后，G0会依次协调执行G2。</strong></p>
+<p><a href="https://limingxie.github.io/images/go/goroutine/goroutine_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/goroutine/goroutine_01.png" alt="gmp"></p>
+<p><strong>执行的过程中M如果阻塞了，那P会寻找下一个可执行的M，继续执行下一个G。</strong></p>
+<p><a href="https://limingxie.github.io/images/go/goroutine/goroutine_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/goroutine/goroutine_02.png?x-oss-process=image/resize,w_900,m_lfit" alt="gmp"></p>
+<p><strong>有2个以上P的时候：</strong>
+<strong>P2里的本地队列已经没有可执行G了，他就从全局队列中获取可执行G。</strong><br>
+<strong>全局队列里没有可执行G时，会从别的P本地队列中偷取可执行G来执行。</strong><br>
+<strong>没有可执行G就会进入自选状态等待下一个G。</strong></p>
+<p><a href="https://limingxie.github.io/images/go/goroutine/goroutine_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/goroutine/goroutine_03.png" alt="gmp"></p>
+<h2 id="3结语">3.结语</h2>
+<p>了解这些底层逻辑是为了更好的时候这些功能，<br>
+了解这些goroutine轻便的调度功能，后续写代码的时候多多少少会有一些帮助吧？</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/go/">Go</a><a class="category" href="/categories/golang/">golang</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/go/">go</a><a class="tag" href="/tags/golang/">golang</a><a class="tag" href="/tags/goroutine/">goroutine</a><a class="tag" href="/tags/channel/">channel</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

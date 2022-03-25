@@ -175,12 +175,10 @@
 	<span style="color:#a6e22e">B</span>         <span style="color:#66d9ef">uint8</span>  <span style="color:#75715e">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">noverflow</span> <span style="color:#66d9ef">uint16</span> <span style="color:#75715e">// approximate number of overflow buckets; see incrnoverflow for details
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">hash0</span>     <span style="color:#66d9ef">uint32</span> <span style="color:#75715e">// hash seed 
-</span><span style="color:#75715e"></span>
-	<span style="color:#a6e22e">buckets</span>    <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// array of 2^B Buckets. may be nil if count==0.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">buckets</span>    <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// array of 2^B Buckets. may be nil if count==0.
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">oldbuckets</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// previous bucket array of half the size, non-nil only when growing
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">nevacuate</span>  <span style="color:#66d9ef">uintptr</span>        <span style="color:#75715e">// progress counter for evacuation (buckets less than this have been evacuated)
-</span><span style="color:#75715e"></span>
-	<span style="color:#a6e22e">extra</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">mapextra</span> <span style="color:#75715e">// optional fields
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">extra</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">mapextra</span> <span style="color:#75715e">// optional fields
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>下面是每个字段的内容和值。</p>
 <p><a href="https://limingxie.github.io/images/go/map/hamp.png">图片备用地址</a><br>
@@ -205,32 +203,25 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// https://github.com/golang/go/blob/go1.13.8/src/cmd/compile/internal/gc/reflect.go
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">bmap</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Type</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Type</span> {
   <span style="color:#75715e">// 略...
-</span><span style="color:#75715e"></span>
-  <span style="color:#a6e22e">field</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Field</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
-
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">field</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Field</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
     <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;topbits&#34;</span>, <span style="color:#a6e22e">arr</span>))
-
   <span style="color:#75715e">// 略...
 </span><span style="color:#75715e"></span>  
     <span style="color:#a6e22e">keys</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;keys&#34;</span>, <span style="color:#a6e22e">arr</span>)
     <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">keys</span>)
-
   <span style="color:#75715e">// 略...
 </span><span style="color:#75715e"></span>  
     <span style="color:#a6e22e">elems</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;elems&#34;</span>, <span style="color:#a6e22e">arr</span>)
     <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">elems</span>)
-
   <span style="color:#75715e">// 略...
 </span><span style="color:#75715e"></span>  
     <span style="color:#66d9ef">if</span> int(<span style="color:#a6e22e">elemtype</span>.<span style="color:#a6e22e">Align</span>) &gt; <span style="color:#a6e22e">Widthptr</span> <span style="color:#f92672">||</span> int(<span style="color:#a6e22e">keytype</span>.<span style="color:#a6e22e">Align</span>) &gt; <span style="color:#a6e22e">Widthptr</span> {
         <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;pad&#34;</span>, <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Types</span>[<span style="color:#a6e22e">TUINTPTR</span>]))
     }
-
   <span style="color:#75715e">// 略...
 </span><span style="color:#75715e"></span>  
     <span style="color:#a6e22e">overflow</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;overflow&#34;</span>, <span style="color:#a6e22e">otyp</span>)
     <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">overflow</span>)
-
   <span style="color:#75715e">// 略...
 </span><span style="color:#75715e"></span>}
 </code></pre></div><p>从这里我们可以推断出，在执行的过程中bmap的结构是如下的。</p>
@@ -262,7 +253,6 @@
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// The indirection allows to store a pointer to the slice in hiter.
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">overflow</span>    <span style="color:#f92672">*</span>[]<span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
 	<span style="color:#a6e22e">oldoverflow</span> <span style="color:#f92672">*</span>[]<span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
-
 	<span style="color:#75715e">// nextOverflow holds a pointer to a free overflow bucket.
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">nextOverflow</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
 }
@@ -288,6 +278,8 @@
 <p><code>email: li_mingxie@163.com</code></p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
 
         </div>
         <div class="post-footer">
