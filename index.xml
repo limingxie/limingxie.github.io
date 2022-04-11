@@ -6,13 +6,35 @@
     <description>Recent content on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Apr 2022 16:38:02 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Apr 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数字证书(Digital Certificate)简介</title>
+      <link>https://limingxie.github.io/network/digital_certificate/</link>
+      <pubDate>Mon, 11 Apr 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/digital_certificate/</guid>
+      <description>1.数字证书是什么？ 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。
+2.常见的3种加密方式 为了了解数字证书的原理，首先需要了解已下3种加密方式。
+2.1 hash算法加密 它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。</description>
+    </item>
+    
+    <item>
+      <title>【mysql】索引简介</title>
+      <link>https://limingxie.github.io/database/mysql_index/</link>
+      <pubDate>Tue, 05 Apr 2022 08:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql_index/</guid>
+      <description>&lt;p&gt;最近了查看了mysql索引，很多资料&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>5G网络简单介绍</title>
-      <link>https://limingxie.github.io/limingxie/5gc/</link>
+      <link>https://limingxie.github.io/network/5gc/</link>
       <pubDate>Mon, 04 Apr 2022 16:38:02 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/limingxie/5gc/</guid>
+      <guid>https://limingxie.github.io/network/5gc/</guid>
       <description>最近有机会查看了有关5G网的内容。对于移动通讯完全不懂的小白来说一切都很陌生和茫然。
 几天的摸索，整理了“皮毛”内容，希望像我这样的小白有帮助&amp;hellip;^^
 1. 网元(Network Element) 我们先了解一下，5G网络中网元(NE)是什么？

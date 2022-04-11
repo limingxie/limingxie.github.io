@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme=""><head>
-    <title> 李明燮(li_mingxie) | index </title>
+    <title> 李明燮(li_mingxie) | 【mysql】索引简介 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -21,10 +21,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
 
-    <link rel="canonical" href="https://limingxie.github.io/categories/index/">
+    <link rel="canonical" href="https://limingxie.github.io/database/mysql_index/">
 
     
-    <link rel="alternate" type="application/rss+xml" href="https://limingxie.github.io/categories/index/index.xml" title="Website of li_mingxie" />
     
     
     
@@ -35,8 +34,8 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://limingxie.github.io/105"/>
 
-<meta name="twitter:title" content="index"/>
-<meta name="twitter:description" content="年纪大了做开发是没出息吗？"/>
+<meta name="twitter:title" content="【mysql】索引简介"/>
+<meta name="twitter:description" content="最近了查看了mysql索引，很多资料"/>
 
 </head>
 <body><div class="sidebar animated fadeInDown">
@@ -149,22 +148,74 @@
 
     <div class="autopagerize_page_element">
         <div class="content">
-    <div class="archive animated fadeInDown">
-        <ul class="list-with-title">
-            
-                <div class="listing-title">2022</div>
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【mysql】索引简介</h3>
                 
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="https://limingxie.github.io/database/mysql_index/" title="【mysql】索引简介">【mysql】索引简介</a>
-                                <div class="post-time"><span class="date">Apr 5</span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-            
-        </ul>
+            </div>
+
+            <p>最近了查看了mysql索引，很多资料</p>
+<h2 id="1存储结构划分">1.存储结构划分</h2>
+<p>按照数据存储的结构可以分B树索引和hash索引。</p>
+<p><strong>B树索引</strong>又称为 BTREE 索引，目前大部分的索引都是采用 B-树索引来存储的。B-树索引是一个典型的数据结构。
+基于这种树形数据结构，表中的每一行都会在索引上有一个对应值。因此，在表中进行数据查询时，可以根据索引值一步一步定位到数据所在的行。
+查询必须从索引的最左边的列开始。<br>
+查询不能跳过某一索引列，必须按照从左到右的顺序进行匹配。<br>
+存储引擎不能使用索引中范围条件右边的列。<br>
+、
+<strong>哈希索引</strong>也称为散列索引或 HASH 索引。MySQL 目前仅有 MEMORY 存储引擎和 HEAP 存储引擎支持这类索引。<br>
+其中，MEMORY 存储引擎可以支持 B-树索引和 HASH 索引，且将 HASH 当成默认索引。
+HASH 索引不是基于树形的数据结构查找数据，而是根据索引列对应的哈希值的方法获取表的记录行。<br>
+不能使用 HASH 索引排序。
+HASH 索引只支持等值比较，如“=”“IN()”或“&lt;=&gt;”。
+HASH 索引不支持键的部分匹配，因为在计算 HASH 值的时候是通过整个索引值来计算的。</p>
+<h2 id="2从表记录的排列顺序和索引的排列顺序是否一致来划分">2.从表记录的排列顺序和索引的排列顺序是否一致来划分</h2>
+<p>先执行下面的语句，可以看看存储引擎的种类。(基于mysql5.7版本)</p>
+<p>按照存储的角度区分</p>
+<p>1、聚集索引（clustered index）
+聚集索引是按照所以把数据排好序了，所以一个表只能存在一个聚集索引，其它的都是非聚集索引。<br>
+因这个特性，聚集索引是查询数据范围的时候有很大的性能优势。<br>
+但是也需要注意的是如果频繁更新的列不适合设置为聚集索引，<br>
+原因很简单，每次更新都需要从新排序，频繁的更新给的压力也大。<br>
+如果不指定的话，默认主键为聚集索引。</p>
+<p>2、非聚集索引（non-clustered index）
+一个表里除了一个聚集索引外其他的都是非聚集索引，虽然不能把数据按照索引排序，但是索引数据是可以排序的。
+所以非聚集索引查询范围的时候是先找索引列的范围，再通过这个索引查询行的值。</p>
+<h2 id="3从应用层次上来划分">3.从应用层次上来划分</h2>
+<p>单列索引：单列索引即一个索引只包含单个列。
+组合索引：组合索引指在表的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用。使用组合索引时遵循最左前缀集合</p>
+<h2 id="4主键">4.主键</h2>
+<p>Primary Key（聚集索引）：InnoDB存储引擎的表会存在主键（唯一非null），如果建表的时候没有指定主键，则会使用第一非空的唯一索引作为聚集索引，否则InnoDB会自动帮你创建一个不可见的、长度为6字节的row_id用来作为聚集索引。</p>
+<p>Key（普通索引）：是MySQL中的基本索引类型，允许在定义索引的列中插入重复值和空值</p>
+<h2 id="5唯一索引">5.唯一索引</h2>
+<p>Unique（唯一索引）：索引列的值必须唯一，但允许有空值。若是组合索引，则列值的组合必须唯一。<br>
+主键索引是一种特殊的唯一索引，不允许有空值。</p>
+<h2 id="6全文索引">6.全文索引</h2>
+<p>FULLTEXT（全文索引）：全文索引类型为FULLTEXT，在定义索引的列上支持值的全文查找，允许在这些索引列中插入重复值和空值。<br>
+全文索引可以在CHAR、VARCHAR或者TEXT类型的列上创建。</p>
+<h2 id="空间索引">空间索引</h2>
+<p>空间索引主要用于地理空间数据类型 GEOMETRY。</p>
+<p>下面是<a href="https://dev.mysql.com/doc/refman/8.0/en/create-index.html">mysql官网给出的几个存储引擎和索引之间的关系</a>。<br>
+<a href="https://limingxie.github.io/images/database/mysql/mysql_index_1.png">图片地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/mysql_index_1.png" alt="mysql_engine"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/mysql/">mysql</a><a class="category" href="/categories/database/">database</a><a class="category" href="/categories/index/">index</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/mysql/">mysql</a><a class="tag" href="/tags/index/">index</a></span>
+
+            </div>
+        </div>
+
+        
     </div>
+
 
         </div>
     </div>

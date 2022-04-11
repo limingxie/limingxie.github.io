@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 数字证书(Digital Certificate)简介 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/network/digital_certificate/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="数字证书(Digital Certificate)简介"/>
+<meta name="twitter:description" content="1.数字证书是什么？ 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。
+2.常见的3种加密方式 为了了解数字证书的原理，首先需要了解已下3种加密方式。
+2.1 hash算法加密 它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/net_c_sharp/"
+                        
+                   title="">C#</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>数字证书(Digital Certificate)简介</h3>
+                
+            </div>
+
+            <h2 id="1数字证书是什么">1.数字证书是什么？</h2>
+<p>数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。<br>
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。<br>
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。</p>
+<h2 id="2常见的3种加密方式">2.常见的3种加密方式</h2>
+<p>为了了解数字证书的原理，首先需要了解已下3种加密方式。</p>
+<h4 id="21-hash算法加密">2.1 hash算法加密</h4>
+<p>它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。<br>
+比如用户的密码保存的时候，先hash方法加密后保存。验证时，输入的密码也加密后比较hash值就可以了。<br>
+这样的好处是即使用户信息泄露了也没关系，能看到的都是加密后的hash值。</p>
+<h4 id="22-对称密钥加密">2.2 对称密钥加密</h4>
+<p>加密一组数据时使用【秘钥】加密。<br>
+解密时候也使用同样的【秘钥】解密。</p>
+<h4 id="23-非对称密钥加密">2.3 非对称密钥加密</h4>
+<p>有2个秘钥分别是，【公钥】和【私钥】。<br>
+使用【公钥】加密的数据只能用【私钥】解密。<br>
+使用【私钥】加密的数据只能用【公钥】解密。</p>
+<p>这3种加密方式如果不太理解的话，可以自行在搜一搜相关资料看看。<br>
+下面我们看看数据证书是如何发放的。</p>
+<h2 id="3发放数字证书">3.发放数字证书</h2>
+<p>看看下图CA是如何发放数字证书。</p>
+<p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate_2.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_2.png" alt="digital_certificate"></p>
+<pre><code>1. 创建一个文件包含申请者信息(申请者的公钥，签名算法，有效期等等...)的文件。
+2. 对这个文件使用hash算法加密，获取hash值。
+3. CA使用自己的私钥加密申请信息的hash值获取证书签名。
+4. 证书签名+申请者信息 = 数字证书
+</code></pre><h2 id="4验证数字证书的合法性">4.验证数字证书的合法性</h2>
+<p>看下图如何判断数字证书的合法性。</p>
+<p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate_3.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_3.png" alt="digital_certificate"></p>
+<pre><code>1. 先把数字证书里的申请者信息使用hash算法加密获得hash值。
+2. 使用CA颁发的公钥解密数字证书里的签名。
+3. 比较数字证书里的内容获得的hash值和解密签名获取的hash值是否一样。
+</code></pre><h2 id="5数据证书里的详细内容">5.数据证书里的详细内容</h2>
+<p>最后整理了数字证书的详细内容和说明。</p>
+<p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate.png?x-oss-process=image/resize,w_800,m_lfit" alt="digital_certificate"></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>版本:</strong></td>
+<td>指定所编码证书的版本号。 当前，此字段的可能值为 0、1 或 2。</td>
+</tr>
+<tr>
+<td><strong>序列号:</strong></td>
+<td>包含证书颁发机构 (CA) 分配给证书的一个唯一正整数。</td>
+</tr>
+<tr>
+<td><strong>签名算法:</strong></td>
+<td>包含一个对象标识符 (OID)，指定 CA 用于对证书进行签名的算法。</td>
+</tr>
+<tr>
+<td><strong>签名哈希算法:</strong></td>
+<td>生成签名使用的哈希算法。</td>
+</tr>
+<tr>
+<td><strong>颁发者:</strong></td>
+<td>包含创建和签名证书的 CA 的 X.500 可分辨名称 (DN)。</td>
+</tr>
+<tr>
+<td><strong>有效期:</strong></td>
+<td>指定证书有效的时间间隔。</td>
+</tr>
+<tr>
+<td><strong>使用者:</strong></td>
+<td>包含实体的 X.500 可分辨名称，该实体与证书中包含的公钥相关联。</td>
+</tr>
+<tr>
+<td><strong>公钥:</strong></td>
+<td>包含公钥和关联的算法信息。</td>
+</tr>
+<tr>
+<td><strong>授权密钥标识符:</strong></td>
+<td>标识证书颁发机构 (CA) 公钥，与用于签署证书的 CA 私钥对应。</td>
+</tr>
+<tr>
+<td><strong>基本约束:</strong></td>
+<td>指定实体是否可用作 CA，如果可以，则指定在证书链中该 CA 下可以存在的从属 CA 的数量。</td>
+</tr>
+<tr>
+<td><strong>证书策略:</strong></td>
+<td>指定颁发证书的策略和使用证书的目的。</td>
+</tr>
+<tr>
+<td><strong>CRL:</strong></td>
+<td>分发点	包含基本证书吊销列表 (CRL) 的 URI。</td>
+</tr>
+<tr>
+<td><strong>增强型密钥用法:</strong></td>
+<td>指定证书中包含的公钥的使用方式。</td>
+</tr>
+<tr>
+<td><strong>颁发者备用名称:</strong></td>
+<td>为证书请求颁发者指定一个或多个备用名称形式。</td>
+</tr>
+<tr>
+<td><strong>密钥用法:</strong></td>
+<td>指定证书中包含的公钥可以执行的操作的限制。</td>
+</tr>
+<tr>
+<td><strong>名称约束:</strong></td>
+<td>指定证书层次结构中所有使用者名称必须位于的命名空间。 扩展仅在 CA 证书中使用。</td>
+</tr>
+<tr>
+<td><strong>策略约束:</strong></td>
+<td>通过禁止策略映射或通过要求层次结构中的每个证书包含一个可接受的策略标识符来约束路径验证。 扩展仅在 CA 证书中使用。</td>
+</tr>
+<tr>
+<td><strong>策略映射:</strong></td>
+<td>指定与发证 CA 中的策略对应的从属 CA 中的策略。</td>
+</tr>
+<tr>
+<td><strong>私钥使用周期:</strong></td>
+<td>为私钥指定与私钥关联的证书不同的验证周期。</td>
+</tr>
+<tr>
+<td><strong>使用者可选名称:</strong></td>
+<td>为证书请求使用者指定一个或多个备用名称形式。 示例备用形式包括电子邮件地址、DNS 名称、IP 地址和 URI。</td>
+</tr>
+<tr>
+<td><strong>使用目录属性:</strong></td>
+<td>传达标识属性，如证书使用者的国籍。 扩展值是 OID 值对序列。</td>
+</tr>
+<tr>
+<td><strong>使用者密钥标识符:</strong></td>
+<td>区分证书使用者持有的多个公钥。 扩展值一般是密钥的 SHA-1 哈希。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/network/">network</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/digital/">digital</a><a class="tag" href="/tags/certificate/">certificate</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
