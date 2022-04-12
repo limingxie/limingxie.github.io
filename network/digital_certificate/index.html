@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme=""><head>
-    <title> 李明燮(li_mingxie) | 数字证书(Digital Certificate)简介 </title>
+    <title> 李明燮(li_mingxie) | 浅谈数字证书(Digital Certificate)的发放和验证原理 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -34,7 +34,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://limingxie.github.io/105"/>
 
-<meta name="twitter:title" content="数字证书(Digital Certificate)简介"/>
+<meta name="twitter:title" content="浅谈数字证书(Digital Certificate)的发放和验证原理"/>
 <meta name="twitter:description" content="1.数字证书是什么？ 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
 它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
 最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。
@@ -156,7 +156,7 @@
         <div class="post-content">
 
             <div class="post-title">
-                <h3>数字证书(Digital Certificate)简介</h3>
+                <h3>浅谈数字证书(Digital Certificate)的发放和验证原理</h3>
                 
             </div>
 
@@ -168,15 +168,16 @@
 <p>为了了解数字证书的原理，首先需要了解已下3种加密方式。</p>
 <h4 id="21-hash算法加密">2.1 hash算法加密</h4>
 <p>它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。<br>
-比如用户的密码保存的时候，先hash方法加密后保存。验证时，输入的密码也加密后比较hash值就可以了。<br>
-这样的好处是即使用户信息泄露了也没关系，能看到的都是加密后的hash值。</p>
+把必要的信息放到一起后，一般会用MD5或SHA1算法计算出hash值(也叫信息摘要:MD5为128位，SHA1主要为256位)。<br>
+将信息的摘要也称作信息的指纹。相同的信息一定会得相同的指纹，而仅通过指纹又无法还原出原始信息。</p>
 <h4 id="22-对称密钥加密">2.2 对称密钥加密</h4>
-<p>加密一组数据时使用【秘钥】加密。<br>
-解密时候也使用同样的【秘钥】解密。</p>
+<p>加密一组数据时使用【秘钥】加密，解密时候也使用同样的【秘钥】解密。<br>
+目前的对称密钥算法有DES、3DES、AES等，而密钥则一般是一串固定长度的字符。</p>
 <h4 id="23-非对称密钥加密">2.3 非对称密钥加密</h4>
-<p>有2个秘钥分别是，【公钥】和【私钥】。<br>
-使用【公钥】加密的数据只能用【私钥】解密。<br>
-使用【私钥】加密的数据只能用【公钥】解密。</p>
+<p>将秘钥分成【公钥publicKey】和【私钥privateKey】。<br>
+公钥加密的内容，使用私钥可以解开；而私钥加密的内容，公钥可以解开。<br>
+单独的知道公钥或私钥，却没有办法推出另一份密钥。<br>
+目前使用最为广泛的非对称密钥为RSA算法。</p>
 <p>这3种加密方式如果不太理解的话，可以自行在搜一搜相关资料看看。<br>
 下面我们看看数据证书是如何发放的。</p>
 <h2 id="3发放数字证书">3.发放数字证书</h2>
@@ -191,13 +192,13 @@
 <p>看下图如何判断数字证书的合法性。</p>
 <p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate_3.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_3.png" alt="digital_certificate"></p>
-<pre><code>1. 先把数字证书里的申请者信息使用hash算法加密获得hash值。
+<pre><code>1. 客户端(一般是游览器)接受服务器的数字证书后，先把数字证书里的申请者信息使用hash算法加密获得hash值。
 2. 使用CA颁发的公钥解密数字证书里的签名。
 3. 比较数字证书里的内容获得的hash值和解密签名获取的hash值是否一样。
 </code></pre><h2 id="5数据证书里的详细内容">5.数据证书里的详细内容</h2>
 <p>最后整理了数字证书的详细内容和说明。</p>
 <p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate.png?x-oss-process=image/resize,w_800,m_lfit" alt="digital_certificate"></p>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_4.png?x-oss-process=image/resize,w_800,m_lfit" alt="digital_certificate"></p>
 <table>
 <thead>
 <tr>
