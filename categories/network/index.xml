@@ -13,7 +13,7 @@
       <pubDate>Mon, 18 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/osi/</guid>
-      <description>网络协议模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
+      <description>开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
 从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。
 每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
 OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
