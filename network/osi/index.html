@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme=""><head>
-    <title> 李明燮(li_mingxie) | network </title>
+    <title> 李明燮(li_mingxie) | 【网络协议笔记】浅谈OSI网络七层协议 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -21,10 +21,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
 
-    <link rel="canonical" href="https://limingxie.github.io/categories/network/">
+    <link rel="canonical" href="https://limingxie.github.io/network/osi/">
 
     
-    <link rel="alternate" type="application/rss+xml" href="https://limingxie.github.io/categories/network/index.xml" title="Website of li_mingxie" />
     
     
     
@@ -35,8 +34,12 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://limingxie.github.io/105"/>
 
-<meta name="twitter:title" content="network"/>
-<meta name="twitter:description" content="年纪大了做开发是没出息吗？"/>
+<meta name="twitter:title" content="【网络协议笔记】浅谈OSI网络七层协议"/>
+<meta name="twitter:description" content="网络协议模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
+从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。
+每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
+OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
+7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。 因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。 如下图: 图片备用地址"/>
 
 </head>
 <body><div class="sidebar animated fadeInDown">
@@ -149,30 +152,75 @@
 
     <div class="autopagerize_page_element">
         <div class="content">
-    <div class="archive animated fadeInDown">
-        <ul class="list-with-title">
-            
-                <div class="listing-title">2022</div>
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【网络协议笔记】浅谈OSI网络七层协议</h3>
                 
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="https://limingxie.github.io/network/osi/" title="【网络协议笔记】浅谈OSI网络七层协议">【网络协议笔记】浅谈OSI网络七层协议</a>
-                                <div class="post-time"><span class="date">Apr 18</span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="https://limingxie.github.io/network/digital_certificate/" title="浅谈数字证书(Digital Certificate)的发放和验证原理">浅谈数字证书(Digital Certificate)的发放和验证原理</a>
-                                <div class="post-time"><span class="date">Apr 11</span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-            
-        </ul>
+            </div>
+
+            <h2 id="网络协议模型">网络协议模型</h2>
+<p>开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。<br>
+从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。<br>
+每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。<br>
+OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。</p>
+<pre><code>7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。  
+因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。  
+</code></pre><p>如下图:
+<a href="https://limingxie.github.io/images/network/osi/OSI.jpg">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/osi/OSI.jpg" alt="OSI"></p>
+<h2 id="每层作用">每层作用</h2>
+<p>看看维基百科是如何解释每层的作用：<br>
+<a href="https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B">维基百科:OSI协议</a></p>
+<h4 id="7应用层">7.应用层</h4>
+<p>应用层（Application Layer）提供为应用软件而设计的接口，以设置与另一应用软件之间的通信。<br>
+例如：HTTP、HTTPS、FTP、Telnet、SSH、SMTP、POP3等。</p>
+<h4 id="6表示层">6.表示层</h4>
+<p>表示层（Presentation Layer）把数据转换为能与接收者的系统格式兼容并适合传输的格式。<br>
+如文本文件的ASCII格式和UTF-8格式。</p>
+<h4 id="5会话层">5.会话层</h4>
+<p>会话层（Session Layer）负责在数据传输中设置和维护计算机网络中两台计算机之间的通信连接。<br>
+示例：RPC，SQL等。</p>
+<h4 id="4传输层">4.传输层</h4>
+<p>传输层（Transport Layer）把传输表头（TH）加至资料以形成分组。传输表头包含了所使用的协议等发送信息。<br>
+示例：TCP，UDP，SPX。</p>
+<h4 id="3网络层">3.网络层</h4>
+<p>网络层（Network Layer）决定数据的路径选择和转寄，将网络表头（NH）加至数据包，以形成分组。网络表头包含了网络资料。<br>
+例如:互联网协议（IP）等。</p>
+<h4 id="2数据链路层">2.数据链路层</h4>
+<p>数据链路层（Data Link Layer）负责网络寻址、错误侦测和改错。当表头和表尾被加至数据包时，会形成信息框（Data Frame）。<br>
+数据链表头（DLH）是包含了物理地址和错误侦测及改错的方法。数据链表尾（DLT）是一串指示数据包末端的字符串。<br>
+例如以太网、无线局域网（Wi-Fi）和通用分组无线服务（GPRS）等。<br>
+分为两个子层：逻辑链路控制（logical link control，LLC）子层和介质访问控制（Media access control，MAC）子层。</p>
+<h4 id="1物理层">1.物理层</h4>
+<p>物理层（Physical Layer）在局域网上发送数据帧（Data Frame），它负责管理电脑通信设备和网络媒体之间的互通。<br>
+包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡等。</p>
+<h2 id="通过协议传输应用层数据">通过协议传输应用层数据</h2>
+<p>下图简单的解释了，通过网络应用层的数据(hello)从A到B是如何传过去的。</p>
+<p><a href="https://limingxie.github.io/images/network/osi/OSI_1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/osi/OSI_1.png" alt="OSI"></p>
+<h2 id="总结">总结</h2>
+<p>OSI的7层协议是理论模型，我们实际落地时，经常会用到4层的TCP/IP协议族。<br>
+为了方便研究和学习，也可以分为5层结构。<br>
+后续将详细的整理每层的结构和作用。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/network/">network</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/osi/">OSI</a><a class="tag" href="/tags/network/">network</a><a class="tag" href="/tags/protocal/">protocal</a></span>
+
+            </div>
+        </div>
+
+        
     </div>
+
 
         </div>
     </div>

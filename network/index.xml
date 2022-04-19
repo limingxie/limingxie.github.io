@@ -6,7 +6,20 @@
     <description>Recent content in Networks on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 11 Apr 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Apr 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【网络协议笔记】浅谈OSI网络七层协议</title>
+      <link>https://limingxie.github.io/network/osi/</link>
+      <pubDate>Mon, 18 Apr 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/osi/</guid>
+      <description>网络协议模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
+从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。
+每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
+OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
+7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。 因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。 如下图: 图片备用地址</description>
+    </item>
+    
     <item>
       <title>浅谈数字证书(Digital Certificate)的发放和验证原理</title>
       <link>https://limingxie.github.io/network/digital_certificate/</link>

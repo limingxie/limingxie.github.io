@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>network on Website of li_mingxie</title>
-    <link>https://limingxie.github.io/categories/network/</link>
+    <link>https://limingxie.github.io/tags/network/</link>
     <description>Recent content in network on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 18 Apr 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Apr 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【网络协议笔记】浅谈OSI网络七层协议</title>
       <link>https://limingxie.github.io/network/osi/</link>
@@ -18,19 +18,6 @@
 每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
 OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
 7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。 因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。 如下图: 图片备用地址</description>
-    </item>
-    
-    <item>
-      <title>浅谈数字证书(Digital Certificate)的发放和验证原理</title>
-      <link>https://limingxie.github.io/network/digital_certificate/</link>
-      <pubDate>Mon, 11 Apr 2022 22:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/network/digital_certificate/</guid>
-      <description>1.数字证书是什么？ 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
-它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
-最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。
-2.常见的3种加密方式 为了了解数字证书的原理，首先需要了解已下3种加密方式。
-2.1 hash算法加密 它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。</description>
     </item>
     
   </channel>
