@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【网络协议笔记】计算机之间的通信和链接方式 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/network/computer_communication/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【网络协议笔记】计算机之间的通信和链接方式"/>
+<meta name="twitter:description" content="1.计算机之间的通信 计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。
+那我们要如何进行网络通信呢？
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。
+然后把数据通过网卡传送到对方的网络中。
+如果网卡发现数据的目标MAC地址是自己，就会将数据传递给上一层进行处理。
+如果网卡发现数据的目标MAC地址不是是自己，就会将数据丢掉。
+图片备用地址 2.计算机之间的链接方式 下面我们看一下具体的链接方式。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【网络协议笔记】计算机之间的通信和链接方式</h3>
+                
+            </div>
+
+            <h2 id="1计算机之间的通信">1.计算机之间的通信</h2>
+<p>计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。<br>
+那我们要如何进行网络通信呢？<br>
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。<br>
+然后把数据通过网卡传送到对方的网络中。</p>
+<p>如果网卡发现数据的目标MAC地址是自己，就会将数据传递给上一层进行处理。<br>
+如果网卡发现数据的目标MAC地址不是是自己，就会将数据丢掉。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/computer_communication.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/computer_communication.png" alt="computer_communication"></p>
+<h2 id="2计算机之间的链接方式">2.计算机之间的链接方式</h2>
+<p>下面我们看一下具体的链接方式。</p>
+<h4 id="21-网线直连">2.1. 网线直连</h4>
+<p>两台计算机之间最简单的连接方式就是网线直连（交叉线）。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/zhilian.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/zhilian.png" alt="zhilian"></p>
+<pre><code>通信的时候，会使用到ICMP、ARP协议。  
+ICMP是数据包传送的时候用到的协议，ARP是获取MAC地址的协议。  
+
+ARP协议做的是给同一个网段的所有电脑发广播（ARP是有缓存的）。  
+如果自己是广播里寻找的IP，当前计算机把自己的网卡地址（广播找MAC地址）已广播的形式再发出去。
+</code></pre><h4 id="22-同轴电缆">2.2. 同轴电缆</h4>
+<p>如果需要链接多台电脑怎么办？</p>
+<p>第一个出现的同轴电缆的方式，是半双工通信方式。<br>
+容易冲突（冲突域），而且只要一个连接点出问题全域瘫痪。<br>
+一台设备在发送数据的时候，另一台设备只能接收数据，不能发送数据。</p>
+<h4 id="23-集线器hub">2.3. 集线器（Hub）</h4>
+<p>采用的也是半双工通信，但是比同轴电缆有个特甜：如果一台设备的链接出现问题也不会影响其他设备。</p>
+<p>集线器和同轴电缆都是没有智商的，是个机械性的设备。<br>
+只要有设备发数据，就把数据转给其它所有已连接设备，设备越多效率越低。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/hub.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/hub.png?x-oss-process=image/resize,w_600,m_lfit" alt="hub"></p>
+<p>下面是集线器传输数据的动态图</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/hub_gif.gif">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/hub_git.gif?x-oss-process=image/resize,w_600,m_lfit" alt="hub"></p>
+<h4 id="24-网桥bridge">2.4. 网桥（Bridge）</h4>
+<p>网桥连接的是同一个网段的计算机。<br>
+它可以记录左右两边的MAC地址，减少没必要的广播和传输，从而起到隔绝冲突域的作用。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/bridge.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/bridge.png?x-oss-process=image/resize,w_600,m_lfit" alt="bridge"></p>
+<h4 id="25-交换机switch">2.5. 交换机（Switch）</h4>
+<p>交换器就比网桥更牛逼了，他可以记录每一个网络节点的IP和MAC地址。<br>
+还有交换机是全双工通信，没有冲突域。
+而且不会发数据发到其他设备，所以比集线器安全（不会因为抓包而拦截数据）。</p>
+<p>但是首次发送数据时，还是会ARP广播所有设备，因为此时交换机还不知道源和目标的MAC地址。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/switch.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/switch.png?x-oss-process=image/resize,w_600,m_lfit" alt="switch"></p>
+<h4 id="26-路由器router">2.6. 路由器（Router）</h4>
+<p>以上的设备必须是在同一个网段和广播域，但是不能把所有的电脑用交换链接起来。<br>
+好几亿台的电脑用过广播寻找对应IP地址的Mac地址，那这网络遭遇“广播风暴”了。</p>
+<p>所以路由的作用就出来了，路由是隔绝广播域，如果是在不同网段之间转发数据，就直接去寻找路由。<br>
+那如何去寻找路由呢？ 是通过网关。我们在设置IP地址时，甚至的默认网关地址就是路由的地址。<br>
+(一般IP地址的最后设置成1。比如 192.168.0.1)。</p>
+<p>主机发数据前，首先会判断目标主机的IP地址跟它是否在同一个网段。<br>
+如果在同一个网段：ARP广播，直接发送数据；<br>
+如果不在同一个网段：通过路由器转发数据。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/router.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/router.png?x-oss-process=image/resize,w_900,m_lfit" alt="switch"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/network/">network</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/arp/">ARP</a><a class="tag" href="/tags/hub/">Hub</a><a class="tag" href="/tags/bridge/">Bridge</a><a class="tag" href="/tags/switch/">Switch</a><a class="tag" href="/tags/router/">Router</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
