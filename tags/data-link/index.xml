@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>data link on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/data-link/</link>
+    <description>Recent content in data link on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 23 Apr 2022 19:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/data-link/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【网络协议笔记】第二层:数据链路层(Data Link)简介</title>
+      <link>https://limingxie.github.io/network/2_data_link/</link>
+      <pubDate>Sat, 23 Apr 2022 19:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/2_data_link/</guid>
+      <description>数据链路层(Data Link)是网络协议中的第二层。
+链路: 从1个节点到相邻节点的一段物理线路(有线或无线)，中间没有其他交换节点。
+数据链路: 在一条链路上传输数据时，需要有对应的通信协议来控制数据的传输。
+不同类型的数据链路，所用的通信协议可能是不同的。
+广播信道: CSMA/CD协议（比如同轴电缆、集线器等组成的网络）
+点对点信道: PPP协议（比如2个路由器之间的信道）</description>
+    </item>
+    
+  </channel>
+</rss>

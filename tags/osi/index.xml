@@ -6,7 +6,50 @@
     <description>Recent content in OSI on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 18 Apr 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/osi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Apr 2022 19:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/osi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【网络协议笔记】第三层:网络层(Network)简介</title>
+      <link>https://limingxie.github.io/network/3_-network/</link>
+      <pubDate>Sat, 23 Apr 2022 19:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/3_-network/</guid>
+      <description>网络层数据包（IP数据包：Packet）由首部、数据2部分组成。
+数据: 由传输层传递下来的数据段(Segment)。
+下图是网络层的数据包结构：
+图片备用地址
+下图是使用Wireshark抓包的信息:
+图片备用地址
+1.版本（Version） 占4位（0b0100：IPv4，0b0110：IPv6）。
+2.首部长度（Header Length） 占4位，标识该IP头部有多少个32bit字（4字节），因为4位最大能表示15，所以IP头部最长是60字节。</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第二层:数据链路层(Data Link)简介</title>
+      <link>https://limingxie.github.io/network/2_data_link/</link>
+      <pubDate>Sat, 23 Apr 2022 19:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/2_data_link/</guid>
+      <description>数据链路层(Data Link)是网络协议中的第二层。
+链路: 从1个节点到相邻节点的一段物理线路(有线或无线)，中间没有其他交换节点。
+数据链路: 在一条链路上传输数据时，需要有对应的通信协议来控制数据的传输。
+不同类型的数据链路，所用的通信协议可能是不同的。
+广播信道: CSMA/CD协议（比如同轴电缆、集线器等组成的网络）
+点对点信道: PPP协议（比如2个路由器之间的信道）</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第一层:物理层(Physical)简介</title>
+      <link>https://limingxie.github.io/network/1_physical-copy/</link>
+      <pubDate>Fri, 22 Apr 2022 19:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/1_physical-copy/</guid>
+      <description>物理层定义了接口标准、线缆标准、传输速率、传输方式等（比如路由器定义的接口是做什么的、水晶头怎么排布、光缆线的作用等）。
+1.信号类型 图片备用地址
+1.1 模拟信号（Analog Signal） 连续的信号，适合长距离传输
+抗干扰能力差，受到干扰时波形变形很难纠正
+1.2 数字信号（Digital Signal） 离散的信号，不适合长距离传输</description>
+    </item>
+    
     <item>
       <title>【网络协议笔记】浅谈OSI网络七层协议</title>
       <link>https://limingxie.github.io/network/osi/</link>
