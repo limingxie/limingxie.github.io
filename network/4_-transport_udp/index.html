@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【网络协议笔记】第四层:传输层(Transport)以及UPD协议简介 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/network/4_-transport_udp/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【网络协议笔记】第四层:传输层(Transport)以及UPD协议简介"/>
+<meta name="twitter:description" content="1.传输层（Transport） TCP和UDP的区别： 图片备用地址
+1.1 连接性 TCP是面向连接，也就是说TCP传输必须先要建立连接才能通信，建立连接就是我们熟知的“三次握手”。
+TCP在数据传输完毕后需要断开连接，因为服务器会有端口不断的监听本次连接的状态，如果不断开就会一直占用资源，断开连接需要“四次挥手”。
+UDP是无连接，通信时不需要建立连接，发送方直接发送数据，不关心接收方的接收状态。
+1.2 可靠性 TCP：可靠传输，不丢包。只要发现丢包就会重新发送，会保证数据是准确的。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/k8s/"
+                        
+                   title="">环境</a></li>
+        
+            
+            <li><a 
+                   href="/git/"
+                        
+                   title="">Git</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">基础</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+            
+            <li><a 
+                   href="/work_sharing/"
+                        
+                   title="">工作经历</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【网络协议笔记】第四层:传输层(Transport)以及UPD协议简介</h3>
+                
+            </div>
+
+            <h2 id="1传输层transport">1.传输层（Transport）</h2>
+<p>TCP和UDP的区别：
+<a href="https://limingxie.github.io/images/network/transport/tcp_udp.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/tcp_udp.png?x-oss-process=image/resize,w_700,m_lfit" alt="tcp_udp"></p>
+<h4 id="11-连接性">1.1 连接性</h4>
+<p>TCP是面向连接，也就是说TCP传输必须先要建立连接才能通信，建立连接就是我们熟知的“三次握手”。<br>
+TCP在数据传输完毕后需要断开连接，因为服务器会有端口不断的监听本次连接的状态，如果不断开就会一直占用资源，断开连接需要“四次挥手”。</p>
+<p>UDP是无连接，通信时不需要建立连接，发送方直接发送数据，不关心接收方的接收状态。</p>
+<h4 id="12-可靠性">1.2 可靠性</h4>
+<p>TCP：可靠传输，不丢包。只要发现丢包就会重新发送，会保证数据是准确的。<br>
+UDP：不可靠传输，可能丢包。只管发送，不管接收方的是否接收到。</p>
+<h4 id="13-首部占用空间">1.3 首部占用空间</h4>
+<p>TCP：由于是建立连接的可靠传输，所以首部会比较复杂，占用空间也就会比较大。<br>
+UDP：几乎是无脑传输，所以只需要知道源和目标信息就可以了。相比TCP就会小很多。</p>
+<h4 id="14-传输速率">1.4 传输速率</h4>
+<p>UDP的特点使得其传输速率比TCP快。</p>
+<h4 id="15-资源消耗">1.5 资源消耗</h4>
+<p>TCP由于需要建立连接，所以会比较消耗资源。<br>
+UDP资源消耗就比较小。</p>
+<h4 id="16-应用场景">1.6 应用场景</h4>
+<p>浏览器、文件传输、邮件发送等都需要保证数据的完整性，所以使用TCP比较合适。<br>
+音视频通话、直播等对时效性要求较高，所以使用UDP更佳。<br>
+如果使用TCP就会发生数据混乱，比如3s前的音/影由于丢包原因在2min后才成功发送到接收方。</p>
+<h4 id="17-应用层协议">1.7 应用层协议</h4>
+<p>浏览器：HTTP、HTTPS
+文件传输：FTP
+邮件：SMTP
+DNS</p>
+<h2 id="2udp">2.UDP</h2>
+<p>UDP（User Datagram Protocol）：用户数据报协议。<br>
+UDP是无连接的，减少了建立和释放连接的开销。<br>
+UDP尽最大能力交付，不保证可靠交付，因此不需要维护一些复杂的参数，首部只有8个字节（TCP的首部至少20个字节）。</p>
+<p><a href="https://limingxie.github.io/images/network/transport/udp_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/udp_01.png?x-oss-process=image/resize,w_700,m_lfit" alt="udp"></p>
+<p><a href="https://limingxie.github.io/images/network/transport/udp_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/udp_02.png?x-oss-process=image/resize,w_700,m_lfit" alt="udp"></p>
+<h4 id="21-udp长度length">2.1 UDP长度（Length）</h4>
+<p>占16位，首部的长度 + 数据的长度。</p>
+<h4 id="22-检验和checksum">2.2 检验和（Checksum）</h4>
+<p>检验和的计算内容：伪首部 + 首部 + 数据。</p>
+<p><a href="https://limingxie.github.io/images/network/transport/udp_06.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/udp_06.png?x-oss-process=image/resize,w_700,m_lfit" alt="udp"></p>
+<p>伪首部是固定的12字节，<br>
+由源IP地址（4个字节） + 目的IP地址（4个字节） + 保留位（1个字节，默认是0） + 协议代表值（1个字节，UDP固定值17） + UDP长度（2个字节）组成。<br>
+仅在计算检验和时起作用，并不会传递给网络层，目的是为了增强检验功能。</p>
+<h4 id="23-端口port">2.3 端口（Port）</h4>
+<p>UDP首部中端口占用2字节。可以推测出端口号的取值范围是：0 ~ 65535。<br>
+客户端的源端口是临时开启的随机端口。<br>
+防火墙可以设置开启/关闭某些端口来提供安全性。</p>
+<p><a href="https://limingxie.github.io/images/network/transport/udp_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/udp_03.png?x-oss-process=image/resize,w_400,m_lfit" alt="udp"></p>
+<p><strong>常用命令行：</strong></p>
+<p><strong>查看被占用的端口: lsof -i 80 或 lsof -i tcp:80</strong><br>
+<strong>telnet 主机 端口：查看是否可以访问主机的某个端口。</strong></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/network/">network</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/osi/">OSI</a><a class="tag" href="/tags/network/">network</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
