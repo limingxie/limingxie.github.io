@@ -6,7 +6,21 @@
     <description>Recent content on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 27 Apr 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(2)</title>
+      <link>https://limingxie.github.io/network/5_application_http_02/</link>
+      <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_http_02/</guid>
+      <description>1.HTTP HTTP（Hyper Text Transfer Protocol），
+超文本传输协议。是互联网中应用最广泛的应用层协议之一。
+设计HTTP最初的目的是：
+提供一种发布和接收HTML页面的方法（HTTP最初就是用来传输HTML的），由URI来标识具体的资源。
+后来HTTP来传递的数据格式不仅仅是HTML，应用非常广泛。
+URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的。URL是统一资源定位符，是为了定位资源位置的。</description>
+    </item>
+    
     <item>
       <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(3)</title>
       <link>https://limingxie.github.io/network/4_-transport_tcp_03/</link>
@@ -144,19 +158,6 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
     </item>
     
     <item>
-      <title>【网络协议笔记】浅谈OSI网络七层协议</title>
-      <link>https://limingxie.github.io/network/osi/</link>
-      <pubDate>Mon, 18 Apr 2022 22:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/network/osi/</guid>
-      <description>开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
-从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。
-每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
-OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
-7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。 因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。 如下图: 图片备用地址</description>
-    </item>
-    
-    <item>
       <title>【网络协议笔记】计算机之间的通信和链接方式</title>
       <link>https://limingxie.github.io/network/computer_communication/</link>
       <pubDate>Mon, 18 Apr 2022 22:28:49 +0800</pubDate>
@@ -169,6 +170,19 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
 如果网卡发现数据的目标MAC地址是自己，就会将数据传递给上一层进行处理。
 如果网卡发现数据的目标MAC地址不是是自己，就会将数据丢掉。
 图片备用地址 2.计算机之间的链接方式 下面我们看一下具体的链接方式。</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】浅谈OSI网络七层协议</title>
+      <link>https://limingxie.github.io/network/osi/</link>
+      <pubDate>Sun, 17 Apr 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/osi/</guid>
+      <description>开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
+从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。
+每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
+OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
+7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。 因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。 如下图: 图片备用地址</description>
     </item>
     
     <item>
