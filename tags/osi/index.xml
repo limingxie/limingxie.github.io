@@ -8,9 +8,23 @@
     <language>en</language>
     <lastBuildDate>Thu, 28 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/osi/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(2)</title>
+      <link>https://limingxie.github.io/network/5_application_http_02/</link>
+      <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_http_02/</guid>
+      <description>1.HTTP HTTP（Hyper Text Transfer Protocol），
+超文本传输协议。是互联网中应用最广泛的应用层协议之一。
+设计HTTP最初的目的是：
+提供一种发布和接收HTML页面的方法（HTTP最初就是用来传输HTML的），由URI来标识具体的资源。
+后来HTTP来传递的数据格式不仅仅是HTML，应用非常广泛。
+URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的。URL是统一资源定位符，是为了定位资源位置的。</description>
+    </item>
+    
+    <item>
       <title>【网络协议笔记】第五层:应用层(Application)简介(1)</title>
       <link>https://limingxie.github.io/network/5_application_01/</link>
-      <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
+      <pubDate>Wed, 27 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_01/</guid>
       <description>1.应用层常见协议  超文本传输协议：HTTP、HTTPS 文件传输：FTP 电子邮件：SMTP、POP3、IMAP 动态主机配置：DHCP 域名系统：DNS  1.1 域名（Domain Name） 由于IP地址不方便记忆，并且不能表达组织的名称和性质，人们设计出了域名（比如baidu.</description>
@@ -19,7 +33,7 @@
     <item>
       <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(3)</title>
       <link>https://limingxie.github.io/network/4_-transport_tcp_03/</link>
-      <pubDate>Wed, 27 Apr 2022 09:05:49 +0800</pubDate>
+      <pubDate>Tue, 26 Apr 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_03/</guid>
       <description>1.TCP（Transmission Control Protocol）：传输控制协议 这一篇我们看看TCP的【三次握手】和【四次挥手】。
@@ -33,7 +47,7 @@
     <item>
       <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(2)</title>
       <link>https://limingxie.github.io/network/4_-transport_tcp_02/</link>
-      <pubDate>Tue, 26 Apr 2022 06:05:49 +0800</pubDate>
+      <pubDate>Mon, 25 Apr 2022 06:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_02/</guid>
       <description>如果接收方的缓存区满了，发送方还在疯狂发送数据，
@@ -49,7 +63,7 @@
     <item>
       <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(1)</title>
       <link>https://limingxie.github.io/network/4_-transport_tcp_01/</link>
-      <pubDate>Mon, 25 Apr 2022 21:05:49 +0800</pubDate>
+      <pubDate>Sun, 24 Apr 2022 21:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_01/</guid>
       <description>TCP有以下几个知识点。
@@ -60,7 +74,7 @@
     <item>
       <title>【网络协议笔记】第四层:传输层(Transport)以及UPD协议简介</title>
       <link>https://limingxie.github.io/network/4_-transport__udp/</link>
-      <pubDate>Sun, 24 Apr 2022 21:05:49 +0800</pubDate>
+      <pubDate>Sat, 23 Apr 2022 21:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport__udp/</guid>
       <description>1.传输层（Transport） TCP和UDP的区别： 图片备用地址
@@ -73,7 +87,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
     <item>
       <title>【网络协议笔记】第三层:网络层(Network)简介</title>
       <link>https://limingxie.github.io/network/3_-network-copy/</link>
-      <pubDate>Sat, 23 Apr 2022 19:05:49 +0800</pubDate>
+      <pubDate>Fri, 22 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/3_-network-copy/</guid>
       <description>网络层数据包（IP数据包：Packet）由首部、数据2部分组成。
@@ -89,7 +103,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
     <item>
       <title>【网络协议笔记】第二层:数据链路层(Data Link)简介</title>
       <link>https://limingxie.github.io/network/2_data_link/</link>
-      <pubDate>Sat, 23 Apr 2022 19:05:49 +0800</pubDate>
+      <pubDate>Thu, 21 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/2_data_link/</guid>
       <description>数据链路层(Data Link)是网络协议中的第二层。
@@ -103,7 +117,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
     <item>
       <title>【网络协议笔记】第一层:物理层(Physical)简介</title>
       <link>https://limingxie.github.io/network/1_physical-copy/</link>
-      <pubDate>Fri, 22 Apr 2022 19:05:49 +0800</pubDate>
+      <pubDate>Wed, 20 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/1_physical-copy/</guid>
       <description>物理层定义了接口标准、线缆标准、传输速率、传输方式等（比如路由器定义的接口是做什么的、水晶头怎么排布、光缆线的作用等）。
@@ -116,7 +130,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
     <item>
       <title>【网络协议笔记】浅谈OSI网络七层协议</title>
       <link>https://limingxie.github.io/network/osi/</link>
-      <pubDate>Sun, 17 Apr 2022 22:28:49 +0800</pubDate>
+      <pubDate>Fri, 15 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/osi/</guid>
       <description>开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
