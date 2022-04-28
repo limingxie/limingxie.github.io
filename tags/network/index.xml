@@ -6,21 +6,7 @@
     <description>Recent content in network on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(2)</title>
-      <link>https://limingxie.github.io/network/5_application_http_02/</link>
-      <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/network/5_application_http_02/</guid>
-      <description>1.HTTP HTTP（Hyper Text Transfer Protocol），
-超文本传输协议。是互联网中应用最广泛的应用层协议之一。
-设计HTTP最初的目的是：
-提供一种发布和接收HTML页面的方法（HTTP最初就是用来传输HTML的），由URI来标识具体的资源。
-后来HTTP来传递的数据格式不仅仅是HTML，应用非常广泛。
-URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的。URL是统一资源定位符，是为了定位资源位置的。</description>
-    </item>
-    
+    <lastBuildDate>Wed, 27 Apr 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(3)</title>
       <link>https://limingxie.github.io/network/4_-transport_tcp_03/</link>
