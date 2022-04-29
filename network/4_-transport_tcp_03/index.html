@@ -35,12 +35,9 @@
 <meta name="twitter:image" content="https://limingxie.github.io/105"/>
 
 <meta name="twitter:title" content="【网络协议笔记】第四层:传输层(Transport)TCP协议简介(3)"/>
-<meta name="twitter:description" content="1.TCP（Transmission Control Protocol）：传输控制协议 这一篇我们看看TCP的【三次握手】和【四次挥手】。
-在看握手之前，需要对序号和确认号要有个清晰的概念才行。
-1.序号、确认号 图片备用地址
-发送HTTP请求前先建立连接（三次握手）：
-发送方发送数据时，并不是每次发送TCP段都需要发送确认信号的，上图中每段都发送确认信号只是为了让我们更好的理解发送流程。
-序号是发送方为了让接收方知道当前发送的是哪一块数据。"/>
+<meta name="twitter:description" content="TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。
+1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.TCP（Transmission Control Protocol）：传输控制协议 这一篇我们看看TCP的【三次握手】和【四次挥手】。
+在看握手之前，需要对序号和确认号要有个清晰的概念才行。"/>
 
 </head>
 <body><div class="sidebar animated fadeInDown">
@@ -161,7 +158,12 @@
                 
             </div>
 
-            <h2 id="1tcptransmission-control-protocol传输控制协议">1.TCP（Transmission Control Protocol）：传输控制协议</h2>
+            <p>TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。</p>
+<pre><code>1.可靠传输(失败重传，保证不丢包)
+2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的)
+3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复)
+4.建立连接(三次握手,四次挥手)
+</code></pre><h2 id="1tcptransmission-control-protocol传输控制协议">1.TCP（Transmission Control Protocol）：传输控制协议</h2>
 <p>这一篇我们看看TCP的【三次握手】和【四次挥手】。<br>
 在看握手之前，需要对序号和确认号要有个清晰的概念才行。</p>
 <h2 id="1序号确认号">1.序号、确认号</h2>

@@ -13,12 +13,11 @@
       <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_02/</guid>
-      <description>1.HTTP HTTP（Hyper Text Transfer Protocol），
+      <description>这一篇整理了应用层的 HTTP协议的概念，以及大致的结构。
+1.HTTP HTTP（Hyper Text Transfer Protocol），
 超文本传输协议。是互联网中应用最广泛的应用层协议之一。
 设计HTTP最初的目的是：
-提供一种发布和接收HTML页面的方法（HTTP最初就是用来传输HTML的），由URI来标识具体的资源。
-后来HTTP来传递的数据格式不仅仅是HTML，应用非常广泛。
-URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的。URL是统一资源定位符，是为了定位资源位置的。</description>
+提供一种发布和接收HTML页面的方法（HTTP最初就是用来传输HTML的），由URI来标识具体的资源。</description>
     </item>
     
     <item>
@@ -27,7 +26,8 @@ URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的�
       <pubDate>Wed, 27 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_01/</guid>
-      <description>1.应用层常见协议  超文本传输协议：HTTP、HTTPS 文件传输：FTP 电子邮件：SMTP、POP3、IMAP 动态主机配置：DHCP 域名系统：DNS  1.1 域名（Domain Name） 由于IP地址不方便记忆，并且不能表达组织的名称和性质，人们设计出了域名（比如baidu.</description>
+      <description>这一篇整理了应用层的 域名，DNS, DHCP。
+1.应用层常见协议  超文本传输协议：HTTP、HTTPS 文件传输：FTP 电子邮件：SMTP、POP3、IMAP 动态主机配置：DHCP 域名系统：DNS  1.</description>
     </item>
     
     <item>
@@ -36,12 +36,9 @@ URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的�
       <pubDate>Tue, 26 Apr 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_03/</guid>
-      <description>1.TCP（Transmission Control Protocol）：传输控制协议 这一篇我们看看TCP的【三次握手】和【四次挥手】。
-在看握手之前，需要对序号和确认号要有个清晰的概念才行。
-1.序号、确认号 图片备用地址
-发送HTTP请求前先建立连接（三次握手）：
-发送方发送数据时，并不是每次发送TCP段都需要发送确认信号的，上图中每段都发送确认信号只是为了让我们更好的理解发送流程。
-序号是发送方为了让接收方知道当前发送的是哪一块数据。</description>
+      <description>TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。
+1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.TCP（Transmission Control Protocol）：传输控制协议 这一篇我们看看TCP的【三次握手】和【四次挥手】。
+在看握手之前，需要对序号和确认号要有个清晰的概念才行。</description>
     </item>
     
     <item>
@@ -50,14 +47,10 @@ URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的�
       <pubDate>Mon, 25 Apr 2022 06:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_02/</guid>
-      <description>如果接收方的缓存区满了，发送方还在疯狂发送数据，
+      <description>TCP有以下几个知识点。这一篇整理【2.流量控制】和【3.拥塞控制】
+1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.流量控制 如果接收方的缓存区满了，发送方还在疯狂发送数据，
 接收方只能把收到的数据包丢掉，大量的丢包会极大浪费网络资源，所以要进行流量控制。
-1.流量控制 流量控制：让发送方的发送速率不要太快，让接收方来得及接收处理。 原理：通过确认报文中窗口字段来控制发送方的发送速率；
-发送方的发送窗口大小不能超过接收方给出的窗口大小；
-当发送方收到接收窗口的大小为0时，发送方就会停止发送数据。
-图片备用地址
-有一种特殊情况，一开始，接收方给发送方发送了0窗口的报文段。
-后面，接收方又有了一些存储空间，给发送方发送的非0窗口的报文段丢失了。此时发送方的发送窗口一直为0，双方陷入僵局。</description>
+流量控制：让发送方的发送速率不要太快，让接收方来得及接收处理。 原理：通过确认报文中窗口字段来控制发送方的发送速率；</description>
     </item>
     
     <item>
@@ -66,7 +59,7 @@ URL是URI的子级，URI是统一资源标识符，在服务器中是唯一的�
       <pubDate>Sun, 24 Apr 2022 21:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_01/</guid>
-      <description>TCP有以下几个知识点。
+      <description>TCP有以下几个知识点。这一篇整理【TCP结构】和【1.可靠传输】
 1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.TCP（Transmission Control Protocol）：传输控制协议 图片备用地址
 图片备用地址</description>
     </item>
@@ -239,18 +232,6 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
 之前使用go语言开发的时候，也没多少机会用到goroutine。
 趁这些天了解一下GMP模型G(goroutine) M(thread) P(Processor)。
 1.GMP模型 G -&amp;gt; goroutine Go中，协程被称为goroutine，一个goroutine只占几KB。</description>
-    </item>
-    
-    <item>
-      <title>【设计模式】常见的设计模式简介</title>
-      <link>https://limingxie.github.io/struct/design_pattern/</link>
-      <pubDate>Wed, 23 Mar 2022 07:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/struct/design_pattern/</guid>
-      <description>我们常见设计模式一共有23种模式。其中我们可以分3个比较大的类型。
-创建型模式，结构型模式，行为型模式。
-1、创建型模式：用来描述 “如何创建对象”，它的主要特点是 “将对象的创建和使用分离”。包括单例、原型、工厂方法、抽象工厂和建造者 5 种模式。
-2、结构型模式：用来描述如何将类或对象按照某种布局组成更大的结构。包括代理、适配器、桥接、装饰、外观、享元和组合 7 种模式。</description>
     </item>
     
     <item>
@@ -766,16 +747,6 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     </item>
     
     <item>
-      <title>工作中我们常见的误解</title>
-      <link>https://limingxie.github.io/work_sharing/work_note/</link>
-      <pubDate>Sun, 23 Dec 2018 07:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/work_sharing/work_note/</guid>
-      <description>&lt;p&gt;虽然我不是什么大领导或是一个高管。 &lt;br&gt;
-但是看那些尤其是不满5年的员工们对工作的误解。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>go websocket的简单应用</title>
       <link>https://limingxie.github.io/go/go_socket/</link>
       <pubDate>Thu, 06 Dec 2018 07:28:49 +0800</pubDate>
@@ -786,32 +757,13 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     </item>
     
     <item>
-      <title>我们(开发者)的责任</title>
-      <link>https://limingxie.github.io/work_sharing/development_responsibility/</link>
-      <pubDate>Wed, 14 Nov 2018 05:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/work_sharing/development_responsibility/</guid>
-      <description>&lt;p&gt;开发者写错的代码发布到运营，出问题了。&lt;br&gt;
-谁来承担责任？&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>一个小小变化的威力</title>
+      <title>一个小小变化的效果</title>
       <link>https://limingxie.github.io/work_sharing/do_change/</link>
       <pubDate>Sun, 11 Nov 2018 05:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/work_sharing/do_change/</guid>
       <description>&lt;p&gt;今天是双11，本想来公司凑凑热闹&amp;hellip;^^&lt;br&gt;
 结果主要问题都是在我的服务里，还把登录给整瘫了半个多小时&amp;hellip;ㅠㅠ&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>技术Leader需要哪些能力？</title>
-      <link>https://limingxie.github.io/work_sharing/share_001/</link>
-      <pubDate>Mon, 24 Sep 2018 07:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/work_sharing/share_001/</guid>
-      <description>&lt;p&gt;身为一个高龄开发者(30岁以上应该都属于高领开发者吧？ 这世道&amp;hellip;ㅠㅠ)，&lt;/p&gt;</description>
     </item>
     
     <item>
