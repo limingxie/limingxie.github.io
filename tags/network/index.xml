@@ -6,7 +6,21 @@
     <description>Recent content in network on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(3)</title>
+      <link>https://limingxie.github.io/network/5_application_http_03/</link>
+      <pubDate>Fri, 29 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_http_03/</guid>
+      <description>这一篇整理了应用层的 HTTP协议的ABNF格式。
+1.ABNF ABNF（Augmented BNF），是BNF（Backus-Naur Form，译：巴克斯-瑙尔范式）的修改/增强版。
+在RFC_5234中表明ABNF用作internet中通信协议的定义语言。
+ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格式，往往都是不严谨的。
+关于HTTP报文格式的定义：
+旧版：RFC_2616_4.HTTP Message</description>
+    </item>
+    
     <item>
       <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(2)</title>
       <link>https://limingxie.github.io/network/5_application_http_02/</link>
