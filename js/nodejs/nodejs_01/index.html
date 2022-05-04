@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme=""><head>
-    <title> 李明燮(li_mingxie) | 【Nodejs入门笔记】nodejs入门练习 </title>
+    <title> 李明燮(li_mingxie) | 【Nodejs笔记】nodejs入门简介 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -34,13 +34,13 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://limingxie.github.io/105"/>
 
-<meta name="twitter:title" content="【Nodejs入门笔记】nodejs入门练习"/>
+<meta name="twitter:title" content="【Nodejs笔记】nodejs入门简介"/>
 <meta name="twitter:description" content="公司项目用到了vue和nodejs&hellip;ㅠㅠ
 又要学新的开发语言了&hellip;^^;;
 今天看着资料简单的整理了概念，然后搭建了一个http服务。
 如何去安装和配置开发环境，百度上一大把，这里就不介绍了。
 1.nodejs 先看看nodejs在维基百科里是怎么解释的。
-Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。"/>
+ Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。"/>
 
 </head>
 <body><div class="sidebar animated fadeInDown">
@@ -151,7 +151,7 @@ Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台
         <div class="post-content">
 
             <div class="post-title">
-                <h3>【Nodejs入门笔记】nodejs入门练习</h3>
+                <h3>【Nodejs笔记】nodejs入门简介</h3>
                 
             </div>
 
@@ -161,29 +161,33 @@ Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台
 如何去安装和配置开发环境，百度上一大把，这里就不介绍了。</p>
 <h2 id="1nodejs">1.nodejs</h2>
 <p>先看看nodejs在<a href="https://zh.wikipedia.org/wiki/Node.js">维基百科</a>里是怎么解释的。</p>
-<p><strong>Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。</strong><br>
-Node.js 大部分基本模块都用 JavaScript 语言编写。在 Node.js 出现之前，JavaScript 通常作为客户端程序设计语言使用，<br>
+<blockquote>
+<p>Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。</p>
+</blockquote>
+<p>Node.js 大部分基本模块都用 JavaScript 语言编写。在 Node.js 出现之前，JavaScript 通常作为客户端程序设计语言使用，<br>
 以JavaScript 写出的程序常在用户的浏览器上执行。<br>
 Node.js 的出现使 JavaScript 也能用于服务端编程。<br>
 Node.js 含有一系列内置模块，使得程序可以脱离 Apache HTTP Server 或 IIS，作为独立服务器执行。</p>
 <h2 id="2npmnode-package-manager">2.npm(Node Package Manager)</h2>
 <p>刚接接触nodejs，可能会对npm和nodejs的关系可能会有些困惑。<br>
 npm就是nodejs的包管理器，因为nodejs的核心代码很少，想要处理一些复杂的功能就需要引用第三方引用包。<br>
-这个第三方引用包就是npm帮nodejs做管理。<br>
-<strong>npm是Node.js默认的、用JavaScript编写的软件包管理系统。</strong></p>
+这个第三方引用包就是npm帮nodejs做管理。</p>
+<blockquote>
+<p>npm是Node.js默认的、用JavaScript编写的软件包管理系统。</p>
+</blockquote>
 <p>nodejs官网: <a href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a><br>
 npm官网: <a href="https://npmjs.org/">https://npmjs.org/</a></p>
 <h2 id="3非阻塞处理">3.非阻塞处理</h2>
 <p>Nodejs还有个重要概念，就是非阻塞处理。<br>
 Nodejs非阻塞处理，引入了事件驱动模型。</p>
-<p>什么是非阻塞处理的时间驱动模型？
+<p>什么是非阻塞处理的事件驱动模型？<br>
 一般web服务，接受一个请求，它会线程池里需要找一个空闲的线程，或新开一个线程，执行请求。<br>
 等请求处理完以后，它会释放这个线程。</p>
 <p>Nodejs是服务器运行时，开一个事件循环(event-loop), 接受请求会放入到处理队列中，等待处理。<br>
 如果有新的请求继续放到处理队列中，等处理完请求后，调用回调函数告诉请求已处理完毕。<br>
 这种方式，可以让服务器更通畅的处理请求，减少拥塞带来的性能问题。</p>
 <p>看下面的例子：</p>
-<pre><code class="language-nodejs" data-lang="nodejs">console.log(&quot;-------------阻塞-----------&quot;);
+<pre><code class="language-Nodejs" data-lang="Nodejs">console.log(&quot;-------------阻塞-----------&quot;);
 
 function updateData1() {
     var s = new Date().getTime();
@@ -217,14 +221,14 @@ updateData2 done
 </code></pre><h2 id="2-http服务搭建">2. http服务搭建</h2>
 <p>简单的写一个web服务:</p>
 <p>config.js(配置信息) =&gt;</p>
-<pre><code class="language-nodejs" data-lang="nodejs">const config = {
+<pre><code class="language-Nodejs" data-lang="Nodejs">const config = {
     hostname: '127.0.0.1',
     port: 3030
 }
 
 exports.config = config;
 </code></pre><p>httpsample.js =&gt;</p>
-<pre><code class="language-nodejs" data-lang="nodejs">console.log(&quot;------------http test------------&quot;);
+<pre><code class="language-Nodejs" data-lang="Nodejs">console.log(&quot;------------http test------------&quot;);
 
 const http =require('http');
 const config = require('./config.js').config; // 引用config文件
