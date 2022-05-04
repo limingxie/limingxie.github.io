@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tool/</link>
+    <description>Recent content in Tools on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Jul 2020 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【k8s】kubernetes基本的概念</title>
+      <link>https://limingxie.github.io/tool/k8s/</link>
+      <pubDate>Wed, 01 Jul 2020 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/tool/k8s/</guid>
+      <description>&lt;p&gt;最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git命令 cherry-pick 的使用简介</title>
+      <link>https://limingxie.github.io/tool/git_cherry_pick/</link>
+      <pubDate>Mon, 30 Jul 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/tool/git_cherry_pick/</guid>
+      <description>&lt;p&gt;上一篇文章介绍了merge和rebase的用法以及原理。&lt;br&gt;
+&lt;a href=&#34;https://limingxie.github.io/git/git_merge_rebase/&#34;&gt;git命令merge和rebase的简单应用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这里简单的介绍一下 cherry-pick 的用法。&lt;br&gt;
+什么时候会用到 cherry-pick 命令？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>git命令merge和rebase的简单应用</title>
+      <link>https://limingxie.github.io/tool/git_merge_rebase/</link>
+      <pubDate>Sun, 29 Jul 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/tool/git_merge_rebase/</guid>
+      <description>&lt;p&gt;因为工作的需求，项目分了几个大分支管理了。&lt;br&gt;
+不同的环境需要的功能也不一样，在不同的分支里修改。&lt;br&gt;
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Redis简单应用</title>
+      <link>https://limingxie.github.io/tool/redis/</link>
+      <pubDate>Sun, 01 Jul 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/tool/redis/</guid>
+      <description>&lt;p&gt;这些天因为项目性能上的问题，采用了Redis缓存。&lt;br&gt;
+做了一些简单的笔记。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

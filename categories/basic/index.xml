@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 16 Jun 2021 20:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/basic/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【笔记】RPC和REST的区别</title>
-      <link>https://limingxie.github.io/basic/rpc_restful/</link>
+      <link>https://limingxie.github.io/etc/rpc_restful/</link>
       <pubDate>Wed, 16 Jun 2021 20:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/rpc_restful/</guid>
+      <guid>https://limingxie.github.io/etc/rpc_restful/</guid>
       <description>我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。 那这RPC和REST到底是什么？有什么区别？
 RPC（Remote Promote Call） RPC是一种进程间通信方式。允许像调用本地服务一样调用远程服务。
 RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调用远程的方法，而对你来说这个调用是透明的，你并不知道这个调用的方法是部署哪里。
@@ -22,10 +22,10 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
     
     <item>
       <title>TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介</title>
-      <link>https://limingxie.github.io/basic/communication_protocol/</link>
+      <link>https://limingxie.github.io/etc/communication_protocol/</link>
       <pubDate>Wed, 16 Jun 2021 18:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/communication_protocol/</guid>
+      <guid>https://limingxie.github.io/etc/communication_protocol/</guid>
       <description>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。
 今天就按笔记的形式整理了一下我们常见的几种协议。
 先看看通讯协议是什么？ 维基百科是这么解释的。
@@ -36,10 +36,10 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
     
     <item>
       <title>URI,URL,URN的区别</title>
-      <link>https://limingxie.github.io/basic/uri_url_urn/</link>
+      <link>https://limingxie.github.io/etc/uri_url_urn/</link>
       <pubDate>Wed, 16 Jun 2021 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/uri_url_urn/</guid>
+      <guid>https://limingxie.github.io/etc/uri_url_urn/</guid>
       <description>我们经常接触到 URI，URL，URN 这些名词。
 本以为都是同一个概念，但我发现它们还是有些区别的。
 先看看各自的单词意思。
@@ -48,20 +48,20 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>C语言的编译和执行过程</title>
-      <link>https://limingxie.github.io/basic/compile_c/</link>
+      <link>https://limingxie.github.io/etc/compile_c/</link>
       <pubDate>Fri, 30 Oct 2020 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/compile_c/</guid>
+      <guid>https://limingxie.github.io/etc/compile_c/</guid>
       <description>&lt;p&gt;没有系统的学过C语言，为了了解java编译流程。&lt;br&gt;
 先简单的略过了一下C语言的编译过程。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>栈(stack), 堆(heap), 队列(queue) 是什么？</title>
-      <link>https://limingxie.github.io/basic/stack/</link>
+      <link>https://limingxie.github.io/etc/stack/</link>
       <pubDate>Mon, 12 Oct 2020 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/stack/</guid>
+      <guid>https://limingxie.github.io/etc/stack/</guid>
       <description>&lt;p&gt;我们平时经常遇到栈(stack), 队列(queue), 堆(heap)这些词语。&lt;br&gt;
 像我这样不是计算机专业毕业的程序原来说，为了更好的理解这些内容，&lt;br&gt;
 我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。&lt;br&gt;

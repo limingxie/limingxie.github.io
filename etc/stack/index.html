@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 栈(stack), 堆(heap), 队列(queue) 是什么？ </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/etc/stack/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="栈(stack), 堆(heap), 队列(queue) 是什么？"/>
+<meta name="twitter:description" content="我们平时经常遇到栈(stack), 队列(queue), 堆(heap)这些词语。
+像我这样不是计算机专业毕业的程序原来说，为了更好的理解这些内容，
+我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。
+希望有些帮助。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>栈(stack), 堆(heap), 队列(queue) 是什么？</h3>
+                
+            </div>
+
+            <p>我们平时经常遇到栈(stack), 队列(queue), 堆(heap)这些词语。<br>
+像我这样不是计算机专业毕业的程序原来说，为了更好的理解这些内容，<br>
+我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。<br>
+希望有些帮助。</p>
+<blockquote>
+<p>栈(stack), 队列(queue), 堆(heap)都是一个数据结构。</p>
+</blockquote>
+<h3 id="一-栈stack"><strong>一. 栈(stack)</strong></h3>
+<p>是计算机科学里最重要且最基础的数据结构之一。 (直接看下图更容易理解)</p>
+<h4 id="1常用的几个名词"><strong>1.常用的几个名词</strong></h4>
+<pre><code>栈顶(top), 栈底(bottom), 进栈(push), 出栈(pop)。  
+栈中的每个元素称为一个frame。 
+</code></pre><h4 id="2一个很重要的特点"><strong>2.一个很重要的特点</strong></h4>
+<pre><code>先进后出: FILO（First In Last Out）的原则存储数据。
+</code></pre><p>它按照先进后出的原则存储数据，先进入的数据被压入栈底，最后的数据在栈顶,<br>
+需要读数据的时候从栈顶开始弹出数据（最后一个数据被第一个读出来）。</p>
+<p><a href="https://limingxie.github.io/images/basic/stack_1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/stack_1.png" alt="stack"></p>
+<h4 id="3最经典的计算机应用是函数调用"><strong>3.最经典的计算机应用是函数调用</strong></h4>
+<p>每个进程都会有一个栈，每个frame中记录了调用函数的参数，自动变量和返回地址。<br>
+当该函数调用一个新的函数时，栈中会 push一个frame。<br>
+当函数执行完毕返回时，该frame会pop，从而进入调用该函数的原函数，继续执行。</p>
+<h4 id="4比较常用的应用场景"><strong>4.比较常用的应用场景</strong></h4>
+<pre><code>1) 子程序的调用：在跳往子程序前，会先将下个指令的地址存到堆栈中，  
+    直到子程序执行完后再将地址取出，以回到原来的程序中。  
+2) 递归的调用：可以用来在函数调用的时候存储断点，  
+    储存下一个指令的地址外，也将参数、区域变量等数据存入栈中。  
+3) 表达式的转换[中缀表达式转后缀表达式]与求值(实际解决)。  
+4) 二叉树的遍历。  
+5) 图形的深度优先(depth一first)搜索法。  
+</code></pre>
+<h3 id="二-堆heap"><strong>二. 堆(heap)</strong></h3>
+<p>堆(Heap)是计算机科学中的一种特别的完全二叉树。(直接看下图更容易理解)<br>
+<strong>维基百科是这么解释的:</strong></p>
+<pre><code>若是满足以下特性，即可称为堆：  
+“给定堆中任意节点P和C，若P是C的父节点，那么P的值会小于等于（或大于等于）C的值”。  
+若父节点的值恒小于等于子节点的值，此堆称为最小堆(min heap);  
+反之，若父节点的值恒大于等于子节点的值，此堆称为最大堆(max heap)。  
+在堆中最顶端的那一个节点，称作根节点（root node），根节点本身没有父节点(parent node)  
+</code></pre><p><strong>堆总是满足下列性质：</strong></p>
+<blockquote>
+<p>堆中某个节点的值总是不大于或不小于其父节点的值</p>
+</blockquote>
+<h4 id="1常用的几个名词-1"><strong>1.常用的几个名词</strong></h4>
+<pre><code>插入insert: 向堆中插入一个新元素
+删除(取顶)delete: 删除堆顶元素	
+上浮swim: 子节点优先级比父节点高时，子节点需要由下而上。
+下沉sink: 子节点优先级比父节点高时，父节点需要由上而下。
+数组建堆heapify: 使打乱的堆再次成为有序堆的一种算法过程。
+</code></pre><h4 id="2堆结构的简单说明"><strong>2.堆结构的简单说明</strong></h4>
+<p>堆的一个经典的实现是完全二叉树(complete binary tree)。<br>
+这样实现的堆成为二叉堆(binary heap)。</p>
+<p>完全二叉树比较适合用数组来存储。<br>
+用数组来存储完全二叉树是非常节省存储空间的。<br>
+因为不需要存储左右子节点的指针，单纯地通过数组的下标，就可以找到一个节点的左右子节点和父节点。</p>
+<p><a href="https://limingxie.github.io/images/basic/heap_1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/heap_1.png" alt="heap"></p>
+<pre><code>元素42的索引(2 = i)   
+元素31的索引(4 = 2i)   
+元素19的索引(5 = 2i + 1)
+</code></pre><blockquote>
+<p>从图中可以看到，数组中下标为i的节点的左子节点，就是下标为2i的节点，右子节点就是下标为2i+1的节点，父节点就是下标为i/2的节点。</p>
+</blockquote>
+<p><a href="https://limingxie.github.io/images/basic/heap_2.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/heap_2.png" alt="heap"></p>
+<h4 id="2堆的常用方法"><strong>2.堆的常用方法</strong></h4>
+<pre><code>1.构建优先队列
+2.支持堆排序
+3.快速找出一个集合中的最小值（或者最大值）
+</code></pre>
+<p>堆一般用于优先级的处理和排序的时候会用到。<br>
+在这里只整理了结构性的内容，排序需要单独拿出来说明。</p>
+<h3 id="三-队列queue"><strong>三. 队列(queue)</strong></h3>
+<p>队列（Queue）与栈一样，是一种线性存储结构</p>
+<h4 id="1常用的几个名词-2"><strong>1.常用的几个名词</strong></h4>
+<pre><code>队头(front), 队尾(rear), 入队(EnQueue), 出队(DeQueue)。  
+队列中的每个元素称为一个frame。 
+</code></pre><h4 id="2一个很重要的特点-1"><strong>2.一个很重要的特点</strong></h4>
+<pre><code>先进先出: (FIFO, First-In-First-Out) 的原则存储数据。  
+</code></pre><p>和栈一样，队列也有数组实现和链表实现两种。<br>
+两种实现都能给出快速的O(1)运行时间, 区别在于链表实现指针域要占用空间, 频繁的new和delete会消耗不少的时间开销。<br>
+数组实现的缺点是建立时要确定空间大小。</p>
+<h4 id="3基于数组的队列"><strong>3.基于数组的队列</strong></h4>
+<p><a href="https://limingxie.github.io/images/basic/queue.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/queue.png" alt="queue"></p>
+<h4 id="4基于链表的队列"><strong>4.基于链表的队列</strong></h4>
+<p><a href="https://limingxie.github.io/images/basic/queue_1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/queue_1.png" alt="queue"></p>
+<p>除了上面2种简单队列，还可以演化出下面的稍微复杂的循环队列，双端队列，优先队列。</p>
+<h4 id="5循环队列"><strong>5.循环队列</strong></h4>
+<pre><code>因为最基本的数组队列, 为了给后面进来的元素腾出空间。  
+需要往前做数据迁移, 这时消耗一些不必要的资源。  
+如果是环式结构，标好队头和队尾，就没必要做数据迁移了。  
+但因为是固定大小的数组，可能会出现数组被填满的情况。  
+</code></pre>
+<h4 id="6双端队列deque全名double-ended-queue"><strong>6.双端队列(deque，全名double-ended queue)</strong></h4>
+<pre><code>一种具有队列和栈性质的抽象数据类型。  
+双端队列中的元素可以从两端弹出，插入和删除操作限定在队列的两边进行。
+</code></pre>
+<h4 id="7优先队列"><strong>7.优先队列</strong></h4>
+<pre><code>优先队列是每次入队时, 都会按照入队数据项的关键值进行排序(从大到小、从小到大),   
+这样保证了关键字最小的或者最大的项始终在队头, 出队的时候优先级最高的最先出队，
+</code></pre>
+<p>最后想说一下我们常说的栈存储，堆存储是和数据结构是完全两码事。<br>
+这些内容可以继续看以下内容</p>
+<p><a href="https://limingxie.github.io/java/java_stack_heap/">java中的栈内存, 堆内存</a></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/basic/">basic</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/stack/">stack</a><a class="tag" href="/tags/heap/">heap</a><a class="tag" href="/tags/queue/">queue</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | git命令 cherry-pick 的使用简介 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/tool/git_cherry_pick/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="git命令 cherry-pick 的使用简介"/>
+<meta name="twitter:description" content="上一篇文章介绍了merge和rebase的用法以及原理。
+git命令merge和rebase的简单应用
+这里简单的介绍一下 cherry-pick 的用法。
+什么时候会用到 cherry-pick 命令？"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>git命令 cherry-pick 的使用简介</h3>
+                
+            </div>
+
+            <p>上一篇文章介绍了merge和rebase的用法以及原理。<br>
+<a href="https://limingxie.github.io/git/git_merge_rebase/">git命令merge和rebase的简单应用</a></p>
+<p>这里简单的介绍一下 cherry-pick 的用法。<br>
+什么时候会用到 cherry-pick 命令？</p>
+<p>代码分几个大分支，各自有不同的功能在开发，这时候我们就有这样的需求。<br>
+<code>只合并某个分支上的某次修改commit到指定的分支上</code>。<br>
+这时候就可以使用<code>cherry-pick命令</code>来操作。</p>
+<pre><code>$ git cherry-pick commit_id     //想合并的commit_id
+</code></pre><p><a href="https://limingxie.github.io/images/git_cherry_pick/git1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git_cherry_pick/git1.png" alt="1"></p>
+<p>如果是图1这样使用cherry-pick命令的话，<br>
+会有 a1, a2, a3 的合并项，在代码中需要删除 a1, a2 再次提交解决冲突才行。</p>
+<p>喜欢找茬的人会这么问：这么一来和merge有什么区别吗？<br>
+merge的话也不是把 a1, a2, a3 的代码合并过来吗？<br>
+merge合并后把 a1, a2 删掉的话跟cherry-pick有什么区别？</p>
+<p><code>区别在于日志</code>。</p>
+<pre><code>$ git cherry-pick fd4e09c(a3的 commit_id)
+error: could not apply fd4e09c... add a3
+hint: after resolving the conflicts, mark the corrected paths
+hint: with 'git add &lt;paths&gt;' or 'git rm &lt;paths&gt;'
+hint: and commit the result with 'git commit'
+
+//...省略掉中间处理冲突的事项
+
+$ git log --oneline --graph
+
+* e08bab6 (HEAD -&gt; dev) cherry-pick a3
+* 2da150a add b4
+* 5ea1f15 add b3
+* 42e92e8 add b2
+* 87050eb add b1
+* e8f0eb9 first commit
+</code></pre><pre><code>$ git merge master
+Auto-merging 11.txt
+CONFLICT (content): Merge conflict in 11.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+//...省略掉中间处理冲突的事项
+
+$ git log --oneline --graph
+
+*   d037c87 (HEAD -&gt; dev) merge master
+|\
+| * 4ffb788 (master1, master) add a4
+| * fd4e09c add a3
+| * d621ee2 add a2
+| * 4aa0687 add a1
+* | 2da150a add b4
+* | 5ea1f15 add b3
+* | 42e92e8 add b2
+* | 87050eb add b1
+|/
+* e8f0eb9 first commit
+</code></pre><p>虽然代码一样，但是留的日子就完全不一样了。<br>
+如果这时候我们再想把 a1, a2 合并过来呢？<br>
+下面以merge的方式把a3的代码合并过来的人就痛苦了。<br>
+因为git以为已经把 a1, a2 合并过来的了。再次合并不会把 a1, a2 合并过来的。<br>
+(<code>cherry-pick a3后，如果再次merge master分支的话，</code><br>
+<code>两边 master分支 和 dev分支 都会有a3的代码，需要删除一个。</code>)</p>
+<p>喜欢找事的人又开始问： 我把 a3 合并后，把 a2 再合并过来不会有问题吗？<br>
+<code>这时候建议你先把a3删掉(使用rebase)，再cherry-pick a2, a3。</code></p>
+<p><a href="https://limingxie.github.io/images/git_cherry_pick/git2.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git_cherry_pick/git2.png" alt="2"></p>
+<p>NND，喜欢找事的人又开始问： b5的开发是基于 a3 怎么办？<br>
+这时候就考验你的git命令的熟悉度了。<br>
+你需要先备份b5的代码，再用rebase去掉a3的代码，再cherry-pick a2, a3<br>
+然后从备份b5代码的分支那里cherry-pick b5的代码&hellip;.<br>
+自己搞去吧&hellip;^^  方法有的是~~<br>
+前提是你得<code>弄清楚每个命令的原理和使用方法</code>。</p>
+<p>怎么样？ 现在是不是觉得能用git命令，管理和修改你的代码是很简单的事情?<br>
+但是别太骄傲了~ 知道了这些内容才算git的入门。<br>
+我们还是菜鸟，需要学的还很多&hellip;^^</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/git/">git</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/git/">git</a><a class="tag" href="/tags/cherry-pick/">cherry-pick</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

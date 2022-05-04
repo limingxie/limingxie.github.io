@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/etc/communication_protocol/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介"/>
+<meta name="twitter:description" content="TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介</h3>
+                
+            </div>
+
+            <p>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。<br>
+今天就按笔记的形式整理了一下我们常见的几种协议。</p>
+<p>先看看通讯协议是什么？ 维基百科是这么解释的。</p>
+<h2 id="通信协议communications-protocol传输协议">通信协议（Communications Protocol，传输协议）</h2>
+<p>在电信领域中指的是，在任何物理介质中允许两个或多个在传输系统中的终端之间传播信息的系统标准，也是指计算机通信或网络设备的共同语言。<br>
+通信协议定义了通信中的语法学、语义学和同步规则以及可能存在的错误检测与纠正。通信协议在硬件、软件或两者之间皆可实现。</p>
+<p>很绕口&hellip;^^;; 如果不是技术相关人员的话，可以这么去理解。</p>
+<pre><code>我和邻居需要沟通，我们定了一些规则。  
+比如语言是用中文(一人说中文，一人说外星语是无法沟通的)。  
+沟通时都开着大门，站在门口说(一人在前门，一人在后门？)。  
+沟通结束后说再见(话没说完，人走掉了？)。  
+这些规则确保我们的沟通能正常执行。  
+计算机通讯也一样，也是需要一些规则(通讯协议)确保之间的沟通不出问题。
+</code></pre><p>我们先看看最重要的TCP/IP协议是什么？</p>
+<h3 id="1tcpip协议">1.TCP/IP协议</h3>
+<p>TCP/IP是个协议组，它是诸多协议的总称。<br>
+可以分为四层：网络接口层（又称链路层）、网络层（又称互联层）、传输层和应用层。<br>
+每一层都呼叫它的下一层所提供的网络来完成自己的需求。</p>
+<h4 id="网络接口层协议">网络接口层协议</h4>
+<ul>
+<li>Ethernet 802.3  Token Ring 802.5、X.25、Frame relay、HDLC、PPP ATM等。</li>
+</ul>
+<h4 id="网络层协议">网络层协议</h4>
+<ul>
+<li>IP（Internet Protocol，英特网协议）</li>
+<li>ICMP（Internet Control Message Protocol，控制报文协议）</li>
+<li>ARP（Address Resolution Protocol，地址转换协议）</li>
+<li>RARP（Reverse ARP，反向地址转换协议）</li>
+</ul>
+<h4 id="传输层协议">传输层协议</h4>
+<ul>
+<li>TCP（Transmission Control Protocol，传输控制协议）</li>
+<li>UDP（User Datagram protocol，用户数据报协议）</li>
+</ul>
+<h4 id="应用层协议">应用层协议</h4>
+<ul>
+<li>FTP（File Transfer Protocol，文件传输协议）</li>
+<li>TELNET（用户远程登录服务协议）</li>
+<li>DNS（Domain Name Service，是域名解析服务）</li>
+<li>SMTP（Simple Mail Transfer Protocol，简单邮件传输协议）</li>
+<li>NFS（Network File System，网络文件系统）</li>
+<li>HTTP（Hypertext Transfer Protocol，超文本传输协议）</li>
+</ul>
+<h4 id="internet公用化以后-使该网络协议在全球应用最广">Internet公用化以后, 使该网络协议在全球应用最广</h4>
+<h3 id="2tcptransmission-control-protocol传输控制协议">2.TCP（Transmission Control Protocol，传输控制协议）</h3>
+<p>TCP是因特网中的<strong>传输层协议</strong>，是给互联网络上提供可靠的端到端字节流而专门设计的一个传输协议。<br>
+使用三次握手协议建立连接，其过程如下：</p>
+<pre><code>1. 客户端发送SYN（SEQ=x）报文给服务器端，进入SYN_SEND状态。
+2. 服务器端收到SYN报文，回应一个SYN （SEQ=y）ACK（ACK=x+1）报文，进入SYN_RECV状态。
+3. 客户端收到服务器端的SYN报文，回应一个ACK（ACK=y+1）报文，进入Established状态。
+三次握手完成，TCP客户端和服务器端成功地建立连接，可以开始传输数据了。
+</code></pre><p><a href="https://limingxie.github.io/images/basic/tcp_1.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/tcp_1.png?x-oss-process=image/resize,w_500,m_lfit" alt="tcp三次握手建立连接"></p>
+<h3 id="3ipinternet-protocol英特网协议">3.IP（Internet Protocol，英特网协议）</h3>
+<p><strong>网际层协议</strong>，是网络之间互连的协议，也是构成互联网的基础。<br>
+IP所提供的服务大致可归纳为两类：</p>
+<h4 id="31-ip信息包的传送">3.1 IP信息包的传送</h4>
+<p>为了将IP信息包从源设备(例如用户的计算机)传送到目的设备(例如某部门的www服务器)。IP依赖IP地址与IP路由器两种机制来实现。<br>
+<strong>IP地址</strong><br>
+IP规定网络上所有的设备都必须有一个独一无二的IP地址，每个IP信息包都必须包含有目的设备的IP地址，信息包才可以正确地送到目的地。<br>
+<strong>IP路由</strong><br>
+互联网是由许多个网络连接所形成的大型网络。网络之间还需要传送的机制，才能将IP信息包通过一个个的网络传送到目的地。此种传送机制称为IP路由。</p>
+<h4 id="32-ip信息包的分割与重组">3.2 IP信息包的分割与重组</h4>
+<p>IP协议在发送IP报文时，一般选择一个合适的初始长度。<br>
+把这报文的数据部分<em><strong>分割</strong></em>成若干个较小的数据片，组成较小的报文，然后放到物理帧中去发送。<br>
+每个小的报文称为一个分段。分段的动作一般在路由器上进行。</p>
+<p><em><strong>重组</strong></em>是分段的逆过程，把若干个IP分段重新组合后还原为原来的IP报文。<br>
+一个IP数据报的所有分段都正确地到达目的地，则把它重新组织成一个完整的报文后交给上层协议去处理。</p>
+<h3 id="4httphypertext-transfer-protocol超文本传输协议">4.HTTP（Hypertext Transfer Protocol，超文本传输协议）</h3>
+<p>Http是<strong>应用层协议</strong>，基于请求/响应模式的、无状态的协议。即我们通常所说的请求Request/响应Response。它通常运行在TCP之上。<br>
+是从WEB服务器传输超文本标记语言(HTML)到本地浏览器的传送协议，设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。<br>
+当你上网浏览网页的时候，浏览器和Web服务器之间就会通过HTTP在Internet上进行数据的发送和接收。</p>
+<p><a href="https://limingxie.github.io/images/basic/http_dns_1.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/http_dns_1.png?x-oss-process=image/resize,w_600,m_lfit" alt="打开网页的一个过程"></p>
+<p>一般http中存在如下问题：</p>
+<ul>
+<li>请求信息是明文传输，所以很容易被窃听截取。</li>
+<li>数据的完整性未校验，所以很容易被篡改</li>
+<li>没有验证对方身份，所以存在冒充身份的危险</li>
+</ul>
+<h3 id="5httpshypertext-transfer-protocol-over-secure-socket-layer">5.HTTPS（HyperText Transfer Protocol over Secure Socket Layer）</h3>
+<p>为了解决上述HTTP存在的问题，后续出来了HTTPS协议。<br>
+一般可以理解为HTTP+SSL/TLS，通过 SSL证书来验证服务器的身份，并为浏览器和服务器之间的通信进行加密。<br>
+可以简单的理解成HTTP中添加了加密验证的方式，弥补上述HTTP中的问题的就是HTTPS。<br>
+至于如何加密和验证，感兴趣的人可以自行查一查~~<br>
+还有socket并不是一种协议, 它是一种链接方式。</p>
+<h3 id="6soapsimple-object-access-protocol">6.SOAP（Simple Object Access Protocol）</h3>
+<p>SOAP是一种简单的基于XML的协议，它使应用程序通过HTTP来交换信息。<br>
+SOAP基于XML语言和XSD标准，其定义了一套编码规则，该规则定义如何将数据表示为消息，以及怎样通过HTTP协议来传输SOAP消息。<br>
+它由以下四部分组成：</p>
+<ul>
+<li>SOAP信封（Envelope）：定义了一个框架，该框架描述了消息中的内容是什么，包括消息的内容、发送者、接收者、处理者以及如何处理这些消息。</li>
+<li>SOAP编码规则：它定义了一种系列化机制，用于交换应用程序所定义的数据类型的实例。</li>
+<li>SOAP RPC表示：它定义了用于表示远程过程调用和应答协定。</li>
+<li>SOAP绑定：它定义了一种使用底层传输协议来完成在节点间交换SOAP信封的约定。比如 HTTP/TCP/UDP 等等&hellip;</li>
+</ul>
+<p>把SOAP绑定到HTTP提供了同时利用SOAP的样式和分散的灵活性的特点以及HTTP的丰富的特征库的优点。<br>
+在HTTP上传送SOAP并不是说SOAP会覆盖现有的HTTP语义，而是HTTP上的SOAP语义会自然的映射到HTTP语义。<br>
+在使用HTTP作为协议绑定的场合中，RPC 请求映射到HTTP请求上，而RPC应答映射到HTTP应答。<br>
+然而，在RPC上使用SOAP并不仅限于HTTP协议绑定。SOAP也可以绑定到TCP和UDP协议上。</p>
+<p>下面是SOAP消息的基本格式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span style="color:#f92672">&lt;soap:Envelope</span>
+    <span style="color:#a6e22e">xmlns:soap=</span><span style="color:#e6db74">&#34;http://www.w3.org/2003/05/soap-envelope&#34;</span>
+    <span style="color:#a6e22e">soap:encodingStyle=</span><span style="color:#e6db74">&#34;http://www.w3.org/2003/05/soap-encoding&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;soap:Header&gt;</span>
+        <span style="color:#75715e">&lt;!-- 消息头，可选 --&gt;</span>
+    <span style="color:#f92672">&lt;/soap:Header&gt;</span>
+    <span style="color:#f92672">&lt;soap:Body&gt;</span>
+        <span style="color:#75715e">&lt;!-- 消息内容，必需 --&gt;</span>
+
+        <span style="color:#f92672">&lt;soap:Fault&gt;</span>
+            <span style="color:#75715e">&lt;!-- 错误信息，可选 --&gt;</span>
+        <span style="color:#f92672">&lt;/soap:Fault&gt;</span>
+    <span style="color:#f92672">&lt;/soap:Body&gt;</span>
+<span style="color:#f92672">&lt;/soap:Envelope&gt;</span>
+</code></pre></div><p>还有好多好多协议&hellip;^^;;<br>
+上面只是我经常接触到的或是说我比较熟悉的协议。<br>
+下次还有机会再整理其他协议。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/basic/">basic</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/tcp/">TCP</a><a class="tag" href="/tags/ip/">IP</a><a class="tag" href="/tags/http/">HTTP</a><a class="tag" href="/tags/https/">HTTPS</a><a class="tag" href="/tags/soap/">SOAP</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

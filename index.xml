@@ -6,7 +6,73 @@
     <description>Recent content on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 29 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs入门笔记】nodejs入门练习</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_01/</link>
+      <pubDate>Wed, 04 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_01/</guid>
+      <description>公司项目用到了vue和nodejs&amp;hellip;ㅠㅠ
+又要学新的开发语言了&amp;hellip;^^;;
+今天看着资料简单的整理了概念，然后搭建了一个http服务。
+如何去安装和配置开发环境，百度上一大把，这里就不介绍了。
+1.nodejs 先看看nodejs在维基百科里是怎么解释的。
+Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7)</title>
+      <link>https://limingxie.github.io/network/5_application_https_07/</link>
+      <pubDate>Tue, 03 May 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_https_07/</guid>
+      <description>这一篇整理了对称加密，非对称加密，数字签名，证书。
+图片备用地址
+1.对称加密 在对称加密中（也叫对称密码），加密和解密使用的是同一个密钥。
+图片备用地址
+图片备用地址
+常见的对称加密算法：
+ DES 3DES AES  1.</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(6)</title>
+      <link>https://limingxie.github.io/network/5_application_http_06/</link>
+      <pubDate>Mon, 02 May 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_http_06/</guid>
+      <description>这一篇整理了代理，CND，网络安全相关的内容。
+1.代理 图片备用地址
+1.1 代理服务器（Proxy Server） 特点： 本身不生产内容，处于中间位置转发上下游的请求和响应。
+面向下游的客户端：它是服务器（正向代理）
+面向上游的服务器：它是客户端（反向代理）</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(5)</title>
+      <link>https://limingxie.github.io/network/5_application_http_05/</link>
+      <pubDate>Sun, 01 May 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_http_05/</guid>
+      <description>这一篇整理了跨域，cookie和session的基本概念和用法。
+1.跨域(Cross-origin resource sharing） 说起跨域我们需要先了解同源策略。
+1.1 同源策略(Same-Origin Policy) 我们看看维基百科是如何解释的:
+同源策略是指在Web浏览器中，允许某个网页脚本访问另一个网页的数据，</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(4)</title>
+      <link>https://limingxie.github.io/network/5_application_http_04/</link>
+      <pubDate>Sat, 30 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_http_04/</guid>
+      <description>这一篇整理了应用层的 HTTP协议的状态码和form表单。
+1.状态码（Status Code） 状态码是在RFC_2616,section-10:Status Code Definitions规范中定义的。
+状态码指示HTTP请求是否已成功完成。
+1.1 状态码分类 状态码分为5类：</description>
+    </item>
+    
     <item>
       <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(3)</title>
       <link>https://limingxie.github.io/network/5_application_http_03/</link>
@@ -450,10 +516,10 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
     
     <item>
       <title>普通开发工作多年后的感触</title>
-      <link>https://limingxie.github.io/work_sharing/work_note_002/</link>
+      <link>https://limingxie.github.io/limingxie/work_note_002/</link>
       <pubDate>Thu, 06 Jan 2022 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/work_sharing/work_note_002/</guid>
+      <guid>https://limingxie.github.io/limingxie/work_note_002/</guid>
       <description>&lt;p&gt;最近刚换了工作，到了新的岗位，准备新的开始。&lt;br&gt;
 我到现在刚好工作了14年了。是在淘汰的边缘挣扎的高龄开发(38岁)&amp;hellip;^^;;&lt;br&gt;
 在这十多年的工作期间，发现除了“编程”还有一些额外的因素影响我们的职场。&lt;br&gt;
@@ -507,10 +573,10 @@ new是用来分配内存的内建函数，但与其它语言中的同名函数�
     
     <item>
       <title>公司被收购后的经历</title>
-      <link>https://limingxie.github.io/work_sharing/work_note_001/</link>
+      <link>https://limingxie.github.io/limingxie/work_note_001/</link>
       <pubDate>Fri, 09 Jul 2021 09:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/work_sharing/work_note_001/</guid>
+      <guid>https://limingxie.github.io/limingxie/work_note_001/</guid>
       <description>公司被收购也差不多经历了一年的时间了。
 想写写自从公司被收购以后，我这一年内心的变化。
 1.从开发主力到小角色 新环境，你以前做什么是不重要的，一切需要听从安排。
@@ -524,10 +590,10 @@ new是用来分配内存的内建函数，但与其它语言中的同名函数�
     
     <item>
       <title>【笔记】RPC和REST的区别</title>
-      <link>https://limingxie.github.io/basic/rpc_restful/</link>
+      <link>https://limingxie.github.io/etc/rpc_restful/</link>
       <pubDate>Wed, 16 Jun 2021 20:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/rpc_restful/</guid>
+      <guid>https://limingxie.github.io/etc/rpc_restful/</guid>
       <description>我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。 那这RPC和REST到底是什么？有什么区别？
 RPC（Remote Promote Call） RPC是一种进程间通信方式。允许像调用本地服务一样调用远程服务。
 RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调用远程的方法，而对你来说这个调用是透明的，你并不知道这个调用的方法是部署哪里。
@@ -537,10 +603,10 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
     
     <item>
       <title>TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介</title>
-      <link>https://limingxie.github.io/basic/communication_protocol/</link>
+      <link>https://limingxie.github.io/etc/communication_protocol/</link>
       <pubDate>Wed, 16 Jun 2021 18:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/communication_protocol/</guid>
+      <guid>https://limingxie.github.io/etc/communication_protocol/</guid>
       <description>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。
 今天就按笔记的形式整理了一下我们常见的几种协议。
 先看看通讯协议是什么？ 维基百科是这么解释的。
@@ -551,10 +617,10 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
     
     <item>
       <title>URI,URL,URN的区别</title>
-      <link>https://limingxie.github.io/basic/uri_url_urn/</link>
+      <link>https://limingxie.github.io/etc/uri_url_urn/</link>
       <pubDate>Wed, 16 Jun 2021 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/uri_url_urn/</guid>
+      <guid>https://limingxie.github.io/etc/uri_url_urn/</guid>
       <description>我们经常接触到 URI，URL，URN 这些名词。
 本以为都是同一个概念，但我发现它们还是有些区别的。
 先看看各自的单词意思。
@@ -624,10 +690,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>C语言的编译和执行过程</title>
-      <link>https://limingxie.github.io/basic/compile_c/</link>
+      <link>https://limingxie.github.io/etc/compile_c/</link>
       <pubDate>Fri, 30 Oct 2020 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/compile_c/</guid>
+      <guid>https://limingxie.github.io/etc/compile_c/</guid>
       <description>&lt;p&gt;没有系统的学过C语言，为了了解java编译流程。&lt;br&gt;
 先简单的略过了一下C语言的编译过程。&lt;/p&gt;</description>
     </item>
@@ -653,10 +719,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>栈(stack), 堆(heap), 队列(queue) 是什么？</title>
-      <link>https://limingxie.github.io/basic/stack/</link>
+      <link>https://limingxie.github.io/etc/stack/</link>
       <pubDate>Mon, 12 Oct 2020 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/stack/</guid>
+      <guid>https://limingxie.github.io/etc/stack/</guid>
       <description>&lt;p&gt;我们平时经常遇到栈(stack), 队列(queue), 堆(heap)这些词语。&lt;br&gt;
 像我这样不是计算机专业毕业的程序原来说，为了更好的理解这些内容，&lt;br&gt;
 我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。&lt;br&gt;
@@ -704,10 +770,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>【k8s】kubernetes基本的概念</title>
-      <link>https://limingxie.github.io/k8s/k8s/</link>
+      <link>https://limingxie.github.io/tool/k8s/</link>
       <pubDate>Wed, 01 Jul 2020 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/k8s/k8s/</guid>
+      <guid>https://limingxie.github.io/tool/k8s/</guid>
       <description>&lt;p&gt;最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。&lt;/p&gt;</description>
     </item>
     
@@ -772,10 +838,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>一个小小变化的效果</title>
-      <link>https://limingxie.github.io/work_sharing/do_change/</link>
+      <link>https://limingxie.github.io/limingxie/do_change/</link>
       <pubDate>Sun, 11 Nov 2018 05:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/work_sharing/do_change/</guid>
+      <guid>https://limingxie.github.io/limingxie/do_change/</guid>
       <description>&lt;p&gt;今天是双11，本想来公司凑凑热闹&amp;hellip;^^&lt;br&gt;
 结果主要问题都是在我的服务里，还把登录给整瘫了半个多小时&amp;hellip;ㅠㅠ&lt;/p&gt;</description>
     </item>
@@ -802,10 +868,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>git命令 cherry-pick 的使用简介</title>
-      <link>https://limingxie.github.io/git/git_cherry_pick/</link>
+      <link>https://limingxie.github.io/tool/git_cherry_pick/</link>
       <pubDate>Mon, 30 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/git/git_cherry_pick/</guid>
+      <guid>https://limingxie.github.io/tool/git_cherry_pick/</guid>
       <description>&lt;p&gt;上一篇文章介绍了merge和rebase的用法以及原理。&lt;br&gt;
 &lt;a href=&#34;https://limingxie.github.io/git/git_merge_rebase/&#34;&gt;git命令merge和rebase的简单应用&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里简单的介绍一下 cherry-pick 的用法。&lt;br&gt;
@@ -814,10 +880,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>git命令merge和rebase的简单应用</title>
-      <link>https://limingxie.github.io/git/git_merge_rebase/</link>
+      <link>https://limingxie.github.io/tool/git_merge_rebase/</link>
       <pubDate>Sun, 29 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/git/git_merge_rebase/</guid>
+      <guid>https://limingxie.github.io/tool/git_merge_rebase/</guid>
       <description>&lt;p&gt;因为工作的需求，项目分了几个大分支管理了。&lt;br&gt;
 不同的环境需要的功能也不一样，在不同的分支里修改。&lt;br&gt;
 虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。&lt;/p&gt;</description>
@@ -825,10 +891,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
     
     <item>
       <title>Redis简单应用</title>
-      <link>https://limingxie.github.io/k8s/redis/</link>
+      <link>https://limingxie.github.io/tool/redis/</link>
       <pubDate>Sun, 01 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/k8s/redis/</guid>
+      <guid>https://limingxie.github.io/tool/redis/</guid>
       <description>&lt;p&gt;这些天因为项目性能上的问题，采用了Redis缓存。&lt;br&gt;
 做了一些简单的笔记。&lt;/p&gt;</description>
     </item>

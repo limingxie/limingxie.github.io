@@ -6,13 +6,28 @@
     <description>Recent content in HTTPS on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 16 Jun 2021 18:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/https/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 May 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/https/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7)</title>
+      <link>https://limingxie.github.io/network/5_application_https_07/</link>
+      <pubDate>Tue, 03 May 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5_application_https_07/</guid>
+      <description>这一篇整理了对称加密，非对称加密，数字签名，证书。
+图片备用地址
+1.对称加密 在对称加密中（也叫对称密码），加密和解密使用的是同一个密钥。
+图片备用地址
+图片备用地址
+常见的对称加密算法：
+ DES 3DES AES  1.</description>
+    </item>
+    
     <item>
       <title>TCP/IP协议，HTTP协议，HTTPS协议，SOAP协议简介</title>
-      <link>https://limingxie.github.io/basic/communication_protocol/</link>
+      <link>https://limingxie.github.io/etc/communication_protocol/</link>
       <pubDate>Wed, 16 Jun 2021 18:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/basic/communication_protocol/</guid>
+      <guid>https://limingxie.github.io/etc/communication_protocol/</guid>
       <description>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。
 今天就按笔记的形式整理了一下我们常见的几种协议。
 先看看通讯协议是什么？ 维基百科是这么解释的。
