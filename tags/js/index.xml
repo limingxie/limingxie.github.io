@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Js on Website of li_mingxie</title>
-    <link>https://limingxie.github.io/js/</link>
-    <description>Recent content in Js on Website of li_mingxie</description>
+    <title>js on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/js/</link>
+    <description>Recent content in js on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 May 2022 23:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 May 2022 23:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/js/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【JavaScript笔记】JavaScript基础_运算符(2)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_02/</link>
@@ -29,20 +29,6 @@
 1.JavaScript 还是按照惯例，先看看JavaScript在维基百科里是怎么解释的。
  JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。
  JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。 它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。 JavaScript在传统意义上被实现为一种解释语言，但在最近[何时？]，它已经可以被即时编译（JIT）执行。</description>
-    </item>
-    
-    <item>
-      <title>【Nodejs笔记】nodejs入门简介</title>
-      <link>https://limingxie.github.io/js/nodejs/nodejs_01/</link>
-      <pubDate>Wed, 04 May 2022 09:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/nodejs/nodejs_01/</guid>
-      <description>公司项目用到了vue和nodejs&amp;hellip;ㅠㅠ
-又要学新的开发语言了&amp;hellip;^^;;
-今天看着资料简单的整理了概念，然后搭建了一个http服务。
-如何去安装和配置开发环境，百度上一大把，这里就不介绍了。
-1.nodejs 先看看nodejs在维基百科里是怎么解释的。
- Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。</description>
     </item>
     
   </channel>

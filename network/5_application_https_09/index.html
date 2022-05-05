@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(9) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/network/5_application_https_09/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(9)"/>
+<meta name="twitter:description" content="这一篇整理了HTTP2和HTTP3。
+1.HTTP协议的不足（HTTP/1.1）   同一时间，一个连接只能对应一个请求（注意：不是建立多个连接，是多个请求只能在一个连接内队列等待）。
+针对同一个域名，大多数浏览器允许同时最多6个并发连接。
+  只允许客户端主动发起请求（请求应答模式，即一个请求只能对应一个响应）。
+  同一个会话的多次请求中，头信息会被重复传输。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(9)</h3>
+                
+            </div>
+
+            <p>这一篇整理了HTTP2和HTTP3。</p>
+<h2 id="1http协议的不足http11">1.HTTP协议的不足（HTTP/1.1）</h2>
+<ol>
+<li>
+<p>同一时间，一个连接只能对应一个请求（注意：不是建立多个连接，是多个请求只能在一个连接内队列等待）。<br>
+针对同一个域名，大多数浏览器允许同时最多6个并发连接。</p>
+</li>
+<li>
+<p>只允许客户端主动发起请求（请求应答模式，即一个请求只能对应一个响应）。</p>
+</li>
+<li>
+<p>同一个会话的多次请求中，头信息会被重复传输。<br>
+通常会给每个传输增加500~800字节的开销。如果使用Cookie，增加的开销有时会达到上千字节。</p>
+</li>
+</ol>
+<h3 id="11-spdy">1.1 SPDY</h3>
+<p>SPDY（speedy的缩写），是基于TCP的应用层协议，它强制要求使用SSL/TLS。<br>
+2009年11月，Google宣布将SPDY作为提高网络速度的内部项目。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_101.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_101.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="12-spdy与http的关系">1.2 SPDY与HTTP的关系</h3>
+<ul>
+<li>SPDY并不用于取代HTTP，它只是修改了HTTP请求与响应的传输方式</li>
+<li>只需增加一个SPDY层，现有的所有服务端应用均不用做任何修改</li>
+<li>SPDY是HTTP/2的前身</li>
+</ul>
+<p>2015年9月，Google宣布移除对SPDY的支持，拥抱HTTP/2。</p>
+<h2 id="2http2">2.HTTP/2</h2>
+<p>HTTP/2，于2015年5月以RFC_7540正式发表。根据W3Techs的数据，截止2019年6月，全球有36.5%的网站支持了HTTP/2。</p>
+<p>HTTP/1.1和HTTP/2速度对比：<br>
+<a href="http://www.http2demo.io">http://www.http2demo.io</a><br>
+<a href="https://http2.akamai.com/demo">https://http2.akamai.com/demo</a></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_102.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_102.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>HTTP/2在底层传输做了很多的改进和优化，但在语意上完全与HTTP/1.1兼容。<br>
+比如请求方法（如GET、POST）、Status Code，各种Headers等都没有改变，<br>
+因此要想升级到HTTP/2，开发者不需要修改任何代码，只需要升级服务器配置，升级浏览器。</p>
+<p><strong>注意：SPDY强制使用TLS，但是HTTP/2文档并没有说明强制使用TLS，但在开发中还是建议使用TLS。</strong></p>
+<h3 id="21-基本概念">2.1 基本概念</h3>
+<p><strong>数据流:</strong> 已建立的连接内的双向字节流，可以承载一条或多条消息。<br>
+所有通信都在一个TCP连接上完成，同一时间内此连接可以承载任意数量的双向数据流。</p>
+<p><strong>消息:</strong> 与逻辑HTTP请求或响应消息对应，由一系列帧组成。</p>
+<p><strong>帧:</strong> HTTP/2通信的最小单位，每个帧都包含帧头（会标识出当前帧所属的数据流），<br>
+来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_103.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_103.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="22-http2的特性">2.2 HTTP/2的特性</h3>
+<h4 id="221-二进制格式">2.2.1 二进制格式</h4>
+<p>HTTP/2采用二进制格式传输数据，而非HTTP/1.1的文本格式。</p>
+<p>二进制格式在协议的解析和优化扩展上带来更多的优势和可能。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_104.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_104.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="222-多路复用multiplexing">2.2.2 多路复用（Multiplexing）</h4>
+<ul>
+<li>
+<p>客户端和服务器可以将HTTP消息分解为互不依赖的帧，然后交错发送，最后再在另一端把它们重新组装起来。</p>
+</li>
+<li>
+<p>并行交错地发送多个请求，请求之间互不影响。</p>
+</li>
+<li>
+<p>并行交错地发送多个响应，响应之间互不干扰。</p>
+</li>
+<li>
+<p>使用一个连接并行发送多个请求和响应。</p>
+</li>
+<li>
+<p>不必再为绕过HTTP/1.1限制而做很多工作，<br>
+比如image sprites（精灵图）、合并CSS/JS（一起放入一个文件中）、内嵌CSS/JS/Base64图片、域名分片（n个域名就能有6n个连接）等。</p>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_105.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_105.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><strong>精灵图是前端开发中的概念，image sprites（也叫作CSS Sprites），将多张小图合并成一张大图，</strong><br>
+<strong>最后通过CSS（属性background:）结合小图的位置，尺寸进行精准定位。</strong></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_106.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_106.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_107.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_107.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="223-优先级">2.2.3 优先级</h4>
+<ul>
+<li>
+<p>HTTP/2标准允许每个数据流都有一个关联的权重和依赖关系<br>
+可以向每个数据流分配一个介于1至256之间的整数<br>
+每个数据流与其他数据流之间可以存在显式依赖关系</p>
+</li>
+<li>
+<p>客户端可以构建和传递“优先级树”，表明它倾向于如何接收响应</p>
+</li>
+<li>
+<p>服务器可以使用此信息通过控制CPU、内存和其他资源的分配设定数据流处理的优先级<br>
+在资源数据可用之后，确保将高优先级响应以最优方式传输至客户端</p>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_108.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_108.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>应尽可能先给父数据流分配资源。同级数据流（共享相同父项）应按其权重比例分配资源。</p>
+<ol>
+<li>A、B依赖于隐式“根数据流”，A获得的资源比例是12/16，B获得的资源比例是4/16。</li>
+<li>D依赖于根数据流，C依赖于D，D应先于C获得完整资源分配。</li>
+<li>D应先于C获得完整资源分配，C应先于A和B获得完整资源分配，B获得的资源是A所获资源的1/3。</li>
+<li>D应先于E和C获得完整资源分配，E和C应先于A和B获得相同的资源分配，B获得的资源是A所获资源的1/3。</li>
+</ol>
+<h4 id="224-头部压缩">2.2.4 头部压缩</h4>
+<p><a href="https://limingxie.github.io/images/network/application/application_109.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_109.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>HTTP/2使用HPACK压缩请求头和响应头，可以极大减少头部开销，进而提高性能。</p>
+<p>早期版本的HTTP/2和SPDY使用zlib压缩，可以将所传输头数据的大小减少85%~88%。<br>
+但在2012年夏天，被攻击导致会话劫持，后被更安全的HPACK取代。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_110.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_110.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>客户端和服务端都会缓存一张请求头静态表（Static table），当客户端发送请求时，会检测客户端侧的请求头表中是否有同样的头部数据，<br>
+如果有，只需要向服务器发送头部对应的表中数据索引即可，这样就能减少头部的数据，达到头部压缩目标。</p>
+<h4 id="225-服务器推送server-push">2.2.5 服务器推送（Server Push）</h4>
+<p>服务器可以对一个客户端请求发送多个响应。<br>
+除了对最初请求的响应外，服务器还可以向客户端推送额外资源，而无需客户端额外明确地请求。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_111.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_111.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="23-http2的问题">2.3 HTTP/2的问题</h3>
+<h4 id="231-队头阻塞head-of-line-blocking">2.3.1 队头阻塞（head of line blocking）</h4>
+<p>TCP在传输数据的时候是有顺序的，而HTTP/2请求或响应是无序，如果TCP传输过程中，队列头部请求丢包，后面的请求都将无效，只能全部重新请求或响应。<br>
+这是TCP的问题，不是HTTP的问题。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_112.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_112.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>QUIC协议就解决了上面队头阻塞问题，如果发现丢包，不影响其他数据的组装。主要原因是QUIC底层是用UDP实现的。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_113.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_113.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_114.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_114.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="232-握手延迟">2.3.2 握手延迟</h4>
+<p><a href="https://limingxie.github.io/images/network/application/application_115.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_115.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><strong>RTT（Round Trip Time）</strong>：往返时延，可以简单理解为通信一来一回的时间。</p>
+<p>由于TCP本身需要3次握手，使用TLS后会延迟握手时间。QUIC因为使用的是UDP，所以不存在握手环节。</p>
+<h2 id="3http3">3.HTTP/3</h2>
+<p>Google觉得HTTP/2仍然不够快，于是就有了HTTP/3。</p>
+<p>HTTP/3由Google开发，弃用TCP协议，改为使用基于UDP协议的QUIC协议实现。</p>
+<p>QUIC（Quick UDP Internet Connections），快速UDP网络连接。<br>
+由Google开发，在2013年实现，于2018年从HTTP-over-QUIC改为HTTP/3。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_116.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_116.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><strong>队头阻塞和握手延迟是TCP的缺点，而TCP的优点是可靠传输。UDP和TCP进行互补就有了QUIC。</strong></p>
+<h3 id="31-http3的特性">3.1 HTTP/3的特性</h3>
+<h4 id="311-连接迁移">3.1.1 连接迁移</h4>
+<p>TCP基于4要素（<strong>源IP、源端口、目标IP、目标端口</strong>）。<br>
+切换网络时至少会有一个要素发生变化，导致连接发生变化。<br>
+当连接发生变化时，如果还使用原来的TCP连接，则会导致连接失败，就得等原来的连接超时后重新建立连接。<br>
+所以我们有时候发现切换到一个新网络时，即使新网络状况良好，但内容还是需要加载很久。<br>
+如果实现的好，当检测到网络变化时立刻建立新的TCP连接，即使这样，建立新的连接还是需要几百毫秒的时间。</p>
+<p>QUIC的连接不受4要素的影响，当4要素发生变化时，原连接依然维持。<br>
+QUIC连接不以4要素作为标识，而是使用一组<strong>Connection ID</strong>（连接ID）来标识一个连接。<br>
+即使IP或者端口发生变化，只要Connection ID没有变化，那么连接依然可以维持。<br>
+比如当设备连接到Wi-Fi时，将进行中的下载从蜂窝网络连接转移到更快速的Wi-Fi连接，当Wi-Fi连接不再可用时，将连接转移到蜂窝网络连接。</p>
+<h4 id="312-操作系统内核cpu负载">3.1.2 操作系统内核、CPU负载</h4>
+<p>据Google和Facebook称，与基于TLS的HTTP/2相比，它们大规模部署的QUIC需要近2倍的CPU使用量。<br>
+因为Linux内核的UDP部分没有得到像TCP那样的优化，因为传统上没有使用UDP进行如此高速的信息传输。<br>
+TCP和TLS有硬件加速，而这对于UDP很罕见，对于QUIC则基本不存在。</p>
+<p>随着时间的推移，相信这个问题会逐步得到改善。</p>
+<h3 id="32-疑问">3.2 疑问</h3>
+<ul>
+<li>
+<p>HTTP/3基于UDP，如何保证可靠传输？<br>
+由QUIC来保证（在QUIC中加入了保证可靠传输的算法）</p>
+</li>
+<li>
+<p>为何Google不开发一个新的不同于TCP、UDP的传输层协议？<br>
+首先Google是绝对有能力开发的，主要是目前世界上的网络设备基本只认TCP、UDP。  如果要修改传输层，意味着操作系统的内核也要修改。<br>
+另外，由IETF标准化的需要TCP新特性都因缺乏广泛支持而没有得到广泛的部署或使用。<br>
+因此，要想开发并应用一个新的传输层协议，是极其困难的一件事情。</p>
+</li>
+</ul>
+<p><strong>HTTP/3还在优化中（不成熟），所以现在大部分公司还是使用的HTTP/2或者HTTP/1.1。</strong></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/network/">network</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/osi/">OSI</a><a class="tag" href="/tags/http2/">HTTP2</a><a class="tag" href="/tags/http3/">HTTP3</a><a class="tag" href="/tags/spdy/">SPDY</a><a class="tag" href="/tags/network/">network</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
