@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【JavaScript笔记】JavaScript基础_Object对象(4) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/javascript/javascript_04/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【JavaScript笔记】JavaScript基础_Object对象(4)"/>
+<meta name="twitter:description" content="1.对象分类 对象可以分3种。
+内建对象: 有ES标准中定义的对象。比如：String, Number, Object&hellip;.
+宿主对象: 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &hellip;"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【JavaScript笔记】JavaScript基础_Object对象(4)</h3>
+                
+            </div>
+
+            <h2 id="1对象分类">1.对象分类</h2>
+<p>对象可以分3种。</p>
+<p><strong>内建对象:</strong> 有ES标准中定义的对象。比如：String, Number, Object&hellip;.<br>
+<strong>宿主对象:</strong> 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &hellip;<br>
+<strong>自定义对象:</strong> 有开发人员自己创造的对象。</p>
+<p>整理先整理如何使用<strong>自定义对象</strong>使用方式。</p>
+<h2 id="2代码实例">2.代码实例</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------------object--------------------&#34;</span>);
+        <span style="color:#75715e">//写new就代表调用构造函数constructor
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj1</span> <span style="color:#f92672">=</span> {};
+
+        <span style="color:#75715e">//创建时直接添加属性。属性也可以加object
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj2</span> <span style="color:#f92672">=</span> {
+            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
+            <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>,
+            <span style="color:#a6e22e">userName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;zhang.shan&#34;</span>,
+            <span style="color:#a6e22e">city</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;BJ&#34;</span>,
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+            }
+        };
+
+        <span style="color:#75715e">//添加属性
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;张三&#34;</span>;
+        <span style="color:#75715e">//可以使用[]添加属性
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj</span>[<span style="color:#e6db74">&#34;age&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>;
+        <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">userName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zhang.shan&#34;</span>;
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">obj</span>); <span style="color:#75715e">//obj type: object
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj:&#34;</span>, <span style="color:#a6e22e">obj</span>);           <span style="color:#75715e">//obj  { age: 18, name: &#39;张三&#39;, userName: &#39;zhang.shan&#39; }
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj2 type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">obj2</span>); <span style="color:#75715e">//obj2 type: object
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj2:&#34;</span>, <span style="color:#a6e22e">obj2</span>);         <span style="color:#75715e">//obj2  { age: 18, city: {code: &#39;BJ&#39;, name: &#39;北京&#39;}, name: &#39;张三&#39;, userName: &#39;zhang.shan&#39; }
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//删除属性
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">userName</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj:&#34;</span>, <span style="color:#a6e22e">obj</span>);   <span style="color:#75715e">//obj  { age: 18, name: &#39;张三&#39; }
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj.userName:&#34;</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">userName</span>);   <span style="color:#75715e">//obj.userName: undefined
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//属性名可以用中文，但是建议别用
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj1</span>.<span style="color:#a6e22e">名字</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;张三&#34;</span>;
+        <span style="color:#a6e22e">obj1</span>.<span style="color:#a6e22e">年龄</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj1:&#34;</span>, <span style="color:#a6e22e">obj1</span>);   <span style="color:#75715e">//obj  { 名字: &#39;张三&#39;, 年龄: 18 }
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//使用[]添加属性的灵活用法。123这种特殊属性直接 obj.123会报错，但是可以用 obj[&#34;123&#34;] = “哈哈&#34;
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj</span>[<span style="color:#e6db74">&#34;123&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;哈哈&#34;</span>;
+
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;456&#34;</span>;
+        <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">n</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;嘿嘿&#34;</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj:&#34;</span>, <span style="color:#a6e22e">obj</span>);   <span style="color:#75715e">//obj  { age: 18, name: &#39;张三&#39;, 123: &#39;哈哈&#39;， 456: &#39;嘿嘿&#39; }
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//修改属性内容
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">n</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;别嘿嘿&#34;</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj:&#34;</span>, <span style="color:#a6e22e">obj</span>);   <span style="color:#75715e">//obj  { age: 18, name: &#39;张三&#39;, 123: &#39;哈哈&#39;， 456: &#39;别嘿嘿&#39; }
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//新添加属性
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;haha&#34;</span>;
+        <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">n</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;怎么又来了个haha&#34;</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj:&#34;</span>, <span style="color:#a6e22e">obj</span>);   <span style="color:#75715e">//obj  { age: 18, name: &#39;张三&#39;, 123: &#39;哈哈&#39;， 456: &#39;别嘿嘿&#39;, haha: &#39;怎么又来了个haha&#39; }
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//判断属性是否存在
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>);   <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;userName&#34;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>);   <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//引用类型测试
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj3</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span> };
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">obj3</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj3:&#34;</span>, <span style="color:#a6e22e">obj3</span>);   <span style="color:#75715e">//obj3  { name: &#39;张三&#39;, age: 18 }
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj4:&#34;</span>, <span style="color:#a6e22e">obj4</span>);   <span style="color:#75715e">//obj4  { name: &#39;张三&#39;, age: 18 }
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">obj3</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;李四&#34;</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj3:&#34;</span>, <span style="color:#a6e22e">obj3</span>);   <span style="color:#75715e">//obj3  { name: &#39;李四&#39;, age: 18 }
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj4:&#34;</span>, <span style="color:#a6e22e">obj4</span>);   <span style="color:#75715e">//obj4  { name: &#39;李四&#39;, age: 18 }
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//赋null不会影响其他对象
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj3:&#34;</span>, <span style="color:#a6e22e">obj3</span>);   <span style="color:#75715e">//obj3  null
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj4:&#34;</span>, <span style="color:#a6e22e">obj4</span>);   <span style="color:#75715e">//obj4  { name: &#39;李四&#39;, age: 18 }
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">city1</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;BJ&#34;</span>, <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>};
+        <span style="color:#a6e22e">obj4</span>.<span style="color:#a6e22e">city</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">city1</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj4:&#34;</span>, <span style="color:#a6e22e">obj4</span>);   <span style="color:#75715e">//obj4  { name: &#39;李四&#39;, age: 18, city: {code: &#39;BJ&#39;, name: &#39;北京&#39;} }
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//深拷贝, obj4拷贝的是city的堆内存地址，而不是city的值
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">city1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj4:&#34;</span>, <span style="color:#a6e22e">obj4</span>);   <span style="color:#75715e">//obj4  { name: &#39;李四&#39;, age: 18, city: {code: &#39;BJ&#39;, name: &#39;北京&#39;} }
+</span><span style="color:#75715e"></span>
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/javascript/">JavaScript</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/js/">js</a><a class="tag" href="/tags/javascript/">javascript</a><a class="tag" href="/tags/npm/">npm</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
