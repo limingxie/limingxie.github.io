@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/network/5_application_10/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)"/>
+<meta name="twitter:description" content="这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。
+1.ARP/RARP/ICMP ARP（Address Resolution Protocol），地址解析协议。
+ 通过IP地址获取MAC地址。  RARP（Reverse Address Resolution Protocol），逆地址解析协议。"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)</h3>
+                
+            </div>
+
+            <p>这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。</p>
+<h2 id="1arprarpicmp">1.ARP/RARP/ICMP</h2>
+<p><strong>ARP（Address Resolution Protocol）</strong>，地址解析协议。</p>
+<ul>
+<li>通过IP地址获取MAC地址。</li>
+</ul>
+<p><strong>RARP（Reverse Address Resolution Protocol）</strong>，逆地址解析协议。</p>
+<ul>
+<li>使用与ARP相同的报头结构</li>
+<li>作用与ARP相反，用于将MAC地址转换为IP地址</li>
+<li>后来被BOOTP、DHCP所取代</li>
+</ul>
+<p><strong>ICMP（Internet Control Message Protocol）</strong>，互联网控制消息协议。</p>
+<ul>
+<li>IPV4中的ICMP被称作ICMPv4，IPV6中的ICMP则被称作ICMPv6</li>
+<li>通常用于返回错误信息，比如TTL值过期，目的不可达</li>
+<li>ICMP的错误消息总是包括了源数据并返回给发送者</li>
+</ul>
+<h2 id="2websocket">2.WebSocket</h2>
+<p>WebSocket是基于TCP的支持全双工通信的应用层协议（全双工：客户端和服务器均可主动发消息给对方）。<br>
+在2011年由IETF标准化为<a href="https://datatracker.ietf.org/doc/html/rfc6455">RFC_6455</a>，后由RFC_7936补充规范。</p>
+<p>WebSocket的应用场景很多：社交订阅、股票基金报价、体育实况更新、多媒体聊天、多玩家游戏等。</p>
+<blockquote>
+<p>Socket是一套网络编程API，几乎所有的网络应用协议（HTTP/FTP/SMTP等）都是基于Socket实现的。<br>
+而WebSocket是Web端的一个应用层通信协议。</p>
+</blockquote>
+<h3 id="21-http和websocket">2.1 HTTP和WebSocket</h3>
+<p>HTTP请求的特点：通信只能由客户端发起，所以早期很多网站为了实现推送技术，使用的技术都是轮询。</p>
+<p>轮询是指由浏览器每隔一段时间（如每秒）向服务器发出HTTP请求，然后服务器返回最新的数据给客户端。<br>
+为了能更好的节省服务器资源和带宽，并且能够更实时地进行通讯，HTML5规范中出现了WebSocket协议。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_121.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_121.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>WebSocket和HTTP属于平级关系，都是应用层的协议。其实TCP本身就是支持全双工通信的，只是HTTP的“请求-应答”模式限制了TCP的能力。</p>
+<p>WebSocket使用80（ws://）、443（wss://）端口，<br>
+可以绕过大多数防火墙的限制（http默认使用80端口，https默认使用443端口）。</p>
+<p>与HTTP不同的是，WebSocket需要先建立连接（应用层连接）。<br>
+这就使得WebSocket成为一种有状态的协议，之后通信时可以省略部分状态信息。而HTTP请求可能需要在每个请求都额外携带状态信息（如身份认证等）。</p>
+<h3 id="22-建立连接">2.2 建立连接</h3>
+<p>WebSocket需要借助HTTP协议来建立连接（也叫作握手，Handshake）。</p>
+<p>由客户端（浏览器）主动发出握手请求：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">GET /chat HTTP/1.1  
+Host: server.example.com  
+Upgrade: websocket  
+Connection: Upgrade  
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==  
+Origin: &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">com</span>&gt;  
+Sec-WebSocket-Protocol: chat, superchat  
+Sec-WebSocket-Version: 13  
+</code></pre></div><p>服务器响应：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">HTTP/1.1 101 Switching Protocols  
+Upgrade: websocket  
+Connection: Upgrade  
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=  
+Sec-WebSocket-Protocol: chat  
+</code></pre></div><p><strong>Connection</strong>：必须设置Upgrade，表示客户端希望连接升级。<br>
+<strong>Upgrade</strong>：必须设置websocket，表示希望升级到WebSocket协议。<br>
+<strong>Sec-WebSocket-Version</strong>：表示支持的WebSocket版本，RFC_6455要求使用的版本是13。<br>
+<strong>Sec-WebSocket-Key</strong>：客户端生成的随机字符串（比如例子中的dGhlIHNhbXBsZSBub25jZQ==）。</p>
+<p>服务器接收到客户端的Sec-WebSocket-Key后，会进行以下操作：</p>
+<ol>
+<li>Sec-WebSocket-Key拼接一个固定的GUID值（258EAFA5-E914-47DA-95CA-C5AB0DC85B11）。<br>
+例：dGhlIHNhbXBsZSBub25jZQ==258EAFA5-E914-47DA-95CA-C5AB0DC85B11。</li>
+<li>将1的结果进行SHA-1摘要计算，结果：b37a4f2cc0624f1690f64606cf385945b2bec4ea。</li>
+<li>将2的结果进行Hex to Base64编码，结果：s3pPLMBiTxaQ9kYGzzhZRbK+xOo=。</li>
+<li>将3的结果作为Sec-WebSocket-Accept响应头的值，返回给客户端。</li>
+</ol>
+<p>如此操作，可以尽量避免普通HTTP请求被误认为WebSocket协议。</p>
+<h3 id="23-使用">2.3 使用</h3>
+<p>WebSocket体验和演示：<a href="https://www.websocket.org/echo.html">https://www.websocket.org/echo.html</a><br>
+W3C标准化了一套WebSocket API，可以直接使用JS调用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">let ws = new WebSocket(&#39;wss://example.com&#39;)  
+</code></pre></div><h2 id="3webservice">3.WebService</h2>
+<p>WebService（Web服务）是一种跨编程语言和跨操作系统平台的远程调用技术标准。</p>
+<p>WebService使用场景举例：</p>
+<ul>
+<li>天气预报、手机归属地查询、航班信息查询、物流信息查询等。</li>
+<li>比如天气预报，是气象局把自己的服务以WebService形式暴露出来，让第三方程序可以调用这些服务功能（<a href="http://www.webxml.com.cn/zh_cn/index.aspx">http://www.webxml.com.cn/zh_cn/index.aspx</a>）。</li>
+</ul>
+<p>事实上，WebService完全可以用普通的Web API取代（比如HTTP + JSON），现在很多企业的开放平台都是直接采用Web API。</p>
+<h3 id="31-webservice---核心概念">3.1 WebService - 核心概念</h3>
+<p><strong>SOAP（Simple Object Access Protocol）</strong>，简单对象访问协议。<br>
+很多时候，SOAP = HTTP + XML。WebService使用SOAP协议来封装传递数据。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_122.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_122.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><strong>SOAP其实就是正常的HTTP请求和有规范格式的XML，请求和响应都是XML文件。</strong></p>
+<p>WSDL（Web Services Description Language），Web服务描述语言。<br>
+一个XML文档，用以描述WebService接口的细节（比如参数、返回值等）。<br>
+一般在WebService的URL后面跟上?wsdl获取WSDL信息。<br>
+比如：<a href="http://ws.webxml.com.cn/WebServices/WeatherWS.asmx?wsdl">http://ws.webxml.com.cn/WebServices/WeatherWS.asmx?wsdl</a></p>
+<h2 id="4restful">4.RESTful</h2>
+<p><strong>REST（Representatioanl State Transfer）</strong>，表现层状态转移。</p>
+<p>REST是一种互联网软件架构设计风格，定义了一组用于创建Web服务的约束。<br>
+符合REST架构的Web服务，称为RESTful Web服务器。</p>
+<blockquote>
+<p>RESTful后面的ful表示形容词，例如wonder -&gt; wonderful 。</p>
+</blockquote>
+<p><strong>实践建议:</strong></p>
+<ul>
+<li>
+<p>URL中使用名词（建议用复数形式），不使用动词。<br>
+推荐：/users、/users/6<br>
+不推荐：listUsers、/getUser?id=6、/user/list、/user/get?id=6</p>
+</li>
+<li>
+<p>使用HTTP的方法表达动作：</p>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_123.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_123.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>
+<p>一个资源连接到其他资源，使用子资源的形式<br>
+GET：/users/6/cars/88<br>
+POST：/users/8/cars</p>
+</li>
+<li>
+<p>API版本化<br>
+idbeny.com/v1/users<br>
+idbeny.com/v2/users/66</p>
+</li>
+<li>
+<p>返回JSON格式的数据</p>
+</li>
+<li>
+<p>发生错误时，不要返回200状态码</p>
+</li>
+</ul>
+<h2 id="5ttpdns">5.TTPDNS</h2>
+<p>HTTPDNS是基于HTTP协议向DNS服务器发送域名解析请求。<br>
+替代了基于DNS协议向运营商Local DNS发起解析请求的传统方式，可以避免Local DNS造成的域名劫持和跨网访问问题。<br>
+常用在移动互联网中（比如Android、iOS开发中）。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_124.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_124.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>市面上已经有现成的解决方案，移动端集成相关的SDK即可使用HTTPDNS服务。</p>
+<p>腾讯云：<a href="https://cloud.tencent.com/product/httpdns">https://cloud.tencent.com/product/httpdns</a><br>
+阿里云：<a href="https://help.aliyun.com/product/30100.html">https://help.aliyun.com/product/30100.html</a></p>
+<h2 id="6ftp">6.FTP</h2>
+<p><strong>FTP（File Transport Protocol）</strong>，文件传输协议。<br>
+<a href="https://datatracker.ietf.org/doc/html/rfc959">RFC_959</a>定义了此规范，是基于TCP的应用层协议。<br>
+在<a href="https://datatracker.ietf.org/doc/html/rfc1738">RFC_1738</a>中有定义，FTP的URL格式为：<a href="ftp://%5Buser%5B:password">ftp://[user[:password</a>]@]host:[:port]/url-path。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_125.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_125.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="61-连接模式">6.1 连接模式</h3>
+<p>FTP有2种连接模式：主动（Active）和被动（Passive）。<br>
+不管是哪种方式，都需要客户端和服务器建立2个连接：</p>
+<ul>
+<li>控制连接：用于传输状态信息（指令）</li>
+<li>数据连接：用于传输文件和目录信息（数据）</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_126.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_126.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="611-主动模式">6.1.1 主动模式</h4>
+<p>主动模式是服务器主动，客户端被动。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_127.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_127.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端打开一个随机的命令端口<br>
+端口号大于1024，假设为N。同时连接至服务器的命令端口21（固定）</li>
+<li>客户端开始监听N+1数据端口<br>
+同时向服务器发送一个Port命令给服务器的命令端口21<br>
+此命令告诉服务器，客户端正在监听的数据端口是N+1，并且已准备好从此端口接收数据</li>
+<li>服务器打开20号数据端口（固定），并且创建和客户端数据端口（N+1）的连接</li>
+</ul>
+<h4 id="612-被动模式">6.1.2 被动模式</h4>
+<p>被动模式是客户端主动，服务器被动。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_128.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_128.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端通过两个随机的端口与服务器建立连接：命令端口N、数据端口N+1。<br>
+客户端的命令端口N用于连接服务器的命令端口21（固定）<br>
+客户端通过命令端口N发送PASV命令给服务器的命令端口21<br>
+服务器打开一个随机的数据端口P，并告知客户端该端口号是P<br>
+客户端数据端口N+1发起与服务器数据端口P的连接</li>
+</ul>
+<h2 id="7邮件相关的协议">7.邮件相关的协议</h2>
+<ul>
+<li>
+<p>发邮件使用的协议：</p>
+<ul>
+<li>SMTP（Simple Mail Transfer Protocol），简单邮件传输协议。<br>
+基于TCP，标准参考<a href="https://datatracker.ietf.org/doc/html/rfc5321">RFC_5321</a><br>
+服务器默认使用25端口，SSL/TLS使用465端口</li>
+</ul>
+</li>
+<li>
+<p>收邮件使用的协议：</p>
+<ul>
+<li>
+<p>POP（Post Office Protocol），邮局协议。<br>
+基于TCP，最新版是POP3，标准参考<a href="https://datatracker.ietf.org/doc/html/rfc1939">RFC_1939</a><br>
+服务器默认使用110端口，SSL/TLS使用995端口</p>
+</li>
+<li>
+<p>IMAP（Internet Message Access Protocol），因特网信息访问协议。<br>
+基于TCP，最新版是IMAP4，标准参考<a href="https://datatracker.ietf.org/doc/html/rfc3501">RFC_3501</a><br>
+服务器默认使用143端口，SSL/TLS使用993端口</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="71-收发邮件的过程">7.1 收发邮件的过程</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_129.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_129.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>不同邮箱服务是不同直接通信的，例如腾讯邮箱（@qq.com）要想发邮件给网易邮箱（@163.com），<br>
+客户端通过SMTP协议发送至腾讯邮箱服务，腾讯邮箱服务器通过SMTP协议转发给网易邮箱服务器，<br>
+网易邮箱用户通过POP/IMAP协议拉取网易邮箱服务器上的邮件。</p>
+<h3 id="72-pop的特点">7.2 POP的特点</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_130.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_130.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端连接服务器时，将会从服务器下载所有邮件。<br>
+可以设置下载完后，立即或一段时间后删除服务器邮件。</li>
+<li>客户端的操作（比如删除邮件、移动到文件夹）不会跟服务器同步。</li>
+<li>每个客户端都是独立的，都可以获得其自己的电子邮件副本。</li>
+</ul>
+<h3 id="73-imap的特点">7.3 IMAP的特点</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_131.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_131.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端连接服务器时，获取的是服务器上邮件的基本信息，并不会下载邮件。<br>
+等打开邮件时，才开始下载邮件。</li>
+<li>客户端的操作（比如删除邮件、移动到文件夹）会跟服务器同步。</li>
+<li>所有客户端始终会看到相同的邮件和相同的文件夹。</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/network/">network</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/websocket/">WebSocket</a><a class="tag" href="/tags/ftp/">FTP</a><a class="tag" href="/tags/restful/">RESTful</a><a class="tag" href="/tags/smtp/">SMTP</a><a class="tag" href="/tags/imap/">IMAP</a><a class="tag" href="/tags/pop/">POP</a><a class="tag" href="/tags/network/">network</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -6,53 +6,7 @@
     <description>Recent content in npm on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 06 May 2022 10:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/npm/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>【JavaScript笔记】JavaScript基础_Object对象(4)</title>
-      <link>https://limingxie.github.io/js/javascript/javascript_04/</link>
-      <pubDate>Fri, 06 May 2022 10:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/javascript/javascript_04/</guid>
-      <description>1.对象分类 对象可以分3种。
-内建对象: 有ES标准中定义的对象。比如：String, Number, Object&amp;hellip;.
-宿主对象: 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &amp;hellip;</description>
-    </item>
-    
-    <item>
-      <title>【JavaScript笔记】JavaScript基础_流程控制(3)</title>
-      <link>https://limingxie.github.io/js/javascript/javascript_03/</link>
-      <pubDate>Fri, 06 May 2022 09:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/javascript/javascript_03/</guid>
-      <description>这一遍整理了 if, switch, while, for 的语法。
-因为和其他语言没什么区别，所以这里就简单的整理了一下使用方法。
-if, switch, while, for &amp;lt;!</description>
-    </item>
-    
-    <item>
-      <title>【JavaScript笔记】JavaScript基础_运算符(2)</title>
-      <link>https://limingxie.github.io/js/javascript/javascript_02/</link>
-      <pubDate>Thu, 05 May 2022 23:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/javascript/javascript_02/</guid>
-      <description>这里整理了常用的运算符，在代码的注释里一起描述了运算符的含义。
-1.加法(+) &amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
-    </item>
-    
-    <item>
-      <title>【JavaScript笔记】JavaScript基础_结构和类型(1)</title>
-      <link>https://limingxie.github.io/js/javascript/javascript_01/</link>
-      <pubDate>Thu, 05 May 2022 09:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/javascript/javascript_01/</guid>
-      <description>本想学Nodejs的，结果发现自己的JavaScript的基础太差,
-(几年前看了一下基本语法后，就没有碰过了。) 而且很多资料大部分都是对JavaScript有所了解为前提。
-只能先安心复习一下JavaScript的基础，然后再去学习Nodejs了&amp;hellip;^^;;
-1.JavaScript 还是按照惯例，先看看JavaScript在维基百科里是怎么解释的。
- JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。
- JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。 它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。 JavaScript在传统意义上被实现为一种解释语言，但在最近[何时？]，它已经可以被即时编译（JIT）执行。</description>
-    </item>
-    
+    <lastBuildDate>Wed, 04 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/npm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【Nodejs笔记】nodejs入门简介</title>
       <link>https://limingxie.github.io/js/nodejs/nodejs_01/</link>
