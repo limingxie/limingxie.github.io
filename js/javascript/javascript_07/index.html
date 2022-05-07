@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【JavaScript笔记】JavaScript基础_this和原型(7) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/javascript/javascript_07/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【JavaScript笔记】JavaScript基础_this和原型(7)"/>
+<meta name="twitter:description" content="这里整理了函数中this和原型使用方法。
+&lt;!DOCType html&gt; &lt;html&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34;&gt; &lt;title&gt;&lt;/title&gt; &lt;script type=&#34;text/javascript&#34;&gt; console."/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【JavaScript笔记】JavaScript基础_this和原型(7)</h3>
+                
+            </div>
+
+            <p>这里整理了函数中this和原型使用方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------------this--------------------&#34;</span>);
+
+        <span style="color:#75715e">//this是函数里的隐含参数，指向函数执行时的上下文对象。
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//根据调用方式不一样，this会指向不同对象，
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//一般函数指向 window, 方法指向调用对象。
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fun</span>() {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>);
+        }
+
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {
+            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
+            <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>,
+            <span style="color:#a6e22e">sayThis</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">fun</span>
+        };
+
+        <span style="color:#a6e22e">fun</span>();<span style="color:#75715e">//Window {...}
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">sayThis</span>(); <span style="color:#75715e">//{name: &#39;张三&#39;, age: 18, sayThis: ƒ fun()}
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">sayThis</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">fun</span>); <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>
+    
+        <span style="color:#75715e">//简单的工厂方法创建类，一般不这么用，一般会用下面你的构造函数方法
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">CreatePerson</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+            <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+            <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+            <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">sayThis</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fun</span>;
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">obj</span>;
+        }
+
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">per1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">CreatePerson</span>(<span style="color:#e6db74">&#34;张一&#34;</span>, <span style="color:#ae81ff">18</span>);
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">per2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">CreatePerson</span>(<span style="color:#e6db74">&#34;张二&#34;</span>, <span style="color:#ae81ff">20</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;per1:&#34;</span>, <span style="color:#a6e22e">per1</span>); <span style="color:#75715e">//{name: &#39;张一&#39;, age: 18, sayThis: ƒ fun()}
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;per2:&#34;</span>, <span style="color:#a6e22e">per2</span>); <span style="color:#75715e">//{name: &#39;张二&#39;, age: 20, sayThis: ƒ fun()}
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------------构造函数--------------------&#34;</span>);
+        <span style="color:#75715e">//使用构造函数创建类
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">/*
+</span><span style="color:#75715e">            1.使用new 创建一个对象
+</span><span style="color:#75715e">            2.将新建的对象设置为函数中的this
+</span><span style="color:#75715e">            3.执行函数中的代码
+</span><span style="color:#75715e">            4.将新建对象作为返回值返回
+</span><span style="color:#75715e">        */</span>
+        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sayHello</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+            }
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sayName</span>;
+        }
+
+
+        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sayName</span>() {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;我叫:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+        }
+
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
+        <span style="color:#75715e">//使用instanceof判断是否是Person类的实例
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">Person</span>); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">person1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">person2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person1</span>.<span style="color:#a6e22e">sayHello</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">person2</span>.<span style="color:#a6e22e">sayHello</span>); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person1</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">person2</span>.<span style="color:#a6e22e">sayName</span>); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------------原型prototype--------------------&#34;</span>);
+        <span style="color:#75715e">//直接声明function会污染全局变量，不知道下一段代码里有人又声明了相同的function覆盖掉
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//这时候使用prototype模式, 他是每个Object都有的隐含的属性，他会自动指向自己的prototype对象(原型对象)
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//原型中添加属性
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">a</span>); <span style="color:#75715e">//123
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person1</span>.<span style="color:#a6e22e">a</span>); <span style="color:#75715e">//123
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//当原型和实例都存在的时候
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">a</span>); <span style="color:#75715e">//abc  先在自己实例中的a属性，如果没有再去找prototype中的a属性
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person1</span>.<span style="color:#a6e22e">a</span>); <span style="color:#75715e">//123
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//查看属性存不存在、
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">gender</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;男&#34;</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;gender&#34;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">person</span>); <span style="color:#75715e">//true 也是先找自己，再找prototype
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#e6db74">&#34;gender&#34;</span>)); <span style="color:#75715e">//false 只查看自己，不看prototype
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//存在这多层的prototype原型
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#e6db74">&#34;hasOwnProperty&#34;</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#e6db74">&#34;hasOwnProperty&#34;</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span>); <span style="color:#75715e">//null 一般2层的prototype
+</span><span style="color:#75715e"></span>
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/javascript/">JavaScript</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/js/">js</a><a class="tag" href="/tags/javascript/">javascript</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
