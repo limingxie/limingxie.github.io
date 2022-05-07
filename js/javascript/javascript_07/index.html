@@ -249,6 +249,24 @@
 </span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#e6db74">&#34;hasOwnProperty&#34;</span>)); <span style="color:#75715e">//true
 </span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span>); <span style="color:#75715e">//null 一般2层的prototype
 </span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------------toString--------------------&#34;</span>);
+        
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">person4</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#34;张四&#34;</span>,<span style="color:#ae81ff">14</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person4</span>); <span style="color:#75715e">//Person {name: &#39;张四&#39;, age: 14, sayHello: ƒ(), sayName: ƒ sayName()}
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person4</span>.<span style="color:#a6e22e">toString</span>()); <span style="color:#75715e">//[object Object]
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#e6db74">&#34;hasOwnProperty&#34;</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Person[name = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, age = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;]&#34;</span>;
+        }
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person4</span>); <span style="color:#75715e">//Person {name: &#39;张四&#39;, age: 14, sayHello: ƒ(), sayName: ƒ sayName()}
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">person4</span>.<span style="color:#a6e22e">toString</span>()); <span style="color:#75715e">//[object Object]
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------------gc--------------------&#34;</span>);
+
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+        <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">//退内存里的对象值成为了垃圾对象，会被回收
+</span><span style="color:#75715e"></span>
     &lt;/<span style="color:#f92672">script</span>&gt;
 &lt;/<span style="color:#f92672">head</span>&gt;
 

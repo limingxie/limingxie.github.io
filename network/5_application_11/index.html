@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(11) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/network/5_application_11/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(11)"/>
+<meta name="twitter:description" content="这一篇j简单整理了VPN、tcpdump、网络爬虫、HTTP缓存、IPv6、即时通信、流媒体。
+1.VPN VPN（Virtual Private Network），虚拟私人网络。它可以在公共网络上建立专用网络，进行加密通讯。
+图片备用地址
+图片备用地址
+1.1 作用  提高上网的安全性（加密数据） 保护公司内部资料 隐藏上网者的身份（VPN Server转发数据） 突破网站的地域限制"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(11)</h3>
+                
+            </div>
+
+            <p>这一篇j简单整理了VPN、tcpdump、网络爬虫、HTTP缓存、IPv6、即时通信、流媒体。</p>
+<h2 id="1vpn">1.VPN</h2>
+<p><strong>VPN（Virtual Private Network）</strong>，虚拟私人网络。它可以在公共网络上建立专用网络，进行加密通讯。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_141.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_141.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_142.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_142.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="11-作用">1.1 作用</h3>
+<ul>
+<li>提高上网的安全性（加密数据）</li>
+<li>保护公司内部资料</li>
+<li>隐藏上网者的身份（VPN Server转发数据）</li>
+<li>突破网站的地域限制<br>
+有些网站针对不同地区的用户展示不同的内容</li>
+<li>突破网络封锁（科学上网）<br>
+因为有GWF（Great Firewall of China，中国长城防火墙）的限制，有些网站在国内上不了</li>
+</ul>
+<h3 id="12-与代理的区别">1.2 与代理的区别</h3>
+<ul>
+<li>软件<br>
+VPN一般需要安装VPN客户端软件<br>
+代理不需要安装额外的软件</li>
+<li>安全性<br>
+VPN默认会对数据进行加密<br>
+代理默认不会对数据进行加密（数据最终是否加密取决于使用的协议本身）</li>
+<li>费用<br>
+一般情况下，VPN比代理贵</li>
+</ul>
+<h3 id="13-实现原理">1.3 实现原理</h3>
+<p>VPN的实现原理是：<strong>使用了隧道协议（Tunneling Protocol）</strong>。<br>
+常见的VPN隧道协议（应用在传输层或数据链路层）：</p>
+<ul>
+<li>PPTP（Point to Point Tunneling Protocol）：点对点隧道协议</li>
+<li>L2TP（Layer Two Tunneling Protocol）：第二层隧道协议</li>
+<li>IPsec（Internet Protocol Security）：互联网安全协议</li>
+<li>SSL VPN（如OpenVPN）</li>
+<li>…</li>
+</ul>
+<h2 id="2tcpdump">2.tcpdump</h2>
+<p>tcpdump是Linux平台的抓包分析工具（命令行），Windows版本是WinDump</p>
+<p>使用手册：<a href="https://www.tcpdump.org/manpages/tcpdump.1.html">https://www.tcpdump.org/manpages/tcpdump.1.html</a><br>
+教程：<a href="https://danielmiessler.com/study/tcpdump">https://danielmiessler.com/study/tcpdump</a></p>
+<h2 id="3网络爬虫">3.网络爬虫</h2>
+<p><strong>网络爬虫（Web Crawler）</strong>，也叫做<strong>网络蜘蛛（Web Spider）</strong>。模拟人类使用浏览器操作页面的行为，对页面进行相关的操作。</p>
+<p>常用的爬虫工具：Python的Scrapy框架。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_143.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_143.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_144.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_144.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h2 id="31-搜索引擎">3.1 搜索引擎</h2>
+<p>我们在百度或Google搜索的一些内容是怎么出现在搜索列表中的？<br>
+其实搜索引擎也用到了爬虫技术，把其他网站数据进行分析建库，当用户搜索关键词时，就会从之前的数据库中筛选出合适的数据给用户。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_145.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_145.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h2 id="32-简易实例">3.2 简易实例</h2>
+<p>可以使用Java的一个小框架Jsoup爬一些简单的数据。</p>
+<p>jar包：</p>
+<ul>
+<li><a href="https://jsoup.org/packages/jsoup-1.13.1.jar">https://jsoup.org/packages/jsoup-1.13.1.jar</a></li>
+<li><a href="https://mirror.bit.edu.cn/apache/commons/io/binaries/commons-io-2.8.0-bin.zip">https://mirror.bit.edu.cn/apache/commons/io/binaries/commons-io-2.8.0-bin.zip</a></li>
+</ul>
+<p>爬取目标：360应用市场-<a href="https://ext.se.360.cn/webstore/category">https://ext.se.360.cn/webstore/category</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">String url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://ext.se.360.cn/webstore/category&#34;</span><span style="color:#f92672">;</span>  
+Elements apps <span style="color:#f92672">=</span> Jsoup<span style="color:#f92672">.</span><span style="color:#a6e22e">connect</span><span style="color:#f92672">(</span>url<span style="color:#f92672">).</span><span style="color:#a6e22e">get</span><span style="color:#f92672">().</span><span style="color:#a6e22e">select</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;.appwrap&#34;</span><span style="color:#f92672">);</span>  
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Element app <span style="color:#f92672">:</span> apps<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>  
+  String img <span style="color:#f92672">=</span> app<span style="color:#f92672">.</span><span style="color:#a6e22e">selectFirst</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;img&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">attr</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;src&#34;</span><span style="color:#f92672">);</span>  
+  String name <span style="color:#f92672">=</span> app<span style="color:#f92672">.</span><span style="color:#a6e22e">selectFirst</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;h3&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">text</span><span style="color:#f92672">();</span>  
+  String intro <span style="color:#f92672">=</span> app<span style="color:#f92672">.</span><span style="color:#a6e22e">selectFirst</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;.intro&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">text</span><span style="color:#f92672">();</span>  
+  System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;_&#34;</span> <span style="color:#f92672">+</span> intro <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;_&#34;</span> <span style="color:#f92672">+</span> img<span style="color:#f92672">);</span>  
+
+  String filepath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/Users/Developer/Desktop/test/imgs/&#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.jpg&#34;</span><span style="color:#f92672">;</span>  
+  FileUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyURLToFile</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> URL<span style="color:#f92672">(</span>img<span style="color:#f92672">),</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>filepath<span style="color:#f92672">));</span>  
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="33-robotstxt">3.3 robots.txt</h2>
+<p>robots.txt是存放于网站根目录下的文本文件，比如&laquo;<a href="https://www.baidu.com/robots.txt%3E">https://www.baidu.com/robots.txt&gt;</a>。<br>
+用来告诉爬虫哪些内容是不应被爬取的，哪些是可以被爬取的。因为一些系统中的URL是大小写敏感的，所以robots.txt&gt;的文件名应统一为小写。</p>
+<p>它并不是一个规范，而只是约定俗成的，所以并不能保证网站的隐私（只能防君子，不能防小人）。</p>
+<p>允许所有的爬虫：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">User-agent: *  
+Disallow: 
+
+// 另一种写法:  
+User-agent: *  
+Allow: /  
+</code></pre></div><p>仅允许特定的爬虫（name_spider是爬虫名字）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">User-agent: name_spider  
+Allow:  
+</code></pre></div><p>拦截所有的爬虫：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">User-agent: *  
+Disallow: /  
+</code></pre></div><p>仅禁止爬虫访问特定目录：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">User-agent: name_spider  
+Disallow: /private/  
+</code></pre></div><p>禁止所有爬虫访问特定目录：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">User-agent: *  
+Disallow: /cgi-bin/  
+Disallow: /images/  
+Disallow: /tmp/  
+Disallow: /private/  
+</code></pre></div><p>禁止所有爬虫访问特定文件类型：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">User-agent: *  
+Disallow: /*.php$  
+Disallow: /*.js$  
+Disallow: /*.inc$  
+Disallow: /*.css$  
+</code></pre></div><h2 id="4http缓存">4.HTTP缓存</h2>
+<p><a href="https://limingxie.github.io/images/network/application/application_146.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_146.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>实际上，HTTP的缓存机制远远比上图的流程要复杂。<br>
+通常会缓存的情况：GET请求 + 静态资源（比如HTML、CSS、JS、图片等）。</p>
+<blockquote>
+<p>浏览器强制刷新（忽略缓存）：Windows：Ctrl + F5；Mac：command + shift + R。</p>
+</blockquote>
+<h3 id="41-响应头">4.1 响应头</h3>
+<ul>
+<li>Pragma：作用类似于Cache-Control，HTTP/1.0的产物</li>
+<li>Expires：缓存的过期时间（GMT格式），HTTP/1.0的产物</li>
+<li>Cache-Control：设置缓存策略<br>
+no-storage：不缓存数据到本地<br>
+public：允许用户、代理服务器缓存数据到本地<br>
+private：只允许用户缓存数据到本地<br>
+max-age：缓存的有效时间（多上时间不过期），单位：秒<br>
+no-cache：每次需要发请求给服务器询问缓存是否有变化（状态码304-Not Modified），再来决定如何使用缓存</li>
+</ul>
+<p>优先级：Pragma &gt; Cache-Control &gt; Expires</p>
+<ul>
+<li>Last-Modified：资源的最后一次修改时间</li>
+<li>ETag：资源的唯一标识（根据文件内容计算出来的摘要值）</li>
+</ul>
+<p>优先级：ETag &gt; Last-Modified</p>
+<h3 id="42-请求头">4.2 请求头</h3>
+<ul>
+<li>
+<p>If-None-Match<br>
+如果上一次的响应头中有ETag，就会将ETag的值作为请求头的值<br>
+如果服务器发现资源的最新摘要值跟If-None-Match不匹配，就会返回新的资源（状态码200），否则就不会返回资源的具体数据（状态码304）</p>
+</li>
+<li>
+<p>If-Modified-Since<br>
+如果上一次的响应头中没有ETag，有Last-Modified，就会将Last-Modified的值作为请求头的值<br>
+如果服务器发现资源的最后一次修改时间晚于If-Modified-Since，就会返回新的资源（状态码200），否则就不会返回资源的具体数据（状态码304）</p>
+</li>
+</ul>
+<h3 id="43-last-modified和etag的比较">4.3 Last-Modified和ETag的比较</h3>
+<p>Last-Modified的缺陷：</p>
+<ul>
+<li>只能精确到秒级别，如果资源在1秒内被修改了，客户端将无法获取最新的资源数据。</li>
+<li>如果某些资源被修改了（最后一次修改时间发生了变化），但是内容并没有任何变化。会导致相同的数据重复传输，没有使用到缓存。</li>
+</ul>
+<p>以上的缺陷，ETag都可以满足：</p>
+<ul>
+<li>只要资源的内容没有变化，就不会重复传输资源数据</li>
+<li>只要资源的内容发生了变化，就会返回最新的资源数据给客户端</li>
+</ul>
+<h3 id="44-缓存的使用流程">4.4 缓存的使用流程</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_147.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_147.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h2 id="5ipv6">5.IPv6</h2>
+<p><strong>IPv6（Internet Protocol version 6）</strong>，网络协议第6版。</p>
+<p>用它来取代IPv4主要是为了解决IPv4地址枯竭问题，同时它也在其他方面对于IPv4有许多改进。<br>
+然而长期以来IPv4在互联网流量中仍占据主要地位，IPv6的使用增长缓慢。<br>
+在2019年12月，通过IPv6使用Google服务的用户百分率首次超过30%（因为网络协议处在网络层，需要设备和操作系统内核升级支持IPv6）。</p>
+<p>IPv6采用128位的地址，而IPv4使用的是32位。<br>
+支持2^128（约3.4 <em>10^38）个地址，就以地球人口70亿计算，每人平均可分得约4.86</em> 10^28个IPv6地址。</p>
+<h3 id="51-地址格式">5.1 地址格式</h3>
+<p>IPv6地址为128bit，每16bit一组，共8组。每组以冒号“:”隔开，每组以4位十六进制方式表示，<br>
+例如2001:0db8:86a3:08d3:1319:8a2e:0370:7344。</p>
+<p>类似于IPv4的点分十进制，同样也存在点分十六进制的写法：<br>
+2.0.0.1.0.d.b.8.8.6.a.3.0.8.d.3.1.3.1.9.8.a.2.e.0.3.7.0.7.3.4.4。</p>
+<p>每组前面连续的0可以省略，下面的IPv6地址是等价的：</p>
+<pre><code>2001:0db8:02de:0000:0000:0000:0000:0e13`  
+// 等价于  
+2001:db8:2de:0:0:0:0:e13  
+</code></pre><p>可以用双冒号“::”表示一组0或多组连续的0，但只能出现一次（出现多次会造成歧义），下面的IPv6地址是等价的：</p>
+<pre><code>2001:db8:2de:0:0:0:0:e13  
+// 等价于  
+2001:db8:2de::e13  
+</code></pre><p>::1是本地环回地址（0:0:0:0:0:0:0:1）。</p>
+<h3 id="52-首部格式">5.2 首部格式</h3>
+<p>IPv4的首部格式比较复杂，但Ipv6的首部格式就简单很多：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_148.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_148.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>Ipv6和IPv4的首部字段对比：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_149.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_149.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>黄颜色：IPv6保留IPv4的字段<br>
+红颜色：IPv6丢弃IPv4的字段<br>
+蓝颜色：字段名字和位置发生变化<br>
+绿颜色：IPv6新的字段</p>
+<ul>
+<li>Version（占4bit，0110）：版本号</li>
+<li>Traffic Class（占8bit）：交通类别<br>
+指示数据包的类别或优先级，可以帮助路由器根据数据包的优先级处理流量。如果路由器发生拥塞，则优先级最低的数据包将被丢弃。</li>
+<li>Payload Length（占16bit）：有效负载长度<br>
+最大值：65535字节，包括了扩展头部、上层（传输层）数据的长度。</li>
+<li>Hop Limit（占8bit）：跳数限制，与IPv4数据包中的TTL相同。</li>
+<li>Source Address（占128bit）：源IPv6地址</li>
+<li>Destination Address（占128bit）：目的IPv6地址</li>
+<li>Flow Label（占20bit）：流标签<br>
+指示数据包属于哪个特定序列（流），用数据包的源地址、目的地址、流标签标识一个流</li>
+</ul>
+<h3 id="53-扩展头部">5.3 扩展头部</h3>
+<p>Next Header（占8bit）：下一个头部，指示扩展头部（如果存在）的类型，上层数据包的协议类型（例如TCP、UDP、ICMPv6）。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_150.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_150.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_151.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_151.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>Next Header类型和对应值：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_152.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_152.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h2 id="6即时通信">6.即时通信</h2>
+<p><strong>即时通信（Instant Messaging，简称：IM）</strong>，平时用的QQ、微信都属于典型的IM应用。</p>
+<p>国内的IM开发者社区：<a href="http://www.52im.net">http://www.52im.net</a></p>
+<p><strong>IM云服务</strong>：网易云信、腾讯云、环信等。<br>
+<strong>常用的协议</strong>：XMPP、MQTT、自定义协议。</p>
+<h3 id="61-xmpp">6.1 XMPP</h3>
+<p><strong>XMPP（Extensible Messaging and Presence Protocol）</strong>，可扩展消息与存在协议，前身是Jabber。<br>
+基于TCP，默认端口是5222、5269。</p>
+<p>特点：</p>
+<ul>
+<li>使用XML格式进行传输，体积较大。</li>
+<li>比较成熟的IM协议，开发者接入方便。</li>
+</ul>
+<h3 id="62-mqtt">6.2 MQTT</h3>
+<p><strong>MQTT（Message Queuing Telemetry Transport）</strong>，消息队列遥测传输。<br>
+基于TCP，默认端口是1883、8883（带SSL/TLS）。</p>
+<p>特点：</p>
+<ul>
+<li>开销很小，以降低网络流量，信息冗余远小于XMPP。</li>
+<li>不是专门为IM设计的协议，很多功能需要自己实现。</li>
+<li>很多人认为MQTT是最适合物联网（Internet of Things，简称：loT）的网络协议。</li>
+</ul>
+<p>采用的是订阅者模式：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_153.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_153.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h2 id="7流媒体">7.流媒体</h2>
+<p>流媒体（Streaming Media），又叫流式媒体。是指将一连串的多媒体数据压缩后，经过互联网分段发送数据，在互联网上即时传输影音以供观赏的一种技术。<br>
+此技术使得资料数据包得以像流水一样发送，不使用此技术，就必须在使用前下载整个媒体文件。</p>
+<p>常见协议：</p>
+<ul>
+<li><strong>RTP（Real-Time Transport Protocol）</strong>，实时传输协议。是基于UDP的，可参考<a href="https://datatracker.ietf.org/doc/html/rfc3550">RFC_3550</a>、<a href="https://datatracker.ietf.org/doc/html/rfc3551">RFC_3551</a>。</li>
+<li><strong>RTCP（Real-Time Transport Control Protocol）</strong>，实时传输控制协议。基于UDP，使用RTP的下一个端口。参考<a href="https://datatracker.ietf.org/doc/html/rfc3550">RFC_3550</a>。</li>
+<li><strong>RTSP（Real-Time Streaming Protocol）</strong>，实时流协议。<a href="https://datatracker.ietf.org/doc/html/rfc7820">RFC_7820</a>。基于TCP、UDP的554端口。</li>
+<li><strong>RTMP（Real-Time Messaging Protocol）</strong>，实时消息传输协议。由Adobe公司出品。默认基于TCP的1935端口。</li>
+<li><strong>HLS（HTTP Live Streaming）</strong>，基于HTTP的流媒体网络传输协议，苹果公司出品。参考<a href="https://datatracker.ietf.org/doc/html/rfc8216">RFC_8216</a>。</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/network/">network</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/osi/">OSI</a><a class="tag" href="/tags/vpn/">VPN</a><a class="tag" href="/tags/web-crawler/">Web Crawler</a><a class="tag" href="/tags/http-cache/">HTTP CACHE</a><a class="tag" href="/tags/network/">network</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
