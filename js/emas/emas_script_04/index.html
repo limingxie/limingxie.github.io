@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【es6笔记】es6的入门简介_Symbol(4) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/emas/emas_script_04/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【es6笔记】es6的入门简介_Symbol(4)"/>
+<meta name="twitter:description" content="这里整理了ES6新增的类型Symbol。
+&lt;!DOCType html&gt; &lt;html&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34;&gt; &lt;title&gt;&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;script&gt; console."/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【es6笔记】es6的入门简介_Symbol(4)</h3>
+                
+            </div>
+
+            <p>这里整理了ES6新增的类型Symbol。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------Symbol--------------&#34;</span>);
+        <span style="color:#75715e">/*
+</span><span style="color:#75715e">        ES引入了新的数据类型Symbol。标识独一无二的值。
+</span><span style="color:#75715e">        JavaScript第七种数据类型。是一种类似于字符串的数据类型。
+</span><span style="color:#75715e">        特点：
+</span><span style="color:#75715e">        1.Symbol的值是唯一的，用来解决命名冲突的问题。
+</span><span style="color:#75715e">        2.Symbol值不能与其他数据进行运算
+</span><span style="color:#75715e">        3.Symbol定义的对象属性不能使用 for...in 循环遍历, 
+</span><span style="color:#75715e">          但是可以用Reflect.ownKeys方法获取对象的所有键名
+</span><span style="color:#75715e">        */</span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>();
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">s1</span>); <span style="color:#75715e">//Symbol() &#34;symbol&#34;
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小明&#39;</span>);
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小明&#39;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">s3</span>); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小红&#34;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s4</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">s4</span>); <span style="color:#75715e">// Symbol(小红) &#39;symbol&#39;
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s5</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小红&#34;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s4</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">s5</span>); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">keyFor</span>(<span style="color:#a6e22e">s5</span>)); <span style="color:#75715e">//小红
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 查看描述
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s6</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小刚&#34;</span>); <span style="color:#75715e">//小刚
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s6</span>.<span style="color:#a6e22e">description</span>);
+
+        <span style="color:#75715e">// 转换string
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s7</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小张&#39;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(String(<span style="color:#a6e22e">s7</span>)); <span style="color:#75715e">//Symbol(小张)
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// bool判断
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s8</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>();
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Boolean(<span style="color:#a6e22e">s8</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//USONB 
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// u undefined
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// s string symbol
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// o object
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// n number
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// b boolean
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">kind</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;kind&#34;</span>);
+
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">car</span> <span style="color:#f92672">=</span> {
+            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;奔驰&#34;</span>,
+            <span style="color:#75715e">// [Synmbol(&#39;kind&#39;)]: &#39;赛车游戏&#39;,
+</span><span style="color:#75715e"></span>            [<span style="color:#a6e22e">kind</span>]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小轿车&#39;</span>,
+            [<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;col&#34;</span>)]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;红色&#39;</span>,
+            [<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;colour&#34;</span>)]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;黑色&#39;</span>,
+            [<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#39;加速&#39;</span>)]<span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;需要加速&#34;</span>);
+            },
+            [<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;减速&#39;</span>)]<span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;需要减速&#34;</span>);
+            }
+        };
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">kind</span>]); <span style="color:#75715e">//小轿车
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>.<span style="color:#a6e22e">kind</span>); <span style="color:#75715e">//undefined
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;col&#34;</span>)]); <span style="color:#75715e">//undefined
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;colour&#34;</span>)]); <span style="color:#75715e">//黑色
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;加速&#34;</span>)](); <span style="color:#75715e">//需要加速
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//car[Symbol(&#39;减速&#39;)](); // TypeError: car[Symbol(...)] is not a function
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//Symbol.for() 都会重复使用同一个Symbol值
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//Symbol() 他是每次都会用不同的Symbol值
+</span><span style="color:#75715e"></span>
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/emas/">Emas</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/es6/">es6</a><a class="tag" href="/tags/symbol/">Symbol</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
