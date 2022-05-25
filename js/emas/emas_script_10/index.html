@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme=""><head>
-    <title> 李明燮(li_mingxie) | Map </title>
+    <title> 李明燮(li_mingxie) | 【es6笔记】es6的入门简介_模块化(10) </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -21,10 +21,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
 
-    <link rel="canonical" href="https://limingxie.github.io/tags/map/">
+    <link rel="canonical" href="https://limingxie.github.io/js/emas/emas_script_10/">
 
     
-    <link rel="alternate" type="application/rss+xml" href="https://limingxie.github.io/tags/map/index.xml" title="Website of li_mingxie" />
     
     
     
@@ -35,8 +34,11 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://limingxie.github.io/105"/>
 
-<meta name="twitter:title" content="Map"/>
-<meta name="twitter:description" content="年纪大了做开发是没出息吗？"/>
+<meta name="twitter:title" content="【es6笔记】es6的入门简介_模块化(10)"/>
+<meta name="twitter:description" content="这里整理了模块化相关的内容。
+export: 规定模块对外接口。
+import: 输入引用其他模块提供的功能。
+test.js const m1 = require(&#34;./m1.js&#34;); const {name, school} = require(&#34;."/>
 
 </head>
 <body><div class="sidebar animated fadeInDown">
@@ -143,33 +145,58 @@
 
     <div class="autopagerize_page_element">
         <div class="content">
-    <div class="archive animated fadeInDown">
-        <ul class="list-with-title">
-            
-                <div class="listing-title">2022</div>
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【es6笔记】es6的入门简介_模块化(10)</h3>
                 
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="https://limingxie.github.io/js/emas/emas_script_07/" title="【es6笔记】es6的入门简介_Set_Map(7)">【es6笔记】es6的入门简介_Set_Map(7)</a>
-                                <div class="post-time"><span class="date">May 16</span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-            
-                <div class="listing-title">2021</div>
-                
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="https://limingxie.github.io/java/java_map/" title="【java笔记】HashMap, HashTable, ConcurrentHashMap, TreeMap, LinkedHashMap">【java笔记】HashMap, HashTable, ConcurrentHashMap, TreeMap, LinkedHashMap</a>
-                                <div class="post-time"><span class="date">Jul 14</span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-            
-        </ul>
+            </div>
+
+            <p>这里整理了模块化相关的内容。</p>
+<p><strong>export</strong>: 规定模块对外接口。<br>
+<strong>import</strong>: 输入引用其他模块提供的功能。</p>
+<h4 id="testjs">test.js</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">m1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;./m1.js&#34;</span>);
+<span style="color:#66d9ef">const</span> {<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">school</span>} <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;./m2.js&#34;</span>);
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">m1</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">//小明
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">m1</span>.<span style="color:#a6e22e">school</span>); <span style="color:#75715e">//中学
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">m1</span>.<span style="color:#a6e22e">teach</span>(); <span style="color:#75715e">//教中学
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>); <span style="color:#75715e">//小红
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">school</span>); <span style="color:#75715e">//大学
+</span><span style="color:#75715e"></span>
+</code></pre></div><h4 id="m1js">m1.js</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;小明&#34;</span>,
+    <span style="color:#a6e22e">school</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;中学&#34;</span>,
+    <span style="color:#a6e22e">teach</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;教中学&#34;</span>);
+    }
+}
+</code></pre></div><h4 id="m2js">m2.js</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;小红&#34;</span>,
+    <span style="color:#a6e22e">school</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;大学&#34;</span>
+}
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/emas/">Emas</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/es6/">es6</a><a class="tag" href="/tags/export/">export</a><a class="tag" href="/tags/require/">require</a></span>
+
+            </div>
+        </div>
+
+        
     </div>
+
 
         </div>
     </div>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【es6笔记】es6的入门简介_对象和数值扩展方法(9) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/emas/emas_script_09/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【es6笔记】es6的入门简介_对象和数值扩展方法(9)"/>
+<meta name="twitter:description" content="这里整理了Object和Number扩展方法。
+&lt;!DOCType html&gt; &lt;html&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34;&gt; &lt;title&gt;&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;script&gt; console."/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【es6笔记】es6的入门简介_对象和数值扩展方法(9)</h3>
+                
+            </div>
+
+            <p>这里整理了Object和Number扩展方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- number 扩展 --------------&#34;</span>);
+        {
+            <span style="color:#75715e">// Number.EPSILON 是 JS最小精度
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">EPSILON</span>); <span style="color:#75715e">//2.220446049250313e-16
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>); <span style="color:#75715e">//0.30000000000000004
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
+                <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">a</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span>) <span style="color:#f92672">&lt;</span> Number.<span style="color:#a6e22e">EPSILON</span>;
+            }
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">equal</span>(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.3</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//1. 二进制和八进制
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//0b：二进制
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//0o：八进制
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//0x：十六进制
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">0b111110111</span>); <span style="color:#75715e">// 503
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//2. Number.isFinite 检查一个值是否为有限的
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isFinite(<span style="color:#ae81ff">15</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isFinite(<span style="color:#66d9ef">Infinity</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//3. Number.isNaN   检查一个值是否为NaN
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isNaN(<span style="color:#ae81ff">123</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isNaN(<span style="color:#66d9ef">NaN</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//4. Number.paresInt    
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.parseInt(<span style="color:#e6db74">&#39;12.34&#39;</span>)); <span style="color:#75715e">//12
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.parseFloat(<span style="color:#e6db74">&#39;12.34aa&#39;</span>)); <span style="color:#75715e">//12.34
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//5. Number.isInteger
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">isInteger</span>(<span style="color:#ae81ff">25</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">isInteger</span>(<span style="color:#ae81ff">2.5</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//6. Math.trunc 将数字的小数部分去掉
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">trunc</span>(<span style="color:#ae81ff">3.5</span>)); <span style="color:#75715e">//3
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//7. Math.sign 判断一个数 正数，负数 或 零
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//-1
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#ae81ff">0</span>)); <span style="color:#75715e">//0
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//1
+</span><span style="color:#75715e"></span>        }
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- object方法 扩展 --------------&#34;</span>);
+
+        {
+            <span style="color:#75715e">//1. Object.is(value1, value2)  判断两个值是否严格相等
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#f92672">+</span><span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#66d9ef">NaN</span>, <span style="color:#66d9ef">NaN</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">NaN</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">NaN</span>); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//2. Object.assign(target, ...sources)  合并多个对象
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config1</span> <span style="color:#f92672">=</span> {
+                <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;localhost&#39;</span>,
+                <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">8080</span>,
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;test&#39;</span>,
+                <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;123456&#39;</span>,
+                <span style="color:#a6e22e">test1</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;aaa&#39;</span>,
+            }
+
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config2</span> <span style="color:#f92672">=</span> {
+                <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;192.168.1.1&#39;</span>,
+                <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3306</span>,
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>,
+                <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1111&#39;</span>,
+                <span style="color:#a6e22e">test2</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bb&#39;</span>
+            }
+
+            <span style="color:#75715e">//后面的覆盖前面的
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">assign</span>(<span style="color:#a6e22e">config1</span>,<span style="color:#a6e22e">config2</span>);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">config</span>);<span style="color:#75715e">//{host: &#39;192.168.1.1&#39;, port: 3306, name: &#39;root&#39;, password: &#39;1111&#39;, test1: &#39;aaa&#39;, test2: &#39;bb&#39;}
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//3. Object.setPrototypeOf Object.getPrototypeof
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span>{
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;小学&#39;</span>
+            }
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cities</span> <span style="color:#f92672">=</span> {
+                <span style="color:#a6e22e">area</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;海淀&#39;</span>, <span style="color:#e6db74">&#39;朝阳&#39;</span>, <span style="color:#e6db74">&#39;顺义&#39;</span>]
+            }
+
+            Object.<span style="color:#a6e22e">setPrototypeOf</span>(<span style="color:#a6e22e">school</span>, <span style="color:#a6e22e">cities</span>);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">school</span>); <span style="color:#75715e">// {area: Array(3), name: &#34;小学&#34;}
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">getPrototypeOf</span>(<span style="color:#a6e22e">school</span>)); <span style="color:#75715e">// {area: Array(3)}
+</span><span style="color:#75715e"></span>        }
+
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/emas/">Emas</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/es6/">es6</a><a class="tag" href="/tags/number/">number</a><a class="tag" href="/tags/object/">object</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

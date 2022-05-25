@@ -6,7 +6,60 @@
     <description>Recent content in Emas on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 15 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/emas/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/emas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【es8笔记】es8的新特性_async_await(11)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_11/</link>
+      <pubDate>Fri, 20 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_11/</guid>
+      <description>这里整理了E8里的async和await。
+async和await可以让一步操作跟同步代码一样。
+async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  import  await必须写在async函数中。 await右侧的表达式一般为promise对象。 await返回的是promise对象的结果。 await的promise失败了，就会抛出异常，需要用try catch捕获。  &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>【es6笔记】es6的入门简介_模块化(10)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_10/</link>
+      <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_10/</guid>
+      <description>这里整理了模块化相关的内容。
+export: 规定模块对外接口。
+import: 输入引用其他模块提供的功能。
+test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = require(&amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>【es6笔记】es6的入门简介_对象和数值扩展方法(9)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_09/</link>
+      <pubDate>Wed, 18 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_09/</guid>
+      <description>这里整理了Object和Number扩展方法。
+&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+    </item>
+    
+    <item>
+      <title>【es6笔记】es6的入门简介_class(8)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_08/</link>
+      <pubDate>Tue, 17 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_08/</guid>
+      <description>这里整理了Class相关的内容。
+&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+    </item>
+    
+    <item>
+      <title>【es6笔记】es6的入门简介_Set_Map(7)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_07/</link>
+      <pubDate>Mon, 16 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_07/</guid>
+      <description>这里整理了Set和Map相关的内容。
+&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+    </item>
+    
     <item>
       <title>【es6笔记】es6的入门简介_Promise(6)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_06/</link>

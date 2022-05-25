@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>es8 on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/es8/</link>
+    <description>Recent content in es8 on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 20 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/es8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【es8笔记】es8的新特性_async_await(11)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_11/</link>
+      <pubDate>Fri, 20 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_11/</guid>
+      <description>这里整理了E8里的async和await。
+async和await可以让一步操作跟同步代码一样。
+async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  import  await必须写在async函数中。 await右侧的表达式一般为promise对象。 await返回的是promise对象的结果。 await的promise失败了，就会抛出异常，需要用try catch捕获。  &amp;lt;!</description>
+    </item>
+    
+  </channel>
+</rss>

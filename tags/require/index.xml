@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>require on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/require/</link>
+    <description>Recent content in require on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 19 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/require/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【es6笔记】es6的入门简介_模块化(10)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_10/</link>
+      <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_10/</guid>
+      <description>这里整理了模块化相关的内容。
+export: 规定模块对外接口。
+import: 输入引用其他模块提供的功能。
+test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = require(&amp;#34;.</description>
+    </item>
+    
+  </channel>
+</rss>
