@@ -276,91 +276,91 @@
 &lt;/<span style="color:#f92672">html</span>&gt;
 </code></pre></div><h4 id="练习">练习</h4>
 <p><strong>读取文件</strong></p>
-<pre><code class="language-Nodejs" data-lang="Nodejs">const fs = require('fs');
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
 
-fs.readFile('test.md', (err, data) =&gt; {
-    if (err) throw err;
-    console.log(data.toString());
+<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">err</span>;
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">toString</span>());
 });
 
-const p = new Promise(function (resolve, reject) {
-    fs.readFile('test.md', (err, data) =&gt; {
-        if (err) reject(err);
-        resolve(data);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+        <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
     });
 });
 
-p.then(function (value) {
-    console.log(value.toString());
-}, function (reason) {
-    console.log(reason);
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toString</span>());
+}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
 });
-</code></pre><p><strong>连续读取文件</strong></p>
-<pre><code class="language-Nodejs" data-lang="Nodejs">const fs = require('fs');
+</code></pre></div><p><strong>连续读取文件</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
 
-//普通读取文件
-fs.readFile('test.md', (err, data1) =&gt; {
-    fs.readFile('test1.md', (err, data2) =&gt; {
-        fs.readFile('test2.md', (err, data3) =&gt; {
-            let result = data1 + '\r\n' + data2 + '\r\n' + data3;
-            console.log(result);
+<span style="color:#75715e">//普通读取文件
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data1</span>) =&gt; {
+    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test1.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data2</span>) =&gt; {
+        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test2.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data3</span>) =&gt; {
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data1</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data2</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data3</span>;
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
         });
     });
 });
 
-//使用Promise读取文件
-const p = new Promise(function (resolve, reject) {
-    fs.readFile('test.md', (err, data) =&gt; {
-        if (err) reject(err);
-        resolve(data);
+<span style="color:#75715e">//使用Promise读取文件
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+        <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
     });
 });
 
-p.then(function (value) {
-    return new Promise((resolve, reject) =&gt; {
-        fs.readFile('test1.md', (err, data) =&gt; {
-            if (err) reject(err);
-            resolve([value, data]);
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test1.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+            <span style="color:#a6e22e">resolve</span>([<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">data</span>]);
         });
     });
-}, function (reason) {
-    console.log(reason);
-}).then(function (value) {
-    return new Promise((resolve, reject) =&gt; {
-        fs.readFile('test2.md', (err, data) =&gt; {
-            if (err) reject(err);
-            value.push(data);
-            resolve(value);
+}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+}).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test2.md&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+            <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">data</span>);
+            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">value</span>);
         });
     });
-}, function (reason) {
-    console.log(reason);
-}).then((value) =&gt; {
-    console.log(value.join('\r\n'));
+}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+}).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;\r\n&#39;</span>));
 });
-</code></pre><p><strong>错误处理</strong></p>
-<pre><code class="language-Nodejs" data-lang="Nodejs">//处理错误
-const p1 = new Promise(function (resolve, reject) {
-    setTimeout(() =&gt; {
-        reject('出错了');
+</code></pre></div><p><strong>错误处理</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//处理错误
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+        <span style="color:#a6e22e">reject</span>(<span style="color:#e6db74">&#39;出错了&#39;</span>);
     })
 });
 
-p1.then(function (value) { }, function (reason) {
-    console.log(reason);
+<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) { }, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
 });
 
-//使用catch处理错误
-const p2 = new Promise(function (resolve, reject) {
-    setTimeout(() =&gt; {
-        reject('出错了');
+<span style="color:#75715e">//使用catch处理错误
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+        <span style="color:#a6e22e">reject</span>(<span style="color:#e6db74">&#39;出错了&#39;</span>);
     })
 });
 
-p2.catch(function (reason) {
-    console.log(reason);
+<span style="color:#a6e22e">p2</span>.<span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
 })
-</code></pre><hr>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 

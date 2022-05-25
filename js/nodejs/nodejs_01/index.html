@@ -187,30 +187,30 @@ Nodejs非阻塞处理，引入了事件驱动模型。</p>
 如果有新的请求继续放到处理队列中，等处理完请求后，调用回调函数告诉请求已处理完毕。<br>
 这种方式，可以让服务器更通畅的处理请求，减少拥塞带来的性能问题。</p>
 <p>看下面的例子：</p>
-<pre><code class="language-Nodejs" data-lang="Nodejs">console.log(&quot;-------------阻塞-----------&quot;);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------阻塞-----------&#34;</span>);
 
-function updateData1() {
-    var s = new Date().getTime();
-    while (new Date().getTime() &lt; s + 3000);
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateData1</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">getTime</span>();
+    <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">3000</span>);
 };
 
-updateData1();
-console.log(&quot;updateData1 done&quot;);
-console.log(&quot;updateData1 process done&quot;);
+<span style="color:#a6e22e">updateData1</span>();
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;updateData1 done&#34;</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;updateData1 process done&#34;</span>);
 
-console.log(&quot;-------------非阻塞-----------&quot;);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------非阻塞-----------&#34;</span>);
 
-function updateData2(done){
-    setTimeout(() =&gt; {
-        done();
-    }, 3000);
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateData2</span>(<span style="color:#a6e22e">done</span>){
+    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+        <span style="color:#a6e22e">done</span>();
+    }, <span style="color:#ae81ff">3000</span>);
 }
 
-updateData2(function (){ //调用updateData2的时候指定一个回调函数，调用完后执行这个回调函数。
-    console.log(&quot;updateData2 done&quot;);
+<span style="color:#a6e22e">updateData2</span>(<span style="color:#66d9ef">function</span> (){ <span style="color:#75715e">//调用updateData2的时候指定一个回调函数，调用完后执行这个回调函数。
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;updateData2 done&#34;</span>);
 })
-console.log(&quot;updateData2 process done&quot;);
-</code></pre><p>看一下执行结果：</p>
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;updateData2 process done&#34;</span>);
+</code></pre></div><p>看一下执行结果：</p>
 <pre><code>$ node test.js   
 -------------阻塞-----------
 updateData1 done
@@ -221,41 +221,41 @@ updateData2 done
 </code></pre><h2 id="2-http服务搭建">2. http服务搭建</h2>
 <p>简单的写一个web服务:</p>
 <p>config.js(配置信息) =&gt;</p>
-<pre><code class="language-Nodejs" data-lang="Nodejs">const config = {
-    hostname: '127.0.0.1',
-    port: 3030
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
+    <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3030</span>
 }
 
-exports.config = config;
-</code></pre><p>httpsample.js =&gt;</p>
-<pre><code class="language-Nodejs" data-lang="Nodejs">console.log(&quot;------------http test------------&quot;);
+<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span>;
+</code></pre></div><p>httpsample.js =&gt;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------http test------------&#34;</span>);
 
-const http =require('http');
-const config = require('./config.js').config; // 引用config文件
-
-const server = http.createServer((req, res) =&gt; {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    switch (req.url) {
-        case '/':
-            res.end('Hello Man\n');
-            break;
-        case '/home':
-            res.end('Hello Home\n');
-            break;
-        case '/hello':
-            res.end('Hello World\n');
-            break;
-        default:
-            res.end('invalid url\n');
-            break;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">http</span> <span style="color:#f92672">=</span><span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;http&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./config.js&#39;</span>).<span style="color:#a6e22e">config</span>; <span style="color:#75715e">// 引用config文件
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">server</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">createServer</span>((<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">statusCode</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">setHeader</span>(<span style="color:#e6db74">&#39;Content-Type&#39;</span>, <span style="color:#e6db74">&#39;text/plain&#39;</span>);
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">url</span>) {
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;/&#39;</span><span style="color:#f92672">:</span>
+            <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">end</span>(<span style="color:#e6db74">&#39;Hello Man\n&#39;</span>);
+            <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;/home&#39;</span><span style="color:#f92672">:</span>
+            <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">end</span>(<span style="color:#e6db74">&#39;Hello Home\n&#39;</span>);
+            <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;/hello&#39;</span><span style="color:#f92672">:</span>
+            <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">end</span>(<span style="color:#e6db74">&#39;Hello World\n&#39;</span>);
+            <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+            <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">end</span>(<span style="color:#e6db74">&#39;invalid url\n&#39;</span>);
+            <span style="color:#66d9ef">break</span>;
     }
 });
 
-server.listen(config.port, config.hostname, () =&gt; {
-console.log(`server running at http://${config.hostname}:${config.port}/`);
+<span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">port</span>, <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">hostname</span>, () =&gt; {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`server running at http://</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">hostname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">port</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>);
 } );
-</code></pre><hr>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 
