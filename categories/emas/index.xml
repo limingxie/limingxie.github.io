@@ -6,14 +6,34 @@
     <description>Recent content in Emas on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 20 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/emas/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/emas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【es11】es11的新特性整理(13)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_13/</link>
+      <pubDate>Sat, 21 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_13/</guid>
+      <description>这里整理了ES11新增的特性。
+&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+    </item>
+    
+    <item>
+      <title>【es8,es9,es10笔记】es8,es9的新特性_扩展(12)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_12/</link>
+      <pubDate>Fri, 20 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_12/</guid>
+      <description>这里整理了ES8 对象方法扩展, ES9 扩展运算符和rest参数 和ES10 扩展方法。
+&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+    </item>
+    
     <item>
       <title>【es8笔记】es8的新特性_async_await(11)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_11/</link>
-      <pubDate>Fri, 20 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_11/</guid>
-      <description>这里整理了E8里的async和await。
+      <description>这里整理了ES8里的async和await。
 async和await可以让一步操作跟同步代码一样。
 async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  import  await必须写在async函数中。 await右侧的表达式一般为promise对象。 await返回的是promise对象的结果。 await的promise失败了，就会抛出异常，需要用try catch捕获。  &amp;lt;!</description>
     </item>
@@ -21,7 +41,7 @@ async  async函数的返回值是promise对象。 promise对象的结果由async
     <item>
       <title>【es6笔记】es6的入门简介_模块化(10)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_10/</link>
-      <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Wed, 18 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_10/</guid>
       <description>这里整理了模块化相关的内容。
@@ -33,7 +53,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_对象和数值扩展方法(9)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_09/</link>
-      <pubDate>Wed, 18 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Tue, 17 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_09/</guid>
       <description>这里整理了Object和Number扩展方法。
@@ -43,7 +63,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_class(8)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_08/</link>
-      <pubDate>Tue, 17 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Mon, 16 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_08/</guid>
       <description>这里整理了Class相关的内容。
@@ -53,7 +73,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_Set_Map(7)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_07/</link>
-      <pubDate>Mon, 16 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Sun, 15 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_07/</guid>
       <description>这里整理了Set和Map相关的内容。
@@ -63,7 +83,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_Promise(6)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_06/</link>
-      <pubDate>Sun, 15 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Sat, 14 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_06/</guid>
       <description>这里整理了Promise相关的内容。
@@ -73,7 +93,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_迭代器(5)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_05/</link>
-      <pubDate>Sat, 14 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Fri, 13 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_05/</guid>
       <description>这里整理了迭代器Iterator相关的内容。
@@ -83,7 +103,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_Symbol(4)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_04/</link>
-      <pubDate>Fri, 13 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Thu, 12 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_04/</guid>
       <description>这里整理了ES6新增的类型Symbol。
@@ -93,7 +113,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_函数和参数(3)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_03/</link>
-      <pubDate>Thu, 12 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Wed, 11 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_03/</guid>
       <description>这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。
@@ -103,7 +123,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_变量(2)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_02/</link>
-      <pubDate>Wed, 11 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Tue, 10 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_02/</guid>
       <description>这里整理了ES6新增的变量声明方法。
@@ -113,7 +133,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_基本概念(1)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_01/</link>
-      <pubDate>Tue, 10 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Mon, 09 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_01/</guid>
       <description>我们接触ES6的时候，会接触到一些名词，为了避免混淆先明确一下这些名词的概念。

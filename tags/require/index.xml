@@ -6,11 +6,23 @@
     <description>Recent content in require on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 19 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/require/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/require/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_模块化</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_02/</link>
+      <pubDate>Mon, 23 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_02/</guid>
+      <description>这篇简单的整理了nodejs的模块化的内容。
+ 每一个js文件是一个模块。每个js文件其实是被一个函数包裹着 引用文件需要require 提供接口需要用export  具体的内容直接看实例:
+md.js
+module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
+    </item>
+    
     <item>
       <title>【es6笔记】es6的入门简介_模块化(10)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_10/</link>
-      <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Wed, 18 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_10/</guid>
       <description>这里整理了模块化相关的内容。

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fs on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/fs/</link>
+    <description>Recent content in fs on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 24 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/fs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_文件读取和写入</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_03/</link>
+      <pubDate>Tue, 24 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_03/</guid>
+      <description>这篇简单的整理了nodejs的buffer, 文件读取和写入, 以及流方式读取和写入。
+{ console.log(&amp;#39;----------Buffer----------&amp;#39;); /* Buffer(缓冲区) 8bit=1字节byte */ let str = &amp;#39;hello 小明&amp;#39; let buf = Buffer.</description>
+    </item>
+    
+  </channel>
+</rss>

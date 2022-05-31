@@ -6,14 +6,133 @@
     <description>Recent content in Js on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 20 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_nvm</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_08/</link>
+      <pubDate>Sun, 29 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_08/</guid>
+      <description>nvm可以自由的管理nodejs的版本的切换，用起来非常方便。
+这篇整理了nvm安装和常用命令。
+1.安装 最新的安装方法可以参考这里。 https://github.com/nvm-sh/nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 建议把脚本下载到本地自己运行安装。</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_express</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_07/</link>
+      <pubDate>Sat, 28 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_07/</guid>
+      <description>这篇使用Express框架搭建一个简单的web服务器。
+1.初始化和安装Express框架 npm init -y npm install express --save npm install nodemon --save-dev //开发模式有变化自动编译 npm install body-parser --save //读取请求body值 npm install cors --save 2.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(3)</title>
+      <link>https://limingxie.github.io/js/vue/vue_01/</link>
+      <pubDate>Sat, 28 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_01/</guid>
+      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(3)</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_06/</link>
+      <pubDate>Fri, 27 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_06/</guid>
+      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(2)</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_05/</link>
+      <pubDate>Thu, 26 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_05/</guid>
+      <description>跟着教程写了一遍Promise的自建方法。
+class Promise { constructor(executor) { //声明Prmise的两个属性  this.PromiseState = &amp;#39;pending&amp;#39;; this.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(1)</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_04/</link>
+      <pubDate>Wed, 25 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_04/</guid>
+      <description>1.Promiose 是什么？ Promise是JS中进行异步编程的解决方案。可以有效的避免了之前版本的回调地狱方式。
+Promise是一个构造函数。
+Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。
+简单的看看Promise和传统的回调方式：
+/* 编写一个抽奖程序，抽奖的过程是： 取一个随机数1~100，1~30为中奖，31~100为没中奖。 */ function rand(m, n) { return Math.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_文件读取和写入</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_03/</link>
+      <pubDate>Tue, 24 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_03/</guid>
+      <description>这篇简单的整理了nodejs的buffer, 文件读取和写入, 以及流方式读取和写入。
+{ console.log(&amp;#39;----------Buffer----------&amp;#39;); /* Buffer(缓冲区) 8bit=1字节byte */ let str = &amp;#39;hello 小明&amp;#39; let buf = Buffer.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_模块化</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_02/</link>
+      <pubDate>Mon, 23 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_02/</guid>
+      <description>这篇简单的整理了nodejs的模块化的内容。
+ 每一个js文件是一个模块。每个js文件其实是被一个函数包裹着 引用文件需要require 提供接口需要用export  具体的内容直接看实例:
+md.js
+module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_01/</link>
+      <pubDate>Sun, 22 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_01/</guid>
+      <description>公司项目用到了vue和nodejs&amp;hellip;ㅠㅠ
+又要学新的开发语言了&amp;hellip;^^;;
+今天看着资料简单的整理了概念，然后搭建了一个http服务。
+如何去安装和配置开发环境，百度上一大把，这里就不介绍了。
+1.nodejs 先看看nodejs在维基百科里是怎么解释的。
+ Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。</description>
+    </item>
+    
+    <item>
+      <title>【es11】es11的新特性整理(13)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_13/</link>
+      <pubDate>Sat, 21 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_13/</guid>
+      <description>这里整理了ES11新增的特性。
+&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+    </item>
+    
+    <item>
+      <title>【es8,es9,es10笔记】es8,es9的新特性_扩展(12)</title>
+      <link>https://limingxie.github.io/js/emas/emas_script_12/</link>
+      <pubDate>Fri, 20 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/emas/emas_script_12/</guid>
+      <description>这里整理了ES8 对象方法扩展, ES9 扩展运算符和rest参数 和ES10 扩展方法。
+&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+    </item>
+    
     <item>
       <title>【es8笔记】es8的新特性_async_await(11)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_11/</link>
-      <pubDate>Fri, 20 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_11/</guid>
-      <description>这里整理了E8里的async和await。
+      <description>这里整理了ES8里的async和await。
 async和await可以让一步操作跟同步代码一样。
 async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  import  await必须写在async函数中。 await右侧的表达式一般为promise对象。 await返回的是promise对象的结果。 await的promise失败了，就会抛出异常，需要用try catch捕获。  &amp;lt;!</description>
     </item>
@@ -21,7 +140,7 @@ async  async函数的返回值是promise对象。 promise对象的结果由async
     <item>
       <title>【es6笔记】es6的入门简介_模块化(10)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_10/</link>
-      <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Wed, 18 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_10/</guid>
       <description>这里整理了模块化相关的内容。
@@ -33,7 +152,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_对象和数值扩展方法(9)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_09/</link>
-      <pubDate>Wed, 18 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Tue, 17 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_09/</guid>
       <description>这里整理了Object和Number扩展方法。
@@ -43,7 +162,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_class(8)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_08/</link>
-      <pubDate>Tue, 17 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Mon, 16 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_08/</guid>
       <description>这里整理了Class相关的内容。
@@ -53,7 +172,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_Set_Map(7)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_07/</link>
-      <pubDate>Mon, 16 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Sun, 15 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_07/</guid>
       <description>这里整理了Set和Map相关的内容。
@@ -63,7 +182,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_Promise(6)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_06/</link>
-      <pubDate>Sun, 15 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Sat, 14 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_06/</guid>
       <description>这里整理了Promise相关的内容。
@@ -73,7 +192,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_迭代器(5)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_05/</link>
-      <pubDate>Sat, 14 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Fri, 13 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_05/</guid>
       <description>这里整理了迭代器Iterator相关的内容。
@@ -83,7 +202,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_Symbol(4)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_04/</link>
-      <pubDate>Fri, 13 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Thu, 12 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_04/</guid>
       <description>这里整理了ES6新增的类型Symbol。
@@ -93,7 +212,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_函数和参数(3)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_03/</link>
-      <pubDate>Thu, 12 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Wed, 11 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_03/</guid>
       <description>这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。
@@ -103,7 +222,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_变量(2)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_02/</link>
-      <pubDate>Wed, 11 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Tue, 10 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_02/</guid>
       <description>这里整理了ES6新增的变量声明方法。
@@ -113,7 +232,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【es6笔记】es6的入门简介_基本概念(1)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_01/</link>
-      <pubDate>Tue, 10 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Mon, 09 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_01/</guid>
       <description>我们接触ES6的时候，会接触到一些名词，为了避免混淆先明确一下这些名词的概念。
@@ -125,7 +244,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_Dom(10)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_10/</link>
-      <pubDate>Mon, 09 May 2022 22:25:49 +0800</pubDate>
+      <pubDate>Sun, 08 May 2022 22:25:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_10/</guid>
       <description>这里整理了DOM相关内容。
@@ -135,7 +254,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_call_apply_arguments(9)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_09/</link>
-      <pubDate>Sun, 08 May 2022 08:55:49 +0800</pubDate>
+      <pubDate>Sat, 07 May 2022 08:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_09/</guid>
       <description>这里整理了函数的call, apply, arguments。
@@ -145,7 +264,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_数组(8)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_08/</link>
-      <pubDate>Sun, 08 May 2022 01:55:49 +0800</pubDate>
+      <pubDate>Fri, 06 May 2022 01:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_08/</guid>
       <description>这里整理了数组的适用方法。
@@ -155,7 +274,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_this和原型(7)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_07/</link>
-      <pubDate>Sat, 07 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Thu, 05 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_07/</guid>
       <description>这里整理了函数中this和原型使用方法。
@@ -165,7 +284,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_作用域(6)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_06/</link>
-      <pubDate>Sat, 07 May 2022 01:55:49 +0800</pubDate>
+      <pubDate>Wed, 04 May 2022 01:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_06/</guid>
       <description>这里整理了变量的作用域，全局和函数内。
@@ -175,7 +294,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_函数(5)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_05/</link>
-      <pubDate>Sat, 07 May 2022 00:05:49 +0800</pubDate>
+      <pubDate>Tue, 03 May 2022 00:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_05/</guid>
       <description>函数也是对象，封装了一些功能(代码)，可以调用。
@@ -185,7 +304,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_Object对象(4)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_04/</link>
-      <pubDate>Fri, 06 May 2022 10:05:49 +0800</pubDate>
+      <pubDate>Mon, 02 May 2022 10:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_04/</guid>
       <description>1.对象分类 对象可以分3种。
@@ -196,7 +315,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
     <item>
       <title>【JavaScript笔记】JavaScript基础_流程控制(3)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_03/</link>
-      <pubDate>Fri, 06 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Sun, 01 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_03/</guid>
       <description>这一遍整理了 if, switch, while, for 的语法。
@@ -207,7 +326,7 @@ if, switch, while, for &amp;lt;!</description>
     <item>
       <title>【JavaScript笔记】JavaScript基础_运算符(2)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_02/</link>
-      <pubDate>Thu, 05 May 2022 23:05:49 +0800</pubDate>
+      <pubDate>Sat, 30 Apr 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_02/</guid>
       <description>这里整理了常用的运算符，在代码的注释里一起描述了运算符的含义。
@@ -217,7 +336,7 @@ if, switch, while, for &amp;lt;!</description>
     <item>
       <title>【JavaScript笔记】JavaScript基础_结构和类型(1)</title>
       <link>https://limingxie.github.io/js/javascript/javascript_01/</link>
-      <pubDate>Thu, 05 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Fri, 29 Apr 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_01/</guid>
       <description>本想学Nodejs的，结果发现自己的JavaScript的基础太差,
@@ -226,20 +345,6 @@ if, switch, while, for &amp;lt;!</description>
 1.JavaScript 还是按照惯例，先看看JavaScript在维基百科里是怎么解释的。
  JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。
  JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。 它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。 JavaScript在传统意义上被实现为一种解释语言，但在最近[何时？]，它已经可以被即时编译（JIT）执行。</description>
-    </item>
-    
-    <item>
-      <title>【Nodejs笔记】nodejs入门简介</title>
-      <link>https://limingxie.github.io/js/nodejs/nodejs_01/</link>
-      <pubDate>Wed, 04 May 2022 09:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/nodejs/nodejs_01/</guid>
-      <description>公司项目用到了vue和nodejs&amp;hellip;ㅠㅠ
-又要学新的开发语言了&amp;hellip;^^;;
-今天看着资料简单的整理了概念，然后搭建了一个http服务。
-如何去安装和配置开发环境，百度上一大把，这里就不介绍了。
-1.nodejs 先看看nodejs在维基百科里是怎么解释的。
- Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。</description>
     </item>
     
   </channel>

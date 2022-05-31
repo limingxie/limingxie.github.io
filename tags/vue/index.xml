@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vue on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/vue/</link>
+    <description>Recent content in vue on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 28 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(3)</title>
+      <link>https://limingxie.github.io/js/vue/vue_01/</link>
+      <pubDate>Sat, 28 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_01/</guid>
+      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
+    </item>
+    
+  </channel>
+</rss>

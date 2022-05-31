@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【es11】es11的新特性整理(13) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/emas/emas_script_13/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【es11】es11的新特性整理(13)"/>
+<meta name="twitter:description" content="这里整理了ES11新增的特性。
+&lt;!DOCType html&gt; &lt;html&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34;&gt; &lt;title&gt;&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;script&gt; console."/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【es11】es11的新特性整理(13)</h3>
+                
+            </div>
+
+            <p>这里整理了ES11新增的特性。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- 私有属性 --------------&#34;</span>);
+        {
+            <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+                <span style="color:#75715e">//公有属性
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">name</span>;
+                <span style="color:#75715e">//私有属性
+</span><span style="color:#75715e"></span>                <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">age</span>;
+                <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">weight</span>;
+
+                <span style="color:#75715e">//构造方法
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">weight</span>) {
+                    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+                    <span style="color:#66d9ef">this</span>.<span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+                    <span style="color:#66d9ef">this</span>.<span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">weight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">weight</span>;
+                }
+
+                <span style="color:#a6e22e">printPerson</span>() {
+                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">girl</span>.<span style="color:#a6e22e">name</span>);
+                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">girl</span>.<span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">age</span>);
+                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">girl</span>.<span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">weight</span>);
+                }
+            }
+
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">girl</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#39;小红&#39;</span>, <span style="color:#ae81ff">18</span>, <span style="color:#e6db74">&#39;50kg&#39;</span>);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">girl</span>.<span style="color:#a6e22e">name</span>);
+            <span style="color:#75715e">//console.log(girl.#age); // SyntaxError: Private field &#39;#age&#39; must be declared in an enclosing class
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">girl</span>.<span style="color:#a6e22e">printPerson</span>(); <span style="color:#75715e">// 小红 18 50kg
+</span><span style="color:#75715e"></span>        }
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- Promise.allSettled --------------&#34;</span>);
+        {
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+                <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+                    <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;商品数量 - 1&#39;</span>);
+                }, <span style="color:#ae81ff">1000</span>);
+            });
+
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+                <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+                    <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;商品数量 - 2&#39;</span>);
+                }, <span style="color:#ae81ff">1000</span>);
+            });
+
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+                <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+                    <span style="color:#a6e22e">reject</span>(<span style="color:#e6db74">&#39;没有商品&#39;</span>);
+                }, <span style="color:#ae81ff">1000</span>);
+            });
+
+            <span style="color:#75715e">//调用 allsettled 方法，返回一个Promise对象，该对象的状态取决于所有Promise对象的状态。
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> Promise.<span style="color:#a6e22e">allSettled</span>([<span style="color:#a6e22e">p1</span>, <span style="color:#a6e22e">p2</span>, <span style="color:#a6e22e">p3</span>]);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
+            <span style="color:#75715e">/*
+</span><span style="color:#75715e">                Promise {&lt;pending&gt;}
+</span><span style="color:#75715e">                    [[Prototype]]: Promise
+</span><span style="color:#75715e">                    [[PromiseState]]: &#34;fulfilled&#34;
+</span><span style="color:#75715e">                    [[PromiseResult]]: Array(3)
+</span><span style="color:#75715e">                        0: {status: &#39;fulfilled&#39;, value: &#39;商品数量 - 1&#39;}
+</span><span style="color:#75715e">                        1: {status: &#39;fulfilled&#39;, value: &#39;商品数量 - 2&#39;}
+</span><span style="color:#75715e">                        2: {status: &#39;rejected&#39;, reason: &#39;没有商品&#39;}
+</span><span style="color:#75715e">                        length: 3
+</span><span style="color:#75715e">                        [[Prototype]]: Array(0)
+</span><span style="color:#75715e">            */</span>
+
+            <span style="color:#75715e">//Promise.all 只有全部成功了才返回成功， allsettled则不是
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> Promise.<span style="color:#a6e22e">all</span>([<span style="color:#a6e22e">p1</span>, <span style="color:#a6e22e">p2</span>]);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result1</span>);
+            <span style="color:#75715e">/*
+</span><span style="color:#75715e">                Promise {&lt;pending&gt;}
+</span><span style="color:#75715e">                    [[Prototype]]: Promise
+</span><span style="color:#75715e">                    [[PromiseState]]: &#34;fulfilled&#34;
+</span><span style="color:#75715e">                    [[PromiseResult]]: Array(2)
+</span><span style="color:#75715e">                        0: &#34;商品数量 - 1&#34;
+</span><span style="color:#75715e">                        1: &#34;商品数量 - 2&#34;
+</span><span style="color:#75715e">                        length: 2
+</span><span style="color:#75715e">                        [[Prototype]]: Array(0)
+</span><span style="color:#75715e">            */</span>
+
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> Promise.<span style="color:#a6e22e">all</span>([<span style="color:#a6e22e">p1</span>, <span style="color:#a6e22e">p2</span>, <span style="color:#a6e22e">p3</span>]);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result2</span>);
+            <span style="color:#75715e">/*
+</span><span style="color:#75715e">            Promise {&lt;pending&gt;}[[Prototype]]: Promise
+</span><span style="color:#75715e">                [[PromiseState]]: &#34;rejected&#34;
+</span><span style="color:#75715e">                [[PromiseResult]]: &#34;没有商品&#34;
+</span><span style="color:#75715e">                
+</span><span style="color:#75715e">                Uncaught (in promise) 没有商品
+</span><span style="color:#75715e">            */</span>
+        }
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- 可选链操作符 --------------&#34;</span>);
+        {
+            <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>(<span style="color:#a6e22e">config</span>) {
+                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dbHost</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">db</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">host</span>;
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">dbHost</span>)
+            }
+            <span style="color:#a6e22e">main</span>({
+                <span style="color:#a6e22e">db</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
+                    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>
+                },
+                <span style="color:#a6e22e">cache</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;192.168.1.1&#39;</span>,
+                    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;admin&#39;</span>
+                }
+            }); <span style="color:#75715e">//127.0.0.1
+</span><span style="color:#75715e"></span>
+            <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main1</span>(<span style="color:#a6e22e">config</span>) {
+                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dbHost</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">host</span>;
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">dbHost</span>)
+            }
+            <span style="color:#75715e">// main1(); // TypeError: Cannot read properties of undefined
+</span><span style="color:#75715e"></span>
+            <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main2</span>(<span style="color:#a6e22e">config</span>) {
+                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dbHost</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">db</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">host</span>;
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">dbHost</span>)
+            }
+            <span style="color:#a6e22e">main2</span>(); <span style="color:#75715e">//undefined
+</span><span style="color:#75715e"></span>
+            <span style="color:#a6e22e">main2</span>({
+                <span style="color:#a6e22e">db</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
+                    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>
+                },
+                <span style="color:#a6e22e">cache</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;192.168.1.1&#39;</span>,
+                    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;admin&#39;</span>
+                }
+            }); <span style="color:#75715e">//127.0.0.1
+</span><span style="color:#75715e"></span>        }
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- BigInt --------------&#34;</span>);
+        {
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>;
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">BigInt</span>(<span style="color:#a6e22e">n</span>)); <span style="color:#75715e">//123n
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//console.log(BigInt(12.2)); //The number 12.2 cannot be converted to a BigInt because it is not an integer
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">MAX_SAFE_INTEGER</span>); <span style="color:#75715e">//9007199254740991
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//BigInt 运算需要和BigInt进行运算
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">BigInt</span>(Number.<span style="color:#a6e22e">MAX_SAFE_INTEGER</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">BigInt</span>(<span style="color:#ae81ff">10</span>)); <span style="color:#75715e">//9007199254741001n
+</span><span style="color:#75715e"></span>        }
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- globalThis --------------&#34;</span>);
+        {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">globalThis</span>); <span style="color:#75715e">//Window {...}
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">globalThis</span> <span style="color:#f92672">===</span> window); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">globalThis</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">global</span>); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>        }
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/emas/">Emas</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/es11/">es11</a><a class="tag" href="/tags/es9/">es9</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

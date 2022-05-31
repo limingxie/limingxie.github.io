@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>express on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/express/</link>
+    <description>Recent content in express on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 29 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/express/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_nvm</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_08/</link>
+      <pubDate>Sun, 29 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_08/</guid>
+      <description>nvm可以自由的管理nodejs的版本的切换，用起来非常方便。
+这篇整理了nvm安装和常用命令。
+1.安装 最新的安装方法可以参考这里。 https://github.com/nvm-sh/nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 建议把脚本下载到本地自己运行安装。</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_express</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_07/</link>
+      <pubDate>Sat, 28 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_07/</guid>
+      <description>这篇使用Express框架搭建一个简单的web服务器。
+1.初始化和安装Express框架 npm init -y npm install express --save npm install nodemon --save-dev //开发模式有变化自动编译 npm install body-parser --save //读取请求body值 npm install cors --save 2.</description>
+    </item>
+    
+  </channel>
+</rss>

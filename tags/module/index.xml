@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>module on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/module/</link>
+    <description>Recent content in module on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 23 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/module/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_模块化</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_02/</link>
+      <pubDate>Mon, 23 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_02/</guid>
+      <description>这篇简单的整理了nodejs的模块化的内容。
+ 每一个js文件是一个模块。每个js文件其实是被一个函数包裹着 引用文件需要require 提供接口需要用export  具体的内容直接看实例:
+md.js
+module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
+    </item>
+    
+  </channel>
+</rss>

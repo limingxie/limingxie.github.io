@@ -6,11 +6,52 @@
     <description>Recent content in promise on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 15 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/promise/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/promise/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(3)</title>
+      <link>https://limingxie.github.io/js/vue/vue_01/</link>
+      <pubDate>Sat, 28 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_01/</guid>
+      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(3)</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_06/</link>
+      <pubDate>Fri, 27 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_06/</guid>
+      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(2)</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_05/</link>
+      <pubDate>Thu, 26 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_05/</guid>
+      <description>跟着教程写了一遍Promise的自建方法。
+class Promise { constructor(executor) { //声明Prmise的两个属性  this.PromiseState = &amp;#39;pending&amp;#39;; this.</description>
+    </item>
+    
+    <item>
+      <title>【Nodejs笔记】nodejs入门简介_Promise(1)</title>
+      <link>https://limingxie.github.io/js/nodejs/nodejs_04/</link>
+      <pubDate>Wed, 25 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/nodejs/nodejs_04/</guid>
+      <description>1.Promiose 是什么？ Promise是JS中进行异步编程的解决方案。可以有效的避免了之前版本的回调地狱方式。
+Promise是一个构造函数。
+Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。
+简单的看看Promise和传统的回调方式：
+/* 编写一个抽奖程序，抽奖的过程是： 取一个随机数1~100，1~30为中奖，31~100为没中奖。 */ function rand(m, n) { return Math.</description>
+    </item>
+    
     <item>
       <title>【es6笔记】es6的入门简介_Promise(6)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_06/</link>
-      <pubDate>Sun, 15 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Sat, 14 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_06/</guid>
       <description>这里整理了Promise相关的内容。
