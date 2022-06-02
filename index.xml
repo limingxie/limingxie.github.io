@@ -6,7 +6,53 @@
     <description>Recent content on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 29 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jun 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Vue笔记】Vue入门简介_数据代理</title>
+      <link>https://limingxie.github.io/js/vue/vue_03/</link>
+      <pubDate>Wed, 01 Jun 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_03/</guid>
+      <description>1.Object.defineproperty 理解数据代理之前，先需要理解Object.defineProperty
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; let number = 18; let Person = { name: &amp;#34;小明&amp;#34;, address: &amp;#34;北京&amp;#34; } Object.</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_数据代理</title>
+      <link>https://limingxie.github.io/js/vue/vue_04/</link>
+      <pubDate>Wed, 01 Jun 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_04/</guid>
+      <description>1.Object.defineproperty 理解数据代理之前，先需要理解Object.defineProperty
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; let number = 18; let Person = { name: &amp;#34;小明&amp;#34;, address: &amp;#34;北京&amp;#34; } Object.</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_数据绑定和MVVM模型</title>
+      <link>https://limingxie.github.io/js/vue/vue_02/</link>
+      <pubDate>Tue, 31 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_02/</guid>
+      <description>看vue数据绑定的几种方式。
+1.单项双向绑定 v-bind: 单项绑定，数据只能是从data流向页面
+v-model: 双项绑定，数据可以从页面流向data,也可以从data流向页面
+v-model 指令只能用在表单类元素(输入类)
+v-model:value 可以简写为 v-model</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_基本语法</title>
+      <link>https://limingxie.github.io/js/vue/vue_01/</link>
+      <pubDate>Mon, 30 May 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_01/</guid>
+      <description>看vue的官网文档感觉没有一点前端的基础的看起来很累，
+我希望结合着这个笔记一起看，哪怕是小白能能入门。
+具体Vue的概念，什么特点安装之类的都可以看官网的资料。 vue的中文网站: https://cn.vuejs.org/
+这里简单的写一个Vue的实例以及几个需要注意的地方。
+实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+    </item>
+    
     <item>
       <title>【Nodejs笔记】nodejs入门简介_nvm</title>
       <link>https://limingxie.github.io/js/nodejs/nodejs_08/</link>
@@ -27,15 +73,6 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 
       <guid>https://limingxie.github.io/js/nodejs/nodejs_07/</guid>
       <description>这篇使用Express框架搭建一个简单的web服务器。
 1.初始化和安装Express框架 npm init -y npm install express --save npm install nodemon --save-dev //开发模式有变化自动编译 npm install body-parser --save //读取请求body值 npm install cors --save 2.</description>
-    </item>
-    
-    <item>
-      <title>【Nodejs笔记】nodejs入门简介_Promise(3)</title>
-      <link>https://limingxie.github.io/js/vue/vue_01/</link>
-      <pubDate>Sat, 28 May 2022 09:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/vue/vue_01/</guid>
-      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
     </item>
     
     <item>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme=""><head>
-    <title> 李明燮(li_mingxie) | 【Nodejs笔记】nodejs入门简介_Promise(3) </title>
+    <title> 李明燮(li_mingxie) | 【Vue笔记】Vue入门简介_基本语法 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -34,8 +34,12 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://limingxie.github.io/105"/>
 
-<meta name="twitter:title" content="【Nodejs笔记】nodejs入门简介_Promise(3)"/>
-<meta name="twitter:description" content="async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs."/>
+<meta name="twitter:title" content="【Vue笔记】Vue入门简介_基本语法"/>
+<meta name="twitter:description" content="看vue的官网文档感觉没有一点前端的基础的看起来很累，
+我希望结合着这个笔记一起看，哪怕是小白能能入门。
+具体Vue的概念，什么特点安装之类的都可以看官网的资料。 vue的中文网站: https://cn.vuejs.org/
+这里简单的写一个Vue的实例以及几个需要注意的地方。
+实例 &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34;&gt; &lt;title&gt;&lt;/title&gt; &lt;script src=&#34;."/>
 
 </head>
 <body><div class="sidebar animated fadeInDown">
@@ -146,84 +150,86 @@
         <div class="post-content">
 
             <div class="post-title">
-                <h3>【Nodejs笔记】nodejs入门简介_Promise(3)</h3>
+                <h3>【Vue笔记】Vue入门简介_基本语法</h3>
                 
             </div>
 
-            <h4 id="async">async</h4>
-<ol>
-<li>async函数的返回值是promise对象。</li>
-<li>promise对象的结果由async函数执行的返回值决定。</li>
-</ol>
-<h4 id="await">await</h4>
-<ol>
-<li>await右侧的表达式一般为promise对象。也可以是其他值。</li>
-<li>await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。</li>
-<li>await必须写在async函数中。但是async可以没有await。</li>
-<li>await的promise失败了，就会抛出异常，需要用try catch捕获。</li>
-</ol>
-<h4 id="简单实例">简单实例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//普通读取文件
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test1.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data1</span>) =&gt; {
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
-    } <span style="color:#66d9ef">else</span> {
-        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test2.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data2</span>) =&gt; {
-            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
-                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
-            } <span style="color:#66d9ef">else</span> {
-                <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test3.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data3</span>) =&gt; {
-                    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
-                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
-                    } <span style="color:#66d9ef">else</span> {
-                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data1</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data2</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data3</span>;
-                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
-                    }
-                });
+            <p>看vue的官网文档感觉没有一点前端的基础的看起来很累，<br>
+我希望结合着这个笔记一起看，哪怕是小白能能入门。</p>
+<p>具体Vue的概念，什么特点安装之类的都可以看官网的资料。
+vue的中文网站: <a href="https://cn.vuejs.org/">https://cn.vuejs.org/</a></p>
+<p>这里简单的写一个Vue的实例以及几个需要注意的地方。</p>
+<h4 id="实例">实例</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+    <span style="color:#75715e">&lt;!-- &lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&#34; &gt;&lt;/script&gt; --&gt;</span>
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+<span style="color:#75715e">&lt;!-- 
+</span><span style="color:#75715e">        1.创建一个Vue实例, 需要el和data的作为参数。
+</span><span style="color:#75715e">        2.Vue指定的容器(div)需要加入一些Vue的语法{{}}。
+</span><span style="color:#75715e">        3.Vue容器里的代码成为【Vue模板】。 
+</span><span style="color:#75715e">        4.一个Vue实例和容器是1对1 关系。不能多个Vue实例挂载到同一个容器上。
+</span><span style="color:#75715e">        5.{{xxx}} 里面的必须是js表达式。可以是变量，也可以是一个有返回值的代码。
+</span><span style="color:#75715e">        6.Vue实例的数据变了，容器里的值也会自动更新。
+</span><span style="color:#75715e">        7.真实开发中只有一个Vue实例。配合一些组件一起使用。
+</span><span style="color:#75715e">    --&gt;</span>
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+        &lt;<span style="color:#f92672">h3</span>&gt; 插值语法 &lt;/<span style="color:#f92672">h3</span>&gt; <span style="color:#75715e">&lt;!-- 只能在标签之间的内容 --&gt;</span>
+        &lt;<span style="color:#f92672">h3</span>&gt; hello, {{ name }} &lt;/<span style="color:#f92672">h3</span>&gt;
+        &lt;<span style="color:#f92672">h5</span>&gt; dateTime: {{ new Date() }} &lt;/<span style="color:#f92672">h5</span>&gt;
+
+        &lt;<span style="color:#f92672">h3</span>&gt; 指令语法 &lt;/<span style="color:#f92672">h3</span>&gt; <span style="color:#75715e">&lt;!-- 标签属性，标签体内容，绑定事件等等...--&gt;</span>
+        <span style="color:#75715e">&lt;!-- 添加 v-bind 代表vue的指令 代表“url”是 js表达式--&gt;</span>
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">v-bind:href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;website.url&#34;</span>&gt;{{website.name}}一下&lt;/<span style="color:#f92672">a</span>&gt;
+        &lt;<span style="color:#f92672">br</span>&gt;
+        <span style="color:#75715e">&lt;!-- 添加 v-bind 简写--&gt;</span>
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">:href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;website.url&#34;</span>&gt;百度一下1&lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app1&#34;</span>&gt;
+        &lt;<span style="color:#f92672">h1</span>&gt; hello11, {{ name }} &lt;/<span style="color:#f92672">h1</span>&gt;
+        &lt;<span style="color:#f92672">h5</span>&gt; dateTime11: {{ new Date() }} &lt;/<span style="color:#f92672">h5</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,  <span style="color:#75715e">//vue和容器关联
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> { <span style="color:#75715e">//存储数据，提供给el的容器。 这是对象和函数。
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Vue!&#39;</span>,
+                <span style="color:#a6e22e">website</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;百度&#39;</span>,
+                    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;http://www.baidu.com&#39;</span>
+
+                }
             }
         });
-    }
-});
 
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,  <span style="color:#75715e">//vue和容器关联
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> { <span style="color:#75715e">//存储数据，提供给el的容器。 这是对象和函数。
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Vue111!&#39;</span>
+            }
+        })
 
-<span style="color:#75715e">//结合Promise和 async await
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readTest1</span>(){
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
-        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test1.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
-        });
-    }) 
-}
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app1&#39;</span>,  <span style="color:#75715e">//vue和容器关联
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> { <span style="color:#75715e">//存储数据，提供给el的容器。 这是对象和函数。
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Vue!&#39;</span>
+            }
+        })
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
 
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readTest2</span>(){
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
-        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test2.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
-        });
-    }) 
-}
-
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readTest3</span>(){
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
-        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;test3.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
-        });
-    }) 
-}
-
-<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>(){
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">test1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">readTest1</span>();
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">test2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">readTest2</span>();
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">test3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">readTest3</span>();
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">test1</span>.<span style="color:#a6e22e">toString</span>());
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">test2</span>.<span style="color:#a6e22e">toString</span>());
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">test3</span>.<span style="color:#a6e22e">toString</span>());
-}
-
-<span style="color:#a6e22e">main</span>();
+&lt;/<span style="color:#f92672">html</span>&gt;
 </code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -231,9 +237,9 @@
         </div>
         <div class="post-footer">
             <div class="info">
-                <span class="separator"><a class="category" href="/categories/nodejs/">Nodejs</a></span>
+                <span class="separator"><a class="category" href="/categories/vue/">vue</a></span>
 
-                <span class="separator"><a class="tag" href="/tags/vue/">vue</a><a class="tag" href="/tags/promise/">Promise</a><a class="tag" href="/tags/async/">async</a><a class="tag" href="/tags/await/">await</a></span>
+                <span class="separator"><a class="tag" href="/tags/vue/">vue</a></span>
 
             </div>
         </div>
