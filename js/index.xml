@@ -18,16 +18,6 @@
     </item>
     
     <item>
-      <title>【Vue笔记】Vue入门简介_数据代理</title>
-      <link>https://limingxie.github.io/js/vue/vue_04/</link>
-      <pubDate>Wed, 01 Jun 2022 09:05:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/js/vue/vue_04/</guid>
-      <description>1.Object.defineproperty 理解数据代理之前，先需要理解Object.defineProperty
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; let number = 18; let Person = { name: &amp;#34;小明&amp;#34;, address: &amp;#34;北京&amp;#34; } Object.</description>
-    </item>
-    
-    <item>
       <title>【Vue笔记】Vue入门简介_数据绑定和MVVM模型</title>
       <link>https://limingxie.github.io/js/vue/vue_02/</link>
       <pubDate>Tue, 31 May 2022 09:05:49 +0800</pubDate>
