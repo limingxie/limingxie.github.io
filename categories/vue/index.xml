@@ -6,11 +6,54 @@
     <description>Recent content in vue on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Jun 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/vue/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Jun 2022 23:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/vue/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>【Vue笔记】Vue入门简介_数据代理</title>
+      <title>【Vue笔记】Vue入门简介_样式(7)</title>
+      <link>https://limingxie.github.io/js/vue/vue_07/</link>
+      <pubDate>Sun, 05 Jun 2022 23:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_07/</guid>
+      <description>这一篇整理了样式相关的内容。
+绑定class和绑定style。
+实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_侦听属性(06)</title>
+      <link>https://limingxie.github.io/js/vue/vue_06/</link>
+      <pubDate>Sat, 04 Jun 2022 23:45:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_06/</guid>
+      <description>这一篇整理了侦听属性相关的内容。
+侦听属性需要理解的内容 1.监视属性发生变化时会调用侦听函数，并且会做相关处理 2.监视属性必须存在才能监视 3.监视属性可以new Vue时添加，也可以 vm.$watch() 添加 4.Vue中watch默认不监测对象内部指的变化，配置deep:true 才能检测变化 5.</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_计算属性(05)</title>
+      <link>https://limingxie.github.io/js/vue/vue_05/</link>
+      <pubDate>Fri, 03 Jun 2022 23:45:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_05/</guid>
+      <description>这篇整理了Vue的计算属性
+1.定义 要用的属性不存在，需要通过已有的属性计算得出。
+2.原理 底层借助Object.defineproperty()方法提供的getter()和setter()方法，
+3.getter()和setter()方法的作用 getter()方法 当访问初次计算属性时或属性值有变化时，会调用getter()方法。
+setter()方法 当设置计算属性时，会调用setter()方法，</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_事件(04)</title>
+      <link>https://limingxie.github.io/js/vue/vue_04/</link>
+      <pubDate>Thu, 02 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_04/</guid>
+      <description>1.事件处理  使用v-on:xxxx 简写 @xxx 绑定事件 时间回调写在Vue实例的 methods 对象中, 不要写在data中 methods中配置的函数，不要用箭头函数，这样this就不指向Vue实例了 函数的参数中 event 可以用 $event 指定。  实例 &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_数据代理(03)</title>
       <link>https://limingxie.github.io/js/vue/vue_03/</link>
-      <pubDate>Wed, 01 Jun 2022 09:05:49 +0800</pubDate>
+      <pubDate>Wed, 01 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue/vue_03/</guid>
       <description>1.Object.defineproperty 理解数据代理之前，先需要理解Object.defineProperty
@@ -18,9 +61,9 @@
     </item>
     
     <item>
-      <title>【Vue笔记】Vue入门简介_数据绑定和MVVM模型</title>
+      <title>【Vue笔记】Vue入门简介_数据绑定和MVVM模型(02)</title>
       <link>https://limingxie.github.io/js/vue/vue_02/</link>
-      <pubDate>Tue, 31 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Tue, 31 May 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue/vue_02/</guid>
       <description>看vue数据绑定的几种方式。
@@ -31,9 +74,9 @@ v-model:value 可以简写为 v-model</description>
     </item>
     
     <item>
-      <title>【Vue笔记】Vue入门简介_基本语法</title>
+      <title>【Vue笔记】Vue入门简介_基本语法(01)</title>
       <link>https://limingxie.github.io/js/vue/vue_01/</link>
-      <pubDate>Mon, 30 May 2022 09:05:49 +0800</pubDate>
+      <pubDate>Mon, 30 May 2022 23:35:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue/vue_01/</guid>
       <description>看vue的官网文档感觉没有一点前端的基础的看起来很累，

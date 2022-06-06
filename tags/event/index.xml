@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>event on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/event/</link>
+    <description>Recent content in event on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 02 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/event/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Vue笔记】Vue入门简介_事件(04)</title>
+      <link>https://limingxie.github.io/js/vue/vue_04/</link>
+      <pubDate>Thu, 02 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue/vue_04/</guid>
+      <description>1.事件处理  使用v-on:xxxx 简写 @xxx 绑定事件 时间回调写在Vue实例的 methods 对象中, 不要写在data中 methods中配置的函数，不要用箭头函数，这样this就不指向Vue实例了 函数的参数中 event 可以用 $event 指定。  实例 &amp;lt;!</description>
+    </item>
+    
+  </channel>
+</rss>
