@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>RPC on Website of li_mingxie</title>
+    <title>RPC on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/rpc/</link>
-    <description>Recent content in RPC on Website of li_mingxie</description>
+    <description>Recent content in RPC on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Wed, 16 Jun 2021 20:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/rpc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【笔记】RPC和REST的区别</title>
@@ -13,11 +13,8 @@
       <pubDate>Wed, 16 Jun 2021 20:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/rpc_restful/</guid>
-      <description>我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。 那这RPC和REST到底是什么？有什么区别？
-RPC（Remote Promote Call） RPC是一种进程间通信方式。允许像调用本地服务一样调用远程服务。
-RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调用远程的方法，而对你来说这个调用是透明的，你并不知道这个调用的方法是部署哪里。
-通过RPC能解耦服务，这才是使用RPC的真正目的。RPC的原理主要用到了动态代理模式，至于http协议，只是传输协议而已。
-简单的实现可以参考spring remoting，复杂的实现可以参考dubbo。</description>
+      <description>&lt;p&gt;我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。
+那这RPC和REST到底是什么？有什么区别？&lt;/p&gt;</description>
     </item>
     
   </channel>

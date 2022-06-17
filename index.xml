@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Website of li_mingxie</title>
+    <title>宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/</link>
-    <description>Recent content on Website of li_mingxie</description>
+    <description>Recent content on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Thu, 16 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Fri, 17 Jun 2022 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【mysql笔记】mysql不常用，但是有用的命令</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_commend_01/</link>
+      <pubDate>Fri, 17 Jun 2022 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_commend_01/</guid>
+      <description>&lt;p&gt;这篇简单的整理了开发过程中我们会用到的mysql的一些命令。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【Vue笔记】Vue入门简介_脚手架(18)</title>
       <link>https://limingxie.github.io/js/vue_2/vue_18/</link>
       <pubDate>Thu, 16 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_18/</guid>
-      <description>1.安装 ​ ​Vue CLI 官方网站​​ https://cli.vuejs.org/zh/
-CLI
-C：command
-L：line
-I：interface</description>
+      <description>&lt;h2 id=&#34;1安装&#34;&gt;1.安装&lt;/h2&gt;
+&lt;p&gt;​ ​Vue CLI 官方网站​​ &lt;a href=&#34;https://cli.vuejs.org/zh/&#34;&gt;https://cli.vuejs.org/zh/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;CLI&lt;br&gt;
+C：command&lt;br&gt;
+L：line&lt;br&gt;
+I：interface&lt;/p&gt;
+&lt;p&gt;前提：Node.js安装&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,9 +37,7 @@ I：interface</description>
       <pubDate>Wed, 15 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_17/</guid>
-      <description>这一篇整理了组件相关的内容。
-非单文件组件 一个文件中包含 n 个组件
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;Vue初识&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34; src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了组件相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -37,11 +46,7 @@ I：interface</description>
       <pubDate>Tue, 14 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_16/</guid>
-      <description>这一篇整理了生命周期相关的内容。
-生命周期 1.又名：生命周期回调函数、生命周期函数、生命周期钩子
-2.是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数
-3.生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的
-4.生命周期函数中的 this 指向是 vm 或组件实例对象</description>
+      <description>&lt;p&gt;这一篇整理了生命周期相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -50,9 +55,7 @@ I：interface</description>
       <pubDate>Mon, 13 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_15/</guid>
-      <description>这一篇整理了自定义指令相关的内容。
-函数式 定义一个​​v-big​​​指令，和​​v-text​​功能类似，但会把绑定的数值放大10倍
-&amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;h2&amp;gt;当前的n值是&amp;lt;span v-text=&amp;#34;n&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;h2&amp;gt;放大10倍后的n值是：&amp;lt;span v-big=&amp;#34;n&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;button @click=&amp;#34;n++&amp;#34;&amp;gt;点我n+1&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; Vue.</description>
+      <description>&lt;p&gt;这一篇整理了自定义指令相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -61,8 +64,7 @@ I：interface</description>
       <pubDate>Sun, 12 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_14/</guid>
-      <description>这一篇整理了内置指令相关的内容。
-内置指令 ​​v-bind​​​：单向绑定解析表达式，可简写为 ​​:xxx​​​​ v-model​​：双向数据绑定 ​​v-for​​：遍历数组/对象/字符串 ​​v-on​​：绑定事件监听,可简写为​​@​​​​ v-if​​：条件渲染（动态控制节点是否存在) ​​v-else​​：条件渲染（动态控制节点是否存在) ​​v-show​​：条件渲染(动态控制节点是否展示)</description>
+      <description>&lt;p&gt;这一篇整理了内置指令相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -71,10 +73,7 @@ I：interface</description>
       <pubDate>Sat, 11 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_13/</guid>
-      <description>这一篇整理了过滤器相关的内容。
-过滤器的定义 对要显示的数据进行特定格式化后再显示(适用于一些简单逻辑的处理）
-语法 1.注册过滤器：​​​Vue.filter(name,callback)​​​或​​new Vue{filters:{}}​​​ 2.使用过滤器：​​{{ xxx│过滤器名}}​​或​​v-bind:属性= “xxx│过滤器名&amp;quot;​​
-备注 1.</description>
+      <description>&lt;p&gt;这一篇整理了过滤器相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -83,8 +82,7 @@ I：interface</description>
       <pubDate>Fri, 10 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_12/</guid>
-      <description>这一篇整理了收集表单数据相关的内容。
-收集表单数据 若：， 则v -model收集的是 value 值，用户输入的就是 value 值 若：, 则v-model收 集的是 value 值，且要给标签配置 value 值 若：1.</description>
+      <description>&lt;p&gt;这一篇整理了收集表单数据相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -93,8 +91,7 @@ I：interface</description>
       <pubDate>Thu, 09 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_11/</guid>
-      <description>这一篇整理了数据监测相关的内容。
-Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监测对象中的数据？ 通过setter实现监视，且要在new Vue时就传入要监测的数据。 (1).对象中后追加的属性，Vue默认不做响应式处理 (2).如需给后添加的属性做响应式，请使用如下API： Vue.set(target，propertyName/index，value) 或 vm.</description>
+      <description>&lt;p&gt;这一篇整理了数据监测相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -103,8 +100,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Wed, 08 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_10/</guid>
-      <description>这一篇整理了列表过滤和排序相关的内容。
-实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了列表过滤和排序相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -113,12 +109,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Tue, 07 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_09/</guid>
-      <description>这一篇这里了key的作用和原理。
-1.作用和原理 一、虚拟DOM中key的作用 key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会跟据【新数据】生成【新的虚拟DOM】，
-随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
-二、对比规则  旧虚拟DOM中找到了与新虚拟DOM相同的key：
-1）若虚拟DOM中内容没变，直接使用之前的真实DOM。
-2）若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM。 旧虚拟DOM中未找到与新虚拟DOM相同的key</description>
+      <description>&lt;p&gt;这一篇这里了key的作用和原理。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -127,8 +118,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Mon, 06 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_08/</guid>
-      <description>这一篇整理了渲染相关的内容。
-1.条件渲染  v-show v-if v-else-if v-else  &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了渲染相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -137,9 +127,8 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Sun, 05 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_07/</guid>
-      <description>这一篇整理了样式相关的内容。
-绑定class和绑定style。
-实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了样式相关的内容。&lt;br&gt;
+绑定class和绑定style。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -148,8 +137,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Sat, 04 Jun 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_06/</guid>
-      <description>这一篇整理了侦听属性相关的内容。
-侦听属性需要理解的内容 1.监视属性发生变化时会调用侦听函数，并且会做相关处理 2.监视属性必须存在才能监视 3.监视属性可以new Vue时添加，也可以 vm.$watch() 添加 4.Vue中watch默认不监测对象内部指的变化，配置deep:true 才能检测变化 5.</description>
+      <description>&lt;p&gt;这一篇整理了侦听属性相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -158,11 +146,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Fri, 03 Jun 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_05/</guid>
-      <description>这篇整理了Vue的计算属性
-1.定义 要用的属性不存在，需要通过已有的属性计算得出。
-2.原理 底层借助Object.defineproperty()方法提供的getter()和setter()方法，
-3.getter()和setter()方法的作用 getter()方法 当访问初次计算属性时或属性值有变化时，会调用getter()方法。
-setter()方法 当设置计算属性时，会调用setter()方法，</description>
+      <description>&lt;p&gt;这篇整理了Vue的计算属性&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -171,7 +155,13 @@ setter()方法 当设置计算属性时，会调用setter()方法，</descriptio
       <pubDate>Thu, 02 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_04/</guid>
-      <description>1.事件处理  使用v-on:xxxx 简写 @xxx 绑定事件 时间回调写在Vue实例的 methods 对象中, 不要写在data中 methods中配置的函数，不要用箭头函数，这样this就不指向Vue实例了 函数的参数中 event 可以用 $event 指定。  实例 &amp;lt;!</description>
+      <description>&lt;h2 id=&#34;1事件处理&#34;&gt;1.事件处理&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;使用v-on:xxxx 简写 @xxx 绑定事件&lt;/li&gt;
+&lt;li&gt;时间回调写在Vue实例的 methods 对象中, 不要写在data中&lt;/li&gt;
+&lt;li&gt;methods中配置的函数，不要用箭头函数，这样this就不指向Vue实例了&lt;/li&gt;
+&lt;li&gt;函数的参数中 event 可以用 $event 指定。&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -180,8 +170,8 @@ setter()方法 当设置计算属性时，会调用setter()方法，</descriptio
       <pubDate>Wed, 01 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_03/</guid>
-      <description>1.Object.defineproperty 理解数据代理之前，先需要理解Object.defineProperty
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; let number = 18; let Person = { name: &amp;#34;小明&amp;#34;, address: &amp;#34;北京&amp;#34; } Object.</description>
+      <description>&lt;h2 id=&#34;1objectdefineproperty&#34;&gt;1.Object.defineproperty&lt;/h2&gt;
+&lt;p&gt;理解数据代理之前，先需要理解Object.defineProperty&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -190,11 +180,7 @@ setter()方法 当设置计算属性时，会调用setter()方法，</descriptio
       <pubDate>Tue, 31 May 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_02/</guid>
-      <description>看vue数据绑定的几种方式。
-1.单项双向绑定 v-bind: 单项绑定，数据只能是从data流向页面
-v-model: 双项绑定，数据可以从页面流向data,也可以从data流向页面
-v-model 指令只能用在表单类元素(输入类)
-v-model:value 可以简写为 v-model</description>
+      <description>&lt;p&gt;看vue数据绑定的几种方式。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -203,11 +189,8 @@ v-model:value 可以简写为 v-model</description>
       <pubDate>Mon, 30 May 2022 23:35:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_01/</guid>
-      <description>看vue的官网文档感觉没有一点前端的基础的看起来很累，
-我希望结合着这个笔记一起看，哪怕是小白能能入门。
-具体Vue的概念，什么特点安装之类的都可以看官网的资料。 vue的中文网站: https://cn.vuejs.org/
-这里简单的写一个Vue的实例以及几个需要注意的地方。
-实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;看vue的官网文档感觉没有一点前端的基础的看起来很累，&lt;br&gt;
+我希望结合着这个笔记一起看，哪怕是小白能能入门。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -216,10 +199,8 @@ v-model:value 可以简写为 v-model</description>
       <pubDate>Sun, 29 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_08/</guid>
-      <description>nvm可以自由的管理nodejs的版本的切换，用起来非常方便。
-这篇整理了nvm安装和常用命令。
-1.安装 最新的安装方法可以参考这里。 https://github.com/nvm-sh/nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 建议把脚本下载到本地自己运行安装。</description>
+      <description>&lt;p&gt;nvm可以自由的管理nodejs的版本的切换，用起来非常方便。&lt;br&gt;
+这篇整理了nvm安装和常用命令。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -228,8 +209,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 
       <pubDate>Sat, 28 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_07/</guid>
-      <description>这篇使用Express框架搭建一个简单的web服务器。
-1.初始化和安装Express框架 npm init -y npm install express --save npm install nodemon --save-dev //开发模式有变化自动编译 npm install body-parser --save //读取请求body值 npm install cors --save 2.</description>
+      <description>&lt;p&gt;这篇使用Express框架搭建一个简单的web服务器。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -238,7 +218,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 
       <pubDate>Fri, 27 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_06/</guid>
-      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
+      <description>&lt;h4 id=&#34;async&#34;&gt;async&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;async函数的返回值是promise对象。&lt;/li&gt;
+&lt;li&gt;promise对象的结果由async函数执行的返回值决定。&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -247,8 +231,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 
       <pubDate>Thu, 26 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_05/</guid>
-      <description>跟着教程写了一遍Promise的自建方法。
-class Promise { constructor(executor) { //声明Prmise的两个属性  this.PromiseState = &amp;#39;pending&amp;#39;; this.</description>
+      <description>&lt;p&gt;跟着教程写了一遍Promise的自建方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -257,11 +240,10 @@ class Promise { constructor(executor) { //声明Prmise的两个属性  this.Prom
       <pubDate>Wed, 25 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_04/</guid>
-      <description>1.Promiose 是什么？ Promise是JS中进行异步编程的解决方案。可以有效的避免了之前版本的回调地狱方式。
-Promise是一个构造函数。
-Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。
-简单的看看Promise和传统的回调方式：
-/* 编写一个抽奖程序，抽奖的过程是： 取一个随机数1~100，1~30为中奖，31~100为没中奖。 */ function rand(m, n) { return Math.</description>
+      <description>&lt;h2 id=&#34;1promiose-是什么&#34;&gt;1.Promiose 是什么？&lt;/h2&gt;
+&lt;p&gt;Promise是JS中进行异步编程的解决方案。可以有效的避免了之前版本的回调地狱方式。&lt;br&gt;
+Promise是一个构造函数。&lt;br&gt;
+Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -270,8 +252,7 @@ Promise对象用来封装一个异步操作并可以获取成功或失败的结�
       <pubDate>Tue, 24 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_03/</guid>
-      <description>这篇简单的整理了nodejs的buffer, 文件读取和写入, 以及流方式读取和写入。
-{ console.log(&amp;#39;----------Buffer----------&amp;#39;); /* Buffer(缓冲区) 8bit=1字节byte */ let str = &amp;#39;hello 小明&amp;#39; let buf = Buffer.</description>
+      <description>&lt;p&gt;这篇简单的整理了nodejs的buffer, 文件读取和写入, 以及流方式读取和写入。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -280,10 +261,7 @@ Promise对象用来封装一个异步操作并可以获取成功或失败的结�
       <pubDate>Mon, 23 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_02/</guid>
-      <description>这篇简单的整理了nodejs的模块化的内容。
- 每一个js文件是一个模块。每个js文件其实是被一个函数包裹着 引用文件需要require 提供接口需要用export  具体的内容直接看实例:
-md.js
-module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
+      <description>&lt;p&gt;这篇简单的整理了nodejs的模块化的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -292,12 +270,9 @@ module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
       <pubDate>Sun, 22 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_01/</guid>
-      <description>公司项目用到了vue和nodejs&amp;hellip;ㅠㅠ
-又要学新的开发语言了&amp;hellip;^^;;
-今天看着资料简单的整理了概念，然后搭建了一个http服务。
-如何去安装和配置开发环境，百度上一大把，这里就不介绍了。
-1.nodejs 先看看nodejs在维基百科里是怎么解释的。
- Node.js 是能够在服务器端运行 JavaScript 的开放源代码、跨平台执行环境。</description>
+      <description>&lt;p&gt;公司项目用到了vue和nodejs&amp;hellip;ㅠㅠ&lt;br&gt;
+又要学新的开发语言了&amp;hellip;^^;;&lt;/p&gt;
+&lt;p&gt;今天看着资料简单的整理了概念，然后搭建了一个http服务。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -306,8 +281,7 @@ module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
       <pubDate>Sat, 21 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_13/</guid>
-      <description>这里整理了ES11新增的特性。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了ES11新增的特性。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -316,8 +290,7 @@ module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
       <pubDate>Fri, 20 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_12/</guid>
-      <description>这里整理了ES8 对象方法扩展, ES9 扩展运算符和rest参数 和ES10 扩展方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了ES8 对象方法扩展, ES9 扩展运算符和rest参数 和ES10 扩展方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -326,9 +299,8 @@ module.exports = { x: 10, fn: () =&amp;gt; { console.</description>
       <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_11/</guid>
-      <description>这里整理了ES8里的async和await。
-async和await可以让一步操作跟同步代码一样。
-async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  import  await必须写在async函数中。 await右侧的表达式一般为promise对象。 await返回的是promise对象的结果。 await的promise失败了，就会抛出异常，需要用try catch捕获。  &amp;lt;!</description>
+      <description>&lt;p&gt;这里整理了ES8里的async和await。&lt;/p&gt;
+&lt;p&gt;async和await可以让一步操作跟同步代码一样。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -337,10 +309,9 @@ async  async函数的返回值是promise对象。 promise对象的结果由async
       <pubDate>Wed, 18 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_10/</guid>
-      <description>这里整理了模块化相关的内容。
-export: 规定模块对外接口。
-import: 输入引用其他模块提供的功能。
-test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = require(&amp;#34;.</description>
+      <description>&lt;p&gt;这里整理了模块化相关的内容。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;export&lt;/strong&gt;: 规定模块对外接口。&lt;br&gt;
+&lt;strong&gt;import&lt;/strong&gt;: 输入引用其他模块提供的功能。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -349,8 +320,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Tue, 17 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_09/</guid>
-      <description>这里整理了Object和Number扩展方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了Object和Number扩展方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -359,8 +329,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Mon, 16 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_08/</guid>
-      <description>这里整理了Class相关的内容。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了Class相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -369,8 +338,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Sun, 15 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_07/</guid>
-      <description>这里整理了Set和Map相关的内容。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了Set和Map相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -379,8 +347,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Sat, 14 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_06/</guid>
-      <description>这里整理了Promise相关的内容。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了Promise相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -389,8 +356,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Fri, 13 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_05/</guid>
-      <description>这里整理了迭代器Iterator相关的内容。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了迭代器Iterator相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -399,8 +365,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Thu, 12 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_04/</guid>
-      <description>这里整理了ES6新增的类型Symbol。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了ES6新增的类型Symbol。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -409,8 +374,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Wed, 11 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_03/</guid>
-      <description>这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -419,8 +383,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Tue, 10 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_02/</guid>
-      <description>这里整理了ES6新增的变量声明方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了ES6新增的变量声明方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -429,10 +392,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Mon, 09 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_01/</guid>
-      <description>我们接触ES6的时候，会接触到一些名词，为了避免混淆先明确一下这些名词的概念。
-1.ECMA ECMA是一个组织全名叫: 欧洲计算机制造商协会（European Computer Manufacturers Association）
-是ECMA国际的前身，现在叫做ECMA国际。
-2.ECMA国际 ECMA国际(Ecma International)是一家国际性会员制度的信息和电信标准组织。前身为ECMA。</description>
+      <description>&lt;p&gt;我们接触ES6的时候，会接触到一些名词，为了避免混淆先明确一下这些名词的概念。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -441,8 +401,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Sun, 08 May 2022 22:25:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_10/</guid>
-      <description>这里整理了DOM相关内容。
-1.DOM DOM, 全称 Document Object Model 文档 对象 模型, 是一个网页的树形结构。</description>
+      <description>&lt;p&gt;这里整理了DOM相关内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -451,8 +410,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Sat, 07 May 2022 08:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_09/</guid>
-      <description>这里整理了函数的call, apply, arguments。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了函数的call, apply, arguments。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -461,8 +419,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Fri, 06 May 2022 01:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_08/</guid>
-      <description>这里整理了数组的适用方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了数组的适用方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -471,8 +428,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Thu, 05 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_07/</guid>
-      <description>这里整理了函数中this和原型使用方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了函数中this和原型使用方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -481,8 +437,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Wed, 04 May 2022 01:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_06/</guid>
-      <description>这里整理了变量的作用域，全局和函数内。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了变量的作用域，全局和函数内。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -491,8 +446,7 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Tue, 03 May 2022 00:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_05/</guid>
-      <description>函数也是对象，封装了一些功能(代码)，可以调用。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;函数也是对象，封装了一些功能(代码)，可以调用。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -501,9 +455,11 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Mon, 02 May 2022 10:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_04/</guid>
-      <description>1.对象分类 对象可以分3种。
-内建对象: 有ES标准中定义的对象。比如：String, Number, Object&amp;hellip;.
-宿主对象: 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &amp;hellip;</description>
+      <description>&lt;h2 id=&#34;1对象分类&#34;&gt;1.对象分类&lt;/h2&gt;
+&lt;p&gt;对象可以分3种。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;内建对象:&lt;/strong&gt; 有ES标准中定义的对象。比如：String, Number, Object&amp;hellip;.&lt;br&gt;
+&lt;strong&gt;宿主对象:&lt;/strong&gt; 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &amp;hellip;&lt;br&gt;
+&lt;strong&gt;自定义对象:&lt;/strong&gt; 有开发人员自己创造的对象。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -512,9 +468,8 @@ test.js const m1 = require(&amp;#34;./m1.js&amp;#34;); const {name, school} = re
       <pubDate>Sun, 01 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_03/</guid>
-      <description>这一遍整理了 if, switch, while, for 的语法。
-因为和其他语言没什么区别，所以这里就简单的整理了一下使用方法。
-if, switch, while, for &amp;lt;!</description>
+      <description>&lt;p&gt;这一遍整理了 if, switch, while, for 的语法。&lt;br&gt;
+因为和其他语言没什么区别，所以这里就简单的整理了一下使用方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -523,8 +478,7 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Sat, 30 Apr 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_02/</guid>
-      <description>这里整理了常用的运算符，在代码的注释里一起描述了运算符的含义。
-1.加法(+) &amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了常用的运算符，在代码的注释里一起描述了运算符的含义。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -533,12 +487,9 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Fri, 29 Apr 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_01/</guid>
-      <description>本想学Nodejs的，结果发现自己的JavaScript的基础太差,
-(几年前看了一下基本语法后，就没有碰过了。) 而且很多资料大部分都是对JavaScript有所了解为前提。
-只能先安心复习一下JavaScript的基础，然后再去学习Nodejs了&amp;hellip;^^;;
-1.JavaScript 还是按照惯例，先看看JavaScript在维基百科里是怎么解释的。
- JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。
- JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。 它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。 JavaScript在传统意义上被实现为一种解释语言，但在最近[何时？]，它已经可以被即时编译（JIT）执行。</description>
+      <description>&lt;p&gt;本想学Nodejs的，结果发现自己的JavaScript的基础太差,&lt;br&gt;
+(几年前看了一下基本语法后，就没有碰过了。)
+而且很多资料大部分都是对JavaScript有所了解为前提。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -547,11 +498,7 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_11/</guid>
-      <description>这一篇j简单整理了VPN、tcpdump、网络爬虫、HTTP缓存、IPv6、即时通信、流媒体。
-1.VPN VPN（Virtual Private Network），虚拟私人网络。它可以在公共网络上建立专用网络，进行加密通讯。
-图片备用地址
-图片备用地址
-1.1 作用  提高上网的安全性（加密数据） 保护公司内部资料 隐藏上网者的身份（VPN Server转发数据） 突破网站的地域限制</description>
+      <description>&lt;p&gt;这一篇j简单整理了VPN、tcpdump、网络爬虫、HTTP缓存、IPv6、即时通信、流媒体。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -560,9 +507,7 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Wed, 27 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_10/</guid>
-      <description>这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。
-1.ARP/RARP/ICMP ARP（Address Resolution Protocol），地址解析协议。
- 通过IP地址获取MAC地址。  RARP（Reverse Address Resolution Protocol），逆地址解析协议。</description>
+      <description>&lt;p&gt;这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -571,11 +516,7 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Tue, 26 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_09/</guid>
-      <description>这一篇整理了HTTP2和HTTP3。
-1.HTTP协议的不足（HTTP/1.1）   同一时间，一个连接只能对应一个请求（注意：不是建立多个连接，是多个请求只能在一个连接内队列等待）。
-针对同一个域名，大多数浏览器允许同时最多6个并发连接。
-  只允许客户端主动发起请求（请求应答模式，即一个请求只能对应一个响应）。
-  同一个会话的多次请求中，头信息会被重复传输。</description>
+      <description>&lt;p&gt;这一篇整理了HTTP2和HTTP3。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -584,10 +525,7 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Mon, 25 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_08/</guid>
-      <description>这一篇整理了HTTPS的TLS协议。
-HTTPS由网景公司于1994年首次提出。
-HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人攻击提供合理的防护。
-1.HTTPS HTTPS（HyperText Transfer Protocol Secure），超文本传输安全协议。常称为HTTP over TLS、HTTP over SSL、HTTP Secure。</description>
+      <description>&lt;p&gt;这一篇整理了HTTPS的TLS协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -596,13 +534,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Sun, 24 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_07/</guid>
-      <description>这一篇整理了对称加密，非对称加密，数字签名，证书。
-图片备用地址
-1.对称加密 在对称加密中（也叫对称密码），加密和解密使用的是同一个密钥。
-图片备用地址
-图片备用地址
-常见的对称加密算法：
- DES 3DES AES  1.</description>
+      <description>&lt;p&gt;这一篇整理了对称加密，非对称加密，数字签名，证书。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -611,11 +543,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Sat, 23 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_06/</guid>
-      <description>这一篇整理了代理，CND，网络安全相关的内容。
-1.代理 图片备用地址
-1.1 代理服务器（Proxy Server） 特点： 本身不生产内容，处于中间位置转发上下游的请求和响应。
-面向下游的客户端：它是服务器（正向代理）
-面向上游的服务器：它是客户端（反向代理）</description>
+      <description>&lt;p&gt;这一篇整理了代理，CND，网络安全相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -624,10 +552,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Fri, 22 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_05/</guid>
-      <description>这一篇整理了跨域，cookie和session的基本概念和用法。
-1.跨域(Cross-origin resource sharing） 说起跨域我们需要先了解同源策略。
-1.1 同源策略(Same-Origin Policy) 我们看看维基百科是如何解释的:
-同源策略是指在Web浏览器中，允许某个网页脚本访问另一个网页的数据，</description>
+      <description>&lt;p&gt;这一篇整理了跨域，cookie和session的基本概念和用法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -636,10 +561,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Thu, 21 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_04/</guid>
-      <description>这一篇整理了应用层的 HTTP协议的状态码和form表单。
-1.状态码（Status Code） 状态码是在RFC_2616,section-10:Status Code Definitions规范中定义的。
-状态码指示HTTP请求是否已成功完成。
-1.1 状态码分类 状态码分为5类：</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的状态码和form表单。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -648,12 +570,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Wed, 20 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_03/</guid>
-      <description>这一篇整理了应用层的 HTTP协议的ABNF格式。
-1.ABNF ABNF（Augmented BNF），是BNF（Backus-Naur Form，译：巴克斯-瑙尔范式）的修改/增强版。
-在RFC_5234中表明ABNF用作internet中通信协议的定义语言。
-ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格式，往往都是不严谨的。
-关于HTTP报文格式的定义：
-旧版：RFC_2616_4.HTTP Message</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的ABNF格式。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -662,11 +579,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Tue, 19 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_02/</guid>
-      <description>这一篇整理了应用层的 HTTP协议的概念，以及大致的结构。
-1.HTTP HTTP（Hyper Text Transfer Protocol），
-超文本传输协议。是互联网中应用最广泛的应用层协议之一。
-设计HTTP最初的目的是：
-提供一种发布和接收HTML页面的方法（HTTP最初就是用来传输HTML的），由URI来标识具体的资源。</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的概念，以及大致的结构。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -675,8 +588,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Mon, 18 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_01/</guid>
-      <description>这一篇整理了应用层的 域名，DNS, DHCP。
-1.应用层常见协议  超文本传输协议：HTTP、HTTPS 文件传输：FTP 电子邮件：SMTP、POP3、IMAP 动态主机配置：DHCP 域名系统：DNS  1.</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 域名，DNS, DHCP。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -685,9 +597,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Sun, 17 Apr 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_03/</guid>
-      <description>TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。
-1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.TCP（Transmission Control Protocol）：传输控制协议 这一篇我们看看TCP的【三次握手】和【四次挥手】。
-在看握手之前，需要对序号和确认号要有个清晰的概念才行。</description>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -696,10 +606,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Sat, 16 Apr 2022 06:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_02/</guid>
-      <description>TCP有以下几个知识点。这一篇整理【2.流量控制】和【3.拥塞控制】
-1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.流量控制 如果接收方的缓存区满了，发送方还在疯狂发送数据，
-接收方只能把收到的数据包丢掉，大量的丢包会极大浪费网络资源，所以要进行流量控制。
-流量控制：让发送方的发送速率不要太快，让接收方来得及接收处理。 原理：通过确认报文中窗口字段来控制发送方的发送速率；</description>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理【2.流量控制】和【3.拥塞控制】&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -708,9 +615,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Fri, 15 Apr 2022 21:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_01/</guid>
-      <description>TCP有以下几个知识点。这一篇整理【TCP结构】和【1.可靠传输】
-1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.TCP（Transmission Control Protocol）：传输控制协议 图片备用地址
-图片备用地址</description>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理【TCP结构】和【1.可靠传输】&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -719,11 +624,10 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Thu, 14 Apr 2022 21:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport__udp/</guid>
-      <description>1.传输层（Transport） TCP和UDP的区别： 图片备用地址
-1.1 连接性 TCP是面向连接，也就是说TCP传输必须先要建立连接才能通信，建立连接就是我们熟知的“三次握手”。
-TCP在数据传输完毕后需要断开连接，因为服务器会有端口不断的监听本次连接的状态，如果不断开就会一直占用资源，断开连接需要“四次挥手”。
-UDP是无连接，通信时不需要建立连接，发送方直接发送数据，不关心接收方的接收状态。
-1.2 可靠性 TCP：可靠传输，不丢包。只要发现丢包就会重新发送，会保证数据是准确的。</description>
+      <description>&lt;h2 id=&#34;1传输层transport&#34;&gt;1.传输层（Transport）&lt;/h2&gt;
+&lt;p&gt;TCP和UDP的区别：
+&lt;a href=&#34;https://limingxie.github.io/images/network/transport/tcp_udp.png&#34;&gt;图片备用地址&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/tcp_udp.png?x-oss-process=image/resize,w_700,m_lfit&#34; alt=&#34;tcp_udp&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -732,14 +636,8 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Wed, 13 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/3_-network-copy/</guid>
-      <description>网络层数据包（IP数据包：Packet）由首部、数据2部分组成。
-数据: 由传输层传递下来的数据段(Segment)。
-下图是网络层的数据包结构：
-图片备用地址
-下图是使用Wireshark抓包的信息:
-图片备用地址
-1.版本（Version） 占4位（0b0100：IPv4，0b0110：IPv6）。
-2.首部长度（Header Length） 占4位，标识该IP头部有多少个32bit字（4字节），因为4位最大能表示15，所以IP头部最长是60字节。</description>
+      <description>&lt;p&gt;网络层数据包（IP数据包：Packet）由首部、数据2部分组成。&lt;br&gt;
+&lt;strong&gt;数据:&lt;/strong&gt; 由传输层传递下来的数据段(Segment)。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -748,12 +646,10 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Tue, 12 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/2_data_link/</guid>
-      <description>数据链路层(Data Link)是网络协议中的第二层。
-链路: 从1个节点到相邻节点的一段物理线路(有线或无线)，中间没有其他交换节点。
-数据链路: 在一条链路上传输数据时，需要有对应的通信协议来控制数据的传输。
-不同类型的数据链路，所用的通信协议可能是不同的。
-广播信道: CSMA/CD协议（比如同轴电缆、集线器等组成的网络）
-点对点信道: PPP协议（比如2个路由器之间的信道）</description>
+      <description>&lt;p&gt;数据链路层(Data Link)是网络协议中的第二层。&lt;br&gt;
+&lt;strong&gt;链路:&lt;/strong&gt; 从1个节点到相邻节点的一段物理线路(有线或无线)，中间没有其他交换节点。&lt;br&gt;
+&lt;strong&gt;数据链路:&lt;/strong&gt; 在一条链路上传输数据时，需要有对应的通信协议来控制数据的传输。&lt;/p&gt;
+&lt;p&gt;不同类型的数据链路，所用的通信协议可能是不同的。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -762,11 +658,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Mon, 11 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/1_physical-copy/</guid>
-      <description>物理层定义了接口标准、线缆标准、传输速率、传输方式等（比如路由器定义的接口是做什么的、水晶头怎么排布、光缆线的作用等）。
-1.信号类型 图片备用地址
-1.1 模拟信号（Analog Signal） 连续的信号，适合长距离传输
-抗干扰能力差，受到干扰时波形变形很难纠正
-1.2 数字信号（Digital Signal） 离散的信号，不适合长距离传输</description>
+      <description>&lt;p&gt;物理层定义了接口标准、线缆标准、传输速率、传输方式等（比如路由器定义的接口是做什么的、水晶头怎么排布、光缆线的作用等）。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -775,12 +667,8 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Sun, 10 Apr 2022 17:20:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/route/</guid>
-      <description>我们知道不同网段的设备转发数据，需要路由器的支持。
-默认情况下，路由器是只知道跟他直连的网段，非直连的网段是需要通过静态路由或动态路由告诉它。
- 静态路由
-静态路由是管理员手动去添加路由设备信息，使用与小规模的网络。 动态路由
-路由器通过路由选择协议(RIP,OSPF)自动获取路由信息，适用于大规模的网络。  我们先看下图路由是如何连接设备的：
-1.计算机是和路由的网关连接，路由网关和计算机必须是在同一个网段。 2.</description>
+      <description>&lt;p&gt;我们知道不同网段的设备转发数据，需要路由器的支持。&lt;br&gt;
+默认情况下，路由器是只知道跟他直连的网段，非直连的网段是需要通过静态路由或动态路由告诉它。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -789,11 +677,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Sat, 09 Apr 2022 16:27:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/internet_definition/</guid>
-      <description>有一些些网络基础的概念，知道了能会更好的理解网络。
-1.网络，互联网，因特网 1.1 网络(Network) 网络是把同一个网段的一些设备链接起来就能形成网络。
-如下图：
-图片备用地址
-1.2 互联网(internet) 互联网是把不用网段的一些设备通过路由和交换机链接起来的叫互联网。</description>
+      <description>&lt;p&gt;有一些些网络基础的概念，知道了能会更好的理解网络。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -802,10 +686,10 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Fri, 08 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/mac_ip/</guid>
-      <description>1.MAC地址 每个网卡都有一个唯一(6个字节48bit)的MAC地址(Media Access Control Address)。
-这个地址是由硬件设备生成的，是网络设备的唯一标识。
-固化在网卡的ROM中，有IEEE802标准规定的MAC地址格式。
-   组织唯一标识符 网络接口标识符     40-55-82 TA-BC-D6    当48位都是1，代表的是广播地址：FF-FF-FF-FF-FF-FF</description>
+      <description>&lt;h2 id=&#34;1mac地址&#34;&gt;1.MAC地址&lt;/h2&gt;
+&lt;p&gt;每个网卡都有一个唯一(6个字节48bit)的MAC地址(Media Access Control Address)。&lt;br&gt;
+这个地址是由硬件设备生成的，是网络设备的唯一标识。&lt;br&gt;
+固化在网卡的ROM中，有IEEE802标准规定的MAC地址格式。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -814,13 +698,11 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Thu, 07 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/computer_communication/</guid>
-      <description>1.计算机之间的通信 计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。
-那我们要如何进行网络通信呢？
-首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。
-然后把数据通过网卡传送到对方的网络中。
-如果网卡发现数据的目标MAC地址是自己，就会将数据传递给上一层进行处理。
-如果网卡发现数据的目标MAC地址不是是自己，就会将数据丢掉。
-图片备用地址 2.计算机之间的链接方式 下面我们看一下具体的链接方式。</description>
+      <description>&lt;h2 id=&#34;1计算机之间的通信&#34;&gt;1.计算机之间的通信&lt;/h2&gt;
+&lt;p&gt;计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。&lt;br&gt;
+那我们要如何进行网络通信呢？&lt;br&gt;
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。&lt;br&gt;
+然后把数据通过网卡传送到对方的网络中。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -829,11 +711,10 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Wed, 06 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/osi/</guid>
-      <description>开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
-从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。
-每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
-OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
-7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。 因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。 如下图: 图片备用地址</description>
+      <description>&lt;p&gt;开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。&lt;br&gt;
+从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。&lt;br&gt;
+每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。&lt;br&gt;
+OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -842,11 +723,10 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
       <pubDate>Tue, 05 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/digital_certificate/</guid>
-      <description>1.数字证书是什么？ 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
-它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
-最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。
-2.常见的3种加密方式 为了了解数字证书的原理，首先需要了解已下3种加密方式。
-2.1 hash算法加密 它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。</description>
+      <description>&lt;h2 id=&#34;1数字证书是什么&#34;&gt;1.数字证书是什么？&lt;/h2&gt;
+&lt;p&gt;数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。&lt;br&gt;
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。&lt;br&gt;
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -864,11 +744,8 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
       <pubDate>Mon, 04 Apr 2022 16:38:02 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5gc/</guid>
-      <description>最近有机会查看了有关5G网的内容。对于移动通讯完全不懂的小白来说一切都很陌生和茫然。
-几天的摸索，整理了“皮毛”内容，希望像我这样的小白有帮助&amp;hellip;^^
-1. 网元(Network Element) 我们先了解一下，5G网络中网元(NE)是什么？
-网元由一个或多个机盘或机框组成， 能够独立完成一定的传输功能。
-简单的说，5G网络是由多个网元(Network Element)组成。每个网元有各自的功能。</description>
+      <description>&lt;p&gt;最近有机会查看了有关5G网的内容。对于移动通讯完全不懂的小白来说一切都很陌生和茫然。&lt;br&gt;
+几天的摸索，整理了“皮毛”内容，希望像我这样的小白有帮助&amp;hellip;^^&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -877,10 +754,9 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
       <pubDate>Wed, 23 Mar 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/go_routine/</guid>
-      <description>说起go语言，离不开goroutine。
-之前使用go语言开发的时候，也没多少机会用到goroutine。
-趁这些天了解一下GMP模型G(goroutine) M(thread) P(Processor)。
-1.GMP模型 G -&amp;gt; goroutine Go中，协程被称为goroutine，一个goroutine只占几KB。</description>
+      <description>&lt;p&gt;说起go语言，离不开goroutine。&lt;br&gt;
+之前使用go语言开发的时候，也没多少机会用到goroutine。&lt;br&gt;
+趁这些天了解一下GMP模型G(goroutine) M(thread) P(Processor)。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -889,24 +765,17 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
       <pubDate>Sat, 19 Mar 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/go_map/</guid>
-      <description>go的hashtable是用map实现。
-今天简单的整理了map的结构。
-1.map的结构 hmap 在源码中, map的结构体是hmap, 它是hashmap的“缩写”。
-先看看看源码是怎么解释的。
-// A header for a Go map.</description>
+      <description>&lt;p&gt;go的hashtable是用map实现。&lt;br&gt;
+今天简单的整理了map的结构。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【ES笔记】Elasticsearch结构和常用API简介</title>
-      <link>https://limingxie.github.io/database/mysql/elasticsearch/</link>
+      <link>https://limingxie.github.io/database/elasticsearch/</link>
       <pubDate>Thu, 17 Mar 2022 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/mysql/elasticsearch/</guid>
-      <description>简单的做一下Elasticsearch的结构和常用语法的记录。
-为以后方便查看&amp;hellip;^^
-1.Elasticsearch基本概念 Cluster 集群 群集是一个或多个节点（服务器）的集合， 这些节点共同保存整个数据，并在所有节点上提供联合索引和搜索功能。
-一个集群由一个唯一集群ID确定，并指定一个集群名（默认为“elasticsearch”）。
-Node节点 节点是单个服务器实例，它是群集的一部分，可以存储数据，并参与群集的索引和搜索功能。</description>
+      <guid>https://limingxie.github.io/database/elasticsearch/</guid>
+      <description>&lt;p&gt;简单的做一下Elasticsearch的结构和常用语法的记录。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -915,13 +784,9 @@ Node节点 节点是单个服务器实例，它是群集的一部分，可以存
       <pubDate>Sat, 12 Mar 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/go_slice_code/</guid>
-      <description>我们java里有个ArrayList， 那go有切片(slice)。
-看起来有点像，但是了解切片(slice)结构后，会发现这其实是个两个不同的结构。
-下面简单的整理了切片(slice)的结构。
-1.切片(slice) 切片(slice)是数组的一个引用，因此切片是引用类型。但自身是结构体，值拷贝传递。
-看看下图就应该能明白，为什么说是引用类型，可又说自身又是结构体。
-图片备用地址
-Slice 的数据结构可以如下定义:</description>
+      <description>&lt;p&gt;我们java里有个ArrayList， 那go有切片(slice)。&lt;br&gt;
+看起来有点像，但是了解切片(slice)结构后，会发现这其实是个两个不同的结构。&lt;br&gt;
+下面简单的整理了切片(slice)的结构。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -930,8 +795,7 @@ Slice 的数据结构可以如下定义:</description>
       <pubDate>Thu, 10 Mar 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/go_point/</guid>
-      <description>今天简单整理一下以下三种指针: 普通指针(*T), uintptr, unsafe.Pointer
-1. 普通指针(*T) 普通指针类型，用于传递对象地址，不能进行指针运算。 可以用 &amp;amp;(取地址) *(根据地址取值)。</description>
+      <description>&lt;p&gt;今天简单整理一下以下三种指针: 普通指针(*T), uintptr, unsafe.Pointer&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -940,13 +804,9 @@ Slice 的数据结构可以如下定义:</description>
       <pubDate>Sun, 06 Mar 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/limingxie/-intermittent_fasting_72h/</guid>
-      <description>很长时间在网上看过3天【72小时的断食】多么多么的好，
-说什么改善人体免疫系统，消化系统，排除毒素等等&amp;hellip;
-我以前减肥的时候也尝试过12,16,24小时的断食，也亲身体验过这些断食的好处。
-这是我简单的整理了减肥的过程。程序员减肥记
-这次挑战72小时断食。(还有7天断食,这就不挑战了&amp;hellip;^^;; 这个感觉需要专业知识。)
-1.前期准备 我看了好几个版本的72小时断食的介绍，无非有2种比较流行的方式。
-  早中晚都只喝蜂蜜水，适当的补充盐分。主要是为了清肠和排毒。(必要是需要做灌肠) 只喝水，适当的补充盐分，主要是为了最大范围的适用【自体吞噬泡(Autophagy)】的效果。   对间接性断食有一些了解的人都知道，人体空腹16个小时的时候会分泌成长荷尔蒙，以及出现自体吞噬泡(Autophagy)的现象。</description>
+      <description>&lt;p&gt;很长时间在网上看过3天【&lt;strong&gt;72小时的断食&lt;/strong&gt;】多么多么的好，&lt;br&gt;
+说什么改善人体免疫系统，消化系统，排除毒素等等&amp;hellip;&lt;br&gt;
+我以前减肥的时候也尝试过12,16,24小时的断食，也亲身体验过这些断食的好处。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -955,10 +815,7 @@ Slice 的数据结构可以如下定义:</description>
       <pubDate>Thu, 17 Feb 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/tree_code_bst/</guid>
-      <description>简单的写了一下排序二叉树(Binary Search Treee)的查询，删除。
-加上树的遍历前序遍历，中序遍历，后序遍历。
-1.排序二叉树(Binary Search Tree)的结构 先声明一个BSTTree和TreeNode两个struct。
-type BSTTree struct { Root *TreeNode } type TreeNode struct { Value int Left *TreeNode Right *TreeNode } 2.</description>
+      <description>&lt;p&gt;简单的写了一下排序二叉树(Binary Search Treee)的查询，删除。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -967,11 +824,8 @@ type BSTTree struct { Root *TreeNode } type TreeNode struct { Value int Left *Tr
       <pubDate>Wed, 16 Feb 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/hash_table/</guid>
-      <description>今天用go语言简单的写了一下散列表(哈希表 Hash table)的方法。
-为了以后方便查看，当做笔记整理了一下~~
-1.散列表(Hash table) 我们先看看维基百科里是怎么解释的。
- 根据键（Key）而直接访问在内存储存位置的数据结构。也就是说，它通过计算出一个键值的函数，将所需查询的数据映射到表中一个位置来让人访问，这加快了查找速度。
-这个映射函数称做散列函数，存放记录的数组称做散列表。</description>
+      <description>&lt;p&gt;今天用go语言简单的写了一下散列表(哈希表 Hash table)的方法。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -980,13 +834,8 @@ type BSTTree struct { Root *TreeNode } type TreeNode struct { Value int Left *Tr
       <pubDate>Tue, 15 Feb 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/priority_queue_code/</guid>
-      <description>今天用go语言简单的写了一下PriorityQueue的方法。
-为了以后方便查看，当做笔记整理了一下~~
-1.优先队列(PriorityQueue) 维基百科里是这么解释的。
- 优先队列是计算机科学中的一类抽象数据类型。优先队列中的每个元素都有各自的优先级，优先级最高的元素最先得到服务；
-优先级相同的元素按照其在优先队列中的顺序得到服务。优先队列往往用堆来实现。
- 下面用go语言简单的实现了PriorityQueue。
-struct type PriorityQueue struct { Head *Node } type Node struct { Value string Priority int Next *Node } Push func (p *PriorityQueue) Push(value string, priority int) { if p.</description>
+      <description>&lt;p&gt;今天用go语言简单的写了一下PriorityQueue的方法。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -995,13 +844,8 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
       <pubDate>Mon, 14 Feb 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/queue_code/</guid>
-      <description>今天用go语言简单的写了一下queue的方法。
-为了以后方便查看，当做笔记整理了一下~~
-1.队列(QUEUE) 维基百科里是这么解释的。
- 计算机科学中的一种抽象资料型别，是先进先出（FIFO, First-In-First-Out）的线性表。
-在具体应用中通常用链表或者数组来实现。队列只允许在后端（称为rear）进行插入操作，在前端（称为front）进行删除操作。
-队列的操作方式和堆栈类似，唯一的区别在于队列只允许新数据在后端进行添加。
- 具体的详解可以参考这篇文章里的Queue部分栈(STACK), 堆(HEAP), 队列(QUEUE) 是什么？</description>
+      <description>&lt;p&gt;今天用go语言简单的写了一下queue的方法。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1010,11 +854,8 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
       <pubDate>Sun, 13 Feb 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/stack/</guid>
-      <description>今天用go语言简单的写了一下stack的方法。
-为了以后方便查看，当做笔记整理了一下~~
-1.栈(Stack) 维基百科里是这么解释的。
- 是计算机科学中的一种抽象资料类型，只允许在有序的线性资料集合的一端（称为堆栈顶端，英语：top）进行加入数据（英语：push）和移除数据（英语：pop）的运算。
-因而按照后进先出（LIFO, Last In First Out）的原理运作。</description>
+      <description>&lt;p&gt;今天用go语言简单的写了一下stack的方法。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1023,14 +864,7 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
       <pubDate>Wed, 09 Feb 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/time_complexity/</guid>
-      <description>我们讨论一些算法的时候，会经常听说时间复杂度和空间复杂度。
-之前的工作中一般不会用到算法，加上我又不是计算机专业，对这些不太熟悉。
-趁这几天有时间，简单的整理了一下时间复杂度和空间复杂度是什么。
- 1.时间复杂度 首先时间复杂度是用大O表示的。
-我们看看维基百科是如何整理的。
-图片备用地址
-看这些眼花缭乱，初学者别看了&amp;hellip;^^;;
-其实结合代码看的话，一些常用的时间复杂度还是很好理解的。</description>
+      <description>&lt;p&gt;我们讨论一些算法的时候，会经常听说时间复杂度和空间复杂度。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1039,12 +873,8 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
       <pubDate>Sat, 29 Jan 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/linked_list_code/</guid>
-      <description>今天用go语言简单的写了一下单向链表的方法。
-为了以后方便查看，当做笔记整理了一下~~
-1.链表(Linked List) 维基百科里是这么解释的。
- 链表（Linked list）是一种常见的基础数据结构，是一种线性表，
-但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)。
-由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，</description>
+      <description>&lt;p&gt;今天用go语言简单的写了一下单向链表的方法。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1074,13 +904,8 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
       <pubDate>Tue, 25 Jan 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/list_code/</guid>
-      <description>今天用go语言简单的写了一下数组的方法。
-为了以后方便查看，当做笔记整理了一下~~
-1.数组(Array) 维基百科里是这么解释的。
- 简称数组（英语：Array），是由相同类型的元素（element）的集合所组成的数据结构，分配一块连续的内存来存储。
-利用元素的索引（index）可以计算出该元素对应的存储地址。
- 本想写个通用的方法，但是写着写着感觉需要处理的细节太多了，
-本人不才只能简单的写了一下[]int 的数组模式&amp;hellip;^^;;</description>
+      <description>&lt;p&gt;今天用go语言简单的写了一下数组的方法。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1102,10 +927,8 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
       <pubDate>Tue, 27 Jul 2021 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/go_slice/</guid>
-      <description>我们在日常变成中经常用到数组, 切片(slice), 映射(map)。
-这篇文章中简单的介绍一下这3中结构。
-1. 数组 数组是我们接触到的最基本的结构，在Go里面的数组有一些比较特别的地方。如下：
- 数组是值。将一个数组赋予另一个数组会复制其所有元素。 若将某个数组传入某个函数，它将接收到该数组复制一份而非指针。 数组的大小是其类型的一部分。类型 [10]int 和 [20]int 是不同的。  数组为值的属性很有用，但代价也高，我们也可以传递一个指向该数组的指针。</description>
+      <description>&lt;p&gt;我们在日常变成中经常用到数组, 切片(slice), 映射(map)。&lt;br&gt;
+这篇文章中简单的介绍一下这3中结构。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1114,10 +937,8 @@ struct type PriorityQueue struct { Head *Node } type Node struct { Value string 
       <pubDate>Tue, 27 Jul 2021 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/go_new_make/</guid>
-      <description>new和make都是分配资源的命令，这两个命令很容易混淆。
-但是我们只要弄清楚其规则，区分起来不难。
-1. new 先看看go语言的官方说明文档是怎么解释的？
-new是用来分配内存的内建函数，但与其它语言中的同名函数不同，它不会初始化内存，只会将内存置零。 也就是说，new(T) 会为类型为T的新项分配已置零的内存空间，并返回它的地址，也就是一个类型为 *T的值。 用Go的术语来说，它返回一个指针，该指针指向新分配的，类型为 T 的零值。 简单的说他会创建一个引用类型的地址(栈内存)，不会分配内存空间(堆内存)。</description>
+      <description>&lt;p&gt;new和make都是分配资源的命令，这两个命令很容易混淆。&lt;br&gt;
+但是我们只要弄清楚其规则，区分起来不难。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1146,15 +967,8 @@ new是用来分配内存的内建函数，但与其它语言中的同名函数�
       <pubDate>Fri, 09 Jul 2021 09:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/limingxie/work_note_001/</guid>
-      <description>公司被收购也差不多经历了一年的时间了。
-想写写自从公司被收购以后，我这一年内心的变化。
-1.从开发主力到小角色 新环境，你以前做什么是不重要的，一切需要听从安排。
-因为我们之前主要是用go语言开发，新东家是java。
-对我们普遍的评价是业务熟练度还可以，技术能力不行。
-(即使公司有很多6~10年经验的开发&amp;hellip;^^;;)
-没多少时间适应新的语言，新的架构。
-给了一些业务(全渠道)讲解的视频和如何运用架构开发的视频。
-一周后直接投入项目了。</description>
+      <description>&lt;p&gt;公司被收购也差不多经历了一年的时间了。&lt;br&gt;
+想写写自从公司被收购以后，我这一年内心的变化。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1163,11 +977,8 @@ new是用来分配内存的内建函数，但与其它语言中的同名函数�
       <pubDate>Wed, 16 Jun 2021 20:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/rpc_restful/</guid>
-      <description>我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。 那这RPC和REST到底是什么？有什么区别？
-RPC（Remote Promote Call） RPC是一种进程间通信方式。允许像调用本地服务一样调用远程服务。
-RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调用远程的方法，而对你来说这个调用是透明的，你并不知道这个调用的方法是部署哪里。
-通过RPC能解耦服务，这才是使用RPC的真正目的。RPC的原理主要用到了动态代理模式，至于http协议，只是传输协议而已。
-简单的实现可以参考spring remoting，复杂的实现可以参考dubbo。</description>
+      <description>&lt;p&gt;我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。
+那这RPC和REST到底是什么？有什么区别？&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1176,12 +987,8 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
       <pubDate>Wed, 16 Jun 2021 18:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/communication_protocol/</guid>
-      <description>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。
-今天就按笔记的形式整理了一下我们常见的几种协议。
-先看看通讯协议是什么？ 维基百科是这么解释的。
-通信协议（Communications Protocol，传输协议） 在电信领域中指的是，在任何物理介质中允许两个或多个在传输系统中的终端之间传播信息的系统标准，也是指计算机通信或网络设备的共同语言。
-通信协议定义了通信中的语法学、语义学和同步规则以及可能存在的错误检测与纠正。通信协议在硬件、软件或两者之间皆可实现。
-很绕口&amp;hellip;^^;; 如果不是技术相关人员的话，可以这么去理解。</description>
+      <description>&lt;p&gt;我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。&lt;br&gt;
+今天就按笔记的形式整理了一下我们常见的几种协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1190,10 +997,8 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
       <pubDate>Wed, 16 Jun 2021 08:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/uri_url_urn/</guid>
-      <description>我们经常接触到 URI，URL，URN 这些名词。
-本以为都是同一个概念，但我发现它们还是有些区别的。
-先看看各自的单词意思。
-URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform Resource Locator）：统一资源定位符。 URN（Uniform Resource Name）：统一资源名称。 URI 可以进一步划分为定位符（URL），名称（URN）或两者兼备。 URL 和 URN 都是 URI 子集。</description>
+      <description>&lt;p&gt;我们经常接触到 URI，URL，URN 这些名词。&lt;br&gt;
+本以为都是同一个概念，但我发现它们还是有些区别的。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1206,7 +1011,31 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
 本以为很简单的已知业务，却没想到会有些抽象的概念和模糊的关系，折磨了我很久。
 1.常见的概念 先了解一下下面几个常见的概念。
 1.1 SPU(Standard Product Unit) 标准化产品单元。是商品信息聚合的最小单位，是一组可复用、易检索的标准化信息的集合，该集合描述了一个产品的特性。
-通俗点讲，属性值、特性相同的商品就可以称为一个SPU。</description>
+通俗点讲，属性值、特性相同的商品就可以称为一个SPU。
+1.2 商品(product) 淘宝叫item，京东叫product，商品特指与商家有关的商品，每个商品有一个商家编码，每个商品下面有多个颜色，款式，可以有多个SKU。
+我习惯于叫product。
+1.3 SKU(Stock keeping Unit) 库存保有单位。即库存进出计量的单位，可以是以件、盒、托盘等为单位。SKU是物理上不可分割的最小存货单元。
+1.4 条形码(barcode) 我们经常听到EAN条形码、UPC条形码、25条形码、交叉25条形码、库德巴条形码、Code 39条形码和Code 128条形码等等&amp;hellip;
+看看我们常用的EAN条形码是什么？
+EAN条形码(EAN-13码): 是国际通用的符号体系，是一种长度固定、无含意的条形码，所表达的信息全部为数字，主要应用于商品标识。
+举例:6957420001084 =&amp;gt; 695(代表出产国家690~699是中国) 7420(所属厂家的商号) 00108(代表货品号码) 4(校验码:使用一定算法验证)
+其它的感兴趣的人自行搜索看看。
+2.相互关系 这4个概念貌似很简单明确，但是实际业务里没有边明确的业务边界。
+以下都是以我的自己的理解来整理的，不太合理忽喷，可以相互讨论&amp;hellip;^^
+2.1 SPU 和 商品的关系 第一个让我迷糊的是SPU和商品的关系。两者都是抽象的概念。
+很多人都说iPhone12是SPU。iPhone12的黑色，256GB 是一个SKU。
+那商品呢？iPhone12 不是商品吗？ 那SPU不就是商品吗？
+我觉得SPU和商品的区别的关键是【卖】。
+开始卖了叫商品，所以商品需要有商家和渠道去卖。
+SPU就不一样了。他强调的是【标准化的单元】。
+当你有个iPhoneXX的SPU，但是没拿去卖，那它就不是商品了。
+我们现有SPU，拿去卖就是商品了，开始卖了后，需要管理库存，所以就有了SKU。
+2.2 SKU 和 条形码的关系 条形码的种类很多，一开始会让人迷糊。
+在POS机中扫一个条形码就能查到一个商品(SKU)？ 这里很容易产生一个错觉，条形码就是SKU。
+但是有很多场景，特别是委托生产，虽然是一个SKU，但是生产批次，制作商不一样，会有不同的条形码。
+还有那些在条形码(或是二维码？)里添加生产日期的商品(比如有保质期的商品)虽然是同一个商品，但是很有可能是不同的SKU。
+所以我们要确保的是通过这个条形码可以找到相对应的sku。 其余的业务需要根据业务场景做一些适当的调整。
+3.总结  先标准化的单元 =&amp;gt; SPU iPhoneXX 决定去卖了 =&amp;gt; 商品 iPhoneXX 卖的过程中，需要管理库存 =&amp;gt; 库存单元 SKU 为了实际业务管好SKU =&amp;gt; 条形码   欢迎大家的意见和交流</description>
     </item>
     
     <item>
@@ -1226,15 +1055,10 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
       <pubDate>Wed, 23 Dec 2020 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/limingxie/diet/</guid>
-      <description>一说起程序员，一般联想到的是熬夜，加班，秃头，小肚子等等&amp;hellip;
-我去年感到身体上的异样，不如以前了。
-年龄也不小了，加上圆圆的肚子，血脂和血压都不正常，而且还带有脂肪肝。
-所以我下定决心减肥了，我本人做一件事会很投入的类型。
-查了很多资料，2019年的10月1日启动了减肥项目~
-先炫耀一下我的成果&amp;hellip;^^
-图片备用地址
-我当时到2019年12月底的时候，用3个月的时间成功的减掉了30斤(85公斤减到70公斤)。
-后续的2020年1月开始突然新冠疫情爆发，工作上的迷茫，加上几个月的长期出差，只能尽可能的维持体重了。 减肥过的人大多数会感觉到，维持体重其实比减肥还难&amp;hellip;.ㅠㅠ</description>
+      <description>&lt;p&gt;一说起程序员，一般联想到的是熬夜，加班，秃头，小肚子等等&amp;hellip;&lt;br&gt;
+我去年感到身体上的异样，不如以前了。&lt;br&gt;
+年龄也不小了，加上圆圆的肚子，血脂和血压都不正常，而且还带有脂肪肝。&lt;br&gt;
+所以我下定决心减肥了，我本人做一件事会很投入的类型。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1379,7 +1203,7 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
       <pubDate>Thu, 14 Feb 2019 08:38:02 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/err_return/</guid>
-      <description>&lt;p&gt;上一篇文章我介绍了拆分服务后如何去写测试代码。&lt;br&gt;
+      <description>&lt;p&gt;上一篇文章我介绍了拆分服务后如何去写测试代码。
 &lt;a href=&#34;https://limingxie.github.io/go/my_go_test4/&#34;&gt;Go项目:傻瓜式联合测试&lt;/a&gt;&lt;br&gt;
 今天想共享一下，我是如何处理error。&lt;/p&gt;</description>
     </item>
@@ -1391,7 +1215,7 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
       
       <guid>https://limingxie.github.io/go/my_go_test4/</guid>
       <description>&lt;p&gt;现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。&lt;br&gt;
-感觉有些内容不应该在同一个服务里。&lt;br&gt;
+感觉有些内容不应该在同一个服务里。
 于是我做了一个决定: &lt;strong&gt;&lt;code&gt;拆分服务&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;</description>
     </item>
     
@@ -1505,7 +1329,7 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
       <pubDate>Sun, 27 May 2018 20:38:02 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/my_go_test3/</guid>
-      <description>&lt;p&gt;上一篇文章介绍了项目中测试代码的写法。&lt;br&gt;
+      <description>&lt;p&gt;上一篇文章介绍了项目中测试代码的写法。
 &lt;a href=&#34;https://limingxie.github.io/go/my_go_test1/&#34;&gt;Go项目的测试代码2（项目运用）&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里简单的共享一下测试替身。&lt;/p&gt;</description>
     </item>
@@ -1516,7 +1340,7 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
       <pubDate>Sun, 27 May 2018 20:37:02 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/my_go_test1/</guid>
-      <description>&lt;p&gt;上一篇文章介绍了最基本的测试代码的写法。&lt;br&gt;
+      <description>&lt;p&gt;上一篇文章介绍了最基本的测试代码的写法。
 &lt;a href=&#34;https://limingxie.github.io/go/my_go_test/&#34;&gt;Go项目的测试代码（基础）&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里简单的共享一下我在项目中使用的方式。&lt;/p&gt;</description>
     </item>
@@ -1547,6 +1371,16 @@ URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform R
       <guid>https://limingxie.github.io/limingxie/hugo_create/</guid>
       <description>&lt;p&gt;这几天研究了用hugo搭建个人博客。&lt;/p&gt;
 &lt;p&gt;简单的整理了一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【mysql笔记】EXPLAIN</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_explain/</link>
+      <pubDate>Tue, 18 Jun 1022 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_explain/</guid>
+      <description>&lt;p&gt;我们时常遇到需要mysql数据反应缓慢，需优化的时候。&lt;br&gt;
+如果对explain有所了解，你可以现查现优化。&lt;/p&gt;</description>
     </item>
     
   </channel>

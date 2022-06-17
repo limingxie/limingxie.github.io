@@ -1,159 +1,177 @@
 <!DOCTYPE html>
-<html lang="en" data-theme=""><head>
-    <title> 李明燮(li_mingxie) | 【go笔记】 数组, 切片(slice), 映射(map)简介 </title>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【go笔记】 数组, 切片(slice), 映射(map)简介 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【go笔记】 数组, 切片(slice), 映射(map)简介" />
+<meta property="og:description" content="我们在日常变成中经常用到数组, 切片(slice), 映射(map)。
+这篇文章中简单的介绍一下这3中结构。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/go/go_slice/" />
+<meta property="article:published_time" content="2021-07-27T07:28:49+08:00" />
+<meta property="article:modified_time" content="2021-07-27T07:28:49+08:00" />
 
-    
-    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-    <meta name="description" content="年纪大了做开发是没出息吗？">
-    
-    <link rel="stylesheet"
-          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
-          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
-          crossorigin="anonymous"
-          type="text/css"><link rel="stylesheet" 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
-    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
-    crossorigin="anonymous" />
+		<meta itemprop="name" content="【go笔记】 数组, 切片(slice), 映射(map)简介">
+<meta itemprop="description" content="我们在日常变成中经常用到数组, 切片(slice), 映射(map)。
+这篇文章中简单的介绍一下这3中结构。">
+<meta itemprop="datePublished" content="2021-07-27T07:28:49+08:00" />
+<meta itemprop="dateModified" content="2021-07-27T07:28:49+08:00" />
+<meta itemprop="wordCount" content="1383">
 
-    
-    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
 
-    <link rel="canonical" href="https://limingxie.github.io/go/go_slice/">
 
-    
-    
-    
-    
-    <script type="text/javascript"
-            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
-            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
-            crossorigin="anonymous"></script>
-    <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+<meta itemprop="keywords" content="go,golang,new,make," />
 
+		<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="【go笔记】 数组, 切片(slice), 映射(map)简介"/>
 <meta name="twitter:description" content="我们在日常变成中经常用到数组, 切片(slice), 映射(map)。
-这篇文章中简单的介绍一下这3中结构。
-1. 数组 数组是我们接触到的最基本的结构，在Go里面的数组有一些比较特别的地方。如下：
- 数组是值。将一个数组赋予另一个数组会复制其所有元素。 若将某个数组传入某个函数，它将接收到该数组复制一份而非指针。 数组的大小是其类型的一部分。类型 [10]int 和 [20]int 是不同的。  数组为值的属性很有用，但代价也高，我们也可以传递一个指向该数组的指针。"/>
+这篇文章中简单的介绍一下这3中结构。"/>
 
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
 </head>
-<body><div class="sidebar animated fadeInDown">
-    <div class="logo-title">
-        <div class="title">
-            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
-            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
-            <div class="description">
-                <p>年纪大了做开发是没出息吗？</p>
-            </div>
-        </div>
-    </div>
-    <ul class="social-links">
-        
-            <li>
-                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
-                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-    </ul>
-    <div class="footer">
-        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
-    </div>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1"></span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/network/">
+				
+				<span class="menu__text">网络</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/">
+				
+				<span class="menu__text">工具和环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/basic/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【go笔记】 数组, 切片(slice), 映射(map)简介</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
 </div>
-<div class="main">
-    <div class="page-top animated fadeInDown">
-    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-    </a>
-    <ul class="nav" id="navMenu">
-        
-        
-            
-            <li><a 
-                   href="/"
-                        
-                   title="">Home</a></li>
-        
-            
-            <li><a 
-                   href="/limingxie/"
-                        
-                   title="">随笔</a></li>
-        
-            
-            <li><a 
-                   href="/go/"
-                        
-                   title="">Golang</a></li>
-        
-            
-            <li><a 
-                   href="/java/"
-                        
-                   title="">Java</a></li>
-        
-            
-            <li><a 
-                   href="/js/"
-                        
-                   title="">js相关</a></li>
-        
-            
-            <li><a 
-                   href="/network/"
-                        
-                   title="">网络</a></li>
-        
-            
-            <li><a 
-                   href="/database/"
-                        
-                   title="">database</a></li>
-        
-            
-            <li><a 
-                   href="/tool/"
-                        
-                   title="">工具和环境</a></li>
-        
-            
-            <li><a 
-                   href="/basic/"
-                        
-                   title="">其它</a></li>
-        
-            
-            <li><a 
-                   href="/algorithm/"
-                        
-                   title="">算法</a></li>
-        
-        
-        <li class="theme-switch-item">
-            <a class="theme-switch" title="Switch Theme">
-                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
-</div>
-
-    <div class="autopagerize_page_element">
-        <div class="content">
-    <div class="post animated fadeInDown">
-        <div class="post-content">
-
-            <div class="post-title">
-                <h3>【go笔记】 数组, 切片(slice), 映射(map)简介</h3>
-                
-            </div>
-
-            <p>我们在日常变成中经常用到数组, 切片(slice), 映射(map)。<br>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-07-27T07:28:49&#43;08:00">2021-07-27</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title"></div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-数组">1. 数组</a></li>
+        <li><a href="#2-切片slice">2. 切片(slice)</a></li>
+        <li><a href="#3-映射map">3. 映射(map)</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>我们在日常变成中经常用到数组, 切片(slice), 映射(map)。<br>
 这篇文章中简单的介绍一下这3中结构。</p>
 <h3 id="1-数组">1. 数组</h3>
 <p>数组是我们接触到的最基本的结构，在Go里面的数组有一些比较特别的地方。如下：</p>
@@ -177,144 +195,144 @@
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============var声明和make的内存分配==============&#34;</span>)
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a0</span> []<span style="color:#66d9ef">int</span>
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a0</span>, len(<span style="color:#a6e22e">a0</span>), cap(<span style="color:#a6e22e">a0</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a0</span>, <span style="color:#a6e22e">a0</span>, <span style="color:#a6e22e">a0</span>)
-	<span style="color:#a6e22e">b0</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">b0</span>, len(<span style="color:#a6e22e">b0</span>), cap(<span style="color:#a6e22e">b0</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b0</span>, <span style="color:#a6e22e">b0</span>, <span style="color:#a6e22e">b0</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============var声明和make的内存分配==============&#34;</span>)
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a0</span> []<span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a0</span>, len(<span style="color:#a6e22e">a0</span>), cap(<span style="color:#a6e22e">a0</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a0</span>, <span style="color:#a6e22e">a0</span>, <span style="color:#a6e22e">a0</span>)
+ <span style="color:#a6e22e">b0</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">b0</span>, len(<span style="color:#a6e22e">b0</span>), cap(<span style="color:#a6e22e">b0</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b0</span>, <span style="color:#a6e22e">b0</span>, <span style="color:#a6e22e">b0</span>)
 
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============自动扩容测试==============&#34;</span>)
-	<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) <span style="color:#75715e">//声明一个长度为2，容量为3的slice
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
-	<span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>         <span style="color:#75715e">//因是长度内的可以直接赋值
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e">//超出长度只能用append赋值
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
-	<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">3</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
-	<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">4</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============自动扩容测试==============&#34;</span>)
+ <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) <span style="color:#75715e">//声明一个长度为2，容量为3的slice
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>         <span style="color:#75715e">//因是长度内的可以直接赋值
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e">//超出长度只能用append赋值
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">3</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">4</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
 
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============存储地址的变化==============&#34;</span>)
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> []<span style="color:#66d9ef">int</span>
-	<span style="color:#a6e22e">b</span> = <span style="color:#a6e22e">a</span>	<span style="color:#75715e">//测试给别的变量赋值会有什么变化
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">b</span>, len(<span style="color:#a6e22e">b</span>), cap(<span style="color:#a6e22e">b</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">b</span>)
-	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[:<span style="color:#ae81ff">2</span>] <span style="color:#75715e">//测试截取的变化
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">c</span>, len(<span style="color:#a6e22e">c</span>), cap(<span style="color:#a6e22e">c</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>)
-	<span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">2</span>:] <span style="color:#75715e">//测试截取的变化
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">d</span>, len(<span style="color:#a6e22e">d</span>), cap(<span style="color:#a6e22e">d</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">d</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============存储地址的变化==============&#34;</span>)
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> []<span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">b</span> = <span style="color:#a6e22e">a</span> <span style="color:#75715e">//测试给别的变量赋值会有什么变化
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">b</span>, len(<span style="color:#a6e22e">b</span>), cap(<span style="color:#a6e22e">b</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">b</span>)
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[:<span style="color:#ae81ff">2</span>] <span style="color:#75715e">//测试截取的变化
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">c</span>, len(<span style="color:#a6e22e">c</span>), cap(<span style="color:#a6e22e">c</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>)
+ <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">2</span>:] <span style="color:#75715e">//测试截取的变化
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">d</span>, len(<span style="color:#a6e22e">d</span>), cap(<span style="color:#a6e22e">d</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">d</span>)
 }
 </code></pre></div><p>执行结果如下</p>
 <pre><code>$ go run main.go
 ==============var声明和make的内存分配==============
-type: []int | len: 0 | cap: 0 | head-address: 0xc00000c048 | value-address: 0x0 | value:[] 		//var 没有分配值内存空间
-type: []int | len: 0 | cap: 0 | head-address: 0xc00000c060 | value-address: 0x1190370 | value:[] 	//make是分配了值内存空间
+type: []int | len: 0 | cap: 0 | head-address: 0xc00000c048 | value-address: 0x0 | value:[]   //var 没有分配值内存空间
+type: []int | len: 0 | cap: 0 | head-address: 0xc00000c060 | value-address: 0x1190370 | value:[]  //make是分配了值内存空间
 ==============自动扩容测试==============
-type: []int | len: 2 | cap: 3 | head-address: 0xc00000c0c0 | value-address: 0xc000018108 | value:[0 0] 		//赋了默认值
-type: []int | len: 3 | cap: 3 | head-address: 0xc00000c0c0 | value-address: 0xc000018108 | value:[0 1 2] 	//值内存地址没有变
-type: []int | len: 4 | cap: 6 | head-address: 0xc00000c0c0 | value-address: 0xc000016180 | value:[0 1 2 3] 	//因超出容量，所以值内存地址有了变化，容量也扩到原来的2倍
-type: []int | len: 5 | cap: 6 | head-address: 0xc00000c0c0 | value-address: 0xc000016180 | value:[0 1 2 3 4] 	//值内存地址和容量没什么变化
+type: []int | len: 2 | cap: 3 | head-address: 0xc00000c0c0 | value-address: 0xc000018108 | value:[0 0]   //赋了默认值
+type: []int | len: 3 | cap: 3 | head-address: 0xc00000c0c0 | value-address: 0xc000018108 | value:[0 1 2]  //值内存地址没有变
+type: []int | len: 4 | cap: 6 | head-address: 0xc00000c0c0 | value-address: 0xc000016180 | value:[0 1 2 3]  //因超出容量，所以值内存地址有了变化，容量也扩到原来的2倍
+type: []int | len: 5 | cap: 6 | head-address: 0xc00000c0c0 | value-address: 0xc000016180 | value:[0 1 2 3 4]  //值内存地址和容量没什么变化
 ==============存储地址的变化==============
-type: []int | len: 5 | cap: 6 | head-address: 0xc00000c1f8 | value-address: 0xc000016180 | value:[0 1 2 3 4] 	//b=a 因是不同变量，所以头部内存地址有变化，值内存地址没变
-type: []int | len: 2 | cap: 6 | head-address: 0xc00000c258 | value-address: 0xc000016180 | value:[0 1]  	//a[:2]截取前面的值，值内存地址没变化，容量也没变化
-type: []int | len: 3 | cap: 4 | head-address: 0xc00000c2b8 | value-address: 0xc000016190 | value:[2 3 4] 	//a[2:]截取后面的值，值内存地址有变化，容量被截掉了
+type: []int | len: 5 | cap: 6 | head-address: 0xc00000c1f8 | value-address: 0xc000016180 | value:[0 1 2 3 4]  //b=a 因是不同变量，所以头部内存地址有变化，值内存地址没变
+type: []int | len: 2 | cap: 6 | head-address: 0xc00000c258 | value-address: 0xc000016180 | value:[0 1]   //a[:2]截取前面的值，值内存地址没变化，容量也没变化
+type: []int | len: 3 | cap: 4 | head-address: 0xc00000c2b8 | value-address: 0xc000016190 | value:[2 3 4]  //a[2:]截取后面的值，值内存地址有变化，容量被截掉了
 </code></pre><p>那切片(slice)在函数里传参时会有什么变化呢？<br>
 我们做一下简单的试验:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
 <span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
 )
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 
-	<span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试1】进函数之前slice1的信息==============&#34;</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice1</span>, len(<span style="color:#a6e22e">slice1</span>), cap(<span style="color:#a6e22e">slice1</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>)
-	<span style="color:#a6e22e">test1</span>(<span style="color:#a6e22e">slice1</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试1】出函数后slice1的信息==============&#34;</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice1</span>, len(<span style="color:#a6e22e">slice1</span>), cap(<span style="color:#a6e22e">slice1</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>)
+ <span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试1】进函数之前slice1的信息==============&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice1</span>, len(<span style="color:#a6e22e">slice1</span>), cap(<span style="color:#a6e22e">slice1</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>)
+ <span style="color:#a6e22e">test1</span>(<span style="color:#a6e22e">slice1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试1】出函数后slice1的信息==============&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice1</span>, len(<span style="color:#a6e22e">slice1</span>), cap(<span style="color:#a6e22e">slice1</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>, <span style="color:#a6e22e">slice1</span>)
 
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
 
-	<span style="color:#a6e22e">slice2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试2】进函数之前slice2的信息==============&#34;</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice2</span>, len(<span style="color:#a6e22e">slice2</span>), cap(<span style="color:#a6e22e">slice2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>)
-	<span style="color:#a6e22e">test2</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice2</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试1】出函数后slice2的信息==============&#34;</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice2</span>, len(<span style="color:#a6e22e">slice2</span>), cap(<span style="color:#a6e22e">slice2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>)
+ <span style="color:#a6e22e">slice2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试2】进函数之前slice2的信息==============&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice2</span>, len(<span style="color:#a6e22e">slice2</span>), cap(<span style="color:#a6e22e">slice2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>)
+ <span style="color:#a6e22e">test2</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice2</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;==============【测试1】出函数后slice2的信息==============&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice2</span>, len(<span style="color:#a6e22e">slice2</span>), cap(<span style="color:#a6e22e">slice2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice2</span>)
 }
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">test1</span>(<span style="color:#a6e22e">slice</span> []<span style="color:#66d9ef">int</span>) {
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
 
-	<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>
-	<span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>
+ <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
 
-	<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">2</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">2</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
 
-	<span style="color:#a6e22e">slice</span> = append(<span style="color:#a6e22e">slice</span>, <span style="color:#ae81ff">6</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">slice</span> = append(<span style="color:#a6e22e">slice</span>, <span style="color:#ae81ff">6</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
 
-	<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">8</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">8</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#a6e22e">slice</span>), cap(<span style="color:#a6e22e">slice</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>), cap(<span style="color:#a6e22e">a</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
 
 }
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">test2</span>(<span style="color:#a6e22e">slice</span> <span style="color:#f92672">*</span>[]<span style="color:#66d9ef">int</span>) {
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), <span style="color:#a6e22e">slice</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), <span style="color:#a6e22e">slice</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
 
-	<span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>
-	(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>)[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">2</span>
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), <span style="color:#a6e22e">slice</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), <span style="color:#a6e22e">a</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>
+ (<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>)[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">2</span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), <span style="color:#a6e22e">slice</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), <span style="color:#a6e22e">a</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
 
-	<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> = append(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">2</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), <span style="color:#a6e22e">slice</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), <span style="color:#a6e22e">a</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> = append(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">2</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n&#34;</span>, <span style="color:#a6e22e">slice</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>), <span style="color:#a6e22e">slice</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">slice</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type: %T | len: %d | cap: %d | head-address: %p | value-address: %p | value:%+v \n\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), cap(<span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>), <span style="color:#a6e22e">a</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">a</span>)
 }
 </code></pre></div><p>执行结果如下</p>
 <pre><code>$ go run main.go
 ==============【测试1】进函数之前slice1的信息==============
 type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6030 | value-address: 0xc0000b6000 | value:[0 0] 
 
-type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 0] 		//进入函数，会取新的头部地址，值的内存地址不变
+type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 0]   //进入函数，会取新的头部地址，值的内存地址不变
 
-type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1] 		//新声明变量a的头部地址不一样，值内存地址一样。而且a[1]=1的操作，因值内存地址一样，所以都受到了影响
+type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1]   //新声明变量a的头部地址不一样，值内存地址一样。而且a[1]=1的操作，因值内存地址一样，所以都受到了影响
 type: []int | len: 2 | cap: 4 | head-address: 0xc0000a60f0 | value-address: 0xc0000b6000 | value:[0 1] 
 
-type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1] 		//a = append(a, 2) 以后参数slice 没变化，只有a的值有变化。
+type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1]   //a = append(a, 2) 以后参数slice 没变化，只有a的值有变化。
 type: []int | len: 3 | cap: 4 | head-address: 0xc0000a60f0 | value-address: 0xc0000b6000 | value:[0 1 2] 
 
-type: []int | len: 3 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1 6] 	//slice = append(slice, 6) 这里发生了有意思的现象了，6把2取代了。这个地方需要非常注意。
+type: []int | len: 3 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1 6]  //slice = append(slice, 6) 这里发生了有意思的现象了，6把2取代了。这个地方需要非常注意。
 type: []int | len: 3 | cap: 4 | head-address: 0xc0000a60f0 | value-address: 0xc0000b6000 | value:[0 1 6] 
 
-type: []int | len: 3 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1 6] 	//a = append(a, 8) 因两个变量都append到第三个索引，所以下一次的append是不会被覆盖了。
+type: []int | len: 3 | cap: 4 | head-address: 0xc0000a6090 | value-address: 0xc0000b6000 | value:[0 1 6]  //a = append(a, 8) 因两个变量都append到第三个索引，所以下一次的append是不会被覆盖了。
 type: []int | len: 4 | cap: 4 | head-address: 0xc0000a60f0 | value-address: 0xc0000b6000 | value:[0 1 6 8] 
 
 ==============【测试1】出函数后slice1的信息==============
-type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6030 | value-address: 0xc0000b6000 | value:[0 1] 		//出函数只影响到值内存的变化，函数里的append操作没有受到影响
+type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6030 | value-address: 0xc0000b6000 | value:[0 1]   //出函数只影响到值内存的变化，函数里的append操作没有受到影响
 
 
 ==============【测试2】进函数之前slice2的信息==============
 type: []int | len: 2 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:[0 0] 
 
-type: *[]int | len: 2 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 0] 	//参数为*slice 进入函数，什么都没变
+type: *[]int | len: 2 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 0]  //参数为*slice 进入函数，什么都没变
 
-type: *[]int | len: 2 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 2] 	//两个变量都受到影响
+type: *[]int | len: 2 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 2]  //两个变量都受到影响
 type: *[]int | len: 2 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 2] 
 
-type: *[]int | len: 3 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 2 2] 	//两个变量都受到影响
+type: *[]int | len: 3 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 2 2]  //两个变量都受到影响
 type: *[]int | len: 3 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:&amp;[0 2 2] 
 
 ==============【测试1】出函数后slice2的信息==============
-type: []int | len: 3 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:[0 2 2]	//估计也预想到了，都会受到影响
+type: []int | len: 3 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0000b6018 | value:[0 2 2] //估计也预想到了，都会受到影响
 </code></pre><p>如上测试我们可以总结出几个需要注意的点：</p>
 <ol>
 <li>用make声明的时候，会分配值内存地址和默认值。</li>
@@ -332,22 +350,22 @@ type: []int | len: 3 | cap: 4 | head-address: 0xc0000a6270 | value-address: 0xc0
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ages</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{
-	<span style="color:#e6db74">&#34;Ann&#34;</span>: <span style="color:#ae81ff">19</span>,
-	<span style="color:#e6db74">&#34;Joe&#34;</span>: <span style="color:#ae81ff">20</span>,
+ <span style="color:#e6db74">&#34;Ann&#34;</span>: <span style="color:#ae81ff">19</span>,
+ <span style="color:#e6db74">&#34;Joe&#34;</span>: <span style="color:#ae81ff">20</span>,
 }
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">printAge</span>(<span style="color:#e6db74">&#34;Joe&#34;</span>)
-	<span style="color:#a6e22e">printAge</span>(<span style="color:#e6db74">&#34;Jack&#34;</span>)
+ <span style="color:#a6e22e">printAge</span>(<span style="color:#e6db74">&#34;Joe&#34;</span>)
+ <span style="color:#a6e22e">printAge</span>(<span style="color:#e6db74">&#34;Jack&#34;</span>)
 }
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">printAge</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) {
 
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ages</span>[<span style="color:#a6e22e">name</span>]; <span style="color:#a6e22e">ok</span> {
-		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s is %d years old. \n&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>)
-	} <span style="color:#66d9ef">else</span> {
-		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s is unknown.\n&#34;</span>, <span style="color:#a6e22e">name</span>)
-	}
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ages</span>[<span style="color:#a6e22e">name</span>]; <span style="color:#a6e22e">ok</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s is %d years old. \n&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>)
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s is unknown.\n&#34;</span>, <span style="color:#a6e22e">name</span>)
+ }
 }
 </code></pre></div><p>执行结果如下</p>
 <pre><code>$ go run main.go
@@ -361,42 +379,182 @@ Jack is unknown.
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/go/" rel="tag">go</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/new/" rel="tag">new</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/make/" rel="tag">make</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
 
-        </div>
-        <div class="post-footer">
-            <div class="info">
-                <span class="separator"><a class="category" href="/categories/go/">Go</a><a class="category" href="/categories/golang/">golang</a></span>
-
-                <span class="separator"><a class="tag" href="/tags/go/">go</a><a class="tag" href="/tags/golang/">golang</a><a class="tag" href="/tags/new/">new</a><a class="tag" href="/tags/make/">make</a></span>
-
-            </div>
-        </div>
-
-        
-    </div>
-
-
-        </div>
-    </div>
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name"></span>
+	</div>
+	<div class="authorbox__description">
+		年纪大了做开发是没出息吗？
+	</div>
 </div>
 
-<script type="text/javascript"
-        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
-        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
-        crossorigin="anonymous"></script>
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/go/go_new_make/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;</span>
+			<p class="pager__title">【go笔记】new和make的区别</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/go/go_point/" rel="next">
+			<span class="pager__subtitle">&thinsp;»</span>
+			<p class="pager__title">【go笔记】指针, uintptr, unsafe.Pointer</p>
+		</a>
+	</div>
+</nav>
 
 
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="" value="" name="q" aria-label="">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title"></h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/go/go_routine/">【go笔记】goroutine调度器的GMP模型简介</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/go_map/">【go笔记】map结构的简介</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/go_slice_code/">【go笔记】切片(slice)结构的简介</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/go_point/">【go笔记】指针, uintptr, unsafe.Pointer</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/go_slice/">【go笔记】 数组, 切片(slice), 映射(map)简介</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title"></h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/engine/">engine</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/go/">Go</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/index/">index</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/jvm/">jvm</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title"></h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
 
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 John Doe.
+			<span class="footer__copyright-credits"></span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script type="text/javascript"
-        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
-        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
-        crossorigin="anonymous"></script>
-
-<script type="text/javascript"
-        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
-        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 </body>
-
 </html>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>HTTPS on Website of li_mingxie</title>
+    <title>HTTPS on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/https/</link>
-    <description>Recent content in HTTPS on Website of li_mingxie</description>
+    <description>Recent content in HTTPS on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Mon, 25 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/https/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(8)</title>
@@ -13,10 +13,7 @@
       <pubDate>Mon, 25 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_08/</guid>
-      <description>这一篇整理了HTTPS的TLS协议。
-HTTPS由网景公司于1994年首次提出。
-HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人攻击提供合理的防护。
-1.HTTPS HTTPS（HyperText Transfer Protocol Secure），超文本传输安全协议。常称为HTTP over TLS、HTTP over SSL、HTTP Secure。</description>
+      <description>&lt;p&gt;这一篇整理了HTTPS的TLS协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -25,13 +22,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Sun, 24 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_07/</guid>
-      <description>这一篇整理了对称加密，非对称加密，数字签名，证书。
-图片备用地址
-1.对称加密 在对称加密中（也叫对称密码），加密和解密使用的是同一个密钥。
-图片备用地址
-图片备用地址
-常见的对称加密算法：
- DES 3DES AES  1.</description>
+      <description>&lt;p&gt;这一篇整理了对称加密，非对称加密，数字签名，证书。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -40,12 +31,8 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Wed, 16 Jun 2021 18:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/communication_protocol/</guid>
-      <description>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。
-今天就按笔记的形式整理了一下我们常见的几种协议。
-先看看通讯协议是什么？ 维基百科是这么解释的。
-通信协议（Communications Protocol，传输协议） 在电信领域中指的是，在任何物理介质中允许两个或多个在传输系统中的终端之间传播信息的系统标准，也是指计算机通信或网络设备的共同语言。
-通信协议定义了通信中的语法学、语义学和同步规则以及可能存在的错误检测与纠正。通信协议在硬件、软件或两者之间皆可实现。
-很绕口&amp;hellip;^^;; 如果不是技术相关人员的话，可以这么去理解。</description>
+      <description>&lt;p&gt;我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。&lt;br&gt;
+今天就按笔记的形式整理了一下我们常见的几种协议。&lt;/p&gt;</description>
     </item>
     
   </channel>

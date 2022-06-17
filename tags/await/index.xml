@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>await on Website of li_mingxie</title>
+    <title>await on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/await/</link>
-    <description>Recent content in await on Website of li_mingxie</description>
+    <description>Recent content in await on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Fri, 27 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/await/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【Nodejs笔记】nodejs入门简介_Promise(3)</title>
@@ -13,7 +13,11 @@
       <pubDate>Fri, 27 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/nodejs/nodejs_06/</guid>
-      <description>async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  await  await右侧的表达式一般为promise对象。也可以是其他值。 await返回的是promise对象的成功的值。如果不是Promise对象直接是返回值。 await必须写在async函数中。但是async可以没有await。 await的promise失败了，就会抛出异常，需要用try catch捕获。  简单实例 //普通读取文件 fs.</description>
+      <description>&lt;h4 id=&#34;async&#34;&gt;async&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;async函数的返回值是promise对象。&lt;/li&gt;
+&lt;li&gt;promise对象的结果由async函数执行的返回值决定。&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -22,9 +26,8 @@
       <pubDate>Thu, 19 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_11/</guid>
-      <description>这里整理了ES8里的async和await。
-async和await可以让一步操作跟同步代码一样。
-async  async函数的返回值是promise对象。 promise对象的结果由async函数执行的返回值决定。  import  await必须写在async函数中。 await右侧的表达式一般为promise对象。 await返回的是promise对象的结果。 await的promise失败了，就会抛出异常，需要用try catch捕获。  &amp;lt;!</description>
+      <description>&lt;p&gt;这里整理了ES8里的async和await。&lt;/p&gt;
+&lt;p&gt;async和await可以让一步操作跟同步代码一样。&lt;/p&gt;</description>
     </item>
     
   </channel>

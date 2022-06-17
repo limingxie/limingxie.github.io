@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>filters on Website of li_mingxie</title>
+    <title>filters on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/filters/</link>
-    <description>Recent content in filters on Website of li_mingxie</description>
+    <description>Recent content in filters on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Sat, 11 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/filters/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【Vue笔记】Vue入门简介_过滤器(13)</title>
@@ -13,10 +13,7 @@
       <pubDate>Sat, 11 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_13/</guid>
-      <description>这一篇整理了过滤器相关的内容。
-过滤器的定义 对要显示的数据进行特定格式化后再显示(适用于一些简单逻辑的处理）
-语法 1.注册过滤器：​​​Vue.filter(name,callback)​​​或​​new Vue{filters:{}}​​​ 2.使用过滤器：​​{{ xxx│过滤器名}}​​或​​v-bind:属性= “xxx│过滤器名&amp;quot;​​
-备注 1.</description>
+      <description>&lt;p&gt;这一篇整理了过滤器相关的内容。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>queue on Website of li_mingxie</title>
+    <title>queue on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/queue/</link>
-    <description>Recent content in queue on Website of li_mingxie</description>
+    <description>Recent content in queue on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Mon, 14 Feb 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/queue/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【算法笔记】queue的简单实践</title>
@@ -13,13 +13,8 @@
       <pubDate>Mon, 14 Feb 2022 07:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/algorithm/queue_code/</guid>
-      <description>今天用go语言简单的写了一下queue的方法。
-为了以后方便查看，当做笔记整理了一下~~
-1.队列(QUEUE) 维基百科里是这么解释的。
- 计算机科学中的一种抽象资料型别，是先进先出（FIFO, First-In-First-Out）的线性表。
-在具体应用中通常用链表或者数组来实现。队列只允许在后端（称为rear）进行插入操作，在前端（称为front）进行删除操作。
-队列的操作方式和堆栈类似，唯一的区别在于队列只允许新数据在后端进行添加。
- 具体的详解可以参考这篇文章里的Queue部分栈(STACK), 堆(HEAP), 队列(QUEUE) 是什么？</description>
+      <description>&lt;p&gt;今天用go语言简单的写了一下queue的方法。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
     <item>

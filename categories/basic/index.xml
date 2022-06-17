@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>basic on Website of li_mingxie</title>
+    <title>basic on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/categories/basic/</link>
-    <description>Recent content in basic on Website of li_mingxie</description>
+    <description>Recent content in basic on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Wed, 16 Jun 2021 20:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/basic/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【笔记】RPC和REST的区别</title>
@@ -13,11 +13,8 @@
       <pubDate>Wed, 16 Jun 2021 20:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/rpc_restful/</guid>
-      <description>我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。 那这RPC和REST到底是什么？有什么区别？
-RPC（Remote Promote Call） RPC是一种进程间通信方式。允许像调用本地服务一样调用远程服务。
-RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调用远程的方法，而对你来说这个调用是透明的，你并不知道这个调用的方法是部署哪里。
-通过RPC能解耦服务，这才是使用RPC的真正目的。RPC的原理主要用到了动态代理模式，至于http协议，只是传输协议而已。
-简单的实现可以参考spring remoting，复杂的实现可以参考dubbo。</description>
+      <description>&lt;p&gt;我们开发的时候会经常听到rpc方式调用方法。或是说调用RESTful api。
+那这RPC和REST到底是什么？有什么区别？&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,12 +23,8 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
       <pubDate>Wed, 16 Jun 2021 18:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/communication_protocol/</guid>
-      <description>我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。
-今天就按笔记的形式整理了一下我们常见的几种协议。
-先看看通讯协议是什么？ 维基百科是这么解释的。
-通信协议（Communications Protocol，传输协议） 在电信领域中指的是，在任何物理介质中允许两个或多个在传输系统中的终端之间传播信息的系统标准，也是指计算机通信或网络设备的共同语言。
-通信协议定义了通信中的语法学、语义学和同步规则以及可能存在的错误检测与纠正。通信协议在硬件、软件或两者之间皆可实现。
-很绕口&amp;hellip;^^;; 如果不是技术相关人员的话，可以这么去理解。</description>
+      <description>&lt;p&gt;我们会听到很多网络通讯协议，如果了解的不到位的话会让你晕头转向的。&lt;br&gt;
+今天就按笔记的形式整理了一下我们常见的几种协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -40,10 +33,8 @@ RPC的核心并不在于使用什么协议。RPC的目的是让你在本地调�
       <pubDate>Wed, 16 Jun 2021 08:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/etc/uri_url_urn/</guid>
-      <description>我们经常接触到 URI，URL，URN 这些名词。
-本以为都是同一个概念，但我发现它们还是有些区别的。
-先看看各自的单词意思。
-URI（Uniform Resource Identifier ）：统一资源标识符。 URL（Uniform Resource Locator）：统一资源定位符。 URN（Uniform Resource Name）：统一资源名称。 URI 可以进一步划分为定位符（URL），名称（URN）或两者兼备。 URL 和 URN 都是 URI 子集。</description>
+      <description>&lt;p&gt;我们经常接触到 URI，URL，URN 这些名词。&lt;br&gt;
+本以为都是同一个概念，但我发现它们还是有些区别的。&lt;/p&gt;</description>
     </item>
     
     <item>

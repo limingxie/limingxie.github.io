@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>computed on Website of li_mingxie</title>
+    <title>computed on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/computed/</link>
-    <description>Recent content in computed on Website of li_mingxie</description>
+    <description>Recent content in computed on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Fri, 03 Jun 2022 23:45:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/computed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【Vue笔记】Vue入门简介_计算属性(05)</title>
@@ -13,11 +13,7 @@
       <pubDate>Fri, 03 Jun 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_05/</guid>
-      <description>这篇整理了Vue的计算属性
-1.定义 要用的属性不存在，需要通过已有的属性计算得出。
-2.原理 底层借助Object.defineproperty()方法提供的getter()和setter()方法，
-3.getter()和setter()方法的作用 getter()方法 当访问初次计算属性时或属性值有变化时，会调用getter()方法。
-setter()方法 当设置计算属性时，会调用setter()方法，</description>
+      <description>&lt;p&gt;这篇整理了Vue的计算属性&lt;/p&gt;</description>
     </item>
     
   </channel>

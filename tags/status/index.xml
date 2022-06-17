@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>status on Website of li_mingxie</title>
+    <title>status on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/status/</link>
-    <description>Recent content in status on Website of li_mingxie</description>
+    <description>Recent content in status on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Mon, 25 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/status/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(8)</title>
@@ -13,10 +13,7 @@
       <pubDate>Mon, 25 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_08/</guid>
-      <description>这一篇整理了HTTPS的TLS协议。
-HTTPS由网景公司于1994年首次提出。
-HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人攻击提供合理的防护。
-1.HTTPS HTTPS（HyperText Transfer Protocol Secure），超文本传输安全协议。常称为HTTP over TLS、HTTP over SSL、HTTP Secure。</description>
+      <description>&lt;p&gt;这一篇整理了HTTPS的TLS协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -25,13 +22,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Sun, 24 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_07/</guid>
-      <description>这一篇整理了对称加密，非对称加密，数字签名，证书。
-图片备用地址
-1.对称加密 在对称加密中（也叫对称密码），加密和解密使用的是同一个密钥。
-图片备用地址
-图片备用地址
-常见的对称加密算法：
- DES 3DES AES  1.</description>
+      <description>&lt;p&gt;这一篇整理了对称加密，非对称加密，数字签名，证书。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -40,10 +31,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Thu, 21 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_04/</guid>
-      <description>这一篇整理了应用层的 HTTP协议的状态码和form表单。
-1.状态码（Status Code） 状态码是在RFC_2616,section-10:Status Code Definitions规范中定义的。
-状态码指示HTTP请求是否已成功完成。
-1.1 状态码分类 状态码分为5类：</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的状态码和form表单。&lt;/p&gt;</description>
     </item>
     
   </channel>

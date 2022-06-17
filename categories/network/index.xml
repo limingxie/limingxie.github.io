@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>network on Website of li_mingxie</title>
+    <title>network on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/categories/network/</link>
-    <description>Recent content in network on Website of li_mingxie</description>
+    <description>Recent content in network on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Thu, 28 Apr 2022 18:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(11)</title>
@@ -13,11 +13,7 @@
       <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_11/</guid>
-      <description>这一篇j简单整理了VPN、tcpdump、网络爬虫、HTTP缓存、IPv6、即时通信、流媒体。
-1.VPN VPN（Virtual Private Network），虚拟私人网络。它可以在公共网络上建立专用网络，进行加密通讯。
-图片备用地址
-图片备用地址
-1.1 作用  提高上网的安全性（加密数据） 保护公司内部资料 隐藏上网者的身份（VPN Server转发数据） 突破网站的地域限制</description>
+      <description>&lt;p&gt;这一篇j简单整理了VPN、tcpdump、网络爬虫、HTTP缓存、IPv6、即时通信、流媒体。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,9 +22,7 @@
       <pubDate>Wed, 27 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_10/</guid>
-      <description>这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。
-1.ARP/RARP/ICMP ARP（Address Resolution Protocol），地址解析协议。
- 通过IP地址获取MAC地址。  RARP（Reverse Address Resolution Protocol），逆地址解析协议。</description>
+      <description>&lt;p&gt;这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -37,11 +31,7 @@
       <pubDate>Tue, 26 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_09/</guid>
-      <description>这一篇整理了HTTP2和HTTP3。
-1.HTTP协议的不足（HTTP/1.1）   同一时间，一个连接只能对应一个请求（注意：不是建立多个连接，是多个请求只能在一个连接内队列等待）。
-针对同一个域名，大多数浏览器允许同时最多6个并发连接。
-  只允许客户端主动发起请求（请求应答模式，即一个请求只能对应一个响应）。
-  同一个会话的多次请求中，头信息会被重复传输。</description>
+      <description>&lt;p&gt;这一篇整理了HTTP2和HTTP3。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -50,10 +40,7 @@
       <pubDate>Mon, 25 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_08/</guid>
-      <description>这一篇整理了HTTPS的TLS协议。
-HTTPS由网景公司于1994年首次提出。
-HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人攻击提供合理的防护。
-1.HTTPS HTTPS（HyperText Transfer Protocol Secure），超文本传输安全协议。常称为HTTP over TLS、HTTP over SSL、HTTP Secure。</description>
+      <description>&lt;p&gt;这一篇整理了HTTPS的TLS协议。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -62,13 +49,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Sun, 24 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_https_07/</guid>
-      <description>这一篇整理了对称加密，非对称加密，数字签名，证书。
-图片备用地址
-1.对称加密 在对称加密中（也叫对称密码），加密和解密使用的是同一个密钥。
-图片备用地址
-图片备用地址
-常见的对称加密算法：
- DES 3DES AES  1.</description>
+      <description>&lt;p&gt;这一篇整理了对称加密，非对称加密，数字签名，证书。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -77,11 +58,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Sat, 23 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_06/</guid>
-      <description>这一篇整理了代理，CND，网络安全相关的内容。
-1.代理 图片备用地址
-1.1 代理服务器（Proxy Server） 特点： 本身不生产内容，处于中间位置转发上下游的请求和响应。
-面向下游的客户端：它是服务器（正向代理）
-面向上游的服务器：它是客户端（反向代理）</description>
+      <description>&lt;p&gt;这一篇整理了代理，CND，网络安全相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -90,10 +67,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Fri, 22 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_05/</guid>
-      <description>这一篇整理了跨域，cookie和session的基本概念和用法。
-1.跨域(Cross-origin resource sharing） 说起跨域我们需要先了解同源策略。
-1.1 同源策略(Same-Origin Policy) 我们看看维基百科是如何解释的:
-同源策略是指在Web浏览器中，允许某个网页脚本访问另一个网页的数据，</description>
+      <description>&lt;p&gt;这一篇整理了跨域，cookie和session的基本概念和用法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -102,10 +76,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Thu, 21 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_04/</guid>
-      <description>这一篇整理了应用层的 HTTP协议的状态码和form表单。
-1.状态码（Status Code） 状态码是在RFC_2616,section-10:Status Code Definitions规范中定义的。
-状态码指示HTTP请求是否已成功完成。
-1.1 状态码分类 状态码分为5类：</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的状态码和form表单。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -114,12 +85,7 @@ HTTPS是在HTTP的基础上使用SSL/TLS来加密报文，对窃听和中间人�
       <pubDate>Wed, 20 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_03/</guid>
-      <description>这一篇整理了应用层的 HTTP协议的ABNF格式。
-1.ABNF ABNF（Augmented BNF），是BNF（Backus-Naur Form，译：巴克斯-瑙尔范式）的修改/增强版。
-在RFC_5234中表明ABNF用作internet中通信协议的定义语言。
-ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格式，往往都是不严谨的。
-关于HTTP报文格式的定义：
-旧版：RFC_2616_4.HTTP Message</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的ABNF格式。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -128,11 +94,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Tue, 19 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_http_02/</guid>
-      <description>这一篇整理了应用层的 HTTP协议的概念，以及大致的结构。
-1.HTTP HTTP（Hyper Text Transfer Protocol），
-超文本传输协议。是互联网中应用最广泛的应用层协议之一。
-设计HTTP最初的目的是：
-提供一种发布和接收HTML页面的方法（HTTP最初就是用来传输HTML的），由URI来标识具体的资源。</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的概念，以及大致的结构。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -141,8 +103,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Mon, 18 Apr 2022 18:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/5_application_01/</guid>
-      <description>这一篇整理了应用层的 域名，DNS, DHCP。
-1.应用层常见协议  超文本传输协议：HTTP、HTTPS 文件传输：FTP 电子邮件：SMTP、POP3、IMAP 动态主机配置：DHCP 域名系统：DNS  1.</description>
+      <description>&lt;p&gt;这一篇整理了应用层的 域名，DNS, DHCP。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -151,9 +112,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Sun, 17 Apr 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_03/</guid>
-      <description>TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。
-1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.TCP（Transmission Control Protocol）：传输控制协议 这一篇我们看看TCP的【三次握手】和【四次挥手】。
-在看握手之前，需要对序号和确认号要有个清晰的概念才行。</description>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -162,10 +121,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Sat, 16 Apr 2022 06:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_02/</guid>
-      <description>TCP有以下几个知识点。这一篇整理【2.流量控制】和【3.拥塞控制】
-1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.流量控制 如果接收方的缓存区满了，发送方还在疯狂发送数据，
-接收方只能把收到的数据包丢掉，大量的丢包会极大浪费网络资源，所以要进行流量控制。
-流量控制：让发送方的发送速率不要太快，让接收方来得及接收处理。 原理：通过确认报文中窗口字段来控制发送方的发送速率；</description>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理【2.流量控制】和【3.拥塞控制】&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -174,9 +130,7 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Fri, 15 Apr 2022 21:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport_tcp_01/</guid>
-      <description>TCP有以下几个知识点。这一篇整理【TCP结构】和【1.可靠传输】
-1.可靠传输(失败重传，保证不丢包) 2.流量控制(点对点，端对端；是通过控制接收窗口大小来控制的) 3.拥塞控制(一起维护网络环境，1.慢开始，2.用舌避免，3.快速重传，4快速回复) 4.建立连接(三次握手,四次挥手) 1.TCP（Transmission Control Protocol）：传输控制协议 图片备用地址
-图片备用地址</description>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理【TCP结构】和【1.可靠传输】&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -185,11 +139,10 @@ ABNF是最严谨的HTTP报文格式描述形式，脱离ABNF谈论HTTP报文格�
       <pubDate>Thu, 14 Apr 2022 21:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/4_-transport__udp/</guid>
-      <description>1.传输层（Transport） TCP和UDP的区别： 图片备用地址
-1.1 连接性 TCP是面向连接，也就是说TCP传输必须先要建立连接才能通信，建立连接就是我们熟知的“三次握手”。
-TCP在数据传输完毕后需要断开连接，因为服务器会有端口不断的监听本次连接的状态，如果不断开就会一直占用资源，断开连接需要“四次挥手”。
-UDP是无连接，通信时不需要建立连接，发送方直接发送数据，不关心接收方的接收状态。
-1.2 可靠性 TCP：可靠传输，不丢包。只要发现丢包就会重新发送，会保证数据是准确的。</description>
+      <description>&lt;h2 id=&#34;1传输层transport&#34;&gt;1.传输层（Transport）&lt;/h2&gt;
+&lt;p&gt;TCP和UDP的区别：
+&lt;a href=&#34;https://limingxie.github.io/images/network/transport/tcp_udp.png&#34;&gt;图片备用地址&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/tcp_udp.png?x-oss-process=image/resize,w_700,m_lfit&#34; alt=&#34;tcp_udp&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -198,14 +151,8 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Wed, 13 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/3_-network-copy/</guid>
-      <description>网络层数据包（IP数据包：Packet）由首部、数据2部分组成。
-数据: 由传输层传递下来的数据段(Segment)。
-下图是网络层的数据包结构：
-图片备用地址
-下图是使用Wireshark抓包的信息:
-图片备用地址
-1.版本（Version） 占4位（0b0100：IPv4，0b0110：IPv6）。
-2.首部长度（Header Length） 占4位，标识该IP头部有多少个32bit字（4字节），因为4位最大能表示15，所以IP头部最长是60字节。</description>
+      <description>&lt;p&gt;网络层数据包（IP数据包：Packet）由首部、数据2部分组成。&lt;br&gt;
+&lt;strong&gt;数据:&lt;/strong&gt; 由传输层传递下来的数据段(Segment)。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -214,12 +161,10 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Tue, 12 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/2_data_link/</guid>
-      <description>数据链路层(Data Link)是网络协议中的第二层。
-链路: 从1个节点到相邻节点的一段物理线路(有线或无线)，中间没有其他交换节点。
-数据链路: 在一条链路上传输数据时，需要有对应的通信协议来控制数据的传输。
-不同类型的数据链路，所用的通信协议可能是不同的。
-广播信道: CSMA/CD协议（比如同轴电缆、集线器等组成的网络）
-点对点信道: PPP协议（比如2个路由器之间的信道）</description>
+      <description>&lt;p&gt;数据链路层(Data Link)是网络协议中的第二层。&lt;br&gt;
+&lt;strong&gt;链路:&lt;/strong&gt; 从1个节点到相邻节点的一段物理线路(有线或无线)，中间没有其他交换节点。&lt;br&gt;
+&lt;strong&gt;数据链路:&lt;/strong&gt; 在一条链路上传输数据时，需要有对应的通信协议来控制数据的传输。&lt;/p&gt;
+&lt;p&gt;不同类型的数据链路，所用的通信协议可能是不同的。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -228,11 +173,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Mon, 11 Apr 2022 19:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/1_physical-copy/</guid>
-      <description>物理层定义了接口标准、线缆标准、传输速率、传输方式等（比如路由器定义的接口是做什么的、水晶头怎么排布、光缆线的作用等）。
-1.信号类型 图片备用地址
-1.1 模拟信号（Analog Signal） 连续的信号，适合长距离传输
-抗干扰能力差，受到干扰时波形变形很难纠正
-1.2 数字信号（Digital Signal） 离散的信号，不适合长距离传输</description>
+      <description>&lt;p&gt;物理层定义了接口标准、线缆标准、传输速率、传输方式等（比如路由器定义的接口是做什么的、水晶头怎么排布、光缆线的作用等）。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -241,12 +182,8 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Sun, 10 Apr 2022 17:20:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/route/</guid>
-      <description>我们知道不同网段的设备转发数据，需要路由器的支持。
-默认情况下，路由器是只知道跟他直连的网段，非直连的网段是需要通过静态路由或动态路由告诉它。
- 静态路由
-静态路由是管理员手动去添加路由设备信息，使用与小规模的网络。 动态路由
-路由器通过路由选择协议(RIP,OSPF)自动获取路由信息，适用于大规模的网络。  我们先看下图路由是如何连接设备的：
-1.计算机是和路由的网关连接，路由网关和计算机必须是在同一个网段。 2.</description>
+      <description>&lt;p&gt;我们知道不同网段的设备转发数据，需要路由器的支持。&lt;br&gt;
+默认情况下，路由器是只知道跟他直连的网段，非直连的网段是需要通过静态路由或动态路由告诉它。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -255,11 +192,7 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Sat, 09 Apr 2022 16:27:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/internet_definition/</guid>
-      <description>有一些些网络基础的概念，知道了能会更好的理解网络。
-1.网络，互联网，因特网 1.1 网络(Network) 网络是把同一个网段的一些设备链接起来就能形成网络。
-如下图：
-图片备用地址
-1.2 互联网(internet) 互联网是把不用网段的一些设备通过路由和交换机链接起来的叫互联网。</description>
+      <description>&lt;p&gt;有一些些网络基础的概念，知道了能会更好的理解网络。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -268,10 +201,10 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Fri, 08 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/mac_ip/</guid>
-      <description>1.MAC地址 每个网卡都有一个唯一(6个字节48bit)的MAC地址(Media Access Control Address)。
-这个地址是由硬件设备生成的，是网络设备的唯一标识。
-固化在网卡的ROM中，有IEEE802标准规定的MAC地址格式。
-   组织唯一标识符 网络接口标识符     40-55-82 TA-BC-D6    当48位都是1，代表的是广播地址：FF-FF-FF-FF-FF-FF</description>
+      <description>&lt;h2 id=&#34;1mac地址&#34;&gt;1.MAC地址&lt;/h2&gt;
+&lt;p&gt;每个网卡都有一个唯一(6个字节48bit)的MAC地址(Media Access Control Address)。&lt;br&gt;
+这个地址是由硬件设备生成的，是网络设备的唯一标识。&lt;br&gt;
+固化在网卡的ROM中，有IEEE802标准规定的MAC地址格式。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -280,13 +213,11 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Thu, 07 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/computer_communication/</guid>
-      <description>1.计算机之间的通信 计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。
-那我们要如何进行网络通信呢？
-首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。
-然后把数据通过网卡传送到对方的网络中。
-如果网卡发现数据的目标MAC地址是自己，就会将数据传递给上一层进行处理。
-如果网卡发现数据的目标MAC地址不是是自己，就会将数据丢掉。
-图片备用地址 2.计算机之间的链接方式 下面我们看一下具体的链接方式。</description>
+      <description>&lt;h2 id=&#34;1计算机之间的通信&#34;&gt;1.计算机之间的通信&lt;/h2&gt;
+&lt;p&gt;计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。&lt;br&gt;
+那我们要如何进行网络通信呢？&lt;br&gt;
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。&lt;br&gt;
+然后把数据通过网卡传送到对方的网络中。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -295,11 +226,10 @@ UDP是无连接，通信时不需要建立连接，发送方直接发送数据�
       <pubDate>Wed, 06 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/osi/</guid>
-      <description>开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。
-从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。
-每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。
-OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。
-7层模型是偏理论的模型。实际落地的时，大部分都准守4层的TCP/IP协议族。 因物理层和数据链路层比较重要，所以研究和学习时，有可能分5层结构。 如下图: 图片备用地址</description>
+      <description>&lt;p&gt;开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。&lt;br&gt;
+从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。&lt;br&gt;
+每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。&lt;br&gt;
+OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -308,11 +238,20 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
       <pubDate>Tue, 05 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/digital_certificate/</guid>
-      <description>1.数字证书是什么？ 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
-它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
-最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。
-2.常见的3种加密方式 为了了解数字证书的原理，首先需要了解已下3种加密方式。
-2.1 hash算法加密 它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。</description>
+      <description>&lt;h2 id=&#34;1数字证书是什么&#34;&gt;1.数字证书是什么？&lt;/h2&gt;
+&lt;p&gt;数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。&lt;br&gt;
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。&lt;br&gt;
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>5G网架构简介</title>
+      <link>https://limingxie.github.io/network/5gc/</link>
+      <pubDate>Mon, 04 Apr 2022 16:38:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/network/5gc/</guid>
+      <description>&lt;p&gt;最近有机会查看了有关5G网的内容。对于移动通讯完全不懂的小白来说一切都很陌生和茫然。&lt;br&gt;
+几天的摸索，整理了“皮毛”内容，希望像我这样的小白有帮助&amp;hellip;^^&lt;/p&gt;</description>
     </item>
     
   </channel>

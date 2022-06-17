@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Set on Website of li_mingxie</title>
+    <title>set on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/set/</link>
-    <description>Recent content in Set on Website of li_mingxie</description>
+    <description>Recent content in set on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Thu, 09 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/set/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Fri, 17 Jun 2022 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/set/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【mysql笔记】mysql不常用，但是有用的命令</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_commend_01/</link>
+      <pubDate>Fri, 17 Jun 2022 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_commend_01/</guid>
+      <description>&lt;p&gt;这篇简单的整理了开发过程中我们会用到的mysql的一些命令。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【Vue笔记】Vue入门简介_数据检测(11)</title>
       <link>https://limingxie.github.io/js/vue_2/vue_11/</link>
       <pubDate>Thu, 09 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_11/</guid>
-      <description>这一篇整理了数据监测相关的内容。
-Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监测对象中的数据？ 通过setter实现监视，且要在new Vue时就传入要监测的数据。 (1).对象中后追加的属性，Vue默认不做响应式处理 (2).如需给后添加的属性做响应式，请使用如下API： Vue.set(target，propertyName/index，value) 或 vm.</description>
+      <description>&lt;p&gt;这一篇整理了数据监测相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -23,8 +31,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Sun, 15 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_07/</guid>
-      <description>这里整理了Set和Map相关的内容。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了Set和Map相关的内容。&lt;/p&gt;</description>
     </item>
     
   </channel>

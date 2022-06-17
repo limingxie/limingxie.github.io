@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>javascript on Website of li_mingxie</title>
+    <title>javascript on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/javascript/</link>
-    <description>Recent content in javascript on Website of li_mingxie</description>
+    <description>Recent content in javascript on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Sun, 08 May 2022 22:25:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【JavaScript笔记】JavaScript基础_Dom(10)</title>
@@ -13,8 +13,7 @@
       <pubDate>Sun, 08 May 2022 22:25:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_10/</guid>
-      <description>这里整理了DOM相关内容。
-1.DOM DOM, 全称 Document Object Model 文档 对象 模型, 是一个网页的树形结构。</description>
+      <description>&lt;p&gt;这里整理了DOM相关内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -23,8 +22,7 @@
       <pubDate>Sat, 07 May 2022 08:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_09/</guid>
-      <description>这里整理了函数的call, apply, arguments。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了函数的call, apply, arguments。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -33,8 +31,7 @@
       <pubDate>Fri, 06 May 2022 01:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_08/</guid>
-      <description>这里整理了数组的适用方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了数组的适用方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -43,8 +40,7 @@
       <pubDate>Thu, 05 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_07/</guid>
-      <description>这里整理了函数中this和原型使用方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了函数中this和原型使用方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -53,8 +49,7 @@
       <pubDate>Wed, 04 May 2022 01:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_06/</guid>
-      <description>这里整理了变量的作用域，全局和函数内。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了变量的作用域，全局和函数内。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -63,8 +58,7 @@
       <pubDate>Tue, 03 May 2022 00:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_05/</guid>
-      <description>函数也是对象，封装了一些功能(代码)，可以调用。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;函数也是对象，封装了一些功能(代码)，可以调用。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -73,9 +67,11 @@
       <pubDate>Mon, 02 May 2022 10:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_04/</guid>
-      <description>1.对象分类 对象可以分3种。
-内建对象: 有ES标准中定义的对象。比如：String, Number, Object&amp;hellip;.
-宿主对象: 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &amp;hellip;</description>
+      <description>&lt;h2 id=&#34;1对象分类&#34;&gt;1.对象分类&lt;/h2&gt;
+&lt;p&gt;对象可以分3种。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;内建对象:&lt;/strong&gt; 有ES标准中定义的对象。比如：String, Number, Object&amp;hellip;.&lt;br&gt;
+&lt;strong&gt;宿主对象:&lt;/strong&gt; 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &amp;hellip;&lt;br&gt;
+&lt;strong&gt;自定义对象:&lt;/strong&gt; 有开发人员自己创造的对象。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -84,9 +80,8 @@
       <pubDate>Sun, 01 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_03/</guid>
-      <description>这一遍整理了 if, switch, while, for 的语法。
-因为和其他语言没什么区别，所以这里就简单的整理了一下使用方法。
-if, switch, while, for &amp;lt;!</description>
+      <description>&lt;p&gt;这一遍整理了 if, switch, while, for 的语法。&lt;br&gt;
+因为和其他语言没什么区别，所以这里就简单的整理了一下使用方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -95,8 +90,7 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Sat, 30 Apr 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_02/</guid>
-      <description>这里整理了常用的运算符，在代码的注释里一起描述了运算符的含义。
-1.加法(+) &amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了常用的运算符，在代码的注释里一起描述了运算符的含义。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -105,12 +99,9 @@ if, switch, while, for &amp;lt;!</description>
       <pubDate>Fri, 29 Apr 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_01/</guid>
-      <description>本想学Nodejs的，结果发现自己的JavaScript的基础太差,
-(几年前看了一下基本语法后，就没有碰过了。) 而且很多资料大部分都是对JavaScript有所了解为前提。
-只能先安心复习一下JavaScript的基础，然后再去学习Nodejs了&amp;hellip;^^;;
-1.JavaScript 还是按照惯例，先看看JavaScript在维基百科里是怎么解释的。
- JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。
- JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。 它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。 JavaScript在传统意义上被实现为一种解释语言，但在最近[何时？]，它已经可以被即时编译（JIT）执行。</description>
+      <description>&lt;p&gt;本想学Nodejs的，结果发现自己的JavaScript的基础太差,&lt;br&gt;
+(几年前看了一下基本语法后，就没有碰过了。)
+而且很多资料大部分都是对JavaScript有所了解为前提。&lt;/p&gt;</description>
     </item>
     
   </channel>

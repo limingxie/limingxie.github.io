@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>digital on Website of li_mingxie</title>
+    <title>digital on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/digital/</link>
-    <description>Recent content in digital on Website of li_mingxie</description>
+    <description>Recent content in digital on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Tue, 05 Apr 2022 22:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/digital/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>浅谈数字证书(Digital Certificate)的发放和验证原理</title>
@@ -13,11 +13,10 @@
       <pubDate>Tue, 05 Apr 2022 22:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/digital_certificate/</guid>
-      <description>1.数字证书是什么？ 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
-它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
-最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。
-2.常见的3种加密方式 为了了解数字证书的原理，首先需要了解已下3种加密方式。
-2.1 hash算法加密 它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。</description>
+      <description>&lt;h2 id=&#34;1数字证书是什么&#34;&gt;1.数字证书是什么？&lt;/h2&gt;
+&lt;p&gt;数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。&lt;br&gt;
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。&lt;br&gt;
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。&lt;/p&gt;</description>
     </item>
     
   </channel>

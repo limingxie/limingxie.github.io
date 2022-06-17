@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>vue on Website of li_mingxie</title>
+    <title>vue on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/categories/vue/</link>
-    <description>Recent content in vue on Website of li_mingxie</description>
+    <description>Recent content in vue on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Thu, 16 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/vue/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【Vue笔记】Vue入门简介_脚手架(18)</title>
@@ -13,11 +13,13 @@
       <pubDate>Thu, 16 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_18/</guid>
-      <description>1.安装 ​ ​Vue CLI 官方网站​​ https://cli.vuejs.org/zh/
-CLI
-C：command
-L：line
-I：interface</description>
+      <description>&lt;h2 id=&#34;1安装&#34;&gt;1.安装&lt;/h2&gt;
+&lt;p&gt;​ ​Vue CLI 官方网站​​ &lt;a href=&#34;https://cli.vuejs.org/zh/&#34;&gt;https://cli.vuejs.org/zh/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;CLI&lt;br&gt;
+C：command&lt;br&gt;
+L：line&lt;br&gt;
+I：interface&lt;/p&gt;
+&lt;p&gt;前提：Node.js安装&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,9 +28,7 @@ I：interface</description>
       <pubDate>Wed, 15 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_17/</guid>
-      <description>这一篇整理了组件相关的内容。
-非单文件组件 一个文件中包含 n 个组件
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;Vue初识&amp;lt;/title&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34; src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了组件相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -37,11 +37,7 @@ I：interface</description>
       <pubDate>Tue, 14 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_16/</guid>
-      <description>这一篇整理了生命周期相关的内容。
-生命周期 1.又名：生命周期回调函数、生命周期函数、生命周期钩子
-2.是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数
-3.生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的
-4.生命周期函数中的 this 指向是 vm 或组件实例对象</description>
+      <description>&lt;p&gt;这一篇整理了生命周期相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -50,9 +46,7 @@ I：interface</description>
       <pubDate>Mon, 13 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_15/</guid>
-      <description>这一篇整理了自定义指令相关的内容。
-函数式 定义一个​​v-big​​​指令，和​​v-text​​功能类似，但会把绑定的数值放大10倍
-&amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;h2&amp;gt;当前的n值是&amp;lt;span v-text=&amp;#34;n&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;h2&amp;gt;放大10倍后的n值是：&amp;lt;span v-big=&amp;#34;n&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;button @click=&amp;#34;n++&amp;#34;&amp;gt;点我n+1&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; Vue.</description>
+      <description>&lt;p&gt;这一篇整理了自定义指令相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -61,8 +55,7 @@ I：interface</description>
       <pubDate>Sun, 12 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_14/</guid>
-      <description>这一篇整理了内置指令相关的内容。
-内置指令 ​​v-bind​​​：单向绑定解析表达式，可简写为 ​​:xxx​​​​ v-model​​：双向数据绑定 ​​v-for​​：遍历数组/对象/字符串 ​​v-on​​：绑定事件监听,可简写为​​@​​​​ v-if​​：条件渲染（动态控制节点是否存在) ​​v-else​​：条件渲染（动态控制节点是否存在) ​​v-show​​：条件渲染(动态控制节点是否展示)</description>
+      <description>&lt;p&gt;这一篇整理了内置指令相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -71,10 +64,7 @@ I：interface</description>
       <pubDate>Sat, 11 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_13/</guid>
-      <description>这一篇整理了过滤器相关的内容。
-过滤器的定义 对要显示的数据进行特定格式化后再显示(适用于一些简单逻辑的处理）
-语法 1.注册过滤器：​​​Vue.filter(name,callback)​​​或​​new Vue{filters:{}}​​​ 2.使用过滤器：​​{{ xxx│过滤器名}}​​或​​v-bind:属性= “xxx│过滤器名&amp;quot;​​
-备注 1.</description>
+      <description>&lt;p&gt;这一篇整理了过滤器相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -83,8 +73,7 @@ I：interface</description>
       <pubDate>Fri, 10 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_12/</guid>
-      <description>这一篇整理了收集表单数据相关的内容。
-收集表单数据 若：， 则v -model收集的是 value 值，用户输入的就是 value 值 若：, 则v-model收 集的是 value 值，且要给标签配置 value 值 若：1.</description>
+      <description>&lt;p&gt;这一篇整理了收集表单数据相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -93,8 +82,7 @@ I：interface</description>
       <pubDate>Thu, 09 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_11/</guid>
-      <description>这一篇整理了数据监测相关的内容。
-Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监测对象中的数据？ 通过setter实现监视，且要在new Vue时就传入要监测的数据。 (1).对象中后追加的属性，Vue默认不做响应式处理 (2).如需给后添加的属性做响应式，请使用如下API： Vue.set(target，propertyName/index，value) 或 vm.</description>
+      <description>&lt;p&gt;这一篇整理了数据监测相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -103,8 +91,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Wed, 08 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_10/</guid>
-      <description>这一篇整理了列表过滤和排序相关的内容。
-实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了列表过滤和排序相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -113,12 +100,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Tue, 07 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_09/</guid>
-      <description>这一篇这里了key的作用和原理。
-1.作用和原理 一、虚拟DOM中key的作用 key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会跟据【新数据】生成【新的虚拟DOM】，
-随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
-二、对比规则  旧虚拟DOM中找到了与新虚拟DOM相同的key：
-1）若虚拟DOM中内容没变，直接使用之前的真实DOM。
-2）若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM。 旧虚拟DOM中未找到与新虚拟DOM相同的key</description>
+      <description>&lt;p&gt;这一篇这里了key的作用和原理。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -127,8 +109,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Mon, 06 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_08/</guid>
-      <description>这一篇整理了渲染相关的内容。
-1.条件渲染  v-show v-if v-else-if v-else  &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了渲染相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -137,9 +118,8 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Sun, 05 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_07/</guid>
-      <description>这一篇整理了样式相关的内容。
-绑定class和绑定style。
-实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;这一篇整理了样式相关的内容。&lt;br&gt;
+绑定class和绑定style。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -148,8 +128,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Sat, 04 Jun 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_06/</guid>
-      <description>这一篇整理了侦听属性相关的内容。
-侦听属性需要理解的内容 1.监视属性发生变化时会调用侦听函数，并且会做相关处理 2.监视属性必须存在才能监视 3.监视属性可以new Vue时添加，也可以 vm.$watch() 添加 4.Vue中watch默认不监测对象内部指的变化，配置deep:true 才能检测变化 5.</description>
+      <description>&lt;p&gt;这一篇整理了侦听属性相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -158,11 +137,7 @@ Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监�
       <pubDate>Fri, 03 Jun 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_05/</guid>
-      <description>这篇整理了Vue的计算属性
-1.定义 要用的属性不存在，需要通过已有的属性计算得出。
-2.原理 底层借助Object.defineproperty()方法提供的getter()和setter()方法，
-3.getter()和setter()方法的作用 getter()方法 当访问初次计算属性时或属性值有变化时，会调用getter()方法。
-setter()方法 当设置计算属性时，会调用setter()方法，</description>
+      <description>&lt;p&gt;这篇整理了Vue的计算属性&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -171,7 +146,13 @@ setter()方法 当设置计算属性时，会调用setter()方法，</descriptio
       <pubDate>Thu, 02 Jun 2022 23:55:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_04/</guid>
-      <description>1.事件处理  使用v-on:xxxx 简写 @xxx 绑定事件 时间回调写在Vue实例的 methods 对象中, 不要写在data中 methods中配置的函数，不要用箭头函数，这样this就不指向Vue实例了 函数的参数中 event 可以用 $event 指定。  实例 &amp;lt;!</description>
+      <description>&lt;h2 id=&#34;1事件处理&#34;&gt;1.事件处理&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;使用v-on:xxxx 简写 @xxx 绑定事件&lt;/li&gt;
+&lt;li&gt;时间回调写在Vue实例的 methods 对象中, 不要写在data中&lt;/li&gt;
+&lt;li&gt;methods中配置的函数，不要用箭头函数，这样this就不指向Vue实例了&lt;/li&gt;
+&lt;li&gt;函数的参数中 event 可以用 $event 指定。&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -180,8 +161,8 @@ setter()方法 当设置计算属性时，会调用setter()方法，</descriptio
       <pubDate>Wed, 01 Jun 2022 23:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_03/</guid>
-      <description>1.Object.defineproperty 理解数据代理之前，先需要理解Object.defineProperty
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; let number = 18; let Person = { name: &amp;#34;小明&amp;#34;, address: &amp;#34;北京&amp;#34; } Object.</description>
+      <description>&lt;h2 id=&#34;1objectdefineproperty&#34;&gt;1.Object.defineproperty&lt;/h2&gt;
+&lt;p&gt;理解数据代理之前，先需要理解Object.defineProperty&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -190,11 +171,7 @@ setter()方法 当设置计算属性时，会调用setter()方法，</descriptio
       <pubDate>Tue, 31 May 2022 23:45:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_02/</guid>
-      <description>看vue数据绑定的几种方式。
-1.单项双向绑定 v-bind: 单项绑定，数据只能是从data流向页面
-v-model: 双项绑定，数据可以从页面流向data,也可以从data流向页面
-v-model 指令只能用在表单类元素(输入类)
-v-model:value 可以简写为 v-model</description>
+      <description>&lt;p&gt;看vue数据绑定的几种方式。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -203,11 +180,8 @@ v-model:value 可以简写为 v-model</description>
       <pubDate>Mon, 30 May 2022 23:35:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/vue_2/vue_01/</guid>
-      <description>看vue的官网文档感觉没有一点前端的基础的看起来很累，
-我希望结合着这个笔记一起看，哪怕是小白能能入门。
-具体Vue的概念，什么特点安装之类的都可以看官网的资料。 vue的中文网站: https://cn.vuejs.org/
-这里简单的写一个Vue的实例以及几个需要注意的地方。
-实例 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;.</description>
+      <description>&lt;p&gt;看vue的官网文档感觉没有一点前端的基础的看起来很累，&lt;br&gt;
+我希望结合着这个笔记一起看，哪怕是小白能能入门。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>object on Website of li_mingxie</title>
+    <title>object on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/object/</link>
-    <description>Recent content in object on Website of li_mingxie</description>
+    <description>Recent content in object on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Tue, 17 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/object/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【es6笔记】es6的入门简介_对象和数值扩展方法(9)</title>
@@ -13,8 +13,7 @@
       <pubDate>Tue, 17 May 2022 09:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/emas/emas_script_09/</guid>
-      <description>这里整理了Object和Number扩展方法。
-&amp;lt;!DOCType html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script&amp;gt; console.</description>
+      <description>&lt;p&gt;这里整理了Object和Number扩展方法。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -23,9 +22,11 @@
       <pubDate>Mon, 02 May 2022 10:05:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/js/javascript/javascript_04/</guid>
-      <description>1.对象分类 对象可以分3种。
-内建对象: 有ES标准中定义的对象。比如：String, Number, Object&amp;hellip;.
-宿主对象: 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &amp;hellip;</description>
+      <description>&lt;h2 id=&#34;1对象分类&#34;&gt;1.对象分类&lt;/h2&gt;
+&lt;p&gt;对象可以分3种。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;内建对象:&lt;/strong&gt; 有ES标准中定义的对象。比如：String, Number, Object&amp;hellip;.&lt;br&gt;
+&lt;strong&gt;宿主对象:&lt;/strong&gt; 有JS运行环境提供的对象。主要是游览器提供的对象。比如：BOM, DMO, window, global, self, this &amp;hellip;&lt;br&gt;
+&lt;strong&gt;自定义对象:&lt;/strong&gt; 有开发人员自己创造的对象。&lt;/p&gt;</description>
     </item>
     
   </channel>

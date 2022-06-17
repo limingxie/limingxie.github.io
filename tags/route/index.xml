@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>route on Website of li_mingxie</title>
+    <title>route on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/route/</link>
-    <description>Recent content in route on Website of li_mingxie</description>
+    <description>Recent content in route on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Sun, 10 Apr 2022 17:20:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/route/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【网络协议笔记】路由工作原理简介</title>
@@ -13,12 +13,8 @@
       <pubDate>Sun, 10 Apr 2022 17:20:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/network/route/</guid>
-      <description>我们知道不同网段的设备转发数据，需要路由器的支持。
-默认情况下，路由器是只知道跟他直连的网段，非直连的网段是需要通过静态路由或动态路由告诉它。
- 静态路由
-静态路由是管理员手动去添加路由设备信息，使用与小规模的网络。 动态路由
-路由器通过路由选择协议(RIP,OSPF)自动获取路由信息，适用于大规模的网络。  我们先看下图路由是如何连接设备的：
-1.计算机是和路由的网关连接，路由网关和计算机必须是在同一个网段。 2.</description>
+      <description>&lt;p&gt;我们知道不同网段的设备转发数据，需要路由器的支持。&lt;br&gt;
+默认情况下，路由器是只知道跟他直连的网段，非直连的网段是需要通过静态路由或动态路由告诉它。&lt;/p&gt;</description>
     </item>
     
   </channel>

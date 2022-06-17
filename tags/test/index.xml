@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>test on Website of li_mingxie</title>
+    <title>test on 宅男 &#43; 屌丝 &#43; 程序员</title>
     <link>https://limingxie.github.io/tags/test/</link>
-    <description>Recent content in test on Website of li_mingxie</description>
+    <description>Recent content in test on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Wed, 26 Jan 2022 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>测试代码的基本结构以及(Test Double)的种类</title>
@@ -24,7 +24,7 @@
       
       <guid>https://limingxie.github.io/go/my_go_test4/</guid>
       <description>&lt;p&gt;现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。&lt;br&gt;
-感觉有些内容不应该在同一个服务里。&lt;br&gt;
+感觉有些内容不应该在同一个服务里。
 于是我做了一个决定: &lt;strong&gt;&lt;code&gt;拆分服务&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;</description>
     </item>
     
@@ -34,7 +34,7 @@
       <pubDate>Sun, 27 May 2018 20:38:02 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/my_go_test3/</guid>
-      <description>&lt;p&gt;上一篇文章介绍了项目中测试代码的写法。&lt;br&gt;
+      <description>&lt;p&gt;上一篇文章介绍了项目中测试代码的写法。
 &lt;a href=&#34;https://limingxie.github.io/go/my_go_test1/&#34;&gt;Go项目的测试代码2（项目运用）&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里简单的共享一下测试替身。&lt;/p&gt;</description>
     </item>
@@ -45,7 +45,7 @@
       <pubDate>Sun, 27 May 2018 20:37:02 +0800</pubDate>
       
       <guid>https://limingxie.github.io/go/my_go_test1/</guid>
-      <description>&lt;p&gt;上一篇文章介绍了最基本的测试代码的写法。&lt;br&gt;
+      <description>&lt;p&gt;上一篇文章介绍了最基本的测试代码的写法。
 &lt;a href=&#34;https://limingxie.github.io/go/my_go_test/&#34;&gt;Go项目的测试代码（基础）&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里简单的共享一下我在项目中使用的方式。&lt;/p&gt;</description>
     </item>
