@@ -8,17 +8,13 @@
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="条形码" />
-<meta property="og:description" content="年纪大了做开发是没出息吗？" />
+<meta property="og:description" content="宅男 &#43; 屌丝 &#43; 程序员" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://limingxie.github.io/tags/%E6%9D%A1%E5%BD%A2%E7%A0%81/" />
 <meta property="og:updated_time" content="2021-04-07T07:28:49+08:00" />
 
 		<meta itemprop="name" content="条形码">
-<meta itemprop="description" content="年纪大了做开发是没出息吗？">
-
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="条形码"/>
-<meta name="twitter:description" content="年纪大了做开发是没出息吗？"/>
+<meta itemprop="description" content="宅男 &#43; 屌丝 &#43; 程序员">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -57,13 +53,6 @@
 			<a class="menu__link" href="/">
 				
 				<span class="menu__text">Home</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/limingxie/">
-				
-				<span class="menu__text">随笔</span>
 				
 			</a>
 		</li>
@@ -110,16 +99,23 @@
 			</a>
 		</li>
 		<li class="menu__item">
-			<a class="menu__link" href="/basic/">
+			<a class="menu__link" href="/algorithm/">
 				
-				<span class="menu__text">其它</span>
+				<span class="menu__text">算法</span>
 				
 			</a>
 		</li>
 		<li class="menu__item">
-			<a class="menu__link" href="/algorithm/">
+			<a class="menu__link" href="/limingxie/">
 				
-				<span class="menu__text">算法</span>
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
 				
 			</a>
 		</li>
@@ -151,35 +147,8 @@
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		这几天准备构建自营的商品中心。
-本以为很简单的已知业务，却没想到会有些抽象的概念和模糊的关系，折磨了我很久。
-1.常见的概念 先了解一下下面几个常见的概念。
-1.1 SPU(Standard Product Unit) 标准化产品单元。是商品信息聚合的最小单位，是一组可复用、易检索的标准化信息的集合，该集合描述了一个产品的特性。
-通俗点讲，属性值、特性相同的商品就可以称为一个SPU。
-1.2 商品(product) 淘宝叫item，京东叫product，商品特指与商家有关的商品，每个商品有一个商家编码，每个商品下面有多个颜色，款式，可以有多个SKU。
-我习惯于叫product。
-1.3 SKU(Stock keeping Unit) 库存保有单位。即库存进出计量的单位，可以是以件、盒、托盘等为单位。SKU是物理上不可分割的最小存货单元。
-1.4 条形码(barcode) 我们经常听到EAN条形码、UPC条形码、25条形码、交叉25条形码、库德巴条形码、Code 39条形码和Code 128条形码等等&hellip;
-看看我们常用的EAN条形码是什么？
-EAN条形码(EAN-13码): 是国际通用的符号体系，是一种长度固定、无含意的条形码，所表达的信息全部为数字，主要应用于商品标识。
-举例:6957420001084 =&gt; 695(代表出产国家690~699是中国) 7420(所属厂家的商号) 00108(代表货品号码) 4(校验码:使用一定算法验证)
-其它的感兴趣的人自行搜索看看。
-2.相互关系 这4个概念貌似很简单明确，但是实际业务里没有边明确的业务边界。
-以下都是以我的自己的理解来整理的，不太合理忽喷，可以相互讨论&hellip;^^
-2.1 SPU 和 商品的关系 第一个让我迷糊的是SPU和商品的关系。两者都是抽象的概念。
-很多人都说iPhone12是SPU。iPhone12的黑色，256GB 是一个SKU。
-那商品呢？iPhone12 不是商品吗？ 那SPU不就是商品吗？
-我觉得SPU和商品的区别的关键是【卖】。
-开始卖了叫商品，所以商品需要有商家和渠道去卖。
-SPU就不一样了。他强调的是【标准化的单元】。
-当你有个iPhoneXX的SPU，但是没拿去卖，那它就不是商品了。
-我们现有SPU，拿去卖就是商品了，开始卖了后，需要管理库存，所以就有了SKU。
-2.2 SKU 和 条形码的关系 条形码的种类很多，一开始会让人迷糊。
-在POS机中扫一个条形码就能查到一个商品(SKU)？ 这里很容易产生一个错觉，条形码就是SKU。
-但是有很多场景，特别是委托生产，虽然是一个SKU，但是生产批次，制作商不一样，会有不同的条形码。
-还有那些在条形码(或是二维码？)里添加生产日期的商品(比如有保质期的商品)虽然是同一个商品，但是很有可能是不同的SKU。
-所以我们要确保的是通过这个条形码可以找到相对应的sku。 其余的业务需要根据业务场景做一些适当的调整。
-3.总结  先标准化的单元 =&gt; SPU iPhoneXX 决定去卖了 =&gt; 商品 iPhoneXX 卖的过程中，需要管理库存 =&gt; 库存单元 SKU 为了实际业务管好SKU =&gt; 条形码   欢迎大家的意见和交流
+		<p>这几天准备构建自营的商品中心。<br>
+本以为很简单的已知业务，却没想到会有些抽象的概念和模糊的关系，折磨了我很久。</p>
 	</div>
 	<div class="list__footer clearfix">
 		<a class="list__footer-readmore btn" href="/limingxie/product/"></a>
@@ -305,7 +274,7 @@ SPU就不一样了。他强调的是【标准化的单元】。
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2022 John Doe.
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
 			<span class="footer__copyright-credits"></span>
 		</div>
 	</div>
