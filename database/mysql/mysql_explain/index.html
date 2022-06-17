@@ -20,7 +20,7 @@
 如果对explain有所了解，你可以现查现优化。">
 <meta itemprop="datePublished" content="1022-06-18T12:28:49+08:00" />
 <meta itemprop="dateModified" content="1022-06-18T12:28:49+08:00" />
-<meta itemprop="wordCount" content="423">
+<meta itemprop="wordCount" content="424">
 
 
 
@@ -216,7 +216,7 @@ sql_mode
 <li>Com_delete:删除操作的次数</li>
 </ul>
 <h2 id="3explain">3.EXPLAIN</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> app <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> sql_no_cache <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> app <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>;
 <span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
 </span><span style="color:#75715e"></span><span style="color:#f92672">|</span> id <span style="color:#f92672">|</span> select_type <span style="color:#f92672">|</span> <span style="color:#66d9ef">table</span>       <span style="color:#f92672">|</span> partitions <span style="color:#f92672">|</span> <span style="color:#66d9ef">type</span> <span style="color:#f92672">|</span> possible_keys <span style="color:#f92672">|</span> <span style="color:#66d9ef">key</span>  <span style="color:#f92672">|</span> key_len <span style="color:#f92672">|</span> <span style="color:#66d9ef">ref</span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">rows</span> <span style="color:#f92672">|</span> filtered <span style="color:#f92672">|</span> Extra       <span style="color:#f92672">|</span>
 <span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
