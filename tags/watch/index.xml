@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 04 Jun 2022 23:45:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/watch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【Vue笔记】Vue入门简介_侦听属性(06)</title>
-      <link>https://limingxie.github.io/js/vue/vue_06/</link>
+      <link>https://limingxie.github.io/js/vue_2/vue_06/</link>
       <pubDate>Sat, 04 Jun 2022 23:45:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/js/vue/vue_06/</guid>
+      <guid>https://limingxie.github.io/js/vue_2/vue_06/</guid>
       <description>这一篇整理了侦听属性相关的内容。
 侦听属性需要理解的内容 1.监视属性发生变化时会调用侦听函数，并且会做相关处理 2.监视属性必须存在才能监视 3.监视属性可以new Vue时添加，也可以 vm.$watch() 添加 4.Vue中watch默认不监测对象内部指的变化，配置deep:true 才能检测变化 5.</description>
     </item>

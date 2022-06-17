@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 17 Mar 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【ES笔记】Elasticsearch结构和常用API简介</title>
-      <link>https://limingxie.github.io/database/elasticsearch/</link>
+      <link>https://limingxie.github.io/database/mysql/elasticsearch/</link>
       <pubDate>Thu, 17 Mar 2022 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/elasticsearch/</guid>
+      <guid>https://limingxie.github.io/database/mysql/elasticsearch/</guid>
       <description>简单的做一下Elasticsearch的结构和常用语法的记录。
 为以后方便查看&amp;hellip;^^
 1.Elasticsearch基本概念 Cluster 集群 群集是一个或多个节点（服务器）的集合， 这些节点共同保存整个数据，并在所有节点上提供联合索引和搜索功能。

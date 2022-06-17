@@ -9,19 +9,19 @@
     <lastBuildDate>Tue, 05 Apr 2022 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/database/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【mysql】索引简介</title>
-      <link>https://limingxie.github.io/database/mysql_index/</link>
+      <link>https://limingxie.github.io/database/mysql/mysql_index/</link>
       <pubDate>Tue, 05 Apr 2022 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/mysql_index/</guid>
+      <guid>https://limingxie.github.io/database/mysql/mysql_index/</guid>
       <description>&lt;p&gt;最近了查看了mysql索引，很多资料&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【ES笔记】Elasticsearch结构和常用API简介</title>
-      <link>https://limingxie.github.io/database/elasticsearch/</link>
+      <link>https://limingxie.github.io/database/mysql/elasticsearch/</link>
       <pubDate>Thu, 17 Mar 2022 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/elasticsearch/</guid>
+      <guid>https://limingxie.github.io/database/mysql/elasticsearch/</guid>
       <description>简单的做一下Elasticsearch的结构和常用语法的记录。
 为以后方便查看&amp;hellip;^^
 1.Elasticsearch基本概念 Cluster 集群 群集是一个或多个节点（服务器）的集合， 这些节点共同保存整个数据，并在所有节点上提供联合索引和搜索功能。
@@ -31,21 +31,31 @@ Node节点 节点是单个服务器实例，它是群集的一部分，可以存
     
     <item>
       <title>【mysql】常见的4种存储引擎</title>
-      <link>https://limingxie.github.io/database/mysql_engine/</link>
+      <link>https://limingxie.github.io/database/mysql/mysql_engine/</link>
       <pubDate>Thu, 27 Jan 2022 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/mysql_engine/</guid>
+      <guid>https://limingxie.github.io/database/mysql/mysql_engine/</guid>
       <description>&lt;p&gt;我们一般用的mysql创建表的时候默认是使用了InnoBD存储引擎。&lt;br&gt;
 我本人不是计算机专业，所以刚接触mysql时没注意到它居然有好几种存储引擎。&lt;br&gt;
 在不同的场景下，mysql可以选择不同的存储引擎。&lt;/p&gt;</description>
     </item>
     
     <item>
+      <title>Redis简单应用</title>
+      <link>https://limingxie.github.io/database/redis/redis/</link>
+      <pubDate>Sun, 01 Jul 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/redis/redis/</guid>
+      <description>&lt;p&gt;这些天因为项目性能上的问题，采用了Redis缓存。&lt;br&gt;
+做了一些简单的笔记。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>使用docker运行mysql</title>
-      <link>https://limingxie.github.io/database/docker_mysql/</link>
+      <link>https://limingxie.github.io/database/mysql/docker_mysql/</link>
       <pubDate>Tue, 27 Mar 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/docker_mysql/</guid>
+      <guid>https://limingxie.github.io/database/mysql/docker_mysql/</guid>
       <description>&lt;p&gt;以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。&lt;/p&gt;</description>
     </item>
     

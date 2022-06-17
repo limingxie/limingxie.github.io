@@ -6,7 +6,17 @@
     <description>Recent content in Set on Website of li_mingxie</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 15 May 2022 09:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/set/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/set/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Vue笔记】Vue入门简介_数据检测(11)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_11/</link>
+      <pubDate>Thu, 09 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_11/</guid>
+      <description>这一篇整理了数据监测相关的内容。
+Vue监视数据的原理 1.vue会监视data中所有层次的数据 2.如何监测对象中的数据？ 通过setter实现监视，且要在new Vue时就传入要监测的数据。 (1).对象中后追加的属性，Vue默认不做响应式处理 (2).如需给后添加的属性做响应式，请使用如下API： Vue.set(target，propertyName/index，value) 或 vm.</description>
+    </item>
+    
     <item>
       <title>【es6笔记】es6的入门简介_Set_Map(7)</title>
       <link>https://limingxie.github.io/js/emas/emas_script_07/</link>

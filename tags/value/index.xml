@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>value on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/value/</link>
+    <description>Recent content in value on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 07 Jun 2022 23:05:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/value/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Vue笔记】Vue入门简介_key的作用和原理(09)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_09/</link>
+      <pubDate>Tue, 07 Jun 2022 23:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_09/</guid>
+      <description>这一篇这里了key的作用和原理。
+1.作用和原理 一、虚拟DOM中key的作用 key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会跟据【新数据】生成【新的虚拟DOM】，
+随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
+二、对比规则  旧虚拟DOM中找到了与新虚拟DOM相同的key：
+1）若虚拟DOM中内容没变，直接使用之前的真实DOM。
+2）若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM。 旧虚拟DOM中未找到与新虚拟DOM相同的key</description>
+    </item>
+    
+  </channel>
+</rss>

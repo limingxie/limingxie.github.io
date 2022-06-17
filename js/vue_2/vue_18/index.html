@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【Vue笔记】Vue入门简介_脚手架(18) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/vue_2/vue_18/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【Vue笔记】Vue入门简介_脚手架(18)"/>
+<meta name="twitter:description" content="1.安装 ​ ​Vue CLI 官方网站​​ https://cli.vuejs.org/zh/
+CLI
+C：command
+L：line
+I：interface"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【Vue笔记】Vue入门简介_脚手架(18)</h3>
+                
+            </div>
+
+            <h2 id="1安装">1.安装</h2>
+<p>​ ​Vue CLI 官方网站​​ <a href="https://cli.vuejs.org/zh/">https://cli.vuejs.org/zh/</a></p>
+<p>CLI<br>
+C：command<br>
+L：line<br>
+I：interface</p>
+<p>前提：Node.js安装</p>
+<p>1、执行​​npm install -g @vue/cli​​安装脚手架</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install -g @vue/cli
+</code></pre></div><p>2、安装完成后，可以使用​​vue &ndash;version​​</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vue --version
+@vue/cli 5.0.4
+</code></pre></div><p>3、我们测试下，在桌面创建一个项目，先执行 ​​​cd Desktop​​​ 进入桌面，然后执行 ​​vue create hello-world​​</p>
+<p>然后选择第二个，因为我们目前学习的是 vue2</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Vue CLI v5.0.4
+? Please pick a preset:
+  Default <span style="color:#f92672">([</span>Vue 3<span style="color:#f92672">]</span> babel, eslint<span style="color:#f92672">)</span>
+❯ Default <span style="color:#f92672">([</span>Vue 2<span style="color:#f92672">]</span> babel, eslint<span style="color:#f92672">)</span>
+  Manually <span style="color:#66d9ef">select</span> features
+</code></pre></div><p>当出现以下内容说明创建成功</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> cd hello-world​​
+ npm run serve
+</code></pre></div><p>我们分别执行刚才两个命令，成功后会出现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> DONE  Compiled successfully in 4108ms 11:01:56 PM
+
+  App running at:
+  - Local:   http://localhost:8080/
+  - Network: http://192.168.2.8:8080/
+
+  Note that the development build is not optimized.
+  To create a production build, run npm run build.
+</code></pre></div><p>我们在浏览器打开 ​​​<a href="http://localhost:8080%E2%80%8B%E2%80%8B%E2%80%8B%E5%8D%B3%E5%8F%AF%E6%89%93%E5%BC%80%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E3%80%82%E8%80%8C%E4%B8%8B%E9%9D%A2%E7%9A%84%E2%80%8B%E2%80%8Bhttp://192.168.2.8:8080/">http://localhost:8080​​​即可打开这个项目。而下面的​​http://192.168.2.8:8080/</a>​​​是同局域网的其他人可以访问的</p>
+<h2 id="2分析脚手架结构">2.分析脚手架结构</h2>
+<p>我们分析以下 main.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">/**
+* 该文件是整个文件的入口文件
+*/
+//引入vue
+import Vue from &#39;vue&#39;
+//引入App组件，它是所有组件的父组件
+import App from &#39;./App.vue&#39;
+//关闭vue的生产提示
+Vue.config.productionTip = false
+//创建vue实例对象，可以改为我们熟悉的写法
+/*new Vue({
+  //将App组件放入容器中（稍后解释）
+  render: h =&gt; h(App),
+}).$mount(&#39;#app&#39;)*/
+new Vue({
+    el: &#39;#app&#39;,
+    //将App组件放入容器中（稍后解释）
+    render: h =&gt; h(App),
+})
+</code></pre></div><h2 id="3单文件组件">3.单文件组件</h2>
+<p>命名注意<br>
+一个单词：<br>
+school.vue<br>
+School.vue【推荐】</p>
+<p>多个单词：<br>
+my-school.vue<br>
+MySchool.vue【推荐】</p>
+<p>在 src–component 中创建 School.vue</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">template</span>&gt;
+  <span style="color:#75715e">&lt;!--组件的结构--&gt;</span>
+  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;学校名称：{{ name }}&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;学校地址：{{ address }}&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showName&#34;</span>&gt;点我提示学校名&lt;/<span style="color:#f92672">button</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+<span style="color:#75715e">//组件交互相关的代码（数据、方法等）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;School&#39;</span>,
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
+      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+    }
+  },
+  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">showName</span>() {
+      <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
+    }
+  }
+}
+<span style="color:#75715e">//以上代码是下面代码的缩写
+</span><span style="color:#75715e"></span><span style="color:#75715e">/*const school = Vue.extend({})
+</span><span style="color:#75715e">export default school*/</span>
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+&lt;<span style="color:#f92672">style</span>&gt;
+<span style="color:#75715e">/*组件的样式*/</span>
+.<span style="color:#a6e22e">demo</span> {
+  <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">orange</span>;
+}
+&lt;/<span style="color:#f92672">style</span>&gt;
+</code></pre></div><p>在 src–component 中创建 Student.vue</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">template</span>&gt;
+  <span style="color:#75715e">&lt;!--组件的结构--&gt;</span>
+  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;学生姓名：{{ name }}&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;学生年龄：{{ age }}&lt;/<span style="color:#f92672">h2</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+<span style="color:#75715e">//组件交互相关的代码（数据、方法等）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Student&#39;</span>,
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
+      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>
+    }
+  }
+}
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><p>在 src 下修改 App.vue</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">template</span>&gt;
+  &lt;<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">School</span>&gt;&lt;/<span style="color:#f92672">School</span>&gt;
+    &lt;<span style="color:#f92672">Student</span>&gt;&lt;/<span style="color:#f92672">Student</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">template</span>&gt;
+
+&lt;<span style="color:#f92672">script</span>&gt;
+  <span style="color:#75715e">//引入组件
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/Student&#34;</span>
+  <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">School</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/School&#34;</span>
+
+  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;App&#39;</span>,
+    <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span>{
+      <span style="color:#a6e22e">School</span>,
+      <span style="color:#a6e22e">Student</span>
+    }
+  }
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+&lt;<span style="color:#f92672">style</span>&gt;
+
+&lt;/<span style="color:#f92672">style</span>&gt;
+</code></pre></div><p>我们找到 src 中的 index.html，做下注释</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>&gt;
+  &lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+      <span style="color:#75715e">&lt;!--针对IE浏览器的特殊配置，让IE浏览器以最高的渲染级别渲染页面--&gt;</span>
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;X-UA-Compatible&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;IE=edge&#34;</span>&gt;
+      <span style="color:#75715e">&lt;!--开启移动端的理想视口--&gt;</span>
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width,initial-scale=1.0&#34;</span>&gt;
+      <span style="color:#75715e">&lt;!--配置页签图标，BASE_URL 为 public 文件夹路径--&gt;</span>
+    &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;icon&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;%= BASE_URL %&gt;favicon.ico&#34;</span>&gt;
+      <span style="color:#75715e">&lt;!--配置网页标题 会找到 package.json 中的 name 做为标题--&gt;</span>
+    &lt;<span style="color:#f92672">title</span>&gt;<span style="color:#960050;background-color:#1e0010">&lt;</span>%= htmlWebpackPlugin.options.title %&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+  &lt;/<span style="color:#f92672">head</span>&gt;
+  &lt;<span style="color:#f92672">body</span>&gt;
+    <span style="color:#75715e">&lt;!--当浏览器不支持js时，noscript 标签中的元素就会显示--&gt;</span>
+    &lt;<span style="color:#f92672">noscript</span>&gt;
+      &lt;<span style="color:#f92672">strong</span>&gt;We&#39;re sorry but <span style="color:#960050;background-color:#1e0010">&lt;</span>%= htmlWebpackPlugin.options.title %&gt; doesn&#39;t work properly without JavaScript enabled. Please enable it to continue.&lt;/<span style="color:#f92672">strong</span>&gt;
+    &lt;/<span style="color:#f92672">noscript</span>&gt;
+    <span style="color:#75715e">&lt;!--容器--&gt;</span>
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+    <span style="color:#75715e">&lt;!-- built files will be auto injected --&gt;</span>
+  &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h2 id="4render-函数">4.render 函数</h2>
+<p>关于不同版本的Vue<br>
+1.vue.js 与 vue.runtime.xxx.js 的区别：<br>
+(1).vue.js是完整版的 Vue，包含：核心功能+模板解析器<br>
+(2).vue.runtime.xxx.js 是运行版的 Vue，只包含：核心功能；没有模板解析器</p>
+<p>2.因为 vue.runtime.xxx.js 没有模板解析器，所以不能使用​​template​​​配置项，需要使用​​render​​​函数接收到的​​createElement​​函数去指定具体内容</p>
+<p>在 main.js 中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+  <span style="color:#75715e">//将App组件放入容器中（稍后解释）
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">render</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">h</span> =&gt; <span style="color:#a6e22e">h</span>(<span style="color:#a6e22e">App</span>),
+    <span style="color:#75715e">//render 完整写法是这样一个函数
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/*render(h){
+</span><span style="color:#75715e">        return h(&#34;h1&#34;,&#34;你好&#34;)
+</span><span style="color:#75715e">    }*/</span>
+}).<span style="color:#a6e22e">$mount</span>(<span style="color:#e6db74">&#39;#app&#39;</span>)
+</code></pre></div><h2 id="5修改默认配置">5.修改默认配置</h2>
+<p>vue.config.js 配置文件<br>
+1、使用​​​vue inspect &gt; output.js​​​可以查看到vue脚手架的默认配置，这条命令是把脚手架的配置输出到 output.js ，我们拉到最后可以找到入口文件的配置<br>
+2、使用 vue.config.js 可以对脚手架进行个性化定制，详情见:<br>
+​​ ​Vue CLI 配置参考​​​ 例如，我们上边修改的​ ​语法检查的配置项​​，我们还可以设置​ ​文件入口​​，我们把官网的代码复制过来，修改入口文件。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/vue/">vue</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/vue/">vue</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -9,20 +9,20 @@
     <lastBuildDate>Sun, 01 Jul 2018 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redis简单应用</title>
-      <link>https://limingxie.github.io/tool/redis/</link>
+      <link>https://limingxie.github.io/database/redis/redis/</link>
       <pubDate>Sun, 01 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/tool/redis/</guid>
+      <guid>https://limingxie.github.io/database/redis/redis/</guid>
       <description>&lt;p&gt;这些天因为项目性能上的问题，采用了Redis缓存。&lt;br&gt;
 做了一些简单的笔记。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>使用docker运行mysql</title>
-      <link>https://limingxie.github.io/database/docker_mysql/</link>
+      <link>https://limingxie.github.io/database/mysql/docker_mysql/</link>
       <pubDate>Tue, 27 Mar 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/docker_mysql/</guid>
+      <guid>https://limingxie.github.io/database/mysql/docker_mysql/</guid>
       <description>&lt;p&gt;以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。&lt;/p&gt;</description>
     </item>
     

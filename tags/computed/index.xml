@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 03 Jun 2022 23:45:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/computed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【Vue笔记】Vue入门简介_计算属性(05)</title>
-      <link>https://limingxie.github.io/js/vue/vue_05/</link>
+      <link>https://limingxie.github.io/js/vue_2/vue_05/</link>
       <pubDate>Fri, 03 Jun 2022 23:45:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/js/vue/vue_05/</guid>
+      <guid>https://limingxie.github.io/js/vue_2/vue_05/</guid>
       <description>这篇整理了Vue的计算属性
 1.定义 要用的属性不存在，需要通过已有的属性计算得出。
 2.原理 底层借助Object.defineproperty()方法提供的getter()和setter()方法，

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【Vue笔记】Vue入门简介_key的作用和原理(09) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/vue_2/vue_09/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【Vue笔记】Vue入门简介_key的作用和原理(09)"/>
+<meta name="twitter:description" content="这一篇这里了key的作用和原理。
+1.作用和原理 一、虚拟DOM中key的作用 key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会跟据【新数据】生成【新的虚拟DOM】，
+随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
+二、对比规则  旧虚拟DOM中找到了与新虚拟DOM相同的key：
+1）若虚拟DOM中内容没变，直接使用之前的真实DOM。
+2）若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM。 旧虚拟DOM中未找到与新虚拟DOM相同的key"/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【Vue笔记】Vue入门简介_key的作用和原理(09)</h3>
+                
+            </div>
+
+            <p>这一篇这里了key的作用和原理。</p>
+<h2 id="1作用和原理">1.作用和原理</h2>
+<h4 id="一虚拟dom中key的作用">一、虚拟DOM中key的作用</h4>
+<p>key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会跟据【新数据】生成【新的虚拟DOM】，<br>
+随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：</p>
+<h4 id="二对比规则">二、对比规则</h4>
+<ol>
+<li>旧虚拟DOM中找到了与新虚拟DOM相同的key：<br>
+1）若虚拟DOM中内容没变，直接使用之前的真实DOM。<br>
+2）若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM。</li>
+<li>旧虚拟DOM中未找到与新虚拟DOM相同的key<br>
+创建新的真实DOM，随后渲染到页面。</li>
+</ol>
+<p><a href="https://limingxie.github.io/images/js/vue/vue_key_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/js/vue/vue_key_01.png?x-oss-process=image/resize,w_700,m_lfit" alt="vue_key_01"></p>
+<p><a href="https://limingxie.github.io/images/js/vue/vue_key_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/js/vue/vue_key_02.png?x-oss-process=image/resize,w_700,m_lfit" alt="vue_key_02"></p>
+<h4 id="三用index作为key可能会引发的问题">三、用index作为key可能会引发的问题</h4>
+<ol>
+<li>若对数据进行：逆序添加、逆序删除等破坏顺序操作：<br>
+会产生没有必要的真实DOM更新==&gt;界面效果没有问题，但效率低。</li>
+<li>如果结构中还包含输入类的DOM：<br>
+会产生错误DOM更新==&gt;界面有问题</li>
+</ol>
+<h4 id="四开发中如何选择key">四、开发中如何选择key？</h4>
+<ol>
+<li>最好使用每条数据的唯一标识作为key，比如id、手机号、身份证号、学号等唯一值。</li>
+<li>如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的。</li>
+</ol>
+<h2 id="2实例">2.实例</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+        <span style="color:#75715e">&lt;!-- 使用 v-show 做条件渲染 只是把display = false --&gt;</span>
+        &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">v-show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;true&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
+        &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">v-show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1===2&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
+
+        <span style="color:#75715e">&lt;!-- v-if 直接把元素去掉 --&gt;</span>
+        &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">v-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;true&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
+        &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">v-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1===2&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
+
+        &lt;<span style="color:#f92672">hr</span> /&gt;
+
+        &lt;<span style="color:#f92672">h3</span>&gt;现在n:{{n}}&lt;/<span style="color:#f92672">h3</span>&gt;
+        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n++&#34;</span>&gt;点我+1&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n%3 === 1&#34;</span>&gt;小明&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-else-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n%3 === 2&#34;</span>&gt;小红&lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-else</span>&gt;小张&lt;/<span style="color:#f92672">div</span>&gt;
+
+        <span style="color:#75715e">&lt;!-- template v-if 配合使用  v-show是不能跟 template一起用 --&gt;</span>
+        <span style="color:#75715e">&lt;!-- &lt;template v-show=&#34;n%3===1&#34;&gt; --&gt;</span>
+        &lt;<span style="color:#f92672">template</span> <span style="color:#a6e22e">v-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n%3===1&#34;</span>&gt;
+            &lt;<span style="color:#f92672">h3</span>&gt;小明&lt;/<span style="color:#f92672">h3</span>&gt;
+            &lt;<span style="color:#f92672">h3</span>&gt;小红&lt;/<span style="color:#f92672">h3</span>&gt;
+            &lt;<span style="color:#f92672">h3</span>&gt;小张&lt;/<span style="color:#f92672">h3</span>&gt;
+        &lt;/<span style="color:#f92672">template</span>&gt;
+
+    &lt;/<span style="color:#f92672">div</span>&gt;
+
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;张三&#39;</span>,
+                <span style="color:#a6e22e">n</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>
+            }
+        });
+        
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/vue/">vue</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/vue/">vue</a><a class="tag" href="/tags/key/">key</a><a class="tag" href="/tags/value/">value</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

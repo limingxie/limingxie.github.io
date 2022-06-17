@@ -9,19 +9,19 @@
     <lastBuildDate>Tue, 05 Apr 2022 08:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【mysql】索引简介</title>
-      <link>https://limingxie.github.io/database/mysql_index/</link>
+      <link>https://limingxie.github.io/database/mysql/mysql_index/</link>
       <pubDate>Tue, 05 Apr 2022 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/mysql_index/</guid>
+      <guid>https://limingxie.github.io/database/mysql/mysql_index/</guid>
       <description>&lt;p&gt;最近了查看了mysql索引，很多资料&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【mysql】常见的4种存储引擎</title>
-      <link>https://limingxie.github.io/database/mysql_engine/</link>
+      <link>https://limingxie.github.io/database/mysql/mysql_engine/</link>
       <pubDate>Thu, 27 Jan 2022 08:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/mysql_engine/</guid>
+      <guid>https://limingxie.github.io/database/mysql/mysql_engine/</guid>
       <description>&lt;p&gt;我们一般用的mysql创建表的时候默认是使用了InnoBD存储引擎。&lt;br&gt;
 我本人不是计算机专业，所以刚接触mysql时没注意到它居然有好几种存储引擎。&lt;br&gt;
 在不同的场景下，mysql可以选择不同的存储引擎。&lt;/p&gt;</description>
@@ -29,10 +29,10 @@
     
     <item>
       <title>使用docker运行mysql</title>
-      <link>https://limingxie.github.io/database/docker_mysql/</link>
+      <link>https://limingxie.github.io/database/mysql/docker_mysql/</link>
       <pubDate>Tue, 27 Mar 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/docker_mysql/</guid>
+      <guid>https://limingxie.github.io/database/mysql/docker_mysql/</guid>
       <description>&lt;p&gt;以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。&lt;/p&gt;</description>
     </item>
     

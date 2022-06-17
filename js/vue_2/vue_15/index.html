@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=""><head>
+    <title> 李明燮(li_mingxie) | 【Vue笔记】Vue入门简介_自定义指令(15) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.77.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="年纪大了做开发是没出息吗？">
+    
+    <link rel="stylesheet"
+          href="https://limingxie.github.io/css/style.min.babea5e0ba217521662ddc7d603c65ce69ed6c1fb49ca589d0f610c217d1ea86.css"
+          integrity="sha256-ur6l4LohdSFmLdx9YDxlzmntbB&#43;0nKWJ0PYQwhfR6oY="
+          crossorigin="anonymous"
+          type="text/css"><link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="https://limingxie.github.io/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://limingxie.github.io/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://limingxie.github.io/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://limingxie.github.io/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://limingxie.github.io/js/vue_2/vue_15/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="https://limingxie.github.io/js/anatole-header.min.e782db136ec18d105a4552702eac49f4620d6867da3fbf808bd53e806c96be6e.js"
+            integrity="sha256-54LbE27BjRBaRVJwLqxJ9GINaGfaP7&#43;Ai9U&#43;gGyWvm4="
+            crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://limingxie.github.io/105"/>
+
+<meta name="twitter:title" content="【Vue笔记】Vue入门简介_自定义指令(15)"/>
+<meta name="twitter:description" content="这一篇整理了自定义指令相关的内容。
+函数式 定义一个​​v-big​​​指令，和​​v-text​​功能类似，但会把绑定的数值放大10倍
+&lt;div id=&#34;app&#34;&gt; &lt;h2&gt;当前的n值是&lt;span v-text=&#34;n&#34;&gt;&lt;/span&gt;&lt;/h2&gt; &lt;h2&gt;放大10倍后的n值是：&lt;span v-big=&#34;n&#34;&gt;&lt;/span&gt;&lt;/h2&gt; &lt;button @click=&#34;n&#43;&#43;&#34;&gt;点我n&#43;1&lt;/button&gt; &lt;/div&gt; &lt;script type=&#34;text/javascript&#34;&gt; Vue."/>
+
+</head>
+<body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="https://limingxie.github.io/images/limingxie2.jpeg" alt="profile picture">
+            <h3 title=""><a href="/">宅男 &#43; 屌丝 &#43; 程序员</a></h3>
+            <div class="description">
+                <p>年纪大了做开发是没出息吗？</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:li_mingxie@163.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; 李明燮(li_mingxie) 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/limingxie/"
+                        
+                   title="">随笔</a></li>
+        
+            
+            <li><a 
+                   href="/go/"
+                        
+                   title="">Golang</a></li>
+        
+            
+            <li><a 
+                   href="/java/"
+                        
+                   title="">Java</a></li>
+        
+            
+            <li><a 
+                   href="/js/"
+                        
+                   title="">js相关</a></li>
+        
+            
+            <li><a 
+                   href="/network/"
+                        
+                   title="">网络</a></li>
+        
+            
+            <li><a 
+                   href="/database/"
+                        
+                   title="">database</a></li>
+        
+            
+            <li><a 
+                   href="/tool/"
+                        
+                   title="">工具和环境</a></li>
+        
+            
+            <li><a 
+                   href="/basic/"
+                        
+                   title="">其它</a></li>
+        
+            
+            <li><a 
+                   href="/algorithm/"
+                        
+                   title="">算法</a></li>
+        
+        
+        <li class="theme-switch-item">
+            <a class="theme-switch" title="Switch Theme">
+                <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post animated fadeInDown">
+        <div class="post-content">
+
+            <div class="post-title">
+                <h3>【Vue笔记】Vue入门简介_自定义指令(15)</h3>
+                
+            </div>
+
+            <p>这一篇整理了自定义指令相关的内容。</p>
+<h4 id="函数式">函数式</h4>
+<p>定义一个​​v-big​​​指令，和​​v-text​​功能类似，但会把绑定的数值放大10倍</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;当前的n值是&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-text</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;放大10倍后的n值是：&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-big</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n++&#34;</span>&gt;点我n+1&lt;/<span style="color:#f92672">button</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+    <span style="color:#75715e">//创建vue实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">n</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+        },
+        <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+            <span style="color:#75715e">/*big:function () {
+</span><span style="color:#75715e">            }*/</span>
+            <span style="color:#75715e">//big函数何时会被调用？
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//1、指令与函数成功绑定时（一上来）
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//2、指令所在的模板被重新解析时
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">big</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>
+            }
+        }
+    })
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><h4 id="对象式">对象式</h4>
+<p>定义一个​​v-fbind​​​指令，和​​v-bind​​​功能类似，但可以让其所绑定的​​input​​元素默认获取焦点</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-bind:value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-fbind:value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+    &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n++&#34;</span>&gt;点我n+1&lt;/<span style="color:#f92672">button</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+    <span style="color:#75715e">//创建vue实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">n</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+        },
+        <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+            <span style="color:#a6e22e">fbind</span><span style="color:#f92672">:</span>{
+                <span style="color:#a6e22e">bind</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                    <span style="color:#75715e">//指令与函数成功绑定时（一上来）
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bind&#34;</span>);
+                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>
+                },
+                <span style="color:#a6e22e">inserted</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                    <span style="color:#75715e">//指令所在元素被插入页面时
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;inserted&#34;</span>);
+                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">focus</span>()
+                },
+                <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                    <span style="color:#75715e">//指令所在元素被重新解析时
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;update&#34;</span>);
+                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>
+                }
+            }
+        }
+    })
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><h4 id="需要注意的地方">需要注意的地方</h4>
+<p><strong>命名</strong><br>
+如果指令是多个单词：</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&#39;big-number&#39;:function (element,binding){
+  element.innerHTML = binding.value * 10
+}
+</code></pre></div><p>或者</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&#39;big-number&#39; (element,binding){
+  element.innerHTML = binding.value * 10
+}
+</code></pre></div><p><strong>this</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">directives:{
+            fbind:{
+                bind(element,binding){
+                    //此处的this是window
+                    console.log(&#34;bind&#34;);
+                    element.value = binding.value
+                }
+            }
+        }
+</code></pre></div><h4 id="全局指令">全局指令</h4>
+<p>像过滤器一样，我们把刚才的两个指令改为全局指令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Vue.directive(&#39;big&#39;, function (element, binding) {
+        element.innerHTML = binding.value * 10
+    })
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Vue.directive(&#39;fbind&#39;,{
+        bind(element,binding){
+            element.value = binding.value
+        },
+        inserted(element,binding){
+            element.focus()
+        },
+        update(element,binding){
+            element.value = binding.value
+        }
+    })
+</code></pre></div><h4 id="总结">总结</h4>
+<p>一、定义语法:</p>
+<p>(1).局部指令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+  <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+    <span style="color:#a6e22e">指令名</span><span style="color:#f92672">:</span><span style="color:#a6e22e">配置对象</span>
+  }
+})
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+  <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+    <span style="color:#a6e22e">指令名</span><span style="color:#f92672">:</span><span style="color:#a6e22e">回调函数</span>
+  }
+})
+</code></pre></div><p>(2).全局指令</p>
+<p>​​​Vue.directive(指令名,配置对象)​​​或 ​​Vue.directive(指令名,回调函数)​​</p>
+<p>二、配置对象中常用的3个回调:<br>
+(1).bind：指令与元素成功绑定时调用<br>
+(2).inserted：指令所在元素被插入页面时调用<br>
+(3).update：指令所在模板结构被重新解析时调用</p>
+<p>三、备注<br>
+1.指令定义时不加​​​v-​​​，但使用时要加​​v-​​​
+2.指令名如果是多个单词，要使用​​kebab-case​​命名方式，不要用​​camelCase​​命名</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+
+        </div>
+        <div class="post-footer">
+            <div class="info">
+                <span class="separator"><a class="category" href="/categories/vue/">vue</a></span>
+
+                <span class="separator"><a class="tag" href="/tags/vue/">vue</a><a class="tag" href="/tags/directives/">directives</a></span>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
+        integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw="
+        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
+        integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+        src="https://limingxie.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

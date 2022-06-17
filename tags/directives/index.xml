@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>directives on Website of li_mingxie</title>
+    <link>https://limingxie.github.io/tags/directives/</link>
+    <description>Recent content in directives on Website of li_mingxie</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 13 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/directives/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Vue笔记】Vue入门简介_自定义指令(15)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_15/</link>
+      <pubDate>Mon, 13 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_15/</guid>
+      <description>这一篇整理了自定义指令相关的内容。
+函数式 定义一个​​v-big​​​指令，和​​v-text​​功能类似，但会把绑定的数值放大10倍
+&amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;h2&amp;gt;当前的n值是&amp;lt;span v-text=&amp;#34;n&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;h2&amp;gt;放大10倍后的n值是：&amp;lt;span v-big=&amp;#34;n&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;button @click=&amp;#34;n++&amp;#34;&amp;gt;点我n+1&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; Vue.</description>
+    </item>
+    
+  </channel>
+</rss>
