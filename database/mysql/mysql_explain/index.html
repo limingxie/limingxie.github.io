@@ -283,16 +283,16 @@ sql_mode
 </table>
 <p>其中 type，key_len，rows，Extra 的结果比较重要。</p>
 <pre><code>type: 结果值从最好到最坏依次是:
-**system** &gt; **const** &gt; **eq_ref** &gt; **ref** &gt;  
+system &gt; const &gt; eq_ref &gt; ref &gt;  
 fulltext &gt; ref_or_null &gt; index_merge &gt; unique_subquery &gt; index_subquery &gt;  
-**range** &gt; **index** &gt; **ALL**
+range &gt; index &gt; ALL
 SQL 性能优化的目标:至少要达到 range 级别，要求是 ref 级别，最好是 consts级别。
 </code></pre><blockquote>
 <p>key_len 长度计算<br>
 varchar(10)变长字段且允许NULL = 10 * ( character set: utf8=3,gbk=2,latin1=1)+1(NULL)+2(变长字段) =&gt; 33</p>
 </blockquote>
 <h4 id="explain-没考虑到的地方">explain 没考虑到的地方</h4>
-<p>EXPLAIN不考虑各种Cache
+<p>EXPLAIN不考虑各种Cache<br>
 EXPLAIN不能显示MySQL在执行查询时所作的优化工作<br>
 EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义函数对查询的影响情况<br>
 部分统计信息是估算的，并非精确值</p>

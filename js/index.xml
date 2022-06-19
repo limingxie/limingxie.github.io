@@ -6,7 +6,93 @@
     <description>Recent content in Js on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Vue笔记】Vue入门简介_插槽(29)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_29/</link>
+      <pubDate>Mon, 27 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_29/</guid>
+      <description>&lt;p&gt;这一篇整理了插槽相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_请求搜索案例(28)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_28/</link>
+      <pubDate>Sun, 26 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_28/</guid>
+      <description>&lt;p&gt;这一篇做了一个简单的用户搜索的请求案例。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_配置代理(27)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_27/</link>
+      <pubDate>Sat, 25 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_27/</guid>
+      <description>&lt;p&gt;这一篇里整理了Vue 配置代理相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_动画和过度效果(26)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_26/</link>
+      <pubDate>Fri, 24 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_26/</guid>
+      <description>&lt;p&gt;这一篇里整理了Vue 动画和过渡效果相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_消息订阅和发布(25)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_25/</link>
+      <pubDate>Thu, 23 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_25/</guid>
+      <description>&lt;p&gt;这一篇里整理了Vue 消息订阅与发布。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_全局事件总线(24)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_24/</link>
+      <pubDate>Wed, 22 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_24/</guid>
+      <description>&lt;p&gt;在 vue 里我们可以通过全局事件总线来实现任意组件之间通信&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_组件自定义事件(23)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_23/</link>
+      <pubDate>Tue, 21 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_23/</guid>
+      <description>&lt;h2 id=&#34;绑定&#34;&gt;绑定&lt;/h2&gt;
+&lt;h4 id=&#34;方式一&#34;&gt;方式一&lt;/h4&gt;
+&lt;p&gt;App 中有 School 组件和 Student 组件，现在我们要实现子组件向父组件传递数据，即 School 组件和 Student 组件向 App 传递数据&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_游览器本地存储(22)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_22/</link>
+      <pubDate>Mon, 20 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_22/</guid>
+      <description>&lt;h4 id=&#34;webstorage&#34;&gt;WebStorage&lt;/h4&gt;
+&lt;p&gt;1.存储内容大小一般支持5MB左右（不同浏览器可能还不一样）&lt;br&gt;
+2.浏览器端通过Window.sessionStorage和Window.localStorage属性来实现本地存储机制&lt;br&gt;
+3.相关API：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_小案例(21)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_21/</link>
+      <pubDate>Sun, 19 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_21/</guid>
+      <description>&lt;p&gt;这一篇做了一个小案例。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【Vue笔记】Vue入门简介_插件(20)</title>
       <link>https://limingxie.github.io/js/vue_2/vue_20/</link>
