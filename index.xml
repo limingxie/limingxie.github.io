@@ -6,7 +6,30 @@
     <description>Recent content on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 Jun 2022 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Jun 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Vue笔记】Vue入门简介_插件(20)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_20/</link>
+      <pubDate>Sat, 18 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_20/</guid>
+      <description>&lt;p&gt;这一篇整理了组件相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【Vue笔记】Vue入门简介_ref_props_mixin(19)</title>
+      <link>https://limingxie.github.io/js/vue_2/vue_19/</link>
+      <pubDate>Fri, 17 Jun 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/vue_2/vue_19/</guid>
+      <description>&lt;h2 id=&#34;ref&#34;&gt;ref&lt;/h2&gt;
+&lt;p&gt;1.被用来给元素或子组件注册引用信息（(id的替代者)&lt;br&gt;
+2.应用在html标签上获取的是真实DOM元素，应用在组件标签上是组件实例对象(vc)&lt;br&gt;
+3.使用方式:&lt;br&gt;
+打标识: ​​​&lt;!-- raw HTML omitted --&gt;&amp;hellip;.&lt;!-- raw HTML omitted --&gt;​​​或​​&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;​​​
+获取: ​​this.$refs.xxx​​&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【mysql笔记】mysql不常用，但是有用的命令</title>
       <link>https://limingxie.github.io/database/mysql/mysql_commend_01/</link>
