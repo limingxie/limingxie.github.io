@@ -6,7 +6,17 @@
     <description>Recent content in mysql on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 Jun 2022 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Jun 2022 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【mysql笔记】EXPLAIN</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_explain/</link>
+      <pubDate>Sat, 18 Jun 2022 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_explain/</guid>
+      <description>&lt;p&gt;我们时常遇到需要mysql数据反应缓慢，需优化的时候。&lt;br&gt;
+如果对explain有所了解，你可以现查现优化。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【mysql笔记】mysql不常用，但是有用的命令</title>
       <link>https://limingxie.github.io/database/mysql/mysql_commend_01/</link>
@@ -43,16 +53,6 @@
       
       <guid>https://limingxie.github.io/database/mysql/docker_mysql/</guid>
       <description>&lt;p&gt;以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>【mysql笔记】EXPLAIN</title>
-      <link>https://limingxie.github.io/database/mysql/mysql_explain/</link>
-      <pubDate>Tue, 18 Jun 1022 12:28:49 +0800</pubDate>
-      
-      <guid>https://limingxie.github.io/database/mysql/mysql_explain/</guid>
-      <description>&lt;p&gt;我们时常遇到需要mysql数据反应缓慢，需优化的时候。&lt;br&gt;
-如果对explain有所了解，你可以现查现优化。&lt;/p&gt;</description>
     </item>
     
   </channel>
