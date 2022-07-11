@@ -12,15 +12,15 @@
 如果对explain有所了解，你可以现查现优化。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_explain/" />
-<meta property="article:published_time" content="2022-06-18T12:28:49+08:00" />
-<meta property="article:modified_time" content="2022-06-18T12:28:49+08:00" />
+<meta property="article:published_time" content="2022-07-07T12:28:49+08:00" />
+<meta property="article:modified_time" content="2022-07-07T12:28:49+08:00" />
 
 		<meta itemprop="name" content="【mysql笔记】EXPLAIN">
 <meta itemprop="description" content="我们时常遇到需要mysql数据反应缓慢，需优化的时候。
 如果对explain有所了解，你可以现查现优化。">
-<meta itemprop="datePublished" content="2022-06-18T12:28:49+08:00" />
-<meta itemprop="dateModified" content="2022-06-18T12:28:49+08:00" />
-<meta itemprop="wordCount" content="424">
+<meta itemprop="datePublished" content="2022-07-07T12:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-07-07T12:28:49+08:00" />
+<meta itemprop="wordCount" content="440">
 
 
 
@@ -144,7 +144,7 @@
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
 </div>
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-06-18T12:28:49&#43;08:00">2022-06-18</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mysql/" rel="category">mysql</a>, <a class="meta__link" href="/categories/database/" rel="category">database</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-07T12:28:49&#43;08:00">2022-07-07</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mysql/" rel="category">mysql</a>, <a class="meta__link" href="/categories/database/" rel="category">database</a>
 	</span>
 </div></div>
 		</header>
@@ -367,8 +367,13 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 <span style="color:#66d9ef">SET</span> optimizer_trace<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enabled=on&#34;</span>,end_markers_in_json<span style="color:#f92672">=</span><span style="color:#66d9ef">on</span>;
 <span style="color:#66d9ef">set</span> optimizer_trace_max_mem_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>;
 
-<span style="color:#960050;background-color:#1e0010">执行语句后查看</span>
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">执行语句后查看</span>
 <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> information_schema.optimizer_trace<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">不适用缓存查询</span>
+<span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> sql_no_cache <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> app <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">执行计划不会修改驱动表的</span>join顺序
+straight_join <span style="color:#66d9ef">table_name</span> <span style="color:#66d9ef">on</span> condition
 </code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -409,6 +414,12 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 			<p class="pager__title">【mysql笔记】mysql不常用，但是有用的命令</p>
 		</a>
 	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/database/mysql/mysql_transaction/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【mysql笔记】事务TRANSACTION</p>
+		</a>
+	</div>
 </nav>
 
 
@@ -426,12 +437,12 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/js/vue_2/vue_20/">【Vue笔记】Vue入门简介_插件(20)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log2/">【mysql笔记】mysql日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log/">【mysql笔记】redo和undo日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_transaction/">【mysql笔记】事务TRANSACTION</a></li>
 			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_explain/">【mysql笔记】EXPLAIN</a></li>
-			<li class="widget__item"><a class="widget__link" href="/js/vue_2/vue_19/">【Vue笔记】Vue入门简介_ref_props_mixin(19)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_commend_01/">【mysql笔记】mysql不常用，但是有用的命令</a></li>
-			<li class="widget__item"><a class="widget__link" href="/js/vue_2/vue_18/">【Vue笔记】Vue入门简介_脚手架(18)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/js/vue_2/vue_17/">【Vue笔记】Vue入门简介_组件(17)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_1/">72小时断食后记(1)</a></li>
 		</ul>
 	</div>
 </div>
@@ -453,7 +464,7 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">7</span>
+				<span class="widget__counter widget__counter--bubble">10</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
@@ -501,7 +512,7 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">5</span>
+				<span class="widget__counter widget__counter--bubble">8</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
@@ -525,7 +536,7 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">20</span>
+				<span class="widget__counter widget__counter--bubble">36</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
@@ -533,7 +544,7 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">2</span>
+				<span class="widget__counter widget__counter--bubble">3</span>
 				</li>
 		</ul>
 	</div>

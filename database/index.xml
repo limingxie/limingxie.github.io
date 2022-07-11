@@ -6,7 +6,47 @@
     <description>Recent content in Databases on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 06 Jul 2022 12:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jul 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【mysql笔记】mysql日志</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_log2/</link>
+      <pubDate>Sun, 10 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_log2/</guid>
+      <description>&lt;p&gt;上一篇文章介绍了redo log和undo log。&lt;br&gt;
+这里整齐除了这两个以外的mysql的日志。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【mysql笔记】redo和undo日志</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_log/</link>
+      <pubDate>Sat, 09 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_log/</guid>
+      <description>&lt;p&gt;这篇整理了redo log 和 undo log 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【mysql笔记】事务TRANSACTION</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_transaction/</link>
+      <pubDate>Fri, 08 Jul 2022 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_transaction/</guid>
+      <description>&lt;h2 id=&#34;1基本概念&#34;&gt;1.基本概念&lt;/h2&gt;
+&lt;p&gt;事务: 一组逻辑操作单元，使数据从一种状态变换到另一种状态。&lt;br&gt;
+事务处理的原则:保证所有事务都作为 一个工作单元 来执行，即使出现了故障，都不能改变这种执行方式。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【mysql笔记】EXPLAIN</title>
+      <link>https://limingxie.github.io/database/mysql/mysql_explain/</link>
+      <pubDate>Thu, 07 Jul 2022 12:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/mysql/mysql_explain/</guid>
+      <description>&lt;p&gt;我们时常遇到需要mysql数据反应缓慢，需优化的时候。&lt;br&gt;
+如果对explain有所了解，你可以现查现优化。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【mysql笔记】mysql不常用，但是有用的命令</title>
       <link>https://limingxie.github.io/database/mysql/mysql_commend_01/</link>

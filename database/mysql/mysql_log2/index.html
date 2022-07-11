@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【mysql笔记】mysql日志 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【mysql笔记】mysql日志" />
+<meta property="og:description" content="上一篇文章介绍了redo log和undo log。
+这里整齐除了这两个以外的mysql的日志。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_log2/" />
+<meta property="article:published_time" content="2022-07-10T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-07-10T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【mysql笔记】mysql日志">
+<meta itemprop="description" content="上一篇文章介绍了redo log和undo log。
+这里整齐除了这两个以外的mysql的日志。">
+<meta itemprop="datePublished" content="2022-07-10T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-07-10T23:28:49+08:00" />
+<meta itemprop="wordCount" content="470">
+
+
+
+<meta itemprop="keywords" content="mysql,explain," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/network/">
+				
+				<span class="menu__text">网络</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/">
+				
+				<span class="menu__text">工具和环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【mysql笔记】mysql日志</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-10T23:28:49&#43;08:00">2022-07-10</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mysql/" rel="category">mysql</a>, <a class="meta__link" href="/categories/database/" rel="category">database</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1日志类型">1.日志类型</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#2慢查询日志slow-query-log">2.慢查询日志(slow query log)</a></li>
+    <li><a href="#3通用查询日志general-query-log">3.通用查询日志(general query log)</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#4错误日志error-log">4.错误日志(error log)</a></li>
+    <li><a href="#5-二进制日志bin-log">5. 二进制日志(bin log)</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#6中继日志relay-log">6.中继日志(relay log)</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>上一篇文章介绍了redo log和undo log。<br>
+这里整齐除了这两个以外的mysql的日志。</p>
+<h2 id="1日志类型">1.日志类型</h2>
+<h4 id="57的4中类型">5.7的4中类型</h4>
+<p><strong>慢查询日志Slow query log:</strong><br>
+记录所有执行时间超过long_query_time的所有查询，方便我们对查询进行优化。</p>
+<p><strong>通用查询日志General query log:</strong><br>
+记录所有连接的起始时间和终止时间，以及连接发送给数据库服务器的所有指令，<br>
+对我们复原操作的实际场景、发现问题，甚至是对数据库操作的审计都有很大的帮助。</p>
+<p><strong>错误日志Error log:</strong><br>
+记录MySQL服务的启动、运行或停止MySQL服务时出现的问题，方便我们了解服务器的 状态，从而对服务器进行维护。</p>
+<p><strong>二进制日志Binary log:</strong><br>
+记录所有更改数据的语句，可以用于主从服务器之间的数据同步，以及服务器遇到故 障时数据的无损失恢复。</p>
+<h4 id="80新增的2种类型">8.0新增的2种类型</h4>
+<p><strong>中继日志Relay log</strong>: 用于主从服务器架构中，从服务器用来存放主服务器二进制日志内容的一个中间文件。<br>
+从服务器通过读取中继日志的内容，来同步主服务器上的操作。</p>
+<p><strong>数据定义语句日志</strong>: 记录数据定义语句执行的元数据操作</p>
+<p>除二进制日志外，其他日志都是 文本文件 。默认情况下，所有日志创建于 MySQL数据目录中。</p>
+<h2 id="2慢查询日志slow-query-log">2.慢查询日志(slow query log)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">开启慢查询日志</span>
+<span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%slow_query_log%&#39;</span>
+<span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> slow_query_log<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ON&#39;</span>
+<span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> slow_query_log_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp/mysql_slow.log&#39;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">设置慢查询设定</span>
+<span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> long_query_time <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">show</span> <span style="color:#66d9ef">global</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%long_query_time%&#39;</span>;
+<span style="color:#66d9ef">set</span> long_query_time<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%long_query_time%&#39;</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">慢查询出现多少次，做记录。</span><span style="color:#ae81ff">100</span><span style="color:#960050;background-color:#1e0010">代表出现</span><span style="color:#ae81ff">100</span><span style="color:#960050;background-color:#1e0010">次了</span> <span style="color:#960050;background-color:#1e0010">才做记录</span>
+<span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%min_examined_row_limit%&#39;</span>
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看慢查询</span>
+<span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">GLOBAL</span> STATUS <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%Slow_queries%&#39;</span>
+<span style="color:#66d9ef">show</span> status <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;slow_queries&#39;</span>
+</code></pre></div><h2 id="3通用查询日志general-query-log">3.通用查询日志(general query log)</h2>
+<h4 id="31-查看状态">3.1 查看状态</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%general%&#39;</span>; 
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------+------------------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name    <span style="color:#f92672">|</span> Value                        <span style="color:#f92672">|</span> 
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------+------------------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> general_log      <span style="color:#f92672">|</span> <span style="color:#66d9ef">OFF</span>                          <span style="color:#f92672">|</span> <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">通用查询日志处于关闭状态</span>
+<span style="color:#f92672">|</span> general_log_file <span style="color:#f92672">|</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">/</span>atguigu01.log <span style="color:#f92672">|</span> <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">通用查询日志文件的名称是</span>atguigu01.log 
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------+------------------------------+
+</span></code></pre></div><h4 id="32-启动日志">3.2 启动日志</h4>
+<p>**永久启动：**修改my.cnf或者my.ini配置文件来设置。</p>
+<pre><code>[mysqld]
+general_log=ON  /  OFF
+general_log_file=[path[filename]] #日志文件所在目录路径，filename为日志文件名
+</code></pre><p><strong>临时启动：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">GLOBAL</span> general_log<span style="color:#f92672">=</span><span style="color:#66d9ef">on</span>; <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">开启通用查询日志</span>
+<span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">GLOBAL</span> general_log_file<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">’</span>path<span style="color:#f92672">/</span>filename<span style="color:#960050;background-color:#1e0010">’</span>; <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">设置日志文件保存位置</span> 
+<span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">GLOBAL</span> general_log<span style="color:#f92672">=</span><span style="color:#66d9ef">off</span>; <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">关闭通用查询日志</span> 
+<span style="color:#66d9ef">SHOW</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;general_log%&#39;</span>;
+</code></pre></div><h4 id="33-查看日志">3.3 查看日志</h4>
+<pre><code>SHOW VARIABLES LIKE 'general_log%'; 
+</code></pre><p>使用如下命令重新生成查询日志文件，具体命令如下。<br>
+刷新MySQL数据目录，发现创建了新的日志文 件。前提一定要开启通用日志。</p>
+<pre><code>mysqladmin -uroot -p flush-logs
+</code></pre><h2 id="4错误日志error-log">4.错误日志(error log)</h2>
+<p>在MySQL数据库中，错误日志功能是默认开启的。而且，错误日志无法被禁止。</p>
+<p><strong>永久设定日志路径</strong></p>
+<pre><code>[mysqld]
+log-error=[path/[filename]] #path为日志文件所在的目录路径，filename为日志文件名
+</code></pre><p><strong>查看错误日志信配置息</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;log_err%&#39;</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">----------------------------+----------------------------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name              <span style="color:#f92672">|</span> Value                                  <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----------------------------+----------------------------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> log_error                  <span style="color:#f92672">|</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>log<span style="color:#f92672">/</span>mysqld.log                    <span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> log_error_services         <span style="color:#f92672">|</span> log_filter_internal; log_sink_internal <span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> log_error_suppression_list <span style="color:#f92672">|</span>                                        <span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> log_error_verbosity        <span style="color:#f92672">|</span> <span style="color:#ae81ff">2</span>                                      <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----------------------------+----------------------------------------+
+</span></code></pre></div><p><strong>删除日志</strong></p>
+<pre><code>[root@atguigu01 log]# mysqladmin -uroot -p flush-logs
+Enter password:
+mysqladmin: refresh failed; error: 'Could not open file '/var/log/mysqld.log' for
+error logging.'
+</code></pre><p><strong>需要做补充操作</strong></p>
+<pre><code>install -omysql -gmysql -m0644 /dev/null /var/log/mysqld.log
+</code></pre><h2 id="5-二进制日志bin-log">5. 二进制日志(bin log)</h2>
+<h4 id="51-查看信息">5.1 查看信息</h4>
+<pre><code>mysql&gt; show variables like '%log_bin%';
++---------------------------------+----------------------------------+
+| Variable_name                   | Value                            |
++---------------------------------+----------------------------------+
+| log_bin                         | ON                               |
+| log_bin_basename                | /var/lib/mysql/binlog            |
+| log_bin_index                   | /var/lib/mysql/binlog.index      |
+| log_bin_trust_function_creators | OFF                              |
+| log_bin_use_v1_row_events       | OFF                              |
+| sql_log_bin                     | ON                               |
++---------------------------------+----------------------------------+
+</code></pre><h4 id="52-参数设置">5.2 参数设置</h4>
+<p><strong>永久</strong></p>
+<pre><code>[mysqld]
+# 启用二进制日志
+log-bin=test-bin
+binlog_expire_logs_seconds=600
+max_binlog_size=100M
+</code></pre><pre><code>[mysqld]
+log-bin=&quot;/var/lib/mysql/binlog/test-bin&quot;
+</code></pre><p>注意:新建的文件夹需要使用mysql用户，使用下面的命令即可。</p>
+<pre><code>chown -R -v mysql:mysql binlog
+</code></pre><p><strong>临时</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span> <span style="color:#66d9ef">global</span> <span style="color:#960050;background-color:#1e0010">级别</span>
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> sql_log_bin<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+ERROR <span style="color:#ae81ff">1228</span> (HY000): <span style="color:#66d9ef">Variable</span> <span style="color:#e6db74">&#39;sql_log_bin&#39;</span> <span style="color:#66d9ef">is</span> a <span style="color:#66d9ef">SESSION</span> <span style="color:#66d9ef">variable</span> <span style="color:#66d9ef">and</span> can<span style="color:#f92672">`</span>t be used <span style="color:#66d9ef">with</span> <span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">GLOBAL</span>
+<span style="color:#f92672">#</span> session级别
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SET</span> sql_log_bin<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+Query OK, <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">rows</span> affected (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">01</span> <span style="color:#960050;background-color:#1e0010">秒</span>)
+</code></pre></div><h4 id="53-查看日志">5.3 查看日志</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> BINARY LOGS; 
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+-----------+-----------+ 
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Log_name           <span style="color:#f92672">|</span> File_size <span style="color:#f92672">|</span> <span style="color:#66d9ef">Encrypted</span> <span style="color:#f92672">|</span> 
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+-----------+-----------+ 
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> test<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span>    <span style="color:#f92672">|</span> <span style="color:#ae81ff">156</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">No</span>        <span style="color:#f92672">|</span> 
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+-----------+-----------+
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqlbinlog <span style="color:#f92672">-</span>v <span style="color:#e6db74">&#34;/var/lib/mysql/binlog/test-bin.000002&#34;</span>
+
+mysqlbinlog <span style="color:#f92672">-</span>v <span style="color:#75715e">--base64-output=DECODE-ROWS &#34;/var/lib/mysql/binlog/test-bin.000002&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">可查看参数帮助</span>
+mysqlbinlog <span style="color:#75715e">--no-defaults --help
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">查看最后</span><span style="color:#ae81ff">100</span><span style="color:#960050;background-color:#1e0010">行</span>
+mysqlbinlog <span style="color:#75715e">--no-defaults --base64-output=decode-rows -vv test-bin.000002 |tail -100
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">根据</span>position查找
+mysqlbinlog <span style="color:#75715e">--no-defaults --base64-output=decode-rows -vv test-bin.000002 |grep -A 20 &#39;4939002&#39;
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> binlog events [<span style="color:#66d9ef">IN</span> <span style="color:#e6db74">&#39;log_name&#39;</span>] [<span style="color:#66d9ef">FROM</span> pos] [<span style="color:#66d9ef">LIMIT</span> [<span style="color:#66d9ef">offset</span>,] <span style="color:#66d9ef">row_count</span>];
+<span style="color:#f92672">#</span> <span style="color:#66d9ef">IN</span> <span style="color:#e6db74">&#39;log_name&#39;</span>:<span style="color:#960050;background-color:#1e0010">指定要查询的</span>binlog文件名(<span style="color:#960050;background-color:#1e0010">不指定就是第一个</span>binlog文件)  
+<span style="color:#f92672">#</span> <span style="color:#66d9ef">FROM</span> pos:<span style="color:#960050;background-color:#1e0010">指定从哪个</span>pos起始点开始查起(<span style="color:#960050;background-color:#1e0010">不指定就是从整个文件首个</span>pos点开始算)
+<span style="color:#f92672">#</span> <span style="color:#66d9ef">LIMIT</span> [<span style="color:#66d9ef">offset</span>]:<span style="color:#960050;background-color:#1e0010">偏移量</span>(<span style="color:#960050;background-color:#1e0010">不指定就是</span><span style="color:#ae81ff">0</span>) 
+<span style="color:#f92672">#</span> <span style="color:#66d9ef">row_count</span>:<span style="color:#960050;background-color:#1e0010">查询总条数</span>(<span style="color:#960050;background-color:#1e0010">不指定就是所有行</span>)
+
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> binlog events <span style="color:#66d9ef">in</span> <span style="color:#e6db74">&#39;test-bin.000002&#39;</span>;
+</code></pre></div><h4 id="54-使用日志恢复数据">5.4 使用日志恢复数据</h4>
+<p>mysqlbinlog恢复数据的语法如下:</p>
+<pre><code>mysqlbinlog [option] filename|mysql –uuser -ppass;
+</code></pre><h4 id="55-删除二进制日志">5.5 删除二进制日志</h4>
+<p>PURGE MASTER LOGS:删除指定日志文件</p>
+<pre><code>PURGE {MASTER | BINARY} LOGS TO ‘指定日志文件名’ 
+PURGE {MASTER | BINARY} LOGS BEFORE ‘指定日期’
+</code></pre><h4 id="56-binlog与redolog对比">5.6 binlog与redolog对比</h4>
+<p>redolog 是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎层产生的。
+binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。</p>
+<h4 id="57-sync_binlog">5.7 sync_binlog</h4>
+<p>0 =&gt; 表示每次提交事务都只 write，由系统自行判断什么时候执行fsync。
+1 =&gt; 表示每次提交事务都会执行fsync，就如同redo log 刷盘流程一样。<br>
+N(N&gt;1)，表示每次提交事务都write，但累积N个事务后才file sync。</p>
+<p><a href="https://limingxie.github.io/images/database/mysql/binlog.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/binlog.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_binlog"></p>
+<h2 id="6中继日志relay-log">6.中继日志(relay log)</h2>
+<p>中继日志只在主从服务器架构的从服务器上存在 。</p>
+<p><a href="https://limingxie.github.io/images/database/mysql/relay_log.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/relay_log.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_relay_log"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/mysql/" rel="tag">mysql</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/explain/" rel="tag">explain</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/database/mysql/mysql_log/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【mysql笔记】redo和undo日志</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log2/">【mysql笔记】mysql日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log/">【mysql笔记】redo和undo日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_transaction/">【mysql笔记】事务TRANSACTION</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_explain/">【mysql笔记】EXPLAIN</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_commend_01/">【mysql笔记】mysql不常用，但是有用的命令</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_1/">72小时断食后记(1)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

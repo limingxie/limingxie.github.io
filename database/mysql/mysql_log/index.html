@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【mysql笔记】redo和undo日志 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【mysql笔记】redo和undo日志" />
+<meta property="og:description" content="这篇整理了redo log 和 undo log 相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_log/" />
+<meta property="article:published_time" content="2022-07-09T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-07-09T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【mysql笔记】redo和undo日志">
+<meta itemprop="description" content="这篇整理了redo log 和 undo log 相关的内容。">
+<meta itemprop="datePublished" content="2022-07-09T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-07-09T23:28:49+08:00" />
+<meta itemprop="wordCount" content="261">
+
+
+
+<meta itemprop="keywords" content="mysql,explain," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/network/">
+				
+				<span class="menu__text">网络</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/">
+				
+				<span class="menu__text">工具和环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【mysql笔记】redo和undo日志</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-09T23:28:49&#43;08:00">2022-07-09</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mysql/" rel="category">mysql</a>, <a class="meta__link" href="/categories/database/" rel="category">database</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1redo-log">1.redo log</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#2undo-log">2.undo log</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3小结">3.小结</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这篇整理了redo log 和 undo log 相关的内容。</p>
+<p><strong>REDO LOG</strong>称为重做日志，<br>
+提供再写入操作，恢复提交事务修改的页操作，用来保证事务的持久性。(存储物理数据)</p>
+<p><strong>UNDO LOG</strong>称为回滚日志，<br>
+回滚行记录到某个特定版本，用来保证事务的原子性、一致性。(存储逻辑数据)</p>
+<h2 id="1redo-log">1.redo log</h2>
+<h4 id="11-特点">1.1 特点</h4>
+<p>redo日志是顺序写入磁盘的<br>
+事务执行过程中，redo log不断记录</p>
+<h4 id="12-重做日志的缓冲-redo-log-buffer">1.2 重做日志的缓冲 (redo log buffer)</h4>
+<p>redo log buffer 大小默认 16M ，最大值是4096M，最小值为1M。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%innodb_log_buffer_size%&#39;</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name          <span style="color:#f92672">|</span> Value    <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_buffer_size <span style="color:#f92672">|</span> <span style="color:#ae81ff">16777216</span> <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
+</span></code></pre></div><h4 id="13-redo的整体流程">1.3 redo的整体流程</h4>
+<p><a href="https://limingxie.github.io/images/database/mysql/redo_log1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/redo_log1.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_redo_log"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">第1步:先将原始数据从磁盘中读入内存中来，修改数据的内存拷贝
+第2步:生成一条重做日志并写入redo log buffer，记录的是数据被修改后的值 
+第3步:当事务commit时，将redo log buffer中的内容刷新到 redo log file，对 redo log file采用追加 写的方式
+第4步:定期将内存中修改的数据刷新到磁盘中
+</code></pre></div><h4 id="14-innodb_flush_log_at_trx_commit-参数">1.4 innodb_flush_log_at_trx_commit 参数</h4>
+<p><strong>设置为0</strong> :<br>
+表示每次事务提交时不进行刷盘操作。(系统默认masterthread每隔1s进行一次重做日 志的同步)<br>
+<a href="https://limingxie.github.io/images/database/mysql/redo_log2.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/redo_log2.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_redo_log"></p>
+<p><strong>设置为1</strong> :<br>
+表示每次事务提交时都将进行同步，刷盘操作(默认值)</p>
+<p><a href="https://limingxie.github.io/images/database/mysql/redo_log3.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/redo_log3.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_redo_log"></p>
+<p><strong>设置为2</strong> :<br>
+表示每次事务提交时都只把 redo log buffer 内容写入 page cache，不进行同步。由os自己决定什么时候同步到磁盘文件。</p>
+<p><a href="https://limingxie.github.io/images/database/mysql/redo_log4.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/redo_log4.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_redo_log"></p>
+<h4 id="15-redo-log-buffer">1.5 redo log buffer</h4>
+<p>有点偏底层，没有细研究 =&gt; 略掉</p>
+<h4 id="16-redo-log-file相关参数">1.6 redo log file相关参数</h4>
+<p><strong>innodb_log_group_home_dir:</strong><br>
+指定redo log文件组所在的路径，默认值为 ./ ，表示在数据库 的数据目录下。<br>
+MySQL的默认数据目录(var/lib/mysql)下默认有两个名为ib_logfile0和ib_logfile1的文件，log buffer中的日志默认情况下就是刷新到这两个磁盘文件中。<br>
+此redo日志 文件位置还可以修改。</p>
+<p><strong>innodb_log_files_in_group:</strong><br>
+指明redo log file的个数，命名方式如:ib_logfile0，iblogfile1&hellip; iblogfilen。默认2个，最大100个。</p>
+<p><strong>innodb_flush_log_at_trx_commit:</strong><br>
+控制 redo log 刷新到磁盘的策略，默认为1。</p>
+<p><strong>innodb_log_file_size:</strong><br>
+单个 redo log 文件设置大小，默认值为 48M 。最大值为512G，注意最大值 指的是整个 redo log 系列文件之和，<br>
+即(innodb_log_files_in_group * innodb_log_file_size )不能大 于最大值512G。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_log_files_in_group&#39;</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name             <span style="color:#f92672">|</span> Value <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_files_in_group <span style="color:#f92672">|</span> <span style="color:#ae81ff">2</span>     <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
+</span><span style="color:#75715e"></span>
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_log_file_size&#39;</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name        <span style="color:#f92672">|</span> Value    <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_file_size <span style="color:#f92672">|</span> <span style="color:#ae81ff">50331648</span> <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
+</span></code></pre></div><h2 id="2undo-log">2.undo log</h2>
+<p>redo og是事务持久性的保证，undo log是事务原子性的保证。<br>
+在事务中更新数据的前置操作其实是要先写入一个undo log。</p>
+<h4 id="21-undo日志的作用">2.1 Undo日志的作用</h4>
+<p>作用1:回滚数据
+作用2:MVCC</p>
+<h4 id="22-undo-结构">2.2 undo 结构</h4>
+<p><strong>回滚段</strong><br>
+InnoDB对undo log的管理采用段的方式，也就是回滚段(rollback segment)。<br>
+每个回滚段记录了 1024个undo log segment，而在每个undologsegment段中进行undo页的申请。</p>
+<p><strong>undo页</strong><br>
+从1.1版本开始InnoDB支持最大128个rollback segment ，故其支持同时在线的事务限制提高到了128*1024 。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_undo_logs&#39;</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name    <span style="color:#f92672">|</span> Value <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_undo_logs <span style="color:#f92672">|</span> <span style="color:#ae81ff">128</span>   <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></code></pre></div><h4 id="23-回滚段与事务">2.3 回滚段与事务</h4>
+<ol>
+<li>每个事务只会使用一个回滚段，一个回滚段在同一时刻可能会服务于多个事务。</li>
+<li>当一个事务开始的时候，会制定一个回滚段，在事务进行的过程中，当数据被修改时，原始的数 据会被复制到回滚段。</li>
+<li>在回滚段中，事务会不断填充盘区，直到事务结束或所有的空间被用完。如果当前的盘区不够用，事务会在段中请求扩展下一个盘区，如果所有已分配的盘区都被用完，事务会覆盖最初的盘 区或者在回滚段允许的情况下扩展新的盘区来使用。</li>
+<li>回滚段存在于undo表空间中，在数据库中可以存在多个undo表空间，但同一时刻只能使用一个undo表空间。</li>
+<li>当事务提交时，InnoDB存储引擎会做以下两件事情:<br>
+1）将undo log放入列表中，以供之后的purge操作<br>
+2）判断undo log所在的页是否可以重用，若可以分配给下个事务使用</li>
+</ol>
+<h4 id="24-回滚段中的数据分类">2.4 回滚段中的数据分类</h4>
+<ol>
+<li>未提交的回滚数据(uncommitted undo information)</li>
+<li>已经提交但未过期的回滚数据(committed undo information)</li>
+<li>事务已经提交并过期的数据(expired undo information)</li>
+</ol>
+<h4 id="25-undo的类型">2.5 undo的类型</h4>
+<p>在InnoDB存储引擎中，undo log分为:<br>
+insert undo log<br>
+update undo log</p>
+<h2 id="3小结">3.小结</h2>
+<ul>
+<li>undo log是逻辑日志，对事务回滚时，只是将数据库逻辑地恢复到原来的样子。</li>
+<li>redo log是物理日志，记录的是数据页的物理变化，undo log不是redo log的逆过程。</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/database/mysql/redo_undo_log.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/redo_undo_log.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_redo_log"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/mysql/" rel="tag">mysql</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/explain/" rel="tag">explain</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/database/mysql/mysql_transaction/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【mysql笔记】事务TRANSACTION</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/database/mysql/mysql_log2/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【mysql笔记】mysql日志</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log2/">【mysql笔记】mysql日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log/">【mysql笔记】redo和undo日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_transaction/">【mysql笔记】事务TRANSACTION</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_explain/">【mysql笔记】EXPLAIN</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_commend_01/">【mysql笔记】mysql不常用，但是有用的命令</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_1/">72小时断食后记(1)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
