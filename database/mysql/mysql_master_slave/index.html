@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【mysql笔记】主从复制 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【mysql笔记】主从复制" />
+<meta property="og:description" content="这篇整理了mysql主从复制相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_master_slave/" />
+<meta property="article:published_time" content="2022-07-11T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-07-11T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【mysql笔记】主从复制">
+<meta itemprop="description" content="这篇整理了mysql主从复制相关的内容。">
+<meta itemprop="datePublished" content="2022-07-11T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-07-11T23:28:49+08:00" />
+<meta itemprop="wordCount" content="271">
+
+
+
+<meta itemprop="keywords" content="mysql,explain," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/network/">
+				
+				<span class="menu__text">网络</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/">
+				
+				<span class="menu__text">工具和环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【mysql笔记】主从复制</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-11T23:28:49&#43;08:00">2022-07-11</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mysql/" rel="category">mysql</a>, <a class="meta__link" href="/categories/database/" rel="category">database</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1主从复制的作用">1.主从复制的作用</a></li>
+    <li><a href="#2主从复制的原理">2.主从复制的原理</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3搭建主从复制架构">3.搭建主从复制架构</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#36-停止和重置">3.6 停止和重置</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这篇整理了mysql主从复制相关的内容。</p>
+<h2 id="1主从复制的作用">1.主从复制的作用</h2>
+<ol>
+<li>读写分离</li>
+<li>数据备份</li>
+<li>高可用性</li>
+</ol>
+<h2 id="2主从复制的原理">2.主从复制的原理</h2>
+<h4 id="21-复制的基本原则">2.1 复制的基本原则</h4>
+<ol>
+<li>每个Slave只有一个 Master</li>
+<li>每个Slave只能有一个唯一的服务器ID</li>
+<li>每个Master可以有多个 Slave</li>
+</ol>
+<h4 id="22-三个线程">2.2 三个线程</h4>
+<p>实际上主从同步的原理就是基于binlog 进行数据同步的。在主从复制过程中，会基于<strong>3个线程</strong>来操作，一个主库线程，两个从库线程。<br>
+**二进制日志转储线程 (Binlog dump thread)**是一个主库线程。当从库线程连接的时候，
+主库可以将二进 制日志发送给从库，当主库读取事件(Event)的时候，会在 Binlog 上 加锁 ，读取完成之后，再将锁释 放掉。<br>
+<strong>从库 I/O线程</strong>会连接到主库，向主库发送请求更新Binlog。<br>
+这时从库的I/O线程就可以读取到主库的 二进制日志转储线程发送的 Binlog 更新部分，并且拷贝到本地的中继日志 (Relay log)。
+<strong>从库SQL线程</strong>会读取从库中的中继日志，并且执行日志中的事件，将从库中的数据与主库保持同步。</p>
+<p><a href="https://limingxie.github.io/images/database/mysql/master_slave2.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/master_slave2.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_master_slave"></p>
+<h4 id="23-复制三步骤">2.3 复制三步骤</h4>
+<p>步骤1: Master 将写操作记录到二进制日志( binlog )。
+步骤2: Slave 将 Master 的binary log events拷贝到它的中继日志( relay log );
+步骤3: Slave 重做中继日志中的事件，将改变应用到自己的数据库中。 MySQL复制是异步的且串行化 的，而且重启后从 接入点 开始复制</p>
+<p><a href="https://limingxie.github.io/images/database/mysql/master_slave1.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/master_slave1.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_master_slave"></p>
+<h2 id="3搭建主从复制架构">3.搭建主从复制架构</h2>
+<h4 id="31-准备工作">3.1 准备工作</h4>
+<p><strong>需要注意的地方</strong><br>
+1 MAC地址 2 hostname 3 IP 地址 4 UUID 。</p>
+<p>查看MySQL Server 的UUID方式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /var/lib/mysql/auto.cnf
+systemctl restart mysqld
+</code></pre></div><h4 id="32-主机配置">3.2 主机配置</h4>
+<p>主从所有配置项都配置在[mysqld]节点下，且都是小写字母。<br>
+具体参数配置如下:</p>
+<p><strong>my.cnf</strong></p>
+<pre><code>#[必须]主服务器唯一ID 
+server-id=1
+#[必须]启用二进制日志,指名路径。比如:自己本地的路径/log/mysqlbin 
+log-bin=atguigu-bin
+
+#[可选] 0(默认)表示读写(主机)，1表示只读(从机) 
+read-only=0
+
+#设置日志文件保留的时长，单位是秒 
+binlog_expire_logs_seconds=6000
+
+#控制单个二进制日志大小。此参数的最大和默认值是1GB 
+max_binlog_size=200M
+
+#[可选]设置不要复制的数据库 
+binlog-ignore-db=test
+
+#[可选]设置需要复制的数据库,默认全部记录。比如:binlog-do-db=atguigu_master_slave 
+binlog-do-db=需要复制的主数据库名字
+
+#[可选]设置binlog格式 
+binlog_format=STATEMENT
+</code></pre><p><strong>binlog格式设置</strong></p>
+<pre><code>#存的是具体操作SQL语句，
+binlog_format=STATEMENT 
+
+#存的是具体操作的数据
+binlog_format=ROW
+
+#混合上面2个
+binlog_format=MIXED
+</code></pre><h4 id="33-从机配置">3.3 从机配置</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#[必须]从服务器唯一ID </span>
+server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+
+<span style="color:#75715e">#[可选]启用中继日志 </span>
+relay-log<span style="color:#f92672">=</span>mysql-relay
+</code></pre></div><blockquote>
+<p>注意:主从机都关闭防火墙
+service iptables stop #CentOS 6
+systemctl stop firewalld.service #CentOS 7</p>
+</blockquote>
+<h4 id="34-主机建立账户并授权">3.4 主机:建立账户并授权</h4>
+<p><strong>5.7 版本</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">在主机</span>MySQL里执行授权主从复制的命令
+<span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;从机器数据库IP&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;abc123&#39;</span>;
+</code></pre></div><p><strong>8.0</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
+
+<span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">此语句必须执行。否则见下面。</span>
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">WITH</span> mysql_native_password <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
+
+flush <span style="color:#66d9ef">privileges</span>;
+</code></pre></div><p>查询Master的状态，并记录下File和Position的值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> master status;
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> File               <span style="color:#f92672">|</span> <span style="color:#66d9ef">Position</span> <span style="color:#f92672">|</span> Binlog_Do_DB <span style="color:#f92672">|</span> Binlog_Ignore_DB <span style="color:#f92672">|</span> Executed_Gtid_Set <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> mingxie<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span> <span style="color:#f92672">|</span>    <span style="color:#ae81ff">12339</span> <span style="color:#f92672">|</span> rdc_manager  <span style="color:#f92672">|</span>                  <span style="color:#f92672">|</span>                   <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
+</span></code></pre></div><blockquote>
+<p>注意:执行完此步骤后 不要再操作主服务器MySQL，防止主服务器状态值变化</p>
+</blockquote>
+<h4 id="35-从机配置需要复制的主机">3.5 从机:配置需要复制的主机</h4>
+<p><strong>步骤1: 从机上复制主机的命令</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">CHANGE MASTER <span style="color:#66d9ef">TO</span>
+MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机的IP地址&#39;</span>, 
+MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机用户名&#39;</span>, 
+MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机用户名的密码&#39;</span>, 
+MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mysql-bin.具体数字&#39;</span>, 
+MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">具体值</span>;
+</code></pre></div><p>举例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">CHANGE MASTER <span style="color:#66d9ef">TO</span>
+MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
+MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave1&#39;</span>,
+MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;123456&#39;</span>,
+MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mingxie-bin.000001&#39;</span>,
+MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#ae81ff">12339</span>;
+</code></pre></div><p><strong>步骤2: 启动slave同步</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">启动</span>slave同步 
+<span style="color:#66d9ef">START</span> SLAVE;
+</code></pre></div><p>查看同步状态,如下两个值为Yes就说明配置成功。</p>
+<p>Slave_IO_Running: Yes<br>
+Slave_SQL_Running: Yes</p>
+<pre><code>SHOW SLAVE STATUS\G;
+
+mysql&gt; SHOW SLAVE STATUS\G;
+*************************** 1. row ***************************
+                            ... ...
+                Relay_Log_Pos: 5726
+        Relay_Master_Log_File: mingxie-bin.000001
+             Slave_IO_Running: Yes
+            Slave_SQL_Running: Yes
+              Replicate_Do_DB:
+                            ... ...
+</code></pre><p>如出现问题需要重置的时候先执行这个命令。</p>
+<h2 id="36-停止和重置">3.6 停止和重置</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">stop slave;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除</span>SLAVE数据库的relaylog日志文件<span style="color:#960050;background-color:#1e0010">，并重新启用新的</span>relaylog文件
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">reset</span> slave;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除</span>Master中所有的binglog文件<span style="color:#960050;background-color:#1e0010">，并将日志索引文件清空，重新开始所有新的日志文件</span>(<span style="color:#960050;background-color:#1e0010">慎用</span>)
+<span style="color:#66d9ef">reset</span> master; 
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/mysql/" rel="tag">mysql</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/explain/" rel="tag">explain</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/database/mysql/mysql_log2/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【mysql笔记】mysql日志</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/database/mysql/mysql_backup/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【mysql笔记】数据库备份和还原</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/js/webpack/webpack_01/">【webpack笔记】webpack_初建项目(01)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_backup/">【mysql笔记】数据库备份和还原</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_master_slave/">【mysql笔记】主从复制</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log2/">【mysql笔记】mysql日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log/">【mysql笔记】redo和undo日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_transaction/">【mysql笔记】事务TRANSACTION</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

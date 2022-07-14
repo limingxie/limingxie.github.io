@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【mysql笔记】数据库备份和还原 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【mysql笔记】数据库备份和还原" />
+<meta property="og:description" content="这篇整理了备份还原相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_backup/" />
+<meta property="article:published_time" content="2022-07-12T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-07-12T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【mysql笔记】数据库备份和还原">
+<meta itemprop="description" content="这篇整理了备份还原相关的内容。">
+<meta itemprop="datePublished" content="2022-07-12T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-07-12T23:28:49+08:00" />
+<meta itemprop="wordCount" content="464">
+
+
+
+<meta itemprop="keywords" content="mysql,explain," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/network/">
+				
+				<span class="menu__text">网络</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tool/">
+				
+				<span class="menu__text">工具和环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【mysql笔记】数据库备份和还原</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-12T23:28:49&#43;08:00">2022-07-12</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mysql/" rel="category">mysql</a>, <a class="meta__link" href="/categories/database/" rel="category">database</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-物理备份与逻辑备份">1. 物理备份与逻辑备份</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#2-mysqldump实现逻辑备份">2. mysqldump实现逻辑备份</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3-mysql恢复数据">3. mysql恢复数据</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#4导入导出文件">4.导入导出文件</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这篇整理了备份还原相关的内容。</p>
+<h2 id="1-物理备份与逻辑备份">1. 物理备份与逻辑备份</h2>
+<h4 id="物理备份">物理备份</h4>
+<p>备份数据文件，转储数据库物理文件到某一目录。(只支持MyISAm，简单了解略过)<br>
+物理备份恢复速度比较快，但占用空间比较大，MySQL中可以用 xtrabackup 工具来进行物理备份。</p>
+<h4 id="逻辑备份">逻辑备份</h4>
+<p>对数据库对象利用工具进行导出工作，汇总入备份文件内。<br>
+逻辑备份恢复速度慢，但占用空 间小，更灵活。MySQL 中常用的逻辑备份工具为 mysqldump 。<br>
+逻辑备份就是 备份sql语句 ，在恢复的 时候执行备份的sql语句实现数据库数据的重现。</p>
+<h2 id="2-mysqldump实现逻辑备份">2. mysqldump实现逻辑备份</h2>
+<h4 id="21-备份一个数据库">2.1 备份一个数据库</h4>
+<pre><code>基本语法:  
+mysqldump –u 用户名称 –h 主机名称 –p密码 待备份的数据库名称[tbname, [tbname...]]&gt; 备份文件名 称.sql
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb<span style="color:#f92672">&gt;</span>testdb.<span style="color:#66d9ef">sql</span>  <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">备份文件存储在当前目录下</span>
+mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#f92672">&gt;</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">/</span>testdb.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="22-备份全部数据库">2.2 备份全部数据库</h4>
+<p>若想用mysqldump备份整个实例，可以使用 &ndash;all-databases 或 -A 参数:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#75715e">--all-databases &gt; all_database.sql
+</span><span style="color:#75715e"></span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#f92672">-</span>A <span style="color:#f92672">&gt;</span> all_database.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="23-备份部分数据库">2.3 备份部分数据库</h4>
+<p>使用 &ndash;databases 或 -B 参数</p>
+<pre><code>mysqldump –u user –h host –p --databases [数据库的名称1 [数据库的名称2...]] &gt; 备份文件名 称.sql
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--databases testdb testdb11 &gt;two_database.sql
+</span><span style="color:#75715e"></span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>B testdb testdb11 <span style="color:#f92672">&gt;</span> two_database.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="24-备份部分表">2.4 备份部分表</h4>
+<pre><code>mysqldump –u user –h host –p 数据库的名称 [表名1 [表名2...]] &gt; 备份文件名称.sql
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb student<span style="color:#f92672">&gt;</span> book.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="25-备份单表的部分数据">2.5 备份单表的部分数据</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb student <span style="color:#75715e">--where=&#34;id &lt; 10 &#34; &gt; student_part_id10_low_bak.sql
+</span></code></pre></div><h4 id="26-排除某些表的备份">2.6 排除某些表的备份</h4>
+<p>选项 &ndash;ignore-table 可以完成这个功能</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--ignore-table=testdb.student &gt; no_stu_bak.sql
+</span><span style="color:#75715e"></span>grep <span style="color:#e6db74">&#34;student&#34;</span> no_stu_bak.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="27-只备份结构或只备份数据">2.7 只备份结构或只备份数据</h4>
+<p>只备份结构的话可以使用 &ndash;no-data 简写为 -d 选项;<br>
+只备份数据可以使用 &ndash;no-create-info 简写为-t 选项。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--no-data &gt; testdb_no_data_bak.sql
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span> grep <span style="color:#e6db74">&#34;INSERT&#34;</span> testdb_no_data_bak.<span style="color:#66d9ef">sql</span>
+mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--no-create-info &gt; testdb_no_create_info_bak.sql
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span> grep <span style="color:#e6db74">&#34;CREATE&#34;</span> testdb_no_create_info_bak.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="28-备份中包含存储过程函数事件">2.8 备份中包含存储过程、函数、事件</h4>
+<p>mysqldump备份默认是不包含存储过程，自定义函数及事件的。<br>
+可以使用 &ndash;routines 或 -R 选项来备份存储过程及函数，<br>
+使用 &ndash;events 或 -E 参数来备份事件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>R <span style="color:#f92672">-</span>E <span style="color:#75715e">--databases testdb &gt; fun_testdb_bak.sql
+</span></code></pre></div><h2 id="3-mysql恢复数据">3. mysql恢复数据</h2>
+<p>基本语法:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#960050;background-color:#1e0010">–</span>u root <span style="color:#960050;background-color:#1e0010">–</span>p [dbname] <span style="color:#f92672">&lt;</span> backup.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="31-单库备份中恢复单库">3.1 单库备份中恢复单库</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">&lt;</span> testdb.<span style="color:#66d9ef">sql</span>
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb<span style="color:#f92672">&lt;</span> testdb.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="32-全量备份恢复">3.2 全量备份恢复</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#960050;background-color:#1e0010">–</span>u root <span style="color:#960050;background-color:#1e0010">–</span>p <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">all</span>.<span style="color:#66d9ef">sql</span>
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">all</span>.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="33-从全量备份中恢复单库">3.3 从全量备份中恢复单库</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">sed <span style="color:#f92672">-</span>n <span style="color:#e6db74">&#39;/^-- Current Database: `testdb`/,/^-- Current Database: `/p&#39;</span> all_database.<span style="color:#66d9ef">sql</span>
+<span style="color:#f92672">&gt;</span> testdb.<span style="color:#66d9ef">sql</span>
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">分离完成后我们再导入</span>testdb.sql即可恢复单个库
+</code></pre></div><h4 id="34-从单库备份中恢复单表">3.4 从单库备份中恢复单表</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">cat testdb.<span style="color:#66d9ef">sql</span> <span style="color:#f92672">|</span> sed <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;/./{H;$!d;}&#39;</span> <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;x;/CREATE TABLE `class`/!d;q&#39;</span> <span style="color:#f92672">&gt;</span> class_structure.<span style="color:#66d9ef">sql</span>
+cat testdb.<span style="color:#66d9ef">sql</span> <span style="color:#f92672">|</span> grep <span style="color:#75715e">--ignore-case &#39;insert into `class`&#39; &gt; class_data.sql 
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">用</span>shell语法分离出创建表的语句及插入数据的语句后 <span style="color:#960050;background-color:#1e0010">再依次导出即可完成恢复</span>
+
+use testdb;
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">source</span> class_structure.<span style="color:#66d9ef">sql</span>;
+Query OK, <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">rows</span> affected, <span style="color:#ae81ff">1</span> warning (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
+
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">source</span> class_data.<span style="color:#66d9ef">sql</span>;
+Query OK, <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> affected (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">01</span> sec)
+</code></pre></div><h2 id="4导入导出文件">4.导入导出文件</h2>
+<h4 id="41-导出文件">4.1 导出文件</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">GLOBAL</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%secure%&#39;</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name            <span style="color:#f92672">|</span> Value                 <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> require_secure_transport <span style="color:#f92672">|</span> <span style="color:#66d9ef">OFF</span>                   <span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> secure_file_priv         <span style="color:#f92672">|</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">-</span>files<span style="color:#f92672">/</span> <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#34;/var/lib/mysql-files/account.txt&#34;</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>T <span style="color:#e6db74">&#34;/var/lib/mysql-files/&#34;</span> testdb account
+
+mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>T <span style="color:#e6db74">&#34;/var/lib/mysql-files/&#34;</span> testdb account <span style="color:#75715e">--fields-terminated-by=&#39;,&#39; --fields-optionally-enclosed-by=&#39;\&#34;&#39;
+</span><span style="color:#75715e"></span>
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--execute=&#34;SELECT * FROM account;&#34; testdb&gt; &#34;/var/lib/mysql-files/account.txt&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">#/</span>G的格式
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--vertical --execute=&#34;SELECT * FROM account;&#34; testdb &gt; &#34;/var/lib/mysql-files/account_1.txt&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">#</span>xml格式
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--xml --execute=&#34;SELECT * FROM account;&#34; testdb&gt;&#34;/var/lib/mysql-files/account_3.xml&#34;
+</span></code></pre></div><h4 id="42-导入文件">4.2 导入文件</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_0.txt&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
+<span style="color:#66d9ef">LOAD</span> <span style="color:#66d9ef">DATA</span> INFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_0.txt&#39;</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">TABLE</span> testdb.account;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_1.txt&#39;</span> FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
+<span style="color:#66d9ef">LOAD</span> <span style="color:#66d9ef">DATA</span> INFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_1.txt&#39;</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">TABLE</span> testdb.account FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account.txt&#39;</span> FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
+ mysqlimport <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#e6db74">&#39;/var/lib/mysql-files/account.txt&#39;</span> <span style="color:#75715e">--fields-terminated-by=&#39;,&#39; --fields-optionally-enclosed-by=&#39;\&#34;&#39;
+</span></code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/mysql/" rel="tag">mysql</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/explain/" rel="tag">explain</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/database/mysql/mysql_master_slave/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【mysql笔记】主从复制</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/js/webpack/webpack_01/">【webpack笔记】webpack_初建项目(01)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_backup/">【mysql笔记】数据库备份和还原</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_master_slave/">【mysql笔记】主从复制</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log2/">【mysql笔记】mysql日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_log/">【mysql笔记】redo和undo日志</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/mysql/mysql_transaction/">【mysql笔记】事务TRANSACTION</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
