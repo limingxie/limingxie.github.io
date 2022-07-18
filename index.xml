@@ -6,7 +6,63 @@
     <description>Recent content on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Jul 2022 23:55:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jul 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【linux笔记】linux入门简介_文件目录(01)</title>
+      <link>https://limingxie.github.io/system/linux/linux_01/</link>
+      <pubDate>Sun, 17 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/system/linux/linux_01/</guid>
+      <description>linux系统中一切皆文件。
+目录 图片备用地址
+/ 根目录。
+/bin bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。
+/boot 这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。
+引导程序，内核等存放的目录。
+/dev dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，
+在 Linux 中访问设备的方式和访问文件的方式是相同的。
+/etc etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。
+/home 每个用户都有一个自己的目录，一般该目录名是以用户的账号命名。
+/lib lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。
+几乎所有的应用程序都需要用到这些共享库。系统调用的函数库保存位置。
+/lost+found 这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。
+/media linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。
+/mnt 系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。
+/opt opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。
+第三方安装的软件保存位置。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。
+/proc proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，
+这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。
+这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：
+echo 1 &amp;gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</description>
+    </item>
+    
+    <item>
+      <title>【webpack笔记】webpack_优化(04)</title>
+      <link>https://limingxie.github.io/js/webpack/webpack_04/</link>
+      <pubDate>Sat, 16 Jul 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/webpack/webpack_04/</guid>
+      <description>&lt;p&gt;这一篇整理了webpack优化相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【webpack笔记】webpack_Eslint_Babel(03)</title>
+      <link>https://limingxie.github.io/js/webpack/webpack_03/</link>
+      <pubDate>Fri, 15 Jul 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/webpack/webpack_03/</guid>
+      <description>&lt;p&gt;这一篇整理了Eslint和Babel相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【webpack笔记】webpack_基础配置(02)</title>
+      <link>https://limingxie.github.io/js/webpack/webpack_02/</link>
+      <pubDate>Thu, 14 Jul 2022 23:55:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/js/webpack/webpack_02/</guid>
+      <description>&lt;p&gt;这一篇整理了webpack的基础配置相关的内容。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【webpack笔记】webpack_初建项目(01)</title>
       <link>https://limingxie.github.io/js/webpack/webpack_01/</link>
@@ -1387,10 +1443,10 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
     
     <item>
       <title>【k8s】kubernetes基本的概念</title>
-      <link>https://limingxie.github.io/tool/k8s/</link>
+      <link>https://limingxie.github.io/system/k8s/</link>
       <pubDate>Wed, 01 Jul 2020 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/tool/k8s/</guid>
+      <guid>https://limingxie.github.io/system/k8s/</guid>
       <description>&lt;p&gt;最近抽时间了解Kubernetes。那些网上和官方的材料都讲得很深，很细。&lt;/p&gt;</description>
     </item>
     
@@ -1485,10 +1541,10 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
     
     <item>
       <title>git命令 cherry-pick 的使用简介</title>
-      <link>https://limingxie.github.io/tool/git_cherry_pick/</link>
+      <link>https://limingxie.github.io/system/git_cherry_pick/</link>
       <pubDate>Mon, 30 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/tool/git_cherry_pick/</guid>
+      <guid>https://limingxie.github.io/system/git_cherry_pick/</guid>
       <description>&lt;p&gt;上一篇文章介绍了merge和rebase的用法以及原理。&lt;br&gt;
 &lt;a href=&#34;https://limingxie.github.io/git/git_merge_rebase/&#34;&gt;git命令merge和rebase的简单应用&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里简单的介绍一下 cherry-pick 的用法。&lt;br&gt;
@@ -1497,10 +1553,10 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
     
     <item>
       <title>git命令merge和rebase的简单应用</title>
-      <link>https://limingxie.github.io/tool/git_merge_rebase/</link>
+      <link>https://limingxie.github.io/system/git_merge_rebase/</link>
       <pubDate>Sun, 29 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/tool/git_merge_rebase/</guid>
+      <guid>https://limingxie.github.io/system/git_merge_rebase/</guid>
       <description>&lt;p&gt;因为工作的需求，项目分了几个大分支管理了。&lt;br&gt;
 不同的环境需要的功能也不一样，在不同的分支里修改。&lt;br&gt;
 虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。&lt;/p&gt;</description>

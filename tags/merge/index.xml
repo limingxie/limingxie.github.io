@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 29 Jul 2018 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/merge/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>git命令merge和rebase的简单应用</title>
-      <link>https://limingxie.github.io/tool/git_merge_rebase/</link>
+      <link>https://limingxie.github.io/system/git_merge_rebase/</link>
       <pubDate>Sun, 29 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/tool/git_merge_rebase/</guid>
+      <guid>https://limingxie.github.io/system/git_merge_rebase/</guid>
       <description>&lt;p&gt;因为工作的需求，项目分了几个大分支管理了。&lt;br&gt;
 不同的环境需要的功能也不一样，在不同的分支里修改。&lt;br&gt;
 虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。&lt;/p&gt;</description>
