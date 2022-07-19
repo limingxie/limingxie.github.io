@@ -11,7 +11,7 @@
 <meta property="og:description" content="宅男 &#43; 屌丝 &#43; 程序员" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://limingxie.github.io/system/" />
-<meta property="og:updated_time" content="2022-07-17T23:28:49+08:00" />
+<meta property="og:updated_time" content="2022-07-18T23:28:49+08:00" />
 
 		<meta itemprop="name" content="Systems">
 <meta itemprop="description" content="宅男 &#43; 屌丝 &#43; 程序员">
@@ -134,6 +134,25 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/system/linux/linux_02/" rel="bookmark">
+			【linux笔记】linux入门简介_vim(02)
+			</a>
+		</h2>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-18T23:28:49&#43;08:00">2022-07-18</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/linux/" rel="category">linux</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		<p>linux操作离不开文本编辑器，这篇整理了vim的常用命令。</p>
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/system/linux/linux_01/" rel="bookmark">
 			【linux笔记】linux入门简介_文件目录(01)
 			</a>
@@ -147,27 +166,7 @@
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		linux系统中一切皆文件。
-目录 图片备用地址
-/ 根目录。
-/bin bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。
-/boot 这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。
-引导程序，内核等存放的目录。
-/dev dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，
-在 Linux 中访问设备的方式和访问文件的方式是相同的。
-/etc etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。
-/home 每个用户都有一个自己的目录，一般该目录名是以用户的账号命名。
-/lib lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。
-几乎所有的应用程序都需要用到这些共享库。系统调用的函数库保存位置。
-/lost+found 这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。
-/media linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。
-/mnt 系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。
-/opt opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。
-第三方安装的软件保存位置。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。
-/proc proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，
-这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。
-这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：
-echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all
+		<p>linux系统中一切皆文件。</p>
 	</div>
 </article><article class="list__item post">
 	
@@ -321,7 +320,7 @@ echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">2</span>
+				<span class="widget__counter widget__counter--bubble">3</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;

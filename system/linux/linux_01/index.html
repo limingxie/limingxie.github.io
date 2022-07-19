@@ -8,57 +8,17 @@
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="【linux笔记】linux入门简介_文件目录(01)" />
-<meta property="og:description" content="linux系统中一切皆文件。
-目录 图片备用地址
-/ 根目录。
-/bin bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。
-/boot 这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。
-引导程序，内核等存放的目录。
-/dev dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，
-在 Linux 中访问设备的方式和访问文件的方式是相同的。
-/etc etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。
-/home 每个用户都有一个自己的目录，一般该目录名是以用户的账号命名。
-/lib lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。
-几乎所有的应用程序都需要用到这些共享库。系统调用的函数库保存位置。
-/lost&#43;found 这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。
-/media linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。
-/mnt 系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。
-/opt opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。
-第三方安装的软件保存位置。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。
-/proc proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，
-这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。
-这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：
-echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all" />
+<meta property="og:description" content="linux系统中一切皆文件。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://limingxie.github.io/system/linux/linux_01/" />
 <meta property="article:published_time" content="2022-07-17T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-07-17T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【linux笔记】linux入门简介_文件目录(01)">
-<meta itemprop="description" content="linux系统中一切皆文件。
-目录 图片备用地址
-/ 根目录。
-/bin bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。
-/boot 这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。
-引导程序，内核等存放的目录。
-/dev dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，
-在 Linux 中访问设备的方式和访问文件的方式是相同的。
-/etc etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。
-/home 每个用户都有一个自己的目录，一般该目录名是以用户的账号命名。
-/lib lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。
-几乎所有的应用程序都需要用到这些共享库。系统调用的函数库保存位置。
-/lost&#43;found 这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。
-/media linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。
-/mnt 系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。
-/opt opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。
-第三方安装的软件保存位置。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。
-/proc proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，
-这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。
-这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：
-echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all">
+<meta itemprop="description" content="linux系统中一切皆文件。">
 <meta itemprop="datePublished" content="2022-07-17T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-17T23:28:49+08:00" />
-<meta itemprop="wordCount" content="213">
+<meta itemprop="wordCount" content="137">
 
 
 
@@ -197,11 +157,6 @@ echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all">
         <li></li>
       </ul>
     </li>
-    <li><a href="#2vim编辑器常用命令">2.vim编辑器常用命令</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
   </ul>
 </nav>
 	</div>
@@ -270,74 +225,9 @@ echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</p>
 <h4 id="run">/run</h4>
 <p>是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。<br>
 如果你的系统上有 /var/run 目录，应该让它指向 run。</p>
-<h2 id="2vim编辑器常用命令">2.vim编辑器常用命令</h2>
-<h4 id="1移动光标">1.移动光标</h4>
-<p><strong>j</strong>：向下<br>
-<strong>20j</strong>： 向下移动 20 行<br>
-<strong>k</strong>：向上<br>
-<strong>h</strong>：向左<br>
-<strong>l</strong>：向右<br>
-<strong>0</strong>：到行首<br>
-<strong>^</strong>：到行首第一个字符，如果前面有空格的话<br>
-<strong>$</strong>：到行尾<br>
-<strong>gg</strong>：快速到文件头<br>
-<strong>G</strong>：快速到文件尾<br>
-<strong>50G</strong>：跳转到第 50 行<br>
-<strong>Ctrl+f</strong>：下一页
-<strong>Ctrl+b</strong>：上一页
-请不要在插入模式进行光标移动，效率很低下。</p>
-<h4 id="2复制">2.复制</h4>
-<p><strong>yy</strong>：复制一行<br>
-<strong>8yy</strong>：向下复制8行<br>
-<strong>yw</strong>：复制光标开始的一个单词<br>
-<strong>y$</strong>：复制光标到行尾<br>
-<strong>yfA</strong>：复制光标到第一个大写A中间的内容<br>
-<strong>y2fA</strong>：复制光标到第二个大写A中间的内容</p>
-<h4 id="3剪切">3.剪切</h4>
-<p><strong>x</strong>：向后剪切一个一个字符，如果是在行尾，则为向前剪切<br>
-<strong>4x</strong>：剪切4个<br>
-<strong>xp</strong>：非行尾交换两个字符，如从bs变成sb</p>
-<h4 id="4删除">4.删除</h4>
-<p><strong>dd</strong>：删除一行
-<strong>100dd</strong>：删除100行<br>
-<strong>dw</strong>：删除一个单词<br>
-<strong>df&quot;</strong>：删除到出现的第一个双引号<br>
-<strong>d^</strong>：删除至行首<br>
-删除的内容会放到剪贴板，按p即可粘贴到其他地方。</p>
-<h4 id="5粘贴">5.粘贴</h4>
-<p><strong>p</strong>：粘贴复制或剪切的内容<br>
-<strong>5p</strong>：将复制或剪切的内容粘贴5次</p>
-<h4 id="6替换和撤销">6.替换和撤销</h4>
-<p><strong>r+&lt;待替换字母&gt;</strong>：将游标所在字母替换为指定字母<br>
-<strong>R</strong>：连续替换，直到按下Esc<br>
-<strong>cc</strong>：替换整行，即删除游标所在行，并进入插入模式<br>
-<strong>cw</strong>：替换一个单词，即删除一个单词，并进入插入模式<br>
-<strong>u{n}</strong>：撤销一次或n次操作<br>
-<strong>U(大写)</strong>：撤销当前行的所有修改<br>
-<strong>Ctrl+r</strong>：redo，即撤销undo的操作</p>
-<h4 id="7退出编辑器">7.退出编辑器</h4>
-<p><strong>wq</strong>：保存当前文件并退出<br>
-<strong>wqa</strong>：保存所有文件并退出<br>
-<strong>q!</strong>： 不保存，强制退出<br>
-<strong>qa!</strong>： 有多个文件被打开，同时退出<br>
-以下命令请在命令模式下执行</p>
-<p><strong>在普通模式下，输入:即可进入。</strong></p>
-<h4 id="调整文本">调整文本</h4>
-<p><strong>%s/$/sth/</strong> ：在行尾追加sth<br>
-<strong>%s/^M//g</strong> ：替换掉dos换行符，^M使用ctrl+v + Enter即可输入<br>
-:g/^\s$/d*：删除空行以及只有空格的行<br>
-**%s/#.*//g** ：删除#之后的字符
-**ce**：使本行文本内容居中
-**ri**：使本行文本内容靠右<br>
-**le**：使本行文本内容靠左</p>
-<h4 id="查找字符串">查找字符串</h4>
-<p><strong>n</strong>：查找下一个匹配
-<strong>N</strong>：查找上一个匹配<br>
-<strong>2n</strong>：查找下面第二个匹配</p>
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
-
 		</div>
 		<footer class="post__footer">
 			
@@ -370,6 +260,12 @@ echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</p>
 		<a class="pager__link" href="/system/k8s/" rel="prev">
 			<span class="pager__subtitle">«&thinsp;Previous</span>
 			<p class="pager__title">【k8s】kubernetes基本的概念</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/system/linux/linux_02/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【linux笔记】linux入门简介_vim(02)</p>
 		</a>
 	</div>
 </nav>
@@ -460,7 +356,7 @@ echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">2</span>
+				<span class="widget__counter widget__counter--bubble">3</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
