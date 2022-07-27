@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)" />
+<meta property="og:description" content="这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/system/network/5_application_10/" />
+<meta property="article:published_time" content="2022-04-27T18:05:49+08:00" />
+<meta property="article:modified_time" content="2022-04-27T18:05:49+08:00" />
+
+		<meta itemprop="name" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)">
+<meta itemprop="description" content="这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。">
+<meta itemprop="datePublished" content="2022-04-27T18:05:49+08:00" />
+<meta itemprop="dateModified" content="2022-04-27T18:05:49+08:00" />
+<meta itemprop="wordCount" content="238">
+
+
+
+<meta itemprop="keywords" content="WebSocket,FTP,RESTful,SMTP,IMAP,POP,network," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/system/">
+				
+				<span class="menu__text">系统环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-04-27T18:05:49&#43;08:00">2022-04-27</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/network/" rel="category">network</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1arprarpicmp">1.ARP/RARP/ICMP</a></li>
+    <li><a href="#2websocket">2.WebSocket</a>
+      <ul>
+        <li><a href="#21-http和websocket">2.1 HTTP和WebSocket</a></li>
+        <li><a href="#22-建立连接">2.2 建立连接</a></li>
+        <li><a href="#23-使用">2.3 使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#3webservice">3.WebService</a>
+      <ul>
+        <li><a href="#31-webservice---核心概念">3.1 WebService - 核心概念</a></li>
+      </ul>
+    </li>
+    <li><a href="#4restful">4.RESTful</a></li>
+    <li><a href="#5ttpdns">5.TTPDNS</a></li>
+    <li><a href="#6ftp">6.FTP</a>
+      <ul>
+        <li><a href="#61-连接模式">6.1 连接模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#7邮件相关的协议">7.邮件相关的协议</a>
+      <ul>
+        <li><a href="#71-收发邮件的过程">7.1 收发邮件的过程</a></li>
+        <li><a href="#72-pop的特点">7.2 POP的特点</a></li>
+        <li><a href="#73-imap的特点">7.3 IMAP的特点</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。</p>
+<h2 id="1arprarpicmp">1.ARP/RARP/ICMP</h2>
+<p><strong>ARP（Address Resolution Protocol）</strong>，地址解析协议。</p>
+<ul>
+<li>通过IP地址获取MAC地址。</li>
+</ul>
+<p><strong>RARP（Reverse Address Resolution Protocol）</strong>，逆地址解析协议。</p>
+<ul>
+<li>使用与ARP相同的报头结构</li>
+<li>作用与ARP相反，用于将MAC地址转换为IP地址</li>
+<li>后来被BOOTP、DHCP所取代</li>
+</ul>
+<p><strong>ICMP（Internet Control Message Protocol）</strong>，互联网控制消息协议。</p>
+<ul>
+<li>IPV4中的ICMP被称作ICMPv4，IPV6中的ICMP则被称作ICMPv6</li>
+<li>通常用于返回错误信息，比如TTL值过期，目的不可达</li>
+<li>ICMP的错误消息总是包括了源数据并返回给发送者</li>
+</ul>
+<h2 id="2websocket">2.WebSocket</h2>
+<p>WebSocket是基于TCP的支持全双工通信的应用层协议（全双工：客户端和服务器均可主动发消息给对方）。<br>
+在2011年由IETF标准化为<a href="https://datatracker.ietf.org/doc/html/rfc6455">RFC_6455</a>，后由RFC_7936补充规范。</p>
+<p>WebSocket的应用场景很多：社交订阅、股票基金报价、体育实况更新、多媒体聊天、多玩家游戏等。</p>
+<blockquote>
+<p>Socket是一套网络编程API，几乎所有的网络应用协议（HTTP/FTP/SMTP等）都是基于Socket实现的。<br>
+而WebSocket是Web端的一个应用层通信协议。</p>
+</blockquote>
+<h3 id="21-http和websocket">2.1 HTTP和WebSocket</h3>
+<p>HTTP请求的特点：通信只能由客户端发起，所以早期很多网站为了实现推送技术，使用的技术都是轮询。</p>
+<p>轮询是指由浏览器每隔一段时间（如每秒）向服务器发出HTTP请求，然后服务器返回最新的数据给客户端。<br>
+为了能更好的节省服务器资源和带宽，并且能够更实时地进行通讯，HTML5规范中出现了WebSocket协议。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_121.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_121.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>WebSocket和HTTP属于平级关系，都是应用层的协议。其实TCP本身就是支持全双工通信的，只是HTTP的“请求-应答”模式限制了TCP的能力。</p>
+<p>WebSocket使用80（ws://）、443（wss://）端口，<br>
+可以绕过大多数防火墙的限制（http默认使用80端口，https默认使用443端口）。</p>
+<p>与HTTP不同的是，WebSocket需要先建立连接（应用层连接）。<br>
+这就使得WebSocket成为一种有状态的协议，之后通信时可以省略部分状态信息。而HTTP请求可能需要在每个请求都额外携带状态信息（如身份认证等）。</p>
+<h3 id="22-建立连接">2.2 建立连接</h3>
+<p>WebSocket需要借助HTTP协议来建立连接（也叫作握手，Handshake）。</p>
+<p>由客户端（浏览器）主动发出握手请求：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">GET /chat HTTP/1.1  
+Host: server.example.com  
+Upgrade: websocket  
+Connection: Upgrade  
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==  
+Origin: &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">com</span>&gt;  
+Sec-WebSocket-Protocol: chat, superchat  
+Sec-WebSocket-Version: 13  
+</code></pre></div><p>服务器响应：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">HTTP/1.1 101 Switching Protocols  
+Upgrade: websocket  
+Connection: Upgrade  
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=  
+Sec-WebSocket-Protocol: chat  
+</code></pre></div><p><strong>Connection</strong>：必须设置Upgrade，表示客户端希望连接升级。<br>
+<strong>Upgrade</strong>：必须设置websocket，表示希望升级到WebSocket协议。<br>
+<strong>Sec-WebSocket-Version</strong>：表示支持的WebSocket版本，RFC_6455要求使用的版本是13。<br>
+<strong>Sec-WebSocket-Key</strong>：客户端生成的随机字符串（比如例子中的dGhlIHNhbXBsZSBub25jZQ==）。</p>
+<p>服务器接收到客户端的Sec-WebSocket-Key后，会进行以下操作：</p>
+<ol>
+<li>Sec-WebSocket-Key拼接一个固定的GUID值（258EAFA5-E914-47DA-95CA-C5AB0DC85B11）。<br>
+例：dGhlIHNhbXBsZSBub25jZQ==258EAFA5-E914-47DA-95CA-C5AB0DC85B11。</li>
+<li>将1的结果进行SHA-1摘要计算，结果：b37a4f2cc0624f1690f64606cf385945b2bec4ea。</li>
+<li>将2的结果进行Hex to Base64编码，结果：s3pPLMBiTxaQ9kYGzzhZRbK+xOo=。</li>
+<li>将3的结果作为Sec-WebSocket-Accept响应头的值，返回给客户端。</li>
+</ol>
+<p>如此操作，可以尽量避免普通HTTP请求被误认为WebSocket协议。</p>
+<h3 id="23-使用">2.3 使用</h3>
+<p>WebSocket体验和演示：<a href="https://www.websocket.org/echo.html">https://www.websocket.org/echo.html</a><br>
+W3C标准化了一套WebSocket API，可以直接使用JS调用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">let ws = new WebSocket(&#39;wss://example.com&#39;)  
+</code></pre></div><h2 id="3webservice">3.WebService</h2>
+<p>WebService（Web服务）是一种跨编程语言和跨操作系统平台的远程调用技术标准。</p>
+<p>WebService使用场景举例：</p>
+<ul>
+<li>天气预报、手机归属地查询、航班信息查询、物流信息查询等。</li>
+<li>比如天气预报，是气象局把自己的服务以WebService形式暴露出来，让第三方程序可以调用这些服务功能（<a href="http://www.webxml.com.cn/zh_cn/index.aspx">http://www.webxml.com.cn/zh_cn/index.aspx</a>）。</li>
+</ul>
+<p>事实上，WebService完全可以用普通的Web API取代（比如HTTP + JSON），现在很多企业的开放平台都是直接采用Web API。</p>
+<h3 id="31-webservice---核心概念">3.1 WebService - 核心概念</h3>
+<p><strong>SOAP（Simple Object Access Protocol）</strong>，简单对象访问协议。<br>
+很多时候，SOAP = HTTP + XML。WebService使用SOAP协议来封装传递数据。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_122.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_122.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><strong>SOAP其实就是正常的HTTP请求和有规范格式的XML，请求和响应都是XML文件。</strong></p>
+<p>WSDL（Web Services Description Language），Web服务描述语言。<br>
+一个XML文档，用以描述WebService接口的细节（比如参数、返回值等）。<br>
+一般在WebService的URL后面跟上?wsdl获取WSDL信息。<br>
+比如：<a href="http://ws.webxml.com.cn/WebServices/WeatherWS.asmx?wsdl">http://ws.webxml.com.cn/WebServices/WeatherWS.asmx?wsdl</a></p>
+<h2 id="4restful">4.RESTful</h2>
+<p><strong>REST（Representatioanl State Transfer）</strong>，表现层状态转移。</p>
+<p>REST是一种互联网软件架构设计风格，定义了一组用于创建Web服务的约束。<br>
+符合REST架构的Web服务，称为RESTful Web服务器。</p>
+<blockquote>
+<p>RESTful后面的ful表示形容词，例如wonder -&gt; wonderful 。</p>
+</blockquote>
+<p><strong>实践建议:</strong></p>
+<ul>
+<li>
+<p>URL中使用名词（建议用复数形式），不使用动词。<br>
+推荐：/users、/users/6<br>
+不推荐：listUsers、/getUser?id=6、/user/list、/user/get?id=6</p>
+</li>
+<li>
+<p>使用HTTP的方法表达动作：</p>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_123.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_123.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>
+<p>一个资源连接到其他资源，使用子资源的形式<br>
+GET：/users/6/cars/88<br>
+POST：/users/8/cars</p>
+</li>
+<li>
+<p>API版本化<br>
+idbeny.com/v1/users<br>
+idbeny.com/v2/users/66</p>
+</li>
+<li>
+<p>返回JSON格式的数据</p>
+</li>
+<li>
+<p>发生错误时，不要返回200状态码</p>
+</li>
+</ul>
+<h2 id="5ttpdns">5.TTPDNS</h2>
+<p>HTTPDNS是基于HTTP协议向DNS服务器发送域名解析请求。<br>
+替代了基于DNS协议向运营商Local DNS发起解析请求的传统方式，可以避免Local DNS造成的域名劫持和跨网访问问题。<br>
+常用在移动互联网中（比如Android、iOS开发中）。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_124.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_124.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>市面上已经有现成的解决方案，移动端集成相关的SDK即可使用HTTPDNS服务。</p>
+<p>腾讯云：<a href="https://cloud.tencent.com/product/httpdns">https://cloud.tencent.com/product/httpdns</a><br>
+阿里云：<a href="https://help.aliyun.com/product/30100.html">https://help.aliyun.com/product/30100.html</a></p>
+<h2 id="6ftp">6.FTP</h2>
+<p><strong>FTP（File Transport Protocol）</strong>，文件传输协议。<br>
+<a href="https://datatracker.ietf.org/doc/html/rfc959">RFC_959</a>定义了此规范，是基于TCP的应用层协议。<br>
+在<a href="https://datatracker.ietf.org/doc/html/rfc1738">RFC_1738</a>中有定义，FTP的URL格式为：<a href="ftp://%5Buser%5B:password">ftp://[user[:password</a>]@]host:[:port]/url-path。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_125.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_125.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="61-连接模式">6.1 连接模式</h3>
+<p>FTP有2种连接模式：主动（Active）和被动（Passive）。<br>
+不管是哪种方式，都需要客户端和服务器建立2个连接：</p>
+<ul>
+<li>控制连接：用于传输状态信息（指令）</li>
+<li>数据连接：用于传输文件和目录信息（数据）</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_126.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_126.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="611-主动模式">6.1.1 主动模式</h4>
+<p>主动模式是服务器主动，客户端被动。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_127.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_127.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端打开一个随机的命令端口<br>
+端口号大于1024，假设为N。同时连接至服务器的命令端口21（固定）</li>
+<li>客户端开始监听N+1数据端口<br>
+同时向服务器发送一个Port命令给服务器的命令端口21<br>
+此命令告诉服务器，客户端正在监听的数据端口是N+1，并且已准备好从此端口接收数据</li>
+<li>服务器打开20号数据端口（固定），并且创建和客户端数据端口（N+1）的连接</li>
+</ul>
+<h4 id="612-被动模式">6.1.2 被动模式</h4>
+<p>被动模式是客户端主动，服务器被动。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_128.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_128.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端通过两个随机的端口与服务器建立连接：命令端口N、数据端口N+1。<br>
+客户端的命令端口N用于连接服务器的命令端口21（固定）<br>
+客户端通过命令端口N发送PASV命令给服务器的命令端口21<br>
+服务器打开一个随机的数据端口P，并告知客户端该端口号是P<br>
+客户端数据端口N+1发起与服务器数据端口P的连接</li>
+</ul>
+<h2 id="7邮件相关的协议">7.邮件相关的协议</h2>
+<ul>
+<li>
+<p>发邮件使用的协议：</p>
+<ul>
+<li>SMTP（Simple Mail Transfer Protocol），简单邮件传输协议。<br>
+基于TCP，标准参考<a href="https://datatracker.ietf.org/doc/html/rfc5321">RFC_5321</a><br>
+服务器默认使用25端口，SSL/TLS使用465端口</li>
+</ul>
+</li>
+<li>
+<p>收邮件使用的协议：</p>
+<ul>
+<li>
+<p>POP（Post Office Protocol），邮局协议。<br>
+基于TCP，最新版是POP3，标准参考<a href="https://datatracker.ietf.org/doc/html/rfc1939">RFC_1939</a><br>
+服务器默认使用110端口，SSL/TLS使用995端口</p>
+</li>
+<li>
+<p>IMAP（Internet Message Access Protocol），因特网信息访问协议。<br>
+基于TCP，最新版是IMAP4，标准参考<a href="https://datatracker.ietf.org/doc/html/rfc3501">RFC_3501</a><br>
+服务器默认使用143端口，SSL/TLS使用993端口</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="71-收发邮件的过程">7.1 收发邮件的过程</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_129.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_129.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>不同邮箱服务是不同直接通信的，例如腾讯邮箱（@qq.com）要想发邮件给网易邮箱（@163.com），<br>
+客户端通过SMTP协议发送至腾讯邮箱服务，腾讯邮箱服务器通过SMTP协议转发给网易邮箱服务器，<br>
+网易邮箱用户通过POP/IMAP协议拉取网易邮箱服务器上的邮件。</p>
+<h3 id="72-pop的特点">7.2 POP的特点</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_130.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_130.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端连接服务器时，将会从服务器下载所有邮件。<br>
+可以设置下载完后，立即或一段时间后删除服务器邮件。</li>
+<li>客户端的操作（比如删除邮件、移动到文件夹）不会跟服务器同步。</li>
+<li>每个客户端都是独立的，都可以获得其自己的电子邮件副本。</li>
+</ul>
+<h3 id="73-imap的特点">7.3 IMAP的特点</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_131.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_131.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<ul>
+<li>客户端连接服务器时，获取的是服务器上邮件的基本信息，并不会下载邮件。<br>
+等打开邮件时，才开始下载邮件。</li>
+<li>客户端的操作（比如删除邮件、移动到文件夹）会跟服务器同步。</li>
+<li>所有客户端始终会看到相同的邮件和相同的文件夹。</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/websocket/" rel="tag">WebSocket</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/ftp/" rel="tag">FTP</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/restful/" rel="tag">RESTful</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/smtp/" rel="tag">SMTP</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/imap/" rel="tag">IMAP</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/pop/" rel="tag">POP</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/network/" rel="tag">network</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/system/network/5_application_https_09/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(9)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/system/network/5_application_11/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(11)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_10/">【linux笔记】linux入门简介_磁盘查看和分区(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_09/">【linux笔记】linux入门简介_搜索查找和压缩解压(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_08/">【linux笔记】linux入门简介_文件权限(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_07/">【linux笔记】linux入门简介_用户和用户组(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_06/">【linux笔记】linux入门简介_文件操作命令(06)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_05/">【linux笔记】linux入门简介_帮助命令和时间日期命令(05)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

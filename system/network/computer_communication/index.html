@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【网络协议笔记】计算机之间的通信和链接方式 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【网络协议笔记】计算机之间的通信和链接方式" />
+<meta property="og:description" content="1.计算机之间的通信
+计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。
+那我们要如何进行网络通信呢？
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。
+然后把数据通过网卡传送到对方的网络中。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/system/network/computer_communication/" />
+<meta property="article:published_time" content="2022-04-07T22:28:49+08:00" />
+<meta property="article:modified_time" content="2022-04-07T22:28:49+08:00" />
+
+		<meta itemprop="name" content="【网络协议笔记】计算机之间的通信和链接方式">
+<meta itemprop="description" content="1.计算机之间的通信
+计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。
+那我们要如何进行网络通信呢？
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。
+然后把数据通过网卡传送到对方的网络中。">
+<meta itemprop="datePublished" content="2022-04-07T22:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-04-07T22:28:49+08:00" />
+<meta itemprop="wordCount" content="60">
+
+
+
+<meta itemprop="keywords" content="ARP,Hub,Bridge,Switch,Router," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/system/">
+				
+				<span class="menu__text">系统环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【网络协议笔记】计算机之间的通信和链接方式</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-04-07T22:28:49&#43;08:00">2022-04-07</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/network/" rel="category">network</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1计算机之间的通信">1.计算机之间的通信</a></li>
+    <li><a href="#2计算机之间的链接方式">2.计算机之间的链接方式</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="1计算机之间的通信">1.计算机之间的通信</h2>
+<p>计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。<br>
+那我们要如何进行网络通信呢？<br>
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。<br>
+然后把数据通过网卡传送到对方的网络中。</p>
+<p>如果网卡发现数据的目标MAC地址是自己，就会将数据传递给上一层进行处理。<br>
+如果网卡发现数据的目标MAC地址不是是自己，就会将数据丢掉。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/computer_communication.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/computer_communication.png" alt="computer_communication"></p>
+<h2 id="2计算机之间的链接方式">2.计算机之间的链接方式</h2>
+<p>下面我们看一下具体的链接方式。</p>
+<h4 id="21-网线直连">2.1. 网线直连</h4>
+<p>两台计算机之间最简单的连接方式就是网线直连（交叉线）。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/zhilian.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/zhilian.png" alt="zhilian"></p>
+<pre><code>通信的时候，会使用到ICMP、ARP协议。  
+ICMP是数据包传送的时候用到的协议，ARP是获取MAC地址的协议。  
+
+ARP协议做的是给同一个网段的所有电脑发广播（ARP是有缓存的）。  
+如果自己是广播里寻找的IP，当前计算机把自己的网卡地址（广播找MAC地址）已广播的形式再发出去。
+</code></pre><h4 id="22-同轴电缆">2.2. 同轴电缆</h4>
+<p>如果需要链接多台电脑怎么办？</p>
+<p>第一个出现的同轴电缆的方式，是半双工通信方式。<br>
+容易冲突（冲突域），而且只要一个连接点出问题全域瘫痪。<br>
+一台设备在发送数据的时候，另一台设备只能接收数据，不能发送数据。</p>
+<h4 id="23-集线器hub">2.3. 集线器（Hub）</h4>
+<p>采用的也是半双工通信，但是比同轴电缆有个特甜：如果一台设备的链接出现问题也不会影响其他设备。</p>
+<p>集线器和同轴电缆都是没有智商的，是个机械性的设备。<br>
+只要有设备发数据，就把数据转给其它所有已连接设备，设备越多效率越低。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/hub.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/hub.png?x-oss-process=image/resize,w_600,m_lfit" alt="hub"></p>
+<p>下面是集线器传输数据的动态图</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/hub_gif.gif">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/hub_git.gif?x-oss-process=image/resize,w_600,m_lfit" alt="hub"></p>
+<h4 id="24-网桥bridge">2.4. 网桥（Bridge）</h4>
+<p>网桥连接的是同一个网段的计算机。<br>
+它可以记录左右两边的MAC地址，减少没必要的广播和传输，从而起到隔绝冲突域的作用。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/bridge.png">图片备用地址</a>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/bridge.png?x-oss-process=image/resize,w_600,m_lfit" alt="bridge"></p>
+<h4 id="25-交换机switch">2.5. 交换机（Switch）</h4>
+<p>交换器就比网桥更牛逼了，他可以记录每一个网络节点的IP和MAC地址。<br>
+还有交换机是全双工通信，没有冲突域。
+而且不会发数据发到其他设备，所以比集线器安全（不会因为抓包而拦截数据）。</p>
+<p>但是首次发送数据时，还是会ARP广播所有设备，因为此时交换机还不知道源和目标的MAC地址。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/switch.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/switch.png?x-oss-process=image/resize,w_600,m_lfit" alt="switch"></p>
+<h4 id="26-路由器router">2.6. 路由器（Router）</h4>
+<p>以上的设备必须是在同一个网段和广播域，但是不能把所有的电脑用交换链接起来。<br>
+好几亿台的电脑用过广播寻找对应IP地址的Mac地址，那这网络遭遇“广播风暴”了。</p>
+<p>所以路由的作用就出来了，路由是隔绝广播域，如果是在不同网段之间转发数据，就直接去寻找路由。<br>
+那如何去寻找路由呢？ 是通过网关。我们在设置IP地址时，甚至的默认网关地址就是路由的地址。<br>
+(一般IP地址的最后设置成1。比如 192.168.0.1)。</p>
+<p>主机发数据前，首先会判断目标主机的IP地址跟它是否在同一个网段。<br>
+如果在同一个网段：ARP广播，直接发送数据；<br>
+如果不在同一个网段：通过路由器转发数据。</p>
+<p><a href="https://limingxie.github.io/images/network/computer_communication/router.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/computer_communication/router.png?x-oss-process=image/resize,w_900,m_lfit" alt="switch"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/arp/" rel="tag">ARP</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/hub/" rel="tag">Hub</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/bridge/" rel="tag">Bridge</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/switch/" rel="tag">Switch</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/router/" rel="tag">Router</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/system/network/osi/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【网络协议笔记】浅谈OSI网络七层协议</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/system/network/mac_ip/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【网络协议笔记】mac地址和ip地址简介</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_10/">【linux笔记】linux入门简介_磁盘查看和分区(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_09/">【linux笔记】linux入门简介_搜索查找和压缩解压(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_08/">【linux笔记】linux入门简介_文件权限(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_07/">【linux笔记】linux入门简介_用户和用户组(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_06/">【linux笔记】linux入门简介_文件操作命令(06)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_05/">【linux笔记】linux入门简介_帮助命令和时间日期命令(05)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

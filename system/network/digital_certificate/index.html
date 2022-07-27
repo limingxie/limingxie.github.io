@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>浅谈数字证书(Digital Certificate)的发放和验证原理 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="浅谈数字证书(Digital Certificate)的发放和验证原理" />
+<meta property="og:description" content="1.数字证书是什么？
+数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/system/network/digital_certificate/" />
+<meta property="article:published_time" content="2022-04-05T22:28:49+08:00" />
+<meta property="article:modified_time" content="2022-04-05T22:28:49+08:00" />
+
+		<meta itemprop="name" content="浅谈数字证书(Digital Certificate)的发放和验证原理">
+<meta itemprop="description" content="1.数字证书是什么？
+数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。">
+<meta itemprop="datePublished" content="2022-04-05T22:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-04-05T22:28:49+08:00" />
+<meta itemprop="wordCount" content="146">
+
+
+
+<meta itemprop="keywords" content="digital,certificate," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/system/">
+				
+				<span class="menu__text">系统环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">浅谈数字证书(Digital Certificate)的发放和验证原理</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-04-05T22:28:49&#43;08:00">2022-04-05</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/network/" rel="category">network</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1数字证书是什么">1.数字证书是什么？</a></li>
+    <li><a href="#2常见的3种加密方式">2.常见的3种加密方式</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3发放数字证书">3.发放数字证书</a></li>
+    <li><a href="#4验证数字证书的合法性">4.验证数字证书的合法性</a></li>
+    <li><a href="#5数据证书里的详细内容">5.数据证书里的详细内容</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="1数字证书是什么">1.数字证书是什么？</h2>
+<p>数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。<br>
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。<br>
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。</p>
+<h2 id="2常见的3种加密方式">2.常见的3种加密方式</h2>
+<p>为了了解数字证书的原理，首先需要了解已下3种加密方式。</p>
+<h4 id="21-hash算法加密">2.1 hash算法加密</h4>
+<p>它是一种不可逆的加密方式，对一组数据使用哈希算法加密，加密后不能解密。<br>
+把必要的信息放到一起后，一般会用MD5或SHA1算法计算出hash值(也叫信息摘要:MD5为128位，SHA1主要为256位)。<br>
+将信息的摘要也称作信息的指纹。相同的信息一定会得相同的指纹，而仅通过指纹又无法还原出原始信息。</p>
+<h4 id="22-对称密钥加密">2.2 对称密钥加密</h4>
+<p>加密一组数据时使用【秘钥】加密，解密时候也使用同样的【秘钥】解密。<br>
+目前的对称密钥算法有DES、3DES、AES等，而密钥则一般是一串固定长度的字符。</p>
+<h4 id="23-非对称密钥加密">2.3 非对称密钥加密</h4>
+<p>将秘钥分成【公钥publicKey】和【私钥privateKey】。<br>
+公钥加密的内容，使用私钥可以解开；而私钥加密的内容，公钥可以解开。<br>
+单独的知道公钥或私钥，却没有办法推出另一份密钥。<br>
+目前使用最为广泛的非对称密钥为RSA算法。</p>
+<p>这3种加密方式如果不太理解的话，可以自行在搜一搜相关资料看看。<br>
+下面我们看看数据证书是如何发放的。</p>
+<h2 id="3发放数字证书">3.发放数字证书</h2>
+<p>看看下图CA是如何发放数字证书。</p>
+<p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate_2.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_2.png" alt="digital_certificate"></p>
+<pre><code>1. 创建一个文件包含申请者信息(申请者的公钥，签名算法，有效期等等...)的文件。
+2. 对这个文件使用hash算法加密，获取hash值。
+3. CA使用自己的私钥加密申请信息的hash值获取证书签名。
+4. 证书签名+申请者信息 = 数字证书
+</code></pre><h2 id="4验证数字证书的合法性">4.验证数字证书的合法性</h2>
+<p>看下图如何判断数字证书的合法性。</p>
+<p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate_3.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_3.png" alt="digital_certificate"></p>
+<pre><code>1. 客户端(一般是游览器)接受服务器的数字证书后，先把数字证书里的申请者信息使用hash算法加密获得hash值。
+2. 使用CA颁发的公钥解密数字证书里的签名。
+3. 比较数字证书里的内容获得的hash值和解密签名获取的hash值是否一样。
+</code></pre><h2 id="5数据证书里的详细内容">5.数据证书里的详细内容</h2>
+<p>最后整理了数字证书的详细内容和说明。</p>
+<p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_4.png?x-oss-process=image/resize,w_800,m_lfit" alt="digital_certificate"></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>版本:</strong></td>
+<td>指定所编码证书的版本号。 当前，此字段的可能值为 0、1 或 2。</td>
+</tr>
+<tr>
+<td><strong>序列号:</strong></td>
+<td>包含证书颁发机构 (CA) 分配给证书的一个唯一正整数。</td>
+</tr>
+<tr>
+<td><strong>签名算法:</strong></td>
+<td>包含一个对象标识符 (OID)，指定 CA 用于对证书进行签名的算法。</td>
+</tr>
+<tr>
+<td><strong>签名哈希算法:</strong></td>
+<td>生成签名使用的哈希算法。</td>
+</tr>
+<tr>
+<td><strong>颁发者:</strong></td>
+<td>包含创建和签名证书的 CA 的 X.500 可分辨名称 (DN)。</td>
+</tr>
+<tr>
+<td><strong>有效期:</strong></td>
+<td>指定证书有效的时间间隔。</td>
+</tr>
+<tr>
+<td><strong>使用者:</strong></td>
+<td>包含实体的 X.500 可分辨名称，该实体与证书中包含的公钥相关联。</td>
+</tr>
+<tr>
+<td><strong>公钥:</strong></td>
+<td>包含公钥和关联的算法信息。</td>
+</tr>
+<tr>
+<td><strong>授权密钥标识符:</strong></td>
+<td>标识证书颁发机构 (CA) 公钥，与用于签署证书的 CA 私钥对应。</td>
+</tr>
+<tr>
+<td><strong>基本约束:</strong></td>
+<td>指定实体是否可用作 CA，如果可以，则指定在证书链中该 CA 下可以存在的从属 CA 的数量。</td>
+</tr>
+<tr>
+<td><strong>证书策略:</strong></td>
+<td>指定颁发证书的策略和使用证书的目的。</td>
+</tr>
+<tr>
+<td><strong>CRL:</strong></td>
+<td>分发点 包含基本证书吊销列表 (CRL) 的 URI。</td>
+</tr>
+<tr>
+<td><strong>增强型密钥用法:</strong></td>
+<td>指定证书中包含的公钥的使用方式。</td>
+</tr>
+<tr>
+<td><strong>颁发者备用名称:</strong></td>
+<td>为证书请求颁发者指定一个或多个备用名称形式。</td>
+</tr>
+<tr>
+<td><strong>密钥用法:</strong></td>
+<td>指定证书中包含的公钥可以执行的操作的限制。</td>
+</tr>
+<tr>
+<td><strong>名称约束:</strong></td>
+<td>指定证书层次结构中所有使用者名称必须位于的命名空间。 扩展仅在 CA 证书中使用。</td>
+</tr>
+<tr>
+<td><strong>策略约束:</strong></td>
+<td>通过禁止策略映射或通过要求层次结构中的每个证书包含一个可接受的策略标识符来约束路径验证。 扩展仅在 CA 证书中使用。</td>
+</tr>
+<tr>
+<td><strong>策略映射:</strong></td>
+<td>指定与发证 CA 中的策略对应的从属 CA 中的策略。</td>
+</tr>
+<tr>
+<td><strong>私钥使用周期:</strong></td>
+<td>为私钥指定与私钥关联的证书不同的验证周期。</td>
+</tr>
+<tr>
+<td><strong>使用者可选名称:</strong></td>
+<td>为证书请求使用者指定一个或多个备用名称形式。 示例备用形式包括电子邮件地址、DNS 名称、IP 地址和 URI。</td>
+</tr>
+<tr>
+<td><strong>使用目录属性:</strong></td>
+<td>传达标识属性，如证书使用者的国籍。 扩展值是 OID 值对序列。</td>
+</tr>
+<tr>
+<td><strong>使用者密钥标识符:</strong></td>
+<td>区分证书使用者持有的多个公钥。 扩展值一般是密钥的 SHA-1 哈希。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/digital/" rel="tag">digital</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/certificate/" rel="tag">certificate</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/system/network/5gc/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">5G网架构简介</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/system/network/osi/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【网络协议笔记】浅谈OSI网络七层协议</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_10/">【linux笔记】linux入门简介_磁盘查看和分区(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_09/">【linux笔记】linux入门简介_搜索查找和压缩解压(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_08/">【linux笔记】linux入门简介_文件权限(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_07/">【linux笔记】linux入门简介_用户和用户组(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_06/">【linux笔记】linux入门简介_文件操作命令(06)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_05/">【linux笔记】linux入门简介_帮助命令和时间日期命令(05)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
