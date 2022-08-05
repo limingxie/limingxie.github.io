@@ -6,7 +6,25 @@
     <description>Recent content on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Aug 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【redis笔记】redis_配置文件(2)</title>
+      <link>https://limingxie.github.io/database/redis/redis_02/</link>
+      <pubDate>Wed, 03 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/redis/redis_02/</guid>
+      <description>&lt;p&gt;这一篇整理了redis配置文件相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【redis笔记】redis_常用命令(1)</title>
+      <link>https://limingxie.github.io/database/redis/redis_01/</link>
+      <pubDate>Tue, 02 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/database/redis/redis_01/</guid>
+      <description>&lt;p&gt;这一篇整理了redis的常用命令。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【docker笔记】docker_常用命令(2)</title>
       <link>https://limingxie.github.io/system/docker/docker_02/</link>
@@ -1667,10 +1685,10 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
     
     <item>
       <title>git命令 cherry-pick 的使用简介</title>
-      <link>https://limingxie.github.io/system/git_cherry_pick/</link>
+      <link>https://limingxie.github.io/system/git/git_cherry_pick/</link>
       <pubDate>Mon, 30 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/system/git_cherry_pick/</guid>
+      <guid>https://limingxie.github.io/system/git/git_cherry_pick/</guid>
       <description>&lt;p&gt;上一篇文章介绍了merge和rebase的用法以及原理。&lt;br&gt;
 &lt;a href=&#34;https://limingxie.github.io/git/git_merge_rebase/&#34;&gt;git命令merge和rebase的简单应用&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里简单的介绍一下 cherry-pick 的用法。&lt;br&gt;
@@ -1679,10 +1697,10 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
     
     <item>
       <title>git命令merge和rebase的简单应用</title>
-      <link>https://limingxie.github.io/system/git_merge_rebase/</link>
+      <link>https://limingxie.github.io/system/git/git_merge_rebase/</link>
       <pubDate>Sun, 29 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/system/git_merge_rebase/</guid>
+      <guid>https://limingxie.github.io/system/git/git_merge_rebase/</guid>
       <description>&lt;p&gt;因为工作的需求，项目分了几个大分支管理了。&lt;br&gt;
 不同的环境需要的功能也不一样，在不同的分支里修改。&lt;br&gt;
 虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。&lt;/p&gt;</description>

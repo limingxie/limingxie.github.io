@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>git命令merge和rebase的简单应用 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="git命令merge和rebase的简单应用" />
+<meta property="og:description" content="因为工作的需求，项目分了几个大分支管理了。
+不同的环境需要的功能也不一样，在不同的分支里修改。
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/system/git/git_merge_rebase/" />
+<meta property="article:published_time" content="2018-07-29T07:28:49+08:00" />
+<meta property="article:modified_time" content="2018-07-29T07:28:49+08:00" />
+
+		<meta itemprop="name" content="git命令merge和rebase的简单应用">
+<meta itemprop="description" content="因为工作的需求，项目分了几个大分支管理了。
+不同的环境需要的功能也不一样，在不同的分支里修改。
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。">
+<meta itemprop="datePublished" content="2018-07-29T07:28:49+08:00" />
+<meta itemprop="dateModified" content="2018-07-29T07:28:49+08:00" />
+<meta itemprop="wordCount" content="186">
+
+
+
+<meta itemprop="keywords" content="git,merge,rebase," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/system/">
+				
+				<span class="menu__text">系统环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">git命令merge和rebase的简单应用</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-07-29T07:28:49&#43;08:00">2018-07-29</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/git/" rel="category">git</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-merge"><strong>◆ merge</strong></a></li>
+        <li><a href="#-rebase"><strong>◆ rebase</strong></a></li>
+        <li><a href="#-分支branch管理策略"><strong>◆ 分支branch管理策略</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>因为工作的需求，项目分了几个大分支管理了。<br>
+不同的环境需要的功能也不一样，在不同的分支里修改。<br>
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。</p>
+<p>(我比较倾向，有一个主分支，发布在不同的环境是应该由不同的配置和适当的继承来实现。<br>
+如果这么做实在太麻烦的话，应该另分出一个仓库repository管理。)</p>
+<p>以下是我简单整理的内容。</p>
+<h3 id="-merge"><strong>◆ merge</strong></h3>
+<p>merge就是合并不同分支的代码。<br>
+先举个简单的使用场景例子。 <br>
+从master分支分出一个dev分支开发。<br>
+期间我们master分支有 m1,m2,m3 的提交记录。<br>
+dev分支有 d1,d2 的提交记录。<br>
+2个分支需要合并代码。</p>
+<pre><code>$ git merge dev     --在master分支把dev分支的代码合并过来。
+</code></pre><p>把2支分支合并，<code>有冲突，解决冲突后需要提交一次合并代码记录</code>。<br>
+(为了简单，下图是没有冲突时的场景。)</p>
+<p><a href="https://limingxie.github.io/images/git/git1.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git1.png" alt="1"></p>
+<h3 id="-rebase"><strong>◆ rebase</strong></h3>
+<p>rebase其实就是重置代码历史，手动的修改提交记录和代码。<br>
+一般项目当中<code>有两种用法</code>。</p>
+<p><strong>1. 合并记录</strong><br>
+这是一般开发者处理完Issue后，给主分支发出合并请求了。<br>
+但是CodeReview的时候发现有不合适的代码，或是有个小Bug需要修改。<br>
+修改后又出现一个提交记录，1个Issue有2个提交记录，看着不舒服。<br>
+这时候用以下方式处理。</p>
+<pre><code>$ git rebase -i HEAD~2      --2代表要修改最近2个记录
+</code></pre><p><a href="https://limingxie.github.io/images/git/git2.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git2.png" alt="2"></p>
+<p><strong>2. 调整顺序</strong></p>
+<p><code>git merge</code>语法是按照时间顺序合并代码的。<br>
+<code>图1</code>所示<code>merge是时间的顺序</code>来合并代码的。</p>
+<pre><code>master: m1 -&gt; m2 -&gt; m3
+dev: d1 -&gt; d2
+==&gt;    -- 合并的代码记录是按照时间的排序
+master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3 
+</code></pre><p>当开发到 m2 的时候我们发布了一个版本，合并了d1,d2后发布出现问题了。<br>
+我们现在急需回滚，到 m2 的版本。<br>
+怎么回滚？ 回滚到m2吗？ m1吗？ 这提交记录怎么这么乱 .. .. ㅠㅠ</p>
+<p>我们希望看到的提交记录是</p>
+<pre><code>master: m1 -&gt; m2 -&gt; m3 -&gt; d1 -&gt; d2
+</code></pre><p>这时候我们不能用merge，而是要用rebaes合并代码。</p>
+<pre><code>$ git rebase master     --在dev分支先把master分支的记录拉倒自己的底下...
+</code></pre><p><a href="https://limingxie.github.io/images/git/git3.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git3.png" alt="3"></p>
+<h3 id="-分支branch管理策略"><strong>◆ 分支branch管理策略</strong></h3>
+<p>那我们如运用merge和rebase管理分支呢？<br>
+一般我们是以工单Issue的单位做开发。</p>
+<pre><code>1. 先从远程仓库拉取最新代码。 git pull upstream master  
+2. 创建Issue分支。 git checkout -b Issue_1  
+3. 开发完成后，向远程仓库发出合并请求(+ CodeReview)。 Merge Requests Issue_1  
+</code></pre>
+<p>如图4所示。</p>
+<p><a href="https://limingxie.github.io/images/git/git4.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git4.png" alt="4"></p>
+<p><strong>解决冲突</strong></p>
+<p>好几个人一起开发冲突是难免的， 那发生冲突如何解决呢？</p>
+<p>举例子：<br>
+你接到了Issue_2的事项。<br>
+这时远程仓库的代码是合并了Issue_1的事项。<br>
+你在本地库(master-local)里先把最新的代码拉过来。<br>
+创建Issue_2的分支进行开发。</p>
+<p><a href="https://limingxie.github.io/images/git/git5_1.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git5_1.png" alt="51"></p>
+<p>你开发完成以后，发合并请求的时候发现:<br>
+有个“缺德”的开发者已经处理好Issue_3的事项，而且已经合并到主分支。<br>
+怎么办？</p>
+<ol>
+<li>本地master分支从新拉取最新代码。</li>
+<li>然后切换到Issue_2的分支。</li>
+<li>git rebase master。</li>
+<li>push Issue_2分支。(如果之前提交过一次，需要用&ndash;force 强推)</li>
+<li>发合并请求。(如果之前发过，做到push分支代码的步骤就可以，不用再发合并请求。)</li>
+</ol>
+<p><a href="https://limingxie.github.io/images/git/git5_2.png">图片备用地址</a><br>
+<img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git5_2.png" alt="52"></p>
+<p>从新整理一下命令的顺序&hellip;^^<br>
+当发生冲突的时候：</p>
+<pre><code>1. git checkout master
+2. git pull upstream master
+3. git checkout Issue_2
+4. git rebase master
+5. git push origin Issue_2:Issue_2 --force   //因为rebase是修改历史记录，有提交过的话需要强推。
+</code></pre>
+<p>还是不明白的话可以细细的再看图5.2。<br>
+还是不明白的话先把上面的几个命令语强行背了。<br>
+多用几次有一天你会明白为什么这么做了&hellip;^^</p>
+<p>能把merge和rebase玩透了，一般的分支管理就难不到你了。<br>
+如果加上cherry-pick的熟悉运用的话，那就更不得了了&hellip;^^<br>
+(但是你只知道这些，仍然是个菜鸟。包括我，哈哈~)</p>
+<p>下一遍文章继续介绍cherry-pick的简单应用。<br>
+<a href="https://limingxie.github.io/git/git_cherry_pick/">git命令cherry-pick的简单应用</a></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/merge/" rel="tag">merge</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/rebase/" rel="tag">rebase</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/system/git/git_cherry_pick/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">git命令 cherry-pick 的使用简介</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/database/redis/redis_02/">【redis笔记】redis_配置文件(2)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/database/redis/redis_01/">【redis笔记】redis_常用命令(1)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/docker/docker_02/">【docker笔记】docker_常用命令(2)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/docker/docker_01/">【docker笔记】docker_常用命令(1)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_15/">【linux笔记】linux入门简介_正则(14)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/linux/linux_13/">【linux笔记】linux入门简介_shell基础(13)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
