@@ -6,9 +6,45 @@
     <description>Recent content in kubernetes on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Aug 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Aug 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>【kubernetes】k8s_Pod调度(04)</title>
+      <title>【kubernetes笔记】k8s_配置管理Secret(8)</title>
+      <link>https://limingxie.github.io/system/kubernetes/k8s_08/</link>
+      <pubDate>Sun, 28 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/system/kubernetes/k8s_08/</guid>
+      <description>&lt;p&gt;这一篇整理了配置管理Secret相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_service(07)</title>
+      <link>https://limingxie.github.io/system/kubernetes/k8s_07/</link>
+      <pubDate>Sat, 27 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/system/kubernetes/k8s_07/</guid>
+      <description>&lt;p&gt;这一篇整理了service相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_controller控制器(06)</title>
+      <link>https://limingxie.github.io/system/kubernetes/k8s_06/</link>
+      <pubDate>Fri, 26 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/system/kubernetes/k8s_06/</guid>
+      <description>&lt;p&gt;这一篇整理了controller相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_controller控制器(05)</title>
+      <link>https://limingxie.github.io/system/kubernetes/k8s_05/</link>
+      <pubDate>Thu, 25 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/system/kubernetes/k8s_05/</guid>
+      <description>&lt;p&gt;这一篇整理了控制器controller(deployment)相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_Pod调度(04)</title>
       <link>https://limingxie.github.io/system/kubernetes/k8s_04/</link>
       <pubDate>Wed, 24 Aug 2022 23:28:49 +0800</pubDate>
       
@@ -17,7 +53,7 @@
     </item>
     
     <item>
-      <title>【kubernetes】k8s_Pod简介(03)</title>
+      <title>【kubernetes笔记】k8s_Pod简介(03)</title>
       <link>https://limingxie.github.io/system/kubernetes/k8s_03/</link>
       <pubDate>Tue, 23 Aug 2022 23:28:49 +0800</pubDate>
       
@@ -26,7 +62,7 @@
     </item>
     
     <item>
-      <title>【kubernetes】k8s_kubectl(02)</title>
+      <title>【kubernetes笔记】k8s_kubectl(02)</title>
       <link>https://limingxie.github.io/system/kubernetes/k8s_02/</link>
       <pubDate>Mon, 22 Aug 2022 23:28:49 +0800</pubDate>
       
@@ -35,7 +71,7 @@
     </item>
     
     <item>
-      <title>【kubernetes】k8s_简介(01)</title>
+      <title>【kubernetes笔记】k8s_简介(01)</title>
       <link>https://limingxie.github.io/system/kubernetes/k8s_01/</link>
       <pubDate>Mon, 22 Aug 2022 23:28:49 +0800</pubDate>
       
