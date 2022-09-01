@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这一篇整理了service相关的内容。">
 <meta itemprop="datePublished" content="2022-08-27T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-27T23:28:49+08:00" />
-<meta itemprop="wordCount" content="15">
+<meta itemprop="wordCount" content="182">
 
 
 
@@ -148,6 +148,11 @@
     <li><a href="#1service的作用">1.Service的作用</a></li>
     <li><a href="#2service和pod的关系">2.Service和Pod的关系</a></li>
     <li><a href="#3常用的service类型">3.常用的Service类型</a></li>
+    <li><a href="#4简单例子">4.简单例子</a></li>
+    <li><a href="#5nodeport">5.NodePort</a></li>
+    <li><a href="#6loadbalancer">6.LoadBalancer</a></li>
+    <li><a href="#7externalname">7.ExternalName</a></li>
+    <li><a href="#8分配公有ip">8.分配公有IP</a></li>
   </ul>
 </nav>
 	</div>
@@ -167,7 +172,103 @@
 <li>LoadBalancer: 对外访问应用使用，公有云</li>
 </ul>
 <p>内部网部署应用，外网一般不能访问到的</p>
-<hr>
+<h2 id="4简单例子">4.简单例子</h2>
+<p>Service代理携带app=hostnames标签的Pod。<br>
+这个Service的80端口，代理的是Pod的9376端口。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hostnames</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">hostnames</span>
+  <span style="color:#f92672">ports</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">default</span>
+    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">9376</span>
+</code></pre></div><p>应用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hostnames</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">hostnames</span>
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">hostnames</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hostnames</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">k8s.gcr.io/serve_hostname</span>
+        <span style="color:#f92672">ports</span>:
+        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">9376</span>
+          <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</code></pre></div><p>查看部署情况</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get endpoints hostnames
+NAME        ENDPOINTS
+hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
+</code></pre></div><h2 id="5nodeport">5.NodePort</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-nginx</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">run</span>: <span style="color:#ae81ff">my-nginx</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+  <span style="color:#f92672">ports</span>:
+  - <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">8080</span>
+    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
+  - <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">443</span>
+    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">https</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">run</span>: <span style="color:#ae81ff">my-nginx</span>
+</code></pre></div><p><code>&lt;宿主机的IP地址&gt;:8080</code> 能访问 =&gt; 某一个被代理的 Pod 的 80 端口</p>
+<h2 id="6loadbalancer">6.LoadBalancer</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example-service</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">ports</span>:
+  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8765</span>
+    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">9376</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">example</span>
+  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">LoadBalancer</span>
+</code></pre></div><h2 id="7externalname">7.ExternalName</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-service</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">ExternalName</span>
+  <span style="color:#f92672">externalName</span>: <span style="color:#ae81ff">my.database.example.com</span>
+</code></pre></div><h2 id="8分配公有ip">8.分配公有IP</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-service</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">MyApp</span>
+  <span style="color:#f92672">ports</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
+    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">9376</span>
+  <span style="color:#f92672">externalIPs</span>:
+  - <span style="color:#ae81ff">80.11.12.10</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -227,12 +328,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_10/">【kubernetes笔记】k8s_ingress(9)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_09/">【kubernetes笔记】k8s_集群安全机制(9)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_08/">【kubernetes笔记】k8s_配置管理Secret和configMap(8)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_07/">【kubernetes笔记】k8s_service(07)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_06/">【kubernetes笔记】k8s_controller控制器(06)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_05/">【kubernetes笔记】k8s_controller控制器(05)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_04/">【kubernetes笔记】k8s_Pod调度(04)</a></li>
 		</ul>
 	</div>
 </div>
@@ -298,7 +399,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">9</span>
+				<span class="widget__counter widget__counter--bubble">10</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
