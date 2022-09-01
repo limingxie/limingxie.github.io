@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这一篇整理了ingress相关的内容。">
 <meta itemprop="datePublished" content="2022-08-30T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-30T23:28:49+08:00" />
-<meta itemprop="wordCount" content="80">
+<meta itemprop="wordCount" content="71">
 
 
 
@@ -146,76 +146,60 @@
 		<nav id="TableOfContents">
   <ul>
     <li><a href="#1概述">1.概述</a></li>
-    <li><a href="#11-第一步认证">1.1 第一步：认证</a></li>
-    <li><a href="#12-第二步授权">1.2 第二步：授权</a></li>
-    <li><a href="#13-第三步准入控制">1.3 第三步：准入控制</a></li>
-    <li><a href="#2rbac-基于角色的访问控制">2.RBAC 基于角色的访问控制</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#3rbac-实践授权">3.RBAC 实践授权</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
+    <li><a href="#2ingress工作原理">2.Ingress工作原理</a></li>
+    <li><a href="#3简单例子">3.简单例子</a></li>
   </ul>
 </nav>
 	</div>
 </div><div class="content post__content clearfix">
 			<p>这一篇整理了ingress相关的内容。</p>
+<p>Kubernetes 暴露服务的有三种方式：<br>
+分别为 LoadBlancer Service、NodePort Service、Ingress。</p>
 <h2 id="1概述">1.概述</h2>
-<p>访问集群时，需要经过三个步骤。</p>
-<ol>
-<li>认证</li>
-<li>授权</li>
-<li>准入控制</li>
-</ol>
+<p>全局的、为了代理不同后端Service而设置的负载均衡服务，<br>
+就是Kubernetes里的Ingress 服务。</p>
 <blockquote>
-<p>访问时都需要经过apiserver做统一协调</p>
+<p>所谓 Ingress，就是 Service 的“Service”</p>
 </blockquote>
-<h2 id="11-第一步认证">1.1 第一步：认证</h2>
-<p>传输安全：对外不暴露8080端口，只能内部访问，对完使用6443</p>
-<p>客户端身份认证的常用方式</p>
+<p><a href="https://limingxie.github.io/images/system/kubernetes/ingress_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kubernetes/ingress_02.png" alt="ingress_02"></p>
+<h2 id="2ingress工作原理">2.Ingress工作原理</h2>
 <ul>
-<li>https 证书认证（ca）</li>
-<li>http token认证</li>
-<li>http 基本认证：用户名 + 密码</li>
+<li>ingress controller通过和kubernetes api交互，动态的去感知集群中ingress规则变化。</li>
+<li>然后读取它，按照自定义的规则，规则就是写明了那个域名对应哪个service，生成一段nginx配置。</li>
+<li>在写到nginx-ingress-controller的pod里，这个Ingress controller的pod里运行着一个Nginx服务，控制器会把生成的nginx配置写入/etc/nginx.conf文件中。</li>
+<li>然后reload一下使配置生效，以此达到分配和动态更新问题。</li>
 </ul>
-<h2 id="12-第二步授权">1.2 第二步：授权</h2>
-<ul>
-<li>基于RBAC授权操作</li>
-<li>基于角色访问控制</li>
-</ul>
-<h2 id="13-第三步准入控制">1.3 第三步：准入控制</h2>
-<p>如果准入控制的列表有请求内容就通过，没有则拒绝。</p>
-<h2 id="2rbac-基于角色的访问控制">2.RBAC 基于角色的访问控制</h2>
-<h4 id="角色">角色</h4>
-<ul>
-<li><strong><code>role</code></strong>: 特定命名空间访问权限</li>
-<li><strong><code>ClusterRole</code></strong>: 所有命名空间访问权限</li>
-</ul>
-<h4 id="角色绑定">角色绑定</h4>
-<ul>
-<li><strong><code>roleBinding</code></strong>: 角色绑定到主体</li>
-<li><strong><code>ClusterRoleBinding</code></strong>: 集群角色绑定到主体</li>
-</ul>
-<h4 id="主体">主体</h4>
-<ul>
-<li><strong><code>user</code></strong>: 用户</li>
-<li><strong><code>group</code></strong>: 用户组</li>
-<li><strong><code>serviceAccount</code></strong>: 服务账号</li>
-</ul>
-<h2 id="3rbac-实践授权">3.RBAC 实践授权</h2>
-<h4 id="31-创建命名空间">3.1 创建命名空间</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl create ns roledemo
-</code></pre></div><h4 id="32-在新创建的命名空间创建pod">3.2 在新创建的命名空间创建Pod</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl run nginx --image<span style="color:#f92672">=</span>nginx -n roledemo
-</code></pre></div><h4 id="33-创建角色">3.3 创建角色</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl get role -b roledemo
-</code></pre></div><h4 id="34-创建角色绑定">3.4 创建角色绑定</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl get role.rolebinding -n roledemo
-</code></pre></div><h4 id="35-使用证书识别身份">3.5 使用证书识别身份</h4>
+<h2 id="3简单例子">3.简单例子</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">extensions/v1beta1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cafe-ingress</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">tls</span>:
+  - <span style="color:#f92672">hosts</span>:
+    - <span style="color:#ae81ff">cafe.example.com</span>
+    <span style="color:#f92672">secretName</span>: <span style="color:#ae81ff">cafe-secret</span>
+  <span style="color:#f92672">rules</span>:
+  - <span style="color:#f92672">host</span>: <span style="color:#ae81ff">cafe.example.com</span>
+    <span style="color:#f92672">http</span>:
+      <span style="color:#f92672">paths</span>:
+      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tea</span>
+        <span style="color:#f92672">backend</span>:
+          <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">tea-svc</span>
+          <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/coffee</span>
+        <span style="color:#f92672">backend</span>:
+          <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">coffee-svc</span>
+          <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>host字段是这个Ingress的入口。<br>
+当用户访问cafe.example.com的时候，实际上访问到的是这个Ingress对象。<br>
+Kubernetes就能使用IngressRule来对你的请求进行下一步转发。<br>
+之后通过path字段访问相对应的Service。</p>
+<blockquote>
+<p>在实际的使用中，需要从社区里选择一个具体的Ingress Controller，把它部署在Kubernetes集群</p>
+</blockquote>
+<!-- raw HTML omitted -->
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
