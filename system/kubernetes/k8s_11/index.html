@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【kubernetes笔记】k8s_helm(11) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【kubernetes笔记】k8s_helm(11)" />
+<meta property="og:description" content="这一篇整理了helm相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/system/kubernetes/k8s_11/" />
+<meta property="article:published_time" content="2022-08-31T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-08-31T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【kubernetes笔记】k8s_helm(11)">
+<meta itemprop="description" content="这一篇整理了helm相关的内容。">
+<meta itemprop="datePublished" content="2022-08-31T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-08-31T23:28:49+08:00" />
+<meta itemprop="wordCount" content="265">
+
+
+
+<meta itemprop="keywords" content="kubernetes," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/system/">
+				
+				<span class="menu__text">系统环境</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【kubernetes笔记】k8s_helm(11)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-31T23:28:49&#43;08:00">2022-08-31</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/kubernetes/" rel="category">kubernetes</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1helm-引入">1.Helm 引入</a></li>
+    <li><a href="#2helm-介绍">2.Helm 介绍</a></li>
+    <li><a href="#3helm-安装">3.Helm 安装</a></li>
+    <li><a href="#4配置国内-chart-仓库">4.配置国内 chart 仓库</a></li>
+    <li><a href="#5创建chart">5.创建chart</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#6高效复用">6.高效复用</a></li>
+    <li><a href="#helm-常用命令">helm 常用命令</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了helm相关的内容。</p>
+<h2 id="1helm-引入">1.Helm 引入</h2>
+<p>如果使用之前的方式部署应用，少数的服务应用比较合适。<br>
+.yaml =&gt; Deployment =&gt; Service =&gt; Ingress<br>
+部署多个服务的时候，需要维护大量的yaml文件，版本管理也不方便。</p>
+<p>引入Helm解决一下问题。</p>
+<ol>
+<li>使用Helm可以把这些yaml作为一个整体管理</li>
+<li>时间yaml高效复用</li>
+<li>使用helm应用级别的版本管理</li>
+</ol>
+<h2 id="2helm-介绍">2.Helm 介绍</h2>
+<p>Helm 是一个Kubernetes的包管理工具，就像Linux下的包管理器，如 yum/apt 等，<br>
+可以很方便的将之前打包好的yaml文件部署到kubernetes上。</p>
+<p>Helm 有 3 个重要概念:</p>
+<ul>
+<li><strong><code>(1)helm</code></strong>: 一个命令行客户端工具，主要用于 Kubernetes 应用 chart 的创建、打包、发 布和管理。</li>
+<li><strong><code>(2)Chart</code></strong>: 应用描述，一系列用于描述 k8s 资源相关文件的集合。</li>
+<li><strong><code>(3)Release</code></strong>: 基于 Chart 的部署实体，一个 chart 被 Helm 运行后将会生成对应的一个 release;将在 k8s 中创建出真实运行的资源对象。</li>
+</ul>
+<h2 id="3helm-安装">3.Helm 安装</h2>
+<p>Helm 客户端下载地址:<a href="https://github.com/helm/helm/releases">https://github.com/helm/helm/releases</a>
+解压移动到/usr/bin/目录即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$wget &lt;https://get.helm.sh/helm-vv3.2.1-linux-amd64.tar.gz&gt;
+$tar zxvf helm-v3.2.1-linux-amd64.tar.gz
+$mv linux-amd64/helm /usr/bin/
+</code></pre></div><h2 id="4配置国内-chart-仓库">4.配置国内 chart 仓库</h2>
+<ul>
+<li>微软仓库(<a href="http://mirror.azure.cn/kubernetes/charts/">http://mirror.azure.cn/kubernetes/charts/</a>)这个仓库推荐，基本 上官网有的 chart 这里都有。</li>
+<li>阿里云仓库(<a href="https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts">https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts</a> )</li>
+<li>官方仓库(<a href="https://hub.kubeapps.com/charts/incubator">https://hub.kubeapps.com/charts/incubator</a>)官方 chart 仓库，国 内有点不好使。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#添加存储库</span>
+$helm repo add stable http://mirror.azure.cn/kubernetes/charts
+$helm repo add aliyun https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts helm repo update
+<span style="color:#75715e">#查看配置的存储库</span>
+$helm repo list
+$helm search repo stable
+<span style="color:#75715e">#删除存储库:</span>
+$helm repo remove aliyun
+
+<span style="color:#75715e">#基本使用</span>
+chart install
+chart upgrade
+chart rollback
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#查找 chart</span>
+$helm search repo weave
+
+<span style="color:#75715e">#安装包</span>
+$helm install ui stable/weave-scope
+
+<span style="color:#75715e">#查看发布状态 </span>
+$helm list
+$helm status ui
+</code></pre></div><ul>
+<li>需要把Service的yaml文件的type 改为NodePort</li>
+</ul>
+<h2 id="5创建chart">5.创建chart</h2>
+<h4 id="51-创建命令">5.1 创建命令</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$helm create mychart
+$ls 
+charts chart.yaml templates values.yaml
+</code></pre></div><ul>
+<li>chart yaml: 当前chart属性配置信息</li>
+<li>templates: 编写yaml文件放到这个目录中</li>
+<li>values.yaml: yaml文件可以使用全局变量</li>
+</ul>
+<h4 id="52-templates文件夹创建两个文件">5.2 templates文件夹创建两个文件</h4>
+<ul>
+<li>deployment.yaml</li>
+<li>service.yaml</li>
+</ul>
+<h4 id="53-安装mychart">5.3 安装mychart</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$helm install web1 mychart/
+</code></pre></div><h4 id="54-应用升级">5.4 应用升级</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$helm upgrade chart名称
+
+$helm upgrade web mychart/
+</code></pre></div><h2 id="6高效复用">6.高效复用</h2>
+<p>通过传递参数，动态渲染模板，yaml内容动态传入参数生成<br>
+在chart有values.yaml文件，定义yaml文件全局变量</p>
+<ol>
+<li>在values.yaml定义变量和值</li>
+<li>在具体yaml文件，获取定义变量值</li>
+</ol>
+<p>yaml文件几个不同地方</p>
+<ul>
+<li>image</li>
+<li>tag</li>
+<li>label</li>
+<li>port</li>
+<li>replicas</li>
+</ul>
+<p>在values.yaml定义变量和值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">replicas: <span style="color:#ae81ff">1</span>
+image: nginx
+tag: 1.16
+label: nginx
+port: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>在templates的yaml文件使用values.yaml定义变量</p>
+<p>通过表达式形式使用全局变量
+{{ .values.变量名称}}  =&gt; {{.Release.Name}}</p>
+<h2 id="helm-常用命令">helm 常用命令</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>create</td>
+<td>创建一个 chart 并指定名字</td>
+</tr>
+<tr>
+<td>dependency</td>
+<td>管理 chart 依赖</td>
+</tr>
+<tr>
+<td>get</td>
+<td>下载一个 release。可用子命令:all、hooks、manifest、notes、values</td>
+</tr>
+<tr>
+<td>history</td>
+<td>获取 release 历史</td>
+</tr>
+<tr>
+<td>install</td>
+<td>安装一个 chart</td>
+</tr>
+<tr>
+<td>list</td>
+<td>列出 release</td>
+</tr>
+<tr>
+<td>package</td>
+<td>将 chart 目录打包到 chart 存档文件中</td>
+</tr>
+<tr>
+<td>pull</td>
+<td>从远程仓库中下载 chart 并解压到本地 # helm pull stable/mysql &ndash; untar</td>
+</tr>
+<tr>
+<td>repo</td>
+<td>添加，列出，移除，更新和索引 chart 仓库。可用子命令:add、index、 list、remove、update</td>
+</tr>
+<tr>
+<td>rollback</td>
+<td>从之前版本回滚</td>
+</tr>
+<tr>
+<td>search</td>
+<td>根据关键字搜索 chart。可用子命令:hub、repo</td>
+</tr>
+<tr>
+<td>show</td>
+<td>查看 chart 详细信息。可用子命令:all、chart、readme、values</td>
+</tr>
+<tr>
+<td>status</td>
+<td>显示已命名版本的状态</td>
+</tr>
+<tr>
+<td>template</td>
+<td>本地呈现模板</td>
+</tr>
+<tr>
+<td>uninstall</td>
+<td>卸载一个 release</td>
+</tr>
+<tr>
+<td>upgrade</td>
+<td>更新一个 release</td>
+</tr>
+<tr>
+<td>version</td>
+<td>查看 helm 客户端版本</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/kubernetes/" rel="tag">kubernetes</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/system/kubernetes/k8s_10/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【kubernetes笔记】k8s_ingress(10)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_11/">【kubernetes笔记】k8s_helm(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_10/">【kubernetes笔记】k8s_ingress(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_09/">【kubernetes笔记】k8s_集群安全机制(9)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_08/">【kubernetes笔记】k8s_配置管理Secret和configMap(8)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_07/">【kubernetes笔记】k8s_service(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/system/kubernetes/k8s_06/">【kubernetes笔记】k8s_controller控制器(06)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
