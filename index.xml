@@ -6,7 +6,43 @@
     <description>Recent content on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 01 Sep 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Sep 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【golang笔记】go_运算符(4)</title>
+      <link>https://limingxie.github.io/go/golang_04/</link>
+      <pubDate>Mon, 05 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/golang_04/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang运算符相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_指针(3)</title>
+      <link>https://limingxie.github.io/go/golang_03/</link>
+      <pubDate>Sun, 04 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/golang_03/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang指针类型相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_变量的基本类型(2)</title>
+      <link>https://limingxie.github.io/go/golang_02/</link>
+      <pubDate>Sat, 03 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/golang_02/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang的变量类型相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_概述(1)</title>
+      <link>https://limingxie.github.io/go/golang_01/</link>
+      <pubDate>Fri, 02 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/golang_01/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang的基础内容。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【kubernetes笔记】k8s_持久化PVC和PV(12)</title>
       <link>https://limingxie.github.io/system/kubernetes/k8s_12/</link>
@@ -1342,10 +1378,10 @@ Promise对象用来封装一个异步操作并可以获取成功或失败的结�
     
     <item>
       <title>【网络协议笔记】第四层:传输层(Transport)以及UPD协议简介</title>
-      <link>https://limingxie.github.io/system/network/4_-transport__udp/</link>
+      <link>https://limingxie.github.io/system/network/4_-transport_udp/</link>
       <pubDate>Thu, 14 Apr 2022 21:05:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/system/network/4_-transport__udp/</guid>
+      <guid>https://limingxie.github.io/system/network/4_-transport_udp/</guid>
       <description>&lt;h2 id=&#34;1传输层transport&#34;&gt;1.传输层（Transport）&lt;/h2&gt;
 &lt;p&gt;TCP和UDP的区别：
 &lt;a href=&#34;https://limingxie.github.io/images/network/transport/tcp_udp.png&#34;&gt;图片备用地址&lt;/a&gt;&lt;br&gt;
@@ -1354,10 +1390,10 @@ Promise对象用来封装一个异步操作并可以获取成功或失败的结�
     
     <item>
       <title>【网络协议笔记】第三层:网络层(Network)简介</title>
-      <link>https://limingxie.github.io/system/network/3_-network-copy/</link>
+      <link>https://limingxie.github.io/system/network/3_-network/</link>
       <pubDate>Wed, 13 Apr 2022 19:05:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/system/network/3_-network-copy/</guid>
+      <guid>https://limingxie.github.io/system/network/3_-network/</guid>
       <description>&lt;p&gt;网络层数据包（IP数据包：Packet）由首部、数据2部分组成。&lt;br&gt;
 &lt;strong&gt;数据:&lt;/strong&gt; 由传输层传递下来的数据段(Segment)。&lt;/p&gt;</description>
     </item>
