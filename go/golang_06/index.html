@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这一篇简单的整理了golang函数的基本内容。">
 <meta itemprop="datePublished" content="2022-09-07T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-07T23:28:49+08:00" />
-<meta itemprop="wordCount" content="381">
+<meta itemprop="wordCount" content="444">
 
 
 
@@ -161,6 +161,7 @@
       </ul>
     </li>
     <li><a href="#4闭包">4.闭包</a></li>
+    <li><a href="#5defer">5.defer</a></li>
   </ul>
 </nav>
 	</div>
@@ -346,6 +347,33 @@ main<span style="color:#f92672">()</span>... aa <span style="color:#f92672">=</s
 </span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;文件名处理 =&#34;</span>, <span style="color:#a6e22e">f</span>(<span style="color:#e6db74">&#34;bb.jpg&#34;</span>)) <span style="color:#75715e">//bb.jpg
 </span><span style="color:#75715e"></span>}
 </code></pre></div><hr>
+<h2 id="5defer">5.defer</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">n1</span>, <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+ <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;n1 =&#34;</span>, <span style="color:#a6e22e">n1</span>)
+ <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;n2 =&#34;</span>, <span style="color:#a6e22e">n2</span>)
+ <span style="color:#a6e22e">n1</span><span style="color:#f92672">++</span>
+ <span style="color:#a6e22e">n2</span><span style="color:#f92672">++</span>
+ <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">n2</span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;n1 + n2 =&#34;</span>, <span style="color:#a6e22e">result</span>)
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;sum =&#34;</span>, <span style="color:#a6e22e">sum</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>))
+}
+</code></pre></div><p><strong>执行结果</strong></p>
+<pre><code>$ go run main.go
+n1 + n2 = 32
+n2 = 20
+n1 = 10
+sum = 32
+</code></pre><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -382,6 +410,12 @@ main<span style="color:#f92672">()</span>... aa <span style="color:#f92672">=</s
 			<p class="pager__title">【golang笔记】go_二进制计算(5)</p>
 		</a>
 	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/go/golang_07/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【golang笔记】go_字符串函数(7)</p>
+		</a>
+	</div>
 </nav>
 
 
@@ -399,12 +433,12 @@ main<span style="color:#f92672">()</span>... aa <span style="color:#f92672">=</s
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/go/golang_06/">【golang笔记】go_函数(6)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/go/golang_05/">【golang笔记】go_二进制计算(5)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/go/golang_04/">【golang笔记】go_运算符(4)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/go/golang_03/">【golang笔记】go_指针(3)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/go/golang_02/">【golang笔记】go_变量的基本类型(2)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/go/golang_01/">【golang笔记】go_概述(1)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/golang_13/">【golang笔记】go_封装encapsulation(13)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/golang_12/">【golang笔记】go_结构体struct(12)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/golang_11/">【golang笔记】go_映射map(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/golang_10/">【golang笔记】go_二维数组(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/golang_09/">【golang笔记】go_数组和切片slice(9)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/go/golang_08/">【golang笔记】go_error处理(8)</a></li>
 		</ul>
 	</div>
 </div>
@@ -450,7 +484,7 @@ main<span style="color:#f92672">()</span>... aa <span style="color:#f92672">=</s
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">18</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
