@@ -20,7 +20,7 @@ Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、
 Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、通信。">
 <meta itemprop="datePublished" content="2022-09-22T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-22T07:28:49+08:00" />
-<meta itemprop="wordCount" content="1245">
+<meta itemprop="wordCount" content="1377">
 
 
 
@@ -175,6 +175,8 @@ Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、
       </ul>
     </li>
     <li><a href="#8常用的开发模式">8.常用的开发模式</a></li>
+    <li><a href="#81-普通的channel阻塞模式">8.1 普通的Channel阻塞模式</a></li>
+    <li><a href="#82-syncwaitgrou模式">8.2 sync.WaitGrou模式</a></li>
     <li><a href="#9channel结构简介">9.Channel结构简介</a>
       <ul>
         <li></li>
@@ -668,10 +670,11 @@ num<span style="color:#f92672">=</span>0, ok<span style="color:#f92672">=</span>
 <ul>
 <li>需要处理的资源</li>
 <li>N个处理任务协程</li>
-<li>1个判断N个协程是否结束的chan</li>
+<li>需要上述的协程都处理好了的判断逻辑</li>
 </ul>
 <p>看看下列例子
 求1~80000中获取 2000倍数的数字</p>
+<h2 id="81-普通的channel阻塞模式">8.1 普通的Channel阻塞模式</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
 <span style="color:#f92672">import</span> (
@@ -734,6 +737,68 @@ num<span style="color:#f92672">=</span>0, ok<span style="color:#f92672">=</span>
   <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
    <span style="color:#66d9ef">break</span>
   }
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+ }
+}
+</code></pre></div><p>上述问题是用Channel的阻塞实现了，所有协程的等待。<br>
+使用<code>sync.WaitGroup</code>会时间的更轻松。</p>
+<h2 id="82-syncwaitgrou模式">8.2 sync.WaitGrou模式</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;sync&#34;</span>
+)
+
+<span style="color:#75715e">//给管道写入数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">80000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+ close(<span style="color:#a6e22e">intChan</span>)
+}
+
+<span style="color:#75715e">//计算2000的倍数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#75715e">//如果 ok =false 说明管道已没数据，退出循环
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+   <span style="color:#75715e">//退出时告诉wg已结束
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+   <span style="color:#66d9ef">break</span>
+  }
+
+  <span style="color:#75715e">//如果是2000的倍数放入到保存结果的channel中
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2000</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+   <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">num</span>
+  }
+ }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#75715e">//要是用的协程数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">4</span>
+ <span style="color:#75715e">//创建3个管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)  <span style="color:#75715e">// 输入数据，资源
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10000</span>) <span style="color:#75715e">// 计算素数结果的管道
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">n</span>) <span style="color:#75715e">// 判断所有的协程都结束
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//输入数据
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span>)
+
+ <span style="color:#75715e">//启用协程计算2000的倍数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>)
+ }
+
+ <span style="color:#75715e">//等待所有的协程结束
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+ close(<span style="color:#a6e22e">resChan</span>)
+
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">resChan</span> {
   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
  }
 }
