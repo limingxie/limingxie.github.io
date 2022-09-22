@@ -20,7 +20,7 @@ Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、
 Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、通信。">
 <meta itemprop="datePublished" content="2022-09-22T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-22T07:28:49+08:00" />
-<meta itemprop="wordCount" content="1159">
+<meta itemprop="wordCount" content="1245">
 
 
 
@@ -175,6 +175,11 @@ Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、
       </ul>
     </li>
     <li><a href="#8常用的开发模式">8.常用的开发模式</a></li>
+    <li><a href="#9channel结构简介">9.Channel结构简介</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 	</div>
@@ -732,7 +737,37 @@ num<span style="color:#f92672">=</span>0, ok<span style="color:#f92672">=</span>
   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
  }
 }
-</code></pre></div><hr>
+</code></pre></div><h2 id="9channel结构简介">9.Channel结构简介</h2>
+<h4 id="91-数据结构">9.1 数据结构</h4>
+<p><strong><code>runtime/chan.go</code></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hchan</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">qcount</span>   <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 队列中剩余元素
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">dataqsiz</span> <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 队列长度，eg make(chan int64, 5), dataqsiz为5
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">buf</span>      <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// 数据存储环形数组
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">elemsize</span> <span style="color:#66d9ef">uint16</span>         <span style="color:#75715e">// 每个元素的大小
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">closed</span>   <span style="color:#66d9ef">uint32</span>         <span style="color:#75715e">// 是否关闭 0 未关闭
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">elemtype</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">_type</span>         <span style="color:#75715e">// 元素类型
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sendx</span>    <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 发送者写入位置
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">recvx</span>    <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 接受者读数据位置
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">recvq</span>    <span style="color:#a6e22e">waitq</span>          <span style="color:#75715e">// 接收者队列，保存正在读取channel的goroutine
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sendq</span>    <span style="color:#a6e22e">waitq</span>          <span style="color:#75715e">// 发送者队列，保存正在发送channel的goroutine
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">lock</span>     <span style="color:#a6e22e">mutex</span>          <span style="color:#75715e">// 锁
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p><strong>waitq 是双向链表，sudog 为 goroutine 的封装</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">waitq</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">first</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
+    <span style="color:#a6e22e">last</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
+}
+</code></pre></div><p><strong>var intChan chan int = make(chan int, 6)</strong></p>
+<p><a href="https://limingxie.github.io/images/go/channle/go_chan_struct.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/channel/go_chan_struct.png" alt="go_chan_struct"></p>
+<p>上图为一个长度为6，类型为int, 两个接收者，三个发送者的channel，当前接收者准备读数据的位置为0，发送者发送数据位置为4</p>
+<blockquote>
+<p>一般情况下recvq和sendq至少有一个为空。<br>
+只有一个例外，那就是同一个goroutine使用select语句向channel一边写数据,一边读数据。</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
