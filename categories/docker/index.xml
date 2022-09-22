@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 01 Aug 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【docker笔记】docker_常用命令(2)</title>
-      <link>https://limingxie.github.io/system/docker/docker_02/</link>
+      <link>https://limingxie.github.io/note/docker/docker_02/</link>
       <pubDate>Mon, 01 Aug 2022 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/system/docker/docker_02/</guid>
+      <guid>https://limingxie.github.io/note/docker/docker_02/</guid>
       <description>&lt;h2 id=&#34;1volumemount&#34;&gt;1.volume，mount&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -it -v /test:/soft centos /bin/bash
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
@@ -20,19 +20,19 @@
     
     <item>
       <title>【docker笔记】docker_常用命令(1)</title>
-      <link>https://limingxie.github.io/system/docker/docker_01/</link>
+      <link>https://limingxie.github.io/note/docker/docker_01/</link>
       <pubDate>Sun, 31 Jul 2022 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/system/docker/docker_01/</guid>
+      <guid>https://limingxie.github.io/note/docker/docker_01/</guid>
       <description>&lt;p&gt;这一篇整理了docker的常用命令。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Redis简单应用</title>
-      <link>https://limingxie.github.io/database/redis/redis/</link>
+      <link>https://limingxie.github.io/note/redis/redis/</link>
       <pubDate>Sun, 01 Jul 2018 07:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/database/redis/redis/</guid>
+      <guid>https://limingxie.github.io/note/redis/redis/</guid>
       <description>&lt;p&gt;这些天因为项目性能上的问题，采用了Redis缓存。&lt;br&gt;
 做了一些简单的笔记。&lt;/p&gt;</description>
     </item>

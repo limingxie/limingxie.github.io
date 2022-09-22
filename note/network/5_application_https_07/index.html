@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7)" />
+<meta property="og:description" content="这一篇整理了对称加密，非对称加密，数字签名，证书。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/network/5_application_https_07/" />
+<meta property="article:published_time" content="2022-04-24T18:05:49+08:00" />
+<meta property="article:modified_time" content="2022-04-24T18:05:49+08:00" />
+
+		<meta itemprop="name" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7)">
+<meta itemprop="description" content="这一篇整理了对称加密，非对称加密，数字签名，证书。">
+<meta itemprop="datePublished" content="2022-04-24T18:05:49+08:00" />
+<meta itemprop="dateModified" content="2022-04-24T18:05:49+08:00" />
+<meta itemprop="wordCount" content="228">
+
+
+
+<meta itemprop="keywords" content="OSI,https,code,status,network," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-04-24T18:05:49&#43;08:00">2022-04-24</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/network/" rel="category">network</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1对称加密">1.对称加密</a>
+      <ul>
+        <li><a href="#11-desdata-encryption-standard">1.1 DES（Data Encryption Standard）</a></li>
+        <li><a href="#12-3destriple-data-encryption-algorithm">1.2 3DES（Triple Data Encryption Algorithm）</a></li>
+        <li><a href="#13-aesadvanced-encryption-standard">1.3 AES（Advanced Encryption Standard）</a></li>
+        <li><a href="#14-密钥配送问题">1.4 密钥配送问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#2非对称加密">2.非对称加密</a>
+      <ul>
+        <li><a href="#21-公钥和私钥">2.1 公钥和私钥</a></li>
+        <li><a href="#22-解决密钥配送问题">2.2 解决密钥配送问题</a></li>
+        <li><a href="#23-rsa">2.3 RSA</a></li>
+        <li><a href="#24-混合密码系统hybrid-cryptosystem">2.4 混合密码系统（Hybrid Cryptosystem）</a></li>
+      </ul>
+    </li>
+    <li><a href="#3数字签名">3.数字签名</a>
+      <ul>
+        <li><a href="#31-数字签名过程">3.1 数字签名过程</a></li>
+        <li><a href="#32-非对称加密和数字签名对比">3.2 非对称加密和数字签名对比</a></li>
+        <li><a href="#33-公钥的合法性">3.3 公钥的合法性</a></li>
+      </ul>
+    </li>
+    <li><a href="#4证书">4.证书</a>
+      <ul>
+        <li><a href="#41-注册和下载">4.1 注册和下载</a></li>
+        <li><a href="#42-证书的使用">4.2 证书的使用</a></li>
+        <li><a href="#43-查看证书">4.3 查看证书</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了对称加密，非对称加密，数字签名，证书。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_51.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_51.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h2 id="1对称加密">1.对称加密</h2>
+<p>在对称加密中（也叫对称密码），加密和解密使用的是<strong>同一个密钥</strong>。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_52.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_52.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_53.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_53.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>常见的对称加密算法：</p>
+<ul>
+<li>DES</li>
+<li>3DES</li>
+<li>AES</li>
+</ul>
+<h3 id="11-desdata-encryption-standard">1.1 DES（Data Encryption Standard）</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_54.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_54.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>DES是一种将64bit明文加密成64bit密文的对称加密算法，密钥长度是56bit。</p>
+<p>规格上来说，密钥长度是64bit，但每隔7bit会设置一个用于错误检查的bit，因此密钥长度实质上是56bit。<br>
+由于DES每次只能加密64bit的数据，遇到比较大的数据，需要对DES加密进行迭代（反复）。<br>
+目前已经可以在短时间内被破解，所以不建议使用。</p>
+<h3 id="12-3destriple-data-encryption-algorithm">1.2 3DES（Triple Data Encryption Algorithm）</h3>
+<p>3DES，是将DES重复3次所得到的的一种密码算法，也叫做3重DES。</p>
+<p>三重DES并不是进行三次DES加密(<strong>加密 -&gt; 加密 -&gt; 加密</strong>)，而是<strong>加密 -&gt; 解密 -&gt; 加密</strong>的过程。<br>
+目前还被一些银行等机构使用，但处理速度不高，安全性逐渐暴露出问题。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_55.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_55.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>3个密钥都是不同的，也称为DES-EDE3。EDE是Encryption Decryption Encryption的缩写。<br>
+如果所有密钥都使用同一个，则结果与普通的DES是等价的。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_56.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_56.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>如果密钥1、密钥3相同，密钥2不同，称为DES-EDE2。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_57.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_57.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="13-aesadvanced-encryption-standard">1.3 AES（Advanced Encryption Standard）</h3>
+<p>AES是取代DES成为新标准的一种对称加密算法，又称为Rijndael加密法（算法发明人叫做Rijndael）。<br>
+AES的密钥长度有128、192、256bit三种。目前AES已经逐步取代DES、3DES，成为首选的对称加密算法。<br>
+一般来说，我们也不应该去使用任何自制的密码算法，而是应该使用AES。因为它经过了全世界密码学家所进行的高品质验证工作。</p>
+<h3 id="14-密钥配送问题">1.4 密钥配送问题</h3>
+<p>在使用对称加密时，一定会遇到密钥配送问题。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_58.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_58.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>如果Alice将使用对称加密过的消息发给了Bob，只有将密钥发送给Bob，Bob才能完成解密。<br>
+在发送密钥过程中，可能会被Eve窃取密钥，最后Eve也能完成解密。</p>
+<p>如何解决密钥配送问题？<br>
+有以下几种解决密钥配送的方法：</p>
+<ul>
+<li>事先共享密钥（比如私下共享）</li>
+<li>密钥分配中心（Key Distribution Center，简称KDC）</li>
+<li>Diffie-Hellman密钥交换</li>
+<li>非对称加密</li>
+</ul>
+<h2 id="2非对称加密">2.非对称加密</h2>
+<p>在<strong>非对称加密</strong>(Asymmetric Cryptography)中，密钥分为加密密钥、解密密钥2种，它们并不是同一个密钥。</p>
+<p><strong>加密密钥:</strong> 一般是公开的，因此该密钥称为公钥（public key）。因此，非对称加密也被称为公钥密码（Public-key Cryptography）。<br>
+<strong>解密密钥:</strong> 由消息接收者自己保管的，不能公开，因此也称为私钥（private key）。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_59.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_59.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_60.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_60.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="21-公钥和私钥">2.1 公钥和私钥</h3>
+<p>公钥和私钥是一一对应的，不能单独生成。一对公钥和私钥统称为密钥对（key pair）。<br>
+由公钥加密的密文，必须使用与该公钥对应的私钥才能解密。<br>
+由私钥加密的密文，必须使用与该私钥对应的公钥才能解密。<br>
+因为非对称加密算法更加复杂（安全），所以加密解密速度会比较慢（效率低）。相反而言，对称加密简单（不安全），所以加密解密速度更快（效率高）。</p>
+<h3 id="22-解决密钥配送问题">2.2 解决密钥配送问题</h3>
+<p>由消息的接收者生成一对公钥和私钥。将公钥发给消息的发送者，消息的发送者使用公钥加密消息。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_61.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_61.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="23-rsa">2.3 RSA</h3>
+<p>RSA的名字由它的3位开发者姓氏首字母组成（Rivest、Adi Shamir、Leonard Adleman），也是目前使用最广泛的非对称加密算法。</p>
+<h3 id="24-混合密码系统hybrid-cryptosystem">2.4 混合密码系统（Hybrid Cryptosystem）</h3>
+<p><strong>对称加密的缺点:</strong> 不能很好地解决密钥配送问题（密钥会被窃取）。<br>
+<strong>非对称加密的缺点:</strong> 加密解密速度比较慢。<br>
+<strong>混合密码系统:</strong> 是将对称加密和非对称加密的优势相结合的方法。<strong>解决了非对称加密速度慢的问题</strong>，并通过非对称加密解决了对称加密的密钥配送问题。</p>
+<p>网络上的密码通信所用的SSL/TLS都运用了混合密码系统。</p>
+<h4 id="241-混合密码-加密">2.4.1 混合密码-加密</h4>
+<p>会话密钥（session key）：</p>
+<ul>
+<li>为本次通信随机生成的临时密钥</li>
+<li>作为对称加密的密钥，用于加密消息，提高速度</li>
+</ul>
+<p>加密步骤（发送消息）：</p>
+<ul>
+<li>消息发送者要拥有消息接收者的公钥</li>
+<li>生成会话密钥，作为对称加密的密钥，加密消息</li>
+<li>用消息接收者的公钥，加密会话密钥</li>
+<li>将前2步生成的加密结果，一并发给消息接收者</li>
+</ul>
+<p>发送出去的内容包括：</p>
+<ul>
+<li>用会话密钥加密的消息（加密方法：对称加密）</li>
+<li>用公钥加密的会话密钥（加密方法：非对称加密）</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_62.jpeg">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_62.jpeg?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="242-混合密码-解密">2.4.2 混合密码-解密</h4>
+<p>解密步骤（收到消息）：</p>
+<ul>
+<li>消息接收者用自己的私钥解密出会话密钥</li>
+<li>再用第一步解密出来的会话密钥解密消息</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_63.jpeg">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_63.jpeg?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="243-混合密码-加密解密流程">2.4.3 混合密码-加密解密流程</h4>
+<p>场景：Alice发送消息给Bob。</p>
+<p>发送过程（加密过程）：</p>
+<ul>
+<li>Bob先生成一对公钥和私钥</li>
+<li>Bob把公钥共享给Alice</li>
+<li>Alice随机生成一个会话密钥（临时密钥）</li>
+<li>Alice用会话密钥加密需要发送的消息（使用的是对称加密）</li>
+<li>Alice用Bob的公钥加密会话密钥（使用的是非对称加密）</li>
+<li>Alice把第4、5步的加密结果一并发送给Bob</li>
+</ul>
+<p>接收过程（解密过程）：</p>
+<ul>
+<li>Bob利用自己的私钥解密会话密钥（使用的是非对称加密算法进行解密）</li>
+<li>Bob利用会话密钥解密发送过来的消息（使用的是对称加密算法进行解密）</li>
+</ul>
+<h2 id="3数字签名">3.数字签名</h2>
+<p>例如，Alice发送内容给Bob（明文）。Alice发的内容有可能是被篡改的，或者有人伪装成Alice发消息，或者就是Alice发的，但她可以否认。</p>
+<p>问题来了：Bob如何确定这段消息的真实性？如何识别篡改、伪装、否认？<br>
+解决方案：数字签名。</p>
+<h3 id="31-数字签名过程">3.1 数字签名过程</h3>
+<p>在数字签名技术中，有以下2种行为：</p>
+<ul>
+<li>生成签名<br>
+由消息的发送者完成，通过“签名密钥”生成</li>
+<li>验证签名<br>
+由消息的接收者完成，通过“验证密钥”验证</li>
+</ul>
+<p>如何能保证这个签名是消息发送者自己签的？用消息发送者的私钥进行签名。</p>
+<p>签名过程：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_64.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_64.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>由于非对称加密速度比较慢，当消息体量比较大时效率就会下降，<br>
+所以可以利用单向散列函数对其过程进行改进（对散列值进行加密解密，然后比较散列值）：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_65.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_65.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_66.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_66.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><strong>消息发送者生成密钥对是为了防止密钥被篡改。消息接收者生成密钥对是不想消息被其他人看到。</strong></p>
+<ul>
+<li>
+<p>如果有人篡改了消息内容或签名内容，会是什么结果？<br>
+签名验证失败，证明内容被篡改了。</p>
+</li>
+<li>
+<p>数字签名不能保证机密性？<br>
+数字签名的作用不是为了保证机密性，仅仅是为了能够识别内容有没有被篡改。</p>
+</li>
+<li>
+<p>数字签名的作用<br>
+确认消息的完整性<br>
+识别消息是否被篡改<br>
+防止消息发送人否认</p>
+</li>
+</ul>
+<h3 id="32-非对称加密和数字签名对比">3.2 非对称加密和数字签名对比</h3>
+<p>在非对称加密中，任何人都可以使用公钥进行加密。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_67.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_67.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>在数字签名中，任何人都可以使用公钥验证签名。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_68.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_68.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>数字签名，其实就是将非对称加密反过来使用。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_69.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_69.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><strong>非对称加密:</strong> 既然是加密，那肯定是不希望别人知道我的消息，所以只有我才能解密。公钥负责加密，私钥负责解密。<br>
+<strong>数字签名:</strong> 既然是签名，肯定是不希望有人冒充我发消息，所以只有我才能签名。 私钥负责签名，公钥负责验签。</p>
+<h3 id="33-公钥的合法性">3.3 公钥的合法性</h3>
+<p>如果遭遇了中间人攻击，那么公钥将可能是伪造的。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_70.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_70.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>对称加密无法保证密钥的安全，后面有了非对称加密。<br>
+但是非对称加密也有公钥被窃取的风险（混合加密和签名也是一样的，只要有传输公钥这一步骤，就会有窃取风险），<br>
+所以如何才能验证公钥的合法性呢？使用证书。</p>
+<h2 id="4证书">4.证书</h2>
+<p>说到证书，首先联想到的是驾驶证、毕业证、英语四六级证等，这些都是由权威机构认证的。</p>
+<p>密码学中的证书，全程叫<strong>公钥证书</strong>(<strong>ublic-key Certificate，PKC</strong>)，跟驾驶证类似，里面有姓名、邮箱等个人信息，以及此人的公钥。<br>
+并由认证机构(<strong>Certificate Authority，CA</strong>)进行数字签名。</p>
+<p>CA就是能够认定“公钥确实属于此人”并能够生成数字签名的个人或者组织。<br>
+CA可以是有国际性的组织、政府设立的组织、通过提供认证服务来盈利的企业，个人也可以成立认证机构。</p>
+<h3 id="41-注册和下载">4.1 注册和下载</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_71.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_71.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="42-证书的使用">4.2 证书的使用</h3>
+<p><a href="https://limingxie.github.io/images/network/application/application_72.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_72.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>第4步和第5步只要被篡改，就会认证失败。因为证书签名始终都是围绕CA认证机构验证的。<br>
+各大CA的公钥，默认已经内置在浏览器和操作系统中。</p>
+<h3 id="43-查看证书">4.3 查看证书</h3>
+<h4 id="431-windows">4.3.1 Windows</h4>
+<ol>
+<li>Windows + R -&gt; 输入mmc</li>
+<li>文件 -&gt; 添加/删除管理单元</li>
+<li>证书 -&gt; 添加 -&gt; 我的用户账户 -&gt; 完成 -&gt; 确定</li>
+</ol>
+<p><a href="https://limingxie.github.io/images/network/application/application_73.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_73.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="432-mac">4.3.2 Mac</h4>
+<p>Mac系统的证书统一在<strong>钥匙串</strong>中管理。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_74.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_74.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/osi/" rel="tag">OSI</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/https/" rel="tag">https</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/code/" rel="tag">code</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/status/" rel="tag">status</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/network/" rel="tag">network</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/network/5_application_http_06/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTP协议简介(6)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/network/5_application_https_08/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(8)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/go/go_channel/">【go】channel介绍</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_20/">【golang笔记】go_命令行参数(20)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_19/">【golang笔记】go_文件操作(19)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_18/">【golang笔记】go_类型断言(18)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_17/">【golang笔记】go_多态polymorphism(17)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_2/">72小时断食后记(2)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">33</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

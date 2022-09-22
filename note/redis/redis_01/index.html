@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【redis笔记】redis_常用命令(1) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【redis笔记】redis_常用命令(1)" />
+<meta property="og:description" content="这一篇整理了redis的常用命令。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/redis/redis_01/" />
+<meta property="article:published_time" content="2022-08-02T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-08-02T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【redis笔记】redis_常用命令(1)">
+<meta itemprop="description" content="这一篇整理了redis的常用命令。">
+<meta itemprop="datePublished" content="2022-08-02T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-08-02T23:28:49+08:00" />
+<meta itemprop="wordCount" content="324">
+
+
+
+<meta itemprop="keywords" content="redis," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【redis笔记】redis_常用命令(1)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-02T23:28:49&#43;08:00">2022-08-02</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/redis/" rel="category">redis</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1安装目录以及启动">1.安装目录以及启动</a></li>
+    <li><a href="#2数据类型">2.数据类型</a>
+      <ul>
+        <li><a href="#21-string">2.1 string</a></li>
+        <li><a href="#22-set">2.2 set</a></li>
+        <li><a href="#23-list">2.3 list</a></li>
+        <li><a href="#24-hash">2.4 hash</a></li>
+        <li><a href="#25-zset">2.5 zset</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了redis的常用命令。</p>
+<h2 id="1安装目录以及启动">1.安装目录以及启动</h2>
+<p>一般默认的安装路径是: <code>/usr/local/bin</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls /usr/local/bin
+redis-benchmark  redis-check-aof  redis-check-rdb  redis-cli  redis-sentinel  redis-server
+</code></pre></div><ul>
+<li>redis-benchmark:性能测试工具，可以在自己本子运行，看看自己本子性能如何(服务启动起来后执行)</li>
+<li>redis-check-aof：修复有问题的AOF文件，rdb和aof后面讲</li>
+<li>redis-check-dump：修复有问题的dump.rdb文件</li>
+<li>redis-sentinel：Redis集群使用</li>
+<li><strong><code>redis-server</code></strong>：Redis服务器启动命令</li>
+<li><strong><code>redis-cli</code></strong>：客户端，操作入口</li>
+</ul>
+<h2 id="2数据类型">2.数据类型</h2>
+<pre><code># 查询当前库的所有键
+keys *
+
+# 判断某个键是否存在
+exists &lt;key&gt;  
+
+# 查看键的类型
+type &lt;key&gt;
+
+# 删除某个键
+del &lt;key&gt;
+
+# 为键值设置过期时间，单位秒。
+expire &lt;key&gt; &lt;seconds&gt;  
+
+# 查看还有多少秒过期，-1表示永不过期，-2表示已过期
+ttl &lt;key&gt;
+
+# 查看当前数据库的key的数量
+dbsize
+
+# 清空当前库
+Flushdb
+
+# 通杀全部库
+Flushall
+</code></pre><h3 id="21-string">2.1 string</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>get &lt;key&gt;</code></strong></td>
+<td>查询对应键值</td>
+</tr>
+<tr>
+<td><strong><code>set &lt;key&gt; &lt;value&gt;</code></strong></td>
+<td>添加键值对</td>
+</tr>
+<tr>
+<td><strong><code>append &lt;key&gt; &lt;value&gt;</code></strong></td>
+<td>将给定的value追加到原值的末尾</td>
+</tr>
+<tr>
+<td><strong><code>strlen &lt;key&gt;</code></strong></td>
+<td>获得值的长度</td>
+</tr>
+<tr>
+<td><strong><code>setnx &lt;key&gt; &lt;value&gt;</code></strong></td>
+<td>只有在 key 不存在时设置 key 的值</td>
+</tr>
+<tr>
+<td><strong><code>incr &lt;key&gt;</code></strong></td>
+<td>将 key 中储存的数字值增1</td>
+</tr>
+<tr>
+<td><strong><code>decr &lt;key&gt;</code></strong></td>
+<td>将 key 中储存的数字值减1</td>
+</tr>
+<tr>
+<td><strong><code>incrby / decrby &lt;key&gt; &lt;步长&gt;</code></strong></td>
+<td>将 key 中储存的数字值增减。自定义步长。</td>
+</tr>
+<tr>
+<td><strong><code>mset &lt;key1&gt;  &lt;value1&gt;  &lt;key2&gt;  &lt;value2&gt;</code></strong> &hellip;..</td>
+<td>同时设置一个或多个 key-value对</td>
+</tr>
+<tr>
+<td><strong><code>mget  &lt;key1&gt; &lt;key2&gt; &lt;key3&gt; .....</code></strong></td>
+<td>同时获取一个或多个 value</td>
+</tr>
+<tr>
+<td><strong><code>msetnx &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt;  .....</code></strong></td>
+<td>同时设置一个或多个 key-value 对，当且仅当所有给定key都不存在</td>
+</tr>
+<tr>
+<td><strong><code>getrange &lt;key&gt; &lt;起始位置&gt; &lt;结束位置&gt;</code></strong></td>
+<td>获得值的范围，类似java中的substring</td>
+</tr>
+<tr>
+<td><strong><code>setrange &lt;key&gt; &lt;起始位置&gt; &lt;value&gt;</code></strong></td>
+<td>用value覆写key所储存的字符串值，从&lt;起始位置&gt;开始</td>
+</tr>
+<tr>
+<td><strong><code>setex &lt;key&gt; &lt;过期时间&gt;  &lt;value&gt;</code></strong></td>
+<td>设置键值的同时，设置过期时间，单位秒</td>
+</tr>
+<tr>
+<td><strong><code>getset &lt;key&gt; &lt;value&gt;</code></strong></td>
+<td>以新换旧，设置了新值同时获得旧值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-set">2.2 set</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>sadd &lt;key&gt; &lt;value1&gt; &lt;value2&gt;.....</code></strong></td>
+<td>将一个或多个member元素加入到集合key当中，已经存在于集合的member元素将被忽略。</td>
+</tr>
+<tr>
+<td><strong><code>smembers &lt;key&gt;</code></strong></td>
+<td>取出该集合的所有值。</td>
+</tr>
+<tr>
+<td><strong><code>sismember &lt;key&gt; &lt;value&gt;</code></strong></td>
+<td>判断集合key是否为含有该value值，有返回1，没有返回0。</td>
+</tr>
+<tr>
+<td><strong><code>scard &lt;key&gt;</code></strong></td>
+<td>返回该集合的元素个数。</td>
+</tr>
+<tr>
+<td><strong><code>srem &lt;key&gt; &lt;value1&gt; &lt;value2&gt; ....</code></strong></td>
+<td>删除集合中的某个元素。</td>
+</tr>
+<tr>
+<td><strong><code>spop &lt;key&gt;</code></strong></td>
+<td>随机从该集合中吐出一个值。</td>
+</tr>
+<tr>
+<td><strong><code>srandmember &lt;key&gt; &lt;n&gt;</code></strong></td>
+<td>随机从该集合中取出n个值。不会从集合中删除</td>
+</tr>
+<tr>
+<td><strong><code>sinter &lt;key1&gt; &lt;key2&gt;</code></strong></td>
+<td>返回两个集合的交集元素。</td>
+</tr>
+<tr>
+<td><strong><code>sunion &lt;key1&gt; &lt;key2&gt;</code></strong></td>
+<td>返回两个集合的并集元素。</td>
+</tr>
+<tr>
+<td><strong><code>sdiff &lt;key1&gt; &lt;key2&gt;</code></strong></td>
+<td>返回两个集合的差集元素。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-list">2.3 list</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>lpush/rpush &lt;key&gt; &lt;value1&gt; &lt;value2&gt; &lt;value3&gt;....</code></strong></td>
+<td>从左边/右边插入一个或多个值。</td>
+</tr>
+<tr>
+<td><strong><code>lpop/rpop &lt;key&gt;</code></strong></td>
+<td>从左边/右边吐出一个值。</td>
+</tr>
+<tr>
+<td><strong><code>rpoplpush &lt;key1&gt; &lt;key2&gt;</code></strong></td>
+<td>从key1列表右边吐出一个值，插到key2列表左边。</td>
+</tr>
+<tr>
+<td><strong><code>lrange &lt;key&gt; &lt;start&gt; &lt;stop&gt;</code></strong></td>
+<td>按照索引下标获得元素(从左到右)</td>
+</tr>
+<tr>
+<td><strong><code>lindex &lt;key&gt; &lt;index&gt;</code></strong></td>
+<td>按照索引下标获得元素(从左到右)</td>
+</tr>
+<tr>
+<td><strong><code>llen &lt;key&gt;</code></strong></td>
+<td>获得列表长度</td>
+</tr>
+<tr>
+<td><strong><code>linsert &lt;key&gt; before &lt;value&gt; &lt;newvalue&gt;</code></strong></td>
+<td>在value的后面插入newvalue插入值</td>
+</tr>
+<tr>
+<td><strong><code>lrem &lt;key&gt; &lt;n&gt; &lt;value&gt;</code></strong></td>
+<td>取值为正数，从左边删除n个value(从左到右),负数右左，0全部</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-hash">2.4 hash</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>hset &lt;key&gt; &lt;field&gt; &lt;value&gt;</code></strong></td>
+<td>给key集合中的field键赋值value</td>
+</tr>
+<tr>
+<td><strong><code>hget &lt;key1&gt; &lt;field&gt;</code></strong></td>
+<td>从key1集合field取出 value</td>
+</tr>
+<tr>
+<td><strong><code>hmset &lt;key1&gt; &lt;field1&gt; &lt;value1&gt; &lt;field2&gt; &lt;value2&gt;...</code></strong></td>
+<td>批量设置hash的值</td>
+</tr>
+<tr>
+<td><strong><code>hexists key &lt;field&gt;</code></strong></td>
+<td>查看哈希表key中，给定域field是否存在。</td>
+</tr>
+<tr>
+<td><strong><code>hkeys &lt;key&gt;</code></strong></td>
+<td>列出该hash集合的所有field</td>
+</tr>
+<tr>
+<td><strong><code>hvals &lt;key&gt;</code></strong></td>
+<td>列出该hash集合的所有value</td>
+</tr>
+<tr>
+<td><strong><code>hincrby &lt;key&gt; &lt;field&gt; &lt;increment&gt;</code></strong></td>
+<td>为哈希表key中的域field的值加上增量increment</td>
+</tr>
+<tr>
+<td><strong><code>hsetnx &lt;key&gt; &lt;field&gt; &lt;value&gt;</code></strong></td>
+<td>将哈希表key中的域field的值设置为value，当且仅当域field不存在。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="25-zset">2.5 zset</h3>
+<pre><code>#将一个或多个member元素及其score值加入到有序集key当中。
+zadd &lt;key&gt; &lt;score1&gt; &lt;value1&gt; &lt;score2&gt; &lt;value2&gt;...
+
+#返回有序集key中，下标在start，stop之间的元素。  
+#带WITHSCORES，可以让分数一起和值返回到结果集。
+zrange &lt;key&gt; &lt;start&gt; &lt;stop&gt; [WITHSCORES]`**
+
+#返回有序集key中，所有score值介于min和max之间(包括等于min或max)的成员。  
+#有序集成员按 score 值递增(从小到大)次序排列。 
+zrangebyscore key min max [withscores] [limit offset count]
+
+#同上，改为从大到小排列。 
+zrevrangebyscore key max min [withscores] [limit offset count]
+
+#为元素的score加上增量
+zincrby &lt;key&gt; &lt;increment&gt; &lt;value&gt;
+
+#删除该集合下，指定值的元素 
+zrem &lt;key&gt; &lt;value&gt;  
+
+#统计该集合，分数区间内的元素个数 
+zcount &lt;key&gt; &lt;min&gt; &lt;max&gt; 
+
+#返回该值在集合中的排名，从0开始。
+zrank &lt;key&gt; &lt;value&gt; 
+</code></pre><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/redis/" rel="tag">redis</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/docker/docker_02/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【docker笔记】docker_常用命令(2)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/redis/redis_02/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【redis笔记】redis_配置文件(2)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/go/go_channel/">【go】channel介绍</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_20/">【golang笔记】go_命令行参数(20)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_19/">【golang笔记】go_文件操作(19)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_18/">【golang笔记】go_类型断言(18)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_17/">【golang笔记】go_多态polymorphism(17)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_2/">72小时断食后记(2)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">33</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

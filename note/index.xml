@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Notes on 宅男 &#43; 屌丝 &#43; 程序员</title>
+    <link>https://limingxie.github.io/note/</link>
+    <description>Recent content in Notes on 宅男 &#43; 屌丝 &#43; 程序员</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 Sep 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【golang笔记】go_命令行参数(20)</title>
+      <link>https://limingxie.github.io/note/go/golang_20/</link>
+      <pubDate>Wed, 21 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_20/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;命令行参数&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_文件操作(19)</title>
+      <link>https://limingxie.github.io/note/go/golang_19/</link>
+      <pubDate>Tue, 20 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_19/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;文件操作&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_类型断言(18)</title>
+      <link>https://limingxie.github.io/note/go/golang_18/</link>
+      <pubDate>Mon, 19 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_18/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;类型断言&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_多态polymorphism(17)</title>
+      <link>https://limingxie.github.io/note/go/golang_17/</link>
+      <pubDate>Sun, 18 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_17/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang多态polymorphism相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_继承和接口相互关系(16)</title>
+      <link>https://limingxie.github.io/note/go/golang_16/</link>
+      <pubDate>Sat, 17 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_16/</guid>
+      <description>&lt;p&gt;这一篇文章简答的介绍了继承和接口之间的关系，以及特点。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_接口interface(15)</title>
+      <link>https://limingxie.github.io/note/go/golang_15/</link>
+      <pubDate>Fri, 16 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_15/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang接口interface相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_继承inheritance(14)</title>
+      <link>https://limingxie.github.io/note/go/golang_14/</link>
+      <pubDate>Thu, 15 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_14/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang继承inheritance相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_封装encapsulation(13)</title>
+      <link>https://limingxie.github.io/note/go/golang_13/</link>
+      <pubDate>Wed, 14 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_13/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang封装encapsulation相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_结构体struct(12)</title>
+      <link>https://limingxie.github.io/note/go/golang_12/</link>
+      <pubDate>Tue, 13 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_12/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang结构体struct相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_映射map(11)</title>
+      <link>https://limingxie.github.io/note/go/golang_11/</link>
+      <pubDate>Mon, 12 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_11/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang映射map相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_二维数组(10)</title>
+      <link>https://limingxie.github.io/note/go/golang_10/</link>
+      <pubDate>Sun, 11 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_10/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang二维数组相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_数组和切片slice(9)</title>
+      <link>https://limingxie.github.io/note/go/golang_09/</link>
+      <pubDate>Sat, 10 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_09/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang数组和切片slice相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_error处理(8)</title>
+      <link>https://limingxie.github.io/note/go/golang_08/</link>
+      <pubDate>Fri, 09 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_08/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang错误处理相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_字符串函数(7)</title>
+      <link>https://limingxie.github.io/note/go/golang_07/</link>
+      <pubDate>Thu, 08 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_07/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang常用函数内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_函数(6)</title>
+      <link>https://limingxie.github.io/note/go/golang_06/</link>
+      <pubDate>Wed, 07 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_06/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang函数的基本内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_二进制计算(5)</title>
+      <link>https://limingxie.github.io/note/go/golang_05/</link>
+      <pubDate>Tue, 06 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_05/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang二进制计算相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_运算符(4)</title>
+      <link>https://limingxie.github.io/note/go/golang_04/</link>
+      <pubDate>Mon, 05 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_04/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang运算符相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_指针(3)</title>
+      <link>https://limingxie.github.io/note/go/golang_03/</link>
+      <pubDate>Sun, 04 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_03/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang指针类型相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_变量的基本类型(2)</title>
+      <link>https://limingxie.github.io/note/go/golang_02/</link>
+      <pubDate>Sat, 03 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_02/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang的变量类型相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_概述(1)</title>
+      <link>https://limingxie.github.io/note/go/golang_01/</link>
+      <pubDate>Fri, 02 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_01/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang的基础内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_持久化PVC和PV(12)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_12/</link>
+      <pubDate>Thu, 01 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_12/</guid>
+      <description>&lt;p&gt;这一篇整理了持久化PersistentVolume和PersistentVolumeClaim相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_helm(11)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_11/</link>
+      <pubDate>Wed, 31 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_11/</guid>
+      <description>&lt;p&gt;这一篇整理了helm相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_ingress(10)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_10/</link>
+      <pubDate>Tue, 30 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_10/</guid>
+      <description>&lt;p&gt;这一篇整理了ingress相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_集群安全机制(9)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_09/</link>
+      <pubDate>Mon, 29 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_09/</guid>
+      <description>&lt;p&gt;这一篇整理了集群安全机制相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_配置管理Secret和configMap(8)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_08/</link>
+      <pubDate>Sun, 28 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_08/</guid>
+      <description>&lt;p&gt;这一篇整理了配置管理Secret和configMap相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_service(07)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_07/</link>
+      <pubDate>Sat, 27 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_07/</guid>
+      <description>&lt;p&gt;这一篇整理了service相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_controller控制器(06)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_06/</link>
+      <pubDate>Fri, 26 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_06/</guid>
+      <description>&lt;p&gt;这一篇整理了controller相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_controller控制器(05)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_05/</link>
+      <pubDate>Thu, 25 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_05/</guid>
+      <description>&lt;p&gt;这一篇整理了控制器controller(deployment)相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_Pod调度(04)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_04/</link>
+      <pubDate>Wed, 24 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_04/</guid>
+      <description>&lt;p&gt;这一篇整理了Pod调度相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_Pod简介(03)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_03/</link>
+      <pubDate>Tue, 23 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_03/</guid>
+      <description>&lt;p&gt;这一篇整理了Pod基本概念。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_kubectl(02)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_02/</link>
+      <pubDate>Mon, 22 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_02/</guid>
+      <description>&lt;p&gt;这一篇整理了kubectl命令相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【kubernetes笔记】k8s_简介(01)</title>
+      <link>https://limingxie.github.io/note/kubernetes/k8s_01/</link>
+      <pubDate>Mon, 22 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/kubernetes/k8s_01/</guid>
+      <description>&lt;p&gt;这一篇整理了Yarn调度器和调度算法相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_yarn调度器和调度算法(8)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_08/</link>
+      <pubDate>Sun, 21 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_08/</guid>
+      <description>&lt;p&gt;这一篇整理了Yarn调度器和调度算法相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_yarn简介(7)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_07/</link>
+      <pubDate>Sat, 20 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_07/</guid>
+      <description>&lt;p&gt;Yarn 是一个资源调度平台，负责为运算程序提供服务器运算资源，&lt;br&gt;
+相当于一个分布式 的操作系统平台，而MapReduce等运算程序则相当于运行于操作系统之上的应用程序。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_MapReduce压缩(6)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_06/</link>
+      <pubDate>Fri, 19 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_06/</guid>
+      <description>&lt;p&gt;这篇文章整理了MapReduce过程中压缩相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_MapReduce简介(5)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_05/</link>
+      <pubDate>Thu, 18 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_05/</guid>
+      <description>&lt;p&gt;这篇文章整理了MapReduce相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_MapReduce简介(4)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_04/</link>
+      <pubDate>Wed, 17 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_04/</guid>
+      <description>&lt;p&gt;这篇文章整理了MapReduce相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_HDFS结构简介(3)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_03/</link>
+      <pubDate>Tue, 16 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_03/</guid>
+      <description>&lt;p&gt;这篇文章整理了HDFS结构相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_HDFS的shell操作(2)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_02/</link>
+      <pubDate>Mon, 15 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_02/</guid>
+      <description>&lt;p&gt;这篇文章整理了HDFS的shell操作相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【hadoop笔记】hadoop_基础概念(1)</title>
+      <link>https://limingxie.github.io/note/hadoop/hadoop_01/</link>
+      <pubDate>Sun, 14 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/hadoop/hadoop_01/</guid>
+      <description>&lt;p&gt;这篇文章整理了hadoop相关的基础概念。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【zookeeper笔记】zookeeper_监听和写入操作(3)</title>
+      <link>https://limingxie.github.io/note/zookeeper/zookeeper_03/</link>
+      <pubDate>Sat, 13 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/zookeeper/zookeeper_03/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了zookeeper的监听和写入操作。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【zookeeper笔记】zookeeper_znode结构和操作(2)</title>
+      <link>https://limingxie.github.io/note/zookeeper/zookeeper_02/</link>
+      <pubDate>Fri, 12 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/zookeeper/zookeeper_02/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了znode结构和操作相关内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【zookeeper笔记】zookeeper_启动和配置(1)</title>
+      <link>https://limingxie.github.io/note/zookeeper/zookeeper_01/</link>
+      <pubDate>Thu, 11 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/zookeeper/zookeeper_01/</guid>
+      <description>&lt;p&gt;简单的整理了zookeeper启动和相关配置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【ES笔记】Elasticsearch_常用API(3)</title>
+      <link>https://limingxie.github.io/note/es/elasticsearch_03/</link>
+      <pubDate>Wed, 10 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/es/elasticsearch_03/</guid>
+      <description>&lt;p&gt;整理了Elasticsearch常用的API方法。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【ES笔记】Elasticsearch_结构和常用API简介(2)</title>
+      <link>https://limingxie.github.io/note/es/elasticsearch_02/</link>
+      <pubDate>Tue, 09 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/es/elasticsearch_02/</guid>
+      <description>&lt;p&gt;简单的做一下Elasticsearch的结构和常用语法的记录。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【ES笔记】Elasticsearch_容器服务(1)</title>
+      <link>https://limingxie.github.io/note/es/elasticsearch_01/</link>
+      <pubDate>Mon, 08 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/es/elasticsearch_01/</guid>
+      <description>&lt;p&gt;这一篇整理了如何启动Elasticsearch容器。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【redis笔记】redis_集群(6)</title>
+      <link>https://limingxie.github.io/note/redis/redis_06/</link>
+      <pubDate>Sun, 07 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/redis/redis_06/</guid>
+      <description>&lt;p&gt;这一篇整理了redis集群相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【redis笔记】redis_主从复制(5)</title>
+      <link>https://limingxie.github.io/note/redis/redis_05/</link>
+      <pubDate>Sat, 06 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/redis/redis_05/</guid>
+      <description>&lt;p&gt;这一篇整理了redis主从复制相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【redis笔记】redis_持久化(4)</title>
+      <link>https://limingxie.github.io/note/redis/redis_04/</link>
+      <pubDate>Fri, 05 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/redis/redis_04/</guid>
+      <description>&lt;p&gt;这一篇整理了redis持久化相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【redis笔记】redis_事务(3)</title>
+      <link>https://limingxie.github.io/note/redis/redis_03/</link>
+      <pubDate>Thu, 04 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/redis/redis_03/</guid>
+      <description>&lt;p&gt;这一篇整理了redis事务相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【redis笔记】redis_配置文件(2)</title>
+      <link>https://limingxie.github.io/note/redis/redis_02/</link>
+      <pubDate>Wed, 03 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/redis/redis_02/</guid>
+      <description>&lt;p&gt;这一篇整理了redis配置文件相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【redis笔记】redis_常用命令(1)</title>
+      <link>https://limingxie.github.io/note/redis/redis_01/</link>
+      <pubDate>Tue, 02 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/redis/redis_01/</guid>
+      <description>&lt;p&gt;这一篇整理了redis的常用命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【docker笔记】docker_常用命令(2)</title>
+      <link>https://limingxie.github.io/note/docker/docker_02/</link>
+      <pubDate>Mon, 01 Aug 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/docker/docker_02/</guid>
+      <description>&lt;h2 id=&#34;1volumemount&#34;&gt;1.volume，mount&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -it -v /test:/soft centos /bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>【docker笔记】docker_常用命令(1)</title>
+      <link>https://limingxie.github.io/note/docker/docker_01/</link>
+      <pubDate>Sun, 31 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/docker/docker_01/</guid>
+      <description>&lt;p&gt;这一篇整理了docker的常用命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_正则(14)</title>
+      <link>https://limingxie.github.io/note/linux/linux_15/</link>
+      <pubDate>Sat, 30 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_15/</guid>
+      <description>&lt;p&gt;这一篇整理了正则相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_shell基础(13)</title>
+      <link>https://limingxie.github.io/note/linux/linux_13/</link>
+      <pubDate>Fri, 29 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_13/</guid>
+      <description>&lt;p&gt;这一篇整理了Shell概述相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_shell流程控制(14)</title>
+      <link>https://limingxie.github.io/note/linux/linux_14/</link>
+      <pubDate>Fri, 29 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_14/</guid>
+      <description>&lt;p&gt;这一篇整理了Shell流程控制相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_软件包管理(12)</title>
+      <link>https://limingxie.github.io/note/linux/linux_12/</link>
+      <pubDate>Thu, 28 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_12/</guid>
+      <description>&lt;p&gt;这一篇整理了软件包管理相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_进程管理以及定时任务(11)</title>
+      <link>https://limingxie.github.io/note/linux/linux_11/</link>
+      <pubDate>Wed, 27 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_11/</guid>
+      <description>&lt;p&gt;这一篇整理了进程管理相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_磁盘查看和分区(10)</title>
+      <link>https://limingxie.github.io/note/linux/linux_10/</link>
+      <pubDate>Tue, 26 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_10/</guid>
+      <description>&lt;p&gt;这一篇整理了磁盘查看和分区相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_搜索查找和压缩解压(09)</title>
+      <link>https://limingxie.github.io/note/linux/linux_09/</link>
+      <pubDate>Mon, 25 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_09/</guid>
+      <description>&lt;p&gt;这一篇整理了搜索查找和压缩解压相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_文件权限(08)</title>
+      <link>https://limingxie.github.io/note/linux/linux_08/</link>
+      <pubDate>Sun, 24 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_08/</guid>
+      <description>&lt;p&gt;这一篇整理了用户和用户组相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_用户和用户组(07)</title>
+      <link>https://limingxie.github.io/note/linux/linux_07/</link>
+      <pubDate>Sat, 23 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_07/</guid>
+      <description>&lt;p&gt;这一篇整理了用户和用户组相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_文件操作命令(06)</title>
+      <link>https://limingxie.github.io/note/linux/linux_06/</link>
+      <pubDate>Fri, 22 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_06/</guid>
+      <description>&lt;p&gt;这一篇整理了文件操作相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_帮助命令和时间日期命令(05)</title>
+      <link>https://limingxie.github.io/note/linux/linux_05/</link>
+      <pubDate>Thu, 21 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_05/</guid>
+      <description>&lt;p&gt;这一篇整理了帮助命令和日期相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_系统管理(04)</title>
+      <link>https://limingxie.github.io/note/linux/linux_04/</link>
+      <pubDate>Wed, 20 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_04/</guid>
+      <description>&lt;p&gt;这一篇整理了系统管理相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_网络配置(03)</title>
+      <link>https://limingxie.github.io/note/linux/linux_03/</link>
+      <pubDate>Tue, 19 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_03/</guid>
+      <description>&lt;p&gt;这一篇整理了网络配置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_vim(02)</title>
+      <link>https://limingxie.github.io/note/linux/linux_02/</link>
+      <pubDate>Mon, 18 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_02/</guid>
+      <description>&lt;p&gt;linux操作离不开文本编辑器，这篇整理了vim的常用命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【linux笔记】linux入门简介_文件目录(01)</title>
+      <link>https://limingxie.github.io/note/linux/linux_01/</link>
+      <pubDate>Sun, 17 Jul 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/linux/linux_01/</guid>
+      <description>&lt;p&gt;linux系统中一切皆文件。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(11)</title>
+      <link>https://limingxie.github.io/note/network/5_application_11/</link>
+      <pubDate>Thu, 28 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_11/</guid>
+      <description>&lt;p&gt;这一篇j简单整理了VPN、tcpdump、网络爬虫、HTTP缓存、IPv6、即时通信、流媒体。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)</title>
+      <link>https://limingxie.github.io/note/network/5_application_10/</link>
+      <pubDate>Wed, 27 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_10/</guid>
+      <description>&lt;p&gt;这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(9)</title>
+      <link>https://limingxie.github.io/note/network/5_application_https_09/</link>
+      <pubDate>Tue, 26 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_https_09/</guid>
+      <description>&lt;p&gt;这一篇整理了HTTP2和HTTP3。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(8)</title>
+      <link>https://limingxie.github.io/note/network/5_application_https_08/</link>
+      <pubDate>Mon, 25 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_https_08/</guid>
+      <description>&lt;p&gt;这一篇整理了HTTPS的TLS协议。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7)</title>
+      <link>https://limingxie.github.io/note/network/5_application_https_07/</link>
+      <pubDate>Sun, 24 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_https_07/</guid>
+      <description>&lt;p&gt;这一篇整理了对称加密，非对称加密，数字签名，证书。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(6)</title>
+      <link>https://limingxie.github.io/note/network/5_application_http_06/</link>
+      <pubDate>Sat, 23 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_http_06/</guid>
+      <description>&lt;p&gt;这一篇整理了代理，CND，网络安全相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(5)</title>
+      <link>https://limingxie.github.io/note/network/5_application_http_05/</link>
+      <pubDate>Fri, 22 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_http_05/</guid>
+      <description>&lt;p&gt;这一篇整理了跨域，cookie和session的基本概念和用法。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(4)</title>
+      <link>https://limingxie.github.io/note/network/5_application_http_04/</link>
+      <pubDate>Thu, 21 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_http_04/</guid>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的状态码和form表单。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(3)</title>
+      <link>https://limingxie.github.io/note/network/5_application_http_03/</link>
+      <pubDate>Wed, 20 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_http_03/</guid>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的ABNF格式。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(2)</title>
+      <link>https://limingxie.github.io/note/network/5_application_http_02/</link>
+      <pubDate>Tue, 19 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_http_02/</guid>
+      <description>&lt;p&gt;这一篇整理了应用层的 HTTP协议的概念，以及大致的结构。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第五层:应用层(Application)简介(1)</title>
+      <link>https://limingxie.github.io/note/network/5_application_01/</link>
+      <pubDate>Mon, 18 Apr 2022 18:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5_application_01/</guid>
+      <description>&lt;p&gt;这一篇整理了应用层的 域名，DNS, DHCP。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(3)</title>
+      <link>https://limingxie.github.io/note/network/4_-transport_tcp_03/</link>
+      <pubDate>Sun, 17 Apr 2022 09:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/4_-transport_tcp_03/</guid>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理建立连接部分，包括三次握手和4次挥手。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(2)</title>
+      <link>https://limingxie.github.io/note/network/4_-transport_tcp_02/</link>
+      <pubDate>Sat, 16 Apr 2022 06:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/4_-transport_tcp_02/</guid>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理【2.流量控制】和【3.拥塞控制】&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第四层:传输层(Transport)TCP协议简介(1)</title>
+      <link>https://limingxie.github.io/note/network/4_-transport_tcp_01/</link>
+      <pubDate>Fri, 15 Apr 2022 21:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/4_-transport_tcp_01/</guid>
+      <description>&lt;p&gt;TCP有以下几个知识点。这一篇整理【TCP结构】和【1.可靠传输】&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第四层:传输层(Transport)以及UPD协议简介</title>
+      <link>https://limingxie.github.io/note/network/4_-transport_udp/</link>
+      <pubDate>Thu, 14 Apr 2022 21:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/4_-transport_udp/</guid>
+      <description>&lt;h2 id=&#34;1传输层transport&#34;&gt;1.传输层（Transport）&lt;/h2&gt;
+&lt;p&gt;TCP和UDP的区别：
+&lt;a href=&#34;https://limingxie.github.io/images/network/transport/tcp_udp.png&#34;&gt;图片备用地址&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/transport/tcp_udp.png?x-oss-process=image/resize,w_700,m_lfit&#34; alt=&#34;tcp_udp&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第三层:网络层(Network)简介</title>
+      <link>https://limingxie.github.io/note/network/3_-network/</link>
+      <pubDate>Wed, 13 Apr 2022 19:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/3_-network/</guid>
+      <description>&lt;p&gt;网络层数据包（IP数据包：Packet）由首部、数据2部分组成。&lt;br&gt;
+&lt;strong&gt;数据:&lt;/strong&gt; 由传输层传递下来的数据段(Segment)。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第二层:数据链路层(Data Link)简介</title>
+      <link>https://limingxie.github.io/note/network/2_data_link/</link>
+      <pubDate>Tue, 12 Apr 2022 19:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/2_data_link/</guid>
+      <description>&lt;p&gt;数据链路层(Data Link)是网络协议中的第二层。&lt;br&gt;
+&lt;strong&gt;链路:&lt;/strong&gt; 从1个节点到相邻节点的一段物理线路(有线或无线)，中间没有其他交换节点。&lt;br&gt;
+&lt;strong&gt;数据链路:&lt;/strong&gt; 在一条链路上传输数据时，需要有对应的通信协议来控制数据的传输。&lt;/p&gt;
+&lt;p&gt;不同类型的数据链路，所用的通信协议可能是不同的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】第一层:物理层(Physical)简介</title>
+      <link>https://limingxie.github.io/note/network/1_physical-copy/</link>
+      <pubDate>Mon, 11 Apr 2022 19:05:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/1_physical-copy/</guid>
+      <description>&lt;p&gt;物理层定义了接口标准、线缆标准、传输速率、传输方式等（比如路由器定义的接口是做什么的、水晶头怎么排布、光缆线的作用等）。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】路由工作原理简介</title>
+      <link>https://limingxie.github.io/note/network/route/</link>
+      <pubDate>Sun, 10 Apr 2022 17:20:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/route/</guid>
+      <description>&lt;p&gt;我们知道不同网段的设备转发数据，需要路由器的支持。&lt;br&gt;
+默认情况下，路由器是只知道跟他直连的网段，非直连的网段是需要通过静态路由或动态路由告诉它。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】网络基础整理</title>
+      <link>https://limingxie.github.io/note/network/internet_definition/</link>
+      <pubDate>Sat, 09 Apr 2022 16:27:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/internet_definition/</guid>
+      <description>&lt;p&gt;有一些些网络基础的概念，知道了能会更好的理解网络。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】mac地址和ip地址简介</title>
+      <link>https://limingxie.github.io/note/network/mac_ip/</link>
+      <pubDate>Fri, 08 Apr 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/mac_ip/</guid>
+      <description>&lt;h2 id=&#34;1mac地址&#34;&gt;1.MAC地址&lt;/h2&gt;
+&lt;p&gt;每个网卡都有一个唯一(6个字节48bit)的MAC地址(Media Access Control Address)。&lt;br&gt;
+这个地址是由硬件设备生成的，是网络设备的唯一标识。&lt;br&gt;
+固化在网卡的ROM中，有IEEE802标准规定的MAC地址格式。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】计算机之间的通信和链接方式</title>
+      <link>https://limingxie.github.io/note/network/computer_communication/</link>
+      <pubDate>Thu, 07 Apr 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/computer_communication/</guid>
+      <description>&lt;h2 id=&#34;1计算机之间的通信&#34;&gt;1.计算机之间的通信&lt;/h2&gt;
+&lt;p&gt;计算机之间的通信是通过网络进行的，网络是计算机之间的一种通信方式。&lt;br&gt;
+那我们要如何进行网络通信呢？&lt;br&gt;
+首先我们需要知道对方的IP地址，通过IP地址获取MAC地址(ARP广播)。&lt;br&gt;
+然后把数据通过网卡传送到对方的网络中。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【网络协议笔记】浅谈OSI网络七层协议</title>
+      <link>https://limingxie.github.io/note/network/osi/</link>
+      <pubDate>Wed, 06 Apr 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/osi/</guid>
+      <description>&lt;p&gt;开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型。&lt;br&gt;
+从分布式应用程序数据的最高层表示到跨通信介质传输数据的物理实现。&lt;br&gt;
+每个中间层为其上一层提供功能，其自身功能则由其下一层提供。功能的类别通过标准的通信协议在软件中实现。&lt;br&gt;
+OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据链路层(DL)、网络层(N)、传输层(T)、会话层(S)、表示层(P)、应用层(A)。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>浅谈数字证书(Digital Certificate)的发放和验证原理</title>
+      <link>https://limingxie.github.io/note/network/digital_certificate/</link>
+      <pubDate>Tue, 05 Apr 2022 22:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/digital_certificate/</guid>
+      <description>&lt;h2 id=&#34;1数字证书是什么&#34;&gt;1.数字证书是什么？&lt;/h2&gt;
+&lt;p&gt;数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。&lt;br&gt;
+它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。&lt;br&gt;
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>5G网架构简介</title>
+      <link>https://limingxie.github.io/note/network/5gc/</link>
+      <pubDate>Mon, 04 Apr 2022 16:38:02 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/network/5gc/</guid>
+      <description>&lt;p&gt;最近有机会查看了有关5G网的内容。对于移动通讯完全不懂的小白来说一切都很陌生和茫然。&lt;br&gt;
+几天的摸索，整理了“皮毛”内容，希望像我这样的小白有帮助&amp;hellip;^^&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Redis简单应用</title>
+      <link>https://limingxie.github.io/note/redis/redis/</link>
+      <pubDate>Sun, 01 Jul 2018 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/redis/redis/</guid>
+      <description>&lt;p&gt;这些天因为项目性能上的问题，采用了Redis缓存。&lt;br&gt;
+做了一些简单的笔记。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

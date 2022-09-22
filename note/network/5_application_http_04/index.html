@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(4) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【网络协议笔记】第五层:应用层(Application)HTTP协议简介(4)" />
+<meta property="og:description" content="这一篇整理了应用层的 HTTP协议的状态码和form表单。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/network/5_application_http_04/" />
+<meta property="article:published_time" content="2022-04-21T18:05:49+08:00" />
+<meta property="article:modified_time" content="2022-04-21T18:05:49+08:00" />
+
+		<meta itemprop="name" content="【网络协议笔记】第五层:应用层(Application)HTTP协议简介(4)">
+<meta itemprop="description" content="这一篇整理了应用层的 HTTP协议的状态码和form表单。">
+<meta itemprop="datePublished" content="2022-04-21T18:05:49+08:00" />
+<meta itemprop="dateModified" content="2022-04-21T18:05:49+08:00" />
+<meta itemprop="wordCount" content="143">
+
+
+
+<meta itemprop="keywords" content="OSI,Status Code,http,code,status,network," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【网络协议笔记】第五层:应用层(Application)HTTP协议简介(4)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-04-21T18:05:49&#43;08:00">2022-04-21</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/network/" rel="category">network</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1状态码status-code">1.状态码（Status Code）</a>
+      <ul>
+        <li><a href="#11-状态码分类">1.1 状态码分类</a></li>
+        <li><a href="#12-常见状态码">1.2 常见状态码</a></li>
+      </ul>
+    </li>
+    <li><a href="#2form表单提交">2.form（表单）提交</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了应用层的 HTTP协议的状态码和form表单。</p>
+<h2 id="1状态码status-code">1.状态码（Status Code）</h2>
+<p>状态码是在<a href="https://datatracker.ietf.org/doc/html/rfc2616#section-10">RFC_2616,section-10:Status Code Definitions</a>规范中定义的。<br>
+状态码指示HTTP请求是否已成功完成。</p>
+<h3 id="11-状态码分类">1.1 状态码分类</h3>
+<p>状态码分为5类：</p>
+<ul>
+<li>信息响应：100~199</li>
+<li>成功响应：200~299</li>
+<li>重定向：300~399</li>
+<li>客户端错误：400~499</li>
+<li>服务器错误：500~599</li>
+</ul>
+<h3 id="12-常见状态码">1.2 常见状态码</h3>
+<h4 id="100continue">100（Continue）</h4>
+<p>请求的初始化部分已经被服务器收到，并且没有被服务器拒绝。<br>
+客户端应该继续发送剩余的请求，如果请求已经完成，就忽略这个响应。</p>
+<p>应用场景：允许客户端发送带请求体的请求前，判断服务器是否愿意接收请求（服务器通过请求头判断）。<br>
+在某些情况下，如果服务器在不看请求体就拒绝请求时，客户端就发送请求体是不恰当的或低效的。</p>
+<h4 id="200ok">200（OK）</h4>
+<p>请求成功</p>
+<h4 id="302found">302（Found）</h4>
+<p>请求的资源被暂时的移动到了由Location头部指定的URL上。</p>
+<h4 id="304not-modified">304（Not Modified）</h4>
+<p>说明无需再次传输请求的内容（也就是说客户端可以使用之前302缓存的内容，服务器只返回响应头）。</p>
+<h4 id="400bad-request">400（Bad Request）</h4>
+<p>由于语法无效，服务器无法理解该请求。</p>
+<h4 id="401unauthorized">401（Unauthorized）</h4>
+<p>由于缺乏目标资源要求的身份验证凭证。</p>
+<h4 id="403forbidden">403（Forbidden）</h4>
+<p>服务端有能力处理该请求，但是拒绝授权访问。</p>
+<h4 id="404not-found">404（Not Found）</h4>
+<p>服务器端无法找到所请求的资源。</p>
+<h4 id="405method-not-allowed">405（Method Not Allowed）</h4>
+<p>服务器禁止了使用当前HTTP方法的请求（比如应该使用POST请求而客户端使用的是GET请求）。</p>
+<h4 id="406not-acceptable">406（Not Acceptable）</h4>
+<p>服务器端无法提供与Accept-Charset以及Accept-Language指定的值相匹配的响应。</p>
+<h4 id="408request-timeout">408（Request Timeout）</h4>
+<p>服务器想要将没有在使用的连接关闭（一些服务器会在空闲连接上发送此信息，即便在客户端没有发送任何请求的情况下）。</p>
+<h4 id="500internal-server-error">500（Internal Server Error）</h4>
+<p>所请求的服务器遇到意外的情况并阻止其执行请求。</p>
+<h4 id="501not-implemented">501（Not Implemented）</h4>
+<p>请求的方法不被服务器支持，因此无法被处理。<br>
+服务器必须支持的方法（即不会返回这个状态码的方法）只有GET和HEAD。<br>
+注意和405的区分：405代表服务器支持该请求方法，只是客户端使用了错误的请求方法；而501是服务器不支持该请求方法。</p>
+<h4 id="502bad-gateway">502（Bad Gateway）</h4>
+<p>作为网关或代理角色的服务器，从上游服务器（如tomcat）中接收到的响应是无效的。</p>
+<h4 id="503service-unavailable">503（Service Unavailable）</h4>
+<p>服务器尚未处于可以接受请求的状态。通常造成这种情况的原因是由于服务器停机维护或者已超载。</p>
+<h2 id="2form表单提交">2.form（表单）提交</h2>
+<p>常用属性：</p>
+<ul>
+<li>action：请求的URI</li>
+<li>method：请求方法（只支持GET和POST）</li>
+<li>enctype：POST请求时，请求体的编码方式
+<ul>
+<li>application/x-www-form-urlencoded，默认值。用&amp;分割参数，用=分割键和值，字符用URL编码方式进行编码</li>
+<li>multipart/form-data：文件上传时必须使用这种编码方式</li>
+</ul>
+</li>
+</ul>
+<p>multipart/form-data参考<a href="https://datatracker.ietf.org/doc/html/rfc1521">RFC_1521</a>。</p>
+<h4 id="请求头">请求头</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Content-Type: multipart/form-data; boundary=xxx
+</code></pre></div><h4 id="请求体">请求体</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">multipart-body := preamble 1*encapsulation
+               close-delimiter epilogue
+
+encapsulation := delimiter body-part CRLF
+
+delimiter := &#34;--&#34; boundary CRLF ; taken from Content-Type field.
+                                ; There must be no space
+                                ; between &#34;--&#34; and boundary.
+
+close-delimiter := &#34;--&#34; boundary &#34;--&#34; CRLF ; Again, no space
+   by &#34;--&#34;,
+
+preamble := discard-text   ;  to  be  ignored upon receipt.
+
+epilogue := discard-text   ;  to  be  ignored upon receipt.
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/osi/" rel="tag">OSI</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/status-code/" rel="tag">Status Code</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/http/" rel="tag">http</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/code/" rel="tag">code</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/status/" rel="tag">status</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/network/" rel="tag">network</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/network/5_application_http_03/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTP协议简介(3)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/network/5_application_http_05/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTP协议简介(5)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/go/go_channel/">【go】channel介绍</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_20/">【golang笔记】go_命令行参数(20)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_19/">【golang笔记】go_文件操作(19)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_18/">【golang笔记】go_类型断言(18)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_17/">【golang笔记】go_多态polymorphism(17)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_2/">72小时断食后记(2)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">33</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

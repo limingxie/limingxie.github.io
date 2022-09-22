@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【网络协议笔记】第五层:应用层(Application)HTTP协议简介(6) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【网络协议笔记】第五层:应用层(Application)HTTP协议简介(6)" />
+<meta property="og:description" content="这一篇整理了代理，CND，网络安全相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/network/5_application_http_06/" />
+<meta property="article:published_time" content="2022-04-23T18:05:49+08:00" />
+<meta property="article:modified_time" content="2022-04-23T18:05:49+08:00" />
+
+		<meta itemprop="name" content="【网络协议笔记】第五层:应用层(Application)HTTP协议简介(6)">
+<meta itemprop="description" content="这一篇整理了代理，CND，网络安全相关的内容。">
+<meta itemprop="datePublished" content="2022-04-23T18:05:49+08:00" />
+<meta itemprop="dateModified" content="2022-04-23T18:05:49+08:00" />
+<meta itemprop="wordCount" content="277">
+
+
+
+<meta itemprop="keywords" content="OSI,Proxy Server,CND,network," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【网络协议笔记】第五层:应用层(Application)HTTP协议简介(6)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-04-23T18:05:49&#43;08:00">2022-04-23</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/network/" rel="category">network</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1代理">1.代理</a>
+      <ul>
+        <li><a href="#11-代理服务器proxy-server">1.1 代理服务器（Proxy Server）</a></li>
+      </ul>
+    </li>
+    <li><a href="#12-抓包工具的原理">1.2 抓包工具的原理</a></li>
+    <li><a href="#2cdn">2.CDN</a></li>
+    <li><a href="#3网络安全">3.网络安全</a>
+      <ul>
+        <li><a href="#31-网络层-arp欺骗">3.1 网络层-ARP欺骗</a></li>
+        <li><a href="#32-dosddos">3.2 DoS、DDoS</a></li>
+        <li><a href="#33-dosddos防御">3.3 DoS、DDoS防御</a></li>
+        <li><a href="#34-应用层-dns劫持">3.4 应用层-DNS劫持</a></li>
+        <li><a href="#35-应用层-http劫持">3.5 应用层-HTTP劫持</a></li>
+        <li><a href="#36-http协议的安全问题">3.6 HTTP协议的安全问题</a></li>
+        <li><a href="#37-如何防止被窃听">3.7 如何防止被窃听？</a></li>
+        <li><a href="#38-单向散列函数one-way-hash-function">3.8 单向散列函数（One-way hash function）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了代理，CND，网络安全相关的内容。</p>
+<h2 id="1代理">1.代理</h2>
+<p><a href="https://limingxie.github.io/images/network/application/application_31.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_31.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="11-代理服务器proxy-server">1.1 代理服务器（Proxy Server）</h3>
+<p>特点： 本身不生产内容，处于中间位置转发上下游的请求和响应。</p>
+<p>面向下游的客户端：它是服务器（正向代理）<br>
+面向上游的服务器：它是客户端（反向代理）</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_32.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_32.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="111-正向代理">1.1.1 正向代理</h4>
+<p>代理的对象是客户端。<br>
+作用：</p>
+<ul>
+<li>
+<p><strong>隐藏客户端身份</strong><br>
+网络请求使用的是代理服务器IP，所以不会暴露客户端IP（但实际上是可以获取的，你懂得！！！）</p>
+</li>
+<li>
+<p><strong>绕过防火墙（突破访问限制）</strong><br>
+比如经常使用的科学上网工具就是干这个的</p>
+</li>
+<li>
+<p><strong>Internet访问控制</strong><br>
+路由器设置指定服务器允许上网，其他客户端如果想要上网只能通过指定的服务器，<br>
+而这台服务器通过判断客户端IP决定其是否能够交互数据，这台服务器就是代理服务器</p>
+</li>
+<li>
+<p><strong>数据过滤</strong><br>
+代理服务器通过规则解析数据内容，决定数据是否过滤<br>
+&hellip; &hellip;</p>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_33.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_33.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>免费的正向代理：<br>
+<a href="https://ip.jiangxianli.com/">https://ip.jiangxianli.com/</a><br>
+<a href="https://www.kuaidaili.com/free/inha">https://www.kuaidaili.com/free/inha</a></p>
+<h4 id="112-反向代理">1.1.2 反向代理</h4>
+<p>代理的对象是服务器。<br>
+作用：</p>
+<ul>
+<li><strong>隐藏服务器身份</strong></li>
+<li><strong>安全防护</strong></li>
+<li><strong>负载均衡</strong><br>
+&hellip;&hellip;</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_34.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_34.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>上图中的负载均衡服务器就是一个反向代理，为服务器服务的。<br>
+当用户访问指定服务器时，数据会通过负载均衡服务器进行转发。<br>
+这样不仅可以隐藏真实服务器的身份，还能通过一些算法让服务器稳定运行。</p>
+<h4 id="113-代理服务器相关的头部字段">1.1.3 代理服务器相关的头部字段</h4>
+<p><strong>Via:</strong> 追加经过的每一台代理服务器的主机名（或域名）<br>
+<strong>X-Forwarded-For:</strong> 追加请求方的IP地址<br>
+<strong>X-Real-IP:</strong> 客户端的真实IP地址</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_35.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_35.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>① =&gt; <strong>Via</strong>：代理1 <strong>X-Forwarded-For</strong>：14.14.14.14 <strong>X-Real-IP</strong>：14.14.14.14</p>
+<p>② =&gt; <strong>Via</strong>：代理1、代理2 <strong>X-Forwarded-For</strong>：14.14.14.14、220.11.11.11 <strong>X-Real-IP</strong>：14.14.14.14</p>
+<p>③ =&gt; <strong>Via</strong>：代理2</p>
+<p>④ =&gt; <strong>Via</strong>：代理2、代理1</p>
+<h2 id="12-抓包工具的原理">1.2 抓包工具的原理</h2>
+<p>Fiddler、Charles等抓包工具的原理：在客户端启动了正向代理服务。<br>
+Wireshark不是代理，它的原理是：通过底层驱动，拦截网卡上流过的数据。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_36.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_36.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h2 id="2cdn">2.CDN</h2>
+<p><strong>CDN（Content Delivery Network 或 Content Distribution Network）</strong>，译为：内容分发网络。<br>
+<strong>作用:</strong> 利用最靠近每位用户的服务器，更快更可靠的将音乐、图片、视频等资源文件（一般是静态资源）传递给用户。</p>
+<p>CDN出现之前，所有的内容都是从一台服务器取：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_37.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_37.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>CDN出现之后，内容就从距离用户最近的一台服务器取：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_38.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_38.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_39.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_39.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>对比：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_40.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_40.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>CDN运营商在全国、乃至全球的各大枢纽城市都建立了机房。<br>
+部署了大量拥有高存储高带宽的节点，构建了一个跨运营商、跨地域的专用网络。<br>
+内容所有者向CDN运营商支付费用，CDN将其内容交付给最终用户。</p>
+<p>举例，使用CDN引入jQuery：</p>
+<pre><code class="language-script" data-lang="script">&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(() =&gt; {
+        $(document.body).css('background', '#f00')
+    })
+&lt;/script&gt;
+</code></pre><p><strong>不是域名包含CDN就是CDN服务器。</strong></p>
+<h2 id="3网络安全">3.网络安全</h2>
+<p>网络通信中面临的4种安全威胁：</p>
+<p><strong>截获:</strong> 窃听通信内容<br>
+<strong>中断:</strong> 中断网络通信<br>
+<strong>篡改:</strong> 篡改通信内容<br>
+<strong>伪造:</strong> 伪造通信内容</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_41.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_41.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h3 id="31-网络层-arp欺骗">3.1 网络层-ARP欺骗</h3>
+<p>ARP欺骗（ARP spoofing），又称ARP毒化（ARP poisoning）、ARP病毒、ARP攻击。<br>
+ARP欺骗可以造成的效果：</p>
+<ul>
+<li>可让攻击者获取局域网上的数据包甚至可篡改数据包</li>
+<li>可让网络上特定电脑之间无法正常通信（例如网络执法官这样的软件）</li>
+<li>让送至特定IP地址的流量被错误送到攻击者所取代的地方</li>
+<li>&hellip;&hellip;</li>
+</ul>
+<p><strong>ARP欺骗核心步骤举例:</strong></p>
+<ul>
+<li>假设主机C是攻击者，主机A、B是被攻击者</li>
+<li>C只要收到过A、B发送的ARP请求，就会拥有A、B的IP、MAC地址，就可以进行欺骗活动</li>
+<li>C发送一个ARP响应给B，把响应包里的源IP设为A的IP地址，源MAC设为C的MAC地址</li>
+<li>B收到ARP响应后，更新它的ARP表，把A的MAC地址（IP_A、MAC_A）改为（IP_A、MAC_C）</li>
+<li>当B要发送数据包给A时，它根据ARP表来封装数据包的头部，把目标MAC地址设为MAC_C、而非MAC_A</li>
+<li>当交换机收到B发送给A的数据包时，根据此包的目标MAC地址（MAC_C）而把数据包转发给C</li>
+<li>C收到数据包后，可以把它存起来后再发送给A，达到窃听效果。C也可以篡改数据后才发送数据包给A</li>
+</ul>
+<p><strong>ARP欺骗的防护</strong></p>
+<ul>
+<li>使用静态ARP</li>
+<li>借助DHCP Snooping<br>
+网络设备可借由DHCP保留网络上各电脑的MAC地址，在伪造的ARP数据包发出时即可侦测到</li>
+<li>利用一些软件监听ARP的不正常变动</li>
+<li>&hellip;&hellip;</li>
+</ul>
+<h3 id="32-dosddos">3.2 DoS、DDoS</h3>
+<p><strong>DoS攻击（拒绝服务攻击，Denial-of-Service attack）</strong>，使目标电脑的网络或系统资源耗尽，使服务暂时中断或停止，导致其正常用户无法访问。</p>
+<p>Dos攻击可以分为2大类：</p>
+<ul>
+<li>带宽消耗型：UDP洪水攻击、ICMP洪水攻击<br>
+不断向服务器使用UDP或ICMP传输数据，占满其带宽，导致服务器访问过载直至宕机。</li>
+<li>资源消耗型：SYN洪水攻击、LAND攻击</li>
+</ul>
+<p><strong>DDoS（分布式拒绝服务攻击，Distributed Denial-of-Service attack）</strong>。<br>
+黑客使用网络上两个或以上被攻击的电脑作为“僵尸”向特定的目标发动DoS攻击。</p>
+<blockquote>
+<p>2018年3月，GitHub遭到迄今为止规模最大的DDoS攻击。</p>
+</blockquote>
+<h4 id="321-传输层-syn洪水攻击">3.2.1 传输层-SYN洪水攻击</h4>
+<p><strong>SYN洪水攻击（SYN flooding attack）</strong>。<br>
+攻击者发送一系列的SYN请求到目标，然后让目标因收不到ACK（第3次握手）而进行等待，消耗资源。</p>
+<p>攻击方法：</p>
+<ul>
+<li>跳过发送最后的ACK信息</li>
+<li>修改源IP地址，让目标送SYN-ACK到伪造的IP地址，因此目标永不可能收到ACK（第3次握手）</li>
+</ul>
+<p>防护：参考RFC_4987</p>
+<h4 id="322-传输层-land攻击">3.2.2 传输层-LAND攻击</h4>
+<p><strong>LAND攻击（局域网拒接服务攻击，Local Area Network Denial attack）</strong>。<br>
+通过持续发送相同源地址和目标地址的欺骗数据包，使目标视图与自己建立连接，消耗系统资源直至崩溃。<br>
+有些系统存在设计上的缺陷，允许设备接受并响应来自网络、却宣称来自于设备自身的数据包，导致循环应答。</p>
+<p>防护：</p>
+<ul>
+<li>大多数防火墙都能拦截类似的攻击包，以保护系统</li>
+<li>部分操作系统通过发布安全补丁修复了这一漏洞</li>
+<li>路由器应同时配置上行与下行筛选器，屏蔽所有源地址与目标地址相同的数据包</li>
+</ul>
+<h3 id="33-dosddos防御">3.3 DoS、DDoS防御</h3>
+<p>防御方式通常为：入侵检测、流量过滤、多重验证。堵塞网络带宽的流量将被过滤，而正常的流量可正常通过。</p>
+<p><strong>防火墙:</strong> 防火墙可以设置规则，例如允许或拒绝特定通讯协议，端口或IP地址。</p>
+<ul>
+<li>当攻击从少数不正常的IP地址发出时，可以简单的使用拒绝规则阻止一切从攻击源IP发出的通信</li>
+<li>复杂攻击难以用简单规则来阻止，例如80端口遭受攻击时不可能拒绝端口所有的通信，因为同时会阻止合法流量</li>
+<li>防火墙可能处于网络架构中过后的位置，路由器可能在恶意流量达到防火墙前即被攻击影响</li>
+</ul>
+<p><strong>交换机:</strong> 大多数交换机有一定的速度限制和访问控制能力。<br>
+<strong>路由器:</strong> 和交换机类似，路由器也有一定的速度限制和访问控制能力。<br>
+<strong>黑洞引导:</strong> 将所有受攻击计算机的通信全部发送至一个“黑洞”（空接口或不存在的计算机地址）或者有足够能力处理洪流的网络设备商，以避免网络受到较大影响。<br>
+<strong>流量清洗:</strong> 当流量被送到DDoS防护清洗中心时，通过采用抗DDoS软件处理，将正常流量和恶意流量区分开。正常的流量则回注回客户网站。</p>
+<h3 id="34-应用层-dns劫持">3.4 应用层-DNS劫持</h3>
+<p>DNS劫持，又称为域名劫持。攻击者篡改了某个域名的解析结果，使得指向该域名的IP变成了另一个IP。导致对应网址的访问被劫持到另一个不可达的或者假冒的网址。从而实现非法窃取用户信息或者破坏正常网络服务的目的。<br>
+为防止DNS劫持，可以考虑使用更靠谱的DNS服务器，比如：114.114.114.114。</p>
+<ul>
+<li>谷歌：8.8.8.8，8.8.4.4</li>
+<li>微软：4.2.2.1，4.2.2.2</li>
+<li>百度：180.76.76.76</li>
+<li>阿里：223.5.5.5，223.6.6.6</li>
+</ul>
+<h3 id="35-应用层-http劫持">3.5 应用层-HTTP劫持</h3>
+<p>HTTP劫持是对HTTP数据包进行拦截处理，比如插入JS代码。<br>
+最常见的是在访问某些网站时，在右下角多了个莫名其妙的弹窗广告。</p>
+<h3 id="36-http协议的安全问题">3.6 HTTP协议的安全问题</h3>
+<p>HTTP协议默认是采用明文传输的，因此会有很大的安全隐患。常见的提高安全性的方法是：对通信内容进行加密后，再进行传输。<br>
+常见的加密方式：</p>
+<ul>
+<li>
+<p>不可逆<br>
+单向散列函数：MD5、SHA等</p>
+</li>
+<li>
+<p>可逆<br>
+对称加密：DES、3DES、AES等<br>
+非对称加密：RSA等</p>
+</li>
+<li>
+<p>其他<br>
+混合密码系统<br>
+数字签名<br>
+证书</p>
+</li>
+</ul>
+<p><strong>常见英文：encrypt（加密）、decrypt（解密）、plaintext（明文）、ciphertext（密文）</strong>。</p>
+<h3 id="37-如何防止被窃听">3.7 如何防止被窃听？</h3>
+<p>为了便于区分，设计4个虚拟人物：<br>
+Alice、Bob：相互通信<br>
+Eve：窃听者<br>
+Mallory：主动攻击者</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_42.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_42.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>加密：</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_43.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_43.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>常见的加解密地址：<br>
+MD5加密：<a href="https://www.cmd5.com/hash.aspx">https://www.cmd5.com/hash.aspx</a><br>
+MD5解密：<a href="https://www.cmd5.com/">https://www.cmd5.com/</a><br>
+其他加密：<a href="https://www.sojson.com/encrypt_des.html">https://www.sojson.com/encrypt_des.html</a><br>
+<a href="https://tool.chinaz.com/tools/md5.aspx">https://tool.chinaz.com/tools/md5.aspx</a></p>
+<h3 id="38-单向散列函数one-way-hash-function">3.8 单向散列函数（One-way hash function）</h3>
+<p>单向散列函数，可以根据消息内容计算出散列值。<br>
+单向散列函数也被称为：消息摘要函数（message digest function）、哈希函数（hash function）。<br>
+输出的散列值也被称为：消息摘要（message digest）、指纹（fingerprint）<br>
+散列值的长度和消息的长度无关，无论消息是1bit、10M、100G，单向散列函数都会计算出固定长度的散列值。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_44.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_44.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>特点：</p>
+<ul>
+<li>根据任意长度的消息，计算出固定长度的散列值</li>
+<li>计算速度快，能快速计算出散列值</li>
+<li>消息不同，散列值也不同</li>
+<li>具备单向性</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/network/application/application_45.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_45.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p><a href="https://limingxie.github.io/images/network/application/application_46.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_46.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<h4 id="381-常见的几种单向散列函数">3.8.1 常见的几种单向散列函数</h4>
+<ul>
+<li>
+<p><strong>MD4、MD5</strong><br>
+产生128bit的散列值，MD就是Message Digest的缩写，目前已经不安全</p>
+</li>
+<li>
+<p><strong>SHA-1</strong><br>
+产生168bit的散列值，目前已经不安全</p>
+</li>
+<li>
+<p><strong>SHA-2</strong><br>
+SHA-256、SHA-384、SHA-512，散列值长度分别是256bit、384bit、512bit</p>
+</li>
+<li>
+<p><strong>SHA-3</strong><br>
+全新标准</p>
+</li>
+</ul>
+<h4 id="382-如何防止数据被篡改">3.8.2 如何防止数据被篡改？</h4>
+<p>如何确保两个文件是一样的？</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_47.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_46.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>原始做法就是拷贝一份进行比较（非常笨重）。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_48.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_47.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>计算比较散列值（推荐）。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_49.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_48.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<p>在下载软件的时候，有些网站就会提供软件包的哈希值（比如：IDEA），防止软件包被非法篡改，<br>
+我们就可以在镜像网站（速度快）下载安装包后计算出哈希值，然后和官方软件包的哈希值做比较，以确保软件完整性。</p>
+<p><a href="https://limingxie.github.io/images/network/application/application_50.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_50.png?x-oss-process=image/resize,w_700,m_lfit" alt="application"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/osi/" rel="tag">OSI</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/proxy-server/" rel="tag">Proxy Server</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/cnd/" rel="tag">CND</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/network/" rel="tag">network</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/network/5_application_http_05/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTP协议简介(5)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/network/5_application_https_07/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(7)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/go/go_channel/">【go】channel介绍</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_20/">【golang笔记】go_命令行参数(20)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_19/">【golang笔记】go_文件操作(19)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_18/">【golang笔记】go_类型断言(18)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_17/">【golang笔记】go_多态polymorphism(17)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_2/">72小时断食后记(2)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">33</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

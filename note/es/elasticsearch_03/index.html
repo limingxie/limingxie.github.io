@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【ES笔记】Elasticsearch_常用API(3) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【ES笔记】Elasticsearch_常用API(3)" />
+<meta property="og:description" content="整理了Elasticsearch常用的API方法。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/es/elasticsearch_03/" />
+<meta property="article:published_time" content="2022-08-10T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-08-10T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【ES笔记】Elasticsearch_常用API(3)">
+<meta itemprop="description" content="整理了Elasticsearch常用的API方法。">
+<meta itemprop="datePublished" content="2022-08-10T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-08-10T23:28:49+08:00" />
+<meta itemprop="wordCount" content="804">
+
+
+
+<meta itemprop="keywords" content="elasticsearch,es,database,index," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【ES笔记】Elasticsearch_常用API(3)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-10T23:28:49&#43;08:00">2022-08-10</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/database/" rel="category">database</a>, <a class="meta__link" href="/categories/elasticsearch/" rel="category">elasticsearch</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1索引操作">1.索引操作</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#2文档操作">2.文档操作</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3映射操作">3.映射操作</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#4高级查询">4.高级查询</a></li>
+    <li><a href="#41-查询所有文档">4.1 查询所有文档</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>整理了Elasticsearch常用的API方法。</p>
+<h2 id="1索引操作">1.索引操作</h2>
+<h4 id="11-创建索引">1.1 创建索引</h4>
+<pre><code>PUT请求 ：http://127.0.0.1:9200/shopping
+
+{
+    &quot;acknowledged&quot;【响应结果】: true, 
+    &quot;shards_acknowledged&quot;【分片结果】: true, 
+    &quot;index&quot;【索引名称】: &quot;shopping&quot;
+}
+</code></pre><h4 id="12-查看所有索引">1.2 查看所有索引</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/_cat/indices?v
+</code></pre><h4 id="13-查看单个索引">1.3 查看单个索引</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/shopping
+
+{
+    &quot;shopping&quot;【索引名】: {        
+        &quot;aliases&quot;【别名】: {},
+        &quot;mappings&quot;【映射】: {},
+        &quot;settings&quot;【设置】: {
+            &quot;index&quot;【设置 - 索引】: {
+                &quot;creation_date&quot;【设置 - 索引 - 创建时间】: &quot;1614265373911&quot;,
+                &quot;number_of_shards&quot;【设置 - 索引 - 主分片数量】: &quot;1&quot;,
+                &quot;number_of_replicas&quot;【设置 - 索引 - 副分片数量】: &quot;1&quot;,
+                &quot;uuid&quot;【设置 - 索引 - 唯一标识】: &quot;eI5wemRERTumxGCc1bAk2A&quot;,
+                &quot;version&quot;【设置 - 索引 - 版本】: {
+                    &quot;created&quot;: &quot;7080099&quot;
+                },
+                &quot;provided_name&quot;【设置 - 索引 - 名称】: &quot;shopping&quot;
+            }
+        }
+    }
+}
+</code></pre><h4 id="14-删除索引">1.4 删除索引</h4>
+<pre><code>DELETE请求 ：http://127.0.0.1:9200/shopping
+</code></pre><h2 id="2文档操作">2.文档操作</h2>
+<h4 id="21-创建文档">2.1 创建文档</h4>
+<pre><code>POST请求 ：http://127.0.0.1:9200/shopping/_doc
+{
+    &quot;title&quot;:&quot;小米手机&quot;,
+    &quot;category&quot;:&quot;小米&quot;,
+    &quot;images&quot;:&quot;http://www.gulixueyuan.com/xm.jpg&quot;,
+    &quot;price&quot;:3999.00
+}
+
+{
+    &quot;_index&quot;【索引】: &quot;shopping&quot;,
+    &quot;_type&quot;【类型-文档】: &quot;_doc&quot;,
+    &quot;_id&quot;【唯一标识】: &quot;Xhsa2ncBlvF_7lxyCE9G&quot;, #可以类比为MySQL中的主键，随机生成
+    &quot;_version&quot;【版本】: 1,
+    &quot;result&quot;【结果】: &quot;created&quot;, #这里的create表示创建成功
+    &quot;_shards&quot;【分片】: {
+        &quot;total&quot;【分片 - 总数】: 2,
+        &quot;successful&quot;【分片 - 成功】: 1,
+        &quot;failed&quot;【分片 - 失败】: 0
+    },
+    &quot;_seq_no&quot;: 0,
+    &quot;_primary_term&quot;: 1
+}
+</code></pre><h4 id="22-查看文档">2.2 查看文档</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/shopping/_doc/1
+
+{
+    &quot;_index&quot;【索引】: &quot;shopping&quot;,
+    &quot;_type&quot;【文档类型】: &quot;_doc&quot;,
+    &quot;_id&quot;: &quot;1&quot;,
+    &quot;_version&quot;: 2,
+    &quot;_seq_no&quot;: 2,
+    &quot;_primary_term&quot;: 2,
+    &quot;found&quot;【查询结果】: true, # true表示查找到，false表示未查找到
+    &quot;_source&quot;【文档源信息】: {
+        &quot;title&quot;: &quot;华为手机&quot;,
+        &quot;category&quot;: &quot;华为&quot;,
+        &quot;images&quot;: &quot;http://www.gulixueyuan.com/hw.jpg&quot;,
+        &quot;price&quot;: 4999.00
+    }
+}
+</code></pre><h4 id="23-修改文档">2.3 修改文档</h4>
+<pre><code>POST请求 ：http://127.0.0.1:9200/shopping/_doc/1
+{
+    &quot;title&quot;:&quot;华为手机&quot;,
+    &quot;category&quot;:&quot;华为&quot;,
+    &quot;images&quot;:&quot;http://www.gulixueyuan.com/hw.jpg&quot;,
+    &quot;price&quot;:4999.00
+}
+
+{
+    &quot;_index&quot;: &quot;shopping&quot;,
+    &quot;_type&quot;: &quot;_doc&quot;,
+    &quot;_id&quot;: &quot;1&quot;,
+    &quot;_version&quot;【版本】: 2,
+    &quot;result&quot;【结果】: &quot;updated&quot;, # updated表示数据被更新
+    &quot;_shards&quot;: {
+        &quot;total&quot;: 2,
+        &quot;successful&quot;: 1,
+        &quot;failed&quot;: 0
+    },
+    &quot;_seq_no&quot;: 2,
+    &quot;_primary_term&quot;: 2
+}
+
+</code></pre><h4 id="24-修改字段">2.4 修改字段</h4>
+<pre><code>POST请求 ：http://127.0.0.1:9200/shopping/_update/1
+{ 
+  &quot;doc&quot;: {
+    &quot;price&quot;:3000.00
+  } 
+}
+</code></pre><h4 id="25-删除文档">2.5 删除文档</h4>
+<pre><code>DELETE请求 ：http://127.0.0.1:9200/shopping/_doc/1
+
+{
+    &quot;_index&quot;: &quot;shopping&quot;,
+    &quot;_type&quot;: &quot;_doc&quot;,
+    &quot;_id&quot;: &quot;1&quot;,
+    &quot;_version&quot;【版本】: 4, #对数据的操作，都会更新版本
+    &quot;result&quot;【结果】: &quot;deleted&quot;, # deleted表示数据被标记为删除
+    &quot;_shards&quot;: {
+        &quot;total&quot;: 2,
+        &quot;successful&quot;: 1,
+        &quot;failed&quot;: 0
+    },
+    &quot;_seq_no&quot;: 4,
+    &quot;_primary_term&quot;: 2
+}
+</code></pre><h2 id="3映射操作">3.映射操作</h2>
+<h4 id="31-创建映射">3.1 创建映射</h4>
+<pre><code>PUT请求 ：http://127.0.0.1:9200/student/_mapping
+{
+  &quot;properties&quot;: {
+    &quot;name&quot;:{
+      &quot;type&quot;: &quot;text&quot;,
+      &quot;index&quot;: true
+    },
+    &quot;sex&quot;:{
+      &quot;type&quot;: &quot;text&quot;,
+      &quot;index&quot;: false
+    },
+    &quot;age&quot;:{
+      &quot;type&quot;: &quot;long&quot;,
+      &quot;index&quot;: false
+    }
+  }
+}
+</code></pre><ul>
+<li>字段名：任意填写，下面指定许多属性，例如：title、subtitle、images、price</li>
+<li>type：类型，Elasticsearch中支持的数据类型非常丰富，说几个关键的：
+<ul>
+<li>String类型，又分两种：
+text：可分词
+keyword：不可分词，数据会作为完整字段进行匹配</li>
+<li>Numerical：数值类型，分两类
+基本数据类型：long、integer、short、byte、double、float、half_float
+浮点数的高精度类型：scaled_float</li>
+<li>Date：日期类型</li>
+<li>Array：数组类型</li>
+<li>Object：对象</li>
+</ul>
+</li>
+<li>index：是否索引，默认为true，也就是说你不进行任何配置，所有字段都会被索引。
+true：字段会被索引，则可以用来进行搜索
+false：字段不会被索引，不能用来搜索</li>
+<li>store：是否将数据进行独立存储，默认为false
+原始的文本会存储在_source里面，默认情况下其他提取出来的字段都不是独立存储的，是从_source里面提取出来的。<br>
+当然你也可以独立的存储某个字段，只要设置&quot;store&quot;: true即可，获取独立存储的字段要比从_source中解析快得多，<br>
+但是也会占用更多的空间，所以要根据实际业务需求来设置。</li>
+<li>analyzer：分词器，这里的ik_max_word即使用ik分词器</li>
+</ul>
+<h4 id="32-查看映射">3.2 查看映射</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_mapping
+</code></pre><h4 id="33-索引映射关联">3.3 索引映射关联</h4>
+<pre><code>PUT请求 ：http://127.0.0.1:9200/student1
+{
+  &quot;settings&quot;: {},
+  &quot;mappings&quot;: {
+   &quot;properties&quot;: {
+  &quot;name&quot;:{
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;index&quot;: true
+    
+  },
+  &quot;sex&quot;:{
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;index&quot;: false
+  },
+  &quot;age&quot;:{
+    &quot;type&quot;: &quot;long&quot;,
+    &quot;index&quot;: false
+  }
+   }
+  }
+}
+</code></pre><h2 id="4高级查询">4.高级查询</h2>
+<h2 id="41-查询所有文档">4.1 查询所有文档</h2>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
+  }
+}
+# &quot;query&quot;：这里的query代表一个查询对象，里面可以有不同的查询属性
+# &quot;match_all&quot;：查询类型，例如：match_all(代表查询所有)， match，term ， range 等等
+# {查询条件}：查询条件会根据类型的不同，写法也有差异
+
+{
+  &quot;took【查询花费时间，单位毫秒】&quot; : 1116,
+  &quot;timed_out【是否超时】&quot; : false,
+  &quot;_shards【分片信息】&quot; : {
+    &quot;total【总数】&quot; : 1,
+    &quot;successful【成功】&quot; : 1,
+    &quot;skipped【忽略】&quot; : 0,
+    &quot;failed【失败】&quot; : 0
+  },
+  &quot;hits【搜索命中结果】&quot; : {
+     &quot;total&quot;【搜索条件匹配的文档总数】: {
+         &quot;value&quot;【总命中计数的值】: 3,
+         &quot;relation&quot;【计数规则】: &quot;eq&quot; # eq 表示计数准确， gte表示计数不准确
+     },
+    &quot;max_score【匹配度分值】&quot; : 1.0,
+    &quot;hits【命中结果集合】&quot; : [
+       。。。
+      }
+    ]
+  }
+}
+</code></pre><h4 id="42-匹配查询">4.2 匹配查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+        &quot;name&quot;:&quot;zhangsan&quot;
+    }
+  }
+}
+</code></pre><h4 id="43-字段匹配查询">4.3 字段匹配查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;multi_match&quot;: {
+        &quot;query&quot;: &quot;zhangsan&quot;,
+        &quot;fields&quot;: [&quot;name&quot;,&quot;nickname&quot;]
+    }
+  }
+}
+</code></pre><h4 id="44-关键字精确查询">4.4 关键字精确查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;name&quot;: {
+        &quot;value&quot;: &quot;zhangsan&quot;
+      }
+    }
+  }
+}
+</code></pre><h4 id="45-多关键字精确查询">4.5 多关键字精确查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;name&quot;: [&quot;zhangsan&quot;,&quot;lisi&quot;]
+    }
+  }
+}
+</code></pre><h4 id="46-指定查询字段">4.6 指定查询字段</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;_source&quot;: [&quot;name&quot;,&quot;nickname&quot;],  
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;nickname&quot;: [&quot;zhangsan&quot;]
+    }
+  }
+}
+</code></pre><h4 id="47-过滤字段">4.7 过滤字段</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;_source&quot;: {
+    &quot;includes&quot;: [&quot;name&quot;,&quot;nickname&quot;]
+  },  
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;nickname&quot;: [&quot;zhangsan&quot;]
+    }
+  }
+}
+
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;_source&quot;: {
+    &quot;excludes&quot;: [&quot;name&quot;,&quot;nickname&quot;]
+  },  
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;nickname&quot;: [&quot;zhangsan&quot;]
+    }
+  }
+}
+</code></pre><h4 id="48-组合查询">4.8 组合查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
+        {
+          &quot;match&quot;: {
+            &quot;name&quot;: &quot;zhangsan&quot;
+          }
+        }
+      ],
+      &quot;must_not&quot;: [
+        {
+          &quot;match&quot;: {
+            &quot;age&quot;: &quot;40&quot;
+          }
+        }
+      ],
+      &quot;should&quot;: [
+        {
+          &quot;match&quot;: {
+            &quot;sex&quot;: &quot;男&quot;
+          }
+        }
+      ]
+    }
+  }
+}
+</code></pre><h4 id="49-范围查询">4.9 范围查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;range&quot;: {
+      &quot;age&quot;: {
+        &quot;gte&quot;: 30,
+        &quot;lte&quot;: 35
+      }
+    }
+  }
+}
+</code></pre><ul>
+<li>gt 大于&gt;</li>
+<li>gte 大于等于&gt;=</li>
+<li>lt 小于&lt;</li>
+<li>lte 小于等于&lt;=</li>
+</ul>
+<h4 id="410-模糊查询">4.10 模糊查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;fuzzy&quot;: {
+      &quot;title&quot;: {
+        &quot;value&quot;: &quot;zhangsan&quot;
+      }
+    }
+  }
+}
+
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;fuzzy&quot;: {
+      &quot;title&quot;: {
+        &quot;value&quot;: &quot;zhangsan&quot;,
+  &quot;fuzziness&quot;: 2
+      }
+    }
+  }
+}
+</code></pre><h4 id="411-单字段排序">4.11 单字段排序</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+        &quot;name&quot;:&quot;zhangsan&quot;
+    }
+  },
+  &quot;sort&quot;: [{
+    &quot;age&quot;: {
+        &quot;order&quot;:&quot;desc&quot;
+    }
+  }]
+}
+</code></pre><h4 id="412-多字段排序">4.12 多字段排序</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
+  },
+  &quot;sort&quot;: [
+    {
+      &quot;age&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
+      }
+    },
+    {
+      &quot;_score&quot;:{
+        &quot;order&quot;: &quot;desc&quot;
+      }
+    }
+  ]
+}
+</code></pre><h4 id="413-高亮查询">4.13 高亮查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;name&quot;: &quot;zhangsan&quot;
+    }
+  },
+  &quot;highlight&quot;: {
+    &quot;pre_tags&quot;: &quot;&lt;font color='red'&gt;&quot;,
+    &quot;post_tags&quot;: &quot;&lt;/font&gt;&quot;,
+    &quot;fields&quot;: {
+      &quot;name&quot;: {}
+    }
+  }
+}
+</code></pre><ul>
+<li>pre_tags：前置标签</li>
+<li>post_tags：后置标签</li>
+<li>fields：需要高亮的字段</li>
+<li>title：这里声明title字段需要高亮，后面可以为这个字段设置特有配置，也可以空</li>
+</ul>
+<h4 id="414-分页查询">4.14 分页查询</h4>
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+{
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
+  },
+  &quot;sort&quot;: [
+    {
+      &quot;age&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
+      }
+    }
+  ],
+  &quot;from&quot;: 0,
+  &quot;size&quot;: 2
+}
+</code></pre><h4 id="415-聚合查询">4.15 聚合查询</h4>
+<pre><code>#对某个字段取最大值max
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;max_age&quot;:{
+        &quot;max&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+}
+
+#对某个字段取最小值min
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;min_age&quot;:{
+        &quot;min&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+}
+
+#对某个字段求和sum
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;sum_age&quot;:{
+        &quot;sum&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+}
+
+#对某个字段取平均值avg
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;avg_age&quot;:{
+        &quot;avg&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+}
+
+#对某个字段的值进行去重之后再取总数
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;distinct_age&quot;:{
+        &quot;cardinality&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+}
+
+#State聚合
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;stats_age&quot;:{
+        &quot;stats&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+}
+</code></pre><h4 id="416-桶聚合查询">4.16 桶聚合查询</h4>
+<pre><code>#terms聚合，分组统计
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;age_groupby&quot;:{
+        &quot;terms&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+} 
+
+#在terms分组下再进行聚合
+GET请求 ：http://127.0.0.1:9200/student/_search
+{
+    &quot;aggs&quot;:{
+      &quot;age_groupby&quot;:{
+        &quot;terms&quot;:{&quot;field&quot;:&quot;age&quot;}
+      }
+    },
+    &quot;size&quot;:0
+} 
+</code></pre><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/elasticsearch/" rel="tag">elasticsearch</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/es/" rel="tag">es</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/database/" rel="tag">database</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/index/" rel="tag">index</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/es/elasticsearch_02/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【ES笔记】Elasticsearch_结构和常用API简介(2)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/zookeeper/zookeeper_01/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【zookeeper笔记】zookeeper_启动和配置(1)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/go/go_channel/">【go】channel介绍</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_20/">【golang笔记】go_命令行参数(20)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_19/">【golang笔记】go_文件操作(19)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_18/">【golang笔记】go_类型断言(18)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_17/">【golang笔记】go_多态polymorphism(17)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/-intermittent_fasting_72h_2/">72小时断食后记(2)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">33</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
