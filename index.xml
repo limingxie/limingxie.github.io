@@ -6,7 +6,52 @@
     <description>Recent content on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Sep 2022 07:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Sep 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【golang笔记】go_channel只读和只写(25)</title>
+      <link>https://limingxie.github.io/note/go/golang_25/</link>
+      <pubDate>Mon, 26 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_25/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;channel只读和只写&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_channel遍历和关闭(24)</title>
+      <link>https://limingxie.github.io/note/go/golang_24/</link>
+      <pubDate>Sun, 25 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_24/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;channel遍历和关闭&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_channel(23)</title>
+      <link>https://limingxie.github.io/note/go/golang_23/</link>
+      <pubDate>Sat, 24 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_23/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;管道channel&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_goroutine(22)</title>
+      <link>https://limingxie.github.io/note/go/golang_22/</link>
+      <pubDate>Fri, 23 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_22/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;goroutine&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_json的序列化和反序列化(21)</title>
+      <link>https://limingxie.github.io/note/go/golang_21/</link>
+      <pubDate>Thu, 22 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_21/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;json的序列化和反序列化&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【golang】channel介绍</title>
       <link>https://limingxie.github.io/go/go_channel/</link>
@@ -2248,6 +2293,16 @@ OSI模型分为七个层次。它们由低到高分别是物理层(PH)、数据�
       <guid>https://limingxie.github.io/limingxie/hugo_create/</guid>
       <description>&lt;p&gt;这几天研究了用hugo搭建个人博客。&lt;/p&gt;
 &lt;p&gt;简单的整理了一下。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】稀疏数组sparseArray的简单实践</title>
+      <link>https://limingxie.github.io/algorithm/sparse_array/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/sparse_array/</guid>
+      <description>&lt;p&gt;今天用go语言简单的写了一下稀疏数组的简单实例饿。&lt;br&gt;
+为了以后方便查看，当做笔记整理了一下~~&lt;/p&gt;</description>
     </item>
     
   </channel>
