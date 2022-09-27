@@ -20,7 +20,7 @@
 为了以后方便查看，当做笔记整理了一下~~">
 <meta itemprop="datePublished" content="2022-01-29T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-01-29T07:28:49+08:00" />
-<meta itemprop="wordCount" content="764">
+<meta itemprop="wordCount" content="1323">
 
 
 
@@ -167,6 +167,7 @@
         <li></li>
       </ul>
     </li>
+    <li><a href="#其它">其它</a></li>
   </ul>
 </nav>
 	</div>
@@ -491,7 +492,249 @@ index: 3
 出队元素：2
 出队元素：1
 最后剩下的元素是：4
-</code></pre><hr>
+</code></pre><h2 id="其它">其它</h2>
+<p>好久没接触算法题了，写写看看，记过折腾了快1个多小时&hellip;^^;;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MainNode</span> <span style="color:#66d9ef">struct</span> {
+ <span style="color:#a6e22e">Front</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+ <span style="color:#a6e22e">Tail</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+ <span style="color:#a6e22e">Size</span>  <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+ <span style="color:#a6e22e">No</span>       <span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">Value</span>    <span style="color:#66d9ef">string</span>
+ <span style="color:#a6e22e">PreNode</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+ <span style="color:#a6e22e">NextNode</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MainNode</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">no</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">string</span>) {
+ <span style="color:#a6e22e">node</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{
+  <span style="color:#a6e22e">No</span>:    <span style="color:#a6e22e">no</span>,
+  <span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">val</span>,
+ }
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+  <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#66d9ef">nil</span>
+  <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#66d9ef">nil</span>
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span> = <span style="color:#a6e22e">node</span>
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span> = <span style="color:#a6e22e">node</span>
+ } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+  <span style="color:#a6e22e">temp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">No</span> &gt; <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">No</span> {
+   <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#66d9ef">nil</span>
+   <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#a6e22e">temp</span>
+   <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#a6e22e">node</span>
+   <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span> = <span style="color:#a6e22e">node</span>
+   <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span> = <span style="color:#a6e22e">temp</span>
+  } <span style="color:#66d9ef">else</span> {
+   <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#a6e22e">node</span>
+   <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#a6e22e">temp</span>
+   <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span> = <span style="color:#a6e22e">node</span>
+  }
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">temp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span>
+  <span style="color:#a6e22e">isEdit</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">no</span> &lt; <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">No</span> {
+    <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">PreNode</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#a6e22e">node</span>
+    <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">PreNode</span>
+    <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#a6e22e">node</span>
+    <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#a6e22e">temp</span>
+    <span style="color:#a6e22e">isEdit</span> = <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">break</span>
+   }
+   <span style="color:#a6e22e">temp</span> = <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">NextNode</span>
+  }
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">isEdit</span> {
+   <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span>
+   <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#a6e22e">node</span>
+   <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span> = <span style="color:#a6e22e">node</span>
+
+  }
+ }
+ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span><span style="color:#f92672">++</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MainNode</span>) <span style="color:#a6e22e">Peek</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;队列已空，无法Peek&#34;</span>)
+ }
+ <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span>
+
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">NextNode</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span> = <span style="color:#66d9ef">nil</span>
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span> = <span style="color:#66d9ef">nil</span>
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span> = <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">NextNode</span>
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#66d9ef">nil</span>
+ }
+
+ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span><span style="color:#f92672">--</span>
+
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
+
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MainNode</span>) <span style="color:#a6e22e">Pop</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;队列已空，无法Pop&#34;</span>)
+ }
+
+ <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span>
+
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">PreNode</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span> = <span style="color:#66d9ef">nil</span>
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span> = <span style="color:#66d9ef">nil</span>
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span> = <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">PreNode</span>
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Tail</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#66d9ef">nil</span>
+ }
+ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span><span style="color:#f92672">--</span>
+
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
+
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MainNode</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;队列已空，无法Get&#34;</span>)
+ }
+ <span style="color:#a6e22e">temp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span>
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">v</span> {
+   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">temp</span>
+  }
+  <span style="color:#a6e22e">temp</span> = <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">NextNode</span>
+ }
+ <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MainNode</span>) <span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">string</span>) {
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;队列已空，无法Remove&#34;</span>)
+ }
+
+ <span style="color:#a6e22e">temp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span>
+ <span style="color:#a6e22e">isRemoved</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">Value</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">v</span> {
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">PreNode</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">NextNode</span>.<span style="color:#a6e22e">PreNode</span> = <span style="color:#66d9ef">nil</span>
+    <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Front</span> = <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">NextNode</span>
+   } <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">PreNode</span>.<span style="color:#a6e22e">NextNode</span> = <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">NextNode</span>
+   }
+   <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Size</span><span style="color:#f92672">--</span>
+   <span style="color:#a6e22e">isRemoved</span> = <span style="color:#66d9ef">true</span>
+   <span style="color:#66d9ef">break</span>
+  }
+  <span style="color:#a6e22e">temp</span> = <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">NextNode</span>
+ }
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isRemoved</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>, <span style="color:#e6db74">&#34;删除成功&#34;</span>)
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;队列中没有对应的数据&#34;</span>)
+ }
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) <span style="color:#a6e22e">Print</span>() {
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;no: %v, val: %v\n&#34;</span>, <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">No</span>, <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Value</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">NextNode</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+   <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">NextNode</span>.<span style="color:#a6e22e">Print</span>()
+  }
+ }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------------Push-------------&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MainNode</span>{}
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;小明&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;小张&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">5</span>, <span style="color:#e6db74">&#34;小李&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;小红&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#34;张三&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Size</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Front</span>.<span style="color:#a6e22e">Print</span>()
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------------Peek-------------&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Peek</span>())
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Peek</span>())
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Size</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Front</span>.<span style="color:#a6e22e">Print</span>()
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------------Pop--------------&#34;</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Pop</span>())
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Pop</span>())
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Size</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">mainNode</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Front</span>.<span style="color:#a6e22e">Print</span>()
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;----------Get,Remove---------&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;小明&#34;</span>)
+ <span style="color:#75715e">// mainNode.Push(3, &#34;小张&#34;)
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">5</span>, <span style="color:#e6db74">&#34;小李&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;小红&#34;</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#34;张三&#34;</span>)
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Size</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">mainNode</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Front</span>.<span style="color:#a6e22e">Print</span>()
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;小红&#34;</span>))
+
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Remove</span>(<span style="color:#e6db74">&#34;小红&#34;</span>)
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Size</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">mainNode</span>)
+ <span style="color:#a6e22e">mainNode</span>.<span style="color:#a6e22e">Front</span>.<span style="color:#a6e22e">Print</span>()
+}
+</code></pre></div><p><strong>执行结果</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
+------------Push-------------
+<span style="color:#ae81ff">5</span>
+no: 1, val: 小明
+no: 2, val: 小红
+no: 3, val: 小张
+no: 4, val: 张三
+no: 5, val: 小李
+------------Peek-------------
+&amp;<span style="color:#f92672">{</span><span style="color:#ae81ff">1</span> 小明 &lt;nil&gt; 0xc00018e0c0<span style="color:#f92672">}</span>
+&amp;<span style="color:#f92672">{</span><span style="color:#ae81ff">2</span> 小红 &lt;nil&gt; 0xc00018e060<span style="color:#f92672">}</span>
+<span style="color:#ae81ff">3</span>
+no: 3, val: 小张
+no: 4, val: 张三
+no: 5, val: 小李
+------------Pop--------------
+&amp;<span style="color:#f92672">{</span><span style="color:#ae81ff">5</span> 小李 0xc00018e0f0 &lt;nil&gt;<span style="color:#f92672">}</span>
+&amp;<span style="color:#f92672">{</span><span style="color:#ae81ff">4</span> 张三 0xc00018e060 &lt;nil&gt;<span style="color:#f92672">}</span>
+<span style="color:#ae81ff">1</span>
+&amp;<span style="color:#f92672">{</span>0xc00018e060 0xc00018e060 1<span style="color:#f92672">}</span>
+no: 3, val: 小张
+----------Get,Remove---------
+<span style="color:#ae81ff">5</span>
+&amp;<span style="color:#f92672">{</span>0xc00018e1e0 0xc00018e210 5<span style="color:#f92672">}</span>
+no: 1, val: 小明
+no: 2, val: 小红
+no: 3, val: 小张
+no: 4, val: 张三
+no: 5, val: 小李
+&amp;<span style="color:#f92672">{</span><span style="color:#ae81ff">2</span> 小红 0xc00018e1e0 0xc00018e060<span style="color:#f92672">}</span>
+小红 删除成功
+<span style="color:#ae81ff">4</span>
+&amp;<span style="color:#f92672">{</span>0xc00018e1e0 0xc00018e210 4<span style="color:#f92672">}</span>
+no: 1, val: 小明
+no: 3, val: 小张
+no: 4, val: 张三
+no: 5, val: 小李
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
