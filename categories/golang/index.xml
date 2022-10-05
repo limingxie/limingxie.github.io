@@ -6,7 +6,53 @@
     <description>Recent content in golang on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 29 Sep 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Oct 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【golang笔记】go_反射的实现(32)</title>
+      <link>https://limingxie.github.io/note/go/golang_32/</link>
+      <pubDate>Mon, 03 Oct 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_32/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;反射的实现&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_反射几点注意事项(31)</title>
+      <link>https://limingxie.github.io/note/go/golang_31/</link>
+      <pubDate>Sun, 02 Oct 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_31/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;反射几点注意事项&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_反射(30)</title>
+      <link>https://limingxie.github.io/note/go/golang_30/</link>
+      <pubDate>Sat, 01 Oct 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_30/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;反射&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang】channel介绍</title>
+      <link>https://limingxie.github.io/go/go_channel/</link>
+      <pubDate>Sat, 01 Oct 2022 07:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/go/go_channel/</guid>
+      <description>&lt;p&gt;Go语言是通过 Goroutine 和 Channel 实现并发编程。&lt;br&gt;
+Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、通信。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【golang笔记】go_sync.WaitGroup(29)</title>
+      <link>https://limingxie.github.io/note/go/golang_29/</link>
+      <pubDate>Fri, 30 Sep 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/go/golang_29/</guid>
+      <description>&lt;p&gt;这一篇简单的整理了golang &lt;strong&gt;&lt;code&gt;sync.WaitGroup&lt;/code&gt;&lt;/strong&gt; 相关的内容。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【golang笔记】go_协程的panic处理(28)</title>
       <link>https://limingxie.github.io/note/go/golang_28/</link>
