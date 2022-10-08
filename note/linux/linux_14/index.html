@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这一篇整理了Shell流程控制相关的内容。">
 <meta itemprop="datePublished" content="2022-07-29T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-29T23:28:49+08:00" />
-<meta itemprop="wordCount" content="203">
+<meta itemprop="wordCount" content="271">
 
 
 
@@ -160,6 +160,7 @@
         <li></li>
       </ul>
     </li>
+    <li><a href="#其他">其他</a></li>
   </ul>
 </nav>
 	</div>
@@ -284,7 +285,38 @@ $ dirname /home/xx/rizhi.txt
 <li>函数返回值，只能通过$?系统变量获得，可以显示加:return 返回，
 如果不加，将以最后一条命令运行结果，作为返回值。return 后跟数值 n(0-255)</li>
 </ul>
-<hr>
+<h2 id="其他">其他</h2>
+<p>一个在jenkins里用到的简单例子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#删除历史数据</span>
+<span style="color:#75715e">#rm -rf xxxx</span>
+
+<span style="color:#75715e">##获取传入参数</span>
+appname<span style="color:#f92672">=</span>$1
+echo <span style="color:#e6db74">&#34;arg:</span>$1<span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e">#获取正在云心的jar包的pid</span>
+pid<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>ps -ef | grep $1 | grep <span style="color:#e6db74">&#39;java -jar&#39;</span> | awk <span style="color:#e6db74">&#39;{printf $2}&#39;</span><span style="color:#e6db74">`</span>
+
+echo $pid
+
+<span style="color:#75715e">#如果pid为空，提示一下，否则执行kill</span>
+<span style="color:#75715e">#使用 -z 做空值判断</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z $pid <span style="color:#f92672">]</span>;
+    <span style="color:#66d9ef">then</span>
+        echo <span style="color:#e6db74">&#34;</span>$appname<span style="color:#e6db74"> not started&#34;</span>
+    <span style="color:#66d9ef">else</span>
+        kill -9 $pid
+        echo <span style="color:#e6db74">&#34;</span>$appname<span style="color:#e6db74"> stopping...&#34;</span>
+
+check<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>ps -ef | grep -w $pid | grep java<span style="color:#e6db74">`</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z $check <span style="color:#f92672">]</span>;
+    <span style="color:#66d9ef">then</span>
+        echo <span style="color:#e6db74">&#34;</span>$appname<span style="color:#e6db74"> pid:</span>$pid<span style="color:#e6db74"> is stop&#34;</span>
+    <span style="color:#66d9ef">else</span> 
+        echo <span style="color:#e6db74">&#34;</span>$appname<span style="color:#e6db74"> stop failed&#34;</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
