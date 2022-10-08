@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【kafka笔记】kafka_生产者(3) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【kafka笔记】kafka_生产者(3)" />
+<meta property="og:description" content="这一篇整理了kafka的 生产者消息发送 相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/kafka/kafka_03/" />
+<meta property="article:published_time" content="2022-10-07T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-10-07T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【kafka笔记】kafka_生产者(3)">
+<meta itemprop="description" content="这一篇整理了kafka的 生产者消息发送 相关的内容。">
+<meta itemprop="datePublished" content="2022-10-07T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-10-07T23:28:49+08:00" />
+<meta itemprop="wordCount" content="187">
+
+
+
+<meta itemprop="keywords" content="kafka," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【kafka笔记】kafka_生产者(3)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-10-07T23:28:49&#43;08:00">2022-10-07</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/kafka/" rel="category">kafka</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1基础架构">1.基础架构</a></li>
+    <li><a href="#2生产者主要参数列表">2.生产者主要参数列表</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3消息发送">3.消息发送</a></li>
+    <li><a href="#4生产者分区">4.生产者分区</a></li>
+    <li><a href="#5生产者吞吐量">5.生产者吞吐量</a></li>
+    <li><a href="#6生产者数据的可靠性">6.生产者数据的可靠性</a></li>
+    <li><a href="#7生产者数据去重">7.生产者数据去重</a></li>
+    <li><a href="#8生产者幂等性">8.生产者幂等性</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#9生产者事务">9.生产者事务</a></li>
+    <li><a href="#10数据的顺序">10.数据的顺序</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了kafka的 <strong><code>生产者消息发送</code></strong> 相关的内容。</p>
+<h2 id="1基础架构">1.基础架构</h2>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_03.png" alt="kafka_03"></p>
+<h2 id="2生产者主要参数列表">2.生产者主要参数列表</h2>
+<h4 id="bootstrapservers">bootstrap.servers</h4>
+<p>生产者连接集群所需的 broker 地址清单。<br>
+例如 kafka:9092,kafka:9092,kafka:9092，<br>
+可以 设置 1 个或者多个，中间用逗号隔开。<br>
+注意这里并非需要所有的 broker 地址，因为生产者从给定的 broker 里查找到其他 broker 信息。</p>
+<h4 id="keyserializer-和-valueserializer">key.serializer 和 value.serializer</h4>
+<p>指定发送消息的 key 和 value 的序列化类型。一定要写 全类名。</p>
+<h4 id="buffermemory">buffer.memory</h4>
+<p>ecordAccumulator 缓冲区总大小，默认 32m。</p>
+<h4 id="batchsize">batch.size</h4>
+<p>缓冲区一批数据最大值，默认16k。适当增加该值，可以提高吞吐量，<br>
+但是如果该值设置太大，会导致数据传输延迟增加。</p>
+<h4 id="lingerms">linger.ms</h4>
+<p>如果数据迟迟未达到 batch.size，sender 等待 linger.time 之后就会发送数据。<br>
+单位 ms，默认值是 0ms，表示没 有延迟。生产环境建议该值大小为 5-100ms 之间。</p>
+<h4 id="acks">acks</h4>
+<ul>
+<li>0:生产者发送过来的数据，不需要等数据落盘应答。</li>
+<li>1:生产者发送过来的数据，Leader 收到数据后应答。 -1</li>
+<li>(all):生产者发送过来的数据，Leader+和 isr 队列 里面的所有节点收齐数据后应答。
+默认值是-1，-1 和 all 是等价的。</li>
+</ul>
+<h4 id="maxinflightrequestsperconnection">max.in.flight.requests.per.connection</h4>
+<p>允许最多没有返回 ack 的次数，默认为 5，开启幂等性 要保证该值是 1-5 的数字。</p>
+<h4 id="retries">retries</h4>
+<p>当消息发送出现错误的时候，系统会重发消息。<br>
+retries 表示重试次数。默认是 int 最大值，2147483647。<br>
+如果设置了重试，还想保证消息的有序性，需要设置 MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION=1 否则在重试此失败消息的时候，其他的消息可能发送 成功了。</p>
+<h4 id="retrybackoffms">retry.backoff.ms</h4>
+<p>两次重试之间的时间间隔，默认是 100ms。</p>
+<h4 id="enableidempotence">enable.idempotence</h4>
+<p>是否开启幂等性，默认 true，开启幂等性。</p>
+<h4 id="compressiontype">compression.type</h4>
+<p>生产者发送的所有数据的压缩方式。默认是 none，也 就是不压缩。
+支持压缩类型:none、gzip、snappy、lz4 和 zstd。</p>
+<h2 id="3消息发送">3.消息发送</h2>
+<ul>
+<li>异步发送 API</li>
+<li>同步发送 API</li>
+</ul>
+<p>可通过acks值去判断</p>
+<h2 id="4生产者分区">4.生产者分区</h2>
+<ol>
+<li>便于合理使用存储资源，每个Partition在一个Broker上存储，<br>
+可以把海量的数据按照分区切割成一块一块数据存储在多台Broker上。<br>
+合理控制分区的任务，可以实现负载均衡的效果。</li>
+<li>提高并行度，生产者可以以分区为单位发送数据;消费者可以以分区为单位进行消费数据.</li>
+</ol>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_04.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_04.png" alt="kafka_04"></p>
+<h2 id="5生产者吞吐量">5.生产者吞吐量</h2>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_05.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_05.png" alt="kafka_05"></p>
+<h2 id="6生产者数据的可靠性">6.生产者数据的可靠性</h2>
+<ul>
+<li>acks=0，生产者发送过来数据就不管了，可靠性差，效率高;</li>
+<li>acks=1，生产者发送过来数据Leader应答，可靠性中等，效率中等;</li>
+<li>acks=-1，生产者发送过来数据Leader和ISR队列里面所有Follwer应答，可靠性高，效率低;</li>
+</ul>
+<blockquote>
+<p>在生产环境中，acks=0很少使用;<br>
+acks=1，一般用于传输普通日志，允许丢个别数据;<br>
+acks=-1，一般用于传输和钱相关的数据， 对可靠性要求比较高的场景。</p>
+</blockquote>
+<h2 id="7生产者数据去重">7.生产者数据去重</h2>
+<ul>
+<li>至少一次(AtLeastOnce)=ACK级别设置为-1 + 分区副本大于等于2 + ISR里应答的最小副本数量大于等于2</li>
+<li>最多一次(AtMostOnce)=ACK级别设置为0</li>
+</ul>
+<blockquote>
+<p>At Least Once 可以保证数据不丢失，但是不能保证数据不重复;<br>
+At Most Once 可以保证数据不重复，但是不能保证数据不丢失。</p>
+</blockquote>
+<ul>
+<li>精确一次(Exactly Once):对于一些非常重要的信息，比如和钱相关的数据，要求数据既不能重复也不丢失。
+Kafka 0.11版本以后，引入了一项重大特性:幂等性和事务。</li>
+</ul>
+<h2 id="8生产者幂等性">8.生产者幂等性</h2>
+<p>幂等性就是指Producer不论向Broker发送多少次重复数据，Broker端都只会持久化一条，保证了不重复。</p>
+<p><strong>精确一次(Exactly Once)</strong> = 幂等性 + 至少一次( ack=-1 + 分区副本数&gt;=2 + ISR最小副本数量&gt;=2) 。</p>
+<p><strong>重复数据的判断标准</strong>:具有&lt;PID, Partition, SeqNumber&gt;相同主键的消息提交时，Broker只会持久化一条。<br>
+其中PID是Kafka每次重启都会分配一个新的;Partition 表示分区号;Sequence Number是单调自增的。</p>
+<h4 id="所以幂等性只能保证的是在单分区单会话内不重复">所以幂等性只能保证的是在单分区单会话内不重复</h4>
+<p>开启参数 <code>enable.idempotence</code> 默认为 true，false 关闭。</p>
+<h2 id="9生产者事务">9.生产者事务</h2>
+<blockquote>
+<p>开启事务，必须开启幂等性。</p>
+</blockquote>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_06.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_06.png" alt="kafka_06"></p>
+<p><strong>事务一般步骤</strong></p>
+<ol>
+<li>初始化事务</li>
+<li>开启事务</li>
+<li>在事务内提交已经消费的偏移量(主要用于消费者)</li>
+<li>提交事务</li>
+<li>放弃事务(类似于回滚事务的操作)</li>
+</ol>
+<h2 id="10数据的顺序">10.数据的顺序</h2>
+<ol>
+<li>kafka在1.x版本之前保证数据单分区有序，<br>
+条件如下: <code>max.in.flight.requests.per.connection</code>=1(不需要考虑是否开启幂等性)。</li>
+<li>kafka在1.x及以后版本保证数据单分区有序，<br>
+条件如下:<br>
+(1)未开启幂等性<br>
+<code>max.in.flight.requests.per.connection</code>需要设置为1。<br>
+(2)开启幂等性<br>
+<code>max.in.flight.requests.per.connection</code>需要设置小于等于5。<br>
+原因说明:因为在kafka1.x以后，启用幂等后，kafka服务端会缓存producer发来的最近5个request的元数据，<br>
+所以无论如何，都可以保证最近5个request的数据都是有序的。</li>
+</ol>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_07.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_07.png" alt="kafka_07"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/kafka/" rel="tag">kafka</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/kafka/kafka_02/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【kafka笔记】kafka_常用命令(2)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_03/">【kafka笔记】kafka_生产者(3)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_02/">【kafka笔记】kafka_常用命令(2)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_01/">【kafka笔记】kafka_定义和启动(1)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/algorithm/sparse_array/">【算法笔记】稀疏数组sparseArray的简单实践</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_32/">【golang笔记】go_反射的实现(32)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/go/golang_31/">【golang笔记】go_反射几点注意事项(31)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">45</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
