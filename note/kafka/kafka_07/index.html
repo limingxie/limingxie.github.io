@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【kafka笔记】kafka_消费者consumer(7) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【kafka笔记】kafka_消费者consumer(7)" />
+<meta property="og:description" content="这一篇整理了kafka的 消费者 相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/kafka/kafka_07/" />
+<meta property="article:published_time" content="2022-10-11T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-10-11T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【kafka笔记】kafka_消费者consumer(7)">
+<meta itemprop="description" content="这一篇整理了kafka的 消费者 相关的内容。">
+<meta itemprop="datePublished" content="2022-10-11T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-10-11T23:28:49+08:00" />
+<meta itemprop="wordCount" content="171">
+
+
+
+<meta itemprop="keywords" content="kafka," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【kafka笔记】kafka_消费者consumer(7)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-10-11T23:28:49&#43;08:00">2022-10-11</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/kafka/" rel="category">kafka</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1kafka-消费方式">1.Kafka 消费方式</a></li>
+    <li><a href="#2kafka-消费者工作流程">2.Kafka 消费者工作流程</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3消费者组初始化流程">3.消费者组初始化流程</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#4消费者重要参数">4.消费者重要参数</a></li>
+    <li><a href="#5消费者分区分配策略">5.消费者分区分配策略</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了kafka的 <strong><code>消费者</code></strong> 相关的内容。</p>
+<h2 id="1kafka-消费方式">1.Kafka 消费方式</h2>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_16.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_16.png" alt="kafka_16"></p>
+<h2 id="2kafka-消费者工作流程">2.Kafka 消费者工作流程</h2>
+<h4 id="21-消费者总体工作流程">2.1 消费者总体工作流程</h4>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_17.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_17.png" alt="kafka_17"></p>
+<h4 id="22-消费者组consumer-group">2.2 消费者组Consumer Group</h4>
+<p><strong><code>Consumer Group(CG):消费者组</code></strong>，由多个consumer组成。<br>
+形成一个消费者组的条件，是所有消费者的groupid相同。</p>
+<ul>
+<li>消费者组内每个消费者负责消费不同分区的数据，一个分区只能由一个组内消费者消费。</li>
+<li>消费者组之间互不影响。所有的消费者都属于某个消费者组，即消费者组是逻辑上的一个订阅者。</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_18.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_18.png" alt="kafka_18"></p>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_19.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_19.png" alt="kafka_19"></p>
+<h2 id="3消费者组初始化流程">3.消费者组初始化流程</h2>
+<h4 id="coordinator">coordinator</h4>
+<p>辅助实现消费者组的初始化和分区的分配。<br>
+coordinator节点选择 = groupid的hashcode值 % 50( __consumer_offsets的分区数量)<br>
+例如: groupid的hashcode值 = 1，1% 50 = 1，那么__consumer_offsets 主题的1号分区，在哪个broker上,<br>
+就选择这个节点的coordinator作为这个消费者组的老大。<br>
+消费者组下的所有的消费者提交offset的时候就往这个分区去提交offset。</p>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_20.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_20.png" alt="kafka_20"></p>
+<h4 id="消费者组详细消费流程">消费者组详细消费流程</h4>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_21.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_21.png" alt="kafka_21"></p>
+<h2 id="4消费者重要参数">4.消费者重要参数</h2>
+<p><strong>bootstrap.servers</strong><br>
+向 Kafka 集群建立初始连接用到的 host/port 列表。</p>
+<p><strong>key.deserializer 和 value.deserializer</strong><br>
+指定接收消息的key和value的反序列化类型。一定要写全类名。</p>
+<p><strong>group.id</strong><br>
+标记消费者所属的消费者组。</p>
+<p><strong>enable.auto.commit</strong><br>
+默认值为true，消费者会自动周期性地向服务器提交偏移量。</p>
+<p><strong>auto.commit.interval.ms</strong><br>
+如果设置了enable.auto.commit的值为true，则该值定义了消费者偏移量向Kafka提交的频率，默认5s。</p>
+<p><strong>auto.offset.reset</strong><br>
+当 Kafka 中没有初始偏移量或当前偏移量在服务器中不存在 (如，数据被删除了)，该如何处理?<br>
+earliest:自动重置偏 移量到最早的偏移量。<br>
+latest:默认，自动重置偏移量为最 新的偏移量。<br>
+none:如果消费组原来的(previous)偏移量 不存在，则向消费者抛异常。<br>
+anything:向消费者抛异常。</p>
+<p><strong>offsets.topic.num.partitions</strong><br>
+__consumer_offsets 的分区数，默认是 50 个分区。</p>
+<p><strong>heartbeat.interval.ms</strong><br>
+Kafka消费者和coordinator 之间的心跳时间，默认3s。<br>
+该条目的值必须小于session.timeout.ms，也不应该高于session.timeout.ms的1/3。</p>
+<p><strong>session.timeout.ms</strong><br>
+Kafka消费者和coordinator之间连接超时时间，默认45s。<br>
+超过该值，该消费者被移除，消费者组执行再平衡。</p>
+<p><strong>max.poll.interval.ms</strong><br>
+消费者处理消息的最大时长，默认是 5分钟。超过该值，该消费者被移除，消费者组执行再平衡。</p>
+<p><strong>fetch.min.bytes</strong><br>
+默认1个字节。消费者获取服务器端一批消息最小的字节数。</p>
+<p><strong>fetch.max.wait.ms</strong><br>
+默认500ms。如果没有从服务器端获取到一批数据的最小字节数。该时间到，仍然会返回数据。</p>
+<p><strong>fetch.max.bytes</strong><br>
+默认Default: 52428800(50 m)。<br>
+消费者获取服务器端一批 消息最大的字节数。<br>
+如果服务器端一批次的数据大于该值 (50m)仍然可以拉取回来这批数据，因此，这不是一个绝对最大值。<br>
+一批次的大小受 message.max.bytes (broker config)or max.message.bytes (topic config)影响。</p>
+<p><strong>max.poll.records</strong><br>
+一次poll拉取数据返回消息的最大条数，默认是500条。</p>
+<h2 id="5消费者分区分配策略">5.消费者分区分配策略</h2>
+<p>一个consumer group中有多个consumer组成，一个 topic有多个partition组成，<br>
+现在的问题是，到底由哪个consumer来消费哪个 partition的数据。</p>
+<h4 id="kafka有四种主流的分区分配策略-rangeroundrobinstickycooperativesticky">Kafka有四种主流的分区分配策略: Range、RoundRobin、Sticky、CooperativeSticky</h4>
+<p>可以通过配置参数partition.assignment.strategy，修改分区的分配策略。<br>
+默认策略是Range+ CooperativeSticky。Kafka可以同时使用多个分区分配策略。</p>
+<p><strong>heartbeat.interval.ms</strong><br>
+Kafka 消费者和 coordinator 之间的心跳时间，默认 3s。
+该条目的值必须小于 session.timeout.ms，也不应该高于 session.timeout.ms 的 1/3。</p>
+<p><strong>session.timeout.ms</strong><br>
+Kafka 消费者和 coordinator 之间连接超时时间，默认 45s。<br>
+超过该值，该消费者被移除，消费者组执行再平衡。</p>
+<p><strong>max.poll.interval.ms</strong><br>
+消费者处理消息的最大时长，默认是 5 分钟。超过该值，该消费者被移除，消费者组执行再平衡。</p>
+<p><strong>partition.assignment.strategy</strong><br>
+消费者分区分配策略，默认策略是 Range +CooperativeSticky。<br>
+Kafka 可以同时使用多个分区分配策略。 可以选择的策略包括:Range、RoundRobin、Sticky、 CooperativeSticky</p>
+<h4 id="51-range-分区策略">5.1 Range 分区策略</h4>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_22.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_22.png" alt="kafka_22"></p>
+<h4 id="52-roundrobin-分区策略">5.2 RoundRobin 分区策略</h4>
+<p><a href="https://limingxie.github.io/images/system/kafka/kafka_23.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/kafka/kafka_23.png" alt="kafka_23"></p>
+<h4 id="53-sticky-分区策略">5.3 Sticky 分区策略</h4>
+<p>**粘性分区定义:**可以理解为分配的结果带有“粘性的”。<br>
+即在执行一次新的分配之前，考虑上一次分配的结果，尽量少的调整分配的变动，可以节省大量的开销。<br>
+粘性分区是 Kafka 从 0.11.x 版本开始引入这种分配策略，<br>
+首先会尽量均衡的放置分区到消费者上面，在出现同一消费者组内消费者出现问题的时候，会尽量保持原有分配的分区不变化。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/kafka/" rel="tag">kafka</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/kafka/kafka_06/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【kafka笔记】kafka_文件存储(6)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/kafka/kafka_08/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【kafka笔记】kafka_offset(8)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_09/">【kafka笔记】kafka_EFAK(9)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_08/">【kafka笔记】kafka_offset(8)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_07/">【kafka笔记】kafka_消费者consumer(7)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_06/">【kafka笔记】kafka_文件存储(6)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_05/">【kafka笔记】kafka_副本Repllicas(5)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/kafka/kafka_04/">【kafka笔记】kafka_Broker(4)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">45</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
