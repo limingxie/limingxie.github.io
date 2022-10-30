@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【区块链】比特币白皮书简介 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【区块链】比特币白皮书简介" />
+<meta property="og:description" content="这篇文章简单的整理了比特币白皮书的相关内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/blockchain/btcoin/btcoin_white_paper/" />
+<meta property="article:published_time" content="2022-10-19T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-10-19T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【区块链】比特币白皮书简介">
+<meta itemprop="description" content="这篇文章简单的整理了比特币白皮书的相关内容。">
+<meta itemprop="datePublished" content="2022-10-19T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-10-19T23:28:49+08:00" />
+<meta itemprop="wordCount" content="97">
+
+
+
+<meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin,white paper," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【区块链】比特币白皮书简介</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-10-19T23:28:49&#43;08:00">2022-10-19</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blockchain/" rel="category">blockchain</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#摘要abstract">摘要Abstract</a></li>
+    <li><a href="#1简介introduction">1.简介Introduction</a></li>
+    <li><a href="#2交易transactions">2.交易Transactions</a></li>
+    <li><a href="#3时间戳服务器timestamp-server">3.时间戳服务器Timestamp Server</a></li>
+    <li><a href="#4工作量证明proof-of-work">4.工作量证明Proof-of-Work</a></li>
+    <li><a href="#5网络network">5.网络Network</a></li>
+    <li><a href="#6激励incentive">6.激励Incentive</a></li>
+    <li><a href="#7回收磁盘空间reclaiming-disk-space">7.回收磁盘空间Reclaiming Disk Space</a></li>
+    <li><a href="#8简化的支付验证simplified-payment-verification">8.简化的支付验证Simplified Payment Verification</a></li>
+    <li><a href="#9合并和分割交易额combining-and-splitting-value">9.合并和分割交易额Combining and Splitting Value</a></li>
+    <li><a href="#10隐私privacy">10.隐私Privacy</a></li>
+    <li><a href="#11计算calculations">11.计算Calculations</a></li>
+    <li><a href="#12总结conclusion">12.总结Conclusion</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这篇文章简单的整理了<code>比特币白皮书</code>的相关内容。</p>
+<p>当初我刚开始对区块链感兴趣的时候，直接看了比特币的白皮书，<br>
+感到一头雾水，根本就看不明白到底是在说什么。<br>
+虽说只有8页(中文9页)的篇幅，而且主要内容不到6页，后面页是讲计算相关的。<br>
+建议大家也是不要直接看白皮书，先找找资料了解一下比特币的一些概念和大致的结构。<br>
+要不会很有可能跟我一样&hellip;^^;;</p>
+<p>比特的白皮书下载地址:<br>
+<a href="https://bitcoin.org/en/bitcoin-paper">https://bitcoin.org/en/bitcoin-paper</a><br>
+有中文版，如果不是英语大神，大部分的人都会看中文版吧?</p>
+<p>比特币的白皮书一共有11个部分组成。
+下面是我对比特币白皮书的每个部分的理解和简介。</p>
+<h2 id="摘要abstract">摘要Abstract</h2>
+<p>比特币是实现点对点电子货币系统，为了实现去中心化的货币系统，<br>
+需要数字签名，hash算法，以及工作量证明等技术。</p>
+<h2 id="1简介introduction">1.简介Introduction</h2>
+<p>要通过于密码学原理建立一个去中心化的交易系统，<br>
+为了解决双重支付问题，需要基于时间把交易串起来验证交易的是否重复。<br>
+只要大部分的节点是诚实的话，这个系统就安全。</p>
+<h2 id="2交易transactions">2.交易Transactions</h2>
+<p>比特币是基于交易的系统。为了安全和意思每个交易需要验证存的是公钥和hash值。
+但是没有中央服务器，所以为了确认双重支付问题，<br>
+需要验证上一笔交易的的有效性和有没有使用过的记录。
+所以收款人在每笔交易时，都需要多数节点认同此交易是最先收到的证据。</p>
+<h2 id="3时间戳服务器timestamp-server">3.时间戳服务器Timestamp Server</h2>
+<p>每个时间戳的哈希值都纳入了上一个时间戳，形成一条链，<br>
+后面的时间戳进一步增强前一个时间戳。</p>
+<h2 id="4工作量证明proof-of-work">4.工作量证明Proof-of-Work</h2>
+<p>这部分解释的很官方，如果之前没有看过相关资料比较难理解。<br>
+其实简单的说就是区块打包权利的争取。</p>
+<p>比特币的系统是由一个个的区块组成的。<br>
+每个区块的头部都包含着下一个区块的哈希指针，形成一个链表。</p>
+<p>比特币系统是去中心化的系统，存在很多节点，那这么多节点中谁打包交易创建一个新的区块呢？<br>
+大家一起求一个随机数，谁先求出来，谁就可以先打包交易创建区块，广播出去。</p>
+<p>求随机数的简单逻辑是，打包好交易的值 + 随机数 算hash值，<br>
+这个hash值小于某个值(通过难度值算出), 就可以打包好区块，广播到各各节点。</p>
+<p>算hash值的时候，哪怕有小小的变化，hash值就有天壤之别。<br>
+所以这个随机数是没有什么判断依据的，只能是一个一个的算求这个随机数。
+这一个为了区块打包权利，一直求随机数的的一过程就叫工作量证明。</p>
+<p>这个随机数的难度值是会整个系统的处快速度为依据自动调整。</p>
+<h2 id="5网络network">5.网络Network</h2>
+<p>这部分白皮书整理的很明确
+运行网络的步骤如下:</p>
+<ol>
+<li>新交易向所有节点广播。</li>
+<li>每个节点将新交易收集到一个区块。</li>
+<li>每个节点为它的区块寻找工作量证明。</li>
+<li>当一个节点找到了工作量证明，就向所有节点广播这个区块。</li>
+<li>节点只有在区块内所有交易都是有效的且之前没有被支付的情况下接收这个区块。</li>
+<li>节点通过使用这个区块的哈希值作为上一个哈希值在链中创建下一个区块的方式表示对这个区块的接受。</li>
+</ol>
+<p>这需要注意的是如果同时有两个地方求出了上述随机数出现2个区块的话，<br>
+过些时间看在哪个区块的后面先最佳区块形成更长的链。<br>
+这样短的链就会被抛弃，大家都往更长的链写入下一个区块了。</p>
+<h2 id="6激励incentive">6.激励Incentive</h2>
+<p>工作量证明又耗时，耗资源。谁愿意去做？<br>
+所以需要有个激励机制去鼓励大家去做工作量证明。</p>
+<p>这里有2个机制：
+1.打包区块的人给出块奖励。50个比特币开始，大约没四年减半，现在出块奖励是6.25个比特币
+2.打包区块的人收交易手续费。</p>
+<h2 id="7回收磁盘空间reclaiming-disk-space">7.回收磁盘空间Reclaiming Disk Space</h2>
+<p>比特币系统设置是大约没10分钟会出一个区块，这些区块的内容搜需要保存对磁盘存储的压力也很大。<br>
+所以使用默克尔树的结构，只存储头部信息，以便于不是全节点系统节省磁盘空间。<br>
+merkle tree的解释需要一些篇幅，相关的内容可以自行查找。</p>
+<h2 id="8简化的支付验证simplified-payment-verification">8.简化的支付验证Simplified Payment Verification</h2>
+<p>交易的验证也是跟克尔树的结构有关。<br>
+简单的说利用了hash算法的特性，可以跟自己头部的hash值和对应交易单的hash值<br>
+比较合法性，这样就大大的简化了验证方式。</p>
+<h2 id="9合并和分割交易额combining-and-splitting-value">9.合并和分割交易额Combining and Splitting Value</h2>
+<p>因为比特币是交易单位基础的货币系统，所以交易时的币未必来源于一个交易。<br>
+当输入的交易单很多的时候，输出的交易单仍然是2个，
+一个是收货的交易单，一个是找零的交易单。</p>
+<h2 id="10隐私privacy">10.隐私Privacy</h2>
+<p>隐私部分是每个人都是用自己的公钥加密保存交易单的。<br>
+所以想是用改货币，需要用自己的私钥解密才能适用。<br>
+加上公钥是无法推断出私钥，所以保证的是别人无法知道你的信息。<br>
+但是可以知道你的公钥相关的交易单。</p>
+<h2 id="11计算calculations">11.计算Calculations</h2>
+<p>这部分是解释了，这系统的计算逻辑，有点复杂没细看&hellip;^^;;</p>
+<h2 id="12总结conclusion">12.总结Conclusion</h2>
+<p>比特币系统是通过密码学原理，链表的结构保障系统的安全和隐私，<br>
+使用工作量证明，防范恶意节点的攻击，<br>
+追加最长节点的方式处理，结构和数据上的冲突。<br>
+前提是一半以上的算力是是诚实节点。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/blockchain/" rel="tag">blockchain</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/btc/" rel="tag">BTC</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/bitcoin/" rel="tag">bitcoin</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/white-paper/" rel="tag">white paper</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_04/">【区块链笔记】BTC_交易系统</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_03/">【区块链笔记】BTC_协议</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_02/">【区块链笔记】BTC_数据结构</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_01/">【区块链笔记】BTC_密码学基础</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blockchain/btcoin/btcoin_white_paper/">【区块链】比特币白皮书简介</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/insist/">有时候坚持未必是好事</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
