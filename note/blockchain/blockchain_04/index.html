@@ -184,26 +184,26 @@
 coinbase的第一笔交易和普通交易。</p>
 <hr>
 <h4 id="coinbase的交易单">coinbase的交易单</h4>
-<p><a href="https://limingxie.github.io/images/blockchain/btc_coinbase.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/btc_coinbase.png" alt="btc_coinbase"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/btc_coinbase.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/btc_coinbase.png" alt="btc_coinbase"></p>
 <p>这里有个地方需要说明，现在挖矿的人很多，难度值也很高，<br>
 所以算完整个随机数也有可能找不到满足难度值的答案。<br>
 细看头部信息能改的是merkle root hash<br>
 可以调整coinbase交易的备注值，从新计算满足难度的hash值。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/btc_coinbase_detail.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/btc_coinbase_detail.png" alt="btc_coinbase_detail"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/btc_coinbase_detail.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/btc_coinbase_detail.png" alt="btc_coinbase_detail"></p>
 <hr>
 <h4 id="普通交易单">普通交易单</h4>
-<p><a href="https://limingxie.github.io/images/blockchain/btc_tx_details.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/btc_tx_details.png" alt="btc_tx_details"></p>
-<p><a href="https://limingxie.github.io/images/blockchain/btc_inputs_outpus.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/btc_inputs_outpus.png" alt="btc_inputs_outpus"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/btc_tx_details.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/btc_tx_details.png" alt="btc_tx_details"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/btc_inputs_outpus.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/btc_inputs_outpus.png" alt="btc_inputs_outpus"></p>
 <p>普通的交易验证合法性的时候，把输出脚本和输入脚本配对验证，<br>
 注意的是不是同一个交易的两个脚本，而是两个不同交易的脚本。</p>
 <hr>
 <h4 id="block-header-的源码结构">Block Header 的源码结构</h4>
-<p><a href="https://limingxie.github.io/images/blockchain/block_header_struct.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/block_header_struct.png" alt="block_header_struct"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/block_header_struct.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/block_header_struct.png" alt="block_header_struct"></p>
 <hr>
 <h2 id="2如何防范恶意节点的攻击">2.如何防范恶意节点的攻击</h2>
 <p>挖矿出块是有出块奖励coninbase + 记账费的，coinbase是没4年大致减少一半，<br>
@@ -228,8 +228,8 @@ coinbase的第一笔交易和普通交易。</p>
 想这么做理论上是可以，但是实际上很难实现。因为这样代表你的算力比别人都强很多。<br>
 而且万一后续区块你还没算出来的时候，别人算出该区块的随机数就面临着和你竞争。<br>
 有可能能当前区块的奖励也拿不到。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/selfish_mining.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/selfish_mining.png" alt="selfish_mining"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/selfish_mining.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/selfish_mining.png" alt="selfish_mining"></p>
 <h2 id="3出块确认">3.出块确认</h2>
 <p>一般很多购物网站也会用到0确认机制。因为有以下两个原因：</p>
 <ol>
@@ -238,8 +238,8 @@ coinbase的第一笔交易和普通交易。</p>
 </ol>
 <p>当消息太多写不完的时候，会写到下一个模块上，并不会把消息丢弃掉。<br>
 但是你如果给的手续费比较低，有可能一直压着不给你打包到区块的可能性是有的。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_confirmation.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_confirmation.png" alt="blockchain_btc_confirmation"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_confirmation.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_confirmation.png" alt="blockchain_btc_confirmation"></p>
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -312,12 +312,12 @@ coinbase的第一笔交易和普通交易。</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_11/">【区块链笔记】BTC_最后(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_10/">【区块链笔记】BTC_匿名性(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_09/">【区块链笔记】BTC_常见问题(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_08/">【区块链笔记】BTC_分叉fork(08)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_07/">【区块链笔记】BTC_脚本(07)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_06/">【区块链笔记】BTC_挖矿(06)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_05/">【区块链笔记】BTC_网络(05)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_04/">【区块链笔记】BTC_交易系统(04)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_03/">【区块链笔记】BTC_协议(03)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_02/">【区块链笔记】BTC_数据结构(02)</a></li>
 		</ul>
 	</div>
 </div>
@@ -339,7 +339,7 @@ coinbase的第一笔交易和普通交易。</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">8</span>
+				<span class="widget__counter widget__counter--bubble">12</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;

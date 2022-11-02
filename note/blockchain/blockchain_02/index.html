@@ -168,8 +168,8 @@
 <p>哈希指针 = 数据指针 + 数据hash值。</p>
 </blockquote>
 <p>看下图:</p>
-<p><a href="https://limingxie.github.io/images/blockchain/hash_pointer.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/hash_pointer.png" alt="hash_pointer"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/hash_pointer.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/hash_pointer.png" alt="hash_pointer"></p>
 <h4 id="哈希指针有什么用处">哈希指针有什么用处？</h4>
 <p>tamper-evident log(防篡改日志)<br>
 通过指针找到相对应的数据块后，求hash值和哈希指针的哈希值做对比。<br>
@@ -178,8 +178,8 @@
 可以求出上一块的区块信息，以及校验。</p>
 <hr>
 <h2 id="2merkle-tree">2.Merkle tree</h2>
-<p><a href="https://limingxie.github.io/images/blockchain/merkle_tree_01.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/merkle_tree_01.png" alt="blockchain_header_struct"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/merkle_tree_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/merkle_tree_01.png" alt="blockchain_header_struct"></p>
 <p>如上图计算比特币区块中的所有的交易单的hasn值，<br>
 然后每2个再次计算hash值，直到计算出一个root hash值。</p>
 <pre><code>H1 = Hash(tx_1)
@@ -188,15 +188,15 @@ H() = Hash(H1 + H2)
 </code></pre><p>下图是轻节点(比如手机端:只会存储头部信息)如何验证一笔交易是合法有效的交易：<br>
 因为hash值的特性，我们只要请求红色的hash值在本地计算出merkle root hash，<br>
 和自己的表头比较就行了。也称之为Proof of Membership。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/merkle_tree_02.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/merkle_tree_02.png" alt="blockchain_header_struct">
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/merkle_tree_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/merkle_tree_02.png" alt="blockchain_header_struct">
 $$\begin{matrix}
 MerkleProof
 \end{matrix}
 $$</p>
 <hr>
-<p><a href="https://limingxie.github.io/images/blockchain/merkle_tree_03.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/merkle_tree_03.png" alt="blockchain_header_struct">
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/merkle_tree_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/merkle_tree_03.png" alt="blockchain_header_struct">
 $$\begin{matrix}
 MerkleSortTree
 \end{matrix}
@@ -230,17 +230,17 @@ block中任何一个交易单打改变会影响Merkle root hash值</p>
 直到小于通过难度值算出的hash值。算采矿成功。</p>
 <p>下面是比特币官网的解释。<br>
 参考网址：<a href="https://developer.bitcoin.org/reference/block_chain.html">https://developer.bitcoin.org/reference/block_chain.html</a></p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_header_struct.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_header_struct.png" alt="blockchain_header_struct"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_header_struct.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_header_struct.png" alt="blockchain_header_struct"></p>
 <p><strong>看看实际数据是如何保存的。</strong></p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_header_data.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_header_data.png" alt="blockchain_header_data"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_header_data.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_header_data.png" alt="blockchain_header_data"></p>
 <h2 id="4整体链式结构的组成">4.整体链式结构的组成</h2>
 <p>全节点(full node): 包含所有的交易内容<br>
 轻节点(light node): 只保存头部信息，所以无法独立验证交易，比如手机客户端</p>
 <p>如上述说的头部信息和body的交易信息构成一个区块链。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_struct.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_struct.png" alt="blockchain_header_data"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_struct.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_struct.png" alt="blockchain_header_data"></p>
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -316,12 +316,12 @@ block中任何一个交易单打改变会影响Merkle root hash值</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_11/">【区块链笔记】BTC_最后(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_10/">【区块链笔记】BTC_匿名性(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_09/">【区块链笔记】BTC_常见问题(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_08/">【区块链笔记】BTC_分叉fork(08)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_07/">【区块链笔记】BTC_脚本(07)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_06/">【区块链笔记】BTC_挖矿(06)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_05/">【区块链笔记】BTC_网络(05)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_04/">【区块链笔记】BTC_交易系统(04)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_03/">【区块链笔记】BTC_协议(03)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_02/">【区块链笔记】BTC_数据结构(02)</a></li>
 		</ul>
 	</div>
 </div>
@@ -343,7 +343,7 @@ block中任何一个交易单打改变会影响Merkle root hash值</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">8</span>
+				<span class="widget__counter widget__counter--bubble">12</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;

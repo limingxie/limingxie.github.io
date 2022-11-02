@@ -18,11 +18,11 @@
 <meta itemprop="description" content="这篇文章简单的整理了比特币脚本相关的内容。">
 <meta itemprop="datePublished" content="2022-10-26T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-26T23:28:49+08:00" />
-<meta itemprop="wordCount" content="113">
+<meta itemprop="wordCount" content="115">
 
 
 
-<meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin,挖矿," />
+<meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin,脚本," />
 
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -160,18 +160,18 @@
 			<p>这篇文章简单的整理了<code>比特币脚本</code>相关的内容。</p>
 <h2 id="1交易的数据结构">1.交易的数据结构</h2>
 <p>先看看比特币交易的数据结构。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchan_btc_tx.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchan_btc_tx.png" alt="blockchan_btc_tx"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchan_btc_tx.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchan_btc_tx.png" alt="blockchan_btc_tx"></p>
 <p>其中需要解释的字段是:<br>
 <strong>locktime</strong>：是用来表明生效的时间的，绝大多数情况下都是0，如果非0的话一般要过一段时间才生效。<br>
 <code>vin</code>被称作输入脚本，<code>vout</code>被称为输出脚本。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_input.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_input.png" alt="blockchain_btc_input"></p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_output.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_output.png" alt="blockchain_btc_output"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_input.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_input.png" alt="blockchain_btc_input"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_output.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_output.png" alt="blockchain_btc_output"></p>
 <h2 id="2脚本的验证">2.脚本的验证</h2>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_script.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_script.png" alt="blockchain_btc_script"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_script.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_script.png" alt="blockchain_btc_script"></p>
 <h4 id="p2pkpay-to-public-key">P2PK(Pay to Public Key)</h4>
 <p>这是最简单的验证模式</p>
 <pre><code>P2PK(Pay to Public Key)
@@ -198,8 +198,8 @@ output script:
     EQUALVERIFY
     CHECKSIG
 </code></pre>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_script_execute.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_script_execute.png" alt="blockchain_btc_script_execute"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_script_execute.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_script_execute.png" alt="blockchain_btc_script_execute"></p>
 <h4 id="p2shpay-to-script-hash">P2SH(Pay to Script Hash)</h4>
 <p>P2SH(Pay to Script Hash) 前期版本比特币系统中是没有的。
 后期用软分叉的方式加进去的。</p>
@@ -227,23 +227,25 @@ output script:
     EQUAL
 </code></pre>
 <h2 id="3多重签名">3.多重签名</h2>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchanblockchain_btc_muti_sig_btc_tx.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_muti_sig.png" alt="blockchain_btc_muti_sig"></p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_multi_sig_exec.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_multi_sig_exec.png" alt="blockchain_btc_multi_sig_exec"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchanblockchain_btc_muti_sig_btc_tx.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_muti_sig.png" alt="blockchain_btc_muti_sig"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_multi_sig_exec.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_multi_sig_exec.png" alt="blockchain_btc_multi_sig_exec"></p>
 <p>目前使用的多重签名的方式。<br>
 好处是使用者不用管每个商家的多重签名使用方式，只要输入改脚本的hash值就可以。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_multi_sig_02.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_multi_sig_02.png" alt="blockchain_btc_multi_sig_02"></p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_multi_exec_02.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_multi_exec_02.png" alt="blockchain_btc_multi_exec_02"></p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_multi_exec_03.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_multi_exec_03.png" alt="blockchain_btc_multi_exec_03"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_multi_sig_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_multi_sig_02.png" alt="blockchain_btc_multi_sig_02"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_multi_exec_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_multi_exec_02.png" alt="blockchain_btc_multi_exec_02"></p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_multi_exec_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_multi_exec_03.png" alt="blockchain_btc_multi_exec_03"></p>
 <h2 id="4proof-of-burn">4.Proof of Burn</h2>
 <p>脚本遇到<code>RETURN</code>就会失败。<br>
-存在这样的脚本的原因是，花费一定的费用想在区块链中做记录。</p>
-<p><a href="https://limingxie.github.io/images/blockchain/blockchain_btc_script_return.png">图片备用地址</a><br>
-<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/blockchain_btc_script_return.png" alt="blockchain_btc_script_return"></p>
+存在这样的脚本的原因是，花费一定的费用想在区块链中做记录。<br>
+这个交易是输出脚本，所以写入的时候是不会被执行验证的。<br>
+只有想花费的时候当做输出脚本做验证。</p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_script_return.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_script_return.png" alt="blockchain_btc_script_return"></p>
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -266,7 +268,7 @@ output script:
 			<a class="tags__link btn" href="/tags/bitcoin/" rel="tag">bitcoin</a>
 		</li>
 		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%E6%8C%96%E7%9F%BF/" rel="tag">挖矿</a>
+			<a class="tags__link btn" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a>
 		</li>
 	</ul>
 </div>
@@ -293,6 +295,12 @@ output script:
 			<p class="pager__title">【区块链笔记】BTC_挖矿(06)</p>
 		</a>
 	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/blockchain/blockchain_08/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【区块链笔记】BTC_分叉fork(08)</p>
+		</a>
+	</div>
 </nav>
 
 
@@ -310,12 +318,12 @@ output script:
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_11/">【区块链笔记】BTC_最后(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_10/">【区块链笔记】BTC_匿名性(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_09/">【区块链笔记】BTC_常见问题(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_08/">【区块链笔记】BTC_分叉fork(08)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_07/">【区块链笔记】BTC_脚本(07)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_06/">【区块链笔记】BTC_挖矿(06)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_05/">【区块链笔记】BTC_网络(05)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_04/">【区块链笔记】BTC_交易系统(04)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_03/">【区块链笔记】BTC_协议(03)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_02/">【区块链笔记】BTC_数据结构(02)</a></li>
 		</ul>
 	</div>
 </div>
@@ -337,7 +345,7 @@ output script:
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">8</span>
+				<span class="widget__counter widget__counter--bubble">12</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
