@@ -6,13 +6,40 @@
     <description>Recent content in algorithm on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Oct 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Nov 2022 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【算法笔记】Base64和Base58</title>
+      <link>https://limingxie.github.io/algorithm/crypto/base64_58/</link>
+      <pubDate>Thu, 03 Nov 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/crypto/base64_58/</guid>
+      <description>&lt;p&gt;这篇文章简单的整理了&lt;code&gt;Base64和Base58&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】sign_数字签名的简实现</title>
+      <link>https://limingxie.github.io/algorithm/crypto/sign_01/</link>
+      <pubDate>Wed, 02 Nov 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/crypto/sign_01/</guid>
+      <description>&lt;p&gt;这篇文章简单的整理了&lt;code&gt;数字签名的简实现&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【算法笔记】RSA_算法简单实践</title>
+      <link>https://limingxie.github.io/algorithm/crypto/rsa_01/</link>
+      <pubDate>Tue, 01 Nov 2022 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/algorithm/crypto/rsa_01/</guid>
+      <description>&lt;p&gt;这篇文章简单的整理了&lt;code&gt;RSA算法的简单实践&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【算法笔记】HASH_算法简单实践</title>
-      <link>https://limingxie.github.io/algorithm/sha_01/</link>
+      <link>https://limingxie.github.io/algorithm/crypto/sha_01/</link>
       <pubDate>Mon, 31 Oct 2022 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/algorithm/sha_01/</guid>
+      <guid>https://limingxie.github.io/algorithm/crypto/sha_01/</guid>
       <description>&lt;p&gt;这篇文章简单的整理了&lt;code&gt;hash算法的简单实践&lt;/code&gt;。&lt;/p&gt;</description>
     </item>
     
@@ -105,7 +132,7 @@
     </item>
     
     <item>
-      <title>递归(recursive)</title>
+      <title>【算法笔记】递归(recursive)</title>
       <link>https://limingxie.github.io/algorithm/recursive/</link>
       <pubDate>Sat, 03 Aug 2019 07:28:49 +0800</pubDate>
       
@@ -114,7 +141,7 @@
     </item>
     
     <item>
-      <title>算法(排序)</title>
+      <title>【算法笔记】排序</title>
       <link>https://limingxie.github.io/algorithm/sort/</link>
       <pubDate>Tue, 09 Jul 2019 07:28:49 +0800</pubDate>
       
