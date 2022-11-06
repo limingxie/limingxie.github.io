@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这篇文章简单的整理了RSA算法的简单实践。">
 <meta itemprop="datePublished" content="2022-11-01T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-01T23:28:49+08:00" />
-<meta itemprop="wordCount" content="511">
+<meta itemprop="wordCount" content="514">
 
 
 
@@ -145,6 +145,7 @@
 	<div class="toc__menu">
 		<nav id="TableOfContents">
   <ul>
+    <li><a href="#1rsa加密算法">1.RSA加密算法</a></li>
     <li><a href="#2密钥对生成步骤">2.密钥对生成步骤</a>
       <ul>
         <li><a href="#21-秘钥对生成步骤">2.1 秘钥对生成步骤</a></li>
@@ -158,6 +159,9 @@
 	</div>
 </div><div class="content post__content clearfix">
 			<p>这篇文章简单的整理了<code>RSA算法的简单实践</code>。</p>
+<h2 id="1rsa加密算法">1.RSA加密算法</h2>
+<p>我们先看看<a href="https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95">维基百科</a>的解释</p>
+<p>RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。</p>
 <h2 id="2密钥对生成步骤">2.密钥对生成步骤</h2>
 <p>RSA算法是利用了两个大素数相乘容易，公式分解困难的原理。<br>
 因此公开乘积公开作为加密密钥。</p>
@@ -409,12 +413,12 @@ a.m = c ^ d mod N</li>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/aes_01/">【算法笔记】AES_算法简单实践</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/base64_58/">【算法笔记】Base64和Base58</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/sign_01/">【算法笔记】sign_数字签名的简实现</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/rsa_01/">【算法笔记】RSA_算法简单实践</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/sha_01/">【算法笔记】HASH_算法简单实践</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_11/">【区块链笔记】BTC_最后(11)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_10/">【区块链笔记】BTC_匿名性(10)</a></li>
 		</ul>
 	</div>
 </div>
@@ -424,7 +428,7 @@ a.m = c ^ d mod N</li>
 		<ul class="widget__list">
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">15</span>
+				<span class="widget__counter widget__counter--bubble">16</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
