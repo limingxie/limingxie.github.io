@@ -148,7 +148,11 @@
     <li><a href="#1hash算法概念">1.hash算法概念</a></li>
     <li><a href="#2hash算法的特点">2.hash算法的特点</a></li>
     <li><a href="#3目前流行的方法">3.目前流行的方法</a></li>
-    <li><a href="#4简单实例">4.简单实例</a></li>
+    <li><a href="#4简单实例">4.简单实例</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 	</div>
@@ -307,7 +311,7 @@ ae1fa6209a246b8b2f2cd2d21be8f2e1
 d54093641b8ab5efe6d9c8dca9fb39112cb1722a
 bf7cbe09d71a1bcc373ab9a764917f730a6ed951ffa1a7399b7abd8f8fd73cb4
 45341a09a5df1bec7ceac3716e32692a8029903178b1ce8bc57c2ac2c11c82100553ae1fcb99118fa7f5a62f524e162e80e0e1533a4e6177b3fa9d830f48bd37
-</code></pre><p>看看go的实现：</p>
+</code></pre><h4 id="go实现">go实现</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HASH</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">hashType</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hashInstance</span> <span style="color:#a6e22e">hash</span>.<span style="color:#a6e22e">Hash</span>
  <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">hashType</span> {
