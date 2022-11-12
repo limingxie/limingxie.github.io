@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这篇文章简单的整理了比特币脚本相关的内容。">
 <meta itemprop="datePublished" content="2022-10-26T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-26T23:28:49+08:00" />
-<meta itemprop="wordCount" content="115">
+<meta itemprop="wordCount" content="156">
 
 
 
@@ -148,7 +148,7 @@
     <li><a href="#1交易的数据结构">1.交易的数据结构</a></li>
     <li><a href="#2脚本的验证">2.脚本的验证</a>
       <ul>
-        <li></li>
+        <li><a href="#常用的几个命令">常用的几个命令</a></li>
       </ul>
     </li>
     <li><a href="#3多重签名">3.多重签名</a></li>
@@ -172,6 +172,19 @@
 <h2 id="2脚本的验证">2.脚本的验证</h2>
 <p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_btc_script.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_btc_script.png" alt="blockchain_btc_script"></p>
+<h3 id="常用的几个命令">常用的几个命令</h3>
+<ol>
+<li>OP_DUP   (duplicate) 复制栈顶元素</li>
+<li>OP_HASH160   (hash) 0xa9 取出栈顶元素，先用SHA-256，再用RIPEMD-160，然后压入栈内。</li>
+<li>OP_EQUAL (equal) 0x87 如果输入的两个数相等，返回1，否则返回0</li>
+<li>OP_EQUALVERIFY   (equal verify) 0x88 与OP_EQUAL 一样，如结果为0，之后运行OP_VERIFY</li>
+<li>OP_CHECKSIG  (check signature)  0xac 弹出栈顶的2个元素，用公钥检查输入中的签名，验证该签名是否是拥有该公钥的用户用私钥签署的，如果匹配返回1，不匹配返回0</li>
+<li>OP_CHECKMULTISIG (check multiple signature) 0xae 多个公钥需要查询多重签名的正确性</li>
+<li>OP_RETURN    (return) 0x6a 标记交易无效</li>
+<li>OP_PUSH  下面多少个字节要被压入堆栈</li>
+<li>OP_TRUR/OP_1 0x51    数字1被压入堆栈</li>
+<li>OP_FALSE/OP_0    0x00 一个字节空串被压入堆栈</li>
+</ol>
 <h4 id="p2pkpay-to-public-key">P2PK(Pay to Public Key)</h4>
 <p>这是最简单的验证模式</p>
 <pre><code>P2PK(Pay to Public Key)
@@ -318,12 +331,12 @@ output script:
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_13/">【区块链笔记】BTC_地址计算(13)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/blockchain_12/">【区块链笔记】BTC_Merkle root hash计算(12)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/aes_01/">【算法笔记】AES_算法简单实践</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/base64_58/">【算法笔记】Base64和Base58</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/sign_01/">【算法笔记】sign_数字签名的简实现</a></li>
 			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/rsa_01/">【算法笔记】RSA_算法简单实践</a></li>
-			<li class="widget__item"><a class="widget__link" href="/algorithm/crypto/sha_01/">【算法笔记】HASH_算法简单实践</a></li>
 		</ul>
 	</div>
 </div>
@@ -345,7 +358,7 @@ output script:
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">13</span>
+				<span class="widget__counter widget__counter--bubble">14</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
