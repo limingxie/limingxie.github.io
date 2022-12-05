@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【区块链笔记】BTC_地址计算(13) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【区块链笔记】BTC_地址计算(13)" />
+<meta property="og:description" content="今天看了有关算比特币地址的算法，简单的整理了一下。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_13/" />
+<meta property="article:published_time" content="2022-11-06T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-11-06T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【区块链笔记】BTC_地址计算(13)">
+<meta itemprop="description" content="今天看了有关算比特币地址的算法，简单的整理了一下。">
+<meta itemprop="datePublished" content="2022-11-06T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-11-06T23:28:49+08:00" />
+<meta itemprop="wordCount" content="854">
+
+
+
+<meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【区块链笔记】BTC_地址计算(13)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-11-06T23:28:49&#43;08:00">2022-11-06</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blockchain/" rel="category">blockchain</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1计算方法">1.计算方法</a></li>
+    <li><a href="#2模拟代码">2.模拟代码</a>
+      <ul>
+        <li><a href="#参考代码">参考代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>今天看了有关算<code>比特币地址的算法</code>，简单的整理了一下。</p>
+<h2 id="1计算方法">1.计算方法</h2>
+<p>比特币地址生成步骤<br>
+从私钥生成开始经过非对称加密算法、哈希算法(SHA-256和RIPEMD-160)、以及Base58编码方式，最终产生公开的比特币地址。</p>
+<p>第一步，随机选取一个32字节的数、大小介于1 ~
+0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141之间，作为私钥。
+18E14A7B6A307F426A94F8114701E7C8E774E7F9A47E2C2035DB29A206321725</p>
+<p>第二步，使用椭圆曲线加密算法（ECDSA-secp256k1）计算私钥所对应的非压缩公钥。<br>
+(共65字节， 1字节 0x04, 32字节为x坐标，32字节为y坐标）关于公钥压缩、非压缩的问题另文说明。</p>
+<p>0450863AD64A87AE8A2FE83C1AF1A8403CB53F53E486D8511DAD8A04887E5B
+23522CD470243453A299FA9E77237716103ABC11A1DF38855ED6F2EE187E9C582BA6</p>
+<p>第三步，计算公钥的 SHA-256 哈希值
+600FFE422B4E00731A59557A5CCA46CC183944191006324A447BDB2D98D4B408</p>
+<p>第四步，取上一步结果，计算 RIPEMD-160 哈希值
+010966776006953D5567439E5E39F86A0D273BEE</p>
+<p>第五步，取上一步结果，前面加入地址版本号（比特币主网版本号“0x00”）
+00010966776006953D5567439E5E39F86A0D273BEE</p>
+<p>第六步，取上一步结果，计算 SHA-256 哈希值
+445C7A8007A93D8733188288BB320A8FE2DEBD2AE1B47F0F50BC10BAE845C094</p>
+<p>第七步，取上一步结果，再计算一下 SHA-256 哈希值
+D61967F63C7DD183914A4AE452C9F6AD5D462CE3D277798075B107615C1A8A30</p>
+<p>第八步，取上一步结果的前4个字节（8位十六进制）
+D61967F6</p>
+<p>第九步，把这4个字节加在第五步的结果后面，作为校验（这就是比特币地址的16进制形态）。
+00010966776006953D5567439E5E39F86A0D273BEED61967F6</p>
+<p>第十步，用base58表示法变换一下地址（这就是最常见的比特币地址形态）。
+16UwLL9Risc3QfPqBUvKofHmBQ7wMtjvM</p>
+<p>说明: 有些数字以&quot;0x&quot;开头，意思是此数字使用十六进制表示法。&ldquo;0x&quot;本身没有任何含义，它是C语言流传下来的，约定俗成的写法，比如0xA就是十进制的10。另外，1个字节 = 8位二进制 = 2位十六进制）。</p>
+<p>1BLvJjhACw8keNeqrkXTbMHYTP1cH4zoDk</p>
+<p>详细的内容可以参考这里：<a href="https://gobittest.appspot.com/Address">https://gobittest.appspot.com/Address</a></p>
+<h2 id="2模拟代码">2.模拟代码</h2>
+<p>在早起的交易中找到了公钥和地址，用代码一起算一下。</p>
+<p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_header_cal.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/bitcoin/blockchain_header_cal.png" alt="blockchain_header_cal"></p>
+<h3 id="参考代码">参考代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HASH256</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+ <span style="color:#a6e22e">sha256Instance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sha256</span>.<span style="color:#a6e22e">New</span>()
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isHex</span> {
+  <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">text</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+   <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+  }
+  <span style="color:#a6e22e">sha256Instance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">arr</span>)
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">sha256Instance</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">text</span>))
+ }
+ <span style="color:#a6e22e">ciphertext</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sha256Instance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">ciphertext</span>), <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">RipMD160</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+ <span style="color:#a6e22e">ripemd160Instance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ripemd160</span>.<span style="color:#a6e22e">New</span>()
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isHex</span> {
+  <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">text</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+   <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+  }
+  <span style="color:#a6e22e">ripemd160Instance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">arr</span>)
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">ripemd160Instance</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">text</span>))
+ }
+ <span style="color:#a6e22e">hashBytes</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ripemd160Instance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
+ <span style="color:#a6e22e">hashString</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">hashBytes</span>)
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">hashString</span>, <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Hash256Double</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
+ <span style="color:#a6e22e">hashInstance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sha256</span>.<span style="color:#a6e22e">New</span>()
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isHex</span> {
+  <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">text</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+  }
+  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">arr</span>)
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">text</span>))
+ }
+
+ <span style="color:#a6e22e">bytes</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
+ <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Reset</span>()
+ <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">bytes</span>)
+ <span style="color:#a6e22e">bytes</span> = <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bytes</span>, <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Hash256DoubleString</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+ <span style="color:#a6e22e">bytes</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Hash256Double</span>(<span style="color:#a6e22e">text</span>, <span style="color:#a6e22e">isHex</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+ }
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">bytes</span>), <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenerateAddress</span>(<span style="color:#a6e22e">pubKey</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">nettype</span> <span style="color:#66d9ef">int</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+ <span style="color:#75715e">//1.判断公钥的有效性
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">pubKey</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">130</span> <span style="color:#f92672">&amp;&amp;</span> len(<span style="color:#a6e22e">pubKey</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">66</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;公钥输入的长度不合法！&#34;</span>)
+ }
+ <span style="color:#75715e">//2.计算公钥sha256
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">hashString</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">HASH256</span>(<span style="color:#a6e22e">pubKey</span>, <span style="color:#66d9ef">true</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+ }
+
+ <span style="color:#75715e">//3.ripemd160
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">ripemd160String</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">RipMD160</span>(<span style="color:#a6e22e">hashString</span>, <span style="color:#66d9ef">true</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+ }
+
+ <span style="color:#75715e">//4.添加网络id号，比特币主网0x00 testnet 0x6f
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">prefix</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;&#34;</span>
+ <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">nettype</span> {
+ <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span>:
+  <span style="color:#a6e22e">prefix</span> = <span style="color:#e6db74">&#34;00&#34;</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span>:
+  <span style="color:#a6e22e">prefix</span> = <span style="color:#e6db74">&#34;6f&#34;</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span>:
+  <span style="color:#a6e22e">prefix</span> = <span style="color:#e6db74">&#34;34&#34;</span>
+ }
+
+ <span style="color:#a6e22e">versionString</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">prefix</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">ripemd160String</span>
+
+ <span style="color:#75715e">//5.计算hash 2次
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">sha256DoubleString</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Hash256DoubleString</span>(<span style="color:#a6e22e">versionString</span>, <span style="color:#66d9ef">true</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+ }
+
+ <span style="color:#75715e">//6.获取校验码
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">rs</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">sha256DoubleString</span>)
+ <span style="color:#a6e22e">checknum</span> <span style="color:#f92672">:=</span> string(<span style="color:#a6e22e">rs</span>[:<span style="color:#ae81ff">8</span>])
+
+ <span style="color:#75715e">//7.形成16进制比特币地址
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">addrHex</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">versionString</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">checknum</span>
+
+ <span style="color:#75715e">//8.对16进制地址进行base58编码
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">addrHex</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+ }
+ <span style="color:#75715e">//9.base58
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">addrBase58</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Base58Encode</span>(<span style="color:#a6e22e">arr</span>)
+ <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s \n&#34;</span>, <span style="color:#a6e22e">addrBase58</span>)
+
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">pubKey</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;0417a4a4037defe1c30da0c3ed0ca096ae99e846a10c594b0224cb4c54cc0d087028e27b218c422d095a11c8b9a34e2bfdb2f112311adea31245e190e3775cc5b7&#34;</span>
+ <span style="color:#a6e22e">address</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GenerateAddress</span>(<span style="color:#a6e22e">pubKey</span>, <span style="color:#ae81ff">0</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">address</span>) <span style="color:#75715e">//1Lr12b7kWNXbRiwPEGq65Y19NuKYXyPJiK
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="base58">base58</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;math/big&#34;</span>
+)
+
+<span style="color:#66d9ef">const</span> (
+ <span style="color:#75715e">// alphabet is the modified base58 alphabet used by Bitcoin.
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">alphabet</span> = <span style="color:#e6db74">&#34;123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz&#34;</span>
+
+ <span style="color:#a6e22e">alphabetIdx0</span> = <span style="color:#e6db74">&#39;1&#39;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b58</span> = [<span style="color:#ae81ff">256</span>]<span style="color:#66d9ef">byte</span>{
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>,
+ <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">15</span>,
+ <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">26</span>, <span style="color:#ae81ff">27</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">29</span>,
+ <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">31</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">33</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">36</span>, <span style="color:#ae81ff">37</span>, <span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">39</span>,
+ <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">41</span>, <span style="color:#ae81ff">42</span>, <span style="color:#ae81ff">43</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">44</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">46</span>,
+ <span style="color:#ae81ff">47</span>, <span style="color:#ae81ff">48</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">52</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">54</span>,
+ <span style="color:#ae81ff">55</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+ <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>,
+}
+
+<span style="color:#75715e">//go:generate go run genalphabet.go
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">bigRadix</span> = <span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">NewInt</span>(<span style="color:#ae81ff">58</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">bigZero</span> = <span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">NewInt</span>(<span style="color:#ae81ff">0</span>)
+
+<span style="color:#75715e">// Decode decodes a modified base58 string to a byte slice.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Base58Decode</span>(<span style="color:#a6e22e">b</span> <span style="color:#66d9ef">string</span>) []<span style="color:#66d9ef">byte</span> {
+ <span style="color:#a6e22e">answer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">NewInt</span>(<span style="color:#ae81ff">0</span>)
+ <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">NewInt</span>(<span style="color:#ae81ff">1</span>)
+
+ <span style="color:#a6e22e">scratch</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">Int</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">b</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span> {
+  <span style="color:#a6e22e">tmp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b58</span>[<span style="color:#a6e22e">b</span>[<span style="color:#a6e22e">i</span>]]
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">tmp</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">255</span> {
+   <span style="color:#66d9ef">return</span> []byte(<span style="color:#e6db74">&#34;&#34;</span>)
+  }
+  <span style="color:#a6e22e">scratch</span>.<span style="color:#a6e22e">SetInt64</span>(int64(<span style="color:#a6e22e">tmp</span>))
+  <span style="color:#a6e22e">scratch</span>.<span style="color:#a6e22e">Mul</span>(<span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">scratch</span>)
+  <span style="color:#a6e22e">answer</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">answer</span>, <span style="color:#a6e22e">scratch</span>)
+  <span style="color:#a6e22e">j</span>.<span style="color:#a6e22e">Mul</span>(<span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">bigRadix</span>)
+ }
+
+ <span style="color:#a6e22e">tmpval</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">answer</span>.<span style="color:#a6e22e">Bytes</span>()
+
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">numZeros</span> <span style="color:#66d9ef">int</span>
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">numZeros</span> = <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">numZeros</span> &lt; len(<span style="color:#a6e22e">b</span>); <span style="color:#a6e22e">numZeros</span><span style="color:#f92672">++</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span>[<span style="color:#a6e22e">numZeros</span>] <span style="color:#f92672">!=</span> <span style="color:#a6e22e">alphabetIdx0</span> {
+   <span style="color:#66d9ef">break</span>
+  }
+ }
+ <span style="color:#a6e22e">flen</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">numZeros</span> <span style="color:#f92672">+</span> len(<span style="color:#a6e22e">tmpval</span>)
+ <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">flen</span>)
+ copy(<span style="color:#a6e22e">val</span>[<span style="color:#a6e22e">numZeros</span>:], <span style="color:#a6e22e">tmpval</span>)
+
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">val</span>
+}
+
+<span style="color:#75715e">// Encode encodes a byte slice to a modified base58 string.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Base58Encode</span>(<span style="color:#a6e22e">b</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">string</span> {
+ <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">Int</span>)
+ <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">SetBytes</span>(<span style="color:#a6e22e">b</span>)
+
+ <span style="color:#a6e22e">answer</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">b</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">136</span><span style="color:#f92672">/</span><span style="color:#ae81ff">100</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">Cmp</span>(<span style="color:#a6e22e">bigZero</span>) &gt; <span style="color:#ae81ff">0</span> {
+  <span style="color:#a6e22e">mod</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">big</span>.<span style="color:#a6e22e">Int</span>)
+  <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">DivMod</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">bigRadix</span>, <span style="color:#a6e22e">mod</span>)
+  <span style="color:#a6e22e">answer</span> = append(<span style="color:#a6e22e">answer</span>, <span style="color:#a6e22e">alphabet</span>[<span style="color:#a6e22e">mod</span>.<span style="color:#a6e22e">Int64</span>()])
+ }
+
+ <span style="color:#75715e">// leading zero bytes
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">b</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+   <span style="color:#66d9ef">break</span>
+  }
+  <span style="color:#a6e22e">answer</span> = append(<span style="color:#a6e22e">answer</span>, <span style="color:#a6e22e">alphabetIdx0</span>)
+ }
+
+ <span style="color:#75715e">// reverse
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">alen</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">answer</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">alen</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">answer</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">answer</span>[<span style="color:#a6e22e">alen</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">answer</span>[<span style="color:#a6e22e">alen</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">answer</span>[<span style="color:#a6e22e">i</span>]
+ }
+
+ <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">answer</span>)
+}
+</code></pre></div><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/blockchain/" rel="tag">blockchain</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/btc/" rel="tag">BTC</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/bitcoin/" rel="tag">bitcoin</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/blockchain/btc/blockchain_12/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【区块链笔记】BTC_Merkle root hash计算(12)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/blockchain/btc/blockchain_14/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【区块链笔记】BTC_模拟区块链代码(14)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/etc/config/">【配置中心】Apollo和Nacos简介</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_08/">【区块链笔记】ETH_智能合约(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_07/">【区块链笔记】ETH_权益证明(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_06/">【区块链笔记】ETH_挖矿难度调整(06)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_05/">【区块链笔记】ETH_挖矿(05)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_04/">【区块链笔记】ETH_GHOST协议(04)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">23</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
