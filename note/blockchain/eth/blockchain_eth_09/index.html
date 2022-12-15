@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【区块链笔记】ETH_搭建私有链(09) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【区块链笔记】ETH_搭建私有链(09)" />
+<meta property="og:description" content="这篇文章简单的整理了简单的搭建eth私有链。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/blockchain_eth_09/" />
+<meta property="article:published_time" content="2022-11-17T23:28:49+08:00" />
+<meta property="article:modified_time" content="2022-11-17T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【区块链笔记】ETH_搭建私有链(09)">
+<meta itemprop="description" content="这篇文章简单的整理了简单的搭建eth私有链。">
+<meta itemprop="datePublished" content="2022-11-17T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2022-11-17T23:28:49+08:00" />
+<meta itemprop="wordCount" content="623">
+
+
+
+<meta itemprop="keywords" content="区块链,blockchain,ETH," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【区块链笔记】ETH_搭建私有链(09)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-11-17T23:28:49&#43;08:00">2022-11-17</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blockchain/" rel="category">blockchain</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1安装geth">1.安装Geth</a>
+      <ul>
+        <li><a href="#11-安装方式的选择">1.1 安装方式的选择</a></li>
+        <li><a href="#12-克隆代码">1.2 克隆代码</a></li>
+        <li><a href="#13-切换分支">1.3 切换分支</a></li>
+        <li><a href="#14-构建geth">1.4 构建Geth</a></li>
+        <li><a href="#15-查看版本以及启动">1.5 查看版本以及启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#2节点同步">2.节点同步</a></li>
+    <li><a href="#3搭建私有链">3.搭建私有链</a>
+      <ul>
+        <li><a href="#31-创建网络的创世genesis状态">3.1 创建网络的“创世”(genesis)状态</a></li>
+        <li><a href="#32-创建区块链">3.2 创建区块链</a></li>
+        <li><a href="#33-启动私链">3.3 启动私链</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这篇文章简单的整理了简单的搭建<code>eth私有链</code>。</p>
+<h2 id="1安装geth">1.安装Geth</h2>
+<h3 id="11-安装方式的选择">1.1 安装方式的选择</h3>
+<p>安装私有链可以使用系统包管理器比如(apt-get)，也可以使用源码安装。<br>
+这里主要整理的是源码安装。</p>
+<h3 id="12-克隆代码">1.2 克隆代码</h3>
+<pre><code>git clone git@github.com:ethereum/go-ethereum.git
+</code></pre><h3 id="13-切换分支">1.3 切换分支</h3>
+<pre><code>Releases 165
+Paravin (v1.10.26) Latest on Nov 3
+</code></pre><p>因为我现在的最新的发布版的标签是v1.10.26<br>
+切换到改分支的代码。(需要留意一下因为是处于“detached HEAD&quot; 状态所以新建一个分支)</p>
+<pre><code>$ cd go-ethereum
+
+$ git checkout -b tag_1_10_26 v1.10.26
+Switched to a new branch 'tag_1_10_26'
+</code></pre><h3 id="14-构建geth">1.4 构建Geth</h3>
+<pre><code>$ make geth
+env GO111MODULE=on go run build/ci.go install ./cmd/geth
+go: downloading golang.org/x/net v0.0.0-20220607020251-c690dde0001d
+&gt;&gt;&gt; /usr/local/go/bin/go build -ldflags &quot;-X main.gitCommit=e5eb32acee19cc9fca6a03b10283b7484246b15a -X main.gitDate=20221103 -s&quot; -tags urfave_cli_no_docs -trimpath -v -o /Users/limingxie/projects/gopath/src/github.com/ethereum/go-ethereum/build/bin/geth ./cmd/geth
+go: downloading github.com/urfave/cli/v2 v2.10.2
+go: downloading github.com/status-im/keycard-go v0.0.0-20190316090335-8537d3370df4
+go: downloading github.com/deckarep/golang-set v1.8.0
+go: downloading github.com/rjeczalik/notify v0.9.1
+go: downloading github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d
+... ... ...
+... ... ...
+Done building.
+Run &quot;./build/bin/geth&quot; to launch geth.
+</code></pre><blockquote>
+<p>也可以把&quot;./build/bin&quot;路径添加到环境变量的路径，直接使用geth命令。</p>
+</blockquote>
+<h3 id="15-查看版本以及启动">1.5 查看版本以及启动</h3>
+<pre><code>$ cd build/bin
+
+$ ./geth version
+Geth
+Version: 1.10.26-stable
+Git Commit: e5eb32acee19cc9fca6a03b10283b7484246b15a
+Git Commit Date: 20221103
+Architecture: amd64
+Go Version: go1.18.1
+Operating System: darwin
+GOPATH=/Users/limingxie/projects/gopath
+GOROOT=go
+</code></pre><p>如下启动会启动全节点，会不停的下主网数据，启动后感受一下，最好关了&hellip;^^</p>
+<pre><code>$ ./geth -datadir  /Users/limingxie/blockchan/eth/data
+INFO [12-15|11:02:47.308] Starting Geth on Ethereum mainnet...
+INFO [12-15|11:02:47.308] Bumping default cache on mainnet         provided=1024 updated=4096
+INFO [12-15|11:02:47.310] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [12-15|11:02:47.315] Set global gas cap                       cap=50,000,000
+INFO [12-15|11:02:47.317] Allocated trie memory caches             clean=614.00MiB dirty=1024.00MiB
+INFO [12-15|11:02:47.317] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/data/geth/chaindata cache=2.00GiB handles=5120
+INFO [12-15|11:02:47.447] Opened ancient database                  database=/Users/limingxie/blockchan/eth/data/geth/chaindata/ancient/chain readonly=false
+INFO [12-15|11:02:47.447] Writing default main-net genesis block
+INFO [12-15|11:02:47.717] Persisted trie from memory database      nodes=12356 size=1.78MiB time=26.267747ms gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+... ... ...
+... ... ...
+INFO [12-15|11:02:47.786] Started P2P networking                   self=enode://c6b1cb292108bde53130ed2c5a1341a0c5650473ee9c70fb39e35bde05e7e06f435dd5c4c3c657d910e87b32297d89f7a32bdf3db2f9fdb1432d5edc14e1450e@127.0.0.1:30303
+INFO [12-15|11:02:47.788] IPC endpoint opened                      url=/Users/limingxie/blockchan/eth/data/geth.ipc
+INFO [12-15|11:02:47.788] Generated JWT secret                     path=/Users/limingxie/blockchan/eth/data/geth/jwtsecret
+INFO [12-15|11:02:47.820] Generated state snapshot                 accounts=8893 slots=0 storage=409.64KiB dangling=0 elapsed=85.903ms
+INFO [12-15|11:02:50.583] Mapped network port                      proto=tcp extport=30303 intport=30303 interface=&quot;UPNP IGDv1-IP1&quot;
+INFO [12-15|11:02:50.790] New local node record                    seq=1,671,073,367,786 id=3059c066a7ec5ceb ip=192.168.1.3 udp=30303 tcp=30303
+INFO [12-15|11:02:52.791] WebSocket enabled                        url=ws://127.0.0.1:8551
+INFO [12-15|11:02:52.791] HTTP server started                      endpoint=127.0.0.1:8551 auth=true prefix= cors=localhost vhosts=localhost
+INFO [12-15|11:02:57.865] Looking for peers                        peercount=0 tried=17 static=0
+</code></pre><h2 id="2节点同步">2.节点同步</h2>
+<ul>
+<li>&ndash;syncmode full ==&gt; 全部数据和验证</li>
+<li>&ndash;syncmode fast ==&gt; 只同步数据，不验证</li>
+<li>&ndash;syncmode light ==&gt; 轻节点模式，仅获取当前状态</li>
+</ul>
+<pre><code>$./geth --datadir /Users/limingxie/blockchan/eth/data --syncmode light
+</code></pre><ul>
+<li>&ndash;testnet ==&gt; 测试网络</li>
+</ul>
+<pre><code>$./geth --testnet --datadir /Users/limingxie/blockchan/eth/data --syncmode fast
+</code></pre><h2 id="3搭建私有链">3.搭建私有链</h2>
+<h3 id="31-创建网络的创世genesis状态">3.1 创建网络的“创世”(genesis)状态</h3>
+<p>genesis.json</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;config&#34;</span>: {
+        <span style="color:#f92672">&#34;chainId&#34;</span>: <span style="color:#ae81ff">74631</span>
+    },
+    <span style="color:#f92672">&#34;difficulty&#34;</span>: <span style="color:#e6db74">&#34;2000&#34;</span>, 
+    <span style="color:#f92672">&#34;gasLimit&#34;</span>: <span style="color:#e6db74">&#34;2100000&#34;</span>, 
+    <span style="color:#f92672">&#34;alloc&#34;</span>: {
+        <span style="color:#f92672">&#34;7df9a875a174b3bc565e6424a0050ebc1b2d1d82&#34;</span>: { <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#e6db74">&#34;300000&#34;</span> },
+        <span style="color:#f92672">&#34;f41c74c9ae680c1aa78f42e5647a62f353b7bdde&#34;</span>: { <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#e6db74">&#34;400000&#34;</span> } 
+    }
+}
+</code></pre></div><h3 id="32-创建区块链">3.2 创建区块链</h3>
+<pre><code>$ geth --datadir /Users/limingxie/blockchan/eth/test1_data init genesis.json
+
+INFO [12-15|11:22:33.861] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [12-15|11:22:33.866] Set global gas cap                       cap=50,000,000
+INFO [12-15|11:22:33.868] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata cache=16.00MiB handles=16
+INFO [12-15|11:22:34.005] Opened ancient database                  database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata/ancient/chain readonly=false
+INFO [12-15|11:22:34.005] Writing custom genesis block
+INFO [12-15|11:22:34.006] Persisted trie from memory database      nodes=3 size=397.00B time=&quot;269.395µs&quot; gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [12-15|11:22:34.007] Successfully wrote genesis state         database=chaindata hash=e3ea4f..18ce30
+INFO [12-15|11:22:34.007] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/test1_data/geth/lightchaindata cache=16.00MiB handles=16
+INFO [12-15|11:22:34.127] Opened ancient database                  database=/Users/limingxie/blockchan/eth/test1_data/geth/lightchaindata/ancient/chain readonly=false
+INFO [12-15|11:22:34.127] Writing custom genesis block
+INFO [12-15|11:22:34.127] Persisted trie from memory database      nodes=3 size=397.00B time=&quot;138.268µs&quot; gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [12-15|11:22:34.128] Successfully wrote genesis state         database=lightchaindata hash=e3ea4f..18ce30
+</code></pre><h3 id="33-启动私链">3.3 启动私链</h3>
+<pre><code>geth --datadir /Users/limingxie/blockchan/eth/test1_data --networkid 74631
+
+INFO [12-15|11:25:18.126] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [12-15|11:25:18.131] Set global gas cap                       cap=50,000,000
+INFO [12-15|11:25:18.133] Allocated trie memory caches             clean=154.00MiB dirty=256.00MiB
+INFO [12-15|11:25:18.133] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata cache=512.00MiB handles=5120
+INFO [12-15|11:25:18.188] Opened ancient database                  database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata/ancient/chain readonly=false
+INFO [12-15|11:25:18.189]
+INFO [12-15|11:25:18.189] ---------------------------------------------------------------------------------------------------------------------------------------------------------
+INFO [12-15|11:25:18.189] Chain ID:  74631 (unknown)
+... ... ...
+... ... ...
+INFO [12-15|11:25:18.192] Disk storage enabled for ethash caches   dir=/Users/limingxie/blockchan/eth/test1_data/geth/ethash count=3
+INFO [12-15|11:25:18.192] Disk storage enabled for ethash DAGs     dir=/Users/limingxie/Library/Ethash count=2
+INFO [12-15|11:25:18.192] Initialising Ethereum protocol           network=74631 dbversion=&lt;nil&gt;
+... ... ...
+INFO [12-15|11:25:18.195] Starting peer-to-peer node               instance=Geth/v1.10.26-stable-e5eb32ac/darwin-amd64/go1.18.1
+INFO [12-15|11:25:18.234] New local node record                    seq=1,671,074,718,233 id=d089c43e9770701b ip=127.0.0.1 udp=30303 tcp=30303
+INFO [12-15|11:25:18.234] Started P2P networking                   self=enode://dc671427a7cb8270e052b7a4a472165dc087f4abb04b91727ac59ff997ab0f649bbe5df319ac81130eaec8534f629594fe10d8b85014c7a459658af33a23232d@127.0.0.1:30303
+INFO [12-15|11:25:18.236] IPC endpoint opened                      url=/Users/limingxie/blockchan/eth/test1_data/geth.ipc
+INFO [12-15|11:25:18.236] Generated JWT secret                     path=/Users/limingxie/blockchan/eth/test1_data/geth/jwtsecret
+INFO [12-15|11:25:23.239] WebSocket enabled                        url=ws://127.0.0.1:8551
+INFO [12-15|11:25:23.239] HTTP server started                      endpoint=127.0.0.1:8551 auth=true prefix= cors=localhost vhosts=localhost
+INFO [12-15|11:25:23.448] New local node record                    seq=1,671,074,718,234 id=d089c43e9770701b ip=115.171.57.62 udp=30303 tcp=30303
+
+</code></pre><hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/blockchain/" rel="tag">blockchain</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/eth/" rel="tag">ETH</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/blockchain/eth/blockchain_eth_08/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【区块链笔记】ETH_智能合约(08)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_09/">【区块链笔记】ETH_搭建私有链(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/etc/config/">【配置中心】Apollo和Nacos简介</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_08/">【区块链笔记】ETH_智能合约(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_07/">【区块链笔记】ETH_权益证明(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_06/">【区块链笔记】ETH_挖矿难度调整(06)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_05/">【区块链笔记】ETH_挖矿(05)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">24</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
