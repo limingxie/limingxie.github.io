@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这篇文章简单的整理了geth控制台操作相关的信息。">
 <meta itemprop="datePublished" content="2022-11-18T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-18T23:28:49+08:00" />
-<meta itemprop="wordCount" content="383">
+<meta itemprop="wordCount" content="426">
 
 
 
@@ -156,23 +156,88 @@
 			<p>这篇文章简单的整理了<code>geth控制台操作</code>相关的信息。</p>
 <h2 id="1启动控制台">1.启动控制台</h2>
 <p>启动命令里添加console就可以进入控制台</p>
-<pre><code>$geth --datadir /Users/limingxie/blockchan/eth/test1_data --networkid 66666 console
+<pre><code>$geth --datadir /Users/limingxie/blockchain/eth/test1_data --networkid 66666 console
 </code></pre><pre><code>//--http 是连接localhost:8545   console 是打开控制台   2&gt;output.log 是输出日志
-$geth --datadir /Users/limingxie/blockchan/eth/test1_data --networkid 66666 --http console 2&gt;output.log
-</code></pre><h2 id="2javascript-对象">2.JavaScript 对象</h2>
+$geth --datadir /Users/limingxie/blockchain/eth/test1_data --networkid 66666 --http console 2&gt;output.log
+</code></pre><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>--datadir</code></strong></td>
+<td>指定节点数据目录</td>
+</tr>
+<tr>
+<td><strong><code>init</code></strong></td>
+<td>指定初始化节点使用的配置文件 genesis.json</td>
+</tr>
+<tr>
+<td><strong><code>--identity</code></strong></td>
+<td>设定节点标识</td>
+</tr>
+<tr>
+<td><strong><code>--http</code></strong></td>
+<td>开启http rpc 服务</td>
+</tr>
+<tr>
+<td><strong><code>--http.port</code></strong></td>
+<td>指定http rpc端口</td>
+</tr>
+<tr>
+<td><strong><code>--http.corsdomain</code></strong></td>
+<td>指定跨域</td>
+</tr>
+<tr>
+<td><strong><code>--http.addr</code></strong></td>
+<td>监听地址，默认为127.0.0.1，只能本地访问</td>
+</tr>
+<tr>
+<td><strong><code>--http.api</code></strong></td>
+<td>设置节点上启用RPC接口</td>
+</tr>
+<tr>
+<td><strong><code>--nodiscover</code></strong></td>
+<td>使用此选项可确保未手动添加您的人员无法发现您的节点。否则，如果您的节点具有相同的创世纪文件和网络ID，则可能无意中将您的节点添加到陌生人的区块链中</td>
+</tr>
+<tr>
+<td><strong><code>--networkid</code></strong></td>
+<td>设定网络ID，当创建的链的 genesis block 和 network id 刚好与网络上其他人的链相同，那么就看哪条链长，如果比对方的短，那么链上的数据会全部被覆盖，变成对方的链。</td>
+</tr>
+<tr>
+<td><strong><code>--allow-insecure-unlock</code></strong></td>
+<td>允许使用 http 协议进行账户解锁</td>
+</tr>
+<tr>
+<td><strong><code>--port</code></strong></td>
+<td>网络侦听端口，对等端连接端口</td>
+</tr>
+<tr>
+<td><strong><code>--ipcdisable</code></strong></td>
+<td>指定跨域</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>启动是加 &ndash;dev 回忆dev模式启动，会节省许多繁杂操作，比如省略挖矿等操作，专注于开发.</p>
+</blockquote>
+<h2 id="2javascript-对象">2.JavaScript 对象</h2>
 <p>Geth Console 是一个交互式的 JavaScript 执行环境，里面内置了一些用来操作以太坊的 JavaScript对象，<br>
 我们可以直接调用这些对象来获取区块链上的相关信息。</p>
 <blockquote>
 <p>所有的对象是几乎都被web3对象包含</p>
 </blockquote>
 <ul>
-<li><strong><code>eth</code></strong>:主要包含对区块链进行访问和交互相关的方法;</li>
-<li><strong><code>net</code></strong>:主要包含查看</li>
+<li><strong><code>eth</code></strong>:对区块链进行访问和交互相关的方法;</li>
+<li><strong><code>net</code></strong>:网络操作查看</li>
 <li><strong><code>p2p</code></strong> 网络状态的方法;</li>
-<li><strong><code>admin</code></strong>:主要包含与管理节点相关的方法;</li>
-<li><strong><code>miner</code></strong>:主要包含挖矿相关的一些方法;</li>
+<li><strong><code>admin</code></strong>:管理节点相关的方法;</li>
+<li><strong><code>miner</code></strong>:挖矿相关的一些方法;</li>
 <li><strong><code>personal</code></strong>:包含账户管理的方法;</li>
-<li><strong><code>txpool</code></strong>:包含查看交易内存池的方法;</li>
+<li><strong><code>txpool</code></strong>:查看交易内存池的方法;</li>
 <li><strong><code>web3</code></strong>:包含以上所有对象，还包含一些通用方法。</li>
 </ul>
 <h2 id="3常用命令">3.常用命令</h2>
@@ -207,7 +272,7 @@ $geth --datadir /Users/limingxie/blockchan/eth/test1_data --networkid 66666 --ht
 Passphrase:
 Repeat passphrase:
 INFO [12-15|23:24:45.034] Your new key was generated               address=0xAd9E42f712F152a8E9F780e6A23D9AFb2a020607
-WARN [12-15|23:24:45.035] Please backup your key file!             path=/Users/limingxie/blockchan/eth/test1_data/keystore/UTC--2022-12-15T15-24-43.534890000Z--ad9e42f712f152a8e9f780e6a23d9afb2a020607
+WARN [12-15|23:24:45.035] Please backup your key file!             path=/Users/limingxie/blockchain/eth/test1_data/keystore/UTC--2022-12-15T15-24-43.534890000Z--ad9e42f712f152a8e9f780e6a23d9afb2a020607
 WARN [12-15|23:24:45.035] Please remember your password!
 &quot;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;
 
@@ -216,7 +281,7 @@ WARN [12-15|23:24:45.035] Please remember your password!
 [&quot;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;]
 
 //新的终端查看用户文件信息
-$ cat /Users/limingxie/blockchan/eth/test1_data/keystore/UTC--2022-12-15T15-24-43.534890000Z--ad9e42f712f152a8e9f780e6a23d9afb2a020607
+$ cat /Users/limingxie/blockchain/eth/test1_data/keystore/UTC--2022-12-15T15-24-43.534890000Z--ad9e42f712f152a8e9f780e6a23d9afb2a020607
 {&quot;address&quot;:&quot;ad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;,&quot;crypto&quot;:{&quot;cipher&quot;:&quot;aes-128-ctr&quot;,&quot;ciphertext&quot;:&quot;fa0ede4585b510173ab438384740f3386e3df19d934aac5c26ace221d9f47ba8&quot;,&quot;cipherparams&quot;:{&quot;iv&quot;:&quot;293bc427b035f0943b4bbb965c907293&quot;},&quot;kdf&quot;:&quot;scrypt&quot;,&quot;kdfparams&quot;:{&quot;dklen&quot;:32,&quot;n&quot;:262144,&quot;p&quot;:1,&quot;r&quot;:8,&quot;salt&quot;:&quot;d88a19c15fd6c1234d2ebf2d1792571d53ac3ae0829b2ecdcfa8a0d9dd805170&quot;},&quot;mac&quot;:&quot;27ef6a66329edc85ada55946562907a64d9963cb7dee919b086e7f4c75e1ad6a&quot;},&quot;id&quot;:&quot;1c5ce5e3-6e54-4bfc-b6d9-b6414f462b08&quot;,&quot;version&quot;:3}
 
 //查看新创建用户的余额
@@ -370,6 +435,12 @@ INFO [12-16|00:20:27.876] Transaction pool price threshold updated price=1,000,0
 			<p class="pager__title">【区块链笔记】ETH_搭建私有链(09)</p>
 		</a>
 	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/blockchain/eth/blockchain_eth_11/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【区块链笔记】ETH_geth搭建联盟链(11)</p>
+		</a>
+	</div>
 </nav>
 
 
@@ -387,12 +458,12 @@ INFO [12-16|00:20:27.876] Transaction pool price threshold updated price=1,000,0
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_11/">【区块链笔记】ETH_geth搭建联盟链(11)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_10/">【区块链笔记】ETH_geth控制台操作(10)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_09/">【区块链笔记】ETH_搭建私有链(09)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/etc/config/">【配置中心】Apollo和Nacos简介</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_08/">【区块链笔记】ETH_智能合约(08)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_07/">【区块链笔记】ETH_权益证明(07)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_06/">【区块链笔记】ETH_挖矿难度调整(06)</a></li>
 		</ul>
 	</div>
 </div>
@@ -414,7 +485,7 @@ INFO [12-16|00:20:27.876] Transaction pool price threshold updated price=1,000,0
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">25</span>
+				<span class="widget__counter widget__counter--bubble">26</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;

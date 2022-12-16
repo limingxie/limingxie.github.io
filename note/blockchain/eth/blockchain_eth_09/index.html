@@ -213,21 +213,21 @@ Operating System: darwin
 GOPATH=/Users/limingxie/projects/gopath
 GOROOT=go
 </code></pre><p>如下启动会启动全节点，会不停的下主网数据，启动后感受一下，最好关了&hellip;^^</p>
-<pre><code>$ ./geth -datadir  /Users/limingxie/blockchan/eth/data
+<pre><code>$ ./geth -datadir  /Users/limingxie/blockchain/eth/data
 INFO [12-15|11:02:47.308] Starting Geth on Ethereum mainnet...
 INFO [12-15|11:02:47.308] Bumping default cache on mainnet         provided=1024 updated=4096
 INFO [12-15|11:02:47.310] Maximum peer count                       ETH=50 LES=0 total=50
 INFO [12-15|11:02:47.315] Set global gas cap                       cap=50,000,000
 INFO [12-15|11:02:47.317] Allocated trie memory caches             clean=614.00MiB dirty=1024.00MiB
-INFO [12-15|11:02:47.317] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/data/geth/chaindata cache=2.00GiB handles=5120
-INFO [12-15|11:02:47.447] Opened ancient database                  database=/Users/limingxie/blockchan/eth/data/geth/chaindata/ancient/chain readonly=false
+INFO [12-15|11:02:47.317] Allocated cache and file handles         database=/Users/limingxie/blockchain/eth/data/geth/chaindata cache=2.00GiB handles=5120
+INFO [12-15|11:02:47.447] Opened ancient database                  database=/Users/limingxie/blockchain/eth/data/geth/chaindata/ancient/chain readonly=false
 INFO [12-15|11:02:47.447] Writing default main-net genesis block
 INFO [12-15|11:02:47.717] Persisted trie from memory database      nodes=12356 size=1.78MiB time=26.267747ms gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
 ... ... ...
 ... ... ...
 INFO [12-15|11:02:47.786] Started P2P networking                   self=enode://c6b1cb292108bde53130ed2c5a1341a0c5650473ee9c70fb39e35bde05e7e06f435dd5c4c3c657d910e87b32297d89f7a32bdf3db2f9fdb1432d5edc14e1450e@127.0.0.1:30303
-INFO [12-15|11:02:47.788] IPC endpoint opened                      url=/Users/limingxie/blockchan/eth/data/geth.ipc
-INFO [12-15|11:02:47.788] Generated JWT secret                     path=/Users/limingxie/blockchan/eth/data/geth/jwtsecret
+INFO [12-15|11:02:47.788] IPC endpoint opened                      url=/Users/limingxie/blockchain/eth/data/geth.ipc
+INFO [12-15|11:02:47.788] Generated JWT secret                     path=/Users/limingxie/blockchain/eth/data/geth/jwtsecret
 INFO [12-15|11:02:47.820] Generated state snapshot                 accounts=8893 slots=0 storage=409.64KiB dangling=0 elapsed=85.903ms
 INFO [12-15|11:02:50.583] Mapped network port                      proto=tcp extport=30303 intport=30303 interface=&quot;UPNP IGDv1-IP1&quot;
 INFO [12-15|11:02:50.790] New local node record                    seq=1,671,073,367,786 id=3059c066a7ec5ceb ip=192.168.1.3 udp=30303 tcp=30303
@@ -240,11 +240,11 @@ INFO [12-15|11:02:57.865] Looking for peers                        peercount=0 t
 <li>&ndash;syncmode fast ==&gt; 只同步数据，不验证</li>
 <li>&ndash;syncmode light ==&gt; 轻节点模式，仅获取当前状态</li>
 </ul>
-<pre><code>$./geth --datadir /Users/limingxie/blockchan/eth/data --syncmode light
+<pre><code>$./geth --datadir /Users/limingxie/blockchain/eth/data --syncmode light
 </code></pre><ul>
 <li>&ndash;testnet ==&gt; 测试网络</li>
 </ul>
-<pre><code>$./geth --testnet --datadir /Users/limingxie/blockchan/eth/data --syncmode fast
+<pre><code>$./geth --testnet --datadir /Users/limingxie/blockchain/eth/data --syncmode fast
 </code></pre><h2 id="3搭建私有链">3.搭建私有链</h2>
 <h3 id="31-创建网络的创世genesis状态">3.1 创建网络的“创世”(genesis)状态</h3>
 <p>genesis.json</p>
@@ -260,42 +260,42 @@ INFO [12-15|11:02:57.865] Looking for peers                        peercount=0 t
     }
 }
 </code></pre></div><h3 id="32-创建区块链">3.2 创建区块链</h3>
-<pre><code>$ geth --datadir /Users/limingxie/blockchan/eth/test1_data init genesis.json
+<pre><code>$ geth --datadir /Users/limingxie/blockchain/eth/test1_data init genesis.json
 
 INFO [12-15|11:22:33.861] Maximum peer count                       ETH=50 LES=0 total=50
 INFO [12-15|11:22:33.866] Set global gas cap                       cap=50,000,000
-INFO [12-15|11:22:33.868] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata cache=16.00MiB handles=16
-INFO [12-15|11:22:34.005] Opened ancient database                  database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata/ancient/chain readonly=false
+INFO [12-15|11:22:33.868] Allocated cache and file handles         database=/Users/limingxie/blockchain/eth/test1_data/geth/chaindata cache=16.00MiB handles=16
+INFO [12-15|11:22:34.005] Opened ancient database                  database=/Users/limingxie/blockchain/eth/test1_data/geth/chaindata/ancient/chain readonly=false
 INFO [12-15|11:22:34.005] Writing custom genesis block
 INFO [12-15|11:22:34.006] Persisted trie from memory database      nodes=3 size=397.00B time=&quot;269.395µs&quot; gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
 INFO [12-15|11:22:34.007] Successfully wrote genesis state         database=chaindata hash=e3ea4f..18ce30
-INFO [12-15|11:22:34.007] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/test1_data/geth/lightchaindata cache=16.00MiB handles=16
-INFO [12-15|11:22:34.127] Opened ancient database                  database=/Users/limingxie/blockchan/eth/test1_data/geth/lightchaindata/ancient/chain readonly=false
+INFO [12-15|11:22:34.007] Allocated cache and file handles         database=/Users/limingxie/blockchain/eth/test1_data/geth/lightchaindata cache=16.00MiB handles=16
+INFO [12-15|11:22:34.127] Opened ancient database                  database=/Users/limingxie/blockchain/eth/test1_data/geth/lightchaindata/ancient/chain readonly=false
 INFO [12-15|11:22:34.127] Writing custom genesis block
 INFO [12-15|11:22:34.127] Persisted trie from memory database      nodes=3 size=397.00B time=&quot;138.268µs&quot; gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
 INFO [12-15|11:22:34.128] Successfully wrote genesis state         database=lightchaindata hash=e3ea4f..18ce30
 </code></pre><h3 id="33-启动私链">3.3 启动私链</h3>
-<pre><code>geth --datadir /Users/limingxie/blockchan/eth/test1_data --networkid 74631
+<pre><code>geth --datadir /Users/limingxie/blockchain/eth/test1_data --networkid 74631
 
 INFO [12-15|11:25:18.126] Maximum peer count                       ETH=50 LES=0 total=50
 INFO [12-15|11:25:18.131] Set global gas cap                       cap=50,000,000
 INFO [12-15|11:25:18.133] Allocated trie memory caches             clean=154.00MiB dirty=256.00MiB
-INFO [12-15|11:25:18.133] Allocated cache and file handles         database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata cache=512.00MiB handles=5120
-INFO [12-15|11:25:18.188] Opened ancient database                  database=/Users/limingxie/blockchan/eth/test1_data/geth/chaindata/ancient/chain readonly=false
+INFO [12-15|11:25:18.133] Allocated cache and file handles         database=/Users/limingxie/blockchain/eth/test1_data/geth/chaindata cache=512.00MiB handles=5120
+INFO [12-15|11:25:18.188] Opened ancient database                  database=/Users/limingxie/blockchain/eth/test1_data/geth/chaindata/ancient/chain readonly=false
 INFO [12-15|11:25:18.189]
 INFO [12-15|11:25:18.189] ---------------------------------------------------------------------------------------------------------------------------------------------------------
 INFO [12-15|11:25:18.189] Chain ID:  74631 (unknown)
 ... ... ...
 ... ... ...
-INFO [12-15|11:25:18.192] Disk storage enabled for ethash caches   dir=/Users/limingxie/blockchan/eth/test1_data/geth/ethash count=3
+INFO [12-15|11:25:18.192] Disk storage enabled for ethash caches   dir=/Users/limingxie/blockchain/eth/test1_data/geth/ethash count=3
 INFO [12-15|11:25:18.192] Disk storage enabled for ethash DAGs     dir=/Users/limingxie/Library/Ethash count=2
 INFO [12-15|11:25:18.192] Initialising Ethereum protocol           network=74631 dbversion=&lt;nil&gt;
 ... ... ...
 INFO [12-15|11:25:18.195] Starting peer-to-peer node               instance=Geth/v1.10.26-stable-e5eb32ac/darwin-amd64/go1.18.1
 INFO [12-15|11:25:18.234] New local node record                    seq=1,671,074,718,233 id=d089c43e9770701b ip=127.0.0.1 udp=30303 tcp=30303
 INFO [12-15|11:25:18.234] Started P2P networking                   self=enode://dc671427a7cb8270e052b7a4a472165dc087f4abb04b91727ac59ff997ab0f649bbe5df319ac81130eaec8534f629594fe10d8b85014c7a459658af33a23232d@127.0.0.1:30303
-INFO [12-15|11:25:18.236] IPC endpoint opened                      url=/Users/limingxie/blockchan/eth/test1_data/geth.ipc
-INFO [12-15|11:25:18.236] Generated JWT secret                     path=/Users/limingxie/blockchan/eth/test1_data/geth/jwtsecret
+INFO [12-15|11:25:18.236] IPC endpoint opened                      url=/Users/limingxie/blockchain/eth/test1_data/geth.ipc
+INFO [12-15|11:25:18.236] Generated JWT secret                     path=/Users/limingxie/blockchain/eth/test1_data/geth/jwtsecret
 INFO [12-15|11:25:23.239] WebSocket enabled                        url=ws://127.0.0.1:8551
 INFO [12-15|11:25:23.239] HTTP server started                      endpoint=127.0.0.1:8551 auth=true prefix= cors=localhost vhosts=localhost
 INFO [12-15|11:25:23.448] New local node record                    seq=1,671,074,718,234 id=d089c43e9770701b ip=115.171.57.62 udp=30303 tcp=30303
@@ -366,12 +366,12 @@ INFO [12-15|11:25:23.448] New local node record                    seq=1,671,074
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_11/">【区块链笔记】ETH_geth搭建联盟链(11)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_10/">【区块链笔记】ETH_geth控制台操作(10)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_09/">【区块链笔记】ETH_搭建私有链(09)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/etc/config/">【配置中心】Apollo和Nacos简介</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_08/">【区块链笔记】ETH_智能合约(08)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_07/">【区块链笔记】ETH_权益证明(07)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/blockchain_eth_06/">【区块链笔记】ETH_挖矿难度调整(06)</a></li>
 		</ul>
 	</div>
 </div>
@@ -393,7 +393,7 @@ INFO [12-15|11:25:23.448] New local node record                    seq=1,671,074
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">25</span>
+				<span class="widget__counter widget__counter--bubble">26</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
