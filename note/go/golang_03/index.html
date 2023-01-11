@@ -158,23 +158,23 @@
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ptr</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">i</span>
 
 <span style="color:#75715e">//i ---&gt; 10   
-</span><span style="color:#75715e">//prt ---&gt; 地址 ---&gt; 10
+</span><span style="color:#75715e">//ptr ---&gt; 地址 ---&gt; 10
 </span><span style="color:#75715e"></span>
 <span style="color:#f92672">*</span><span style="color:#a6e22e">ptr</span> = <span style="color:#ae81ff">20</span>
 
 <span style="color:#75715e">//i ---&gt; 20   
-</span><span style="color:#75715e">//prt ---&gt; 地址 ---&gt; 20
+</span><span style="color:#75715e">//ptr ---&gt; 地址 ---&gt; 20
 </span></code></pre></div><h2 id="string的测试">string的测试</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;aa&#34;</span>
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ptr</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">str</span>
 
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;str:%v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">str</span>)            <span style="color:#75715e">//str:0xc000010250 aa
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ptr:%v %v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ptr</span>, <span style="color:#a6e22e">ptr</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">ptr</span>)   <span style="color:#75715e">//ptr:0xc00000e028 0xc000010250 aa
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;str:%v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">str</span>)            <span style="color:#75715e">//str:0xc000096210 aa
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ptr:%v %v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ptr</span>, <span style="color:#a6e22e">ptr</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">ptr</span>)   <span style="color:#75715e">//ptr:0xc0000ae018 0xc000096210 aa
 </span><span style="color:#75715e"></span>
 <span style="color:#f92672">*</span><span style="color:#a6e22e">ptr</span> = <span style="color:#e6db74">&#34;bb&#34;</span>
 
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;str:%v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">str</span>)            <span style="color:#75715e">//str:0xc000010250 aa
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ptr:%v %v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ptr</span>, <span style="color:#a6e22e">ptr</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">ptr</span>)   <span style="color:#75715e">//ptr:0xc00000e028 0xc000010250 aa
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;str:%v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">str</span>)            <span style="color:#75715e">//str:0xc000096210 bb
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;ptr:%v %v %v\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ptr</span>, <span style="color:#a6e22e">ptr</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">ptr</span>)   <span style="color:#75715e">//ptr:0xc0000ae018 0xc000096210 bb
 </span></code></pre></div><h2 id="影响指针理解的内容">影响指针理解的内容</h2>
 <p>值类型的指针: int系列，float系列，bool，string，数组，结构体(struct)<br>
 引用类型: 指针，slice切片，map，管道chan，interface。</p>
@@ -269,7 +269,7 @@ ref &mdash;&gt; 地址prt &mdash;&gt; 值</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">39</span>
+				<span class="widget__counter widget__counter--bubble">41</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -301,7 +301,7 @@ ref &mdash;&gt; 地址prt &mdash;&gt; 值</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">26</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -381,7 +381,7 @@ ref &mdash;&gt; 地址prt &mdash;&gt; 值</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">3</span>
+				<span class="widget__counter widget__counter--bubble">5</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
