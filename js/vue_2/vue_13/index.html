@@ -158,11 +158,15 @@
 <h4 id="过滤器的定义">过滤器的定义</h4>
 <p>对要显示的数据进行特定格式化后再显示(适用于一些简单逻辑的处理）</p>
 <h4 id="语法">语法</h4>
-<p>1.注册过滤器：​​​Vue.filter(name,callback)​​​或​​new Vue{filters:{}}​​​
-2.使用过滤器：​​{{ xxx│过滤器名}}​​或​​v-bind:属性= “xxx│过滤器名&quot;​​</p>
+<ol>
+<li>注册过滤器：​​​Vue.filter(name,callback)​​​或​​new Vue{filters:{}}​​​</li>
+<li>使用过滤器：​​{{ xxx│过滤器名}}​​或​​v-bind:属性= “xxx│过滤器名&quot;​​</li>
+</ol>
 <h4 id="备注">备注</h4>
-<p>1.过滤器也可以接收额外参数、多个过滤器也可以串联
-2.并没有改变原本的数据，是产生新的对应的数据效的数字</p>
+<ol>
+<li>过滤器也可以接收额外参数、多个过滤器也可以串联</li>
+<li>并没有改变原本的数据，是产生新的对应的数据效的数字</li>
+</ol>
 <h4 id="实例">实例</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
 &lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
@@ -296,12 +300,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_02/">【操作系统笔记】OS_启动_中断_异常_系统调用(02)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_01/">【操作系统笔记】接触OS(01)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/lizhi_01/">【工作经历】我被优化了</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/xinguan_yang/">我也🐑了</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_03/">【区块链笔记】ETH_script_合约测试脚本(03)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_02/">【区块链笔记】ETH_script_合约部署脚本(02)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_01/">【区块链笔记】ETH_script_合约编译脚本(01)</a></li>
 		</ul>
 	</div>
 </div>
@@ -412,6 +416,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/product/">product</a>&nbsp;

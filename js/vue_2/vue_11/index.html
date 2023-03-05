@@ -161,17 +161,17 @@
 <h2 id="vue监视数据的原理">Vue监视数据的原理</h2>
 <h4 id="1vue会监视data中所有层次的数据">1.vue会监视data中所有层次的数据</h4>
 <h4 id="2如何监测对象中的数据">2.如何监测对象中的数据？</h4>
-<p>通过setter实现监视，且要在new Vue时就传入要监测的数据。
-(1).对象中后追加的属性，Vue默认不做响应式处理
-(2).如需给后添加的属性做响应式，请使用如下API：
-Vue.set(target，propertyName/index，value) 或
+<p>通过setter实现监视，且要在new Vue时就传入要监测的数据。<br>
+(1).对象中后追加的属性，Vue默认不做响应式处理<br>
+(2).如需给后添加的属性做响应式，请使用如下API：<br>
+Vue.set(target，propertyName/index，value) 或<br>
 vm.$set(target，propertyName/index，value)</p>
 <h4 id="3如何监测数组中的数据">3.如何监测数组中的数据？</h4>
-<p>通过包裹数组更新元素的方法实现，本质就是做了两件事：
-(1).调用原生对应的方法对数组进行更新。
+<p>通过包裹数组更新元素的方法实现，本质就是做了两件事：<br>
+(1).调用原生对应的方法对数组进行更新。<br>
 (2).重新解析模板，进而更新页面。</p>
 <h4 id="4在vue修改数组中的某个元素一定要用如下方法">4.在Vue修改数组中的某个元素一定要用如下方法</h4>
-<p>1.使用这些API:push()、pop()、shift()、unshift()、splice()、sort()、reverse()
+<p>1.使用这些API:push()、pop()、shift()、unshift()、splice()、sort()、reverse()<br>
 2.Vue.set() 或 vm.$set()</p>
 <h4 id="特别注意vueset-和-vmset-不能给vm-或-vm的根数据对象vm_data-添加属性">特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象(vm._data) 添加属性</h4>
 <h2 id="实例1">实例1</h2>
@@ -431,12 +431,12 @@ vm.$set(target，propertyName/index，value)</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_02/">【操作系统笔记】OS_启动_中断_异常_系统调用(02)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_01/">【操作系统笔记】接触OS(01)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/lizhi_01/">【工作经历】我被优化了</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/xinguan_yang/">我也🐑了</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_03/">【区块链笔记】ETH_script_合约测试脚本(03)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_02/">【区块链笔记】ETH_script_合约部署脚本(02)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_01/">【区块链笔记】ETH_script_合约编译脚本(01)</a></li>
 		</ul>
 	</div>
 </div>
@@ -547,6 +547,10 @@ vm.$set(target，propertyName/index，value)</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/product/">product</a>&nbsp;

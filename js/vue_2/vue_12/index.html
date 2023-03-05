@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这一篇整理了收集表单数据相关的内容。">
 <meta itemprop="datePublished" content="2022-06-10T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-10T23:55:49+08:00" />
-<meta itemprop="wordCount" content="181">
+<meta itemprop="wordCount" content="186">
 
 
 
@@ -157,14 +157,14 @@
 </div><div class="content post__content clearfix">
 			<p>这一篇整理了收集表单数据相关的内容。</p>
 <h4 id="收集表单数据">收集表单数据</h4>
-<p>若：<!-- raw HTML omitted -->， 则v -model收集的是 value 值，用户输入的就是 value 值
-若：<!-- raw HTML omitted -->, 则v-model收 集的是 value 值，且要给标签配置 value 值
-若：<!-- raw HTML omitted -->
-1.没有配置 input 的 value 属性，那么收集的就是 checked(勾选or未勾选，是布尔值)
-2.配置 input 的 value 属性：
-(1) v-model 的初始值是非数组，那么收集的就是checked (勾选or未勾选，是布尔值)
-(2) v -model 的初始值是数组，那么收集的的就是 value 组成的数组</p>
-<h4 id="v-model-的三个-修饰符">v-model 的三个 修饰符</h4>
+<pre><code>若：&lt;input type=&quot;text&quot;/&gt;， 则v -model收集的是 value 值，用户输入的就是 value 值  
+若：&lt;input type=&quot;radio&quot;/&gt;, 则v-model收 集的是 value 值，且要给标签配置 value 值  
+若：&lt;input type=&quot; checkbox&quot;/&gt;  
+    1.没有配置 input 的 value 属性，那么收集的就是 checked(勾选or未勾选，是布尔值)  
+    2.配置 input 的 value 属性：  
+        (1) v-model 的初始值是非数组，那么收集的就是checked (勾选or未勾选，是布尔值)  
+        (2) v -model 的初始值是数组，那么收集的的就是 value 组成的数组  
+</code></pre><h4 id="v-model-的三个-修饰符">v-model 的三个 修饰符</h4>
 <ul>
 <li>lazy：失去焦点再收集数据</li>
 <li>number：输入字符串转为有效的数字</li>
@@ -291,12 +291,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_02/">【操作系统笔记】OS_启动_中断_异常_系统调用(02)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_01/">【操作系统笔记】接触OS(01)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/lizhi_01/">【工作经历】我被优化了</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/xinguan_yang/">我也🐑了</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_03/">【区块链笔记】ETH_script_合约测试脚本(03)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_02/">【区块链笔记】ETH_script_合约部署脚本(02)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/eth/scripts/blockchain_eth_script_01/">【区块链笔记】ETH_script_合约编译脚本(01)</a></li>
 		</ul>
 	</div>
 </div>
@@ -407,6 +407,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
