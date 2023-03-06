@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_内存管理_非连续内存分配(04) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_内存管理_非连续内存分配(04)" />
+<meta property="og:description" content="这一篇整理了操作系统的内存管理_非连续内存分配相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_04/" />
+<meta property="article:published_time" content="2023-03-04T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-03-04T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_内存管理_非连续内存分配(04)">
+<meta itemprop="description" content="这一篇整理了操作系统的内存管理_非连续内存分配相关的内容。">
+<meta itemprop="datePublished" content="2023-03-04T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-03-04T23:28:49+08:00" />
+<meta itemprop="wordCount" content="206">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System,连续内存分配," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_内存管理_非连续内存分配(04)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-03-04T23:28:49&#43;08:00">2023-03-04</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1非连续内存的分配方式">1.非连续内存的分配方式</a></li>
+    <li><a href="#2使用非连续内存分配的原因">2.使用非连续内存分配的原因</a>
+      <ul>
+        <li><a href="#21-连续分配的缺点">2.1 连续分配的缺点</a></li>
+        <li><a href="#22-非连续分配的优点">2.2 非连续分配的优点</a></li>
+        <li><a href="#23-非连续分配的缺点">2.3 非连续分配的缺点</a></li>
+        <li><a href="#24-两种硬件方案">2.4 两种硬件方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#3分段">3.分段</a>
+      <ul>
+        <li><a href="#段访问机制">段访问机制</a></li>
+      </ul>
+    </li>
+    <li><a href="#4分页">4.分页</a>
+      <ul>
+        <li></li>
+        <li><a href="#41-帧frame">4.1 帧(Frame)</a></li>
+        <li><a href="#42-页">4.2 页</a></li>
+      </ul>
+    </li>
+    <li><a href="#5页表">5.页表</a>
+      <ul>
+        <li><a href="#51-页表概述">5.1 页表概述</a></li>
+        <li><a href="#52-转换后备缓冲区tlb">5.2 转换后备缓冲区(TLB)</a></li>
+        <li><a href="#53-二级多级-页表">5.3 二级/多级 页表</a></li>
+        <li><a href="#54-反向页表">5.4 反向页表</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>内存管理_非连续内存分配</code>相关的内容。</p>
+<h2 id="1非连续内存的分配方式">1.非连续内存的分配方式</h2>
+<ul>
+<li>分段(Segmentation)</li>
+<li>分页(Paging)</li>
+<li>分表(Page Table)</li>
+</ul>
+<h2 id="2使用非连续内存分配的原因">2.使用非连续内存分配的原因</h2>
+<h3 id="21-连续分配的缺点">2.1 连续分配的缺点</h3>
+<ul>
+<li>分配给程序的物理内存必须连续</li>
+<li>内存利用率较低</li>
+<li>有外碎片，内碎片的问题</li>
+</ul>
+<h3 id="22-非连续分配的优点">2.2 非连续分配的优点</h3>
+<ul>
+<li>一个程序的物理地址空间是非连续的</li>
+<li>更好的内存利用和管理</li>
+<li>允许共享代码与数据(共享库等&hellip;)</li>
+<li>支持动态加载和动态链接</li>
+</ul>
+<h3 id="23-非连续分配的缺点">2.3 非连续分配的缺点</h3>
+<ul>
+<li>如何建立虚拟地址和物理地址之间的转换：软件方案和硬件方案</li>
+</ul>
+<h3 id="24-两种硬件方案">2.4 两种硬件方案</h3>
+<ul>
+<li>分段</li>
+<li>分页</li>
+</ul>
+<h2 id="3分段">3.分段</h2>
+<p>为了更好的分离和共享</p>
+<ul>
+<li>程序的分段地址空间</li>
+<li>分段寻址方案</li>
+</ul>
+<h3 id="段访问机制">段访问机制</h3>
+<p>一个段表示一个内存“快”：一个逻辑地址空间<br>
+段访问:逻辑地址由二元组(s,addr)表示</p>
+<ul>
+<li>s – 段号</li>
+<li>addr – 段内偏移</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_00.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_00.png" alt="os_04_00"></p>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_01.png" alt="os_04_01"></p>
+<h2 id="4分页">4.分页</h2>
+<h4 id="页帧帧物理页面frame-page-frame">页帧(帧,物理页面,Frame, Page Frame)</h4>
+<p>把物理地址空间划分为大小相同的基本分配单位<br>
+大小是2的n次方, 如512,4096, 8192</p>
+<h4 id="页面页逻辑页面page">页面(页,逻辑页面,Page)</h4>
+<p>把逻辑地址空间也划分为相同大小的基本分配单位<br>
+大小是2的n次方, 如512,4096, 8192<br>
+帧和页的大小必须是相同的</p>
+<h4 id="页面到叶帧">页面到叶帧</h4>
+<p>逻辑地址到物理地址的转换</p>
+<ul>
+<li>页表</li>
+<li>MMU/TLB</li>
+</ul>
+<h3 id="41-帧frame">4.1 帧(Frame)</h3>
+<ul>
+<li>物理内存被划分成大小相同的帧内存物理地址的表示:二元组(f,o)</li>
+<li>f – 帧号(F位，共有2^f个帧)</li>
+<li>o – 帧内偏移（S位,每帧有2^s字节）</li>
+</ul>
+<p>物理地址 = f * 2^s + o</p>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_02.png" alt="os_04_02"></p>
+<h4 id="基于页帧的物理地址计算实例">基于页帧的物理地址计算实例</h4>
+<pre><code>16-bit的地址空间  
+9-bit(512byte)大小的页帧  
+
+物理地址计算  
+物理地址表示 = (3， 6)  
+
+物理地址 = 2^s*f + o
+F = 7   S = 9    f = 3  o = 6
+
+实际物理地址 = 2^9 * 3 = 6 = 1536 + 6 = 1542
+</code></pre><p><a href="https://limingxie.github.io/images/os/os04/os_04_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_03.png" alt="os_04_03"></p>
+<h3 id="42-页">4.2 页</h3>
+<p>一个程序的逻辑地址空间被划分为大小相等的页</p>
+<p>页内偏移大小 = 帧内偏移大小<br>
+页号大小 != 帧号大小<br>
+一个逻辑地址是一个二元组(P, O)</p>
+<p>P – 页号(P位， 2^p个页)
+O – 页内偏移(S位,每页有2^S字节)</p>
+<p>虚拟地址 = P * 2^s + O</p>
+<p><a href="https://limingxie.github.io/images/os/os04/os04/os_04_04.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_04.png" alt="os_04_04"></p>
+<h4 id="页的寻址机制">页的寻址机制</h4>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_05.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_05.png" alt="os_04_05"></p>
+<ul>
+<li>页映射到帧</li>
+<li>页是连续的虚拟内存</li>
+<li>帧是非连续的物理内存</li>
+<li>不是所有的页都有对应的帧</li>
+</ul>
+<h2 id="5页表">5.页表</h2>
+<h3 id="51-页表概述">5.1 页表概述</h3>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_06.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_06.png" alt="os_04_06"></p>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_07.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_07.png" alt="os_04_07"></p>
+<h4 id="分页机制的性能问题">分页机制的性能问题</h4>
+<ol>
+<li>访问一个内存单元需要2次内存访问</li>
+</ol>
+<ul>
+<li>一次用于获取页表项</li>
+<li>一次用于访问数据</li>
+</ul>
+<ol start="2">
+<li>页表可能非常大</li>
+<li>如何处理？</li>
+</ol>
+<ul>
+<li>缓存(Caching)</li>
+<li>间接(Indirection)访问</li>
+</ul>
+<h3 id="52-转换后备缓冲区tlb">5.2 转换后备缓冲区(TLB)</h3>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_08.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_08.png" alt="os_04_08"></p>
+<h3 id="53-二级多级-页表">5.3 二级/多级 页表</h3>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_09.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_09.png" alt="os_04_09"></p>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_10.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_10.png" alt="os_04_10"></p>
+<h3 id="54-反向页表">5.4 反向页表</h3>
+<h4 id="541-大地址空间问题">5.4.1 大地址空间问题</h4>
+<p>对于大地址空间 （64-bits）系统，多级页表变得繁琐</p>
+<ul>
+<li>比如：5级页表</li>
+</ul>
+<p>不是让页表与逻辑地址空间的大小相对应，而是让页表与物理地址空间的大小相对应</p>
+<ul>
+<li>逻辑(虚拟)地址空间增长速度快于物理地址空间</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_11.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_11.png" alt="os_04_11"></p>
+<h4 id="542-页寄存器">5.4.2 页寄存器</h4>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_12.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_12.png" alt="os_04_12"></p>
+<h5 id="优点">优点</h5>
+<ul>
+<li>转换表的大小相对于物理内存来说很小</li>
+<li>转换表的大小跟逻辑地址空间大小无关</li>
+</ul>
+<h5 id="缺点">缺点</h5>
+<ul>
+<li>需要的信息对调了，即根据帧号可找到页号</li>
+<li>如何转换回来？即根据页号找到帧号</li>
+<li>在需要再反向页表中搜索想要的页号</li>
+</ul>
+<h4 id="543-基于关联内存方案">5.4.3 基于关联内存方案</h4>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_13.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_13.png" alt="os_04_13"></p>
+<h5 id="在反向页表中搜索一个页对应的帧号">在反向页表中搜索一个页对应的帧号</h5>
+<ol>
+<li>如果帧数较少，页寄存器可以被防止在关联内存中</li>
+<li>在关联内存中查找逻辑页号<br>
+成功：帧号被读取， 失败：页错误异常(page fault)</li>
+<li>限制因素<br>
+大量的关联内存非常昂贵(难以在单个时钟周次内完成，耗电)</li>
+</ol>
+<h4 id="544-基于哈希查找方案">5.4.4 基于哈希查找方案</h4>
+<p><a href="https://limingxie.github.io/images/os/os04/os_04_14.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os04/os_04_14.png" alt="os_04_14"></p>
+<ul>
+<li>进程标识与页号的Hash值可能有冲突</li>
+<li>页表项中包括保护位、修改位、访问位和存在位等标识</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" rel="tag">连续内存分配</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_03/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_内存管理_连续内存分配(03)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_04/">【操作系统笔记】OS_内存管理_非连续内存分配(04)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_03/">【操作系统笔记】OS_内存管理_连续内存分配(03)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_02/">【操作系统笔记】OS_启动_中断_异常_系统调用(02)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_01/">【操作系统笔记】接触OS(01)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/lizhi_01/">【工作经历】我被优化了</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
