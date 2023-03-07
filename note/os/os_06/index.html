@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_虚拟内存_页面置换算法(06) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_虚拟内存_页面置换算法(06)" />
+<meta property="og:description" content="这一篇整理了操作系统的虚拟内存_页面置换算法相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_06/" />
+<meta property="article:published_time" content="2023-03-06T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-03-06T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_虚拟内存_页面置换算法(06)">
+<meta itemprop="description" content="这一篇整理了操作系统的虚拟内存_页面置换算法相关的内容。">
+<meta itemprop="datePublished" content="2023-03-06T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-03-06T23:28:49+08:00" />
+<meta itemprop="wordCount" content="366">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_虚拟内存_页面置换算法(06)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-03-06T23:28:49&#43;08:00">2023-03-06</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-功能与目标">1 功能与目标</a></li>
+    <li><a href="#2试验设置与评价方法">2.试验设置与评价方法</a></li>
+    <li><a href="#3局部页面置换算法">3.局部页面置换算法</a>
+      <ul>
+        <li><a href="#31-最优页面置换算法">3.1 最优页面置换算法</a></li>
+        <li><a href="#32-先进先出算法fifo">3.2 先进先出算法(FIFO)</a></li>
+        <li><a href="#33-最近最久未使用算法-lruleast-recently-used">3.3 最近最久未使用算法 LRU(Least Recently Used)</a></li>
+        <li><a href="#34-时钟页面置换算法">3.4 时钟页面置换算法</a></li>
+        <li><a href="#35-二次机会算法">3.5 二次机会算法</a></li>
+        <li><a href="#36-最不常用算法-least-frequently-used-lfu">3.6 最不常用算法 Least Frequently used, LFU</a></li>
+        <li><a href="#37-belady现象科学家名字">3.7 Belady现象(科学家名字)</a></li>
+        <li><a href="#38-lru--fifo-和-clock-的比较">3.8 LRU / FIFO 和 Clock 的比较</a></li>
+      </ul>
+    </li>
+    <li><a href="#4全局页面置换算法">4.全局页面置换算法</a>
+      <ul>
+        <li><a href="#41-工作集模型">4.1 工作集模型</a></li>
+        <li><a href="#42-工作集页置换算法">4.2 工作集页置换算法</a></li>
+        <li><a href="#43-缺页率置换算法">4.3 缺页率置换算法</a></li>
+      </ul>
+    </li>
+    <li><a href="#5抖动问题">5.抖动问题</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>虚拟内存_页面置换算法</code>相关的内容。</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_00.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_00.png" alt="os_06_00"></p>
+<h2 id="1-功能与目标">1 功能与目标</h2>
+<ul>
+<li>功能 : 当缺页中断发生, 需要调入新的页面而内存已满时, 选择内存当中哪个物理页面被置换.</li>
+<li>目标 : 尽可能地减少页面的换进换出次数(即缺页中断的次数). 具体来说, 把未来不再使用的或短期内较少使用的页面换出, 通常只能在局部性原理指导下依据过去的统计数据来进行预测.</li>
+<li>页面锁定 : 用于描述必须常驻内存的操作系统的关键部分或时间关键的应用进程. 实现的方式是 : 在页表中添加锁定标记位(lock bit).</li>
+</ul>
+<h2 id="2试验设置与评价方法">2.试验设置与评价方法</h2>
+<p>记录一个进程对页访问的一个轨迹</p>
+<ul>
+<li>举例 : 虚拟地址跟踪(页号, 偏移)&hellip;<br>
+(3,0) (1,9) (4,1) (2,1) (5,3) (2,0) &hellip;</li>
+<li>生成的页面轨迹<br>
+3, 1, 4, 2, 5, 2, 1, &hellip;</li>
+</ul>
+<p>模拟一个页面置换的行为并且记录产生页缺失数的数量<br>
+更少的缺失, 更好的性能</p>
+<h2 id="3局部页面置换算法">3.局部页面置换算法</h2>
+<h3 id="31-最优页面置换算法">3.1 最优页面置换算法</h3>
+<h4 id="基本思路">基本思路</h4>
+<p>当一个缺页中断发生时, 对于保存在内存当中的每一个逻辑页面, 计算在它的下一次访问之前, 还需等待多长时间, 从中选择等待时间最长的那个, 作为被置换的页面.</p>
+<p>这是一种理想情况, 在实际系统中是无法实现的, 因为操作系统无法知道每一个页面要等待多长时间以后才会再次被访问.</p>
+<p>可用作其他算法的性能评价的依据.(在一个模拟器上运行某个程序, 并记录每一次的页面访问情况, 在第二遍运行时即可使用最优算法)</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_01.png" alt="os_06_01"></p>
+<h3 id="32-先进先出算法fifo">3.2 先进先出算法(FIFO)</h3>
+<h4 id="基本思路-1">基本思路</h4>
+<p>选择在内存中驻留时间最长的页面淘汰. 具体来说, 系统维护着一个链表, 记录了所有位于内存当中的逻辑页面. 从链表的排列顺序来看, 链首页面的驻留时间最长, 链尾页面的驻留时间最短. 当发生一个缺页中断时, 把链首页面淘汰出去, 并把新的页面添加到链表的末尾.</p>
+<blockquote>
+<p>性能较差, 调出的页面有可能是经常要访问的页面. 并且有belady现象. FIFO算法很少单独使用.</p>
+</blockquote>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_02.png" alt="os_06_02"></p>
+<h3 id="33-最近最久未使用算法-lruleast-recently-used">3.3 最近最久未使用算法 LRU(Least Recently Used)</h3>
+<h4 id="基本思路-2">基本思路</h4>
+<p>当一个缺页中断发生时, 选择最久未使用的那个页面, 并淘汰.</p>
+<p>它是对最优页面置换算法的一个近似, 其依据是程序的局部性原理, 即在最近一小段时间(最近几条指令)内, 如果某些页面被频繁地访问, 那么再将来的一小段时间内, 他们还可能会再一次被频繁地访问. 反过来说, 如果过去某些页面长时间未被访问, 那么在将来它们还可能会长时间地得不到访问.</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_03.png" alt="os_06_03"></p>
+<blockquote>
+<p>LRU算法需要记录各个页面使用时间的先后顺序, 开销比较大.</p>
+</blockquote>
+<h4 id="两种可能的实现方法是">两种可能的实现方法是</h4>
+<ul>
+<li>系统维护一个页面链表, 最近刚刚使用过的页面作为首节点, 最久未使用的作为尾结点. 再一次访问内存时, 找出相应的页面, 把它从链表中摘下来, 再移动到链表首. 每次缺页中断发生时, 淘汰链表末尾的页面.</li>
+<li>设置一个活动页面栈, 当访问某页时, 将此页号压入栈顶, 然后, 考察栈内是否有与此页面相同的页号, 若有则抽出. 当需要淘汰一个页面时, 总是选择栈底的页面, 它就是最久未使用的.</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_04.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_04.png" alt="os_06_04"></p>
+<h3 id="34-时钟页面置换算法">3.4 时钟页面置换算法</h3>
+<h4 id="基本思路-3">基本思路</h4>
+<ul>
+<li>
+<p>需要用到页表项的访问位, 当一个页面被装入内存时, 把该位初始化为0. 然后如果这个页面被访问, 则把该位置设为1;</p>
+</li>
+<li>
+<p>把各个页面组织成环形链表(类似钟表面), 把指针指向最老的页面(最先进来);</p>
+</li>
+<li>
+<p>当发生一个缺页中断时, 考察指针所指向的最老页面, 若它的访问位为0, 立即淘汰; 若访问位为0, 然后指针往下移动一格. 如此下去, 直到找到被淘汰的页面, 然后把指针移动到下一格.</p>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_05.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_05.png" alt="os_06_05"></p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_06.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_06.png" alt="os_06_06"></p>
+<h3 id="35-二次机会算法">3.5 二次机会算法</h3>
+<p>因为考虑到时钟页面置换算法, 有时候会把一些 dirty bit 为1(有过写操作)的页面进行置换, 这样的话, 代价会比较大. 因此, 可以结合访问位和脏位一起来决定应该置换哪一页.</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_07.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_07.png" alt="os_06_07"></p>
+<p>如果是一次写操作，dirty bit会设置为1.说明内存访问这部分数据时是有写入操作的，和硬盘上原数据不一样，所以要写入硬盘，如果是0，对这部分内存没有写操作，那么说明内存和硬盘上内容是一样的，直接丢掉即可。
+目的就是减少对硬盘的写操作。
+如果used和dirty bit都是0，那么替换掉；如果其中一个是1，那么把这一位设置为0，指针往下走；如果都是1，那先把used换为0，说明有2次机会。</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_08.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_08.png" alt="os_06_08"></p>
+<h3 id="36-最不常用算法-least-frequently-used-lfu">3.6 最不常用算法 Least Frequently used, LFU</h3>
+<h4 id="基本思路-4">基本思路</h4>
+<p>当一个缺页中断发生时, 选择访问次数最少的那个页面, 并淘汰.</p>
+<h4 id="实现方法">实现方法</h4>
+<p>对每一个页面设置一个访问计数器, 每当一个页面被访问时, 该页面的访问计数器加1。当发生缺页中断时, 淘汰计数值最小的那个页面.</p>
+<h4 id="lru和lfu的对比">LRU和LFU的对比</h4>
+<p>LRU考察的是多久未访问, 时间越短越好. 而LFU考察的是访问的次数和频度, 访问次数越多越好.</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_09.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_09.png" alt="os_06_09"></p>
+<h3 id="37-belady现象科学家名字">3.7 Belady现象(科学家名字)</h3>
+<p>在采用FIFO算法时, 有时会出现分配的物理页面数增加, 缺页率反而提高的异常现象;</p>
+<p>出现原因 : FIFO算法的置换特征与进程访问内存的动态特征是矛盾的, 与置换算法的目标是不一致的(即替换较少使用的页面), 因此, 被他置换出去的页面不一定是进程不会访问的.</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_10.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_10.png" alt="os_06_10"></p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_11.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_11.png" alt="os_06_11"></p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_12.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_12.png" alt="os_06_12"></p>
+<h3 id="38-lru--fifo-和-clock-的比较">3.8 LRU / FIFO 和 Clock 的比较</h3>
+<p>LRU和FIFO都是先进先出的思路, 只不过LRU是针对页面最近访问时间来进行排序, 所以需要在每一次页面访问的时候动态地调整各个页面之间的先后顺序(有一个页面的最近访问时间变了). 而FIFO是针对页面进入内存的时间来进行排序, 这个时间是固定不变的, 所以各个页面之间的先后顺序是固定的. 如果一个页面在进入内存后没有被访问, 那么它的最近访问时间就是它进入内存的时间. 换句话说, 如果内存当中的所有页面都未曾访问过, 那么LRU算法就退化为了FIFO算法.</p>
+<p>例如 : 给进程分配3个物理页面, 逻辑页面的访问顺序是 : 1,2,3,4,5,6,1,2,3 &hellip;</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_13.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_13.png" alt="os_06_13"></p>
+<h2 id="4全局页面置换算法">4.全局页面置换算法</h2>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_14.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_14.png" alt="os_06_14"></p>
+<h3 id="41-工作集模型">4.1 工作集模型</h3>
+<p>前面介绍的各种页面置换算法, 都是基于一个前提, 即程序的局部性原理. 但是此原理是否成立?</p>
+<ul>
+<li>如果局部性原理不成立, 那么各种页面置换算法就没有说明分别, 也没有什么意义. 例如 : 假设进程对逻辑页面的访问顺序是1,2,3,4,5,6,6,7,8,9&hellip;, 即单调递增, 那么在物理页面数有限的前提下, 不管采用何种置换算法, 每次的页面访问都必然导致缺页中断.</li>
+<li>如果局部性原理是成立的, 那么如何来证明它的存在, 如何来对它进行定量地分析? 这就是工作集模型.</li>
+</ul>
+<h4 id="工作集">工作集</h4>
+<p>工作集 : 一个进程当前正在使用的逻辑页面集合.<br>
+可以使用一个二元函数 W(t, delta) 来表示 :</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_15.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_15.png" alt="os_06_15"></p>
+<ul>
+<li>t 是当前的执行时刻;</li>
+<li>delta 称为工作集窗口, 即一个定长的页面访问的时间窗口;</li>
+<li>W(t, delta) = 在当前时刻 t 之前的 delta 时间窗口当中的所有页面所组成的集合(随着 t 的变化, 该集合也在不断的变化)</li>
+<li>|W(t, delta)| 是工作集的大小, 即逻辑页的数量.</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_16.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_16.png" alt="os_06_16"></p>
+<p>工作集大小的变化 : 进程开始执行后, 随着访问新页面逐步建立较稳定的工作集. 当内存访问的局部性区域的位置大致稳定时, 工作集大小也大致稳定; 局部性区域的位置改变时, 工作集快速扩张和收缩过渡到下一个稳定值.</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_17.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_17.png" alt="os_06_17"></p>
+<h4 id="常驻集">常驻集</h4>
+<p>常驻集是指在当前时刻, 进程实际驻留在内存当中的页面集合.</p>
+<ul>
+<li>工作集是进程在运行过程中固有的性质, 而常驻集取决于系统分配给进程的物理页面数目, 以及所采用的页面置换算法;</li>
+<li>如果一个进程的整个工作集都在内存当中, 即常驻集 包含 工作集, 那么进程将很顺利地运行, 而不会造成太多的缺页中断(直到工作集发生剧烈变动, 从而过渡到另一个状态);</li>
+<li>当进程常驻集的大小达到某个数目之后, 再给它分配更多的物理页面, 缺页率也不会明显下降.</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_18.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_18.png" alt="os_06_18"></p>
+<h3 id="42-工作集页置换算法">4.2 工作集页置换算法</h3>
+<p>当工作集窗口在滑动过程中, 如果页面不在集合中, 那么就会直接丢失这个不在窗口中页面, 而不会等待缺页中断再丢弃.</p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_19.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_19.png" alt="os_06_19"></p>
+<h3 id="43-缺页率置换算法">4.3 缺页率置换算法</h3>
+<p>可变分配策略: 常驻集大小可变.<br>
+例如 : 每个进程在刚开始运行的时候, 先根据程序大小给它分配一定数目的物理页面, 然后在进程运行过程中, 再动态地调整常驻集的大小.</p>
+<ul>
+<li>可采用全局页面置换的方式, 当发生一个缺页中断时, 被置换的页面可以是在其他进程当中, 各个并发进程竞争地使用物理页面.</li>
+<li>优缺点 : 性能较好, 但增加了系统开销.</li>
+<li>具体实现 : 可以使用缺页率算法来动态调整常驻集的大小.</li>
+</ul>
+<h4 id="缺页率">缺页率</h4>
+<p>表示 &ldquo;缺页次数 / 内存访问次数&rdquo;</p>
+<ul>
+<li>影响因素 : 页面置换算法, 分配给进程的物理页面数目, 页面本身的大小, 程序的编写方法.</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_20.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_20.png" alt="os_06_20"></p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_21.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_21.png" alt="os_06_21"></p>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_22.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_22.png" alt="os_06_22"></p>
+<h2 id="5抖动问题">5.抖动问题</h2>
+<ul>
+<li>如果分配给一个进程的物理页面太少, 不能包含整个的工作集, 即常驻集 属于 工作集, 那么进程将会造成很多的缺页中断, 需要频繁的在内存与外存之间替换页面, 从而使进程的运行速度变得很慢, 我们把这种状态称为 &ldquo;抖动&rdquo;.</li>
+<li>产生抖动的原因 : 随着驻留内存的进程数目增加, 分配给每个进程的物理页面数不断就减小, 缺页率不断上升. 所以OS要选择一个适当的进程数目和进程需要的帧数, 以便在并发水平和缺页率之间达到一个平衡.</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os06/os_06_23.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os06/os_06_23.png" alt="os_06_23"></p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_05/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_虚拟内存(05)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_06/">【操作系统笔记】OS_虚拟内存_页面置换算法(06)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_05/">【操作系统笔记】OS_虚拟内存(05)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_04/">【操作系统笔记】OS_内存管理_非连续内存分配(04)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_03/">【操作系统笔记】OS_内存管理_连续内存分配(03)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_02/">【操作系统笔记】OS_启动_中断_异常_系统调用(02)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_01/">【操作系统笔记】接触OS(01)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">6</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
