@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_进程和线程(07) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_进程和线程(07)" />
+<meta property="og:description" content="这一篇整理了操作系统的进程和线程相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_07/" />
+<meta property="article:published_time" content="2023-02-07T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-02-07T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_进程和线程(07)">
+<meta itemprop="description" content="这一篇整理了操作系统的进程和线程相关的内容。">
+<meta itemprop="datePublished" content="2023-02-07T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-02-07T23:28:49+08:00" />
+<meta itemprop="wordCount" content="461">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_进程和线程(07)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-07T23:28:49&#43;08:00">2023-02-07</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-进程process">1 进程(process)</a>
+      <ul>
+        <li><a href="#11-定义">1.1 定义</a></li>
+        <li><a href="#12-进程的组成">1.2 进程的组成</a></li>
+        <li><a href="#13-进程的特点">1.3 进程的特点</a></li>
+        <li><a href="#14-进程控制结构">1.4 进程控制结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程状态state">进程状态(state)</a></li>
+    <li><a href="#15-进程的生命期管理">1.5 进程的生命期管理</a>
+      <ul>
+        <li><a href="#151-进程创建">1.5.1 进程创建</a></li>
+        <li><a href="#152-进程运行">1.5.2 进程运行</a></li>
+        <li><a href="#153-进程等待阻塞">1.5.3 进程等待(阻塞)</a></li>
+        <li><a href="#154-进程唤醒">1.5.4 进程唤醒</a></li>
+        <li><a href="#155-进程结束">1.5.5 进程结束</a></li>
+      </ul>
+    </li>
+    <li><a href="#16-进程状态变化模型">1.6 进程状态变化模型</a>
+      <ul>
+        <li><a href="#161-三种基本状态">1.6.1 三种基本状态</a></li>
+        <li><a href="#162-进程其它的基本状态">1.6.2 进程其它的基本状态</a></li>
+      </ul>
+    </li>
+    <li><a href="#17-进程挂起">1.7 进程挂起</a>
+      <ul>
+        <li><a href="#171-两种挂起状态">1.7.1 两种挂起状态</a></li>
+        <li><a href="#172-与挂起相关的状态转换">1.7.2 与挂起相关的状态转换</a></li>
+        <li><a href="#173-状态队列">1.7.3 状态队列</a></li>
+      </ul>
+    </li>
+    <li><a href="#2线程thread">2.线程(thread)</a>
+      <ul>
+        <li><a href="#21-定义">2.1 定义</a></li>
+        <li><a href="#22-线程的优缺点">2.2 线程的优缺点</a></li>
+        <li><a href="#23-线程和进程的比较">2.3 线程和进程的比较</a></li>
+        <li><a href="#24-线程的实现">2.4 线程的实现</a></li>
+        <li><a href="#25-上下文切换">2.5 上下文切换</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>进程和线程</code>相关的内容。</p>
+<ul>
+<li>进程(process)描述</li>
+<li>进程状态(state)</li>
+<li>线程(thread)</li>
+<li>进程间通信(inter-process communication)</li>
+<li>进程互斥与同步</li>
+<li>死锁(deadlock)</li>
+</ul>
+<h2 id="1-进程process">1 进程(process)</h2>
+<h3 id="11-定义">1.1 定义</h3>
+<blockquote>
+<p>一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程。</p>
+</blockquote>
+<h3 id="12-进程的组成">1.2 进程的组成</h3>
+<h4 id="进程包括">进程包括</h4>
+<ul>
+<li>程序的代码</li>
+<li>程序处理的数据</li>
+<li>程序计数器中的值, 指示下一条将运行的指令</li>
+<li>一组通用的寄存器的当前值, 堆, 栈</li>
+<li>一组系统资源(如打开的文件)
+总之，进程包含了正在运行的一个程序的所有状态信息。</li>
+</ul>
+<h4 id="进程和程序的联系">进程和程序的联系</h4>
+<ul>
+<li>程序是产生进程的基础</li>
+<li>程序的每次运行构成不同的进程</li>
+<li>进程是程序功能的体现</li>
+<li>通过多次执行, 一个程序可以对应多个进程, 通过调用关系, 一个进程可包括多个程序.</li>
+</ul>
+<h4 id="进程和程序的区别">进程和程序的区别</h4>
+<ul>
+<li>进程是动态的, 程序是静态的 : 程序是有序代码的集合. 进程是程序的执行, 进程有核心态 / 用户态.</li>
+<li>进程是暂时的, 程序是永久的. 进程是一个状态变化的过程, 程序可以长久保存.</li>
+<li>进程和程序的组成不同 : 进程的组成包括程序, 数据和进程控制块(进程状态信息)</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_01.png" alt="os_07_01"></p>
+<h3 id="13-进程的特点">1.3 进程的特点</h3>
+<ul>
+<li>动态性 : 可动态地创建, 结果进程;</li>
+<li>并发性 : 进程可以被独立调度并占用处理机运行; (并发:一段, 并行:一时刻)</li>
+<li>独立性 : 不同进程的工作不相互影响;(页表是保障措施之一)</li>
+<li>制约性 : 因访问共享数据, 资源或进程间同步而产生制约.</li>
+</ul>
+<p>程序 = 算法 + 数据结构</p>
+<h3 id="14-进程控制结构">1.4 进程控制结构</h3>
+<p>描述进程的数据结构: 进程控制块 (Process Control Block, PCB)<br>
+操作系统为每个进程都维护了一个PCB, 用来保存与该进程有关的各种状态信息.</p>
+<ul>
+<li>进程控制块 : 操作系统管理控制进程运行所用的信息集合.</li>
+<li>进程的创建 : 为该进程生成一个PCB</li>
+<li>进程的终止 : 回收它的PCB</li>
+<li>进程的组织管理 : 通过对PCB的组织管理来实现</li>
+</ul>
+<h4 id="141-pcb有以下三大类信息">1.4.1 PCB有以下三大类信息</h4>
+<h5 id="1-进程标志信息">1) 进程标志信息</h5>
+<p>如本进程的标志, 本进程的产生者标志(父进程标志). 用户标志</p>
+<h5 id="2-处理机状态信息保存区">2) 处理机状态信息保存区</h5>
+<p>保存进程的运行现场信息 :</p>
+<ul>
+<li>用户可见寄存器. 用户程序可以使用的数据, 地址等寄存器</li>
+<li>控制和状态寄存器. 如程序计数器(PC), 程序状态字(PSW)</li>
+<li>栈指针. 过程调用, 系统调用, 中断处理和返回时需要用到它</li>
+</ul>
+<h5 id="3-进程控制信息">3) 进程控制信息</h5>
+<ul>
+<li>调度和状态信息. 用于操作系统调度进程并占用处理机使用.</li>
+<li>进程间通信信息. 为支持进程间与通信相关的各种标志, 信号, 信件等, 这些信息都存在接收方的进程控制块中.</li>
+<li>存储管理信息. 包含有指向本进程映像存储空间的数据结构.</li>
+<li>进程所用资源. 说明由进程打开, 使用的系统资源. 如打开的文件等.</li>
+<li>有关数据结构的链接信息. 进程可以连接到一个进程队列中, 或连接到相关的其他进程的PCB.</li>
+</ul>
+<h4 id="142-pcb-的组织方式">1.4.2 PCB 的组织方式</h4>
+<h5 id="链表">链表</h5>
+<p>同一状态的进程其PCB成一链表, 多个状态对应多个不同的链表.(各状态的进程形成不同的链表 : 就绪链表, 阻塞链表)</p>
+<h5 id="索引表">索引表</h5>
+<p>同一状态的进程归入一个index表(由index指向PCB), 多个状态对应多个不同的index表(各状态的进行形成不同的索引表 : 就绪索引表, 阻塞索引表)</p>
+<h2 id="进程状态state">进程状态(state)</h2>
+<ul>
+<li>进程的生命期管理</li>
+<li>进程状态化模型</li>
+<li>进程挂起模型</li>
+</ul>
+<h2 id="15-进程的生命期管理">1.5 进程的生命期管理</h2>
+<p>进程创建-进程运行-进程等待-进程唤醒-进程结束</p>
+<h3 id="151-进程创建">1.5.1 进程创建</h3>
+<p>*引起进程创建的3个主要事件 :</p>
+<ul>
+<li>系统初始化;</li>
+<li>用户请求创建一个新进程;</li>
+<li>正在运行的进程执行了创建进程的系统调用.</li>
+</ul>
+<h3 id="152-进程运行">1.5.2 进程运行</h3>
+<p>内核选择一个就绪的进程, 让它占用处理机并执行<br>
+(为何选择?如何选择?)</p>
+<h3 id="153-进程等待阻塞">1.5.3 进程等待(阻塞)</h3>
+<p>在以下情况下, 进程等待(阻塞):</p>
+<ol>
+<li>请求并等待系统服务, 无法马上完成</li>
+<li>启动某种操作, 无法马上完成</li>
+<li>需要的数据没有到达</li>
+</ol>
+<p>进程只能自己阻塞自己, 因为只有进程自身才能知道何时需要等待某种事件的发生.</p>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_02.png" alt="os_07_02"></p>
+<h3 id="154-进程唤醒">1.5.4 进程唤醒</h3>
+<p>唤醒进程的原因 :</p>
+<ol>
+<li>被阻塞进程需要的资源可被满足</li>
+<li>被阻塞进程等待的事件到达</li>
+<li>将该进程的PCB插入到就绪队列</li>
+</ol>
+<p>进程只能被别的进程或操作系统唤醒</p>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_03.png" alt="os_07_03"></p>
+<h3 id="155-进程结束">1.5.5 进程结束</h3>
+<p>在以下四种情况下, 进程结束 :</p>
+<ul>
+<li>正常退出(自愿)</li>
+<li>错误退出(自愿)</li>
+<li>致命错误(强制性)</li>
+<li>被其他进程杀死(强制性)</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_04.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_04.png" alt="os_07_04"></p>
+<h2 id="16-进程状态变化模型">1.6 进程状态变化模型</h2>
+<p>进程的三种基本状态:<br>
+进程在生命结束前处于三种基本状态之一.</p>
+<p>不同系统设置的进程状态数目不同.</p>
+<h3 id="161-三种基本状态">1.6.1 三种基本状态</h3>
+<ul>
+<li>运行状态(Running) : 当一个进程正在处理机上运行时</li>
+<li>就绪状态(Ready) : 一个进程获得了除处理机之外的一切所需资源, 一旦得到处理机即可运行</li>
+<li>等待状态(阻塞状态 Blocked) : 一个进程正在等待某一时间而暂停运行时. 如等待某资源, 等待输入/输出完成.</li>
+</ul>
+<h3 id="162-进程其它的基本状态">1.6.2 进程其它的基本状态</h3>
+<ul>
+<li>创建状态(New): 一个进程正在被创建, 还没被转到就绪状态之前的状态</li>
+<li>结束状态(Exit): 一个进程正在从系统中消失时的状态, 这是因为进程结束或由于其它原因所导致.</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_05.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_05.png" alt="os_07_05"></p>
+<h5 id="可能的状态变化如下">可能的状态变化如下</h5>
+<ul>
+<li>NULL → New: 一个新进程被产生出来执行一个程序</li>
+<li>New → Ready: 当进程创建完成并初始化后, 一切就绪准备运行时, 变为就绪状态</li>
+<li>Ready → Running: 处于就绪态的进程被进程调度程序选中后, 就分配到处理机上来运行</li>
+<li>Running → Exit: 当进程表示它已经完成或者因出错, 当前运行进程会由操作系统作结束处理</li>
+<li>Running → Ready: 处于运行状态的进程在其运行过程中, 由于分配它的处理机时间片用完而让出处理机</li>
+<li>Running → Blocked: 当进程请求某样东西且必须等待时</li>
+<li>Blocked → Ready: 当进程要等待某事件到来时, 它从阻塞状态变到就绪状态</li>
+</ul>
+<h2 id="17-进程挂起">1.7 进程挂起</h2>
+<p>进程挂起, 为了合理且充分地利用系统资源.<br>
+进程在挂起状态时, 意味着进程没有占用内存空间, 处在挂起状态的进程映像在磁盘上.(把进程放到磁盘上)</p>
+<h3 id="171-两种挂起状态">1.7.1 两种挂起状态</h3>
+<ul>
+<li>阻塞挂起状态: 进程在外存并等待某事件的出现;</li>
+<li>就绪挂起状态: 进程在外存, 但只要进入内存, 即可运行.</li>
+</ul>
+<h3 id="172-与挂起相关的状态转换">1.7.2 与挂起相关的状态转换</h3>
+<h4 id="挂起-把一个进程从内存转到外存-可能有以下几种情况">挂起: 把一个进程从内存转到外存, 可能有以下几种情况</h4>
+<ul>
+<li>阻塞到阻塞挂起: 没有进程处于就绪状态或就绪进程要求更多内存资源时, 会进行这种转换, 以提交新进程或运行时就绪进程.</li>
+<li>就绪到就绪挂起: 当有高优先级阻塞(系统认为会很快就绪的)进程和低优先级就绪进程时, 系统会选择挂起低优先级就绪进程.</li>
+<li>运行到就绪挂起: 对抢先式分时系统, 当有高优先级阻塞挂起进程因事件出现而进入就绪挂起时, 系统可能会把运行进程转导就绪挂起状态.</li>
+</ul>
+<h4 id="在外存时的状态转换">在外存时的状态转换</h4>
+<ul>
+<li>阻塞挂起到就绪挂起: 当有阻塞挂起因相关事件出现时, 系统会把阻塞挂起进程转换为就绪挂起进程.</li>
+</ul>
+<h4 id="解挂-激活--把一个进程从外存转到内存-可能有以下几种情况">解挂, 激活 : 把一个进程从外存转到内存; 可能有以下几种情况</h4>
+<ul>
+<li>就绪挂起到就绪: 没有就绪进程或挂起就绪进程优先级高于就绪进程时, 会进行这种转换.</li>
+<li>阻塞挂起到阻塞: 当一个进程释放足够内存时, 系统会把一个高优先级阻塞挂起(系统认为会很快出现所等待的事件)进程转换为阻塞进程.
+抛出一个问题: OS怎么通过PCB和定义的进程状态来管理PCB, 帮助完成进程的调度过程?</li>
+</ul>
+<h3 id="173-状态队列">1.7.3 状态队列</h3>
+<ul>
+<li>由操作系统来维护一组队列, 用来表示系统当中所有进程的当前状态;</li>
+<li>不同的状态分别用不同的队列来表示(就绪队列, 各种类型的阻塞队列);</li>
+<li>每个进程的PCB都根据它的状态加入到相应的队列当中, 当一个进程的状态发生变化时, 它的PCB从一个状态中脱离出来, 加入到另外一个队列.</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_06.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_06.png" alt="os_07_06"></p>
+<h2 id="2线程thread">2.线程(thread)</h2>
+<p>为什么使用线程?<br>
+实例 : 编写一个MP3播放软件.</p>
+<p>核心功能:
+(1)从MP3音频文件中读取数据;<br>
+(2)对数据进行解压缩;<br>
+(3)把解压缩后的音频数据播放出来.</p>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_07.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_07.png" alt="os_07_07"></p>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_08.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_08.png" alt="os_07_08"></p>
+<p>因此需要提出一种新的实体, 满足以下特征:</p>
+<ul>
+<li>实体之间可以并发执行;</li>
+<li>实体之间共享相同的地址空间.</li>
+</ul>
+<blockquote>
+<p>这实体就是线程thread.</p>
+</blockquote>
+<h3 id="21-定义">2.1 定义</h3>
+<pre><code>什么是线程？  
+线程是进程当中的一条执行流程.
+</code></pre><p>从两个方面重新理解进程:</p>
+<ul>
+<li>资源组合的角度: 进程把一组相关的资源组合起来,构成了一个资源平台(环境),包括地址空间(代码段,数据段),打开的文件等各种资源;</li>
+<li>运行的角度: 代码在这个资源平台上的一条执行流程(线程).</li>
+</ul>
+<blockquote>
+<p>进程 = 资源管理 + 线程<br>
+线程 = 进程 - 共享资源</p>
+</blockquote>
+<h3 id="22-线程的优缺点">2.2 线程的优缺点</h3>
+<h4 id="221-线程的优点">2.2.1 线程的优点</h4>
+<ul>
+<li>一个进程中可以同时存在多个线程;</li>
+<li>各个线程之间可以并发地执行;</li>
+<li>各个线程之间可以共享地址空间和文件等资源.</li>
+</ul>
+<h4 id="222-线程的缺点">2.2.2 线程的缺点</h4>
+<ul>
+<li>一个线程崩溃, 会导致其所属进程的所有线程崩溃.(给它了&quot;权限&quot;就得有更高的&quot;责任&quot;)</li>
+</ul>
+<p>线程所需的资源</p>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_09.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_09.png" alt="os_07_09"></p>
+<p><a href="https://limingxie.github.io/images/os/os07/os_07_10.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os07/os_07_10.png" alt="os_07_10"></p>
+<p>不同的线程需要独立的寄存器和堆栈, 共享代码,数据和文件等.</p>
+<h3 id="23-线程和进程的比较">2.3 线程和进程的比较</h3>
+<ol>
+<li>进程是资源分配单位, 线程是CPU调度单位;</li>
+<li>进程拥有一个完整的资源平台, 而线程只独享必不可少的资源, 如寄存器和栈;</li>
+<li>线程同样具有就绪,阻塞和执行三种基本状态,同样具有状态之间的转换关系;</li>
+<li>线程能减少并发执行的时间和空间开销:</li>
+</ol>
+<ul>
+<li>线程的创建时间比进程短;(直接利用所属进程的一些状态信息)</li>
+<li>线程的终止时间比进程短;(不需要考虑把这些状态信息给释放)</li>
+<li>同一进程内的线程切换时间比进程短;(同一进程不同线程的切换不需要切换页表)</li>
+<li>由于同一进程的各线程之间共享内存和文件资源, 可直接进行不通过内核的通信.(直接通过内存地址读写资源)</li>
+</ul>
+<h3 id="24-线程的实现">2.4 线程的实现</h3>
+<p>主要有三种线程的实现方式:</p>
+<ul>
+<li>用户线程 : 在用户空间实现; POSIX Pthreads, Mach C-threads, Solaris threads</li>
+<li>内核线程 : 在内核中实现; Windows, Solaris, Linux</li>
+<li>轻量级进程: 在内核中实现,支持用户线程; Solaris</li>
+</ul>
+<h4 id="241-用户线程">2.4.1 用户线程</h4>
+<p>操作系统只能看到进程, 看不到线程, 线程的TCB在线程库中实现;</p>
+<p>在用户空间实现的线程机制, 它不依赖于操作系统的内核, 由一组用户级的线程库来完成线程的管理, 包括进程的创建,终止,同步和调度等.</p>
+<ul>
+<li>由于用户线程的维护由相应的进程来完成(通过线程库函数),不需要操作系统内核了解用户进程的存在,可用于不支持线程技术的多进程操作系统;</li>
+<li>每个进程都需要它自己私有的线程控制块(TCB)列表,用来跟踪记录它的各个线程的状态信息(PC,栈指针,寄存器),TCB由线程库函数来维护;</li>
+<li>用户线程的切换也是由线程库函数来完成,无需用户态/核心态切换,所以速度特别快;</li>
+<li>允许每个进程拥有自定义的线程调度算法.</li>
+</ul>
+<h5 id="用户线程的缺点">用户线程的缺点</h5>
+<ul>
+<li>阻塞性的系统调用如何实现?如果一个线程发起系统调用而阻塞,则整个进程在等待;</li>
+<li>当一个线程开始运行时,除非它主动地交出CPU的使用权,否则它所在的进程当中的其他线程将无法运行;</li>
+<li>由于时间片分配给进程,所以与其他进程比,在多线程执行时,每个线程得到的时间片较少,执行会较慢.</li>
+</ul>
+<h4 id="242-内核线程">2.4.2 内核线程</h4>
+<p>操作系统能够看到进程也可能看到线程,线程在内核中实现;</p>
+<p>内核线程是在操作系统的内核当中实现的一种线程机制,由操作系统的内核来完成线程的创建,终止和管理.</p>
+<ul>
+<li>在支持内核线程的操作系统中,由内核来维护进程和线程的上下文信息(PCB和TCB);</li>
+<li>线程的创建,终止和切换都是通过系统调用,内核函数的方式来进行,由内核来完成,因此系统开销较大;</li>
+<li>在一个进程当中,如果某个内核线程发起系统调用而被阻塞,并不会影响其他内核线程的运行;</li>
+<li>时间片分配给线程,多线程的进程获得更多CPU时间;</li>
+<li>Windows NT 和 Windows 2000/XP 支持内核线程.</li>
+</ul>
+<h4 id="243-轻量级进程">2.4.3 轻量级进程</h4>
+<p>它是内核支持的用户线程.一个进程可以有一个或多个轻量化进程,每个量级进程由一个单独的内核线程来支持.(Solaris,Linux)</p>
+<h3 id="25-上下文切换">2.5 上下文切换</h3>
+<p>停止当前运行进程(从运行状态变成其他状态),并且调度其他进程(转变为运行状态)</p>
+<ul>
+<li>必须在切换之前存储许多部分的进程上下文</li>
+<li>必须能够在之后恢复他们,所以进程不能显示它曾经被暂停过</li>
+<li>必须快速(上下文切换时非常频繁)</li>
+</ul>
+<p>需要存储什么上下文?</p>
+<ul>
+<li>寄存器(PC,SP&hellip;),CPU状态等信息</li>
+<li>一些时候可能会费时,所以我们应该尽可能避免</li>
+</ul>
+<p>操作系统为活跃进程准备了进程控制块<br>
+操作系统将进程控制块放置在一个合适的队列中</p>
+<ul>
+<li>就绪队列</li>
+<li>等待IO队列(每个设备的队列)</li>
+<li>僵尸队列</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_05/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_虚拟内存(05)</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/os/os_08/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【操作系统笔记】OS_CPU调度(08)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_08/">【操作系统笔记】OS_CPU调度(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_07/">【操作系统笔记】OS_进程和线程(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_05/">【操作系统笔记】OS_虚拟内存(05)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_04/">【操作系统笔记】OS_内存管理_非连续内存分配(04)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_03/">【操作系统笔记】OS_内存管理_连续内存分配(03)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

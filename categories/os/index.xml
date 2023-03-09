@@ -6,20 +6,29 @@
     <description>Recent content in OS on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Mar 2023 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/os/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Feb 2023 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/categories/os/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>【操作系统笔记】OS_虚拟内存_页面置换算法(06)</title>
-      <link>https://limingxie.github.io/note/os/os_06/</link>
-      <pubDate>Mon, 06 Mar 2023 23:28:49 +0800</pubDate>
+      <title>【操作系统笔记】OS_CPU调度(08)</title>
+      <link>https://limingxie.github.io/note/os/os_08/</link>
+      <pubDate>Wed, 08 Feb 2023 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/note/os/os_06/</guid>
-      <description>&lt;p&gt;这一篇整理了操作系统的&lt;code&gt;虚拟内存_页面置换算法&lt;/code&gt;相关的内容。&lt;/p&gt;</description>
+      <guid>https://limingxie.github.io/note/os/os_08/</guid>
+      <description>&lt;p&gt;这一篇整理了操作系统的&lt;code&gt;CPU调度&lt;/code&gt;相关的内容。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【操作系统笔记】OS_进程和线程(07)</title>
+      <link>https://limingxie.github.io/note/os/os_07/</link>
+      <pubDate>Tue, 07 Feb 2023 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/os/os_07/</guid>
+      <description>&lt;p&gt;这一篇整理了操作系统的&lt;code&gt;进程和线程&lt;/code&gt;相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【操作系统笔记】OS_虚拟内存(05)</title>
       <link>https://limingxie.github.io/note/os/os_05/</link>
-      <pubDate>Sun, 05 Mar 2023 23:28:49 +0800</pubDate>
+      <pubDate>Sun, 05 Feb 2023 23:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/note/os/os_05/</guid>
       <description>&lt;p&gt;这一篇整理了操作系统的&lt;code&gt;操作系统中虚拟内存&lt;/code&gt;相关的内容。&lt;/p&gt;</description>
@@ -28,7 +37,7 @@
     <item>
       <title>【操作系统笔记】OS_内存管理_非连续内存分配(04)</title>
       <link>https://limingxie.github.io/note/os/os_04/</link>
-      <pubDate>Sat, 04 Mar 2023 23:28:49 +0800</pubDate>
+      <pubDate>Sat, 04 Feb 2023 23:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/note/os/os_04/</guid>
       <description>&lt;p&gt;这一篇整理了操作系统的&lt;code&gt;内存管理_非连续内存分配&lt;/code&gt;相关的内容。&lt;/p&gt;</description>
@@ -37,7 +46,7 @@
     <item>
       <title>【操作系统笔记】OS_内存管理_连续内存分配(03)</title>
       <link>https://limingxie.github.io/note/os/os_03/</link>
-      <pubDate>Fri, 03 Mar 2023 23:28:49 +0800</pubDate>
+      <pubDate>Fri, 03 Feb 2023 23:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/note/os/os_03/</guid>
       <description>&lt;p&gt;这一篇整理了操作系统的&lt;code&gt;内存管理_连续内存分配&lt;/code&gt;相关的内容。&lt;/p&gt;</description>
@@ -46,16 +55,16 @@
     <item>
       <title>【操作系统笔记】OS_启动_中断_异常_系统调用(02)</title>
       <link>https://limingxie.github.io/note/os/os_02/</link>
-      <pubDate>Thu, 02 Mar 2023 23:28:49 +0800</pubDate>
+      <pubDate>Thu, 02 Feb 2023 23:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/note/os/os_02/</guid>
       <description>&lt;p&gt;这一篇整理了操作系统的&lt;code&gt;启动，终端，异常和系统调用&lt;/code&gt;相关的内容。&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>【操作系统笔记】接触OS(01)</title>
+      <title>【操作系统笔记】操作系统Operating System(01)</title>
       <link>https://limingxie.github.io/note/os/os_01/</link>
-      <pubDate>Wed, 01 Mar 2023 23:28:49 +0800</pubDate>
+      <pubDate>Wed, 01 Feb 2023 23:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/note/os/os_01/</guid>
       <description>&lt;p&gt;因本人不是计算机专业的，所以对操作系统的了解也是比较零散。&lt;/p&gt;</description>

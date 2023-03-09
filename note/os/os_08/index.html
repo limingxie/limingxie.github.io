@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_CPU调度(08) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_CPU调度(08)" />
+<meta property="og:description" content="这一篇整理了操作系统的CPU调度相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_08/" />
+<meta property="article:published_time" content="2023-02-08T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-02-08T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_CPU调度(08)">
+<meta itemprop="description" content="这一篇整理了操作系统的CPU调度相关的内容。">
+<meta itemprop="datePublished" content="2023-02-08T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-02-08T23:28:49+08:00" />
+<meta itemprop="wordCount" content="299">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_CPU调度(08)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-08T23:28:49&#43;08:00">2023-02-08</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1背景">1.背景</a>
+      <ul>
+        <li><a href="#11-上下文切换">1.1 上下文切换</a></li>
+        <li><a href="#12-cpu调度">1.2 CPU调度</a></li>
+        <li><a href="#13-在进程线程生命周期的什么时候进行调度">1.3 在进程/线程生命周期的什么时候进行调度</a></li>
+        <li><a href="#14-内核运行调度程序的条件满足一条即可">1.4 内核运行调度程序的条件(满足一条即可)</a></li>
+        <li><a href="#15-不可抢占">1.5 不可抢占</a></li>
+        <li><a href="#16-可以抢占">1.6 可以抢占</a></li>
+      </ul>
+    </li>
+    <li><a href="#2调度原则">2.调度原则</a>
+      <ul>
+        <li><a href="#21-调度策略">2.1 调度策略</a></li>
+        <li><a href="#22-评价指标">2.2 评价指标</a></li>
+        <li><a href="#23-公平的定义">2.3 公平的定义</a></li>
+      </ul>
+    </li>
+    <li><a href="#3调度算法">3.调度算法</a>
+      <ul>
+        <li><a href="#31-fcfs先来先服务first-come-first-served">3.1 FCFS(先来先服务First come, First Served)</a></li>
+        <li><a href="#32-spnsjf-srt短进程优先短作业优先短剩余时间优先最优平均等待时间">3.2 SPN(SJF) SRT(短进程优先(短作业优先)短剩余时间优先)[最优平均等待时间]</a></li>
+        <li><a href="#33-hrrn最高响应比优先">3.3 HRRN(最高响应比优先)</a></li>
+        <li><a href="#34-round-robin轮循">3.4 Round Robin(轮循)</a></li>
+        <li><a href="#35-multilevel-feedback-queues多级反馈队列">3.5 Multilevel Feedback Queues(多级反馈队列)</a></li>
+        <li><a href="#36-fair-share-scheduling公平共享调度">3.6 Fair Share Scheduling(公平共享调度)**</a></li>
+        <li><a href="#37-不同调度模型的评价准则">3.7 不同调度模型的评价准则</a></li>
+        <li><a href="#38-总结">3.8 总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#4实时调度">4.实时调度</a>
+      <ul>
+        <li><a href="#分类">分类</a></li>
+      </ul>
+    </li>
+    <li><a href="#5多处理器调度">5.多处理器调度</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#6优先级反转">6.优先级反转</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>CPU调度</code>相关的内容。</p>
+<h2 id="1背景">1.背景</h2>
+<h3 id="11-上下文切换">1.1 上下文切换</h3>
+<ul>
+<li>切换CPU的当前任务, 从一个进程/线程到另一个</li>
+<li>保存当前进程/线程在PCB/TCB中的执行上下文(CPU状态)</li>
+<li>读取下一个进程/线程的上下文</li>
+</ul>
+<h3 id="12-cpu调度">1.2 CPU调度</h3>
+<ul>
+<li>从就绪队列中挑选一个进程/线程作为CPU将要运行的下一个进程/线程</li>
+<li>调度程序: 挑选进程/线程的内核函数(通过一些调度策略)</li>
+<li>需要考虑调度的时机，什么时候进行调度?</li>
+</ul>
+<h3 id="13-在进程线程生命周期的什么时候进行调度">1.3 在进程/线程生命周期的什么时候进行调度</h3>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_01.png" alt="os_08_01"></p>
+<h3 id="14-内核运行调度程序的条件满足一条即可">1.4 内核运行调度程序的条件(满足一条即可)</h3>
+<ul>
+<li>一个进程从运行状态切换到等待状态</li>
+<li>一个进程被终结</li>
+</ul>
+<h3 id="15-不可抢占">1.5 不可抢占</h3>
+<ul>
+<li>调度程序必须等待事件结束</li>
+</ul>
+<h3 id="16-可以抢占">1.6 可以抢占</h3>
+<ul>
+<li>调度程序在中断被相应后执行</li>
+<li>当前的进程从运行切换到就绪, 或者一个进程从等待切换到就绪</li>
+<li>当前运行的进程可以被换出</li>
+</ul>
+<h2 id="2调度原则">2.调度原则</h2>
+<h3 id="21-调度策略">2.1 调度策略</h3>
+<p>执行模型 : 程序在CPU突发和IO中交替</p>
+<ul>
+<li>每个调度决定都是关于在下一个CPU突发时将哪个工作交给CPU</li>
+<li>在时间分片机制下,线程可能在结束当前CPU突发前被迫放弃CPU</li>
+</ul>
+<h3 id="22-评价指标">2.2 评价指标</h3>
+<h4 id="调度算法的准则">调度算法的准则</h4>
+<ul>
+<li>CPU使用率: CPU处于忙状态所占时间的百分比</li>
+<li>吞吐量: 在单位时间内完成的进程数量</li>
+<li>周转时间: 一个进程从初始化到结束,包括所有等待时间所花费的时间</li>
+<li>等待时间: 进程在就绪队列中的总时间</li>
+<li>响应时间: 从一个请求被提交到产生第一次相应所花费的总时间</li>
+</ul>
+<p>人们通常都需要&quot;更快&quot;的服务<br>
+什么是更快?</p>
+<ul>
+<li>传输文件时的高带宽</li>
+<li>玩游戏时的低延迟</li>
+<li>这两个因素是独立的</li>
+</ul>
+<p>和水管类比</p>
+<ul>
+<li>低延迟: 喝水的时候想要一打开水龙头水就流出来</li>
+<li>高带宽: 给游泳池充水时希望从水龙头里同时流出大量的水,并且不介意是否存在延迟</li>
+</ul>
+<h4 id="吞吐量vs延迟">吞吐量vs延迟</h4>
+<p>对快的评价指标：传输文件时的高带宽；玩游戏时的低延迟(这两点相互独立)；</p>
+<ul>
+<li>减少响应时间：及时处理用户的输出并尽快将输出提供给用户；</li>
+<li>减少平均响应时间的波动：在交互系统中，可预测性比高差异/低平均更重要；</li>
+<li>增加吞吐量：减少开支(操作系统开支/上下文切换)；系统资源的高效利用(CPU，I/O设备)；</li>
+<li>减少等待时间：减少每个进程的等待时间。</li>
+</ul>
+<h5 id="低延迟调度增加了交互式表现个人电脑">低延迟调度增加了交互式表现(个人电脑)</h5>
+<ul>
+<li>如果移动了鼠标，希望屏幕迅速反馈光标的移动。</li>
+</ul>
+<h5 id="操作系统保证吞吐量不受影响服务器">操作系统保证吞吐量不受影响(服务器)</h5>
+<ul>
+<li>若想结束长时间的编程，所以操作系统必须不时进行调度，即使存在许多交互任务。</li>
+</ul>
+<h5 id="吞吐量是操作系统的计算带宽">吞吐量是操作系统的计算带宽</h5>
+<h5 id="响应时间是操作系统的计算延迟">响应时间是操作系统的计算延迟</h5>
+<h3 id="23-公平的定义">2.3 公平的定义</h3>
+<p>举例:</p>
+<ul>
+<li>保证每个进程占用相同的CPU时间</li>
+<li>这公平嘛?如果一个用户比其他用户运行更多的进程怎么办</li>
+</ul>
+<p>举例:</p>
+<ul>
+<li>保证每个进程都等待相同的时间</li>
+</ul>
+<blockquote>
+<p>公平通常会增加平均响应时间</p>
+</blockquote>
+<h2 id="3调度算法">3.调度算法</h2>
+<ul>
+<li>FCFS：先来先服务，first come，first served；</li>
+<li>SPN(SJF) SRT: 短进程优先(短作业优先)短剩余时间优先，shortest process next(shortest job first) shortest remaining time；</li>
+<li>HRRN:最高响应比优先，highest response ratio next；</li>
+<li>Round Robin,轮循，使用时间切片和抢占来轮流执行任务；</li>
+<li>Multilevel Feedback Queues,多级反馈队列，多级反馈队列，优先级队列中的轮循；</li>
+<li>Fair Share Scheduling, 公平共享调度；</li>
+</ul>
+<h3 id="31-fcfs先来先服务first-come-first-served">3.1 FCFS(先来先服务First come, First Served)</h3>
+<p>如果进程在执行中阻塞,队列中的下一个会得到CPU</p>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_02.png" alt="os_08_02"></p>
+<h4 id="优点">优点</h4>
+<ul>
+<li>简单</li>
+</ul>
+<h4 id="缺点">缺点</h4>
+<ul>
+<li>平均等待时间波动较大</li>
+<li>花费时间少的任务可能排在花费时间长的任务后面</li>
+<li>可能导致IO和CPU之间的重叠处理(CPU密集型进程会导致IO设备闲置时,IO密集型进程也在等待)</li>
+</ul>
+<h3 id="32-spnsjf-srt短进程优先短作业优先短剩余时间优先最优平均等待时间">3.2 SPN(SJF) SRT(短进程优先(短作业优先)短剩余时间优先)[最优平均等待时间]</h3>
+<p>Shortest Process Next(Shortest Job First) Shortest Remaining Time<br>
+SPN(SJF)短进程优先(短作业优先)的意思是 选择下一个最短的进程(短任务优先)，即按照预测的完成时间排序将任务入列；<br>
+注意，它可以是抢占的也可以是不抢占的，对于抢占类型的，才是SRT短剩余时间优先。</p>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_03.png" alt="os_08_03"></p>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_04.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_04.png" alt="os_08_04"></p>
+<h4 id="优点-1">优点</h4>
+<ul>
+<li>平均周转时间最少；(下图是一个例子，可以发现SRT的进程平均周转时间会短一些)</li>
+</ul>
+<h4 id="缺点-1">缺点</h4>
+<ul>
+<li>可能导致饥饿(连续的短任务流会使场任务饥饿)</li>
+<li>短任务可用时的任何场任务的CPU时间都会增加平均等待时间</li>
+</ul>
+<h4 id="需要预测未来">需要预测未来</h4>
+<ul>
+<li>怎么预估下一个CPU突发的持续时间</li>
+<li>简单的解决: 询问用户</li>
+<li>如果用户欺骗就杀死进程</li>
+<li>如果不知道怎么办?</li>
+</ul>
+<h3 id="33-hrrn最高响应比优先">3.3 HRRN(最高响应比优先)</h3>
+<p>Highest Response Ratio Next</p>
+<ul>
+<li>在SPN调度的基础上改进(考虑了等待时间，改善饥饿现象)；</li>
+<li>不可抢占；</li>
+<li>关注进程等待了多长时间；</li>
+<li>防止无限期推迟；</li>
+</ul>
+<p>R = (w + s) / s (选择R值最高的进程) ，其中<br>
+w:waiting time等待时间 s:service time执行时间</p>
+<h3 id="34-round-robin轮循">3.4 Round Robin(轮循)</h3>
+<ul>
+<li>在叫做量子(或者时间切片)的离散单元中分配处理器</li>
+<li>时间片结束时,切换到下一个准备好的进程</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_05.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_05.png" alt="os_08_05"></p>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_06.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_06.png" alt="os_08_06"></p>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_07.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_07.png" alt="os_08_07"></p>
+<ol>
+<li>RR花销: 额外的上下文切换</li>
+<li>时间量子太大:
+<ul>
+<li>等待时间过长</li>
+<li>极限情况退化成FCFS</li>
+</ul>
+</li>
+<li>时间量子太小:
+<ul>
+<li>反应迅速</li>
+<li>吞吐量由于大量的上下文切换开销受到影响</li>
+</ul>
+</li>
+<li>目标:
+<ul>
+<li>选择一个合适的时间量子</li>
+<li>经验规则: 维持上下文切换开销处于1%以内</li>
+</ul>
+</li>
+</ol>
+<h3 id="35-multilevel-feedback-queues多级反馈队列">3.5 Multilevel Feedback Queues(多级反馈队列)</h3>
+<p>优先级队列中的轮循</p>
+<ul>
+<li>
+<p>就绪队列被划分成独立的队列: 比如前台(交互),后台(批处理)</p>
+</li>
+<li>
+<p>每个队列拥有自己的调度策略: 比如前台(RR),后台(FCFS)</p>
+</li>
+<li>
+<p>调度必须在队列间进行:</p>
+<ul>
+<li>固定优先级: 先处理前台,然后处理后台;可能导致饥饿</li>
+<li>时间切片: 每个队列都得到一个确定的能够调度其进程的CPU总时间;比如80%使用RR的前台,20%使用FCFS的后台</li>
+</ul>
+</li>
+<li>
+<p>一个进程可以在不同的队列中移动</p>
+</li>
+<li>
+<p>例如,n级优先级-优先级调度在所有级别中,RR在每个级别中</p>
+<ul>
+<li>时间量子大小随优先级级别增加而增加</li>
+<li>如果任务在当前的时间量子中没有完成,则降到下一个优先级</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_08.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_08.png" alt="os_08_08"></p>
+<h4 id="优点-2">优点</h4>
+<p>CPU密集型任务的优先级下降很快;IO密集型任务停留在高优先级</p>
+<h3 id="36-fair-share-scheduling公平共享调度">3.6 Fair Share Scheduling(公平共享调度)**</h3>
+<p>FSS控制用户对系统资源的访问</p>
+<ul>
+<li>一些用户组比其他用户组更重要</li>
+<li>保证不重要的组无法垄断资源</li>
+<li>未使用的资源按照每个组所分配的资源的比例来分配</li>
+<li>没有达到资源使用率目标的组获得更高的优先级</li>
+</ul>
+<h3 id="37-不同调度模型的评价准则">3.7 不同调度模型的评价准则</h3>
+<ul>
+<li>确定性建模：确定一个工作量，然后计算每个算法的表现；</li>
+<li>队列模型：用来处理随机工作负载的数学方法；</li>
+<li>实现/模拟：建立一个允许算法运行实际数据的系统。</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_09.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_09.png" alt="os_08_09"></p>
+<h3 id="38-总结">3.8 总结</h3>
+<p>实际上这些调度算法和实际的调度算法是有很多区别的(复杂的多)，但是基本的特征是类似的。</p>
+<ol>
+<li>FCFS先来先服务
+<ul>
+<li>不公平，等待时间较长；</li>
+</ul>
+</li>
+<li>SPN/SRT短进程优先
+<ul>
+<li>不公平，但是平均等待时间最小；</li>
+<li>需要精确预测计算机时间；</li>
+<li>可能导致饥饿；</li>
+</ul>
+</li>
+<li>HRRN最高响应比优先
+<ul>
+<li>给予SPN调度的改进；</li>
+<li>不可抢占；</li>
+</ul>
+</li>
+<li>Round Robin轮循
+<ul>
+<li>公平，但是平均等待时间较长；</li>
+</ul>
+</li>
+<li>MLFQ多级反馈队列
+<ul>
+<li>根据CPU和I/O状态动态调整；和SPN类似；</li>
+</ul>
+</li>
+<li>Fair-share scheduling公平共享调度
+<ul>
+<li>公平是第一要素。</li>
+</ul>
+</li>
+</ol>
+<h2 id="4实时调度">4.实时调度</h2>
+<ul>
+<li>定义: 正确性依赖于其时间和功能两方面的一个操作系统</li>
+<li>性能指标: 时间约束的及时性;速度和平均性能相对不重要</li>
+<li>主要特征: 时间约束的可预测性</li>
+</ul>
+<h3 id="分类">分类</h3>
+<ul>
+<li>
+<p>强实时系统: 需要在保证时间内完成重要的任务,必须完成</p>
+</li>
+<li>
+<p>弱实时系统: 要求重要的进程的优先级更高,尽量完成,并非必须</p>
+</li>
+<li>
+<p>任务(工作单元): 一次计算,一次文件读取,一次信息传递等</p>
+</li>
+<li>
+<p>属性: 去的进展所需要的资源;定时参数</p>
+</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_10.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_10.png" alt="os_08_10"></p>
+<h4 id="硬时限">硬时限</h4>
+<ul>
+<li>如果错过了最后期限，可能会发生灾难性或非常严重的后果；</li>
+<li>必须验证：在最坏的情况下也能够满足时限吗？</li>
+<li>保证确定性；</li>
+</ul>
+<h4 id="软时限">软时限</h4>
+<ul>
+<li>理想情况下，时限应该被最大满足。如果有时限没有被满足，那么就相应地降低要求；</li>
+<li>尽最大努力去保证；</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_11.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_11.png" alt="os_08_11"></p>
+<h4 id="单调速率rm">单调速率(RM)</h4>
+<ul>
+<li>最佳静态优先级调度</li>
+<li>通过周期安排优先级</li>
+<li>周期越短优先级越高</li>
+<li>执行周期最短的任务</li>
+</ul>
+<h4 id="截止日期最早优先edf">截止日期最早优先(EDF)</h4>
+<ul>
+<li>最佳的动态优先级调度</li>
+<li>Deadline越早优先级越高</li>
+<li>执行Deadline最早的任务</li>
+</ul>
+<h2 id="5多处理器调度">5.多处理器调度</h2>
+<h4 id="多处理器的cpu调度更复杂">多处理器的CPU调度更复杂</h4>
+<ul>
+<li>多个相同的单处理器组成一个多处理器</li>
+<li>优点: 复杂共享</li>
+</ul>
+<h4 id="对称多处理器smp">对称多处理器(SMP)</h4>
+<ul>
+<li>每个处理器运行自己的调度程序</li>
+<li>需要在调度程序中同步</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_12.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_12.png" alt="os_08_12"></p>
+<h2 id="6优先级反转">6.优先级反转</h2>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_13.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_13.png" alt="os_08_13"></p>
+<p><a href="https://limingxie.github.io/images/os/os08/os_08_14.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os08/os_08_14.png" alt="os_08_14"></p>
+<ul>
+<li>优先级天花板：“拥有资源”的优先级和“所有可以锁定该资源任务中优先级最高的那个任务”的优先级相同(T3拥有T1的资源，所以它的优先级提升到T1)；</li>
+<li>除非当前进程的优先级高于系统中所有被锁定的资源的优先级的上线，否则任务尝试执行临界区的时候会被阻塞；</li>
+<li>持有最高优先级上限信号量锁的任务，会继承被该锁所阻塞的任务的优先级。</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_07/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_进程和线程(07)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_08/">【操作系统笔记】OS_CPU调度(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_07/">【操作系统笔记】OS_进程和线程(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_05/">【操作系统笔记】OS_虚拟内存(05)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_04/">【操作系统笔记】OS_内存管理_非连续内存分配(04)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_03/">【操作系统笔记】OS_内存管理_连续内存分配(03)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
