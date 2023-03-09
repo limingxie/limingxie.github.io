@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_同步(09) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_同步(09)" />
+<meta property="og:description" content="这一篇整理了操作系统的操作系统同步相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_09/" />
+<meta property="article:published_time" content="2023-02-10T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-02-10T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_同步(09)">
+<meta itemprop="description" content="这一篇整理了操作系统的操作系统同步相关的内容。">
+<meta itemprop="datePublished" content="2023-02-10T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-02-10T23:28:49+08:00" />
+<meta itemprop="wordCount" content="282">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_同步(09)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-10T23:28:49&#43;08:00">2023-02-10</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1背景">1.背景</a>
+      <ul>
+        <li><a href="#合作优点">合作优点</a></li>
+      </ul>
+    </li>
+    <li><a href="#2一些概念">2.一些概念</a>
+      <ul>
+        <li><a href="#21-前面的现象称为race-condition竞态条件">2.1 前面的现象称为Race Condition(竞态条件)</a></li>
+        <li><a href="#22-atomic-operator原子操作">2.2 Atomic Operator(原子操作)</a></li>
+      </ul>
+    </li>
+    <li><a href="#3临界区">3.临界区</a></li>
+    <li><a href="#4方法1禁用硬件中断">4.方法1:禁用硬件中断</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#5方法2基于软件的解决方案">5.方法2:基于软件的解决方案</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#6方法3更高级的抽象">6.方法3:更高级的抽象</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>操作系统同步</code>相关的内容。</p>
+<p>第一章到第八章内容, 到目前为止</p>
+<ul>
+<li>多道程序设计: 现代操作系统的重要特性</li>
+<li>并行很有用(为什么?) 提示: 多个并发实体: CPU IO 用户 等</li>
+<li>进程,线程: 操作系统抽象出来用于支持多道程序设计</li>
+<li>CPU调度: 实现多道程序设计的机制</li>
+<li>调度算法: 不同的策略</li>
+</ul>
+<h2 id="1背景">1.背景</h2>
+<p>独立的线程:</p>
+<ul>
+<li>不和其他线程共享资源或状态</li>
+<li>确定性: 输入状态决定结果</li>
+<li>可重现: 能够重现起始条件, IO</li>
+<li>调度顺序不重要</li>
+</ul>
+<p>合作线程:</p>
+<ul>
+<li>在多个线程中共享状态</li>
+<li>不确定性</li>
+<li>不可重现</li>
+</ul>
+<p>不确定性和不可重现意味着bug可能是间歇性发生的</p>
+<p><strong>进程,线程;计算机,设备需要合作</strong></p>
+<h3 id="合作优点">合作优点</h3>
+<ol>
+<li>共享资源
+<ul>
+<li>一台电脑,多个用户</li>
+<li>一个银行存款余额,多台ATM机</li>
+<li>嵌入式系统</li>
+</ul>
+</li>
+<li>加速
+<ul>
+<li>IO操作和计算可以重叠</li>
+<li>多处理器</li>
+</ul>
+</li>
+<li>模块化
+<ul>
+<li>将大程序分解成小程序 gcc会调用cpp,cc1,cc2,as,ld</li>
+<li>使系统易于扩展</li>
+</ul>
+</li>
+</ol>
+<h4 id="程序可以调用函数fork来创建一个新的进程">程序可以调用函数fork()来创建一个新的进程</h4>
+<ul>
+<li>操作系统需要分配一个新的并且唯一的进程ID</li>
+<li>因此在内核中,这个系统调用会运行 new_pid = next_pid++;</li>
+<li>翻译成机器指令:
+<ul>
+<li>Load next_pid Reg1</li>
+<li>STORE Reg1 new_pid</li>
+<li>INC Reg1</li>
+<li>STORE Reg1 next_pid</li>
+</ul>
+</li>
+</ul>
+<h4 id="假设两个进程并发执行">假设两个进程并发执行</h4>
+<ul>
+<li>如果next_pid等于100, 那么其中一个进程得到的ID应该是100, 另一个进程的ID应该是101, next_pid应该增加到102</li>
+<li>可能在INC前进行了上下文切换, 最终导致两个进程的pid都是100,而next_pid也是101</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_01.png" alt="os_09_01"></p>
+<h4 id="无论多个线程的指令序列怎样交替执行程序都必须正常工作">无论多个线程的指令序列怎样交替执行,程序都必须正常工作</h4>
+<ul>
+<li>多线程程序具有不确定性和不可重现的特点</li>
+<li>不经过专门设计,调试难度很高</li>
+</ul>
+<h4 id="不确定性要求并行程序的正确性">不确定性要求并行程序的正确性</h4>
+<ul>
+<li>先思考清楚问题,把程序的行为设计清楚</li>
+<li>切忌给予着手编写代码,碰到问题再调试</li>
+</ul>
+<h2 id="2一些概念">2.一些概念</h2>
+<h3 id="21-前面的现象称为race-condition竞态条件">2.1 前面的现象称为Race Condition(竞态条件)</h3>
+<p>系统缺陷: 结果依赖于并发执行或者时间的顺序,时间</p>
+<ul>
+<li>不确定性</li>
+<li>不可重现</li>
+</ul>
+<p>怎么样避免竞态?</p>
+<h3 id="22-atomic-operator原子操作">2.2 Atomic Operator(原子操作)</h3>
+<p>原子操作是指一次不存在任何终端或者失败的执行</p>
+<ul>
+<li>该执行成功结束</li>
+<li>或者根本没有执行</li>
+<li>并且不应发生任何部分执行的状态</li>
+</ul>
+<p>实际上操作往往不是原子的</p>
+<ul>
+<li>有些看上去是原子操作,实际上不是</li>
+<li>连x++这样的简单语句,实际上是由三条指令构成的</li>
+<li>有时候甚至连单条假期指令都不是原子的(Pipeline,super-scalar,out-of-order,pape fault)</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_02.png" alt="os_09_02"></p>
+<h4 id="临界区critical-section">临界区(Critical section)</h4>
+<p>是指进程中的一段需要访问共享资源并且当另一个进程处于相应代码区域时便不会被执行的代码区域</p>
+<h4 id="互斥mutual-exclusion">互斥(Mutual exclusion)</h4>
+<p>是指当一个 进程处于临界区并访问共享资源时,没有其他进程会处于临界区并且访问任何相同的共享资源</p>
+<h4 id="死锁dead-lock">死锁(Dead lock)</h4>
+<p>是指两个或以上进程,在相互等待完成特定任务,而最终没法将自身任务进行下去</p>
+<h4 id="饥饿starvation">饥饿(Starvation)</h4>
+<p>是指一个可执行的进程,被调度器持续忽略,以至于虽然处于可执行状态却不被执行</p>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_03.png" alt="os_09_03"></p>
+<h2 id="3临界区">3.临界区</h2>
+<ul>
+<li><strong>互斥</strong>: 同一时间临界区中最多存在一个线程</li>
+<li><strong>Progress</strong>: 如果一个线程想要进入临界区,那么它最终会成功</li>
+<li><strong>有限等待</strong>: 如果一个线程i处于入口区,那么在i的请求被接受之前,其他线程进入临界区的时间是有限制的</li>
+<li><strong>无忙等待(可选)</strong>: 如果一个进程在等待进入临界区,那么在它可以进入之前会被挂起</li>
+</ul>
+<h2 id="4方法1禁用硬件中断">4.方法1:禁用硬件中断</h2>
+<h4 id="没有中断没有上下文切换因此没有并发">没有中断,没有上下文切换,因此没有并发</h4>
+<ul>
+<li>硬件将中断处理延迟到中断被启用之后</li>
+<li>大多数现代计算机体系结构都提供指令来完成</li>
+</ul>
+<h4 id="进入临界区">进入临界区</h4>
+<ul>
+<li>禁用中断</li>
+</ul>
+<h4 id="离开临界区">离开临界区</h4>
+<ul>
+<li>开启中断</li>
+</ul>
+<h4 id="一旦中断被禁用线程就无法被停止">一旦中断被禁用,线程就无法被停止</h4>
+<ul>
+<li>整个系统都会为你停下来</li>
+<li>可能导致其他线程处于饥饿状态</li>
+</ul>
+<h4 id="要是临界区可以任意长怎么办">要是临界区可以任意长怎么办?</h4>
+<ul>
+<li>无法限制响应中断所需的时间(可能存在硬件影响)</li>
+</ul>
+<h4 id="要小心使用适合于较小的操作">要小心使用,适合于较小的操作</h4>
+<h2 id="5方法2基于软件的解决方案">5.方法2:基于软件的解决方案</h2>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_04.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_04.png" alt="os_09_04"></p>
+<p>满足进程Pi和Pj之间互斥的经典的基于软件的解决方法(1981年)</p>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_05.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_05.png" alt="os_09_05"></p>
+<p>使用两个共享数据项</p>
+<ul>
+<li>int turn; //指示该谁进入临界区</li>
+<li>bool flag[]; //指示进程是否准备好进入临界区</li>
+</ul>
+<p>进入临界区:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">flag[i] <span style="color:#f92672">=</span> true;
+turn <span style="color:#f92672">=</span> j;
+<span style="color:#66d9ef">while</span>(flag[j] <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">==</span> j);
+</code></pre></div><p>退出临界区:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">flag[i] <span style="color:#f92672">=</span> false;
+</code></pre></div><p>实例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">do</span>{
+ flag[i] <span style="color:#f92672">=</span> true;
+ turn <span style="color:#f92672">=</span> j;
+ <span style="color:#66d9ef">while</span>(flag[j] <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">==</span> j);
+ CRITICAL SECTION
+ flag[i] <span style="color:#f92672">=</span> false;
+ REMAINDER SECTION
+}<span style="color:#66d9ef">while</span>(true);
+</code></pre></div><p><a href="https://limingxie.github.io/images/os/os09/os_09_06.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_06.png" alt="os_09_06"></p>
+<h5 id="bakery-算法n个进程的临界区">Bakery 算法(N个进程的临界区)</h5>
+<ul>
+<li>进入临界区之前,进程接收一个数字</li>
+<li>得到的数字最小的进入临界区</li>
+<li>如果进程Pi和Pj收到相同的数字,那么如果i&lt;j,Pi先进入临界区,否则Pj先进入临界区</li>
+<li>编号方案总是按照枚举的增加顺序生成数字</li>
+</ul>
+<h5 id="dekker算法1965-第一个针对双线程例子的正确解决方案">Dekker算法(1965): 第一个针对双线程例子的正确解决方案</h5>
+<h5 id="bakery算法1979-针对n线程的临界区问题解决方案">Bakery算法(1979): 针对n线程的临界区问题解决方案</h5>
+<h5 id="复杂">复杂</h5>
+<p>需要两个进程的共享数据项</p>
+<h5 id="需要忙等待">需要忙等待</h5>
+<p>浪费CPU时间</p>
+<h5 id="没有硬件保证的情况下无真正的软件解决方案">没有硬件保证的情况下无真正的软件解决方案</h5>
+<p>Perterson算法需要原子的LOAD和STORE指令</p>
+<h2 id="6方法3更高级的抽象">6.方法3:更高级的抽象</h2>
+<h4 id="硬件提供了一些原语">硬件提供了一些原语</h4>
+<ul>
+<li>像中断禁用, 原子操作指令等</li>
+<li>大多数现代体系结构都这样</li>
+</ul>
+<h5 id="操作系统提供更高级的编程抽象来简化并行编程">操作系统提供更高级的编程抽象来简化并行编程</h5>
+<ul>
+<li>例如,锁,信号量</li>
+<li>从硬件原语中构建</li>
+</ul>
+<h5 id="锁是一个抽象的数据结构">锁是一个抽象的数据结构</h5>
+<ul>
+<li>一个二进制状态(锁定,解锁),两种方法</li>
+<li>Lock::Acquire() 锁被释放前一直等待,然后得到锁</li>
+<li>Lock::Release() 锁释放,唤醒任何等待的进程</li>
+</ul>
+<h5 id="使用锁来编写临界区">使用锁来编写临界区</h5>
+<ul>
+<li>
+<p>前面的例子变得简单起来:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">lock_next_pid<span style="color:#f92672">-&gt;</span>Acquire();
+new_pid <span style="color:#f92672">=</span> next_pid<span style="color:#f92672">++</span>;
+lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
+</code></pre></div></li>
+</ul>
+<h5 id="大多数现代体系结构都提供特殊的原子操作指令">大多数现代体系结构都提供特殊的原子操作指令</h5>
+<ul>
+<li>通过特殊的内存访问电路</li>
+<li>针对单处理器和多处理器</li>
+</ul>
+<h5 id="test-and-set-测试和置位">Test-and-Set 测试和置位</h5>
+<ul>
+<li>从内存中读取值</li>
+<li>测试该值是否为1(然后返回真或假)</li>
+<li>内存值设置为1</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_07.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_07.png" alt="os_09_07"></p>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_08.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_08.png" alt="os_09_08"></p>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_09.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_09.png" alt="os_09_09"></p>
+<h5 id="交换">交换</h5>
+<ul>
+<li>交换内存中的两个值</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">TestandSet</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>target){
+  <span style="color:#66d9ef">bool</span> rv <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>target;
+  <span style="color:#f92672">*</span>target <span style="color:#f92672">=</span> true;
+  <span style="color:#66d9ef">return</span> rv;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Exchange</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>b){
+  <span style="color:#66d9ef">bool</span> tmp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>a;
+  <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>b;
+  <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> tmp;
+}
+</code></pre></div><p><a href="https://limingxie.github.io/images/os/os09/os_09_10.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_10.png" alt="os_09_10"></p>
+<h5 id="远在操作指令优点和缺点">远在操作指令优点和缺点</h5>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_12.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_12.png" alt="os_09_12"></p>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_11.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_11.png" alt="os_09_11"></p>
+<p><a href="https://limingxie.github.io/images/os/os09/os_09_13.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_13.png" alt="os_09_13"></p>
+<h2 id="总结">总结</h2>
+<p>锁是更高等级的编程抽象</p>
+<ul>
+<li>互斥可以使用锁来实现</li>
+<li>通常需要一定等级的硬件支持</li>
+</ul>
+<p>常用的三种实现方法</p>
+<ul>
+<li>禁用中断(仅限于单处理器)</li>
+<li>软件方法(复杂)</li>
+<li>原子操作指令(单处理器或多处理器均可)</li>
+</ul>
+<p>可选的实现内容:</p>
+<ul>
+<li>有忙等待</li>
+<li>无忙等待</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_08/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_CPU调度(08)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_09/">【操作系统笔记】OS_同步(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_08/">【操作系统笔记】OS_CPU调度(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_07/">【操作系统笔记】OS_进程和线程(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_05/">【操作系统笔记】OS_虚拟内存(05)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_04/">【操作系统笔记】OS_内存管理_非连续内存分配(04)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
