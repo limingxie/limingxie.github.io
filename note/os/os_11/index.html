@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_死锁和进程通信(12) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_死锁和进程通信(12)" />
+<meta property="og:description" content="这一篇整理了操作系统的死锁和进程通信相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_11/" />
+<meta property="article:published_time" content="2023-02-12T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-02-12T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_死锁和进程通信(12)">
+<meta itemprop="description" content="这一篇整理了操作系统的死锁和进程通信相关的内容。">
+<meta itemprop="datePublished" content="2023-02-12T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-02-12T23:28:49+08:00" />
+<meta itemprop="wordCount" content="320">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_死锁和进程通信(12)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-12T23:28:49&#43;08:00">2023-02-12</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1死锁问题">1.死锁问题</a></li>
+    <li><a href="#2系统模型">2.系统模型</a></li>
+    <li><a href="#3死锁特征">3.死锁特征</a></li>
+    <li><a href="#4死锁处理方法">4.死锁处理方法</a>
+      <ul>
+        <li><a href="#deadlock-prevention----预防">Deadlock Prevention    预防</a></li>
+        <li><a href="#deadlock-avoidance-----避免">Deadlock Avoidance     避免</a></li>
+        <li><a href="#deadlock-detection-----检测">Deadlock Detection     检测</a></li>
+        <li><a href="#recovery-from-deadlock-恢复">Recovery from Deadlock 恢复</a></li>
+      </ul>
+    </li>
+    <li><a href="#5ipc">5.IPC</a>
+      <ul>
+        <li><a href="#51-概述">5.1 概述</a></li>
+        <li><a href="#52-直接通信">5.2 直接通信</a></li>
+        <li><a href="#53-间接通信">5.3 间接通信</a></li>
+        <li><a href="#54-信号">5.4 信号</a></li>
+        <li><a href="#55-管道">5.5 管道</a></li>
+        <li><a href="#消息队列">消息队列</a></li>
+        <li><a href="#56-共享内存">5.6 共享内存</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>死锁和进程通信</code>相关的内容。</p>
+<h2 id="1死锁问题">1.死锁问题</h2>
+<p>一组阻塞的进程持有一种资源等待获取另一个进程所占有的一个资源</p>
+<p>示例:</p>
+<ul>
+<li>系统有2个磁带驱动器</li>
+<li>P1和P2各有一个,都需要另外一个</li>
+</ul>
+<h2 id="2系统模型">2.系统模型</h2>
+<p>资源类型R1,R2,..,Rm(CPU, memory space, IO devices)</p>
+<p>每个资源类型Ri有Wi个实例.</p>
+<p>每个进程使用资源如下:</p>
+<ul>
+<li>require,get ← free resource</li>
+<li>use,hold    ← requested,used resource</li>
+<li>release     ← free resource</li>
+</ul>
+<p>可重复使用的资源</p>
+<ul>
+<li>在一个时间只能有一个进程使用且不能被删除</li>
+<li>进程获得资源,后来释放由其他进程重用</li>
+<li>处理器,IO通道,主和副存储器,设备和数据结构,如文件,数据库和信号量</li>
+<li>如果每个进程拥有一个资源并请求其他资源,死锁可能发生</li>
+</ul>
+<p>使用资源</p>
+<ul>
+<li>创建和销毁</li>
+<li>在IO缓存区的中断,信号,消息,信息</li>
+<li>如果接收消息阻塞可能会发生死锁</li>
+<li>可能少见的组合事件会引起死锁</li>
+</ul>
+<p>资源分配图</p>
+<p>一组顶点V和边E的集合</p>
+<ul>
+<li>V有两种类型:
+<ul>
+<li>P={P1,P2,&hellip;,Pn},集合包括系统中的所有进程</li>
+<li>R={R1,R2,&hellip;,Rm},集合包括系统中的所有资源类型</li>
+</ul>
+</li>
+<li>requesting,claiming edge - directed edge Pi → Rj</li>
+<li>assignment,holding  edge - directed edge Rj → Pi</li>
+</ul>
+<p>基本情况</p>
+<p>如果图中不包含循环:</p>
+<ul>
+<li>没有死锁</li>
+</ul>
+<p>如果图中包含循环:</p>
+<ul>
+<li>如果每个资源类只有一个实例,那么死锁</li>
+<li>如果每个资源类有几个实例,可能死锁</li>
+</ul>
+<h2 id="3死锁特征">3.死锁特征</h2>
+<p>死锁出现一定会出现以下四个条件,但是出现以下四个条件不一定死锁:</p>
+<ul>
+<li>互斥: 在一个时间只能有一个进程使用资源</li>
+<li>持有并等待: 进程保持至少一个资源正在等待获取其他进程持有的额外资源</li>
+<li>无抢占: 一个资源只能被进程资源释放,进程已经完成了它的任务之后</li>
+<li>循环等待: 存在等待进程集合{P0,P1,&hellip;,Pn},P0正在等待P1所占用的资源,P1正在等待P2占用的资源&hellip;Pn-1在等待Pn的资源,Pn正在等待P0所占用的资源</li>
+</ul>
+<h2 id="4死锁处理方法">4.死锁处理方法</h2>
+<p>常见方法</p>
+<ul>
+<li>确保系统永远不会进入死锁状态</li>
+<li>运行系统进入死锁状态,然后恢复.</li>
+<li>忽略这个问题,假装系统中从来没有发生死锁,用于大多数操作系统,包括UNIX</li>
+</ul>
+<h3 id="deadlock-prevention----预防">Deadlock Prevention    预防</h3>
+<p>限制申请方式</p>
+<ul>
+<li>互斥 - 共享资源不是必须的,必须占用非共享资源</li>
+<li>占用并等待 - 必须保证当一个进程请求的资源,它不持有任何其他资源
+<ul>
+<li>需要进程请求并分配其所有资源,它开始执行之前或允许进程请求资源仅当进程没有资源</li>
+<li>资源利用率低,可能发生饥饿</li>
+</ul>
+</li>
+<li>无抢占 -
+<ul>
+<li>如果进程占有某些资源,并请求其他不能被立即分配的资源,则释放当前正占有的资源</li>
+<li>被抢占资源添加到资源列表中</li>
+<li>只有当它能够获得旧的资源以及它请求新的资源,进程可以得到执行</li>
+</ul>
+</li>
+<li>循环等待 - 对所有资源类型进行排序,并要求每个进程按照资源的顺序进行申请</li>
+</ul>
+<h3 id="deadlock-avoidance-----避免">Deadlock Avoidance     避免</h3>
+<p>需要系统具有一些额外的先验信息提供</p>
+<ul>
+<li>最简单和最有效的模式是要求每个进程声明它可能需要的每个类型资源的最大数目</li>
+<li>资源的分配状态是通过限定提供与分配的资源数量,和进程的最大需求</li>
+<li>死锁避免算法动态检查的资源分配状态,以确保永远不会有一个环形等待状态</li>
+<li>当一个进程请求可用资源,系统必须判断立即分配是否能使系统处于安全状态</li>
+<li>系统处于安全状态指: 针对所有进程,存在安全序列</li>
+<li>序列&lt;P1,P2,&hellip;,Pn&gt;是安全的: 针对每个Pi,Pi要求的资源能够由当前可用的资源+所有的Pj持有的资源来满足,其中j&lt;i.
+<ul>
+<li>如果Pi资源的需求不是立即可用,那么Pi可以等到所有Pj完成</li>
+<li>当Pi完成后,Pi+1可以得到所需要的资源,执行,返回所分配的资源,并终止.</li>
+<li>用同样的方法,Pi+2,Pi+3和Pn能获得其所需的资源.</li>
+</ul>
+</li>
+<li>如果系统处于安全状态→无死锁</li>
+<li>如果系统处于不安全状态→可能死锁</li>
+<li>避免死锁: 确保系统永远不会进入不安全状态</li>
+</ul>
+<h3 id="deadlock-detection-----检测">Deadlock Detection     检测</h3>
+<p>每个资源类型单一实例</p>
+<p>Maintain wait-for graph</p>
+<ul>
+<li>节点是进程</li>
+<li>Pi→Pj: Pi等待Pj</li>
+</ul>
+<p>定期调用检测算法来搜索图中是否存在循环</p>
+<p>算法需要n^2次操作,n是图中顶点的数目</p>
+<p>数据结构:</p>
+<ul>
+<li>Available: 长度为M的向量表示每种类型可用资源的数量</li>
+<li>Allocation: 一个nxm矩阵定义了当前分配给各个进程每种类型资源的数量,如果Alocation[i, j] = k, 进程Pi拥有资源Rj的k个实例</li>
+<li>Request: 一个nxm矩阵表示各进程的当前请求.如果Request[i, j] = k,表示进程Pi请求k个资源Pj的实例</li>
+</ul>
+<p>具体算法(跳过了,看视频)</p>
+<p>检查算法使用</p>
+<p>何时,使用什么样的频率来检测依赖于:</p>
+<ul>
+<li>死锁多久可能会发生?</li>
+<li>多少进程需要被回滚? one for each disjoint cycle</li>
+</ul>
+<p>如果检测算法多次被调用,有可能是资源图有多个循环,所以我们无法分辨出多个可能死锁进程中的哪些&quot;造成&quot;死锁</p>
+<h3 id="recovery-from-deadlock-恢复">Recovery from Deadlock 恢复</h3>
+<p>终止所有的死锁进程</p>
+<p>在一个时间内终止一个进程直到死锁消除</p>
+<p>终止进程的顺序应该是:</p>
+<ul>
+<li>进程的优先级</li>
+<li>进程运行了多久以及需要多少时间才能完成</li>
+<li>进程占用的资源</li>
+<li>进程完成需要的资源</li>
+<li>多少进程需要被终止</li>
+<li>进程是交互还是批处理</li>
+</ul>
+<p>选择一个受孩子 - 最小的成本</p>
+<p>回滚 - 返回到一些安全状态,重启进程到安全状态</p>
+<p>饥饿 - 同一进程可能一直被选作受害者,包括回滚的数量</p>
+<h2 id="5ipc">5.IPC</h2>
+<h3 id="51-概述">5.1 概述</h3>
+<p>进程通信的机制及同步</p>
+<p>不使用共享变量的进程通信</p>
+<p>IPC facility 提供2个操作:</p>
+<ul>
+<li>send(message) - 消息大小固定或者可变</li>
+<li>receive(message)</li>
+</ul>
+<p>如果P和Q想通信,需要:</p>
+<ul>
+<li>在它们之间建立通信链路</li>
+<li>通过send/recevie交换消息</li>
+</ul>
+<p>通信链路的实现</p>
+<ul>
+<li>物理(例如,共享内存,硬件总线)</li>
+<li>逻辑(例如,逻辑属性)</li>
+</ul>
+<h3 id="52-直接通信">5.2 直接通信</h3>
+<p>进程必须正确的命名对方:</p>
+<ul>
+<li>send(P, message) - 发送消息到进程P</li>
+<li>receive(Q, message) - 从进程Q接收信息</li>
+</ul>
+<p>通信链路的属性</p>
+<ul>
+<li>自动建立链路</li>
+<li>一条链路恰好对应一对通信进程</li>
+<li>每对进程之间只有一个链路存在</li>
+<li>链路可以是单向的,但通常是双向的</li>
+</ul>
+<h3 id="53-间接通信">5.3 间接通信</h3>
+<p>定向从消息队列接收消息</p>
+<ul>
+<li>每个消息对垒都有一个唯一的ID</li>
+<li>只有它们共享了一个消息队列,进程才能够通信</li>
+</ul>
+<p>通信链路的属性</p>
+<ul>
+<li>只有进程共享一个共同的消息队列,才建立链路</li>
+<li>链接可以与许多进程相关联</li>
+<li>每对进程可以共享多个通信链路</li>
+<li>链接可以是单向或者双向</li>
+</ul>
+<p>操作</p>
+<ul>
+<li>创建一个新的消息队列</li>
+<li>通过消息队列发送和接收消息</li>
+<li>销毁消息队列</li>
+</ul>
+<p>原语的定义如下:</p>
+<ul>
+<li>
+<p>send(A, message)</p>
+</li>
+<li>
+<p>receive(A, message)</p>
+</li>
+<li>
+<p>通信链路缓冲</p>
+<p>通信链路缓存大小:</p>
+<ol>
+<li>0容量 - 0 message : 发送方必须等待接收方</li>
+<li>有限容量 - n messages的有限长度 : 发送方必须等待,如果队列满</li>
+<li>无限容量 - 无限长度 : 发送方不需要等待</li>
+</ol>
+</li>
+</ul>
+<h3 id="54-信号">5.4 信号</h3>
+<p>信号Signal</p>
+<ul>
+<li>软件中断通知事件处理</li>
+<li>Examples: SIGFPE, SIGKILL, SIGUSRI, SIGSTOP, SIGCONT</li>
+</ul>
+<p>接收到信号时会发生什么?</p>
+<ul>
+<li>catch:  指定信号处理函数被调用</li>
+<li>ignore: 依靠操作系统的默认操作(abort, memory dump, suspend or resume process)</li>
+<li>mask:   闭塞信号因此不会传送(可能是暂时的,当处理同样类型的信号)</li>
+</ul>
+<p>不足:</p>
+<ul>
+<li>不能传输要交换的任何数据</li>
+</ul>
+<h3 id="55-管道">5.5 管道</h3>
+<p>数据交换</p>
+<p>子进程从父进程继承文件描述符(0 stdin, 1 stdout, 2 stderr)</p>
+<p>进程不知道(或不关心)从键盘,文件,程序读取或写入到终端,文件,程序.</p>
+<p>例如: $ ls | more (两个进程, 管道是缓存,对于ls来说是stdout,对于more来说是stdin )</p>
+<h3 id="消息队列">消息队列</h3>
+<p>消息队列按FIFO来管理消息</p>
+<ul>
+<li>message: 作为一个字节序列存储</li>
+<li>message queues: 消息数组</li>
+<li>FIFO &amp;  FILO configuration</li>
+</ul>
+<h3 id="56-共享内存">5.6 共享内存</h3>
+<p>进程</p>
+<ul>
+<li>每个进程都有私有地址空间</li>
+<li>在每个地址空间内,明确地设置了共享内存段</li>
+</ul>
+<p>优点</p>
+<ul>
+<li>快速,方便地共享数据</li>
+</ul>
+<p>不足</p>
+<ul>
+<li>必须同步数据访问</li>
+</ul>
+<p>最快的方法</p>
+<p>一个进程写另一个进程立即可见</p>
+<p>没有系统调用干预</p>
+<p>没有数据复制</p>
+<p>不提供同步</p>
+<ul>
+<li>Socket</li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_10/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_信号量和管程(11)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_11/">【操作系统笔记】OS_死锁和进程通信(12)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_10/">【操作系统笔记】OS_信号量和管程(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_09/">【操作系统笔记】OS_同步(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_08/">【操作系统笔记】OS_CPU调度(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_07/">【操作系统笔记】OS_进程和线程(07)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
