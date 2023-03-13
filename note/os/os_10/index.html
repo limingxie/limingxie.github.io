@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_信号量和管程(11) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_信号量和管程(11)" />
+<meta property="og:description" content="这一篇整理了操作系统的信号量和管程相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_10/" />
+<meta property="article:published_time" content="2023-02-11T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-02-11T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_信号量和管程(11)">
+<meta itemprop="description" content="这一篇整理了操作系统的信号量和管程相关的内容。">
+<meta itemprop="datePublished" content="2023-02-11T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-02-11T23:28:49+08:00" />
+<meta itemprop="wordCount" content="650">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_信号量和管程(11)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-11T23:28:49&#43;08:00">2023-02-11</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1信号量">1.信号量</a>
+      <ul>
+        <li><a href="#两个类型信号量">两个类型信号量</a></li>
+        <li><a href="#信号量可以用在2个方面">信号量可以用在2个方面</a></li>
+      </ul>
+    </li>
+    <li><a href="#2信号量使用">2.信号量使用</a></li>
+    <li><a href="#3信号量实现">3.信号量实现</a></li>
+    <li><a href="#4管程">4.管程</a>
+      <ul>
+        <li><a href="#41-什么是管程">4.1 什么是管程</a></li>
+        <li><a href="#42-实现">4.2 实现</a></li>
+      </ul>
+    </li>
+    <li><a href="#5经典同步问题">5.经典同步问题</a>
+      <ul>
+        <li><a href="#51-读者-写者问题">5.1 读者-写者问题</a></li>
+        <li><a href="#52-哲学家就餐问题">5.2 哲学家就餐问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>信号量和管程</code>相关的内容。</p>
+<h2 id="1信号量">1.信号量</h2>
+<p>信号量的抽象数据类型</p>
+<ul>
+<li>一个整形(sem),具有两个原子操作</li>
+<li>P(): sem减一,如果sem&lt;0,等待,否则继续</li>
+<li>V(): sem加一,如果sem≤0,唤醒一个等待的P</li>
+</ul>
+<p><a href="https://limingxie.github.io/images/os/os10/os_10_01.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os10/os_10_01.png" alt="os_10_01"></p>
+<p>信号量是整数<br>
+信号量是被保护的变量</p>
+<ul>
+<li>初始化完成后,唯一改变一个信号量的值的办法是通过P()和V()</li>
+<li>操作必须是原子</li>
+</ul>
+<p>P()能够阻塞,V()不会阻塞<br>
+我们假定信号量是公平的</p>
+<ul>
+<li>没有线程被阻塞在P()仍然堵塞如果V()被无限频繁调用(在同一个信号量)</li>
+<li>在实践中,FIFO经常被使用</li>
+</ul>
+<h3 id="两个类型信号量">两个类型信号量</h3>
+<ul>
+<li>二进制信号量: 可以是0或1</li>
+<li>计数信号量: 可以取任何非负数</li>
+<li>两者相互表现(给定一个可以实现另一个)</li>
+</ul>
+<h3 id="信号量可以用在2个方面">信号量可以用在2个方面</h3>
+<ul>
+<li>互斥</li>
+<li>条件同步(调度约束——一个线程等待另一个线程的事情发生)</li>
+</ul>
+<h2 id="2信号量使用">2.信号量使用</h2>
+<ol>
+<li>
+<p>用二进制信号量实现的互斥</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">mutex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">1</span>);
+   
+mutex<span style="color:#f92672">-&gt;</span>P();
+...
+mutex<span style="color:#f92672">-&gt;</span>V();
+</code></pre></div></li>
+<li>
+<p>用二进制信号量实现的调度约束</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">condition <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">0</span>);
+   
+<span style="color:#75715e">//Thread A
+</span><span style="color:#75715e"></span>...
+condition<span style="color:#f92672">-&gt;</span>P(); <span style="color:#75715e">//等待线程B某一些指令完成之后再继续运行,在此阻塞
+</span><span style="color:#75715e"></span>  ...
+   
+<span style="color:#75715e">//Thread B
+</span><span style="color:#75715e"></span>...
+condition<span style="color:#f92672">-&gt;</span>V(); <span style="color:#75715e">//信号量增加唤醒线程A
+</span><span style="color:#75715e"></span>  ...
+</code></pre></div></li>
+<li>
+<p>一个线程等待另一个线程处理事情</p>
+<p>比如生产东西或消费东西(生产者消费者模式),互斥(锁机制)是不够的</p>
+<p>有界缓冲区的生产者-消费者问题</p>
+<ul>
+<li>一个或者多个生产者产生数据将数据放在一个缓冲区里</li>
+<li>单个消费者每次从缓冲区取出数据</li>
+<li>在任何一个时间只有一个生产者或消费者可以访问该缓冲区</li>
+</ul>
+<p>正确性要求</p>
+<ul>
+<li>在任何一个时间只能有一个线程操作缓冲区(互斥)</li>
+<li>当缓冲区为空时,消费者必须等待生产者(调度,同步约束)</li>
+<li>当缓存区满,生产者必须等待消费者(调度,同步约束)</li>
+</ul>
+<p>每个约束用一个单独的信号量</p>
+<ul>
+<li>二进制信号量互斥</li>
+<li>一般信号量 fullBuffers</li>
+<li>一般信号了 emptyBuffers</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BoundedBuffer</span>{
+  mutex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">1</span>);
+  fullBuffers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">0</span>);   <span style="color:#75715e">//说明缓冲区初始为空
+</span><span style="color:#75715e"></span>   emptyBuffers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(n);  <span style="color:#75715e">//同时可以有n个生产者来生产
+</span><span style="color:#75715e"></span>};
+   
+BoundedBuffer<span style="color:#f92672">::</span>Deposit(c){
+  emptyBuffers<span style="color:#f92672">-&gt;</span>P();
+  mutex<span style="color:#f92672">-&gt;</span>P();
+  Add c to the buffer;
+  mutex<span style="color:#f92672">-&gt;</span>V();
+  fullBuffers<span style="color:#f92672">-&gt;</span>V();
+}
+   
+BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
+  fullBuffers<span style="color:#f92672">-&gt;</span>P();
+  mutex<span style="color:#f92672">-&gt;</span>P();
+  Remove c from buffer;
+  mutex<span style="color:#f92672">-&gt;</span>V();
+  emptyBuffers<span style="color:#f92672">-&gt;</span>V();
+}
+</code></pre></div></li>
+</ol>
+<h2 id="3信号量实现">3.信号量实现</h2>
+<p>使用硬件原语</p>
+<ul>
+<li>禁用中断</li>
+<li>原子指令</li>
+</ul>
+<p>类似锁</p>
+<ul>
+<li>禁用中断</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Semaphore</span>{
+  <span style="color:#66d9ef">int</span> sem;
+  WaitQueue q;
+};
+
+Semaphore<span style="color:#f92672">::</span>P(){
+  <span style="color:#f92672">--</span>sem;
+  <span style="color:#66d9ef">if</span>(sem <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+    Add <span style="color:#66d9ef">this</span> <span style="color:#66d9ef">thread</span> t to q;
+    block(p);
+  }
+};
+
+Semaphore<span style="color:#f92672">::</span>V(){
+  <span style="color:#f92672">++</span>sem;
+  <span style="color:#66d9ef">if</span>(sem <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>){
+    Remove a <span style="color:#66d9ef">thread</span> t from q;
+    wakeup(t);
+  }
+}
+</code></pre></div><p>信号量的双用途</p>
+<ul>
+<li>互斥和条件同步</li>
+<li>但等待条件是独立的互斥</li>
+</ul>
+<p>读,开发代码比较困难</p>
+<ul>
+<li>程序员必须非常精通信号量</li>
+</ul>
+<p>容易出错</p>
+<ul>
+<li>使用的信号量已经被另一个线程占用</li>
+<li>忘记释放信号量</li>
+</ul>
+<p>不能够处理死锁问题</p>
+<h2 id="4管程">4.管程</h2>
+<p>目的: 分离互斥和条件同步的关注</p>
+<h3 id="41-什么是管程">4.1 什么是管程</h3>
+<ul>
+<li>一个锁: 指定临界区</li>
+<li>0或者多个条件变量: 等待,通知信号量用于管程并发访问共享数据</li>
+</ul>
+<h4 id="一般方法">一般方法</h4>
+<ul>
+<li>收集在对象,模块中的相关共享数据</li>
+<li>定义方法来访问共享数据</li>
+</ul>
+<h4 id="lock">Lock</h4>
+<ul>
+<li>Lock::Acquire() 等待直到锁可用,然后抢占锁</li>
+<li>Lock::Release() 释放锁,唤醒等待者如果有</li>
+</ul>
+<h4 id="condition-variable">Condition Variable</h4>
+<h5 id="允许等待状态进入临界区">允许等待状态进入临界区</h5>
+<ul>
+<li>允许处于等待(睡眠)的线程进入临界区</li>
+<li>某个时刻原子释放锁进入睡眠</li>
+</ul>
+<h5 id="wait-operation">Wait() operation</h5>
+<ul>
+<li>释放锁,睡眠,重新获得锁放回</li>
+</ul>
+<h5 id="signal-operationor-broadcast-operation">Signal() operation(or broadcast() operation)</h5>
+<ul>
+<li>唤醒等待者(或者所有等待者),如果有</li>
+</ul>
+<h3 id="42-实现">4.2 实现</h3>
+<ul>
+<li>需要维持每个条件队列</li>
+<li>线程等待的条件等待signal()</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Condition</span>{
+  <span style="color:#66d9ef">int</span> numWaiting <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  WaitQueue q;
+};
+
+Condition<span style="color:#f92672">::</span>Wait(lock){
+  numWaiting<span style="color:#f92672">++</span>;
+  Add <span style="color:#66d9ef">this</span> <span style="color:#66d9ef">thread</span> t to q;
+  release(lock);
+  schedule(); <span style="color:#75715e">//need mutex
+</span><span style="color:#75715e"></span>  require(lock);
+}
+
+Condition<span style="color:#f92672">::</span>Signal(){
+  <span style="color:#66d9ef">if</span>(numWaiting <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+    Remove a <span style="color:#66d9ef">thread</span> t from q;
+    wakeup(t); <span style="color:#75715e">//need mutex
+</span><span style="color:#75715e"></span>    numWaiting<span style="color:#f92672">--</span>;
+  }
+}
+</code></pre></div><p>管程解决生产者-消费者问题</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BoundedBuffer</span>{
+  Lock lock;
+  <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;  <span style="color:#75715e">//buffer 为空
+</span><span style="color:#75715e"></span>  Condition notFull, notEmpty;
+};
+
+BoundedBuffer<span style="color:#f92672">::</span>Deposit(c){
+  lock<span style="color:#f92672">-&gt;</span>Acquire();    <span style="color:#75715e">//管程的定义:只有一个线程能够进入管程
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">while</span>(count <span style="color:#f92672">==</span> n)
+    notFull.Wait(<span style="color:#f92672">&amp;</span>lock); <span style="color:#75715e">//释放前面的锁
+</span><span style="color:#75715e"></span>  Add c to the buffer;
+  count<span style="color:#f92672">++</span>;
+  notEmpty.Signal();
+  lock<span style="color:#f92672">-&gt;</span>Release();
+}
+
+BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
+  lock<span style="color:#f92672">-&gt;</span>Acquire();
+  <span style="color:#66d9ef">while</span>(count <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+    notEmpty.Wait(<span style="color:#f92672">&amp;</span>lock);
+  Remove c from buffer;
+  count<span style="color:#f92672">--</span>;
+  notFull.Signal();
+  lock<span style="color:#f92672">-&gt;</span>Release();
+}
+</code></pre></div><p><a href="https://limingxie.github.io/images/os/os10/os_10_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os10/os_10_02.png" alt="os_10_02"></p>
+<p>开发,调试并行程序很难</p>
+<ul>
+<li>非确定性的交叉指令</li>
+</ul>
+<p>同步结构</p>
+<ul>
+<li>锁: 互斥</li>
+<li>条件变量: 有条件的同步</li>
+<li>其他原语: 信号量</li>
+</ul>
+<p>怎么样有效地使用这些结构</p>
+<ul>
+<li>制定并遵循严格的程序设计风格,策略</li>
+</ul>
+<h2 id="5经典同步问题">5.经典同步问题</h2>
+<h3 id="51-读者-写者问题">5.1 读者-写者问题</h3>
+<p>动机: 共享数据的访问</p>
+<p>两种类型的使用者: 读者(不修改数据) 写者(读取和修改数据)</p>
+<p>问题的约束:</p>
+<ul>
+<li>
+<p>允许同一时间有多个读者,但在任何时候只有一个写者</p>
+</li>
+<li>
+<p>当没有写者时,读者才能访问数据</p>
+</li>
+<li>
+<p>当没有读者和写者时,写者才能访问数据</p>
+</li>
+<li>
+<p>在任何时候只能有一个线程可以操作共享变量</p>
+<p>多个并发进程的数据集共享</p>
+</li>
+<li>
+<p>读者: 只读数据集;他们不执行任何更新</p>
+</li>
+<li>
+<p>写者: 可以读取和写入</p>
+<p>共享数据</p>
+</li>
+<li>
+<p>数据集</p>
+</li>
+<li>
+<p>信号量CountMutex初始化为1</p>
+</li>
+<li>
+<p>信号量WriteMutex初始化为1</p>
+</li>
+<li>
+<p>整数Rcount初始化为0(当前读者个数)</p>
+</li>
+</ul>
+<h4 id="读者优先设计">读者优先设计</h4>
+<p>只要有一个读者处于活动状态, 后来的读者都会被接纳.如果读者源源不断的出现,那么写者使用处于阻塞状态.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//信号量实现
+</span><span style="color:#75715e">//writer
+</span><span style="color:#75715e"></span>sem_wait(WriteMutex);
+write;
+sem_post(WriteMutex);
+
+<span style="color:#75715e">//reader
+</span><span style="color:#75715e"></span>sem_wait(CountMutex);
+<span style="color:#66d9ef">if</span>(Rcount <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+  sem_wait(WriteMutex); <span style="color:#75715e">//确保后续不会有写者进入
+</span><span style="color:#75715e"></span><span style="color:#f92672">++</span>Rcount;
+read;
+<span style="color:#f92672">--</span>Rcount;
+<span style="color:#66d9ef">if</span>(Rcount <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+  sem_post(WriteMutex); <span style="color:#75715e">//全部读者全部离开才能唤醒写者
+</span><span style="color:#75715e"></span>sem_post(CountMutex);
+</code></pre></div><h4 id="写者优先设计">写者优先设计</h4>
+<p>一旦写者就绪,那么写者会尽可能的执行写操作.如果写者源源不断的出现的话,那么读者就始终处于阻塞状态.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//writer
+</span><span style="color:#75715e"></span>Database<span style="color:#f92672">::</span>Write(){
+  Wait until readers<span style="color:#f92672">/</span>writers;
+  write database;
+  check out <span style="color:#f92672">-</span> wake up waiting readers<span style="color:#f92672">/</span>writers;
+}
+<span style="color:#75715e">//reader
+</span><span style="color:#75715e"></span>Database<span style="color:#f92672">::</span>Read(){
+  Wait until no writers;
+  read database;
+  check out <span style="color:#f92672">-</span> wake up waiting writers;
+}
+
+<span style="color:#75715e">//管程实现
+</span><span style="color:#75715e"></span>AR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of active readers
+</span><span style="color:#75715e"></span>AW <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of active writers
+</span><span style="color:#75715e"></span>WR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of waiting readers
+</span><span style="color:#75715e"></span>WW <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of waiting writers
+</span><span style="color:#75715e"></span>Condition okToRead;
+Condition okToWrite;
+Lock lock;
+<span style="color:#75715e">//writer
+</span><span style="color:#75715e"></span>Public Database<span style="color:#f92672">::</span>Write(){
+  <span style="color:#75715e">//Wait until no readers/writers;
+</span><span style="color:#75715e"></span>  StartWrite();
+  write database;
+  <span style="color:#75715e">//check out - wake up waiting readers/writers;
+</span><span style="color:#75715e"></span>  DoneWrite();
+}
+
+Private Database<span style="color:#f92672">::</span>StartWrite(){
+  lock.Acquire();
+  <span style="color:#66d9ef">while</span>((AW <span style="color:#f92672">+</span> AR) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+    WW<span style="color:#f92672">++</span>;
+    okToWrite.wait(<span style="color:#f92672">&amp;</span>lock);
+    WW<span style="color:#f92672">--</span>;  
+  }
+  AW<span style="color:#f92672">++</span>;
+  lock.Release();
+}
+
+Private Database<span style="color:#f92672">::</span>DoneWrite(){
+  lock.Acquire();
+  AW<span style="color:#f92672">--</span>;
+  <span style="color:#66d9ef">if</span>(WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+    okToWrite.signal();
+  }
+  <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(WR <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+    okToRead.broadcast(); <span style="color:#75715e">//唤醒所有reader 
+</span><span style="color:#75715e"></span>  }
+  lock.Release();
+}
+
+<span style="color:#75715e">//reader
+</span><span style="color:#75715e"></span>Public Database<span style="color:#f92672">::</span>Read(){
+  <span style="color:#75715e">//Wait until no writers;
+</span><span style="color:#75715e"></span>  StartRead();
+  read database;
+  <span style="color:#75715e">//check out - wake up waiting writers;
+</span><span style="color:#75715e"></span>  DoneRead();
+}
+
+Private Database<span style="color:#f92672">::</span>StartRead(){
+  lock.Acquire();
+  <span style="color:#66d9ef">while</span>(AW <span style="color:#f92672">+</span> WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){    <span style="color:#75715e">//关注等待的writer,体现出写者优先
+</span><span style="color:#75715e"></span>    WR<span style="color:#f92672">++</span>;
+    okToRead.wait(<span style="color:#f92672">&amp;</span>lock);
+    WR<span style="color:#f92672">--</span>;
+  }
+  AR<span style="color:#f92672">++</span>;
+  lock.Release();
+}
+
+<span style="color:#66d9ef">private</span> Database<span style="color:#f92672">::</span>DoneRead(){
+  lock.Acquire();
+  AR<span style="color:#f92672">--</span>;
+  <span style="color:#66d9ef">if</span>(AR <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){  <span style="color:#75715e">//只有读者全部没有了,才需要唤醒
+</span><span style="color:#75715e"></span>    okToWrite.signal();
+  }
+  lock.Release();
+}
+</code></pre></div><h3 id="52-哲学家就餐问题">5.2 哲学家就餐问题</h3>
+<p>共享数据:</p>
+<ul>
+<li>
+<p>Bowl of rice(data set)</p>
+</li>
+<li>
+<p>Semaphone fork [5] initialized to 1</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define N 5
+</span><span style="color:#75715e">#define LEFT (i + N - 1) % N </span><span style="color:#75715e">// 左邻居
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define RIGHT (i + 1) % N    </span><span style="color:#75715e">// 右邻居
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define THINKING 0
+</span><span style="color:#75715e">#define HUNGRY   1
+</span><span style="color:#75715e">#define EATING   2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> semaphore;
+<span style="color:#66d9ef">int</span> state[N];                <span style="color:#75715e">// 跟踪每个哲学家的状态
+</span><span style="color:#75715e"></span>semaphore mutex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;         <span style="color:#75715e">// 临界区的互斥，临界区是 state 数组，对其修改需要互斥
+</span><span style="color:#75715e"></span>semaphore s[N];              <span style="color:#75715e">// 每个哲学家一个信号量
+</span><span style="color:#75715e"></span>  
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">philosopher</span>(<span style="color:#66d9ef">int</span> i) {
+    <span style="color:#66d9ef">while</span>(TRUE) {
+        think(i);
+        take_two(i);
+        eat(i);
+        put_two(i);
+    }
+}
+  
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">take_two</span>(<span style="color:#66d9ef">int</span> i) {
+    P(<span style="color:#f92672">&amp;</span>mutex);
+    state[i] <span style="color:#f92672">=</span> HUNGRY;
+    check(i);
+    V(<span style="color:#f92672">&amp;</span>mutex);
+    P(<span style="color:#f92672">&amp;</span>s[i]); <span style="color:#75715e">// 只有收到通知之后才可以开始吃，否则会一直等下去
+</span><span style="color:#75715e"></span>}
+  
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">put_two</span>(i) {
+    P(<span style="color:#f92672">&amp;</span>mutex);
+    state[i] <span style="color:#f92672">=</span> THINKING;
+    check(LEFT); <span style="color:#75715e">// 尝试通知左右邻居，自己吃完了，你们可以开始吃了
+</span><span style="color:#75715e"></span>    check(RIGHT);
+    V(<span style="color:#f92672">&amp;</span>mutex);
+}
+  
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span>(<span style="color:#66d9ef">int</span> i) {
+    P(<span style="color:#f92672">&amp;</span>mutex);
+    state[i] <span style="color:#f92672">=</span> EATING;
+    V(<span style="color:#f92672">&amp;</span>mutex);
+}
+  
+<span style="color:#75715e">// 检查两个邻居是否都没有用餐，如果是的话，就 V(&amp;s[i])，使得 P(&amp;s[i]) 能够得到通知并继续执行
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">check</span>(i) {         
+    <span style="color:#66d9ef">if</span>(state[i] <span style="color:#f92672">==</span> HUNGRY <span style="color:#f92672">&amp;&amp;</span> state[LEFT] <span style="color:#f92672">!=</span> EATING <span style="color:#f92672">&amp;&amp;</span> state[RIGHT] <span style="color:#f92672">!=</span>EATING) {
+        state[i] <span style="color:#f92672">=</span> EATING;
+        V(<span style="color:#f92672">&amp;</span>s[i]);
+    }
+}
+</code></pre></div></li>
+</ul>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_09/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_同步(09)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_10/">【操作系统笔记】OS_信号量和管程(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_09/">【操作系统笔记】OS_同步(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_08/">【操作系统笔记】OS_CPU调度(08)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_07/">【操作系统笔记】OS_进程和线程(07)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_05/">【操作系统笔记】OS_虚拟内存(05)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
