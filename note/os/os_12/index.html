@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【操作系统笔记】OS_文件管理(12) - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【操作系统笔记】OS_文件管理(12)" />
+<meta property="og:description" content="这一篇整理了操作系统的文件管理相关的内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_12/" />
+<meta property="article:published_time" content="2023-02-13T23:28:49+08:00" />
+<meta property="article:modified_time" content="2023-02-13T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【操作系统笔记】OS_文件管理(12)">
+<meta itemprop="description" content="这一篇整理了操作系统的文件管理相关的内容。">
+<meta itemprop="datePublished" content="2023-02-13T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2023-02-13T23:28:49+08:00" />
+<meta itemprop="wordCount" content="451">
+
+
+
+<meta itemprop="keywords" content="操作系统,OS,Operating System," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【操作系统笔记】OS_文件管理(12)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-13T23:28:49&#43;08:00">2023-02-13</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/os/" rel="category">OS</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1基本概念">1.基本概念</a>
+      <ul>
+        <li><a href="#11-文件系统和文件">1.1 文件系统和文件</a></li>
+        <li><a href="#12-文件描述符">1.2 文件描述符</a></li>
+        <li><a href="#13-目录">1.3 目录</a></li>
+        <li><a href="#14-文件别名">1.4 文件别名</a></li>
+        <li><a href="#15-文件系统种类">1.5 文件系统种类</a></li>
+      </ul>
+    </li>
+    <li><a href="#2虚拟文件系统">2.虚拟文件系统</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#3数据块缓存">3.数据块缓存</a></li>
+    <li><a href="#4打开文件的数据结构">4.打开文件的数据结构</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#5文件分配">5.文件分配</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#6空闲空间列表">6.空闲空间列表</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#7多磁盘管理---raid">7.多磁盘管理 - RAID</a></li>
+    <li><a href="#8磁盘盘调度">8.磁盘盘调度</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这一篇整理了操作系统的<code>文件管理</code>相关的内容。</p>
+<h2 id="1基本概念">1.基本概念</h2>
+<h3 id="11-文件系统和文件">1.1 文件系统和文件</h3>
+<p>文件系统: 一种用于持久性存储的系统抽象</p>
+<ul>
+<li>在存储上: 组织,控制,导航,访问和检索数据</li>
+<li>在大多数计算机系统包含文件系统</li>
+<li>个人电脑,服务器,笔记本电脑</li>
+<li>ipod,tivo,机顶盒,手机,电脑</li>
+<li>google可能也是由一个文件系统构成的</li>
+</ul>
+<p>文件: 文件系统中的一个单元的相关数据在操作系统中的抽象</p>
+<p>文件系统的功能:</p>
+<ul>
+<li>分配文件磁盘空间
+<ul>
+<li>管理文件块(哪一块属于哪一个文件)</li>
+<li>管理空闲空间(哪一块是空闲的)</li>
+<li>分配算法(策略)</li>
+</ul>
+</li>
+<li>管理文件集合
+<ul>
+<li>定位文件及其内容</li>
+<li>命名: 通过名字找到文件的接口</li>
+<li>最常见: 分层文件系统</li>
+<li>文件系统类型(组织文件的不同方式)</li>
+</ul>
+</li>
+<li>提供的便利及特征
+<ul>
+<li>保护: 分层来保护数据安全</li>
+<li>可靠性,持久性: 保持文件的持久即使发生崩溃,媒体错误,攻击等</li>
+</ul>
+</li>
+</ul>
+<p>文件和块:<br>
+文件属性: 名称,类型,位置,大小,保护,创建者,创建时间,最久修改时间&hellip;<br>
+文件头: 在存储元数据中保存了每个文件的信息,保存文件的属性,跟踪哪一块存储块属于逻辑上文件结构的哪个偏移</p>
+<h3 id="12-文件描述符">1.2 文件描述符</h3>
+<p>文件使用模式:</p>
+<p>使用程序必须在使用前先&quot;打开&quot;文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">f <span style="color:#f92672">=</span> open(name, flag);
+...
+... <span style="color:#f92672">=</span> read(f, ...);
+...
+close(f);
+</code></pre></div><p>内核跟踪每个进程打开的文件:</p>
+<ul>
+<li>操作系统为每个进程维护一个打开文件表</li>
+<li>一个打开文件描述符是这个表中的索引</li>
+</ul>
+<h4 id="需要元数据来管理打开文件">需要元数据来管理打开文件</h4>
+<ul>
+<li>文件指针: 指向最近的一次读写位置,每个打开了这个文件的进程都这个指针</li>
+<li>文件打开计数: 记录文件打开的次数 - 当最后一个进程关闭了文件时,允许将其从打开文件表中移除</li>
+<li>文件磁盘位置: 缓存数据访问信息</li>
+<li>访问权限: 每个程序访问模式信息</li>
+<li>用户视图: 持久的数据结构</li>
+<li>系统访问接口: 字节的集合(UNIX);系统不会关心你想存储在磁盘上的任何的数据结构;</li>
+<li>操作系统内部视角:块的集合(块是逻辑转换单元,而扇区是物理转换单元);大小&lt;&gt; 扇区大小: 在UNIX中, 块的大小是 4KB</li>
+<li>当用户说: 给我2-12字节空间时会发生什么?获取字节所在的快;返回快内对应部分;</li>
+<li>如果要写2-12字节? 获取块, 修改块内对应部分, 写回块</li>
+</ul>
+<p>在文件系统中的所有操作都是在整个块空间上进行的: <code>getc()</code> <code>putc()</code> 即使每次只访问1字节的数据,也会缓存目标数据4096字节(一个磁盘块)</p>
+<h4 id="用户怎么访问文件-在系统层面需要知道用户的访问模式">用户怎么访问文件: 在系统层面需要知道用户的访问模式</h4>
+<ul>
+<li>
+<p>顺序访问: 按字节依次读取(几乎所有的访问都是这种方式)</p>
+</li>
+<li>
+<p>随机访问: 从中间读写(不常用,但是仍然重要,如: 虚拟内存支持文件,内存页存储在文件中;更加快速,不希望获取文件中间的内容的时候也必须先获取块内所有字节)</p>
+</li>
+<li>
+<p>内容访问: 通过特征; 文件内部结构:</p>
+</li>
+<li>
+<p>无结构: 单词,比特的队列</p>
+</li>
+<li>
+<p>简单记录结构: 列,固定长度,可变长度</p>
+</li>
+<li>
+<p>复杂结构: 格式化的文档(word, PDF), 可执行文件, &hellip;</p>
+</li>
+<li>
+<p>多用户系统中的文件共享是很必要的</p>
+</li>
+<li>
+<p>访问控制:
+谁能够获得哪些文件的哪些访问权限; 访问模式: 读,写,执行,删除,列举等</p>
+</li>
+<li>
+<p>文件访问控制列表(ACL): &lt;文件实体, 权限&gt;</p>
+</li>
+<li>
+<p>UNIX模式:
+&lt;用户|组|所有人,读|写|可执行&gt;<br>
+用户ID识别用户,表明每个用户所允许的权限及保护模式<br>
+组ID允许用户组成组,并指定了组访问权限</p>
+</li>
+<li>
+<p>指定多用户,客户如何同时访问共享文件:
+和过程同步算法相似<br>
+因磁盘IO和网络延迟而设计简单</p>
+</li>
+<li>
+<p>UNIX文件系统(UFS)语义:
+对打开文件的写入内容立即对其他打开同一文件的其他用户可见<br>
+共享文件指针允许多用户同时读取和写入文件</p>
+</li>
+<li>
+<p>会话语义:写入内容只有当文件关闭时可见</p>
+</li>
+<li>
+<p>锁:一些操作系统和文件系统提供该功能</p>
+</li>
+</ul>
+<h3 id="13-目录">1.3 目录</h3>
+<ul>
+<li>文件以目录的方式组织起来</li>
+<li>目录是一类特殊的文件: 每个目录都包含了一张表&lt;name, pointer to file header&gt;</li>
+<li>目录和文件的树形结构: 早期的文件系统是扁平的(只有一层目录)</li>
+<li>层次名称空间: /spell/mail/prt/first  /programs/p/list</li>
+</ul>
+<h4 id="典型操作">典型操作</h4>
+<ul>
+<li>搜索文件</li>
+<li>创建文件</li>
+<li>删除文件</li>
+<li>枚举目录</li>
+<li>重命名文件</li>
+<li>在文件系统中遍历一个路径</li>
+</ul>
+<h4 id="操作系统应该只允许内核模式修改目录">操作系统应该只允许内核模式修改目录</h4>
+<p>确保映射的完整性,应用程序能够读目录(ls)</p>
+<h4 id="文件名的线性列表包含了指向数据块的指针">文件名的线性列表,包含了指向数据块的指针</h4>
+<p>编程简单,执行耗时</p>
+<h4 id="hash表---hash数据结构的线性表">Hash表 - hash数据结构的线性表</h4>
+<p>减少目录搜索时间,碰撞,固定大小</p>
+<ul>
+<li>
+<p>名字解析: 逻辑名字转换成物理资源(如文件)的过程:
+在文件系统中: 到实际文件的文件名(路径)<br>
+遍历文件目录直到找到目标文件</p>
+</li>
+<li>
+<p>举例: 解析&quot;/bin/ls&quot;:
+读取root的文件头(在磁盘固定位置)
+读取root的数据块: 搜索bin项
+读取bin的文件头
+读取bin的数据块: 搜索ls项
+读取ls的文件头</p>
+</li>
+<li>
+<p>当前工作目录:
+每个进程都会指向一个文件目录用于解析文件名<br>
+允许用户指定相对路径来代替绝对路径</p>
+</li>
+</ul>
+<p>一个文件系统需要先挂载才能被访问<br>
+一个未挂载的文件系统被挂载在挂载点上</p>
+<h3 id="14-文件别名">1.4 文件别名</h3>
+<ul>
+<li>两个或多个文件名关联同一个文件:</li>
+<li>硬链接: 多个文件项指向一个文件</li>
+<li>软链接: 以快捷方式指向其他文件</li>
+<li>通过存储真实文件的逻辑名称来实现</li>
+</ul>
+<h4 id="如果删除一个有别名的文件会如何呢">如果删除一个有别名的文件会如何呢?</h4>
+<p>这个别名将成为一个悬空指针</p>
+<h4 id="backpointers-方案">Backpointers 方案</h4>
+<ul>
+<li>每个文件有一个包含多个backpointers的列表,所以删除所有的Backpointers</li>
+<li>backpointers使用菊花链管理</li>
+</ul>
+<h4 id="添加一个间接层-目录项数据结构">添加一个间接层: 目录项数据结构</h4>
+<ul>
+<li>链接: 已存在文件的另外一个名字(指针)</li>
+<li>链接处理: 跟随指针来定位文件</li>
+</ul>
+<h4 id="我们如何保证没有循环呢">我们如何保证没有循环呢?</h4>
+<ul>
+<li>只允许到文件的链接, 不允许在子目录的链接</li>
+<li>每增加一个新的链接都用循环检测算法确定是否合理</li>
+</ul>
+<h4 id="更多实践">更多实践</h4>
+<p>限制路径可遍历文件目录的数量</p>
+<h3 id="15-文件系统种类">1.5 文件系统种类</h3>
+<ul>
+<li>磁盘文件系统: 文件存储在数据存储设备上,如磁盘; 例如: FAT,NTFS,ext2,3,ISO9660等</li>
+<li>数据库文件系统: 文件根据其特征是可被寻址的; 例如: WinFS</li>
+<li>日志文件系统: 记录文件系统的修改,事件; 例如: journaling file system</li>
+<li>网络,分布式文件系统: 例如: NFS,SMB,AFS,GFS</li>
+<li>特殊,虚拟文件系统</li>
+</ul>
+<h2 id="2虚拟文件系统">2.虚拟文件系统</h2>
+<p>分层结构:</p>
+<ul>
+<li>顶层: 文件,文件系统API</li>
+<li>上层: 虚拟(逻辑)文件系统 (将所有设备IO,网络IO全抽象成为文件,使得接口一致)</li>
+<li>底层: 特定文件系统模块</li>
+<li>目的: 对所有不同文件系统的抽象</li>
+<li>功能:
+提供相同的文件和文件系统接口
+管理所有文件和文件系统关联的数据结构
+高效查询例程,遍历文件系统
+与特定文件系统模块的交互</li>
+</ul>
+<p>数据结构:</p>
+<h4 id="卷第四声控制块unix-superblock">卷[第四声]控制块(UNIX: &ldquo;superblock&rdquo;)</h4>
+<ul>
+<li>每个文件系统一个</li>
+<li>文件系统详细信息</li>
+<li>块,块大小,空余块,计数,指针等</li>
+</ul>
+<h4 id="文件控制块unix-vnode-or-inode">文件控制块(UNIX: &ldquo;vnode&rdquo; or &ldquo;inode&rdquo;)</h4>
+<ul>
+<li>每个文件一个</li>
+<li>文件详细信息</li>
+<li>许可,拥有者,大小,数据库位置等</li>
+</ul>
+<h4 id="目录节点linux-dentry">目录节点(Linux: &ldquo;dentry&rdquo;)</h4>
+<ul>
+<li>每个目录项一个(目录和文件)</li>
+<li>将目录项数据结构及树形布局编码成树形数据结构</li>
+<li>指向文件控制块,父节点,项目列表等</li>
+</ul>
+<p>其中: 卷控制块(每个文件系统一个),文件控制块(每个文件一个),目录节点(每个目录项一个)</p>
+<p>持续存储在二级存储中: 在分配在存储设备中的数据块中</p>
+<h5 id="当需要时加载进内存">当需要时加载进内存</h5>
+<p>卷控制块: 当文件系统挂载时进入内存
+文件控制块: 当文件被访问时进入内存
+目录节点: 在遍历一个文件路径时进入内存</p>
+<h2 id="3数据块缓存">3.数据块缓存</h2>
+<ul>
+<li>数据块按需读入内存:
+提供 <code>read()</code> 操作<br>
+预读: 预先读取后面的数据块</li>
+<li>数据块使用后被缓存:
+假设数据将会再次被使用<br>
+写操作可能被缓存和延迟写入</li>
+<li>两种数据块缓存方式:
+普通缓冲区缓存<br>
+页缓存: 同一缓存数据块和内存页</li>
+</ul>
+<p>分页要求: 当需要一个页时才将其载入内存<br>
+支持存储: 一个页(在虚拟地址空间中)可以被映射到一个本地文件中(在二级存储中)</p>
+<h2 id="4打开文件的数据结构">4.打开文件的数据结构</h2>
+<h4 id="打开文件描述">打开文件描述</h4>
+<ul>
+<li>每个被打开的文件一个</li>
+<li>文件状态信息</li>
+<li>目录项,当前文件指针,文件操作设置等</li>
+</ul>
+<h4 id="打开文件表">打开文件表</h4>
+<ul>
+<li>
+<p>一个进程一个</p>
+</li>
+<li>
+<p>一个系统级的</p>
+</li>
+<li>
+<p>每个卷控制块也会保存一个列表</p>
+</li>
+<li>
+<p>所以如果有文件被打开将不能被卸载</p>
+</li>
+<li>
+<p>一些操作系统和文件系统提供该功能</p>
+</li>
+<li>
+<p>调节对文件的访问</p>
+</li>
+<li>
+<p>强制和劝告:
+强制 - 根据锁保持情况和需求拒绝访问<br>
+劝告 - 进程可以查找锁的状态来决定怎么做</p>
+</li>
+</ul>
+<h2 id="5文件分配">5.文件分配</h2>
+<h4 id="大多数文件都很小">大多数文件都很小</h4>
+<ul>
+<li>需要对小文件提供强力的支持</li>
+<li>块空间不能太小</li>
+</ul>
+<h4 id="一些文件非常大">一些文件非常大</h4>
+<ul>
+<li>必须支持大文件(64-bit 文件偏移)</li>
+<li>大文件访问需要相当高效</li>
+</ul>
+<p>如何为一个文件分配数据块</p>
+<h4 id="分配方式">分配方式</h4>
+<ul>
+<li>连续分配</li>
+<li>链式分配</li>
+<li>索引分配</li>
+</ul>
+<h4 id="指标">指标</h4>
+<ul>
+<li>高效: 如存储利用(外部碎片)</li>
+<li>表现: 如访问速度</li>
+</ul>
+<p>连续分配:<br>
+文件头指定起始块和长度<br>
+位置,分配策略: 最先匹配,最佳匹配,&hellip;</p>
+<ul>
+<li>优势: 文件读取表现好;高效的顺序和随机访问</li>
+<li>劣势: 碎片;文件增长问题</li>
+</ul>
+<p>链式分配:<br>
+文件以数据块链表方式存储<br>
+文件头包含了到第一块和最后一块的指针</p>
+<ul>
+<li>优势: 创建,增大,缩小很容易;没有碎片</li>
+<li>劣势: 不可能进行真正的随机访问;可靠性</li>
+</ul>
+<p>索引分配:<br>
+为每个文件创建一个名为索引数据块的非数据数据块(到文件数据块的指针列表)<br>
+文件头包含了索引数据块</p>
+<ul>
+<li>优势: 创建,增大,缩小很容易;没有碎片;支持直接访问</li>
+<li>劣势: 当文件很小时,存储索引的开销大;处理大文件难</li>
+</ul>
+<h2 id="6空闲空间列表">6.空闲空间列表</h2>
+<p>跟踪在存储中的所有未分配的数据块<br>
+空闲空间列表存储在哪里?<br>
+空闲空间列表的最佳数据结构怎么样?</p>
+<h4 id="用位图代表空闲数据块列表">用位图代表空闲数据块列表</h4>
+<p>11111101101110111 如果 i = 0表明数据块i是空闲的,反之是分配的</p>
+<h4 id="使用简单但是可能会是一个big-vector">使用简单但是可能会是一个big vector</h4>
+<ul>
+<li>160GB disk → 40M blocks → 5MB worth of bits</li>
+<li>然而,如果空闲空间在磁盘中均匀分布,那么再找到&quot;0&quot;之前需要扫描 磁盘上数据块总数 / 空闲块的数目</li>
+</ul>
+<p><strong>需要保护</strong>:</p>
+<ul>
+<li>指向空闲列表的指针</li>
+<li>位图:
+必须保存在磁盘上;
+在内存和磁盘拷贝可能有所不同;
+不允许block[i]在内存中的状态为bit[i]=1而在磁盘中bit[i]=0</li>
+</ul>
+<p>解决:
+在磁盘上设置bit[i] = 1; 分配block[i]; 在内存中设置bit[i] = 1</p>
+<h2 id="7多磁盘管理---raid">7.多磁盘管理 - RAID</h2>
+<ul>
+<li>通常磁盘通过分区来最大限度减小寻道时间:
+一个分区是一个柱面的集合
+每个分区都是逻辑上独立的磁盘</li>
+<li>分区: 硬件磁盘的一种适合操作系统指定格式的划分</li>
+<li>卷: 一个拥有一个文件系统实例的可访问的存储空间(通常常驻在磁盘的单个分区上)</li>
+</ul>
+<p>使用多个并行磁盘来增加: 吞吐量(通过并行),可靠性和可用性(通过冗余)
+RAID - 冗余磁盘阵列: 各种磁盘管理技术;RAID levels: 不同RAID分类,如RAID-0,RAID-1,RAID-5
+实现: 在操作系统内核: 存储,卷管理; RAID硬件控制器(IO)</p>
+<p>RAID-0</p>
+<ul>
+<li>数据块分成多个子块, 存储在独立的磁盘中: 和内存交叉相似</li>
+<li>通过更大的有效块大小来提供更大的磁盘带宽</li>
+</ul>
+<p>RAID-1</p>
+<ul>
+<li>可靠性成倍增长</li>
+<li>读取性能线性增加(向两个磁盘写入,从任何一个读取)</li>
+</ul>
+<p>RAID-4</p>
+<p>数据块级磁带配有专用奇偶校验磁盘: 允许从任意一个故障磁盘中恢复<br>
+条带化和奇偶校验按byte-by-byte或者bit-by-bit: RAID-0,4,5: block-wise ;RAID-3: bit-wise</p>
+<p>RAID-5</p>
+<p>每个条带快有一个奇偶校验块,允许有一个磁盘错误</p>
+<p>RAID-6</p>
+<p>两个冗余块,有一种特殊的编码方式,允许两个磁盘错误</p>
+<h2 id="8磁盘盘调度">8.磁盘盘调度</h2>
+<p>读取或写入时,磁头必须被定位在期望的磁道,并从所期望的扇区开始<br>
+寻道时间: 定位到期望的磁道所花费的时间<br>
+旋转延迟: 从扇区的开始处到到达目的处花费的时间</p>
+<p>平均旋转延迟时间 = 磁盘旋转一周时间的一半</p>
+<p>寻道时间是性能上区别的原因<br>
+对单个磁盘,会有一个IO请求数目<br>
+如果请求是随机的,那么会表现很差</p>
+<h4 id="cifo">CIFO</h4>
+<p>按顺序处理请求
+公平对待所有进程<br>
+在有很多进程的情况下,接近随机调度的性能</p>
+<p>最短服务优先:<br>
+选择从磁臂当前位置需要移动最少的IO请求<br>
+总是选择最短寻道时间</p>
+<h4 id="skan">skan</h4>
+<p>磁臂在一个方向上移动,满足所有为完成的请求,直到磁臂到达该方向上最后的磁道<br>
+调换方向</p>
+<h4 id="c-skan">c-skan</h4>
+<p>限制了仅在一个方向上扫描<br>
+当最后一个磁道也被访问过了后,磁臂返回到磁盘的另外一端再次进行扫描<br>
+c-loop(c-skan改进):<br>
+磁臂先到达该方向上最后一个请求处,然后立即反转</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/os/" rel="tag">OS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/operating-system/" rel="tag">Operating System</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/os/os_11/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【操作系统笔记】OS_死锁和进程通信(11)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_12/">【操作系统笔记】OS_文件管理(12)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_11/">【操作系统笔记】OS_死锁和进程通信(11)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_10/">【操作系统笔记】OS_信号量和管程(10)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_09/">【操作系统笔记】OS_同步(09)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/chatgpt/">【人工智能】ChatGPT为什么这么火？</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/os/os_08/">【操作系统笔记】OS_CPU调度(08)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">31</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">7</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
+				<span>简书</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
