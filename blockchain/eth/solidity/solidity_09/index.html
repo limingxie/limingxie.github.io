@@ -18,7 +18,7 @@
 <meta itemprop="description" content="这篇文章简单的整理了modifire相关的内容。">
 <meta itemprop="datePublished" content="2023-05-08T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-05-08T23:28:49+08:00" />
-<meta itemprop="wordCount" content="124">
+<meta itemprop="wordCount" content="207">
 
 
 
@@ -145,61 +145,109 @@
 	<div class="toc__menu">
 		<nav id="TableOfContents">
   <ul>
-    <li><a href="#1作用域">1.作用域</a></li>
-    <li><a href="#2构造函数">2.构造函数</a></li>
+    <li><a href="#1基本用法">1.基本用法</a></li>
+    <li><a href="#2modifier的参数">2.modifier的参数</a></li>
+    <li><a href="#3多个modifier的执行顺序">3.多个modifier的执行顺序</a></li>
   </ul>
 </nav>
 	</div>
 </div><div class="content post__content clearfix">
 			<p>这篇文章简单的整理了<code>modifire</code>相关的内容。</p>
-<h2 id="1作用域">1.作用域</h2>
+<h2 id="1基本用法">1.基本用法</h2>
+<p>可以把共同的验证代码写成modifier</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
 
-<span style="color:#66d9ef">contract</span> ValueCopy {
+<span style="color:#66d9ef">contract</span> modifierTest {
 
-    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
-    <span style="color:#66d9ef">uint</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> owner;
+    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    <span style="color:#66d9ef">function</span> test() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 100
+    constructor() <span style="color:#66d9ef">public</span> {
+        owner <span style="color:#f92672">=</span> msg.sender;
+    }
+
+    <span style="color:#75715e">// 定义modifier
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">modifier</span> OnlyOwener{
+        require(msg.sender <span style="color:#f92672">==</span> owner);
+
+        <span style="color:#66d9ef">_</span>; <span style="color:#75715e">// 这里添加自定义代码
 </span><span style="color:#75715e"></span>    }
 
-    <span style="color:#66d9ef">function</span> test1() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-        <span style="color:#75715e">// a不会报重定义错误，函数内部只认内部参数a
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">uint</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>;
-        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 300
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> test2(<span style="color:#66d9ef">uint</span> a) <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-        a <span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span>;
-
-        <span style="color:#75715e">// a重定义报错
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// for(uint a = 0; a &lt; 10: a++){
-</span><span style="color:#75715e"></span>
-        <span style="color:#75715e">// }
-</span><span style="color:#75715e"></span>        {
-            <span style="color:#75715e">// a重定义报错
-</span><span style="color:#75715e"></span>            <span style="color:#75715e">// uint a = 500;  
-</span><span style="color:#75715e"></span>        }
-
-        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 400
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><h2 id="2构造函数">2.构造函数</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> gouzao {
-    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> aa <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
-    constructor(<span style="color:#66d9ef">uint</span> _aa) <span style="color:#66d9ef">public</span>{
-        aa <span style="color:#f92672">=</span> _aa;
+    <span style="color:#75715e">// 把代码嵌入到OnlyOwener modifier 的 _; 处。 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> changeIt(<span style="color:#66d9ef">uint</span> _num) <span style="color:#66d9ef">public</span> OnlyOwener {
+        num <span style="color:#f92672">=</span> _num;
     }
 }
+</code></pre></div><h2 id="2modifier的参数">2.modifier的参数</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
 
-<span style="color:#66d9ef">contract</span> gouzao2 {
-    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> owner;
-    constructor() <span style="color:#66d9ef">public</span>{
-        <span style="color:#75715e">// 可以记录合约的拥有者
-</span><span style="color:#75715e"></span>        owner <span style="color:#f92672">=</span> msg.sender;
+<span style="color:#66d9ef">contract</span> modifierTest {
+
+    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> level <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">string</span> <span style="color:#66d9ef">public</span> name;
+    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> DNA;
+
+    <span style="color:#66d9ef">function</span> changeLevel(<span style="color:#66d9ef">uint</span> _level) <span style="color:#66d9ef">public</span> {
+        level <span style="color:#f92672">=</span>_level;
+    }
+
+    <span style="color:#75715e">// 普通的验证
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> changeName(<span style="color:#66d9ef">string</span> _name) <span style="color:#66d9ef">public</span> {
+        require(level <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">2</span> );
+        name <span style="color:#f92672">=</span> _name;
+    }
+    <span style="color:#75715e">// 普通的验证
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> changeDNA(<span style="color:#66d9ef">uint</span> _dna) <span style="color:#66d9ef">public</span> {
+        require(level <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">10</span>);
+        DNA <span style="color:#f92672">=</span> _dna;
+    }
+
+    <span style="color:#75715e">// modifier的参数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">modifier</span> controllevel(<span style="color:#66d9ef">uint</span> needLevel) {
+        require(level <span style="color:#f92672">&gt;=</span> needLevel);
+        <span style="color:#66d9ef">_</span>;
+    }
+
+    <span style="color:#75715e">// 使用有参数的modifier
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> changeName1(<span style="color:#66d9ef">string</span> _name) <span style="color:#66d9ef">public</span> controllevel(<span style="color:#ae81ff">2</span>) {
+        <span style="color:#75715e">// require(level &gt;= 2 );
+</span><span style="color:#75715e"></span>        name <span style="color:#f92672">=</span> _name;
+    }
+    <span style="color:#75715e">// 使用有参数的modifier
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> changeDNA1(<span style="color:#66d9ef">uint</span> _dna) <span style="color:#66d9ef">public</span> controllevel(<span style="color:#ae81ff">10</span>) {
+        <span style="color:#75715e">// require(level &gt;= 10);
+</span><span style="color:#75715e"></span>        DNA <span style="color:#f92672">=</span> _dna;
+    }
+}
+</code></pre></div><h2 id="3多个modifier的执行顺序">3.多个modifier的执行顺序</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+
+<span style="color:#66d9ef">contract</span> multiModifierTest3 {
+
+    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    
+    <span style="color:#75715e">// 定义modifier
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">modifier</span> modifier1{
+        a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+
+        <span style="color:#66d9ef">_</span>; 
+
+        a<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+    }
+
+    <span style="color:#66d9ef">modifier</span> modifier2{
+        a<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>;
+
+        <span style="color:#66d9ef">_</span>; 
+
+        a<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>;
+    }
+
+    <span style="color:#75715e">// 多个modifier
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 执行顺序 a=1 a=3 a=10 a=4 a=2
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// modifier1的 _; 执行的是 modifier2; modifier2的 _; 彩之星test的方法
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> test() <span style="color:#66d9ef">public</span> modifier1 modifier2 {
+        a <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
     }
 }
 </code></pre></div><hr>
