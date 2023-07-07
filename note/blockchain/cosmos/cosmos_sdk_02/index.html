@@ -4,21 +4,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>【cosmos-sdk笔记】Genesis File - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<title>【cosmos-sdk笔记】simd 常用的命令整理 - 宅男 &#43; 屌丝 &#43; 程序员</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="【cosmos-sdk笔记】Genesis File" />
-<meta property="og:description" content="基于 simapp 和 gaia 整理了Genesis File内容" />
+		<meta property="og:title" content="【cosmos-sdk笔记】simd 常用的命令整理" />
+<meta property="og:description" content="整理了，simd链 启用后的简单的操作命令。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_02/" />
 <meta property="article:published_time" content="2023-05-19T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-05-19T23:28:49+08:00" />
 
-		<meta itemprop="name" content="【cosmos-sdk笔记】Genesis File">
-<meta itemprop="description" content="基于 simapp 和 gaia 整理了Genesis File内容">
+		<meta itemprop="name" content="【cosmos-sdk笔记】simd 常用的命令整理">
+<meta itemprop="description" content="整理了，simd链 启用后的简单的操作命令。">
 <meta itemprop="datePublished" content="2023-05-19T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-05-19T23:28:49+08:00" />
-<meta itemprop="wordCount" content="526">
+<meta itemprop="wordCount" content="58">
 
 
 
@@ -130,7 +130,7 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">【cosmos-sdk笔记】Genesis File</h1>
+			<h1 class="post__title">【cosmos-sdk笔记】simd 常用的命令整理</h1>
 			<div class="post__meta meta"><div class="meta__item-author meta__item">
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
 </div>
@@ -145,222 +145,30 @@
 	<div class="toc__menu">
 		<nav id="TableOfContents">
   <ul>
-    <li><a href="#1genesis-file">1.Genesis File</a></li>
-    <li><a href="#2创建genesis-file">2.创建Genesis File</a></li>
+    <li><a href="#key">key</a></li>
+    <li><a href="#group">group</a></li>
+    <li><a href="#bank">bank</a></li>
   </ul>
 </nav>
 	</div>
 </div><div class="content post__content clearfix">
-			<p>基于 simapp 和 gaia 整理了<code>Genesis File</code>内容</p>
-<h2 id="1genesis-file">1.Genesis File</h2>
-<p>genesis文件是一个JSON文件，用于定义区块链的初始状态。<br>
-它可以被视为您的区块链的高度0。高度为1的块将引用genesis文件作为父块。</p>
-<p>genesis文件中定义的状态包含所有必要的信息，<br>
-如初始令牌分配、genesis时间、默认参数等。</p>
-<h2 id="2创建genesis-file">2.创建Genesis File</h2>
-<p>可以先执行 init 方法创建默认文件。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd init &lt;moniker&gt; --chain-id &lt;chain-id&gt;
-
-// 例子
-./simd init test --chain-id demo
-</code></pre></div><p>默认路径在 ~/.simapp/config/genesis.json</p>
-<pre><code>{
-  &quot;genesis_time&quot;: &quot;2023-07-05T02:57:12.727578Z&quot;, // 区块启动的时间
-  &quot;chain_id&quot;: &quot;demo&quot;, // 区块链唯一标识符
-  &quot;initial_height&quot;: &quot;1&quot;, // 初始块的高度
-  &quot;consensus_params&quot;: { // 共识相关参数
-    &quot;block&quot;: {
-      &quot;max_bytes&quot;: &quot;22020096&quot;, // 每个区块最大字节数
-      &quot;max_gas&quot;: &quot;-1&quot;, // 每个区块gas的最大限制，一个区块中包含的交易使用的总Gas量不能超过此限制。
-      &quot;time_iota_ms&quot;: &quot;1000&quot;
-    },
-    //证据evidence模块的作用是确保网络的安全性和可信性，
-    //通过收集和处理evidence来检测恶意行为和双重签名等问题。
-    &quot;evidence&quot;: {
-      &quot;max_age_num_blocks&quot;: &quot;100000&quot;, // evidence的有效区块数，超过这个数量就会无效
-      &quot;max_age_duration&quot;: &quot;172800000000000&quot;, // evidence的有效期间
-      &quot;max_bytes&quot;: &quot;1048576&quot; // evidence的最大字节数
-    },
-    &quot;validator&quot;: {
-      &quot;pub_key_types&quot;: [ //验证这的pubKey类型
-        &quot;ed25519&quot;
-      ]
-    },
-    &quot;version&quot;: {}
-  },
-  &quot;app_hash&quot;: &quot;&quot;,
-  &quot;app_state&quot;: {
-    &quot;auth&quot;: {
-      &quot;params&quot;: {
-        &quot;max_memo_characters&quot;: &quot;256&quot;,
-        &quot;tx_sig_limit&quot;: &quot;7&quot;,
-        &quot;tx_size_cost_per_byte&quot;: &quot;10&quot;,
-        &quot;sig_verify_cost_ed25519&quot;: &quot;590&quot;,
-        &quot;sig_verify_cost_secp256k1&quot;: &quot;1000&quot;
-      },
-      &quot;accounts&quot;: [
-        {
-          &quot;address&quot;: &quot;cosmos1qs8tnw2t8l6amtzvdemnnsq9dzk0ag0z37gh3h&quot;,
-          &quot;coins&quot;: [
-            {
-              &quot;denom&quot;: &quot;uatom&quot;,
-              &quot;amount&quot;: &quot;10000000&quot;
-            }
-          ],
-          &quot;sequence_number&quot;: &quot;0&quot;,     // 每次事务被包括在块中时，它都会递增，并用于防止重放攻击。初始值为0。
-          &quot;account_number&quot;: &quot;0&quot;,      // 帐户的唯一标识符。账户首次交易的块中生成。
-          &quot;original_vesting&quot;: [
-            {
-              &quot;denom&quot;: &quot;uatom&quot;,
-              &quot;amount&quot;: &quot;26306000000&quot;
-            }
-          ],
-          &quot;delegated_free&quot;: null,     // 授予后可以转移的委托代币数量。一般是 null。
-          &quot;delegated_vesting&quot;: null,  // 委托代币金额。一般是 null。
-          &quot;start_time&quot;: &quot;0&quot;,          // 开始的区块，一般是 0
-          &quot;end_time&quot;: &quot;0&quot;             // 结束的区块，一般是 0
-        }
-      ]
-    },
-    &quot;authz&quot;: {
-      &quot;authorization&quot;: []
-    },
-    &quot;bank&quot;: {
-      &quot;params&quot;: {
-        &quot;send_enabled&quot;: [],
-        &quot;default_send_enabled&quot;: true // enabled transfers
-      },
-      &quot;balances&quot;: [],
-      &quot;supply&quot;: [],
-      &quot;denom_metadata&quot;: []
-    },
-    &quot;capability&quot;: {
-      &quot;index&quot;: &quot;1&quot;,
-      &quot;owners&quot;: []
-    },
-    &quot;crisis&quot;: {
-      &quot;constant_fee&quot;: {
-        &quot;denom&quot;: &quot;stake&quot;,
-        &quot;amount&quot;: &quot;1000&quot;
-      }
-    },
-    &quot;distribution&quot;: {
-      &quot;params&quot;: {
-        &quot;community_tax&quot;: &quot;0.020000000000000000&quot;,          // 社区税收, 手续费和区块奖励的税收百分比，其中一部分进入社区资金池。
-        &quot;base_proposer_reward&quot;: &quot;0.010000000000000000&quot;,   // 区块提议者奖励基准%
-        &quot;bonus_proposer_reward&quot;: &quot;0.040000000000000000&quot;,  // 区块提议者奖励额外奖励
-        &quot;withdraw_addr_enabled&quot;: true   // 是否启用提款地址: 设置为 true，委托人可以设置不同的地址来提取他们的奖励。
-      },
-      &quot;fee_pool&quot;: {
-        &quot;community_pool&quot;: []                  // 社区资金池
-      },
-      &quot;delegator_withdraw_infos&quot;: [],         // 委托人提款信息列表
-      &quot;previous_proposer&quot;: &quot;&quot;,                // 上一个区块的提议者
-      &quot;outstanding_rewards&quot;: [],              // 未提取的奖励
-      &quot;validator_accumulated_commissions&quot;: [],// 验证者累积佣金
-      &quot;validator_historical_rewards&quot;: [],     // 验证者历史奖励
-      &quot;validator_current_rewards&quot;: [],        // 验证者当前奖励
-      &quot;delegator_starting_infos&quot;: [],         // 委托人初始信息
-      &quot;validator_slash_events&quot;: []            // 验证者处罚事件
-    },
-    &quot;evidence&quot;: {
-      &quot;evidence&quot;: []
-    },
-    &quot;feegrant&quot;: {
-      &quot;allowances&quot;: []
-    },
-    &quot;genutil&quot;: {
-      &quot;gen_txs&quot;: []
-    },
-    &quot;gov&quot;: {
-      &quot;starting_proposal_id&quot;: &quot;1&quot;,// 起始提案ID
-      &quot;deposits&quot;: [],             // 存款列表:每个提案ID的存款列表
-      &quot;votes&quot;: [],                // 投票列表:每个提案ID的投票列表
-      &quot;proposals&quot;: [],            // 提案列表:每个提案ID的提案列表
-      &quot;deposit_params&quot;: {
-        &quot;min_deposit&quot;: [          // 最少质押金
-          {
-            &quot;denom&quot;: &quot;stake&quot;,
-            &quot;amount&quot;: &quot;10000000&quot;
-          }
-        ],
-        &quot;max_deposit_period&quot;: &quot;172800s&quot;  // 最大质押期限
-      },
-      &quot;voting_params&quot;: {
-        &quot;voting_period&quot;: &quot;172800s&quot;       // 投票期限
-      },
-      &quot;tally_params&quot;: {
-        &quot;quorum&quot;: &quot;0.334000000000000000&quot;,     // 法定人数:需要对提案投票的绑定代币的最低百分比
-        &quot;threshold&quot;: &quot;0.500000000000000000&quot;,  // 通过门槛:需要投票赞成的最低百分比
-        &quot;veto_threshold&quot;: &quot;0.334000000000000000&quot; // 否决门槛:结果有效的最大反对门槛
-      }
-    },
-    &quot;group&quot;: {
-      &quot;group_seq&quot;: &quot;0&quot;,         // 起始 groupId
-      &quot;groups&quot;: [],
-      &quot;group_members&quot;: [],
-      &quot;group_policy_seq&quot;: &quot;0&quot;,  // 起始 group_policy_id
-      &quot;group_policies&quot;: [],
-      &quot;proposal_seq&quot;: &quot;0&quot;,      // 起始 proposal_id
-      &quot;proposals&quot;: [],          
-      &quot;votes&quot;: []
-    },
-    &quot;mint&quot;: {
-      &quot;minter&quot;: {
-        &quot;inflation&quot;: &quot;0.130000000000000000&quot;,          // 通胀率%, 每周复利计算
-        &quot;annual_provisions&quot;: &quot;0.000000000000000000&quot;   // 年度供应量，是根据通胀率和绑定代币总供应计算出来
-      },
-      &quot;params&quot;: {
-        &quot;mint_denom&quot;: &quot;stake&quot;,                        // 代币名称
-        &quot;inflation_rate_change&quot;: &quot;0.130000000000000000&quot;, //  是通胀率每年允许的最大变化量。
-        &quot;inflation_max&quot;: &quot;0.200000000000000000&quot;,      // 通胀率允许达到的最高值
-        &quot;inflation_min&quot;: &quot;0.070000000000000000&quot;,      // 通胀率允许达到的最低值
-        &quot;goal_bonded&quot;: &quot;0.670000000000000000&quot;,        // 目标绑定的总供应百分比
-        &quot;blocks_per_year&quot;: &quot;6311520&quot;                  // 每年预计区块数量
-      }
-    },
-    &quot;nft&quot;: {
-      &quot;classes&quot;: [],
-      &quot;entries&quot;: []
-    },
-    &quot;params&quot;: null,
-    &quot;slashing&quot;: {
-      &quot;params&quot;: {
-        &quot;signed_blocks_window&quot;: &quot;100&quot;,                        // 签名块窗口
-        &quot;min_signed_per_window&quot;: &quot;0.500000000000000000&quot;,      // 窗口内最低签名比例
-        &quot;downtime_jail_duration&quot;: &quot;600s&quot;,                     // 停机监禁期限
-        &quot;slash_fraction_double_sign&quot;: &quot;0.050000000000000000&quot;, // 双签切割比例
-        &quot;slash_fraction_downtime&quot;: &quot;0.010000000000000000&quot;     // 停机切割比例
-      },
-      &quot;signing_infos&quot;: [],    // 签名信息
-      &quot;missed_blocks&quot;: []     // 漏块信息
-    },
-    &quot;staking&quot;: {
-      &quot;pool&quot;: {
-        &quot;not_bonded_tokens&quot;: &quot;10000000&quot;,  // 初始未绑定的代币的数量，
-        &quot;bonded_tokens&quot;: &quot;0&quot;              // 初始已绑定的代币数量
-      },
-      &quot;params&quot;: {
-        &quot;unbonding_time&quot;: &quot;1814400s&quot;,     // 代币解绑过程时间
-        &quot;max_validators&quot;: 100,            // 定义网络中最多活跃的验证者数量
-        &quot;max_entries&quot;: 7,                 // 这一期间解绑和转委托的最大次数限制
-        &quot;historical_entries&quot;: 10000,      
-        &quot;bond_denom&quot;: &quot;stake&quot;,            // 货币符号
-        &quot;min_commission_rate&quot;: &quot;0.000000000000000000&quot;
-      },
-      &quot;last_total_power&quot;: &quot;0&quot;,            // 上一个总投票权重，除非Genesis是通过先前状态生成的。一般设为0
-      &quot;last_validator_powers&quot;: [],        // 上一个每个验证者的权重或投票权重，除非Genesis是通过先前状态生成的。一般设为null
-      &quot;validators&quot;: [],                   // 上一个已知验证者列表
-      &quot;delegations&quot;: [],                  // 上一个已知委托列表
-      &quot;unbonding_delegations&quot;: [],        // 上一个已知的解绑委托列表
-      &quot;redelegations&quot;: [],                // 上一个已知的转委托列表
-      &quot;exported&quot;: false                   // Genesis文件是否使用先前导出生成
-    },
-    &quot;upgrade&quot;: {},
-    &quot;vesting&quot;: {}
-  }
-}
-</code></pre><hr>
+			<p>整理了，simd链 启用后的简单的操作命令。</p>
+<h2 id="key">key</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 添加
+./simd keys add alice
+// 查看
+./simd keys list
+./simd keys show alice 
+./simd keys show alice --address
+</code></pre></div><h2 id="group">group</h2>
+<pre><code>./simd query group
+./simd tx group
+</code></pre><h2 id="bank">bank</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//simd query bank balances <span style="color:#f92672">[</span>address<span style="color:#f92672">]</span>
+./simd query bank balances cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
+//simd tx bank send <span style="color:#f92672">[</span>from_key_or_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>to_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>amount<span style="color:#f92672">]</span>
+./simd tx bank send cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0 cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd  5000stake
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -400,13 +208,13 @@
 	<div class="pager__item pager__item--prev">
 		<a class="pager__link" href="/note/blockchain/cosmos/cosmos_sdk_01/" rel="prev">
 			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">【cosmos-sdk笔记】simd 常用的命令整理</p>
+			<p class="pager__title">【cosmos-sdk笔记】启动 simapp</p>
 		</a>
 	</div>
 	<div class="pager__item pager__item--next">
 		<a class="pager__link" href="/note/blockchain/cosmos/cosmos_sdk_03/" rel="next">
 			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">【cosmos-sdk笔记】x-authz module</p>
+			<p class="pager__title">【cosmos-sdk笔记】Genesis File</p>
 		</a>
 	</div>
 </nav>
@@ -427,11 +235,11 @@
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item"><a class="widget__link" href="/limingxie/fanxing/">原来我是这么不理智的人...ㅠㅠ</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_06/">【cosmos-sdk笔记】x-gov module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_05/">【cosmos-sdk笔记】x-group module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_04/">【cosmos-sdk笔记】x-feegrant module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_03/">【cosmos-sdk笔记】x-authz module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_02/">【cosmos-sdk笔记】Genesis File</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_07/">【cosmos-sdk笔记】x-gov module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_06/">【cosmos-sdk笔记】x-group module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_05/">【cosmos-sdk笔记】x-feegrant module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_04/">【cosmos-sdk笔记】x-authz module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_03/">【cosmos-sdk笔记】Genesis File</a></li>
 		</ul>
 	</div>
 </div>
@@ -453,7 +261,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">68</span>
+				<span class="widget__counter widget__counter--bubble">69</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -461,7 +269,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/cosmos/">cosmos</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">6</span>
+				<span class="widget__counter widget__counter--bubble">7</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;

@@ -4,23 +4,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>【cosmos-sdk笔记】x-group module - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<title>【cosmos-sdk笔记】x-feegrant module - 宅男 &#43; 屌丝 &#43; 程序员</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="【cosmos-sdk笔记】x-group module" />
-<meta property="og:description" content="链中启用组模块，用户可以创建组提交组提案。
-也可以将其视为增强型多重签名或 DAO。" />
+		<meta property="og:title" content="【cosmos-sdk笔记】x-feegrant module" />
+<meta property="og:description" content="BasicAllowance
+该津贴有一次性限制、过期或无限制。
+PeriodicAllowance
+该津贴有限额，该限额会定期重置。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_05/" />
 <meta property="article:published_time" content="2023-05-22T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-05-22T23:28:49+08:00" />
 
-		<meta itemprop="name" content="【cosmos-sdk笔记】x-group module">
-<meta itemprop="description" content="链中启用组模块，用户可以创建组提交组提案。
-也可以将其视为增强型多重签名或 DAO。">
+		<meta itemprop="name" content="【cosmos-sdk笔记】x-feegrant module">
+<meta itemprop="description" content="BasicAllowance
+该津贴有一次性限制、过期或无限制。
+PeriodicAllowance
+该津贴有限额，该限额会定期重置。">
 <meta itemprop="datePublished" content="2023-05-22T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-05-22T23:28:49+08:00" />
-<meta itemprop="wordCount" content="1579">
+<meta itemprop="wordCount" content="383">
 
 
 
@@ -132,7 +136,7 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">【cosmos-sdk笔记】x-group module</h1>
+			<h1 class="post__title">【cosmos-sdk笔记】x-feegrant module</h1>
 			<div class="post__meta meta"><div class="meta__item-author meta__item">
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
 </div>
@@ -147,62 +151,26 @@
 	<div class="toc__menu">
 		<nav id="TableOfContents">
   <ul>
-    <li><a href="#1组模块的几个概念">1.组模块的几个概念</a>
-      <ul>
-        <li><a href="#组管理员group-admin">组管理员(Group Admin)</a></li>
-        <li><a href="#组策略group-policy">组策略(Group policy)</a></li>
-        <li><a href="#决策decision-policy">决策(Decision policy)</a></li>
-        <li><a href="#提议proposal">提议(Proposal)</a></li>
-      </ul>
-    </li>
-    <li><a href="#2配置启动链">2.配置启动链</a></li>
-    <li><a href="#3组织和成员管理">3.组织和成员管理</a>
-      <ul>
-        <li><a href="#启动-ipfs">启动 IPFS</a></li>
-        <li><a href="#创建组织成员">创建组织成员</a></li>
-        <li><a href="#管理-group-成员">管理 group 成员</a></li>
-      </ul>
-    </li>
-    <li><a href="#4创建group-policy">4.创建group policy</a></li>
-    <li><a href="#5创建proposal">5.创建proposal</a>
-      <ul>
-        <li><a href="#新建提案-ipfs">新建提案 IPFS</a></li>
-        <li><a href="#创建提案信息">创建提案信息</a></li>
-        <li><a href="#提案过程">提案过程</a></li>
-        <li><a href="#立即执行提案结束">立即执行提案结束</a></li>
-        <li><a href="#查看收款人有没有收到款">查看收款人有没有收到款</a></li>
-      </ul>
-    </li>
+    <li><a href="#1-准备环境以及启动链">1. 准备环境以及启动链</a></li>
+    <li><a href="#2-feegrant-grant">2. feegrant grant</a></li>
+    <li><a href="#3-撤销">3. 撤销</a></li>
   </ul>
 </nav>
 	</div>
 </div><div class="content post__content clearfix">
-			<p>链中启用组模块，用户可以创建组提交组提案。<br>
-也可以将其视为增强型多重签名或 DAO。</p>
-<h2 id="1组模块的几个概念">1.组模块的几个概念</h2>
-<h3 id="组管理员group-admin">组管理员(Group Admin)</h3>
-<p>创建群组的帐号就是组管理员。组管理员可以添加、删除或更改组成员账户。<br>
-不是组的成员也可以做组的管理员。</p>
-<h3 id="组策略group-policy">组策略(Group policy)</h3>
-<p>组策略是连接 组Group 和 决策DecisionPolicy。<br>
-为了对此帐户执行操作，提案必须得到大多数小组成员的批准或按照决策政策中的定义进行批准。为避免疑义，请注意一个组可以有多个组策略。</p>
-<h3 id="决策decision-policy">决策(Decision policy)</h3>
-<p>定义小组成员如何对提案进行投票以及如何计算投票结果的政策。决策策略与组策略相关联。这意味着一个组可以针对其每个不同的组策略有不同的决策策略。</p>
-<h3 id="提议proposal">提议(Proposal)</h3>
-<p>组提议的工作方式与治理提案GovernanceProposal相同。<br>
-小组成员可以向小组发送提案以及投票，包括赞成、反对、否决或弃权。</p>
-<h2 id="2配置启动链">2.配置启动链</h2>
-<p>simd 版本是 v0.46.6</p>
+			<p>BasicAllowance<br>
+该津贴有一次性限制、过期或无限制。<br>
+PeriodicAllowance<br>
+该津贴有限额，该限额会定期重置。</p>
+<h2 id="1-准备环境以及启动链">1. 准备环境以及启动链</h2>
+<p>simd 版本是 v0.44.0</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd config chain-id demo
 ./simd config keyring-backend test
 
 // 添加用户
 ./simd keys add alice
 ./simd keys add bob
-./simd keys add carol
-./simd keys add dave
-./simd keys add emma
-./simd keys add payee
+
 
 // 为了方便写到变量
 export ALICE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show alice --address<span style="color:#66d9ef">)</span>
@@ -211,533 +179,57 @@ export BOB<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</sp
 // 初始化链
 ./simd init test --chain-id demo
 ./simd add-genesis-account alice 5000000000stake --keyring-backend test
-./simd add-genesis-account bob 5000000000stake --keyring-backend test
+./simd add-genesis-account bob 2000kudos --keyring-backend test
 ./simd gentx alice 1000000stake --chain-id demo
 ./simd collect-gentxs
 
 // 启动
 ./simd start
-</code></pre></div><h2 id="3组织和成员管理">3.组织和成员管理</h2>
-<h3 id="启动-ipfs">启动 IPFS</h3>
-<p>group_metadata.json</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Football Association&#34;</span>,
-  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Best football association&#34;</span>,
-  <span style="color:#f92672">&#34;group_website_url&#34;</span>: <span style="color:#e6db74">&#34;https://www.footbal.club&#34;</span>,
-  <span style="color:#f92672">&#34;group_forum_url&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// ipfs 添加 metadata
-ipfs add group_metadata.json
-ipfs daemon
-</code></pre></div><h3 id="创建组织成员">创建组织成员</h3>
-<p>创建members.json文件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#f92672">&#34;members&#34;</span>: [
-        {
-            <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0&#34;</span>,
-            <span style="color:#f92672">&#34;weight&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-            <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;president&#34;</span>
-        },
-        {
-            <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea&#34;</span>,
-            <span style="color:#f92672">&#34;weight&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-            <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;treasurer&#34;</span>
-        },
-        {
-            <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1lt803etucw5sj4hgwwv2mv8snqj435md56m645&#34;</span>,
-            <span style="color:#f92672">&#34;weight&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-            <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;treasurer&#34;</span>
-        }
-    ]
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tx group create-group $ALICE <span style="color:#e6db74">&#34;ipfs://QmP2fMonzQRRuqJDw6NjTk5dME9VamR5CwAVEca9kHPgRE&#34;</span> members.json
-</code></pre></div><p>执行结果</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.MsgCreateGroup
-    admin: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-    members:
-    - address: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-      metadata: president
-      weight: <span style="color:#e6db74">&#34;1&#34;</span>
-    - address: cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea
-      metadata: treasurer
-      weight: <span style="color:#e6db74">&#34;1&#34;</span>
-    - address: cosmos1lt803etucw5sj4hgwwv2mv8snqj435md56m645
-      metadata: treasurer
-      weight: <span style="color:#e6db74">&#34;1&#34;</span>
-    metadata: ipfs://QmP2fMonzQRRuqJDw6NjTk5dME9VamR5CwAVEca9kHPgRE
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: A178228E3A779BBCD57BF570E3CE00E4956A1DC5EB4E46465C3AF551C3397BFA
-</code></pre></div><p>查看组信息</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query tx A178228E3A779BBCD57BF570E3CE00E4956A1DC5EB4E46465C3AF551C3397BFA --output json | jq <span style="color:#e6db74">&#34;.events&#34;</span> | jq <span style="color:#e6db74">&#39;.[] | select(.type == &#34;cosmos.group.v1.EventCreateGroup&#34;) | .attributes&#39;</span>
-
-<span style="color:#f92672">[</span>
-  <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;key&#34;</span>: <span style="color:#e6db74">&#34;Z3JvdXBfaWQ=&#34;</span>,
-    <span style="color:#e6db74">&#34;value&#34;</span>: <span style="color:#e6db74">&#34;IjEi&#34;</span>,
-    <span style="color:#e6db74">&#34;index&#34;</span>: true
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">]</span>
-
-// GROUP_ID存到变量
-export GROUP_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd query tx A178228E3A779BBCD57BF570E3CE00E4956A1DC5EB4E46465C3AF551C3397BFA --output json | jq <span style="color:#e6db74">&#39;.events&#39;</span> | jq -r <span style="color:#e6db74">&#39;.[] | select(.type == &#34;cosmos.group.v1.EventCreateGroup&#34;) | .attributes[0].value&#39;</span> | base64 --decode | jq -r <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#66d9ef">)</span>
-
-// 查看ALICE 的组信息
-./simd query group groups-by-admin $ALICE
-
-// 执行结果
-groups:
-- admin: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-  created_at: <span style="color:#e6db74">&#34;2023-07-03T02:23:14.550862Z&#34;</span>
-  id: <span style="color:#e6db74">&#34;1&#34;</span>
-  metadata: ipfs://QmP2fMonzQRRuqJDw6NjTk5dME9VamR5CwAVEca9kHPgRE
-  total_weight: <span style="color:#e6db74">&#34;3&#34;</span>
-  version: <span style="color:#e6db74">&#34;1&#34;</span>
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;1&#34;</span>
-
-// 用 GROUP_ID 查看组信息
-./simd query group group-members $GROUP_ID
-// 执行结果
-members:
-- group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  member:
-    added_at: <span style="color:#e6db74">&#34;2023-07-03T02:23:14.550862Z&#34;</span>
-    address: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-    metadata: president
-    weight: <span style="color:#e6db74">&#34;1&#34;</span>
-- group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  member:
-    added_at: <span style="color:#e6db74">&#34;2023-07-03T02:23:14.550862Z&#34;</span>
-    address: cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea
-    metadata: treasurer
-    weight: <span style="color:#e6db74">&#34;1&#34;</span>
-- group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  member:
-    added_at: <span style="color:#e6db74">&#34;2023-07-03T02:23:14.550862Z&#34;</span>
-    address: cosmos1lt803etucw5sj4hgwwv2mv8snqj435md56m645
-    metadata: treasurer
-    weight: <span style="color:#e6db74">&#34;1&#34;</span>
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;3&#34;</span>
-</code></pre></div><h3 id="管理-group-成员">管理 group 成员</h3>
-<p>members_update.json</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#f92672">&#34;members&#34;</span>: [
-        {
-            <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1lt803etucw5sj4hgwwv2mv8snqj435md56m645&#34;</span>, <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">$carol</span>
-            <span style="color:#f92672">&#34;weight&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">this</span> <span style="color:#960050;background-color:#1e0010">deletes</span> <span style="color:#960050;background-color:#1e0010">carol</span>
-            <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">The</span> <span style="color:#960050;background-color:#1e0010">metadata</span> <span style="color:#960050;background-color:#1e0010">does</span> <span style="color:#960050;background-color:#1e0010">not</span> <span style="color:#960050;background-color:#1e0010">need</span> <span style="color:#960050;background-color:#1e0010">to</span> <span style="color:#960050;background-color:#1e0010">be</span> <span style="color:#960050;background-color:#1e0010">mentioned</span>
-        },
-        {
-            <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1d5pca98k23x6wv56n0w3ks3g0x3vw6xf3zvlcv&#34;</span>, <span style="color:#960050;background-color:#1e0010">//daveaddr</span>
-            <span style="color:#f92672">&#34;weight&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-            <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;treasurer&#34;</span>
-        },
-        {
-            <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1yu5fukcjp0rz4vk47xwx9upynrfycwtvft7q80&#34;</span>, <span style="color:#960050;background-color:#1e0010">//emmaaddr</span>
-            <span style="color:#f92672">&#34;weight&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-            <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;player&#34;</span>
-        }
-    ]
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 更新组成员
-./simd tx group update-group-members $ALICE $GROUP_ID members_update.json
-
-// 执行结果
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.MsgUpdateGroupMembers
-    admin: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-    group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-    member_updates:
-    - address: cosmos1lt803etucw5sj4hgwwv2mv8snqj435md56m645
-      metadata: <span style="color:#e6db74">&#34;&#34;</span>
-      weight: <span style="color:#e6db74">&#34;0&#34;</span>
-    - address: cosmos1d5pca98k23x6wv56n0w3ks3g0x3vw6xf3zvlcv
-      metadata: treasurer
-      weight: <span style="color:#e6db74">&#34;1&#34;</span>
-    - address: cosmos1yu5fukcjp0rz4vk47xwx9upynrfycwtvft7q80
-      metadata: player
-      weight: <span style="color:#e6db74">&#34;1&#34;</span>
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: E74CDC0FD3395E942E8E692DF162C727E4CC5DD47A4F64D9B25DA8573E168ABB
-
-// 查看更新结果
-./simd query group group-members $GROUP_ID
-
-// 执行结果
-members:
-- group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  member:
-    added_at: <span style="color:#e6db74">&#34;2023-07-03T02:27:36.485818Z&#34;</span>
-    address: cosmos1yu5fukcjp0rz4vk47xwx9upynrfycwtvft7q80
-    metadata: player
-    weight: <span style="color:#e6db74">&#34;1&#34;</span>
-- group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  member:
-    added_at: <span style="color:#e6db74">&#34;2023-07-03T02:27:36.485818Z&#34;</span>
-    address: cosmos1d5pca98k23x6wv56n0w3ks3g0x3vw6xf3zvlcv
-    metadata: treasurer
-    weight: <span style="color:#e6db74">&#34;1&#34;</span>
-- group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  member:
-    added_at: <span style="color:#e6db74">&#34;2023-07-03T02:23:14.550862Z&#34;</span>
-    address: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-    metadata: president
-    weight: <span style="color:#e6db74">&#34;1&#34;</span>
-- group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  member:
-    added_at: <span style="color:#e6db74">&#34;2023-07-03T02:23:14.550862Z&#34;</span>
-    address: cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea
-    metadata: treasurer
-    weight: <span style="color:#e6db74">&#34;1&#34;</span>
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;4&#34;</span>
-</code></pre></div><h2 id="4创建group-policy">4.创建group policy</h2>
-<p>创建组策略内容 json<br>
-policy.json</p>
-<ul>
-<li>提案的投票时间最长为 10 分钟。</li>
-<li>一项提案只需一票即可通过。</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#f92672">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.group.v1.ThresholdDecisionPolicy&#34;</span>,
-    <span style="color:#f92672">&#34;threshold&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-    <span style="color:#f92672">&#34;windows&#34;</span>: {
-        <span style="color:#f92672">&#34;voting_period&#34;</span>: <span style="color:#e6db74">&#34;10m&#34;</span>,
-        <span style="color:#f92672">&#34;min_execution_period&#34;</span>: <span style="color:#e6db74">&#34;0s&#34;</span>
-    }
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 创建组策略
-./simd tx group create-group-policy $ALICE $GROUP_ID <span style="color:#e6db74">&#34;{\&#34;name\&#34;:\&#34;quick turnaround\&#34;,\&#34;description\&#34;:\&#34;\&#34;}&#34;</span> policy.json
-
-// 执行结果
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.MsgCreateGroupPolicy
-    admin: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-    decision_policy:
-      <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.ThresholdDecisionPolicy
-      threshold: <span style="color:#e6db74">&#34;1&#34;</span>
-      windows:
-        min_execution_period: 0s
-        voting_period: 600s
-    group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-    metadata: <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;quick turnaround&#34;,&#34;description&#34;:&#34;&#34;}&#39;</span>
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: 886652122BC69747F8130FEE50C90D93C277F7645120F19993E216A78F2C8CCE
-
-// 组策略ID 存到变量
-export GROUP_POLICY_ADDRESS<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd query tx 886652122BC69747F8130FEE50C90D93C277F7645120F19993E216A78F2C8CCE --output json | jq <span style="color:#e6db74">&#39;.events&#39;</span> | jq -r <span style="color:#e6db74">&#39;.[] | select(.type == &#34;cosmos.group.v1.EventCreateGroupPolicy&#34;) | .attributes[0].value&#39;</span> | base64 --decode | jq -r <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#66d9ef">)</span>
-
-// 通过 GROUP_ID 查看策略
-./simd query group group-policies-by-group $GROUP_ID
-// 执行结果
-group_policies:
-- address: cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd
-  admin: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-  created_at: <span style="color:#e6db74">&#34;2023-07-03T02:29:57.599509Z&#34;</span>
-  decision_policy:
-    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.ThresholdDecisionPolicy
-    threshold: <span style="color:#e6db74">&#34;1&#34;</span>
-    windows:
-      min_execution_period: 0s
-      voting_period: 600s
-  group_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  metadata: <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;quick turnaround&#34;,&#34;description&#34;:&#34;&#34;}&#39;</span>
-  version: <span style="color:#e6db74">&#34;1&#34;</span>
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;1&#34;</span>
-
-// 查看策略地址
-./simd query group group-policies-by-group $GROUP_ID --output json | jq -r <span style="color:#e6db74">&#39;.group_policies[0].address&#39;</span>
-
-// 执行结果
-cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd
-
-// 给策略发币，要不提案结束后，没有钱给 payee
-./simd tx bank send $ALICE $GROUP_POLICY_ADDRESS  5000stake
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.bank.v1beta1.MsgSend
-    amount:
-    - amount: <span style="color:#e6db74">&#34;5000&#34;</span>
-      denom: stake
-    from_address: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-    to_address: cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: 5C579B918D17FCC51952103BD830F1C921808F1A47B91C0F28C0D43516C3F4AC
-</code></pre></div><h2 id="5创建proposal">5.创建proposal</h2>
-<h3 id="新建提案-ipfs">新建提案 IPFS</h3>
-<p>proposal_metadata.json</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Pay the utilities bill&#34;</span>,
-  <span style="color:#f92672">&#34;authors&#34;</span>: <span style="color:#e6db74">&#34;Bob Smith&#34;</span>,
-  <span style="color:#f92672">&#34;summary&#34;</span>: <span style="color:#e6db74">&#34;Pay the energy bill of the association&#34;</span>,
-  <span style="color:#f92672">&#34;details&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-  <span style="color:#f92672">&#34;proposal_forum_url&#34;</span>: <span style="color:#e6db74">&#34;https://football.club/proposal/nov-utility-bills&#34;</span>,
-  <span style="color:#f92672">&#34;vote_option_context&#34;</span>: <span style="color:#e6db74">&#34;Yes means pay the energy bill. No means to not pay the energy bill and have no more warm water.&#34;</span>,
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ipfs add proposal_metadata.json
-added QmTF5BshCyRqnvfGtvYU3gYjfcXaMjLxnNFxdENmTaw6nX proposal_metadata.json
-</code></pre></div><h3 id="创建提案信息">创建提案信息</h3>
-<p>proposal.json</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#f92672">&#34;group_policy_address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd&#34;</span> , <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">the</span> <span style="color:#960050;background-color:#1e0010">$GROUP_POLICY_ADDRESS</span>
-    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">array</span> <span style="color:#960050;background-color:#1e0010">of</span> <span style="color:#960050;background-color:#1e0010">proto-JSON-encoded</span> <span style="color:#960050;background-color:#1e0010">sdk.Msgs</span>
-    <span style="color:#f92672">&#34;messages&#34;</span>: [
-        {
-            <span style="color:#f92672">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.bank.v1beta1.MsgSend&#34;</span>,
-            <span style="color:#f92672">&#34;from_address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd&#34;</span>, <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">the</span> <span style="color:#960050;background-color:#1e0010">$GROUP_POLICY_ADDRESS</span>
-            <span style="color:#f92672">&#34;to_address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1nyvdmlssz6e9sc7ddp37lvxjgqmrm8cgngg204&#34;</span>, <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">payee</span>
-            <span style="color:#f92672">&#34;amount&#34;</span>: [
-                {
-                    <span style="color:#f92672">&#34;denom&#34;</span>: <span style="color:#e6db74">&#34;stake&#34;</span>,
-                    <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#e6db74">&#34;100&#34;</span>
-                }
-            ]
-        }
-    ],
-    <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;ipfs://QmTF5BshCyRqnvfGtvYU3gYjfcXaMjLxnNFxdENmTaw6nX&#34;</span>,
-    <span style="color:#f92672">&#34;proposers&#34;</span>: [ <span style="color:#e6db74">&#34;cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea&#34;</span> ] <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">$BOB</span>
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tx group submit-proposal proposal.json --from bob
-
-// 执行结果
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.MsgSubmitProposal
-    exec: EXEC_UNSPECIFIED
-    group_policy_address: cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd
-    messages:
-    - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.bank.v1beta1.MsgSend
-      amount:
-      - amount: <span style="color:#e6db74">&#34;100&#34;</span>
-        denom: stake
-      from_address: cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd
-      to_address: cosmos1nyvdmlssz6e9sc7ddp37lvxjgqmrm8cgngg204
-    metadata: ipfs://QmTF5BshCyRqnvfGtvYU3gYjfcXaMjLxnNFxdENmTaw6nX
-    proposers:
-    - cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: 3C402AA94BE6DBB386D75150B101622991859B33B6CCB8AE1F910DA0D70BF1A9
-
-// 提案 ID 存到变量
-export PROPOSAL_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd query tx 3C402AA94BE6DBB386D75150B101622991859B33B6CCB8AE1F910DA0D70BF1A9 --output json | jq <span style="color:#e6db74">&#39;.events&#39;</span> | jq -r <span style="color:#e6db74">&#39;.[] | select(.type == &#34;cosmos.group.v1.EventSubmitProposal&#34;) | .attributes[0].value&#39;</span> | base64 --decode | jq -r <span style="color:#e6db74">&#39;.&#39;</span><span style="color:#66d9ef">)</span>
-
-// 查看策略
-./simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq <span style="color:#e6db74">&#39;.proposals[0]&#39;</span>
-
-//执行结果
+</code></pre></div><h2 id="2-feegrant-grant">2. feegrant grant</h2>
+<pre><code>simd tx feegrant grant [granter_key_or_address] [grantee]  
+--from string         Name or address of private key with which to sign  
+--spend-limit string  Spend limit specifies the max limit can be used, if not mentioned there is no limit  
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tx feegrant grant $ALICE $BOB --from alice --spend-limit 100000stake
 <span style="color:#f92672">{</span>
-  <span style="color:#e6db74">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-  <span style="color:#e6db74">&#34;group_policy_address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd&#34;</span>,
-  <span style="color:#e6db74">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;ipfs://QmTF5BshCyRqnvfGtvYU3gYjfcXaMjLxnNFxdENmTaw6nX&#34;</span>,
-  <span style="color:#e6db74">&#34;proposers&#34;</span>: <span style="color:#f92672">[</span>
-    <span style="color:#e6db74">&#34;cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea&#34;</span>
-  <span style="color:#f92672">]</span>,
-  <span style="color:#e6db74">&#34;submit_time&#34;</span>: <span style="color:#e6db74">&#34;2023-07-03T02:34:59.883957Z&#34;</span>,
-  <span style="color:#e6db74">&#34;group_version&#34;</span>: <span style="color:#e6db74">&#34;2&#34;</span>,
-  <span style="color:#e6db74">&#34;group_policy_version&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;PROPOSAL_STATUS_SUBMITTED&#34;</span>,
-  <span style="color:#e6db74">&#34;final_tally_result&#34;</span>: <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;yes_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-    <span style="color:#e6db74">&#34;abstain_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-    <span style="color:#e6db74">&#34;no_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-    <span style="color:#e6db74">&#34;no_with_veto_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>
-  <span style="color:#f92672">}</span>,
-  <span style="color:#e6db74">&#34;voting_period_end&#34;</span>: <span style="color:#e6db74">&#34;2023-07-03T02:44:59.883957Z&#34;</span>,
-  <span style="color:#e6db74">&#34;executor_result&#34;</span>: <span style="color:#e6db74">&#34;PROPOSAL_EXECUTOR_RESULT_NOT_RUN&#34;</span>,
-  <span style="color:#e6db74">&#34;messages&#34;</span>: <span style="color:#f92672">[</span>
-    <span style="color:#f92672">{</span>
-      <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.bank.v1beta1.MsgSend&#34;</span>,
-      <span style="color:#e6db74">&#34;from_address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd&#34;</span>,
-      <span style="color:#e6db74">&#34;to_address&#34;</span>: <span style="color:#e6db74">&#34;cosmos1nyvdmlssz6e9sc7ddp37lvxjgqmrm8cgngg204&#34;</span>,
-      <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#f92672">[</span>
-        <span style="color:#f92672">{</span>
-          <span style="color:#e6db74">&#34;denom&#34;</span>: <span style="color:#e6db74">&#34;stake&#34;</span>,
-          <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#e6db74">&#34;100&#34;</span>
+    <span style="color:#e6db74">&#34;body&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;messages&#34;</span>: <span style="color:#f92672">[</span>
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.MsgGrantAllowance&#34;</span>,
+                <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej&#34;</span>,
+                <span style="color:#e6db74">&#34;grantee&#34;</span>: <span style="color:#e6db74">&#34;cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7&#34;</span>,
+                <span style="color:#e6db74">&#34;allowance&#34;</span>: <span style="color:#f92672">{</span>
+                    <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.BasicAllowance&#34;</span>,
+                    <span style="color:#e6db74">&#34;spend_limit&#34;</span>: <span style="color:#f92672">[</span>
+                        <span style="color:#f92672">{</span>
+                            <span style="color:#e6db74">&#34;denom&#34;</span>: <span style="color:#e6db74">&#34;stake&#34;</span>,
+                            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#e6db74">&#34;100000&#34;</span>
+                        <span style="color:#f92672">}</span>
+                    <span style="color:#f92672">]</span>,
+                    <span style="color:#e6db74">&#34;expiration&#34;</span>: null
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;memo&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+        <span style="color:#e6db74">&#34;timeout_height&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
+        <span style="color:#e6db74">&#34;extension_options&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;non_critical_extension_options&#34;</span>: <span style="color:#f92672">[]</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;auth_info&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;signer_infos&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;fee&#34;</span>: <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#f92672">[]</span>,
+            <span style="color:#e6db74">&#34;gas_limit&#34;</span>: <span style="color:#e6db74">&#34;200000&#34;</span>,
+            <span style="color:#e6db74">&#34;payer&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+            <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
         <span style="color:#f92672">}</span>
-      <span style="color:#f92672">]</span>
-    <span style="color:#f92672">}</span>
-  <span style="color:#f92672">]</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;signatures&#34;</span>: <span style="color:#f92672">[]</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 查看提案信息
-./simd query group proposal $PROPOSAL_ID --output json | jq <span style="color:#e6db74">&#39;.proposal.final_tally_result&#39;</span>
 
-// 执行结果
-<span style="color:#f92672">{</span>
-  <span style="color:#e6db74">&#34;yes_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-  <span style="color:#e6db74">&#34;abstain_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-  <span style="color:#e6db74">&#34;no_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-  <span style="color:#e6db74">&#34;no_with_veto_count&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="提案过程">提案过程</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 查看策略状态
-./simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq -r <span style="color:#e6db74">&#39;.proposals[0].status&#39;</span>
-// PROPOSAL_STATUS_SUBMITTED
-
-// alice 同意
-./simd tx group vote $PROPOSAL_ID $ALICE VOTE_OPTION_YES <span style="color:#e6db74">&#34;agree&#34;</span>
-
-// 执行结果
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.MsgVote
-    exec: EXEC_UNSPECIFIED
-    metadata: agree
-    option: VOTE_OPTION_YES
-    proposal_id: <span style="color:#e6db74">&#34;1&#34;</span>
-    voter: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
 confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
 code: <span style="color:#ae81ff">0</span>
 codespace: <span style="color:#e6db74">&#34;&#34;</span>
 data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
 gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
 gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
 height: <span style="color:#e6db74">&#34;0&#34;</span>
@@ -746,126 +238,86 @@ logs: <span style="color:#f92672">[]</span>
 raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
 timestamp: <span style="color:#e6db74">&#34;&#34;</span>
 tx: null
-txhash: D76DD40FDE665F72565FF3C328C238B14DE8676919A7AB857606817043742F45
+txhash: 04B12BD58966A30AC64E060FD879ECC092AC20614D10E2C769C4035DE5D3640C
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query feegrant grants $BOB
 
-./simd tx group vote $PROPOSAL_ID $BOB VOTE_OPTION_YES <span style="color:#e6db74">&#34;aye&#34;</span>
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.MsgVote
-    exec: EXEC_UNSPECIFIED
-    metadata: aye
-    option: VOTE_OPTION_YES
-    proposal_id: <span style="color:#e6db74">&#34;1&#34;</span>
-    voter: cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: 45DA109D39742DDB17D867ACCCA011AF4542BAC022421F0F18DB142B55208466
-
-
-// 查看提案信息
-./simd query group tally-result $PROPOSAL_ID
-tally:
-  abstain_count: <span style="color:#e6db74">&#34;0&#34;</span>
-  no_count: <span style="color:#e6db74">&#34;0&#34;</span>
-  no_with_veto_count: <span style="color:#e6db74">&#34;0&#34;</span>
-  yes_count: <span style="color:#e6db74">&#34;1&#34;</span>
-
-// 查看提案详细
-./simd query group proposal $PROPOSAL_ID
-proposal:
-  executor_result: PROPOSAL_EXECUTOR_RESULT_NOT_RUN
-  final_tally_result:
-    abstain_count: <span style="color:#e6db74">&#34;0&#34;</span>
-    no_count: <span style="color:#e6db74">&#34;0&#34;</span>
-    no_with_veto_count: <span style="color:#e6db74">&#34;0&#34;</span>
-    yes_count: <span style="color:#e6db74">&#34;1&#34;</span>
-  group_policy_address: cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd
-  group_policy_version: <span style="color:#e6db74">&#34;1&#34;</span>
-  group_version: <span style="color:#e6db74">&#34;2&#34;</span>
-  id: <span style="color:#e6db74">&#34;1&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.bank.v1beta1.MsgSend
-    amount:
-    - amount: <span style="color:#e6db74">&#34;100&#34;</span>
+allowances:
+- allowance:
+    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.feegrant.v1beta1.BasicAllowance
+    expiration: null
+    spend_limit:
+    - amount: <span style="color:#e6db74">&#34;100000&#34;</span>
       denom: stake
-    from_address: cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd
-    to_address: cosmos1nyvdmlssz6e9sc7ddp37lvxjgqmrm8cgngg204
-  metadata: ipfs://QmTF5BshCyRqnvfGtvYU3gYjfcXaMjLxnNFxdENmTaw6nX
-  proposers:
-  - cosmos1nvsswjsfwcyplqy73zz485cps54ar7r2we9uea
-  status: PROPOSAL_STATUS_ACCEPTED
-  submit_time: <span style="color:#e6db74">&#34;2023-07-03T02:34:59.883957Z&#34;</span>
-  voting_period_end: <span style="color:#e6db74">&#34;2023-07-03T02:44:59.883957Z&#34;</span>
-</code></pre></div><h3 id="立即执行提案结束">立即执行提案结束</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tx group exec $PROPOSAL_ID --from alice
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.group.v1.MsgExec
-    executor: cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-    proposal_id: <span style="color:#e6db74">&#34;1&#34;</span>
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: A088774E6C590BA008618AE3AE77F70CFACA05664B5080BCB7EC6FC05B653AE6
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//查看提案结果会报错，是因为它已被完全删除。
-./simd query group proposal $PROPOSAL_ID
-Error: rpc error: code <span style="color:#f92672">=</span> Unknown desc <span style="color:#f92672">=</span> load proposal: not found: unknown request
-</code></pre></div><h3 id="查看收款人有没有收到款">查看收款人有没有收到款</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query bank balances cosmos1nyvdmlssz6e9sc7ddp37lvxjgqmrm8cgngg204
-balances:
-- amount: <span style="color:#e6db74">&#34;100&#34;</span>
-  denom: stake
+  grantee: cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7  //bob
+  granter: cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej  //alice
 pagination:
   next_key: null
   total: <span style="color:#e6db74">&#34;0&#34;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query bank balances $ALICE
+./simd query bank balances $BOB
+</code></pre></div><p>ALICE的钱少了100000stake是因为添加到 Bob 签署的交易中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query feegrant grants $BOB
 
+allowances:
+- allowance:
+    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.feegrant.v1beta1.BasicAllowance
+    expiration: null
+    spend_limit:
+    - amount: <span style="color:#e6db74">&#34;100000&#34;</span>
+      denom: stake
+  grantee: cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7  //bob
+  granter: cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej  //alice
+pagination:
+  next_key: null
+  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</code></pre></div><h2 id="3-撤销">3. 撤销</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tx feegrant revoke $ALICE $BOB --from alice
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;body&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;messages&#34;</span>: <span style="color:#f92672">[</span>
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.MsgRevokeAllowance&#34;</span>,
+                <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej&#34;</span>,
+                <span style="color:#e6db74">&#34;grantee&#34;</span>: <span style="color:#e6db74">&#34;cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7&#34;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;memo&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+        <span style="color:#e6db74">&#34;timeout_height&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
+        <span style="color:#e6db74">&#34;extension_options&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;non_critical_extension_options&#34;</span>: <span style="color:#f92672">[]</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;auth_info&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;signer_infos&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;fee&#34;</span>: <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#f92672">[]</span>,
+            <span style="color:#e6db74">&#34;gas_limit&#34;</span>: <span style="color:#e6db74">&#34;200000&#34;</span>,
+            <span style="color:#e6db74">&#34;payer&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+            <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;signatures&#34;</span>: <span style="color:#f92672">[]</span>
+<span style="color:#f92672">}</span>
+
+confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
+code: <span style="color:#ae81ff">0</span>
+codespace: <span style="color:#e6db74">&#34;&#34;</span>
+data: <span style="color:#e6db74">&#34;&#34;</span>
+gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
+gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
+height: <span style="color:#e6db74">&#34;0&#34;</span>
+info: <span style="color:#e6db74">&#34;&#34;</span>
+logs: <span style="color:#f92672">[]</span>
+raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
+timestamp: <span style="color:#e6db74">&#34;&#34;</span>
+tx: null
+txhash: 02C9CCDDB531B86873677A5E8664C92191CAE0A2A81B5ABCEF9EF4F08BD3DAF7
+
+// 再次查看
+./simd query feegrant grants $BOB
+allowances: <span style="color:#f92672">[]</span>
+pagination:
+  next_key: null
+  total: <span style="color:#e6db74">&#34;0&#34;</span>
 </code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -906,13 +358,13 @@ pagination:
 	<div class="pager__item pager__item--prev">
 		<a class="pager__link" href="/note/blockchain/cosmos/cosmos_sdk_04/" rel="prev">
 			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">【cosmos-sdk笔记】x-feegrant module</p>
+			<p class="pager__title">【cosmos-sdk笔记】x-authz module</p>
 		</a>
 	</div>
 	<div class="pager__item pager__item--next">
 		<a class="pager__link" href="/note/blockchain/cosmos/cosmos_sdk_06/" rel="next">
 			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">【cosmos-sdk笔记】x-gov module</p>
+			<p class="pager__title">【cosmos-sdk笔记】x-group module</p>
 		</a>
 	</div>
 </nav>
@@ -933,11 +385,11 @@ pagination:
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item"><a class="widget__link" href="/limingxie/fanxing/">原来我是这么不理智的人...ㅠㅠ</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_06/">【cosmos-sdk笔记】x-gov module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_05/">【cosmos-sdk笔记】x-group module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_04/">【cosmos-sdk笔记】x-feegrant module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_03/">【cosmos-sdk笔记】x-authz module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_02/">【cosmos-sdk笔记】Genesis File</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_07/">【cosmos-sdk笔记】x-gov module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_06/">【cosmos-sdk笔记】x-group module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_05/">【cosmos-sdk笔记】x-feegrant module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_04/">【cosmos-sdk笔记】x-authz module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_03/">【cosmos-sdk笔记】Genesis File</a></li>
 		</ul>
 	</div>
 </div>
@@ -959,7 +411,7 @@ pagination:
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">68</span>
+				<span class="widget__counter widget__counter--bubble">69</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -967,7 +419,7 @@ pagination:
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/cosmos/">cosmos</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">6</span>
+				<span class="widget__counter widget__counter--bubble">7</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;

@@ -6,32 +6,32 @@
     <description>Recent content in 区块链 on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 May 2023 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 May 2023 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【cosmos-sdk笔记】x-gov module</title>
-      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_06/</link>
-      <pubDate>Tue, 23 May 2023 23:28:49 +0800</pubDate>
+      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_07/</link>
+      <pubDate>Wed, 24 May 2023 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_06/</guid>
+      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_07/</guid>
       <description>&lt;p&gt;GOV治理。它允许创建任何消息类型的提案，并对它们进行投票。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【cosmos-sdk笔记】x-group module</title>
-      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_05/</link>
-      <pubDate>Mon, 22 May 2023 23:28:49 +0800</pubDate>
+      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_06/</link>
+      <pubDate>Tue, 23 May 2023 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_05/</guid>
+      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_06/</guid>
       <description>&lt;p&gt;链中启用组模块，用户可以创建组提交组提案。&lt;br&gt;
 也可以将其视为增强型多重签名或 DAO。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【cosmos-sdk笔记】x-feegrant module</title>
-      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_04/</link>
-      <pubDate>Sun, 21 May 2023 23:28:49 +0800</pubDate>
+      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_05/</link>
+      <pubDate>Mon, 22 May 2023 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_04/</guid>
+      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_05/</guid>
       <description>&lt;p&gt;BasicAllowance&lt;br&gt;
 该津贴有一次性限制、过期或无限制。&lt;br&gt;
 PeriodicAllowance&lt;br&gt;
@@ -40,31 +40,39 @@ PeriodicAllowance&lt;br&gt;
     
     <item>
       <title>【cosmos-sdk笔记】x-authz module</title>
-      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_03/</link>
-      <pubDate>Sat, 20 May 2023 23:28:49 +0800</pubDate>
+      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_04/</link>
+      <pubDate>Sun, 21 May 2023 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_03/</guid>
+      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_04/</guid>
       <description>&lt;p&gt;认证auth(authentication)&lt;br&gt;
 授权authz(authorization)&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【cosmos-sdk笔记】Genesis File</title>
-      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_02/</link>
-      <pubDate>Fri, 19 May 2023 23:28:49 +0800</pubDate>
+      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_03/</link>
+      <pubDate>Sat, 20 May 2023 23:28:49 +0800</pubDate>
       
-      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_02/</guid>
+      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_03/</guid>
       <description>&lt;p&gt;基于 simapp 和 gaia 整理了&lt;code&gt;Genesis File&lt;/code&gt;内容&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>【cosmos-sdk笔记】simd 常用的命令整理</title>
+      <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_02/</link>
+      <pubDate>Fri, 19 May 2023 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_02/</guid>
+      <description>&lt;p&gt;整理了，simd链 启用后的简单的操作命令。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【cosmos-sdk笔记】启动 simapp</title>
       <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_01/</link>
       <pubDate>Thu, 18 May 2023 23:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_01/</guid>
-      <description>&lt;p&gt;链中启用组模块，用户可以创建组提交组提案。&lt;br&gt;
-也可以将其视为增强型多重签名或 DAO。&lt;/p&gt;</description>
+      <description>&lt;p&gt;看看如何启用 cosmos-sdk 自带的测试用的 simapp。&lt;/p&gt;</description>
     </item>
     
     <item>

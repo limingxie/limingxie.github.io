@@ -4,23 +4,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>【cosmos-sdk笔记】simd 常用的命令整理 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<title>【cosmos-sdk笔记】启动 simapp - 宅男 &#43; 屌丝 &#43; 程序员</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="【cosmos-sdk笔记】simd 常用的命令整理" />
-<meta property="og:description" content="链中启用组模块，用户可以创建组提交组提案。
-也可以将其视为增强型多重签名或 DAO。" />
+		<meta property="og:title" content="【cosmos-sdk笔记】启动 simapp" />
+<meta property="og:description" content="看看如何启用 cosmos-sdk 自带的测试用的 simapp。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_01/" />
 <meta property="article:published_time" content="2023-05-18T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-05-18T23:28:49+08:00" />
 
-		<meta itemprop="name" content="【cosmos-sdk笔记】simd 常用的命令整理">
-<meta itemprop="description" content="链中启用组模块，用户可以创建组提交组提案。
-也可以将其视为增强型多重签名或 DAO。">
+		<meta itemprop="name" content="【cosmos-sdk笔记】启动 simapp">
+<meta itemprop="description" content="看看如何启用 cosmos-sdk 自带的测试用的 simapp。">
 <meta itemprop="datePublished" content="2023-05-18T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-05-18T23:28:49+08:00" />
-<meta itemprop="wordCount" content="59">
+<meta itemprop="wordCount" content="336">
 
 
 
@@ -132,7 +130,7 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">【cosmos-sdk笔记】simd 常用的命令整理</h1>
+			<h1 class="post__title">【cosmos-sdk笔记】启动 simapp</h1>
 			<div class="post__meta meta"><div class="meta__item-author meta__item">
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
 </div>
@@ -147,31 +145,152 @@
 	<div class="toc__menu">
 		<nav id="TableOfContents">
   <ul>
-    <li><a href="#key">key</a></li>
-    <li><a href="#group">group</a></li>
-    <li><a href="#bank">bank</a></li>
+    <li><a href="#1克隆和编译代码">1.克隆和编译代码</a></li>
+    <li><a href="#2添加-key-账户">2.添加 key (账户)</a></li>
+    <li><a href="#3创建genesisfile">3.创建genesisfile</a></li>
+    <li><a href="#4创建初始账户和验证者">4.创建初始账户和验证者</a></li>
+    <li><a href="#5打开节点">5.打开节点</a></li>
+    <li><a href="#6和其它节点建立链接">6.和其它节点建立链接</a></li>
+    <li><a href="#7网络配置">7.网络配置</a></li>
+    <li><a href="#8创建用户">8.创建用户</a></li>
+    <li><a href="#9启动">9.启动</a></li>
   </ul>
 </nav>
 	</div>
 </div><div class="content post__content clearfix">
-			<p>链中启用组模块，用户可以创建组提交组提案。<br>
-也可以将其视为增强型多重签名或 DAO。</p>
-<h2 id="key">key</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 添加
-./simd keys add alice
-// 查看
-./simd keys list
-./simd keys show alice 
-./simd keys show alice --address
-</code></pre></div><h2 id="group">group</h2>
-<pre><code>./simd query group
-./simd tx group
-</code></pre><h2 id="bank">bank</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//simd query bank balances <span style="color:#f92672">[</span>address<span style="color:#f92672">]</span>
-./simd query bank balances cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-//simd tx bank send <span style="color:#f92672">[</span>from_key_or_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>to_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>amount<span style="color:#f92672">]</span>
-./simd tx bank send cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0 cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd  5000stake
-</code></pre></div><hr>
+			<p>看看如何启用 cosmos-sdk 自带的测试用的 simapp。</p>
+<h2 id="1克隆和编译代码">1.克隆和编译代码</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 克隆代码
+git clone https://github.com/cosmos/cosmos-sdk --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --branch v0.46.6
+cd cosmos-sdk
+
+// 编译代码
+make  build
+cd build
+
+// 查看版本
+./simd version
+</code></pre></div><h2 id="2添加-key-账户">2.添加 key (账户)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd keys add alice
+./simd keys add bob
+
+// 为了方便操作，存到变量
+export ALICE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show alice --address<span style="color:#66d9ef">)</span>
+export BOB<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show bob --address<span style="color:#66d9ef">)</span>
+</code></pre></div><h2 id="3创建genesisfile">3.创建genesisfile</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd init stone-age-1 --chain-id stone-age-block-chain
+</code></pre></div><blockquote>
+<p>初始话以后，在/User/limingxie/.simapp/config 自动创建默认的genesis.json 文件<br>
+把 stake 改成 自定义的 nstone</p>
+</blockquote>
+<pre><code>addrbook.json
+app.toml        &lt;-- configuration for the app part of your blockchain
+client.toml     &lt;-- configuration for the CLI client of the app
+config.toml     &lt;-- configuration for Tendermint
+genesis.json    &lt;-- the genesis for your blockchain
+gentx           &lt;-- folder that contains the genesis transactions before they are inserted
+node_key.json   &lt;-- private key that uniquely identifies your node on the network
+priv_validator_key.json
+</code></pre><h2 id="4创建初始账户和验证者">4.创建初始账户和验证者</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 给alice和bob 加nstone和nflint
+./simd add-genesis-account alice 6000000000nstone,3000000000nflint
+./simd add-genesis-account bob 5000000000nstone,2000000000nflint
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// alice 质押 nstone 为做验证者做准备
+
+./simd gentx alice <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    3000000000nstone <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --account-number <span style="color:#ae81ff">0</span> --sequence <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --chain-id stone-age-block-chain <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --pubkey <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.ed25519.PubKey&#34;,&#34;key&#34;:&#34;A1GqoOS+Oxal9yfn/8cXO2KRQ470tWNx89JOKnbu53uq&#34;}&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --gas <span style="color:#ae81ff">1000000</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --gas-prices 0.1nstone <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --keyring-backend os
+Genesis transaction written to <span style="color:#e6db74">&#34;/Users/limingxie/.simapp/config/gentx/gentx-518a0d5c831631291be43590f66f7c521125770d.json&#34;</span>
+
+// 把所有验证者关联起来
+./simd collect-gentxs
+</code></pre></div><h2 id="5打开节点">5.打开节点</h2>
+<p>config.toml文件中找以下配置，可以修改node开放端口</p>
+<pre><code>[p2p]
+
+# Address to listen for incoming connections
+laddr = &quot;tcp://0.0.0.0:26656&quot;
+
+... ...
+
+external_address = &quot;172.217.22.14:26656&quot; # replace by your own
+</code></pre><p>~/.simapp/config/node_key.json 存储着节点的私钥。<br>
+config.toml文件位置在行中提到node_key_file = &ldquo;config/node_key.json&rdquo;。<br>
+<code>node_key.json</code>丢失或被盗, 从新创建一个就行了，不会丢失任何代币。<br>
+如下命令可以查看nodeId</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tendermint show-node-id
+e9b52965f638a1f0b40889fd56058d06b15f561b
+</code></pre></div><h2 id="6和其它节点建立链接">6.和其它节点建立链接</h2>
+<p>开始的时候，在config.toml文件配置中手动保存 node-id@listen-address</p>
+<pre><code>persistent_peers = &quot;432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656,
+5735836cbaa747e013e47b11839db2c2990b918a@121.37.49.12:26656&quot;
+
+// 设为种子节点
+seeds = &quot;432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656&quot;
+</code></pre><blockquote>
+<p>persistent_peers 里没必要把所有的节点写进去，你可以只写你信任的节点。</p>
+</blockquote>
+<h2 id="7网络配置">7.网络配置</h2>
+<p>~/.simd/config/config.toml 中可以设置</p>
+<p>调整节点通信情况<br>
+max_num_inbound_peers<br>
+handshake_timeout</p>
+<p>这些是你关系到你的节点性能<br>
+db_backend<br>
+log_level</p>
+<p>有些参数是和 BFT 相关<br>
+timeout_prevote<br>
+timeout_precommit_delta</p>
+<p>config/config.toml</p>
+<pre><code>[consensus]
+...
+
+timeout_propose = &quot;3s&quot;          # 提议超时时间：在收到提议块之前等待的时间长度，如果超过该时间，则进行预投票
+timeout_propose_delta = &quot;500ms&quot; # 提议超时时间增量：每个轮次提议超时时间的增加量
+timeout_prevote = &quot;1s&quot;          # 预投票超时时间：在收到超过2/3的预投票（&quot;anything&quot;，即不是单个块或nil）后等待的时间长度
+timeout_prevote_delta = &quot;500ms&quot; # 预投票超时时间增量：每个轮次预投票超时时间的增加量。
+timeout_precommit = &quot;1s&quot;        # 预提交超时时间：在收到超过2/3的预提交（&quot;anything&quot;，即不是单个块或nil）后等待的时间长度。
+timeout_precommit_delta = &quot;500ms&quot; # 预提交超时时间增量：每个轮次预提交超时时间的增加量。
+timeout_commit = &quot;1s&quot;           # 提交超时时间：在提交一个块后，在开始新的高度之前等待的时间长度（这给我们一个机会收到更多的预提交，即使我们已经有超过2/3的预提交）
+</code></pre><p>查看tendermint版本</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tendermint version
+ABCI: 0.17.0
+BlockProtocol: <span style="color:#ae81ff">11</span>
+P2PProtocol: <span style="color:#ae81ff">8</span>
+Tendermint: v0.34.23
+</code></pre></div><h2 id="8创建用户">8.创建用户</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo adduser chainuser
+
+sudo mv ~/.myprojectd /home/chainuser
+sudo chown -R chainuser:chainuser /home/chainuser/.simd
+</code></pre></div><h2 id="9启动">9.启动</h2>
+<pre><code>./simd start
+</code></pre><p>也可以作为服务启动<br>
+保存如下文件： /etc/systemd/system/simd.service</p>
+<pre><code>[Unit]
+Description=My Project Chain Daemon
+After=network-online.target
+
+[Service]
+User=chainuser
+ExecStart=$(which simd) start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><p>启动服务</p>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl enable simd
+
+sudo systemctl start simd
+</code></pre><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -217,7 +336,7 @@
 	<div class="pager__item pager__item--next">
 		<a class="pager__link" href="/note/blockchain/cosmos/cosmos_sdk_02/" rel="next">
 			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">【cosmos-sdk笔记】Genesis File</p>
+			<p class="pager__title">【cosmos-sdk笔记】simd 常用的命令整理</p>
 		</a>
 	</div>
 </nav>
@@ -238,11 +357,11 @@
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item"><a class="widget__link" href="/limingxie/fanxing/">原来我是这么不理智的人...ㅠㅠ</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_06/">【cosmos-sdk笔记】x-gov module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_05/">【cosmos-sdk笔记】x-group module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_04/">【cosmos-sdk笔记】x-feegrant module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_03/">【cosmos-sdk笔记】x-authz module</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_02/">【cosmos-sdk笔记】Genesis File</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_07/">【cosmos-sdk笔记】x-gov module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_06/">【cosmos-sdk笔记】x-group module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_05/">【cosmos-sdk笔记】x-feegrant module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_04/">【cosmos-sdk笔记】x-authz module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_03/">【cosmos-sdk笔记】Genesis File</a></li>
 		</ul>
 	</div>
 </div>
@@ -264,7 +383,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">68</span>
+				<span class="widget__counter widget__counter--bubble">69</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -272,7 +391,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/cosmos/">cosmos</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">6</span>
+				<span class="widget__counter widget__counter--bubble">7</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
