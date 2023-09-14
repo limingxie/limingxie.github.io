@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【solidity】继承和调用权限(10)" />
 <meta property="og:description" content="这篇文章简单的整理了继承和调用权限相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/blockchain/eth/solidity/solidity_10/" />
+<meta property="og:url" content="https://limingxie.github.io/blockchain/eth/solidity/solidity_10/" /><meta property="article:section" content="blockchain" />
 <meta property="article:published_time" content="2023-05-10T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-05-10T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【solidity】继承和调用权限(10)">
-<meta itemprop="description" content="这篇文章简单的整理了继承和调用权限相关的内容。">
-<meta itemprop="datePublished" content="2023-05-10T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了继承和调用权限相关的内容。"><meta itemprop="datePublished" content="2023-05-10T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-05-10T23:28:49+08:00" />
 <meta itemprop="wordCount" content="286">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -155,119 +150,119 @@
 </div><div class="content post__content clearfix">
 			<p>这篇文章简单的整理了<code>继承和调用权限</code>相关的内容。</p>
 <h2 id="1基本用法">1.基本用法</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> father {
-    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> money <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>;
-
-    <span style="color:#66d9ef">function</span> dahan() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;dahan&#34;</span>;
-    }
-
-}
-
-<span style="color:#66d9ef">contract</span> son <span style="color:#66d9ef">is</span> father {
-
-    <span style="color:#66d9ef">function</span> getMoney() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
-        <span style="color:#66d9ef">return</span> money; <span style="color:#75715e">// 10000
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> test() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
-        <span style="color:#66d9ef">return</span> dahan(); <span style="color:#75715e">// &#34;dahan&#34;
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><h2 id="2连续继承">2.连续继承</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">father</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> money <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dahan</span>() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;dahan&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">son</span> <span style="color:#66d9ef">is</span> father {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getMoney</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> money; <span style="color:#75715e">// 10000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test</span>() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> dahan(); <span style="color:#75715e">// &#34;dahan&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="2连续继承">2.连续继承</h2>
 <p>grandfather &lt;- father &lt;- son</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> grandfather {
-    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> gudong <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
-
-    <span style="color:#66d9ef">function</span> zhongdi() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;zhongdi&#34;</span>;
-    }
-}
-
-<span style="color:#66d9ef">contract</span> father <span style="color:#66d9ef">is</span> grandfather {
-    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> money <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>;
-
-    <span style="color:#66d9ef">function</span> dahan() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;dahan&#34;</span>;
-    }
-
-}
-
-<span style="color:#66d9ef">contract</span> son <span style="color:#66d9ef">is</span> father {
-    <span style="color:#66d9ef">function</span> getMoney() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
-        <span style="color:#66d9ef">return</span> money;
-    }
-
-    <span style="color:#66d9ef">function</span> test() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
-        <span style="color:#66d9ef">return</span> dahan();
-    }
-
-    <span style="color:#66d9ef">function</span> getGudong() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
-        <span style="color:#66d9ef">return</span> gudong;
-    }
-
-}
-</code></pre></div><h2 id="3public-internal-external-private">3.public internal external private</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> father {
-
-    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> money <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>;
-
-    <span style="color:#75715e">// uint money = 10000;  不加上任何属性符 可以继承
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// uint internal money = 10000;  可以被继承
-</span><span style="color:#75715e"></span>
-    <span style="color:#75715e">// uint external money = 10000; 不能使用该符号
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// uint private money = 10000; 不能被继承
-</span><span style="color:#75715e"></span>
-
-    <span style="color:#75715e">// 不加符号，public, internal 可以被继承  external 必须要 this.danhan
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// private 不能被继承
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> dahan() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;dahan&#34;</span>;
-    }
-
-    <span style="color:#75715e">// public 任何情况都可以调用
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// internal 只能是合约的内部调用 或是 继承合约的内部调用
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// external 只能是合约的外部调用 或是 继承合约的外部调用 
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">//          可以用this.danhan() 这种方式在内部调用。因为this表示该合约，也是表示外部调用
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// private 只能是合约自己调用
-</span><span style="color:#75715e"></span>
-}
-
-<span style="color:#66d9ef">contract</span> son <span style="color:#66d9ef">is</span> father {
-
-    <span style="color:#66d9ef">function</span> getMoney() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
-        <span style="color:#66d9ef">return</span> money;
-    }
-
-}
-
-<span style="color:#66d9ef">contract</span> externalTest {
-    <span style="color:#75715e">// 创建合约以后，调用方法。 跟继承不一样的方式调用
-</span><span style="color:#75715e"></span>    father f <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> father();
-
-    <span style="color:#66d9ef">function</span> externalTestIt() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
-        <span style="color:#66d9ef">return</span> f.dahan();
-    }
-}
-</code></pre></div><h2 id="4view-pure-payable">4.view pure payable</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">grandfather</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> gudong <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">zhongdi</span>() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;zhongdi&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">father</span> <span style="color:#66d9ef">is</span> grandfather {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> money <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dahan</span>() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;dahan&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">son</span> <span style="color:#66d9ef">is</span> father {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getMoney</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> money;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test</span>() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> dahan();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getGudong</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> gudong;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="3public-internal-external-private">3.public internal external private</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">father</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> money <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// uint money = 10000;  不加上任何属性符 可以继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// uint internal money = 10000;  可以被继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// uint external money = 10000; 不能使用该符号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// uint private money = 10000; 不能被继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 不加符号，public, internal 可以被继承  external 必须要 this.danhan
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// private 不能被继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dahan</span>() <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;dahan&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// public 任何情况都可以调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// internal 只能是合约的内部调用 或是 继承合约的内部调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// external 只能是合约的外部调用 或是 继承合约的外部调用 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//          可以用this.danhan() 这种方式在内部调用。因为this表示该合约，也是表示外部调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// private 只能是合约自己调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">son</span> <span style="color:#66d9ef">is</span> father {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getMoney</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> money;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">externalTest</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 创建合约以后，调用方法。 跟继承不一样的方式调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    father f <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> father();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">externalTestIt</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> f.dahan();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="4view-pure-payable">4.view pure payable</h2>
 <p>view和pure不会产生gas费用</p>
 <p><code>view</code>修饰符表示函数不会修改合约的状态，也不会向区块链发送任何交易。<br>
 它只是读取合约的状态并返回结果。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">function</span> getBalance() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint</span>) {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">address</span>(this).balance;
-}
-</code></pre></div><p><code>pure</code>修饰符表示函数不会读取或修改合约的状态，也不会向区块链发送任何交易。<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getBalance</span>() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">address</span>(this).balance;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>pure</code>修饰符表示函数不会读取或修改合约的状态，也不会向区块链发送任何交易。<br>
 它只是执行计算并返回结果。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">function</span> add(<span style="color:#66d9ef">uint</span> a, <span style="color:#66d9ef">uint</span> b) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint</span>) {
-    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
-}
-</code></pre></div><p><code>payable</code> 表示函数可以接收以太币作为参数，并将其存储到合约中。<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">uint</span> a, <span style="color:#66d9ef">uint</span> b) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>payable</code> 表示函数可以接收以太币作为参数，并将其存储到合约中。<br>
 在调用 payable 函数时，需要支付一定的 gas 费用，以便将以太币存储到合约中。</p>
 <hr>
 <p>欢迎大家的意见和交流</p>
@@ -335,12 +330,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -362,7 +357,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -398,7 +393,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -470,7 +465,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

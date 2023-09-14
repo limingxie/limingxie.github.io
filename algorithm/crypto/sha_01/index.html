@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【算法笔记】HASH_算法简单实践" />
 <meta property="og:description" content="这篇文章简单的整理了hash算法的简单实践。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/algorithm/crypto/sha_01/" />
+<meta property="og:url" content="https://limingxie.github.io/algorithm/crypto/sha_01/" /><meta property="article:section" content="algorithm" />
 <meta property="article:published_time" content="2022-10-31T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-31T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【算法笔记】HASH_算法简单实践">
-<meta itemprop="description" content="这篇文章简单的整理了hash算法的简单实践。">
-<meta itemprop="datePublished" content="2022-10-31T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了hash算法的简单实践。"><meta itemprop="datePublished" content="2022-10-31T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-31T23:28:49+08:00" />
 <meta itemprop="wordCount" content="526">
-
-
-
 <meta itemprop="keywords" content="密码学,hash," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -160,7 +155,7 @@
 			<p>这篇文章简单的整理了<code>hash算法的简单实践</code>。</p>
 <h2 id="1hash算法概念">1.hash算法概念</h2>
 <p>我们先看看<a href="https://zh.wikipedia.org/wiki/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B8">维基百科</a>的解释。</p>
-<pre><code>是一种从任何一种数据中创建小的数字`指纹fingerprint`的方法。  
+<pre tabindex="0"><code>是一种从任何一种数据中创建小的数字`指纹fingerprint`的方法。  
 散列函数把消息或数据压缩成摘要，使得数据量变小，将数据的格式固定下来。  
 该函数将数据打乱混合，重新创建一个叫做散列值（hash values，hash codes，hash sums，或hashes）的指纹。  
 散列值通常用一个短的随机字母和数字组成的字符串来代表。  
@@ -177,132 +172,132 @@
 其中MD5和SHA-1算法已经认为不太安全。</p>
 <h2 id="4简单实例">4.简单实例</h2>
 <p>下面用java实现的简单用例：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> org.junit.Test<span style="color:#f92672">;</span>
-<span style="color:#f92672">import</span> java.security.MessageDigest<span style="color:#f92672">;</span>
-
-<span style="color:#75715e">/**
-</span><span style="color:#75715e"> * @author : 李明燮
-</span><span style="color:#75715e"> * @since : 2022/10/31
-</span><span style="color:#75715e"> * create at : 2022/10/31 下午10:50
-</span><span style="color:#75715e"> */</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HashUtil</span> <span style="color:#f92672">{</span>
-    
-    <span style="color:#75715e">//byte转换成16进制
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">bytes2HexStr</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        StringBuffer result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuffer<span style="color:#f92672">();</span>
-        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span> byt <span style="color:#f92672">:</span> bytes<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            result<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">((</span>byt <span style="color:#f92672">&amp;</span> 0xff<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> 0x100<span style="color:#f92672">,</span> 16<span style="color:#f92672">).</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#75715e">//16进制转byte
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">hexStr2HexBytes</span><span style="color:#f92672">(</span>String strHex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>strHex <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-        strHex <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">+</span> strHex <span style="color:#f92672">:</span> strHex<span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> arr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">/</span> 2<span style="color:#f92672">];</span>
-        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> tmp <span style="color:#f92672">=</span> strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>
-        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> <span style="color:#f92672">(</span>tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">/</span> 2<span style="color:#f92672">);</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
-            arr<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> unitBytes<span style="color:#f92672">(</span>tmp<span style="color:#f92672">[</span>i <span style="color:#f92672">*</span> 2<span style="color:#f92672">],</span> tmp<span style="color:#f92672">[</span>i <span style="color:#f92672">*</span> 2 <span style="color:#f92672">+</span> 1<span style="color:#f92672">]);</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> arr<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#75715e">/**
-</span><span style="color:#75715e">     * 将两个ASCII字符合成一个字节；
-</span><span style="color:#75715e">     * 如：&#34;EF&#34;--&gt; 0xEF
-</span><span style="color:#75715e">     *
-</span><span style="color:#75715e">     * @param src0 byte
-</span><span style="color:#75715e">     * @param src1 byte
-</span><span style="color:#75715e">     * @return byte
-</span><span style="color:#75715e">     */</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">byte</span> <span style="color:#a6e22e">unitBytes</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span> src0<span style="color:#f92672">,</span> <span style="color:#66d9ef">byte</span> src1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">byte</span> _b0 <span style="color:#f92672">=</span> Byte<span style="color:#f92672">.</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;0x&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]{</span>src0<span style="color:#f92672">})).</span><span style="color:#a6e22e">byteValue</span><span style="color:#f92672">();</span>
-        _b0 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_b0 <span style="color:#f92672">&lt;&lt;</span> 4<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">byte</span> _b1 <span style="color:#f92672">=</span> Byte<span style="color:#f92672">.</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;0x&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]{</span>src1<span style="color:#f92672">})).</span><span style="color:#a6e22e">byteValue</span><span style="color:#f92672">();</span>
-        <span style="color:#66d9ef">byte</span> ret <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_b0 <span style="color:#f92672">^</span> _b1<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">return</span> ret<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-
-
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">md5</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        <span style="color:#75715e">//初始化MessageDigest
-</span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;MD5&#34;</span><span style="color:#f92672">);</span>
-        <span style="color:#75715e">//执行摘要方法
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">sha</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        <span style="color:#75715e">//初始化MessageDigest
-</span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA&#34;</span><span style="color:#f92672">);</span>
-        <span style="color:#75715e">//执行摘要方法
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">sha256</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        <span style="color:#75715e">//初始化MessageDigest
-</span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA-256&#34;</span><span style="color:#f92672">);</span>
-        <span style="color:#75715e">//执行摘要方法
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">sha512</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        <span style="color:#75715e">//初始化MessageDigest
-</span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA-512&#34;</span><span style="color:#f92672">);</span>
-        <span style="color:#75715e">//执行摘要方法
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#a6e22e">@Test</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testHash</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-        String src <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123456&#34;</span><span style="color:#f92672">;</span>
-
-        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-            String md5 <span style="color:#f92672">=</span> md5<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>md5<span style="color:#f92672">);</span>
-
-            String sha <span style="color:#f92672">=</span> sha<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha<span style="color:#f92672">);</span>
-
-            String sha256 <span style="color:#f92672">=</span> sha256<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha256<span style="color:#f92672">);</span>
-
-            String sha512 <span style="color:#f92672">=</span> sha512<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha512<span style="color:#f92672">);</span>
-
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
-        <span style="color:#f92672">}</span>
-
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-------------------------&#34;</span><span style="color:#f92672">);</span>
-
-        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> arrByte <span style="color:#f92672">=</span> hexStr2HexBytes<span style="color:#f92672">(</span>src<span style="color:#f92672">);</span>
-            String md5 <span style="color:#f92672">=</span> md5<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>md5<span style="color:#f92672">);</span>
-
-            String sha <span style="color:#f92672">=</span> sha<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha<span style="color:#f92672">);</span>
-
-            String sha256 <span style="color:#f92672">=</span> sha256<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha256<span style="color:#f92672">);</span>
-
-            String sha512 <span style="color:#f92672">=</span> sha512<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha512<span style="color:#f92672">);</span>
-
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>执行结果</p>
-<pre><code>e10adc3949ba59abbe56e057f20f883e
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> org.junit.Test<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.security.MessageDigest<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @author : 李明燮
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @since : 2022/10/31
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * create at : 2022/10/31 下午10:50
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HashUtil</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//byte转换成16进制
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">bytes2HexStr</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        StringBuffer result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuffer<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span> byt <span style="color:#f92672">:</span> bytes<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            result<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">((</span>byt <span style="color:#f92672">&amp;</span> 0xff<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> 0x100<span style="color:#f92672">,</span> 16<span style="color:#f92672">).</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//16进制转byte
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">hexStr2HexBytes</span><span style="color:#f92672">(</span>String strHex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>strHex <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        strHex <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">+</span> strHex <span style="color:#f92672">:</span> strHex<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> arr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">/</span> 2<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> tmp <span style="color:#f92672">=</span> strHex<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> <span style="color:#f92672">(</span>tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">/</span> 2<span style="color:#f92672">);</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            arr<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> unitBytes<span style="color:#f92672">(</span>tmp<span style="color:#f92672">[</span>i <span style="color:#f92672">*</span> 2<span style="color:#f92672">],</span> tmp<span style="color:#f92672">[</span>i <span style="color:#f92672">*</span> 2 <span style="color:#f92672">+</span> 1<span style="color:#f92672">]);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> arr<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 将两个ASCII字符合成一个字节；
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 如：&#34;EF&#34;--&gt; 0xEF
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param src0 byte
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param src1 byte
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return byte
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">byte</span> <span style="color:#a6e22e">unitBytes</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span> src0<span style="color:#f92672">,</span> <span style="color:#66d9ef">byte</span> src1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> _b0 <span style="color:#f92672">=</span> Byte<span style="color:#f92672">.</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;0x&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]{</span>src0<span style="color:#f92672">})).</span><span style="color:#a6e22e">byteValue</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        _b0 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_b0 <span style="color:#f92672">&lt;&lt;</span> 4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> _b1 <span style="color:#f92672">=</span> Byte<span style="color:#f92672">.</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;0x&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]{</span>src1<span style="color:#f92672">})).</span><span style="color:#a6e22e">byteValue</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> ret <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>_b0 <span style="color:#f92672">^</span> _b1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ret<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">md5</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//初始化MessageDigest
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;MD5&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//执行摘要方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">sha</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//初始化MessageDigest
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//执行摘要方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">sha256</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//初始化MessageDigest
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA-256&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//执行摘要方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">sha512</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//初始化MessageDigest
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        MessageDigest md <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA-512&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//执行摘要方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> digest <span style="color:#f92672">=</span> md<span style="color:#f92672">.</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> bytes2HexStr<span style="color:#f92672">(</span>digest<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testHash</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String src <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123456&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            String md5 <span style="color:#f92672">=</span> md5<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>md5<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            String sha <span style="color:#f92672">=</span> sha<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            String sha256 <span style="color:#f92672">=</span> sha256<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha256<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            String sha512 <span style="color:#f92672">=</span> sha512<span style="color:#f92672">(</span>src<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha512<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-------------------------&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> arrByte <span style="color:#f92672">=</span> hexStr2HexBytes<span style="color:#f92672">(</span>src<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            String md5 <span style="color:#f92672">=</span> md5<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>md5<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            String sha <span style="color:#f92672">=</span> sha<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            String sha256 <span style="color:#f92672">=</span> sha256<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha256<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            String sha512 <span style="color:#f92672">=</span> sha512<span style="color:#f92672">(</span>arrByte<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>sha512<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>执行结果</p>
+<pre tabindex="0"><code>e10adc3949ba59abbe56e057f20f883e
 7c4a8d09ca3762af61e59520943dc26494f8941b
 8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92
 ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413
@@ -312,62 +307,62 @@ d54093641b8ab5efe6d9c8dca9fb39112cb1722a
 bf7cbe09d71a1bcc373ab9a764917f730a6ed951ffa1a7399b7abd8f8fd73cb4
 45341a09a5df1bec7ceac3716e32692a8029903178b1ce8bc57c2ac2c11c82100553ae1fcb99118fa7f5a62f524e162e80e0e1533a4e6177b3fa9d830f48bd37
 </code></pre><h4 id="go实现">go实现</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HASH</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">hashType</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hashInstance</span> <span style="color:#a6e22e">hash</span>.<span style="color:#a6e22e">Hash</span>
- <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">hashType</span> {
- <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;md4&#34;</span>:
-  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">md4</span>.<span style="color:#a6e22e">New</span>()
- <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;md5&#34;</span>:
-  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">md5</span>.<span style="color:#a6e22e">New</span>()
- <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sha1&#34;</span>:
-  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">sha1</span>.<span style="color:#a6e22e">New</span>()
- <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;ripemd160&#34;</span>:
-  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">ripemd160</span>.<span style="color:#a6e22e">New</span>()
- <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sha256&#34;</span>:
-  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">sha256</span>.<span style="color:#a6e22e">New</span>()
- <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sha512&#34;</span>:
-  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">sha512</span>.<span style="color:#a6e22e">New</span>()
- }
- <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isHex</span> {
-  <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">text</span>)
-  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-   <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
-  }
-  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">arr</span>)
- } <span style="color:#66d9ef">else</span> {
-  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">text</span>))
- }
-
- <span style="color:#a6e22e">bytes</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
- <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">bytes</span>), <span style="color:#66d9ef">nil</span>
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Hash256Double</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
- <span style="color:#a6e22e">hashInstance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sha256</span>.<span style="color:#a6e22e">New</span>()
- <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isHex</span> {
-  <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">text</span>)
-  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
-  }
-  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">arr</span>)
- } <span style="color:#66d9ef">else</span> {
-  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">text</span>))
- }
-
- <span style="color:#a6e22e">bytes</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
- <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Reset</span>()
- <span style="color:#a6e22e">bytes</span> = <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
- <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bytes</span>, <span style="color:#66d9ef">nil</span>
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Hash256DoubleString</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
- <span style="color:#a6e22e">bytes</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Hash256Double</span>(<span style="color:#a6e22e">text</span>, <span style="color:#a6e22e">isHex</span>)
- <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
- }
- <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">bytes</span>), <span style="color:#66d9ef">nil</span>
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HASH</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">hashType</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hashInstance</span> <span style="color:#a6e22e">hash</span>.<span style="color:#a6e22e">Hash</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">hashType</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;md4&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">md4</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;md5&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">md5</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sha1&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">sha1</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;ripemd160&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">ripemd160</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sha256&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">sha256</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;sha512&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span> = <span style="color:#a6e22e">sha512</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isHex</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">text</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span> } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">text</span>))
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">bytes</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">bytes</span>), <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Hash256Double</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">hashInstance</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sha256</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isHex</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">DecodeString</span>(<span style="color:#a6e22e">text</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span> } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">text</span>))
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">bytes</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Reset</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">bytes</span> = <span style="color:#a6e22e">hashInstance</span>.<span style="color:#a6e22e">Sum</span>(<span style="color:#66d9ef">nil</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bytes</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Hash256DoubleString</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">isHex</span> <span style="color:#66d9ef">bool</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">bytes</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Hash256Double</span>(<span style="color:#a6e22e">text</span>, <span style="color:#a6e22e">isHex</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%x&#34;</span>, <span style="color:#a6e22e">bytes</span>), <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -430,12 +425,12 @@ bf7cbe09d71a1bcc373ab9a764917f730a6ed951ffa1a7399b7abd8f8fd73cb4
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -457,7 +452,7 @@ bf7cbe09d71a1bcc373ab9a764917f730a6ed951ffa1a7399b7abd8f8fd73cb4
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -493,7 +488,7 @@ bf7cbe09d71a1bcc373ab9a764917f730a6ed951ffa1a7399b7abd8f8fd73cb4
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -565,7 +560,7 @@ bf7cbe09d71a1bcc373ab9a764917f730a6ed951ffa1a7399b7abd8f8fd73cb4
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

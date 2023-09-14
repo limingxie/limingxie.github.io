@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【网络协议笔记】第五层:应用层(Application)HTTP协议简介(5)" />
 <meta property="og:description" content="这一篇整理了跨域，cookie和session的基本概念和用法。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/network/5_application_http_05/" />
+<meta property="og:url" content="https://limingxie.github.io/note/network/5_application_http_05/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-04-22T18:05:49+08:00" />
 <meta property="article:modified_time" content="2022-04-22T18:05:49+08:00" />
 
 		<meta itemprop="name" content="【网络协议笔记】第五层:应用层(Application)HTTP协议简介(5)">
-<meta itemprop="description" content="这一篇整理了跨域，cookie和session的基本概念和用法。">
-<meta itemprop="datePublished" content="2022-04-22T18:05:49+08:00" />
+<meta itemprop="description" content="这一篇整理了跨域，cookie和session的基本概念和用法。"><meta itemprop="datePublished" content="2022-04-22T18:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-04-22T18:05:49+08:00" />
 <meta itemprop="wordCount" content="192">
-
-
-
 <meta itemprop="keywords" content="OSI,CORS,cookie,session,network," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -209,15 +204,15 @@
 <li>带cookie跨域请求：前后端都需要进行设置</li>
 </ol>
 <p>简单的看看下面java代码：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 允许跨域访问的域名：若有端口需写全（协议+域名+端口），若没有端口末尾不用加&#39;/&#39;
-</span><span style="color:#75715e"></span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">setHeader</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Access-Control-Allow-Origin&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;http://www.example.com&#34;</span><span style="color:#f92672">);</span>
-
-<span style="color:#75715e">// 允许前端带认证cookie：启用此项后，上面的域名不能为&#39;*&#39;，必须指定具体的域名，否则浏览器会提示
-</span><span style="color:#75715e"></span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">setHeader</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Access-Control-Allow-Credentials&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">);</span>
-
-<span style="color:#75715e">// 提示OPTIONS预检时，后端需要设置的两个常用自定义头
-</span><span style="color:#75715e"></span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">setHeader</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Access-Control-Allow-Headers&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Content-Type,X-Requested-With&#34;</span><span style="color:#f92672">);</span>
-</code></pre></div><h2 id="2cookie">2.Cookie</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 允许跨域访问的域名：若有端口需写全（协议+域名+端口），若没有端口末尾不用加&#39;/&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">setHeader</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Access-Control-Allow-Origin&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;http://www.example.com&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 允许前端带认证cookie：启用此项后，上面的域名不能为&#39;*&#39;，必须指定具体的域名，否则浏览器会提示
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">setHeader</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Access-Control-Allow-Credentials&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 提示OPTIONS预检时，后端需要设置的两个常用自定义头
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>response<span style="color:#f92672">.</span><span style="color:#a6e22e">setHeader</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Access-Control-Allow-Headers&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Content-Type,X-Requested-With&#34;</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><h2 id="2cookie">2.Cookie</h2>
 <p>因为HTTP协议是无状态的，即服务器不知道用户上一次做了什么，这严重阻碍了交互式Web应用程序的实现。<br>
 典型的应用场景是当用户登录网站以后，发出下一个请求时，服务器是不知道他之前登录过。<br>
 这时使用Cookie就能解决当前的问题(现在也流行附加令牌token的方式)。<br>
@@ -236,22 +231,22 @@
 Cookie在客户端是由浏览器来管理。浏览器能够保证Google只会操作Google的Cookie而不会操作其它域名的Cookie，从而保证用户的隐私安全。</p>
 <p>正常情况下，同一个一级域名下的两个二级域名如www.google.com和images.google.com也不能交互使用Cookie，因为二者的域名并不严格相同。<br>
 如果想所有google.com名下的二级域名都可以使用该Cookie，需要设置Cookie的domain参数。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Cookie cookie = new Cookie(&#34;time&#34;,&#34;20200000&#34;); // 新建Cookie  
-cookie.setDomain(&#34;.google.com&#34;); // 设置域名  
-cookie.setPath(&#34;/&#34;); // 设置路径  
-cookie.setMaxAge(Integer.MAX_VALUE); // 设置有效期  
-response.addCookie(cookie); // 输出到客户端  
-</code></pre></div><h3 id="23-常用属性">2.3 常用属性</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>Cookie cookie = new Cookie(&#34;time&#34;,&#34;20200000&#34;); // 新建Cookie  
+</span></span><span style="display:flex;"><span>cookie.setDomain(&#34;.google.com&#34;); // 设置域名  
+</span></span><span style="display:flex;"><span>cookie.setPath(&#34;/&#34;); // 设置路径  
+</span></span><span style="display:flex;"><span>cookie.setMaxAge(Integer.MAX_VALUE); // 设置有效期  
+</span></span><span style="display:flex;"><span>response.addCookie(cookie); // 输出到客户端  
+</span></span></code></pre></div><h3 id="23-常用属性">2.3 常用属性</h3>
 <p>除了name与value之外，Cookie还具有其他几个常用的属性。<br>
 看看下图：</p>
 <p><a href="https://limingxie.github.io/images/network/application/application_22.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/application/application_22.png" alt="application"></p>
 <h3 id="24-有效期">2.4 有效期</h3>
 <p>Cookie的maxAge决定着Cookie的有效期，单位为秒（Second）。Cookie中通过getMaxAge() 方法与setMaxAge(int maxAge)。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Cookie cookie = new Cookie(&#34;username&#34;,&#34;helloweenvsfei&#34;); // 新建Cookie  
-cookie.setMaxAge(Integer.MAX_VALUE); // 设置生命周期为MAX_VALUE  
-response.addCookie(cookie); // 输出到客户端  
-</code></pre></div><h3 id="25-修改删除">2.5 修改/删除</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>Cookie cookie = new Cookie(&#34;username&#34;,&#34;helloweenvsfei&#34;); // 新建Cookie  
+</span></span><span style="display:flex;"><span>cookie.setMaxAge(Integer.MAX_VALUE); // 设置生命周期为MAX_VALUE  
+</span></span><span style="display:flex;"><span>response.addCookie(cookie); // 输出到客户端  
+</span></span></code></pre></div><h3 id="25-修改删除">2.5 修改/删除</h3>
 <p>Cookie并不提供修改、删除操作。如果要删除某个Cookie，只需要新建一个同名的Cookie，并将maxAge设置为0，并添加到response中覆盖原来的Cookie。<br>
 注意是0而不是负数。负数代表其他的意义。</p>
 <p>注意：修改、删除Cookie时，新建的Cookie除value、maxAge之外的所有属性，例如name、path、domain等，都要与原Cookie完全一样。<br>
@@ -260,16 +255,16 @@ response.addCookie(cookie); // 输出到客户端
 <p>标识指定了主机下的哪些路径可以接受Cookie，子路径也会被匹配。</p>
 <p>例如，如果只允许/hello/<br>
 下的程序使用Cookie，可以这么写：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">cookie.setPath(&#34;/hello/&#34;); // 设置路径  
-</code></pre></div><p>设置为“/”时允许所有路径使用Cookie。path属性需要使用符号“/”结尾。name相同但domain相同的两个Cookie也是两个不同的Cookie。<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>cookie.setPath(&#34;/hello/&#34;); // 设置路径  
+</span></span></code></pre></div><p>设置为“/”时允许所有路径使用Cookie。path属性需要使用符号“/”结尾。name相同但domain相同的两个Cookie也是两个不同的Cookie。<br>
 注意：页面只能获取它属于的Path的Cookie。例如/hello/test/a.html不能获取到路径为/hello/abc/的Cookie。</p>
 <h3 id="27-安全">2.7 安全</h3>
 <p>HTTP协议不仅是无状态的，而且是不安全的。<br>
 使用HTTP协议的数据不经过任何加密就直接在网络上传播，有被截获的可能。使用HTTP协议传输很机密的内容是一种隐患。<br>
 如果不希望Cookie在HTTP等非安全协议中传输，可以设置Cookie的secure属性为true。<br>
 浏览器只会在HTTPS和SSL等安全协议中传输此类Cookie。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">cookie.setSecure(true);
-</code></pre></div><p>secure属性并不能对Cookie内容加密，因而不能保证绝对的安全性。<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>cookie.setSecure(true);
+</span></span></code></pre></div><p>secure属性并不能对Cookie内容加密，因而不能保证绝对的安全性。<br>
 如果需要高安全性，需要在程序中对Cookie内容加密、解密，以防泄密。</p>
 <h2 id="3session">3.Session</h2>
 <h3 id="31-概念">3.1 概念</h3>
@@ -396,12 +391,12 @@ Session信息是存放在server端，但session id是存放在client cookie的�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -423,7 +418,7 @@ Session信息是存放在server端，但session id是存放在client cookie的�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -459,7 +454,7 @@ Session信息是存放在server端，但session id是存放在client cookie的�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -531,7 +526,7 @@ Session信息是存放在server端，但session id是存放在client cookie的�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_变量的基本类型(2)" />
 <meta property="og:description" content="这一篇简单的整理了golang的 变量类型 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_02/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_02/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-03T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-03T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_变量的基本类型(2)">
-<meta itemprop="description" content="这一篇简单的整理了golang的 变量类型 相关的内容。">
-<meta itemprop="datePublished" content="2022-09-03T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang的 变量类型 相关的内容。"><meta itemprop="datePublished" content="2022-09-03T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-03T23:28:49+08:00" />
 <meta itemprop="wordCount" content="424">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -162,7 +157,7 @@
 	</div>
 </div><div class="content post__content clearfix">
 			<p>这一篇简单的整理了golang的 <strong><code>变量类型</code></strong> 相关的内容。</p>
-<pre><code>bool
+<pre tabindex="0"><code>bool
 
 string
 
@@ -291,10 +286,10 @@ complex64 complex128
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">num</span> = <span style="color:#ae81ff">100</span>
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:%T | size: %d&#34;</span>, <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Sizeof</span>(<span style="color:#a6e22e">mun</span>))
-<span style="color:#75715e">//int 8
-</span></code></pre></div><h2 id="2浮点类型">2.浮点类型</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">num</span> = <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type:%T | size: %d&#34;</span>, <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Sizeof</span>(<span style="color:#a6e22e">mun</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//int 8
+</span></span></span></code></pre></div><h2 id="2浮点类型">2.浮点类型</h2>
 <table>
 <thead>
 <tr>
@@ -316,21 +311,21 @@ complex64 complex128
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5.1234e2</span> <span style="color:#75715e">// 5.1234 * 10^2
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">num1</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5.1234E2</span> <span style="color:#75715e">// 5.1234 * 10^2
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">mun2</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5.1234E2</span> <span style="color:#75715e">// 5.1234 / 10^2
-</span></code></pre></div><h2 id="3字符型">3.字符型</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5.1234e2</span> <span style="color:#75715e">// 5.1234 * 10^2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">num1</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5.1234E2</span> <span style="color:#75715e">// 5.1234 * 10^2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">mun2</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5.1234E2</span> <span style="color:#75715e">// 5.1234 / 10^2
+</span></span></span></code></pre></div><h2 id="3字符型">3.字符型</h2>
 <p>golang没有专门的字符类型，如果需要存储单个字符，一般使用byte。<br>
 字符串就是一串固定长度的字符链接起来的字符序列。<br>
 Go的字符串是有字节组成的。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">var</span> <span style="color:#66d9ef">byte</span> = <span style="color:#e6db74">&#39;a&#39;</span>
-
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span> = <span style="color:#e6db74">&#39;北&#39;</span>
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;b=%c | 对应的码值=%d&#34;</span>,<span style="color:#a6e22e">b</span> ,<span style="color:#a6e22e">b</span>)
-
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> = <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;a&#39;</span>
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Pringln</span>(<span style="color:#a6e22e">c</span>) <span style="color:#75715e">//107
-</span></code></pre></div><pre><code>存储：字符 ==》 对应的码值 ==》 二进制 ==》 存储
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#66d9ef">byte</span> = <span style="color:#e6db74">&#39;a&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span> = <span style="color:#e6db74">&#39;北&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;b=%c | 对应的码值=%d&#34;</span>,<span style="color:#a6e22e">b</span> ,<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> = <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;a&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Pringln</span>(<span style="color:#a6e22e">c</span>) <span style="color:#75715e">//107
+</span></span></span></code></pre></div><pre tabindex="0"><code>存储：字符 ==》 对应的码值 ==》 二进制 ==》 存储
 读取：二进制 ==》 码值 ==》 字符 ==》 读取
 </code></pre><h2 id="4bool">4.bool</h2>
 <p>bool类型只允许保存true和false，其占有空间是1字节。<br>
@@ -339,9 +334,9 @@ Go的字符串是有字节组成的。</p>
 <ul>
 <li>字符串一但赋值就不能修改。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
-<span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">0</span>]=<span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#75715e">// 这会报错。
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">0</span>]=<span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#75715e">// 这会报错。
+</span></span></span></code></pre></div><ul>
 <li>双引号(&quot;&quot;)识别转义符，反引号(``)输出源码内容</li>
 </ul>
 <h2 id="6默认值">6.默认值</h2>
@@ -376,59 +371,59 @@ Go的字符串是有字节组成的。</p>
 <ul>
 <li>没有隐式转换，都是强转。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">int32</span> = <span style="color:#ae81ff">10</span>
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">int64</span> = int64(<span style="color:#a6e22e">n1</span>)
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">float32</span> = float32(<span style="color:#a6e22e">n1</span>)
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">float64</span> = float64(<span style="color:#a6e22e">n1</span>)
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">int32</span> = <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">int64</span> = int64(<span style="color:#a6e22e">n1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">float32</span> = float32(<span style="color:#a6e22e">n1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">float64</span> = float64(<span style="color:#a6e22e">n1</span>)
+</span></span></code></pre></div><ul>
 <li>范围小的类型转范围大类型，编译不报错，但是结果会溢出</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">int64</span> = <span style="color:#ae81ff">999999</span>
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">int8</span> = int8(<span style="color:#a6e22e">n1</span>) <span style="color:#75715e">// n2 = 63
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">//编译报错的情况
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d1</span> <span style="color:#66d9ef">int32</span> = <span style="color:#ae81ff">12</span>
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d2</span> <span style="color:#66d9ef">int64</span>
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d3</span> <span style="color:#66d9ef">int8</span>
-
-<span style="color:#a6e22e">d2</span> = <span style="color:#a6e22e">d1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">20</span> <span style="color:#75715e">//编译报错
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">d3</span> = <span style="color:#a6e22e">d1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">20</span> <span style="color:#75715e">//编译报错
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">int64</span> = <span style="color:#ae81ff">999999</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">int8</span> = int8(<span style="color:#a6e22e">n1</span>) <span style="color:#75715e">// n2 = 63
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//编译报错的情况
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d1</span> <span style="color:#66d9ef">int32</span> = <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d2</span> <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d3</span> <span style="color:#66d9ef">int8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">d2</span> = <span style="color:#a6e22e">d1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">20</span> <span style="color:#75715e">//编译报错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">d3</span> = <span style="color:#a6e22e">d1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">20</span> <span style="color:#75715e">//编译报错
+</span></span></span></code></pre></div><ul>
 <li>明显溢出是编译报错，隐式溢出不报错</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">int32</span> =<span style="color:#ae81ff">12</span>
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">int8</span>
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">int8</span>
-<span style="color:#a6e22e">n2</span> = int8(<span style="color:#a6e22e">n1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">127</span> <span style="color:#75715e">// 编译通过，但是会溢出  n2 = -117
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">n3</span> = int8(<span style="color:#a6e22e">n1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">128</span> <span style="color:#75715e">// 因为int8的范围小于128 直接编译报错。
-</span></code></pre></div><h4 id="72-string的转换">7.2 string的转换</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">int32</span> =<span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">int8</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">int8</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">n2</span> = int8(<span style="color:#a6e22e">n1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">127</span> <span style="color:#75715e">// 编译通过，但是会溢出  n2 = -117
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">n3</span> = int8(<span style="color:#a6e22e">n1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">128</span> <span style="color:#75715e">// 因为int8的范围小于128 直接编译报错。
+</span></span></span></code></pre></div><h4 id="72-string的转换">7.2 string的转换</h4>
 <p><strong>fmt.Sprintf</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//int =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#66d9ef">int</span>)
-<span style="color:#75715e">//float64 =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%f&#34;</span>, <span style="color:#66d9ef">float64</span>)
-<span style="color:#75715e">//bool =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%t&#34;</span>, <span style="color:#66d9ef">bool</span>)
-<span style="color:#75715e">//char =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%c&#34;</span>, <span style="color:#a6e22e">char</span>)
-</code></pre></div><p><strong>strconv</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//int =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#66d9ef">int</span>)
-<span style="color:#75715e">//int64 =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatInt</span>(<span style="color:#66d9ef">int64</span>, <span style="color:#ae81ff">10</span>)
-<span style="color:#75715e">//float64 =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatFloat</span>(<span style="color:#66d9ef">float64</span>, <span style="color:#e6db74">&#39;f&#39;</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">64</span>)
-<span style="color:#75715e">//bool =&gt; string
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatBool</span>(<span style="color:#66d9ef">bool</span>)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//string =&gt; int
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span>,<span style="color:#a6e22e">err</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#66d9ef">string</span>)
-<span style="color:#75715e">//string =&gt; int64
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int64</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseInt</span>(<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">64</span>)
-<span style="color:#75715e">//string =&gt; int64
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int64</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseFloat</span>(<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">64</span>)
-<span style="color:#75715e">//string =&gt; bool
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseBool</span>(<span style="color:#66d9ef">string</span>)
-</code></pre></div><h3 id="73-string转换时的注意点">7.3 string转换时的注意点</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">//int =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//float64 =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%f&#34;</span>, <span style="color:#66d9ef">float64</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//bool =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%t&#34;</span>, <span style="color:#66d9ef">bool</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//char =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%c&#34;</span>, <span style="color:#a6e22e">char</span>)
+</span></span></code></pre></div><p><strong>strconv</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">//int =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//int64 =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatInt</span>(<span style="color:#66d9ef">int64</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//float64 =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatFloat</span>(<span style="color:#66d9ef">float64</span>, <span style="color:#e6db74">&#39;f&#39;</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//bool =&gt; string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">str</span> = <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">FormatBool</span>(<span style="color:#66d9ef">bool</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">//string =&gt; int
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span>,<span style="color:#a6e22e">err</span><span style="color:#f92672">:=</span><span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#66d9ef">string</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//string =&gt; int64
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int64</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseInt</span>(<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//string =&gt; int64
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int64</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseFloat</span>(<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//string =&gt; bool
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseBool</span>(<span style="color:#66d9ef">string</span>)
+</span></span></code></pre></div><h3 id="73-string转换时的注意点">7.3 string转换时的注意点</h3>
 <blockquote>
 <p>如果转换失败，会赋该类型的默认值。</p>
 </blockquote>
@@ -492,12 +487,12 @@ Go的字符串是有字节组成的。</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -519,7 +514,7 @@ Go的字符串是有字节组成的。</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -555,7 +550,7 @@ Go的字符串是有字节组成的。</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -627,7 +622,7 @@ Go的字符串是有字节组成的。</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

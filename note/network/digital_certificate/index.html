@@ -13,7 +13,7 @@
 它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
 最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/network/digital_certificate/" />
+<meta property="og:url" content="https://limingxie.github.io/note/network/digital_certificate/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-04-05T22:28:49+08:00" />
 <meta property="article:modified_time" content="2022-04-05T22:28:49+08:00" />
 
@@ -21,15 +21,10 @@
 <meta itemprop="description" content="1.数字证书是什么？
 数字证书(digital certificate)是互联网通讯中标志通讯各方身份信息的一系列数据，提供了验证身份的方式。
 它是由一个由权威机构（Certificate Authority）中心发行的，人们可以在网上用它来识别对方的身份。
-最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。">
-<meta itemprop="datePublished" content="2022-04-05T22:28:49+08:00" />
+最简单的数字证书包含一个公开密钥、名称以及证书授权中心的数字签名。"><meta itemprop="datePublished" content="2022-04-05T22:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-04-05T22:28:49+08:00" />
 <meta itemprop="wordCount" content="146">
-
-
-
 <meta itemprop="keywords" content="digital,certificate," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -188,7 +183,7 @@
 <p>看看下图CA是如何发放数字证书。</p>
 <p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate_2.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_2.png" alt="digital_certificate"></p>
-<pre><code>1. 创建一个文件包含申请者信息(申请者的公钥，签名算法，有效期等等...)的文件。
+<pre tabindex="0"><code>1. 创建一个文件包含申请者信息(申请者的公钥，签名算法，有效期等等...)的文件。
 2. 对这个文件使用hash算法加密，获取hash值。
 3. CA使用自己的私钥加密申请信息的hash值获取证书签名。
 4. 证书签名+申请者信息 = 数字证书
@@ -196,7 +191,7 @@
 <p>看下图如何判断数字证书的合法性。</p>
 <p><a href="https://limingxie.github.io/images/network/digital_certificate/digital_certificate_3.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/network/digital_certificate/digital_certificate_3.png" alt="digital_certificate"></p>
-<pre><code>1. 客户端(一般是游览器)接受服务器的数字证书后，先把数字证书里的申请者信息使用hash算法加密获得hash值。
+<pre tabindex="0"><code>1. 客户端(一般是游览器)接受服务器的数字证书后，先把数字证书里的申请者信息使用hash算法加密获得hash值。
 2. 使用CA颁发的公钥解密数字证书里的签名。
 3. 比较数字证书里的内容获得的hash值和解密签名获取的hash值是否一样。
 </code></pre><h2 id="5数据证书里的详细内容">5.数据证书里的详细内容</h2>
@@ -364,12 +359,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -391,7 +386,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -427,7 +422,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -499,7 +494,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

@@ -11,21 +11,16 @@
 <meta property="og:description" content="我们时常遇到需要mysql数据反应缓慢，需优化的时候。
 如果对explain有所了解，你可以现查现优化。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_explain/" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_explain/" /><meta property="article:section" content="database" />
 <meta property="article:published_time" content="2022-07-07T12:28:49+08:00" />
 <meta property="article:modified_time" content="2022-07-07T12:28:49+08:00" />
 
 		<meta itemprop="name" content="【mysql笔记】EXPLAIN">
 <meta itemprop="description" content="我们时常遇到需要mysql数据反应缓慢，需优化的时候。
-如果对explain有所了解，你可以现查现优化。">
-<meta itemprop="datePublished" content="2022-07-07T12:28:49+08:00" />
+如果对explain有所了解，你可以现查现优化。"><meta itemprop="datePublished" content="2022-07-07T12:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-07T12:28:49+08:00" />
 <meta itemprop="wordCount" content="440">
-
-
-
 <meta itemprop="keywords" content="mysql,explain," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -173,28 +168,28 @@
 如果对explain有所了解，你可以现查现优化。</p>
 <h2 id="1慢查询">1.慢查询</h2>
 <p>谈explain优化之前先看看如何查找慢查询。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">开启慢查询日志</span>
-<span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%slow_query_log%&#39;</span>
-<span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> slow_query_log<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ON&#39;</span>
-<span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> slow_query_log_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp/mysql_slow.log&#39;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">设置慢查询设定</span>
-<span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> long_query_time <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-<span style="color:#66d9ef">show</span> <span style="color:#66d9ef">global</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%long_query_time%&#39;</span>;
-<span style="color:#66d9ef">set</span> long_query_time<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
-<span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%long_query_time%&#39;</span>;
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">慢查询出现多少次，做记录。</span><span style="color:#ae81ff">100</span><span style="color:#960050;background-color:#1e0010">代表出现</span><span style="color:#ae81ff">100</span><span style="color:#960050;background-color:#1e0010">次了</span> <span style="color:#960050;background-color:#1e0010">才做记录</span>
-<span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%min_examined_row_limit%&#39;</span>
-
-<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看慢查询</span>
-<span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">GLOBAL</span> STATUS <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%Slow_queries%&#39;</span>
-<span style="color:#66d9ef">show</span> status <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;slow_queries&#39;</span>
-</code></pre></div><h2 id="2具体查看慢查询分析工具和命令">2.具体查看慢查询分析工具和命令</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">开启慢查询日志</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%slow_query_log%&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> slow_query_log<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ON&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> slow_query_log_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/tmp/mysql_slow.log&#39;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">设置慢查询设定</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#66d9ef">global</span> long_query_time <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">show</span> <span style="color:#66d9ef">global</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%long_query_time%&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> long_query_time<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%long_query_time%&#39;</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">慢查询出现多少次，做记录。</span><span style="color:#ae81ff">100</span><span style="color:#960050;background-color:#1e0010">代表出现</span><span style="color:#ae81ff">100</span><span style="color:#960050;background-color:#1e0010">次了</span> <span style="color:#960050;background-color:#1e0010">才做记录</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%min_examined_row_limit%&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看慢查询</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">GLOBAL</span> STATUS <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%Slow_queries%&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">show</span> status <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;slow_queries&#39;</span>
+</span></span></code></pre></div><h2 id="2具体查看慢查询分析工具和命令">2.具体查看慢查询分析工具和命令</h2>
 <p>可以使用muysqldumpslow工具查看，也可以查看binlog日志。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看</span> <span style="color:#66d9ef">SQL</span> <span style="color:#960050;background-color:#1e0010">执行成本</span>  
-<span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;profiling&#39;</span>  
-
-sql_mode  
-</code></pre></div><p><strong>一些常用的性能参数如下:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看</span> <span style="color:#66d9ef">SQL</span> <span style="color:#960050;background-color:#1e0010">执行成本</span>  
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;profiling&#39;</span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sql_mode  
+</span></span></code></pre></div><p><strong>一些常用的性能参数如下:</strong></p>
 <ul>
 <li>Connections:连接MySQL服务器的次数。</li>
 <li>Uptime:MySQL服务器的上 线时间。</li>
@@ -209,13 +204,13 @@ sql_mode
 <li>Com_delete:删除操作的次数</li>
 </ul>
 <h2 id="3explain">3.EXPLAIN</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> sql_no_cache <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> app <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>;
-<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> id <span style="color:#f92672">|</span> select_type <span style="color:#f92672">|</span> <span style="color:#66d9ef">table</span>       <span style="color:#f92672">|</span> partitions <span style="color:#f92672">|</span> <span style="color:#66d9ef">type</span> <span style="color:#f92672">|</span> possible_keys <span style="color:#f92672">|</span> <span style="color:#66d9ef">key</span>  <span style="color:#f92672">|</span> key_len <span style="color:#f92672">|</span> <span style="color:#66d9ef">ref</span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">rows</span> <span style="color:#f92672">|</span> filtered <span style="color:#f92672">|</span> Extra       <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">SIMPLE</span>      <span style="color:#f92672">|</span> application <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">ALL</span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">PRIMARY</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span> <span style="color:#f92672">|</span>  <span style="color:#ae81ff">172</span> <span style="color:#f92672">|</span>    <span style="color:#ae81ff">33</span>.<span style="color:#ae81ff">33</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Using</span> <span style="color:#66d9ef">where</span> <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
-</span></code></pre></div><p>看看每个列的说明</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> sql_no_cache <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> app <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> id <span style="color:#f92672">|</span> select_type <span style="color:#f92672">|</span> <span style="color:#66d9ef">table</span>       <span style="color:#f92672">|</span> partitions <span style="color:#f92672">|</span> <span style="color:#66d9ef">type</span> <span style="color:#f92672">|</span> possible_keys <span style="color:#f92672">|</span> <span style="color:#66d9ef">key</span>  <span style="color:#f92672">|</span> key_len <span style="color:#f92672">|</span> <span style="color:#66d9ef">ref</span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">rows</span> <span style="color:#f92672">|</span> filtered <span style="color:#f92672">|</span> Extra       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span>  <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">SIMPLE</span>      <span style="color:#f92672">|</span> application <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">ALL</span>  <span style="color:#f92672">|</span> <span style="color:#66d9ef">PRIMARY</span>       <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span> <span style="color:#f92672">|</span>  <span style="color:#ae81ff">172</span> <span style="color:#f92672">|</span>    <span style="color:#ae81ff">33</span>.<span style="color:#ae81ff">33</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Using</span> <span style="color:#66d9ef">where</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----+-------------+-------------+------------+------+---------------+------+---------+------+------+----------+-------------+
+</span></span></span></code></pre></div><p>看看每个列的说明</p>
 <table>
 <thead>
 <tr>
@@ -275,7 +270,7 @@ sql_mode
 </tbody>
 </table>
 <p>其中 type，key_len，rows，Extra 的结果比较重要。</p>
-<pre><code>type: 结果值从最好到最坏依次是:
+<pre tabindex="0"><code>type: 结果值从最好到最坏依次是:
 system &gt; const &gt; eq_ref &gt; ref &gt;  
 fulltext &gt; ref_or_null &gt; index_merge &gt; unique_subquery &gt; index_subquery &gt;  
 range &gt; index &gt; ALL
@@ -291,19 +286,19 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 部分统计信息是估算的，并非精确值</p>
 <h2 id="4explain-4种输出格式">4.explain 4种输出格式</h2>
 <h4 id="41-传统格式">4.1 传统格式</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">SELECT</span> ....
-</code></pre></div><h4 id="42-json格式">4.2 JSON格式</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXPLAIN</span> FORMAT<span style="color:#f92672">=</span>JSON <span style="color:#66d9ef">SELECT</span> ....
-</code></pre></div><p>JSON格式多出了cost的内容。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;cost_info&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
-    <span style="color:#f92672">&#34;read_cost&#34;</span>: <span style="color:#e6db74">&#34;1840.84&#34;</span>, <span style="color:#960050;background-color:#1e0010">//IO</span> <span style="color:#960050;background-color:#1e0010">成本,</span> <span style="color:#960050;background-color:#1e0010">检测</span> <span style="color:#960050;background-color:#1e0010">rows</span> <span style="color:#960050;background-color:#1e0010">×</span> <span style="color:#960050;background-color:#1e0010">(1</span> <span style="color:#960050;background-color:#1e0010">-</span> <span style="color:#960050;background-color:#1e0010">filter)</span> <span style="color:#960050;background-color:#1e0010">条记录的</span> <span style="color:#960050;background-color:#1e0010">CPU</span> <span style="color:#960050;background-color:#1e0010">成本</span>
-    <span style="color:#f92672">&#34;eval_cost&#34;</span>: <span style="color:#e6db74">&#34;193.76&#34;</span>, <span style="color:#960050;background-color:#1e0010">//检测</span> <span style="color:#960050;background-color:#1e0010">rows</span> <span style="color:#960050;background-color:#1e0010">×</span> <span style="color:#960050;background-color:#1e0010">filter</span> <span style="color:#960050;background-color:#1e0010">条记录的成本。</span>
-    <span style="color:#f92672">&#34;prefix_cost&#34;</span>: <span style="color:#e6db74">&#34;2034.60&#34;</span>, <span style="color:#960050;background-color:#1e0010">//read_cost</span> <span style="color:#960050;background-color:#1e0010">+</span> <span style="color:#960050;background-color:#1e0010">eval_cost</span>
-    <span style="color:#f92672">&#34;data_read_per_join&#34;</span>: <span style="color:#e6db74">&#34;1M&#34;</span> <span style="color:#960050;background-color:#1e0010">//表示在此次查询中需要读取的数据量</span>
-}
-</code></pre></div><h4 id="43-tree格式">4.3 TREE格式</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXPLAIN</span> FORMAT<span style="color:#f92672">=</span>tree <span style="color:#66d9ef">SELECT</span> ....
-</code></pre></div><h4 id="44-视化输出">4.4 视化输出</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">SELECT</span> ....
+</span></span></code></pre></div><h4 id="42-json格式">4.2 JSON格式</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> FORMAT<span style="color:#f92672">=</span>JSON <span style="color:#66d9ef">SELECT</span> ....
+</span></span></code></pre></div><p>JSON格式多出了cost的内容。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;cost_info&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;read_cost&#34;</span>: <span style="color:#e6db74">&#34;1840.84&#34;</span>, <span style="color:#75715e">//IO 成本, 检测 rows × (1 - filter) 条记录的 CPU 成本
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;eval_cost&#34;</span>: <span style="color:#e6db74">&#34;193.76&#34;</span>, <span style="color:#75715e">//检测 rows × filter 条记录的成本。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;prefix_cost&#34;</span>: <span style="color:#e6db74">&#34;2034.60&#34;</span>, <span style="color:#75715e">//read_cost + eval_cost
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;data_read_per_join&#34;</span>: <span style="color:#e6db74">&#34;1M&#34;</span> <span style="color:#75715e">//表示在此次查询中需要读取的数据量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h4 id="43-tree格式">4.3 TREE格式</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> FORMAT<span style="color:#f92672">=</span>tree <span style="color:#66d9ef">SELECT</span> ....
+</span></span></code></pre></div><h4 id="44-视化输出">4.4 视化输出</h4>
 <p>可视化输出，可以通过MySQL Workbench可视化查看MySQL的执行计划。<br>
 通过点击Workbench的放大镜图标，即可生成可视化的查询计划。</p>
 <h2 id="5sys-schema视图摘要">5.Sys schema视图摘要</h2>
@@ -320,54 +315,54 @@ EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义�
 <li>等待事件相关信息:以wait开头，展示等待事件的延迟情况。</li>
 </ol>
 <h4 id="索引情况">索引情况</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">查询冗余索引</span>
-<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.schema_redundant_indexes;
-<span style="color:#f92672">#</span><span style="color:#ae81ff">2</span>. <span style="color:#960050;background-color:#1e0010">查询未使用过的索引</span>
-<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.schema_unused_indexes;
-<span style="color:#f92672">#</span><span style="color:#ae81ff">3</span>. <span style="color:#960050;background-color:#1e0010">查询索引的使用情况</span>
-<span style="color:#66d9ef">select</span> index_name,rows_selected,rows_inserted,rows_updated,rows_deleted 
-<span style="color:#66d9ef">from</span> sys.schema_index_statistics <span style="color:#66d9ef">where</span> table_schema<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dbname&#39;</span> ;
-</code></pre></div><h4 id="表相关">表相关</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span> <span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">查询表的访问量</span>
-<span style="color:#66d9ef">select</span> table_schema,<span style="color:#66d9ef">table_name</span>,<span style="color:#66d9ef">sum</span>(io_read_requests<span style="color:#f92672">+</span>io_write_requests) <span style="color:#66d9ef">as</span> io 
-<span style="color:#66d9ef">from</span> sys.schema_table_statistics <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> table_schema,<span style="color:#66d9ef">table_name</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> io <span style="color:#66d9ef">desc</span>;
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">2</span>. <span style="color:#960050;background-color:#1e0010">查询占用</span>bufferpool较多的表
-<span style="color:#66d9ef">select</span> object_schema,object_name,allocated,<span style="color:#66d9ef">data</span>
-<span style="color:#66d9ef">from</span> sys.innodb_buffer_stats_by_table <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> allocated <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10</span>;
-<span style="color:#f92672">#</span> <span style="color:#ae81ff">3</span>. <span style="color:#960050;background-color:#1e0010">查看表的全表扫描情况</span>
-<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.statements_with_full_table_scans <span style="color:#66d9ef">where</span> db<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dbname&#39;</span>;
-</code></pre></div><h4 id="语句相关">语句相关</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">监控</span>SQL执行的频率
-<span style="color:#66d9ef">select</span> db,exec_count,query <span style="color:#66d9ef">from</span> sys.statement_analysis <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> exec_count <span style="color:#66d9ef">desc</span>;
-<span style="color:#f92672">#</span><span style="color:#ae81ff">2</span>. <span style="color:#960050;background-color:#1e0010">监控使用了排序的</span><span style="color:#66d9ef">SQL</span>
-<span style="color:#66d9ef">select</span> db,exec_count,first_seen,last_seen,query <span style="color:#66d9ef">from</span> sys.statements_with_sorting <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1</span>;
-<span style="color:#f92672">#</span><span style="color:#ae81ff">3</span>. <span style="color:#960050;background-color:#1e0010">监控使用了临时表或者磁盘临时表的</span><span style="color:#66d9ef">SQL</span>
-<span style="color:#66d9ef">select</span> db,exec_count,tmp_tables,tmp_disk_tables,query
-<span style="color:#66d9ef">from</span> sys.statement_analysis <span style="color:#66d9ef">where</span> tmp_tables<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">or</span> tmp_disk_tables <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span> 
-<span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> (tmp_tables<span style="color:#f92672">+</span>tmp_disk_tables) <span style="color:#66d9ef">desc</span>;
-</code></pre></div><h4 id="io相关">IO相关</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">查看消耗磁盘</span>IO的文件
-<span style="color:#66d9ef">select</span> file,avg_read,avg_write,avg_read<span style="color:#f92672">+</span>avg_write <span style="color:#66d9ef">as</span> avg_io
-<span style="color:#66d9ef">from</span> sys.io_global_by_file_by_bytes <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> avg_read <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10</span>;
-</code></pre></div><p>Innodb 相关</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"> <span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">行锁阻塞情况</span>
-<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.innodb_lock_waits;
-</code></pre></div><h2 id="6其他">6.其他</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">可以查看</span>mysql执行前优化后的内容
-<span style="color:#66d9ef">SHOW</span> WARNINGS  
-
-<span style="color:#f92672">#</span>trace
-<span style="color:#66d9ef">SET</span> optimizer_trace<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enabled=on&#34;</span>,end_markers_in_json<span style="color:#f92672">=</span><span style="color:#66d9ef">on</span>;
-<span style="color:#66d9ef">set</span> optimizer_trace_max_mem_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>;
-
-<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">执行语句后查看</span>
-<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> information_schema.optimizer_trace<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
-
-<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">不适用缓存查询</span>
-<span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> sql_no_cache <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> app <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>
-<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">执行计划不会修改驱动表的</span>join顺序
-straight_join <span style="color:#66d9ef">table_name</span> <span style="color:#66d9ef">on</span> condition
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">查询冗余索引</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.schema_redundant_indexes;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#ae81ff">2</span>. <span style="color:#960050;background-color:#1e0010">查询未使用过的索引</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.schema_unused_indexes;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#ae81ff">3</span>. <span style="color:#960050;background-color:#1e0010">查询索引的使用情况</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> index_name,rows_selected,rows_inserted,rows_updated,rows_deleted 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> sys.schema_index_statistics <span style="color:#66d9ef">where</span> table_schema<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dbname&#39;</span> ;
+</span></span></code></pre></div><h4 id="表相关">表相关</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span> <span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">查询表的访问量</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> table_schema,<span style="color:#66d9ef">table_name</span>,<span style="color:#66d9ef">sum</span>(io_read_requests<span style="color:#f92672">+</span>io_write_requests) <span style="color:#66d9ef">as</span> io 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> sys.schema_table_statistics <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> table_schema,<span style="color:#66d9ef">table_name</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> io <span style="color:#66d9ef">desc</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span> <span style="color:#ae81ff">2</span>. <span style="color:#960050;background-color:#1e0010">查询占用</span>bufferpool较多的表
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> object_schema,object_name,allocated,<span style="color:#66d9ef">data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> sys.innodb_buffer_stats_by_table <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> allocated <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span> <span style="color:#ae81ff">3</span>. <span style="color:#960050;background-color:#1e0010">查看表的全表扫描情况</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.statements_with_full_table_scans <span style="color:#66d9ef">where</span> db<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dbname&#39;</span>;
+</span></span></code></pre></div><h4 id="语句相关">语句相关</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">监控</span>SQL执行的频率
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> db,exec_count,query <span style="color:#66d9ef">from</span> sys.statement_analysis <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> exec_count <span style="color:#66d9ef">desc</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#ae81ff">2</span>. <span style="color:#960050;background-color:#1e0010">监控使用了排序的</span><span style="color:#66d9ef">SQL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> db,exec_count,first_seen,last_seen,query <span style="color:#66d9ef">from</span> sys.statements_with_sorting <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#ae81ff">3</span>. <span style="color:#960050;background-color:#1e0010">监控使用了临时表或者磁盘临时表的</span><span style="color:#66d9ef">SQL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> db,exec_count,tmp_tables,tmp_disk_tables,query
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> sys.statement_analysis <span style="color:#66d9ef">where</span> tmp_tables<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">or</span> tmp_disk_tables <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> (tmp_tables<span style="color:#f92672">+</span>tmp_disk_tables) <span style="color:#66d9ef">desc</span>;
+</span></span></code></pre></div><h4 id="io相关">IO相关</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">查看消耗磁盘</span>IO的文件
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> file,avg_read,avg_write,avg_read<span style="color:#f92672">+</span>avg_write <span style="color:#66d9ef">as</span> avg_io
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> sys.io_global_by_file_by_bytes <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> avg_read <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10</span>;
+</span></span></code></pre></div><p>Innodb 相关</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span> <span style="color:#f92672">#</span><span style="color:#ae81ff">1</span>. <span style="color:#960050;background-color:#1e0010">行锁阻塞情况</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> sys.innodb_lock_waits;
+</span></span></code></pre></div><h2 id="6其他">6.其他</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">可以查看</span>mysql执行前优化后的内容
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> WARNINGS  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span>trace
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SET</span> optimizer_trace<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;enabled=on&#34;</span>,end_markers_in_json<span style="color:#f92672">=</span><span style="color:#66d9ef">on</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> optimizer_trace_max_mem_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">执行语句后查看</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> information_schema.optimizer_trace<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">G</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">不适用缓存查询</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> sql_no_cache <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> app <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">执行计划不会修改驱动表的</span>join顺序
+</span></span><span style="display:flex;"><span>straight_join <span style="color:#66d9ef">table_name</span> <span style="color:#66d9ef">on</span> condition
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -430,12 +425,12 @@ straight_join <span style="color:#66d9ef">table_name</span> <span style="color:#
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -457,7 +452,7 @@ straight_join <span style="color:#66d9ef">table_name</span> <span style="color:#
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -493,7 +488,7 @@ straight_join <span style="color:#66d9ef">table_name</span> <span style="color:#
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -565,7 +560,7 @@ straight_join <span style="color:#66d9ef">table_name</span> <span style="color:#
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

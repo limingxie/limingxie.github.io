@@ -12,22 +12,17 @@
 方式一
 App 中有 School 组件和 Student 组件，现在我们要实现子组件向父组件传递数据，即 School 组件和 Student 组件向 App 传递数据" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_23/" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_23/" /><meta property="article:section" content="js" />
 <meta property="article:published_time" content="2022-06-21T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-06-21T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_组件自定义事件(23)">
 <meta itemprop="description" content="绑定
 方式一
-App 中有 School 组件和 Student 组件，现在我们要实现子组件向父组件传递数据，即 School 组件和 Student 组件向 App 传递数据">
-<meta itemprop="datePublished" content="2022-06-21T23:55:49+08:00" />
+App 中有 School 组件和 Student 组件，现在我们要实现子组件向父组件传递数据，即 School 组件和 Student 组件向 App 传递数据"><meta itemprop="datePublished" content="2022-06-21T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-21T23:55:49+08:00" />
-<meta itemprop="wordCount" content="530">
-
-
-
+<meta itemprop="wordCount" content="531">
 <meta itemprop="keywords" content="vue," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -184,278 +179,278 @@ App 中有 School 组件和 Student 组件，现在我们要实现子组件向�
 只要触发 ​​atByteDance ​​​就触发 App 中的 ​​getStudentName​​​ 方法。在 Student 组件中增加一个按钮并添加 click 事件，<br>
 在事件中使用 ​​this.$emit(atByteDance,this.name)​​即可触发开始绑定的事件。这么说可能不太理解，我们直接看代码：</p>
 <p>App.vue</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">msg</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-    <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件传递函数类型的props实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span><span style="color:#f92672">--&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">School</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">getSchoolName</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getSchoolName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/School&gt;</span>
-    <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第一种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on或</span><span style="color:#960050;background-color:#1e0010">@</span>)<span style="color:#f92672">--&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-<span style="color:#75715e">//引入组件
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/Student&#34;</span>
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">School</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/School&#34;</span>
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;App&#39;</span>,
-  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span>{
-    <span style="color:#a6e22e">School</span>,
-    <span style="color:#a6e22e">Student</span>
-  },
-  <span style="color:#a6e22e">data</span>(){
-    <span style="color:#66d9ef">return</span>{
-      <span style="color:#a6e22e">msg</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;你好&#34;</span>
-    }
-  },
-  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    <span style="color:#a6e22e">getSchoolName</span>(<span style="color:#a6e22e">name</span>){
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学校名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
-    },
-    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>){
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
-    }
-  }
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-.<span style="color:#a6e22e">app</span>{
-  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">dddddd</span>;
-  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</code></pre></div><p>School.vue</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;school&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校名称</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校地址</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">address</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendSchoolName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">向App发送学校名称</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-<span style="color:#75715e">//组件交互相关的代码（数据、方法等）
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;School&#39;</span>,
-  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;getSchoolName&#34;</span>],
-  <span style="color:#a6e22e">data</span>() {
-    <span style="color:#66d9ef">return</span> {
-      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
-      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
-    }
-  },
-  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    <span style="color:#a6e22e">sendSchoolName</span>(){
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getSchoolName</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
-    }
-  }
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-<span style="color:#75715e">/*组件的样式*/</span>
-.<span style="color:#a6e22e">school</span> {
-  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
-  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</code></pre></div><p>Student.vue</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生姓名</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生年龄</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">age</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendStudentName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">向App发送学生姓名</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-<span style="color:#75715e">//组件交互相关的代码（数据、方法等）
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Student&#39;</span>,
-  <span style="color:#a6e22e">data</span>() {
-    <span style="color:#66d9ef">return</span> {
-      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
-      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>
-    }
-  },
-  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    <span style="color:#a6e22e">sendStudentName</span>(){
-      <span style="color:#75715e">//触发Student组件实例身上的 atByteDance 事件
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
-    }
-  }
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-<span style="color:#75715e">/*组件的样式*/</span>
-.<span style="color:#a6e22e">student</span> {
-  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pink</span>;
-  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-  <span style="color:#a6e22e">margin</span><span style="color:#f92672">-</span><span style="color:#a6e22e">top</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</code></pre></div><h2 id="方式二">方式二</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">msg</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件传递函数类型的props实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span><span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">School</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">getSchoolName</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getSchoolName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/School&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第一种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on或</span><span style="color:#960050;background-color:#1e0010">@</span>)<span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//引入组件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/Student&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">School</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/School&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;App&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">School</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Student</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>{
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">msg</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;你好&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getSchoolName</span>(<span style="color:#a6e22e">name</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学校名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">app</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">dddddd</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</span></span></code></pre></div><p>School.vue</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;school&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校名称</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校地址</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">address</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendSchoolName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">向App发送学校名称</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//组件交互相关的代码（数据、方法等）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;School&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;getSchoolName&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sendSchoolName</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getSchoolName</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*组件的样式*/</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">school</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</span></span></code></pre></div><p>Student.vue</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生姓名</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生年龄</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">age</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendStudentName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">向App发送学生姓名</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//组件交互相关的代码（数据、方法等）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Student&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sendStudentName</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//触发Student组件实例身上的 atByteDance 事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*组件的样式*/</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">student</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pink</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">margin</span><span style="color:#f92672">-</span><span style="color:#a6e22e">top</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</span></span></code></pre></div><h2 id="方式二">方式二</h2>
 <p>也可以换一种实现方式</p>
 <p>修改 App.vue</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第二种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用ref</span>)<span style="color:#f92672">--&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-......
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
- ......
-  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    ......
-    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>){
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
-    }
-  },
-  <span style="color:#a6e22e">mounted</span>() {
-    <span style="color:#75715e">//APP挂载完毕 student的组件实例对象 当&#34;atByteDance&#34;被调用时执行一个回调
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
-  }
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</code></pre></div><p>情况一： 3s 后再给 Student 绑定事件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">mounted</span>() {
-    <span style="color:#75715e">//APP挂载完毕 student的组件实例对象 当&#34;atByteDance&#34;被调用时执行一个回调
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">setTimeout</span>(()=&gt;{
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
-    },<span style="color:#ae81ff">3000</span>)
-  }
-</code></pre></div><p>情况二：只触发一次</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
-</code></pre></div><p>或者使用第一种写法后边增加 .once</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span>.<span style="color:#a6e22e">once</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
-</code></pre></div><p>情况三：传多个参数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第二种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用ref</span>)<span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>......
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span> ......
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    ......
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//APP挂载完毕 student的组件实例对象 当&#34;atByteDance&#34;被调用时执行一个回调
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><p>情况一： 3s 后再给 Student 绑定事件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//APP挂载完毕 student的组件实例对象 当&#34;atByteDance&#34;被调用时执行一个回调
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">setTimeout</span>(()=&gt;{
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
+</span></span><span style="display:flex;"><span>    },<span style="color:#ae81ff">3000</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>情况二：只触发一次</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
+</span></span></code></pre></div><p>或者使用第一种写法后边增加 .once</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span>.<span style="color:#a6e22e">once</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
+</span></span></code></pre></div><p>情况三：传多个参数</p>
 <p>Student.vue 中</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    <span style="color:#a6e22e">sendStudentName</span>(){
-     <span style="color:#75715e">//直接在后边传入参数
-</span><span style="color:#75715e"></span>     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>,<span style="color:#ae81ff">111</span>,<span style="color:#ae81ff">222</span>)
-    }
-  }
-</code></pre></div><p>App.vue 中直接接收</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>){
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">y</span>);
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>,...<span style="color:#a6e22e">params</span>){
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#a6e22e">params</span>);
-    }
-</code></pre></div><p>或者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sendStudentName</span>(){
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//直接在后边传入参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>,<span style="color:#ae81ff">111</span>,<span style="color:#ae81ff">222</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>App.vue 中直接接收</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">y</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>,...<span style="color:#a6e22e">params</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#a6e22e">params</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>或者</p>
 <p>Student.vue 中把参数放在一个对象中</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">sendStudentName</span>(){
-      <span style="color:#75715e">//触发Student组件实例身上的 atByteDance 事件
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>,{<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span><span style="color:#ae81ff">111</span>,<span style="color:#a6e22e">y</span><span style="color:#f92672">:</span><span style="color:#ae81ff">222</span>})
-    }
-</code></pre></div><p>App.vue 中直接接收</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">obj</span>){
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">y</span>);
-    }
-</code></pre></div><h2 id="解绑">解绑</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">sendStudentName</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//触发Student组件实例身上的 atByteDance 事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>,{<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span><span style="color:#ae81ff">111</span>,<span style="color:#a6e22e">y</span><span style="color:#f92672">:</span><span style="color:#ae81ff">222</span>})
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>App.vue 中直接接收</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">obj</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">y</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="解绑">解绑</h2>
 <h4 id="解绑一个自定义事件">解绑一个自定义事件</h4>
 <p>修改 Student.vue</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unbind&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">解绑</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-<span style="color:#a6e22e">unbind</span>(){
-  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>)<span style="color:#75715e">//解绑一个事件
-</span><span style="color:#75715e"></span>}
-</code></pre></div><h4 id="解绑多个自定义事件">解绑多个自定义事件</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unbind&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">解绑</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">unbind</span>(){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>)<span style="color:#75715e">//解绑一个事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h4 id="解绑多个自定义事件">解绑多个自定义事件</h4>
 <p>修改 App.vue 给 Student 再绑定一个自定义事件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">demo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m1&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
- <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    ......
-    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>){
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
-    },
-    <span style="color:#a6e22e">m1</span>(){
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;demo事件被触发了&#34;</span>);
-    }
-  }
-</code></pre></div><p>修改 Student，使用 ​​this.$off(数组)​​​ 或 直接使用 ​​this.$off()​​ 来解绑多个</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    <span style="color:#a6e22e">sendStudentName</span>(){
-      <span style="color:#75715e">//触发Student组件实例身上的 atByteDance 事件
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>)
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;demo&#34;</span>)
-    },
-    <span style="color:#a6e22e">unbind</span>(){
-      <span style="color:#75715e">//this.$off(&#34;atByteDance&#34;)//解绑一个事件
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$off</span>([<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#e6db74">&#34;demo&#34;</span>])<span style="color:#75715e">//解绑多个事件
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">//this.$off()//解绑所有事件
-</span><span style="color:#75715e"></span>    }
-  }
-</code></pre></div><h2 id="需要注意的地方">需要注意的地方</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">demo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m1&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    ......
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m1</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;demo事件被触发了&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>修改 Student，使用 ​​this.$off(数组)​​​ 或 直接使用 ​​this.$off()​​ 来解绑多个</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sendStudentName</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//触发Student组件实例身上的 atByteDance 事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;demo&#34;</span>)
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">unbind</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//this.$off(&#34;atByteDance&#34;)//解绑一个事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$off</span>([<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#e6db74">&#34;demo&#34;</span>])<span style="color:#75715e">//解绑多个事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">//this.$off()//解绑所有事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><h2 id="需要注意的地方">需要注意的地方</h2>
 <h4 id="情况一">情况一</h4>
 <p>现在需要把 Student 传过来学生姓名显示在页面上，修改 App.vue，现在使用刚才讲的第一种绑定自定义事件的方式来实现</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">:</span>{{ <span style="color:#a6e22e">studentName</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-<span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第一种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on或</span><span style="color:#960050;background-color:#1e0010">@</span>)<span style="color:#f92672">--&gt;</span>
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
-
-<span style="color:#a6e22e">data</span>() {
-    <span style="color:#66d9ef">return</span> {
-      <span style="color:#a6e22e">msg</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;你好&#34;</span>,
-      <span style="color:#a6e22e">studentName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>
-    }
-  },
-  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-    ......
-    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>) {
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
-    }
-  }
-</code></pre></div><p>现在使用第二种绑定自定义事件的方式来实现</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第二种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用ref</span>)<span style="color:#f92672">--&gt;</span>
-<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
-
-<span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-    ......
-    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>) {
-      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
-    }
-  },
-  <span style="color:#a6e22e">mounted</span>() {
-    <span style="color:#75715e">//APP挂载完毕 student的组件实例对象 当&#34;atByteDance&#34;被调用时执行一个回调
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
-  }
-</code></pre></div><p>这里会有一个坑，有些同学可能认为​​this.$refs.student.$once(&ldquo;atByteDance&rdquo;,this.getStudentName)​​中既然调用的是 methods 中的方法，为何不直接拿过来？可能会写成这样：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">name</span>){
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
-        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
-      })
-</code></pre></div><p>这是错误❌写法，虽然会打印接收到的姓名，但是页面上并没有展示，因为这里的​​this​​是vc，正确✔写法是写成箭头函数：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,(<span style="color:#a6e22e">name</span>)=&gt;{
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
-  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
-})
-</code></pre></div><h4 id="情况二">情况二</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">:</span>{{ <span style="color:#a6e22e">studentName</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第一种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on或</span><span style="color:#960050;background-color:#1e0010">@</span>)<span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">on</span><span style="color:#f92672">:</span><span style="color:#a6e22e">atByteDance</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;getStudentName&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">msg</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;你好&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">studentName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    ......
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>现在使用第二种绑定自定义事件的方式来实现</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">通过父组件给子组件绑定一个自定义事件实现</span><span style="color:#960050;background-color:#1e0010">：</span><span style="color:#a6e22e">子给父传递数据</span>(<span style="color:#a6e22e">第二种写法</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">使用ref</span>)<span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    ......
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">getStudentName</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//APP挂载完毕 student的组件实例对象 当&#34;atByteDance&#34;被调用时执行一个回调
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getStudentName</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>这里会有一个坑，有些同学可能认为​​this.$refs.student.$once(&ldquo;atByteDance&rdquo;,this.getStudentName)​​中既然调用的是 methods 中的方法，为何不直接拿过来？可能会写成这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">name</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>      })
+</span></span></code></pre></div><p>这是错误❌写法，虽然会打印接收到的姓名，但是页面上并没有展示，因为这里的​​this​​是vc，正确✔写法是写成箭头函数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">$once</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,(<span style="color:#a6e22e">name</span>)=&gt;{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;App接收到学生名&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">studentName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h4 id="情况二">情况二</h4>
 <p>刚才讲的都是给组件绑定自定义事件，如果想绑定原生事件，必须增加关键字​​.native​​</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span>.<span style="color:#66d9ef">native</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
-
-<span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-    ...
-    <span style="color:#a6e22e">demo</span>(){
-      <span style="color:#a6e22e">alert</span>(<span style="color:#ae81ff">123</span>)
-    }
-  }
-</code></pre></div><h2 id="总结">总结</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Student</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span>.<span style="color:#66d9ef">native</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/Student&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">demo</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">alert</span>(<span style="color:#ae81ff">123</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><h2 id="总结">总结</h2>
 <p>1、自定义事件是一种组件间通信的方式，适用于：子组件==&gt;父组件<br>
 2、使用场景：A是父组件，B是子组件，B想给A传数据，那么就要在A中给B绑定自定义事件（事件的回调在A中)<br>
 3、绑定自定义事件：<br>
 1.第一种方式，在父组件中：​​​&lt;Demo @atByteDance=&ldquo;test&rdquo;/&gt;​​​或​​<!-- raw HTML omitted -->  ​​
 2.第二种方式，在父组件中：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Demo</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span> <span style="color:#f92672">/&gt;</span>
-......
-<span style="color:#a6e22e">mounted</span>(){
-  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">demo</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">test</span>)}
-}
-</code></pre></div><p>3.若想让自定义事件只能触发一次，可以使用​​once​​​修饰符，或​​$once​​​方法<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Demo</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>......
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>(){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">demo</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;atByteDance&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">test</span>)}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>3.若想让自定义事件只能触发一次，可以使用​​once​​​修饰符，或​​$once​​​方法<br>
 4、触发自定义事件：​​​this.$emit(&ldquo;atByteDance&rdquo;,数据)​​​<br>
 5、解绑自定义事件​​this.$off(&lsquo;atByteDance&rsquo;)​​<br>
 6、组件上也可以绑定原生 DOM 事件，需要使用​​native​​修饰符<br>
@@ -463,50 +458,50 @@ App 中有 School 组件和 Student 组件，现在我们要实现子组件向�
 <h4 id="todolist-改为自定义事件绑定">TodoList 改为自定义事件绑定</h4>
 <p>当增加任务、选中或清除任务时，都是子组件向父组件传递内容（任务列表todos在 App.vue 中，增加、选中、清除任务都是操作todos，所以都是子组件向父组件传递内容）</p>
 <p>修改 App.vue，给 Header 绑定一个自定义事件​​​addTodo​​​，这个事件的回调也叫​​addTodo​​，可以同名</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Header</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">addTodo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;addTodo&#34;</span><span style="color:#f92672">/&gt;</span>
-</code></pre></div><p>在 Header 中就不需要用 props 接收了，使用 ​​$emit​​来触发</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">nanoid</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;nanoid&#39;</span>
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Header&#34;</span>,
-  <span style="color:#75715e">//props:[&#39;addTodo&#39;],
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">e</span>) {
-      ......
-      <span style="color:#75715e">//this.addTodo(todoObj)
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;addTodo&#34;</span>,<span style="color:#a6e22e">todoObj</span>)
-      ......
-    }
-  }
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</code></pre></div><p>同样的方法修改 Footer 相关的代码，修改 App.vue 中 Footer 组件部分</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Footer</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">todos</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todos&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">checkAllTodo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkAllTodo&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">clearAllTodo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clearAllTodo&#34;</span><span style="color:#f92672">/&gt;</span>
-</code></pre></div><p>修改 Footer.vue</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Footer&#34;</span>,
-  <span style="color:#75715e">//props: [&#34;todos&#34;,&#34;checkAllTodo&#34;,&#34;clearAllTodo&#34;],
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;todos&#34;</span>],
-  <span style="color:#a6e22e">computed</span><span style="color:#f92672">:</span> {
-    ......
-    <span style="color:#a6e22e">isAll</span><span style="color:#f92672">:</span>{
-      ......
-      <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">value</span>){
-        <span style="color:#75715e">//this.checkAllTodo(value)
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;checkAllTodo&#34;</span>,<span style="color:#a6e22e">value</span>)
-      }
-    }
-  },
-  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-    <span style="color:#a6e22e">clearAll</span>(){
-      <span style="color:#75715e">//this.clearAllTodo()
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;clearAllTodo&#34;</span>)
-    }
-  }
-}
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Header</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">addTodo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;addTodo&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span></code></pre></div><p>在 Header 中就不需要用 props 接收了，使用 ​​$emit​​来触发</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">nanoid</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;nanoid&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Header&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//props:[&#39;addTodo&#39;],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>      ......
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//this.addTodo(todoObj)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;addTodo&#34;</span>,<span style="color:#a6e22e">todoObj</span>)
+</span></span><span style="display:flex;"><span>      ......
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><p>同样的方法修改 Footer 相关的代码，修改 App.vue 中 Footer 组件部分</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Footer</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">todos</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todos&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">checkAllTodo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkAllTodo&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">clearAllTodo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clearAllTodo&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span></code></pre></div><p>修改 Footer.vue</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Footer&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//props: [&#34;todos&#34;,&#34;checkAllTodo&#34;,&#34;clearAllTodo&#34;],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;todos&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">computed</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    ......
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">isAll</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>      ......
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">value</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//this.checkAllTodo(value)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;checkAllTodo&#34;</span>,<span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">clearAll</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//this.clearAllTodo()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;clearAllTodo&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -566,12 +561,12 @@ App 中有 School 组件和 Student 组件，现在我们要实现子组件向�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -593,7 +588,7 @@ App 中有 School 组件和 Student 组件，现在我们要实现子组件向�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -629,7 +624,7 @@ App 中有 School 组件和 Student 组件，现在我们要实现子组件向�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -701,7 +696,7 @@ App 中有 School 组件和 Student 组件，现在我们要实现子组件向�
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

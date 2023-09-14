@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【kubernetes笔记】k8s_持久化PVC和PV(12)" />
 <meta property="og:description" content="这一篇整理了持久化PersistentVolume和PersistentVolumeClaim相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/kubernetes/k8s_12/" />
+<meta property="og:url" content="https://limingxie.github.io/note/kubernetes/k8s_12/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-01T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-01T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【kubernetes笔记】k8s_持久化PVC和PV(12)">
-<meta itemprop="description" content="这一篇整理了持久化PersistentVolume和PersistentVolumeClaim相关的内容。">
-<meta itemprop="datePublished" content="2022-09-01T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了持久化PersistentVolume和PersistentVolumeClaim相关的内容。"><meta itemprop="datePublished" content="2022-09-01T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-01T23:28:49+08:00" />
 <meta itemprop="wordCount" content="67">
-
-
-
 <meta itemprop="keywords" content="kubernetes," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -156,8 +151,8 @@
 <ol>
 <li>找一个服务器安装nfs</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$yum install -y nfs-utils
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$yum install -y nfs-utils
+</span></span></code></pre></div><ol start="2">
 <li>
 <p>设置挂载路径</p>
 </li>
@@ -168,13 +163,13 @@
 <p>在k8s集群node节点安装nfs</p>
 </li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$yum install -y nfs-utils
-</code></pre></div><ol start="5">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$yum install -y nfs-utils
+</span></span></code></pre></div><ol start="5">
 <li>在nfs服务器启动nfs服务</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$systemctl start nfs
-$ps -ef | grep nfs
-</code></pre></div><ol start="6">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$systemctl start nfs
+</span></span><span style="display:flex;"><span>$ps -ef | grep nfs
+</span></span></code></pre></div><ol start="6">
 <li>在k8s集群部署应用使用nfs持久网络存储</li>
 </ol>
 <h2 id="2pv和pvc">2.PV和PVC</h2>
@@ -250,12 +245,12 @@ Pod 可以请求特定级别的资源(CPU 和内存)。声明可以请求特 定
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -277,7 +272,7 @@ Pod 可以请求特定级别的资源(CPU 和内存)。声明可以请求特 定
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -313,7 +308,7 @@ Pod 可以请求特定级别的资源(CPU 和内存)。声明可以请求特 定
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -385,7 +380,7 @@ Pod 可以请求特定级别的资源(CPU 和内存)。声明可以请求特 定
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

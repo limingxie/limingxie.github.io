@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_多态polymorphism(17)" />
 <meta property="og:description" content="这一篇简单的整理了golang 多态polymorphism 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_17/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_17/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-18T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-18T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_多态polymorphism(17)">
-<meta itemprop="description" content="这一篇简单的整理了golang 多态polymorphism 相关的内容。">
-<meta itemprop="datePublished" content="2022-09-18T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 多态polymorphism 相关的内容。"><meta itemprop="datePublished" content="2022-09-18T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-18T23:28:49+08:00" />
 <meta itemprop="wordCount" content="172">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -157,101 +152,101 @@
 			<p>这一篇简单的整理了golang <strong><code>多态polymorphism</code></strong> 相关的内容。</p>
 <h2 id="1golang中多态的2种形式">1.golang中多态的2种形式</h2>
 <h4 id="11-多态参数">1.1 多态参数</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
- 
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
- 
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Usb</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Start</span>()
- <span style="color:#a6e22e">Stop</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Phone</span> <span style="color:#66d9ef">struct</span> {
- 
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Camera</span> <span style="color:#66d9ef">struct</span> {
- 
-}
-<span style="color:#66d9ef">type</span>  <span style="color:#a6e22e">Computer</span> <span style="color:#66d9ef">struct</span> {
- 
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Start</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接手机...&#34;</span>)
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Stop</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开手机...&#34;</span>)
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Start</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接相机...&#34;</span>)
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Stop</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开相机...&#34;</span>)
-}
-
-<span style="color:#75715e">//多态参数
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">com</span> <span style="color:#a6e22e">Computer</span>) <span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">usb</span> <span style="color:#a6e22e">Usb</span>)  {
- <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Start</span>()
- <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Stop</span>()
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#a6e22e">phone</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Phone</span>{}
- <span style="color:#a6e22e">camera</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Camera</span>{}
- <span style="color:#a6e22e">computer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Computer</span>{}
- <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">phone</span>)
- <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">camera</span>)
-}
-</code></pre></div><h4 id="12-多态数组">1.2 多态数组</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-<span style="color:#f92672">import</span> (
- <span style="color:#e6db74">&#34;fmt&#34;</span>
-)
-
-<span style="color:#75715e">//声明/定义一个接口
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Usb</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#75715e">//声明了两个没有实现的方法
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">Start</span>()
- <span style="color:#a6e22e">Stop</span>()
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Phone</span> <span style="color:#66d9ef">struct</span> {
- <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
-}  
-
-<span style="color:#75715e">//让Phone 实现 Usb接口的方法
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Start</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;手机开始工作。。。&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Stop</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;手机停止工作。。。&#34;</span>)
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Camera</span> <span style="color:#66d9ef">struct</span> {
- <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
-}
-<span style="color:#75715e">//让Camera 实现   Usb接口的方法
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Start</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;相机开始工作。。。&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Stop</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;相机停止工作。。。&#34;</span>)
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#75715e">//定义一个Usb接口数组，可以存放Phone和Camera的结构体变量
-</span><span style="color:#75715e"></span> <span style="color:#75715e">//这里就体现出多态数组
-</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">usbArr</span> [<span style="color:#ae81ff">3</span>]<span style="color:#a6e22e">Usb</span>
- <span style="color:#a6e22e">usbArr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#a6e22e">Phone</span>{<span style="color:#e6db74">&#34;vivo&#34;</span>}
- <span style="color:#a6e22e">usbArr</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">Phone</span>{<span style="color:#e6db74">&#34;小米&#34;</span>}
- <span style="color:#a6e22e">usbArr</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#a6e22e">Camera</span>{<span style="color:#e6db74">&#34;尼康&#34;</span>}
- 
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">usbArr</span>)
-
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Usb</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Start</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Stop</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Phone</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Camera</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span>  <span style="color:#a6e22e">Computer</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Start</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接手机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Stop</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开手机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Start</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接相机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Stop</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开相机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//多态参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">com</span> <span style="color:#a6e22e">Computer</span>) <span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">usb</span> <span style="color:#a6e22e">Usb</span>)  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Start</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Stop</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">phone</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Phone</span>{}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">camera</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Camera</span>{}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">computer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Computer</span>{}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">phone</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">camera</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="12-多态数组">1.2 多态数组</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//声明/定义一个接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Usb</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//声明了两个没有实现的方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">Start</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Stop</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Phone</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//让Phone 实现 Usb接口的方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Start</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;手机开始工作。。。&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Stop</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;手机停止工作。。。&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Camera</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//让Camera 实现   Usb接口的方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Start</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;相机开始工作。。。&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Stop</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;相机停止工作。。。&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//定义一个Usb接口数组，可以存放Phone和Camera的结构体变量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//这里就体现出多态数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">usbArr</span> [<span style="color:#ae81ff">3</span>]<span style="color:#a6e22e">Usb</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">usbArr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#a6e22e">Phone</span>{<span style="color:#e6db74">&#34;vivo&#34;</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">usbArr</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">Phone</span>{<span style="color:#e6db74">&#34;小米&#34;</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">usbArr</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#a6e22e">Camera</span>{<span style="color:#e6db74">&#34;尼康&#34;</span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">usbArr</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -311,12 +306,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -338,7 +333,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -374,7 +369,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -446,7 +441,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

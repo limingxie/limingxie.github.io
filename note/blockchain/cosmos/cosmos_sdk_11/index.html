@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【cosmos-sdk-笔记】cosmovisor 简单实现(实践)" />
 <meta property="og:description" content="这一篇简单的测试一下 cosmoviser 的自动更新功能。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_11/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_11/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2023-08-08T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-08-08T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-sdk-笔记】cosmovisor 简单实现(实践)">
-<meta itemprop="description" content="这一篇简单的测试一下 cosmoviser 的自动更新功能。">
-<meta itemprop="datePublished" content="2023-08-08T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的测试一下 cosmoviser 的自动更新功能。"><meta itemprop="datePublished" content="2023-08-08T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-08-08T23:28:49+08:00" />
 <meta itemprop="wordCount" content="661">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,cosmos," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -161,252 +156,252 @@
 			<p>这一篇简单的测试一下 cosmoviser 的自动更新功能。</p>
 <h2 id="1创建项目">1.创建项目</h2>
 <p>首先引用cosmos-sdk简单的写了tvote模块。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/taoyuans/mingxie.git
-
-cd mingxie
-git checkout main_v1
-
-go build -ldflags<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-X github.com/cosmos/cosmos-sdk/version.Version=v0.1.0&#34;</span>  -o ./build/mingxied ./cmd/mingxied/main.go
-cd build
-</code></pre></div><h2 id="2初始化链">2.初始化链</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -rf ~/.mingxie
-./mingxied config chain-id test
-./mingxied config keyring-backend test
-./mingxied config broadcast-mode sync
-./mingxied init test --chain-id test --overwrite
-</code></pre></div><p>把genesis.json的 voting_period 改为 20s.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.voting_params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
-</code></pre></div><p>新建一个validator账户以及创建创始tx</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied keys add validator
-./mingxied add-genesis-account validator 1000000000stake --keyring-backend test
-./mingxied gentx validator 1000000stake --chain-id test
-./mingxied collect-gentxs
-</code></pre></div><h2 id="3初始化-cosmoviser">3.初始化 cosmoviser</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
-export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
-
-export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
-cp ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
-</code></pre></div><p>启动</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cosmovisor run start
-</code></pre></div><h2 id="4更新版本">4.更新版本</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/taoyuans/mingxie.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd mingxie
+</span></span><span style="display:flex;"><span>git checkout main_v1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>go build -ldflags<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-X github.com/cosmos/cosmos-sdk/version.Version=v0.1.0&#34;</span>  -o ./build/mingxied ./cmd/mingxied/main.go
+</span></span><span style="display:flex;"><span>cd build
+</span></span></code></pre></div><h2 id="2初始化链">2.初始化链</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -rf ~/.mingxie
+</span></span><span style="display:flex;"><span>./mingxied config chain-id test
+</span></span><span style="display:flex;"><span>./mingxied config keyring-backend test
+</span></span><span style="display:flex;"><span>./mingxied config broadcast-mode sync
+</span></span><span style="display:flex;"><span>./mingxied init test --chain-id test --overwrite
+</span></span></code></pre></div><p>把genesis.json的 voting_period 改为 20s.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.voting_params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
+</span></span></code></pre></div><p>新建一个validator账户以及创建创始tx</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied keys add validator
+</span></span><span style="display:flex;"><span>./mingxied add-genesis-account validator 1000000000stake --keyring-backend test
+</span></span><span style="display:flex;"><span>./mingxied gentx validator 1000000stake --chain-id test
+</span></span><span style="display:flex;"><span>./mingxied collect-gentxs
+</span></span></code></pre></div><h2 id="3初始化-cosmoviser">3.初始化 cosmoviser</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
+</span></span><span style="display:flex;"><span>export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
+</span></span><span style="display:flex;"><span>cp ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
+</span></span></code></pre></div><p>启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cosmovisor run start
+</span></span></code></pre></div><h2 id="4更新版本">4.更新版本</h2>
 <p>先查看目前的版本(version：v0.1.0)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --location <span style="color:#e6db74">&#39;http://127.0.0.1:26657/abci_info&#39;</span>
-
-<span style="color:#f92672">{</span>
-  <span style="color:#e6db74">&#34;jsonrpc&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
-  <span style="color:#e6db74">&#34;id&#34;</span>: -1,
-  <span style="color:#e6db74">&#34;result&#34;</span>: <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;response&#34;</span>: <span style="color:#f92672">{</span>
-      <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;mingxie&#34;</span>,
-      <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;v0.1.0&#34;</span>,
-      <span style="color:#e6db74">&#34;last_block_height&#34;</span>: <span style="color:#e6db74">&#34;2&#34;</span>,
-      <span style="color:#e6db74">&#34;last_block_app_hash&#34;</span>: <span style="color:#e6db74">&#34;8EMqgVjd3eb74xenDL+s9aByATSr8MytEi2yC699CZ8=&#34;</span>
-    <span style="color:#f92672">}</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>重新编译应用(v0.1.0 =&gt; v0.1.1)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout main_v1_1
-
-go build -ldflags<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-X github.com/cosmos/cosmos-sdk/version.Version=v0.1.1&#34;</span>  -o ./build/mingxied ./cmd/mingxied/main.go
-cd build
-</code></pre></div><p>把编译好的新应用拷贝到 upgrade 文件夹下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
-cp ./mingxied $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
-</code></pre></div><p>查看 gov 模块的 module account</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied query auth module-account gov
-account:
-  <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.auth.v1beta1.ModuleAccount
-  base_account:
-    account_number: <span style="color:#e6db74">&#34;5&#34;</span>
-    address: cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn
-    pub_key: null
-    sequence: <span style="color:#e6db74">&#34;0&#34;</span>
-  name: gov
-  permissions:
-  - burner
-</code></pre></div><p>创建提案 json</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vi proposal.json
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
- <span style="color:#e6db74">&#34;messages&#34;</span><span style="color:#f92672">:</span> [
-  {
-   <span style="color:#e6db74">&#34;@type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade&#34;</span>,
-   <span style="color:#e6db74">&#34;authority&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn&#34;</span>, <span style="color:#75715e">// 注意这里是 module account
-</span><span style="color:#75715e"></span>   <span style="color:#e6db74">&#34;plan&#34;</span><span style="color:#f92672">:</span> {
-    <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;v0.1.1&#34;</span>, <span style="color:#75715e">// 这个名字和 /cosmovisor/upgrades/v0.1.1 这个文件明需要一致
-</span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;time&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0001-01-01T00:00:00Z&#34;</span>,
-    <span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;50&#34;</span>,
-    <span style="color:#e6db74">&#34;info&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;aa&#34;</span>,
-    <span style="color:#e6db74">&#34;upgraded_client_state&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
-   }
-  }
- ],
- <span style="color:#e6db74">&#34;metadata&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ipfs://QmPngptoFqAJVApdgvpW2pQXYZj7RscbHnoc5SWQ9em4JR&#34;</span>,
- <span style="color:#e6db74">&#34;deposit&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;10stake&#34;</span>
-}
-</code></pre></div><p>申请提案</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied tx gov submit-proposal proposal.json --from validator --keyring-backend test
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied tx gov deposit <span style="color:#ae81ff">1</span> 10000000stake --from validator --yes
-./mingxied tx gov vote <span style="color:#ae81ff">1</span> yes --from validator --yes
-</code></pre></div><p>查看提案状态是否通过</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied query gov proposal <span style="color:#ae81ff">1</span>
-
-deposit_end_time: <span style="color:#e6db74">&#34;2023-08-11T12:40:25.748192Z&#34;</span>
-final_tally_result:
-  abstain_count: <span style="color:#e6db74">&#34;0&#34;</span>
-  no_count: <span style="color:#e6db74">&#34;0&#34;</span>
-  no_with_veto_count: <span style="color:#e6db74">&#34;0&#34;</span>
-  yes_count: <span style="color:#e6db74">&#34;1000000&#34;</span>
-id: <span style="color:#e6db74">&#34;1&#34;</span>
-messages:
-- <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.upgrade.v1beta1.MsgSoftwareUpgrade
-  authority: cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn
-  plan:
-    height: <span style="color:#e6db74">&#34;50&#34;</span>
-    info: aa
-    name: v0.1.1
-    time: <span style="color:#e6db74">&#34;0001-01-01T00:00:00Z&#34;</span>
-    upgraded_client_state: null
-metadata: ipfs://QmPngptoFqAJVApdgvpW2pQXYZj7RscbHnoc5SWQ9em4JR
-status: PROPOSAL_STATUS_PASSED
-submit_time: <span style="color:#e6db74">&#34;2023-08-09T12:40:25.748192Z&#34;</span>
-total_deposit:
-- amount: <span style="color:#e6db74">&#34;10000010&#34;</span>
-  denom: stake
-voting_end_time: <span style="color:#e6db74">&#34;2023-08-09T12:41:00.841716Z&#34;</span>
-voting_start_time: <span style="color:#e6db74">&#34;2023-08-09T12:40:40.841716Z&#34;</span>
-</code></pre></div><p>看看执行的日志</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">11:23AM INF Timed out dur<span style="color:#f92672">=</span>4967.315 height<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span> module<span style="color:#f92672">=</span>consensus round<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> step<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-  ... ...
-11:23AM ERR UPGRADE <span style="color:#e6db74">&#34;v0.1.1&#34;</span> NEEDED at height: 50:
-11:23AM ERR CONSENSUS FAILURE!!! err<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UPGRADE \&#34;v0.1.1\&#34; NEEDED at height: 50: 
-</span><span style="color:#e6db74">  ... ...
-</span><span style="color:#e6db74">11:23AM INF service stop impl={&#34;</span>Logger<span style="color:#e6db74">&#34;:{}} module=consensus msg={} wal=/Users/limingxie/.mingxie/data/cs.wal/wal
-</span><span style="color:#e6db74">11:23AM INF service stop impl={&#34;</span>Dir<span style="color:#e6db74">&#34;:&#34;</span>/Users/limingxie/.mingxie/data/cs.wal<span style="color:#e6db74">&#34;,&#34;</span>Head<span style="color:#e6db74">&#34;:{&#34;</span>ID<span style="color:#e6db74">&#34;:&#34;</span>OO0H4Abo1eSV:/Users/limingxie/.mingxie/data/cs.wal/wal<span style="color:#e6db74">&#34;,&#34;</span>Path<span style="color:#e6db74">&#34;:&#34;</span>/Users/limingxie/.mingxie/data/cs.wal/wal<span style="color:#e6db74">&#34;},&#34;</span>ID<span style="color:#e6db74">&#34;:&#34;</span>group:OO0H4Abo1eSV:/Users/limingxie/.mingxie/data/cs.wal/wal<span style="color:#e6db74">&#34;,&#34;</span>Logger<span style="color:#e6db74">&#34;:{}} module=consensus msg={} wal=/Users/limingxie/.mingxie/data/cs.wal/wal
-</span><span style="color:#e6db74">11:23AM INF daemon shutting down in an attempt to restart module=cosmovisor
-</span><span style="color:#e6db74">11:23AM INF starting to take backup of data directory backup start time=2023-08-11T11:23:10+08:00 module=cosmovisor
-</span><span style="color:#e6db74">11:23AM INF backup completed backup completion time=2023-08-11T11:23:10+08:00 backup saved at=/Users/limingxie/.mingxie/data-backup-2023-8-11 module=cosmovisor time taken to complete backup=8.23779
-</span><span style="color:#e6db74">11:23AM INF pre-upgrade command does not exist. continuing the upgrade. module=cosmovisor
-</span><span style="color:#e6db74">11:23AM INF upgrade detected, relaunching app=mingxied module=cosmovisor
-</span><span style="color:#e6db74">11:23AM INF running app args=[&#34;</span>start<span style="color:#e6db74">&#34;] module=cosmovisor path=/Users/limingxie/.mingxie/cosmovisor/upgrades/v0.1.1/bin/mingxied
-</span></code></pre></div><p>看看版本更新的对不对？(version：v0.1.1)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --location <span style="color:#e6db74">&#39;http://127.0.0.1:26657/abci_info&#39;</span>
-
-<span style="color:#f92672">{</span>
-  <span style="color:#e6db74">&#34;jsonrpc&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
-  <span style="color:#e6db74">&#34;id&#34;</span>: -1,
-  <span style="color:#e6db74">&#34;result&#34;</span>: <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;response&#34;</span>: <span style="color:#f92672">{</span>
-      <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;mingxie&#34;</span>,
-      <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;v0.1.1&#34;</span>,
-      <span style="color:#e6db74">&#34;last_block_height&#34;</span>: <span style="color:#e6db74">&#34;53&#34;</span>,
-      <span style="color:#e6db74">&#34;last_block_app_hash&#34;</span>: <span style="color:#e6db74">&#34;HzXrbNSZssi22xXjM+ZCHIBf5JBemmYPs/Np3KHmhcQ=&#34;</span>
-    <span style="color:#f92672">}</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>下一篇简单的整理如何修改代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl --location <span style="color:#e6db74">&#39;http://127.0.0.1:26657/abci_info&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;jsonrpc&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;id&#34;</span>: -1,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;result&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;response&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;mingxie&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;v0.1.0&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;last_block_height&#34;</span>: <span style="color:#e6db74">&#34;2&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;last_block_app_hash&#34;</span>: <span style="color:#e6db74">&#34;8EMqgVjd3eb74xenDL+s9aByATSr8MytEi2yC699CZ8=&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>重新编译应用(v0.1.0 =&gt; v0.1.1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git checkout main_v1_1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>go build -ldflags<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-X github.com/cosmos/cosmos-sdk/version.Version=v0.1.1&#34;</span>  -o ./build/mingxied ./cmd/mingxied/main.go
+</span></span><span style="display:flex;"><span>cd build
+</span></span></code></pre></div><p>把编译好的新应用拷贝到 upgrade 文件夹下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
+</span></span><span style="display:flex;"><span>cp ./mingxied $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
+</span></span></code></pre></div><p>查看 gov 模块的 module account</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied query auth module-account gov
+</span></span><span style="display:flex;"><span>account:
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.auth.v1beta1.ModuleAccount
+</span></span><span style="display:flex;"><span>  base_account:
+</span></span><span style="display:flex;"><span>    account_number: <span style="color:#e6db74">&#34;5&#34;</span>
+</span></span><span style="display:flex;"><span>    address: cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn
+</span></span><span style="display:flex;"><span>    pub_key: null
+</span></span><span style="display:flex;"><span>    sequence: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  name: gov
+</span></span><span style="display:flex;"><span>  permissions:
+</span></span><span style="display:flex;"><span>  - burner
+</span></span></code></pre></div><p>创建提案 json</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi proposal.json
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;messages&#34;</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>   <span style="color:#e6db74">&#34;@type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#e6db74">&#34;authority&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn&#34;</span>, <span style="color:#75715e">// 注意这里是 module account
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#e6db74">&#34;plan&#34;</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;v0.1.1&#34;</span>, <span style="color:#75715e">// 这个名字和 /cosmovisor/upgrades/v0.1.1 这个文件明需要一致
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;time&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0001-01-01T00:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;height&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;50&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;info&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;aa&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;upgraded_client_state&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span> ],
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;metadata&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ipfs://QmPngptoFqAJVApdgvpW2pQXYZj7RscbHnoc5SWQ9em4JR&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;deposit&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;10stake&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>申请提案</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied tx gov submit-proposal proposal.json --from validator --keyring-backend test
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied tx gov deposit <span style="color:#ae81ff">1</span> 10000000stake --from validator --yes
+</span></span><span style="display:flex;"><span>./mingxied tx gov vote <span style="color:#ae81ff">1</span> yes --from validator --yes
+</span></span></code></pre></div><p>查看提案状态是否通过</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied query gov proposal <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>deposit_end_time: <span style="color:#e6db74">&#34;2023-08-11T12:40:25.748192Z&#34;</span>
+</span></span><span style="display:flex;"><span>final_tally_result:
+</span></span><span style="display:flex;"><span>  abstain_count: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  no_count: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  no_with_veto_count: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  yes_count: <span style="color:#e6db74">&#34;1000000&#34;</span>
+</span></span><span style="display:flex;"><span>id: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>messages:
+</span></span><span style="display:flex;"><span>- <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.upgrade.v1beta1.MsgSoftwareUpgrade
+</span></span><span style="display:flex;"><span>  authority: cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn
+</span></span><span style="display:flex;"><span>  plan:
+</span></span><span style="display:flex;"><span>    height: <span style="color:#e6db74">&#34;50&#34;</span>
+</span></span><span style="display:flex;"><span>    info: aa
+</span></span><span style="display:flex;"><span>    name: v0.1.1
+</span></span><span style="display:flex;"><span>    time: <span style="color:#e6db74">&#34;0001-01-01T00:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>    upgraded_client_state: null
+</span></span><span style="display:flex;"><span>metadata: ipfs://QmPngptoFqAJVApdgvpW2pQXYZj7RscbHnoc5SWQ9em4JR
+</span></span><span style="display:flex;"><span>status: PROPOSAL_STATUS_PASSED
+</span></span><span style="display:flex;"><span>submit_time: <span style="color:#e6db74">&#34;2023-08-09T12:40:25.748192Z&#34;</span>
+</span></span><span style="display:flex;"><span>total_deposit:
+</span></span><span style="display:flex;"><span>- amount: <span style="color:#e6db74">&#34;10000010&#34;</span>
+</span></span><span style="display:flex;"><span>  denom: stake
+</span></span><span style="display:flex;"><span>voting_end_time: <span style="color:#e6db74">&#34;2023-08-09T12:41:00.841716Z&#34;</span>
+</span></span><span style="display:flex;"><span>voting_start_time: <span style="color:#e6db74">&#34;2023-08-09T12:40:40.841716Z&#34;</span>
+</span></span></code></pre></div><p>看看执行的日志</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>11:23AM INF Timed out dur<span style="color:#f92672">=</span>4967.315 height<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span> module<span style="color:#f92672">=</span>consensus round<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> step<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  ... ...
+</span></span><span style="display:flex;"><span>11:23AM ERR UPGRADE <span style="color:#e6db74">&#34;v0.1.1&#34;</span> NEEDED at height: 50:
+</span></span><span style="display:flex;"><span>11:23AM ERR CONSENSUS FAILURE!!! err<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UPGRADE \&#34;v0.1.1\&#34; NEEDED at height: 50: 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  ... ...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF service stop impl={&#34;</span>Logger<span style="color:#e6db74">&#34;:{}} module=consensus msg={} wal=/Users/limingxie/.mingxie/data/cs.wal/wal
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF service stop impl={&#34;</span>Dir<span style="color:#e6db74">&#34;:&#34;</span>/Users/limingxie/.mingxie/data/cs.wal<span style="color:#e6db74">&#34;,&#34;</span>Head<span style="color:#e6db74">&#34;:{&#34;</span>ID<span style="color:#e6db74">&#34;:&#34;</span>OO0H4Abo1eSV:/Users/limingxie/.mingxie/data/cs.wal/wal<span style="color:#e6db74">&#34;,&#34;</span>Path<span style="color:#e6db74">&#34;:&#34;</span>/Users/limingxie/.mingxie/data/cs.wal/wal<span style="color:#e6db74">&#34;},&#34;</span>ID<span style="color:#e6db74">&#34;:&#34;</span>group:OO0H4Abo1eSV:/Users/limingxie/.mingxie/data/cs.wal/wal<span style="color:#e6db74">&#34;,&#34;</span>Logger<span style="color:#e6db74">&#34;:{}} module=consensus msg={} wal=/Users/limingxie/.mingxie/data/cs.wal/wal
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF daemon shutting down in an attempt to restart module=cosmovisor
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF starting to take backup of data directory backup start time=2023-08-11T11:23:10+08:00 module=cosmovisor
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF backup completed backup completion time=2023-08-11T11:23:10+08:00 backup saved at=/Users/limingxie/.mingxie/data-backup-2023-8-11 module=cosmovisor time taken to complete backup=8.23779
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF pre-upgrade command does not exist. continuing the upgrade. module=cosmovisor
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF upgrade detected, relaunching app=mingxied module=cosmovisor
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">11:23AM INF running app args=[&#34;</span>start<span style="color:#e6db74">&#34;] module=cosmovisor path=/Users/limingxie/.mingxie/cosmovisor/upgrades/v0.1.1/bin/mingxied
+</span></span></span></code></pre></div><p>看看版本更新的对不对？(version：v0.1.1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl --location <span style="color:#e6db74">&#39;http://127.0.0.1:26657/abci_info&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;jsonrpc&#34;</span>: <span style="color:#e6db74">&#34;2.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;id&#34;</span>: -1,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;result&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;response&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;mingxie&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;v0.1.1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;last_block_height&#34;</span>: <span style="color:#e6db74">&#34;53&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;last_block_app_hash&#34;</span>: <span style="color:#e6db74">&#34;HzXrbNSZssi22xXjM+ZCHIBf5JBemmYPs/Np3KHmhcQ=&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>下一篇简单的整理如何修改代码。</p>
 <hr>
 <h2 id="ps">PS</h2>
 <p>简单整理了测试时用的脚本，以后自用。</p>
 <h4 id="initsh">init.sh</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>rm -rf ~/.mingxie_back
-rm -rf ~/.mingxie
-
-./mingxied config chain-id test-chain
-./mingxied config keyring-backend test
-./mingxied config broadcast-mode sync
-
-./mingxied keys add liubei
-./mingxied keys add guanyu
-./mingxied keys add zhangfei
-
-./mingxied init node1 --chain-id test-chain
-
-chmod +w $HOME/.mingxie/config/genesis.json
-cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.voting_params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
-
-./mingxied add-genesis-account liubei 9999000000000stake --keyring-backend test
-./mingxied add-genesis-account guanyu 8888000000000stake --keyring-backend test
-./mingxied add-genesis-account zhangfei 7777000000000stake --keyring-backend test
-
-./mingxied gentx liubei 51000000stake --chain-id test-chain --moniker<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;node1&#34;</span>
-./mingxied collect-gentxs
-
-cp -f ../account/config/node_key.json $HOME/.mingxie/config/
-cp -f ../account/config/config.toml $HOME/.mingxie/config/
-
-mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
-cp -f ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
-
-mv $HOME/.mingxie $HOME/.mingxie_back
-</code></pre></div><h4 id="startsh">start.sh</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>rm -rf $HOME/.mingxie
-cp -a $HOME/.mingxie_back $HOME/.mingxie
-
-export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
-export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
-export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
-
-mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
-cp ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
-
-cosmovisor run start
-</code></pre></div><h4 id="upgradesh">upgrade.sh</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>
-export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
-export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
-
-export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
-
-mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
-cp ../v011/mingxied $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
-
-sleep 1s
-
-./mingxied tx tvote save-voter  aa a <span style="color:#ae81ff">11</span> <span style="color:#ae81ff">1</span> --from liubei -y
-
-sleep 6s
-
-./mingxied tx tvote save-voter  bb b <span style="color:#ae81ff">15</span> <span style="color:#ae81ff">2</span> --from liubei -y
-
-sleep 6s
-
-./mingxied tx gov submit-proposal proposal.json --from liubei --keyring-backend test -y
-
-sleep 6s
-
-./mingxied tx gov deposit <span style="color:#ae81ff">1</span> 10000000stake --from liubei --yes
-
-sleep 6s
-
-./mingxied tx gov vote <span style="color:#ae81ff">1</span> yes --from liubei --yes
-
-sleep 6s
-
-./mingxied query gov proposal <span style="color:#ae81ff">1</span>
-</code></pre></div><h4 id="proposaljson">proposal.json</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
- <span style="color:#f92672">&#34;messages&#34;</span>: [
-  {
-   <span style="color:#f92672">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade&#34;</span>,
-   <span style="color:#f92672">&#34;authority&#34;</span>: <span style="color:#e6db74">&#34;cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn&#34;</span>,
-   <span style="color:#f92672">&#34;plan&#34;</span>: {
-    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;v0.1.1&#34;</span>,
-    <span style="color:#f92672">&#34;time&#34;</span>: <span style="color:#e6db74">&#34;0001-01-01T00:00:00Z&#34;</span>,
-    <span style="color:#f92672">&#34;height&#34;</span>: <span style="color:#e6db74">&#34;20&#34;</span>,
-    <span style="color:#f92672">&#34;info&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-    <span style="color:#f92672">&#34;upgraded_client_state&#34;</span>: <span style="color:#66d9ef">null</span>
-   }
-  }
- ],
- <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;ipfs://&#34;</span>,
- <span style="color:#f92672">&#34;deposit&#34;</span>: <span style="color:#e6db74">&#34;10stake&#34;</span>
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>rm -rf ~/.mingxie_back
+</span></span><span style="display:flex;"><span>rm -rf ~/.mingxie
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied config chain-id test-chain
+</span></span><span style="display:flex;"><span>./mingxied config keyring-backend test
+</span></span><span style="display:flex;"><span>./mingxied config broadcast-mode sync
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied keys add liubei
+</span></span><span style="display:flex;"><span>./mingxied keys add guanyu
+</span></span><span style="display:flex;"><span>./mingxied keys add zhangfei
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied init node1 --chain-id test-chain
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chmod +w $HOME/.mingxie/config/genesis.json
+</span></span><span style="display:flex;"><span>cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.voting_params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied add-genesis-account liubei 9999000000000stake --keyring-backend test
+</span></span><span style="display:flex;"><span>./mingxied add-genesis-account guanyu 8888000000000stake --keyring-backend test
+</span></span><span style="display:flex;"><span>./mingxied add-genesis-account zhangfei 7777000000000stake --keyring-backend test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied gentx liubei 51000000stake --chain-id test-chain --moniker<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;node1&#34;</span>
+</span></span><span style="display:flex;"><span>./mingxied collect-gentxs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp -f ../account/config/node_key.json $HOME/.mingxie/config/
+</span></span><span style="display:flex;"><span>cp -f ../account/config/config.toml $HOME/.mingxie/config/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
+</span></span><span style="display:flex;"><span>cp -f ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mv $HOME/.mingxie $HOME/.mingxie_back
+</span></span></code></pre></div><h4 id="startsh">start.sh</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>rm -rf $HOME/.mingxie
+</span></span><span style="display:flex;"><span>cp -a $HOME/.mingxie_back $HOME/.mingxie
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
+</span></span><span style="display:flex;"><span>export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
+</span></span><span style="display:flex;"><span>export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
+</span></span><span style="display:flex;"><span>cp ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cosmovisor run start
+</span></span></code></pre></div><h4 id="upgradesh">upgrade.sh</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
+</span></span><span style="display:flex;"><span>export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
+</span></span><span style="display:flex;"><span>cp ../v011/mingxied $DAEMON_HOME/cosmovisor/upgrades/v0.1.1/bin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sleep 1s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied tx tvote save-voter  aa a <span style="color:#ae81ff">11</span> <span style="color:#ae81ff">1</span> --from liubei -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sleep 6s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied tx tvote save-voter  bb b <span style="color:#ae81ff">15</span> <span style="color:#ae81ff">2</span> --from liubei -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sleep 6s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied tx gov submit-proposal proposal.json --from liubei --keyring-backend test -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sleep 6s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied tx gov deposit <span style="color:#ae81ff">1</span> 10000000stake --from liubei --yes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sleep 6s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied tx gov vote <span style="color:#ae81ff">1</span> yes --from liubei --yes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sleep 6s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./mingxied query gov proposal <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><h4 id="proposaljson">proposal.json</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&#34;messages&#34;</span>: [
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;authority&#34;</span>: <span style="color:#e6db74">&#34;cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;plan&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;v0.1.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;time&#34;</span>: <span style="color:#e6db74">&#34;0001-01-01T00:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;height&#34;</span>: <span style="color:#e6db74">&#34;20&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;info&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;upgraded_client_state&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span> ],
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;ipfs://&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&#34;deposit&#34;</span>: <span style="color:#e6db74">&#34;10stake&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -472,12 +467,12 @@ sleep 6s
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -499,7 +494,7 @@ sleep 6s
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -535,7 +530,7 @@ sleep 6s
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -607,7 +602,7 @@ sleep 6s
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【redis笔记】redis_持久化(4)" />
 <meta property="og:description" content="这一篇整理了redis持久化相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/redis/redis_04/" />
+<meta property="og:url" content="https://limingxie.github.io/note/redis/redis_04/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-08-05T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-08-05T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【redis笔记】redis_持久化(4)">
-<meta itemprop="description" content="这一篇整理了redis持久化相关的内容。">
-<meta itemprop="datePublished" content="2022-08-05T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了redis持久化相关的内容。"><meta itemprop="datePublished" content="2022-08-05T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-05T23:28:49+08:00" />
 <meta itemprop="wordCount" content="86">
-
-
-
 <meta itemprop="keywords" content="redis," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -162,7 +157,7 @@
 <h2 id="1rdbredis-database">1.RDB（Redis DataBase）</h2>
 <p>在指定的时间间隔内将内存中的数据集 <strong><code>快照Snapshot</code></strong> 写入磁盘。</p>
 <p>在redis.conf中配置文件名称，默认为dump.rdb</p>
-<pre><code class="language-redis" data-lang="redis">#rdb的保存的文件名
+<pre tabindex="0"><code class="language-redis" data-lang="redis">#rdb的保存的文件名
 dbfilename dump.rdb
 
 #rdb文件的保存路径
@@ -181,7 +176,7 @@ bgsave  //fork()一个线程，非阻塞性保存
 出于效率考虑，Linux中引入了“写时复制技术”，一般情况父进程和子进程会共用同一段物理内存，<br>
 只有进程空间的各段的内容要发生变化时，才会将父进程的内容复制一份给子进程</p>
 <p>其他配置项</p>
-<pre><code class="language-redis" data-lang="redis">#当Redis无法写入磁盘的话，直接关掉Redis的写操作
+<pre tabindex="0"><code class="language-redis" data-lang="redis">#当Redis无法写入磁盘的话，直接关掉Redis的写操作
 stop-writes-on-bgsave-error yes
 
 #进行rdb保存时，将文件压缩
@@ -193,11 +188,11 @@ rdbchecksum yes
 </code></pre><h2 id="2aofappend-of-file">2.AOF（Append Of File）</h2>
 <p>以日志的形式来记录每个写操作<br>
 AOF默认不开启，需要手动在配置文件中配置</p>
-<pre><code class="language-redis" data-lang="redis">#打开AOF
+<pre tabindex="0"><code class="language-redis" data-lang="redis">#打开AOF
 appendonly on
 
 #配置文件名, AOF文件的保存路径，同RDB的路径一致
-appendfilename &quot;appendonly.aof&quot;
+appendfilename &#34;appendonly.aof&#34;
 
 #AOF同步频率设置
 appendfsync everysec
@@ -206,7 +201,7 @@ appendfsync everysec
 </blockquote>
 <p>AOF是追加日志的方式存储数据的，所以过一些时间后文件会变得很大<br>
 可以使用命令**<code>bgrewriteaof</code>**，只保留可恢复的数据。</p>
-<pre><code class="language-redis" data-lang="redis">#遇到AOF文件损坏，可通过以下命令进行恢复
+<pre tabindex="0"><code class="language-redis" data-lang="redis">#遇到AOF文件损坏，可通过以下命令进行恢复
 redis-check-aof  --fix  appendonly.aof   
 
 ##何时自动使用bgrewriteaof
@@ -281,12 +276,12 @@ auto-aof-rewrite-min-size 64mb //当数据量超过64mb时
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -308,7 +303,7 @@ auto-aof-rewrite-min-size 64mb //当数据量超过64mb时
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -344,7 +339,7 @@ auto-aof-rewrite-min-size 64mb //当数据量超过64mb时
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -416,7 +411,7 @@ auto-aof-rewrite-min-size 64mb //当数据量超过64mb时
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

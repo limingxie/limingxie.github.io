@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_数组和切片slice(9)" />
 <meta property="og:description" content="这一篇简单的整理了golang 数组和切片slice 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_09/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_09/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-10T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-10T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_数组和切片slice(9)">
-<meta itemprop="description" content="这一篇简单的整理了golang 数组和切片slice 相关的内容。">
-<meta itemprop="datePublished" content="2022-09-10T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 数组和切片slice 相关的内容。"><meta itemprop="datePublished" content="2022-09-10T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-10T23:28:49+08:00" />
 <meta itemprop="wordCount" content="298">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -172,115 +167,114 @@
 <li>数组之间各元素之间的间隔是依据数组的类型(大小)决定。</li>
 </ol>
 <p>看下面的例子</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr</span> [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">43</span>, <span style="color:#ae81ff">34</span>}
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;intArr地址=%p | intArr[0]地址=%p | intArr[1]地址=%p | intArr[1]地址=%p \n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">2</span>])
-
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr32</span> [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int32</span> = [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int32</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">43</span>, <span style="color:#ae81ff">34</span>}
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;intArr32地址=%p | intArr32[0]地址=%p | intArr32[1]地址=%p | intArr32[2]地址=%p \n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">2</span>])
-}
-</code></pre></div><p><strong>执行结果</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;intArr地址=%p | intArr[0]地址=%p | intArr[1]地址=%p | intArr[1]地址=%p&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">2</span>])  <span style="color:#75715e">// 0和1 差 8 =&gt; int占用的字节数
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intArr32地址</span>=<span style="color:#ae81ff">0xc00018c020</span> | <span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">0</span>]<span style="color:#a6e22e">地址</span>=<span style="color:#ae81ff">0xc00018c020</span> | <span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">1</span>]<span style="color:#a6e22e">地址</span>=<span style="color:#ae81ff">0xc00018c024</span> | <span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">2</span>]<span style="color:#a6e22e">地址</span>=<span style="color:#ae81ff">0xc00018c028</span> <span style="color:#75715e">//相差 4
-</span></code></pre></div><h2 id="2数组声明方式">2.数组声明方式</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr1</span> [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr1</span>)
-
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr2</span> = [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr2</span>)
-
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr3</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr3</span>)
-
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr4</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">2</span>: <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>: <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>: <span style="color:#ae81ff">3</span>}
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr4</span>)
-
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strArr</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">string</span>{<span style="color:#ae81ff">2</span>: <span style="color:#e6db74">&#34;haha&#34;</span>, <span style="color:#ae81ff">0</span>: <span style="color:#e6db74">&#34;heihei&#34;</span>, <span style="color:#ae81ff">1</span>: <span style="color:#e6db74">&#34;hehe&#34;</span>}
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">strArr</span>)
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr</span> [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">43</span>, <span style="color:#ae81ff">34</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;intArr地址=%p | intArr[0]地址=%p | intArr[1]地址=%p | intArr[1]地址=%p \n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr32</span> [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int32</span> = [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">int32</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">43</span>, <span style="color:#ae81ff">34</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;intArr32地址=%p | intArr32[0]地址=%p | intArr32[1]地址=%p | intArr32[2]地址=%p \n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>执行结果</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;intArr地址=%p | intArr[0]地址=%p | intArr[1]地址=%p | intArr[1]地址=%p&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">2</span>])  <span style="color:#75715e">// 0和1 差 8 =&gt; int占用的字节数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">intArr32地址</span>=<span style="color:#ae81ff">0xc00018c020</span> | <span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">0</span>]<span style="color:#a6e22e">地址</span>=<span style="color:#ae81ff">0xc00018c020</span> | <span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">1</span>]<span style="color:#a6e22e">地址</span>=<span style="color:#ae81ff">0xc00018c024</span> | <span style="color:#a6e22e">intArr32</span>[<span style="color:#ae81ff">2</span>]<span style="color:#a6e22e">地址</span>=<span style="color:#ae81ff">0xc00018c028</span> <span style="color:#75715e">//相差 4
+</span></span></span></code></pre></div><h2 id="2数组声明方式">2.数组声明方式</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr1</span> [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr2</span> = [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr3</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr4</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">2</span>: <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>: <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>: <span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strArr</span> = [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">string</span>{<span style="color:#ae81ff">2</span>: <span style="color:#e6db74">&#34;haha&#34;</span>, <span style="color:#ae81ff">0</span>: <span style="color:#e6db74">&#34;heihei&#34;</span>, <span style="color:#ae81ff">1</span>: <span style="color:#e6db74">&#34;hehe&#34;</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">strArr</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <h2 id="3切片slice">3.切片slice</h2>
 <p><strong>切片(slice)是数组的一个引用</strong></p>
 <p>切片的结构可以参考我之前写的 <a href="https://limingxie.github.io/go/go_slice_code/">【go笔记】切片(slice)结构的简介</a></p>
 <h4 id="append和copy">append和copy</h4>
 <p>了解append和copy的底层逻辑，以下现象就很容易解释了</p>
 <p><strong>append</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr</span> [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
- <span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]
-
- <span style="color:#a6e22e">slice1</span> = append(<span style="color:#a6e22e">slice1</span>, <span style="color:#ae81ff">10</span>)
-
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr</span>) <span style="color:#75715e">//[1 2 3 10 5 6]
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">slice1</span>) <span style="color:#75715e">//[2 3 10]
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p><strong>copy</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr</span> [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
- <span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]
- <span style="color:#a6e22e">slice2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">4</span>]
-
- copy(<span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice1</span>)
-
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr</span>) <span style="color:#75715e">//[1 2 2 3 5 6]
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">slice1</span>) <span style="color:#75715e">//[2 2]
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">slice2</span>) <span style="color:#75715e">//[2 3]
-</span><span style="color:#75715e"></span>}
-
-</code></pre></div><h2 id="4string切片">4.string切片</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr</span> [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">slice1</span> = append(<span style="color:#a6e22e">slice1</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr</span>) <span style="color:#75715e">//[1 2 3 10 5 6]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">slice1</span>) <span style="color:#75715e">//[2 3 10]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p><strong>copy</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">intArr</span> [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span> = [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">slice1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">slice2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">intArr</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">4</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> copy(<span style="color:#a6e22e">slice2</span>, <span style="color:#a6e22e">slice1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">intArr</span>) <span style="color:#75715e">//[1 2 2 3 5 6]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">slice1</span>) <span style="color:#75715e">//[2 2]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">slice2</span>) <span style="color:#75715e">//[2 3]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h2 id="4string切片">4.string切片</h2>
 <p>string是值类型不能直接修改单个字符值。<br>
 比如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
- <span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#39;z&#39;</span> <span style="color:#75715e">//编译错误
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>可以转成[]byte修改数据再转str</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
- <span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">str</span>)
- <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#39;z&#39;</span>
- <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">arr</span>)
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//zello
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>因为byte是只能支持数字和字母，想用中文得转[]rune</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
- <span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">str</span>)
- <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#39;哈&#39;</span>
- <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">arr</span>)
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//哈ello
-</span><span style="color:#75715e"></span>}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#39;z&#39;</span> <span style="color:#75715e">//编译错误
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>可以转成[]byte修改数据再转str</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">str</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#39;z&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//zello
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>因为byte是只能支持数字和字母，想用中文得转[]rune</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">str</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#e6db74">&#39;哈&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//哈ello
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -340,12 +334,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -367,7 +361,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -403,7 +397,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -475,7 +469,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

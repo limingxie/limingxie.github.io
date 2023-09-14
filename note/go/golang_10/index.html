@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_二维数组(10)" />
 <meta property="og:description" content="这一篇简单的整理了golang 二维数组 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_10/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_10/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-11T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-11T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_二维数组(10)">
-<meta itemprop="description" content="这一篇简单的整理了golang 二维数组 相关的内容。">
-<meta itemprop="datePublished" content="2022-09-11T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 二维数组 相关的内容。"><meta itemprop="datePublished" content="2022-09-11T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-11T23:28:49+08:00" />
 <meta itemprop="wordCount" content="48">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -160,23 +155,23 @@
 <p><a href="https://limingxie.github.io/images/go/slice/array_01.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/slice/array_01.png" alt="slice_struct"></p>
 <h4 id="代码用例">代码用例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> [<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>
-
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[0]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>])       <span style="color:#75715e">//arr[0]的地址=0xc0000aa030
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[0][0]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//arr[0][0]的地址=0xc0000aa030
-</span><span style="color:#75715e"></span>
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[1]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>])       <span style="color:#75715e">//arr[1]的地址=0xc0000aa048
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[1][0]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//arr[1][0]的地址=0xc0000aa048
-</span><span style="color:#75715e"></span> <span style="color:#75715e">/*
-</span><span style="color:#75715e">  arr[0] 和 arr[1]的 相差正好是  [3]int 的 3个 字节 24位。 16进制 24位 = 18
-</span><span style="color:#75715e"> */</span>
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> [<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[0]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>])       <span style="color:#75715e">//arr[0]的地址=0xc0000aa030
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[0][0]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//arr[0][0]的地址=0xc0000aa030
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[1]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>])       <span style="color:#75715e">//arr[1]的地址=0xc0000aa048
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr[1][0]的地址=%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//arr[1][0]的地址=0xc0000aa048
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  arr[0] 和 arr[1]的 相差正好是  [3]int 的 3个 字节 24位。 16进制 24位 = 18
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -236,12 +231,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -263,7 +258,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -299,7 +294,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -371,7 +366,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

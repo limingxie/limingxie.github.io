@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【区块链笔记】ETH_Solidity函数(08)" />
 <meta property="og:description" content="这篇文章简单的整理了Solidity函数相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/solidity/blockchain_eth_solidity_08/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/solidity/blockchain_eth_solidity_08/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-11-29T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-11-29T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】ETH_Solidity函数(08)">
-<meta itemprop="description" content="这篇文章简单的整理了Solidity函数相关的内容。">
-<meta itemprop="datePublished" content="2022-11-29T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了Solidity函数相关的内容。"><meta itemprop="datePublished" content="2022-11-29T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-29T23:28:49+08:00" />
 <meta itemprop="wordCount" content="500">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -188,60 +183,60 @@
 <li>internal:这些函数和状态变量只能是内部访问(即从当前合约内部或从它派生的合约访问)，不使用this调用。</li>
 <li>private:private函数和状态变量仅在当前定义它们的合约中使用，并 且不能被派生合约使用</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> C {
-    <span style="color:#66d9ef">uint256</span> <span style="color:#66d9ef">private</span> data;
-
-    <span style="color:#66d9ef">function</span> f(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span> b) {
-        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-    }
-    <span style="color:#66d9ef">function</span> setData(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">public</span> {
-        data <span style="color:#f92672">=</span> a;
-    }
-    <span style="color:#66d9ef">function</span> getData() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span>) {
-        <span style="color:#66d9ef">return</span> data;
-    }
-    <span style="color:#66d9ef">function</span> compute(<span style="color:#66d9ef">uint256</span> a, <span style="color:#66d9ef">uint256</span> b) <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span>) {
-        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
-    }
-}
-
-<span style="color:#66d9ef">contract</span> D {
-    <span style="color:#66d9ef">function</span> readData() <span style="color:#66d9ef">public</span> {
-        C c <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> C();
-        <span style="color:#66d9ef">uint256</span> local <span style="color:#f92672">=</span> c.f(<span style="color:#ae81ff">7</span>); <span style="color:#75715e">//private类型是不能这么调用，会报错
-</span><span style="color:#75715e"></span>        c.setData(<span style="color:#ae81ff">3</span>);
-        local <span style="color:#f92672">=</span> c.getData();
-        local <span style="color:#f92672">=</span> c.compute(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>); <span style="color:#75715e">//internal类型是需要继承后才能调用
-</span><span style="color:#75715e"></span>    }
-}
-
-<span style="color:#66d9ef">contract</span> E <span style="color:#66d9ef">is</span> C {
-    <span style="color:#66d9ef">function</span> g() <span style="color:#66d9ef">public</span> {
-        C c <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> C();
-        <span style="color:#66d9ef">uint256</span> val <span style="color:#f92672">=</span> c.compute(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>); <span style="color:#75715e">//继承的是直接调用应该写成 c.compute(3, 5) =&gt; compute(3, 5)
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">16</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> C {
-    <span style="color:#66d9ef">function</span> f(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span> b) {
-        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-    }
-
-    <span style="color:#66d9ef">function</span> setData(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">internal</span> {
-        data <span style="color:#f92672">=</span> a;
-    }
-
-    <span style="color:#66d9ef">uint256</span> <span style="color:#66d9ef">public</span> data;
-
-    <span style="color:#66d9ef">function</span> x() <span style="color:#66d9ef">public</span> {
-        data <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// 内部访问
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">uint256</span> val <span style="color:#f92672">=</span> this.data(); <span style="color:#75715e">// 外部访问 uint val2 = f(data);
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><h2 id="3solidity函数状态可变性">3.Solidity函数状态可变性</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">C</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint256</span> <span style="color:#66d9ef">private</span> data;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span> b) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setData</span>(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getData</span>() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> data;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">compute</span>(<span style="color:#66d9ef">uint256</span> a, <span style="color:#66d9ef">uint256</span> b) <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">D</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readData</span>() <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        C c <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> C();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint256</span> local <span style="color:#f92672">=</span> c.f(<span style="color:#ae81ff">7</span>); <span style="color:#75715e">//private类型是不能这么调用，会报错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        c.setData(<span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>        local <span style="color:#f92672">=</span> c.getData();
+</span></span><span style="display:flex;"><span>        local <span style="color:#f92672">=</span> c.compute(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>); <span style="color:#75715e">//internal类型是需要继承后才能调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">E</span> <span style="color:#66d9ef">is</span> C {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">g</span>() <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        C c <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> C();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint256</span> val <span style="color:#f92672">=</span> c.compute(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>); <span style="color:#75715e">//继承的是直接调用应该写成 c.compute(3, 5) =&gt; compute(3, 5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">16</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">C</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint256</span> b) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setData</span>(<span style="color:#66d9ef">uint256</span> a) <span style="color:#66d9ef">internal</span> {
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint256</span> <span style="color:#66d9ef">public</span> data;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">x</span>() <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// 内部访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">uint256</span> val <span style="color:#f92672">=</span> this.data(); <span style="color:#75715e">// 外部访问 uint val2 = f(data);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="3solidity函数状态可变性">3.Solidity函数状态可变性</h2>
 <ul>
 <li>pure:纯函数，不允许修改或访问状态</li>
 <li>view:不允许修改状态</li>
@@ -274,19 +269,19 @@
 修饰器modifier是合约的可继承属性，并可能被派生合约覆盖</li>
 <li>如果同一个函数有多个修饰器modifier，它们之间以空格隔开，修饰 器modifier会依次检查执行。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">22</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
-<span style="color:#66d9ef">contract</span> Purchase {
-    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> seller;
-    <span style="color:#66d9ef">modifier</span> onlySeller() { <span style="color:#75715e">// Modifier
-</span><span style="color:#75715e"></span>        require( msg.sender <span style="color:#f92672">==</span> seller, <span style="color:#e6db74">&#34;Only seller can call.&#34;</span> );
-        <span style="color:#66d9ef">_</span>; 
-    }
-
-    <span style="color:#66d9ef">function</span> abort() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> onlySeller <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) { <span style="color:#75715e">// Modifier usage
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">200</span>;
-    }
-}
-</code></pre></div><h2 id="5回退函数fallback">5.回退函数(fallback)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">22</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Purchase</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> seller;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">modifier</span> <span style="color:#a6e22e">onlySeller</span>() { <span style="color:#75715e">// Modifier
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        require( msg.sender <span style="color:#f92672">==</span> seller, <span style="color:#e6db74">&#34;Only seller can call.&#34;</span> );
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">_</span>; 
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">abort</span>() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> onlySeller <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) { <span style="color:#75715e">// Modifier usage
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">200</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="5回退函数fallback">5.回退函数(fallback)</h2>
 <ul>
 <li>回退函数(fallback function)是合约中的特殊函数;<br>
 没有名字，不能有参数也不能有返回值</li>
@@ -297,26 +292,26 @@
 如果不存在这 样的函数，则合约不能通过常规交易接收以太币</li>
 <li>在上下文中通常只有很少的gas可以用来完成回退函数的调用，所以使fallback函数的调用尽量廉价很重要</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">99</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> Sink {
-    <span style="color:#66d9ef">function</span>() <span style="color:#66d9ef">external</span> <span style="color:#66d9ef">payable</span> {}
-}
-<span style="color:#66d9ef">contract</span> Test {
-    <span style="color:#66d9ef">function</span>() <span style="color:#66d9ef">external</span> { x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; }
-    <span style="color:#66d9ef">uint256</span> x;
-}
-<span style="color:#66d9ef">contract</span> Caller {
-    <span style="color:#66d9ef">function</span> callTest(Test test) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">bool</span>) {
-        (<span style="color:#66d9ef">bool</span> success, ) <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(test).call(
-            abi.encodeWithSignature(<span style="color:#e6db74">&#34;nonExistingFunction()&#34;</span>)
-        );
-        require(success);
-        <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">payable</span> testPayable <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(<span style="color:#66d9ef">uint160</span>(<span style="color:#66d9ef">address</span>(test)));
-        <span style="color:#66d9ef">return</span> testPayable.send(<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">ether</span>);
-    }
-}
-</code></pre></div><h2 id="6事件event">6.事件(event)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">99</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Sink</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span>() <span style="color:#66d9ef">external</span> <span style="color:#66d9ef">payable</span> {}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Test</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span>() <span style="color:#66d9ef">external</span> { x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint256</span> x;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Caller</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">callTest</span>(Test test) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">bool</span>) {
+</span></span><span style="display:flex;"><span>        (<span style="color:#66d9ef">bool</span> success, ) <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(test).call(
+</span></span><span style="display:flex;"><span>            abi.encodeWithSignature(<span style="color:#e6db74">&#34;nonExistingFunction()&#34;</span>)
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        require(success);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">payable</span> testPayable <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(<span style="color:#66d9ef">uint160</span>(<span style="color:#66d9ef">address</span>(test)));
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> testPayable.send(<span style="color:#ae81ff">2</span> <span style="color:#66d9ef">ether</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="6事件event">6.事件(event)</h2>
 <ul>
 <li>事件是以太坊EVM提供的一种日志基础设施。<br>
 事件可以用来做操作记录，存储为日志。<br>
@@ -403,10 +398,10 @@
 </ul>
 <p>这些后缀不能直接用在变量后边。<br>
 如果想用时间单位(例如 days)来将输入变量 换算为时间，你可以用如下方式来完成:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">function</span> f(<span style="color:#66d9ef">uint</span> start, <span style="color:#66d9ef">uint</span> daysAfter) <span style="color:#66d9ef">public</span> {
-    <span style="color:#66d9ef">if</span> (now <span style="color:#f92672">&gt;=</span> start <span style="color:#f92672">+</span> daysAfter <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">days</span>) { <span style="color:#75715e">// ... }
-</span><span style="color:#75715e"></span>}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">uint</span> start, <span style="color:#66d9ef">uint</span> daysAfter) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (now <span style="color:#f92672">&gt;=</span> start <span style="color:#f92672">+</span> daysAfter <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">days</span>) { <span style="color:#75715e">// ... }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -472,12 +467,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -499,7 +494,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -535,7 +530,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -607,7 +602,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

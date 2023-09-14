@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【区块链笔记】ETH_Solidity关键字(06)" />
 <meta property="og:description" content="这篇文章简单的整理了Solidity关键字。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/solidity/blockchain_eth_solidity_06/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/solidity/blockchain_eth_solidity_06/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-11-27T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-11-27T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】ETH_Solidity关键字(06)">
-<meta itemprop="description" content="这篇文章简单的整理了Solidity关键字。">
-<meta itemprop="datePublished" content="2022-11-27T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了Solidity关键字。"><meta itemprop="datePublished" content="2022-11-27T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-27T23:28:49+08:00" />
 <meta itemprop="wordCount" content="345">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -267,15 +262,15 @@
 <h4 id="balance-和-transfer">balance 和 transfer</h4>
 <p>可以使用balance属性来查询一个地址的余额，<br>
 可以使用transfer函数向一个payable地址发送以太币Ether(以wei为单位)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">address</span> <span style="color:#66d9ef">payable</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(<span style="color:#ae81ff">0x123</span>);
-<span style="color:#66d9ef">address</span> myAddress <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(this);
-<span style="color:#66d9ef">if</span> (x.balance <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">&amp;&amp;</span> myAddress.balance <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>) x.transfer(<span style="color:#ae81ff">10</span>);
-</code></pre></div><h4 id="send">send</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">address</span> <span style="color:#66d9ef">payable</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(<span style="color:#ae81ff">0x123</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">address</span> myAddress <span style="color:#f92672">=</span> <span style="color:#66d9ef">address</span>(this);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (x.balance <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">&amp;&amp;</span> myAddress.balance <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>) x.transfer(<span style="color:#ae81ff">10</span>);
+</span></span></code></pre></div><h4 id="send">send</h4>
 <p>send是transfer的低级版本。如果执行失败，当前的合约不会因为异常而终止，<strong><code>但send会返回false</code></strong></p>
 <h4 id="call">call</h4>
 <p>也可以用call来实现转币的操作，通过添加.gas()和.value()修饰器:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol">nameReg.call.gas(<span style="color:#ae81ff">1000000</span>).value(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">ether</span>)(abi.encodeWithSignature(<span style="color:#e6db74">&#34;register(string)&#34;</span>, <span style="color:#e6db74">&#34;MyName&#34;</span>));
-</code></pre></div><h2 id="6字符数组byte-arrays">6.字符数组(Byte Arrays)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span>nameReg.call.gas(<span style="color:#ae81ff">1000000</span>).value(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">ether</span>)(abi.encodeWithSignature(<span style="color:#e6db74">&#34;register(string)&#34;</span>, <span style="color:#e6db74">&#34;MyName&#34;</span>));
+</span></span></code></pre></div><h2 id="6字符数组byte-arrays">6.字符数组(Byte Arrays)</h2>
 <h4 id="定长字符数组">定长字符数组</h4>
 <ul>
 <li>属于值类型，bytes1，bytes2，&hellip;，bytes32分别代表了长度为1到32的字节序列</li>
@@ -288,11 +283,11 @@
 <li>枚举类型用来用户自定义一组常量值</li>
 <li>与C语言的枚举类型非常相似，对应整型值</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
-<span style="color:#66d9ef">contract</span> Purchase {
-    <span style="color:#66d9ef">enum</span> State { Created, Locked, Inactive } 
-}
-</code></pre></div><h2 id="8数组array">8.数组(Array)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Purchase</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">State</span> { Created, Locked, Inactive } 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="8数组array">8.数组(Array)</h2>
 <ul>
 <li>固定大小k和元素类型T的数组被写为T[k]，动态大小的数组为T[]。<br>
 例如，一个由5个uint动态数组组成的数组是uint[][5]</li>
@@ -302,51 +297,51 @@
 <li>变长的storage数组和bytes(不包括string)有一个push()方法。<br>
 可以将一个新元素附加到数组末端，返回值为当前长度</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">16</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
-<span style="color:#66d9ef">contract</span> C {
-    <span style="color:#66d9ef">function</span> f(<span style="color:#66d9ef">uint</span> len) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">pure</span> {
-        <span style="color:#66d9ef">uint</span>[] <span style="color:#66d9ef">memory</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">uint</span>[](<span style="color:#ae81ff">7</span>);
-        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> b <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(len); 
-        assert(a.length <span style="color:#f92672">==</span> <span style="color:#ae81ff">7</span>); 
-        assert(b.length <span style="color:#f92672">==</span> len);
-        a[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
-    } 
-}
-</code></pre></div><h2 id="9结构struct">9.结构(Struct)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">16</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">C</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">uint</span> len) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">pure</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint</span>[] <span style="color:#66d9ef">memory</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">uint</span>[](<span style="color:#ae81ff">7</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> b <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(len); 
+</span></span><span style="display:flex;"><span>        assert(a.length <span style="color:#f92672">==</span> <span style="color:#ae81ff">7</span>); 
+</span></span><span style="display:flex;"><span>        assert(b.length <span style="color:#f92672">==</span> len);
+</span></span><span style="display:flex;"><span>        a[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span>    } 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="9结构struct">9.结构(Struct)</h2>
 <ul>
 <li>结构类型可以在映射和数组中使用，它们本身可以包含映射和数组。</li>
 <li>结构不能包含自己类型的成员，但可以作为自己数组成员的类型，也可以作为自己映射成员的值类型</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
-<span style="color:#66d9ef">contract</span> Ballot {
-    <span style="color:#66d9ef">struct</span> Voter {
-        <span style="color:#66d9ef">uint</span> weight;
-        <span style="color:#66d9ef">bool</span> voted;
-        <span style="color:#66d9ef">uint</span> vote; 
-    }
-}
-</code></pre></div><h2 id="10映射mapping">10.映射(Mapping)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>; 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Ballot</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Voter</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint</span> weight;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">bool</span> voted;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint</span> vote; 
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="10映射mapping">10.映射(Mapping)</h2>
 <ul>
 <li>声明一个映射:mapping(_KeyType =&gt;_ValueType)</li>
 <li>_KeyType可以是任何基本类型。这意味着它可以是任何内置值类型加上字节和字符串。<br>
 不允许使用用户定义的或复杂的类型，如枚举，映射，结构以及除bytes和string之外的任何数组类型。</li>
 <li>_ValueType可以是任何类型，包括映射。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
-<span style="color:#66d9ef">contract</span> MappingExample { 
-    <span style="color:#66d9ef">mapping</span>(<span style="color:#66d9ef">address</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">uint</span>) <span style="color:#66d9ef">public</span> balances; 
-    <span style="color:#66d9ef">function</span> update(<span style="color:#66d9ef">uint</span> newBalance) <span style="color:#66d9ef">public</span> {
-        balances[msg.sender] <span style="color:#f92672">=</span> newBalance;
-    }
-}
-<span style="color:#66d9ef">contract</span> MappingUser {
-    <span style="color:#66d9ef">function</span> f() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint</span>) {
-        MappingExample m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MappingExample();
-        m.update(<span style="color:#ae81ff">100</span>);
-        <span style="color:#66d9ef">return</span> m.balances(<span style="color:#66d9ef">address</span>(this));
-    }
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">MappingExample</span> { 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mapping</span>(<span style="color:#66d9ef">address</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">uint</span>) <span style="color:#66d9ef">public</span> balances; 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">update</span>(<span style="color:#66d9ef">uint</span> newBalance) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        balances[msg.sender] <span style="color:#f92672">=</span> newBalance;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">MappingUser</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span> (<span style="color:#66d9ef">uint</span>) {
+</span></span><span style="display:flex;"><span>        MappingExample m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MappingExample();
+</span></span><span style="display:flex;"><span>        m.update(<span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m.balances(<span style="color:#66d9ef">address</span>(this));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -412,12 +407,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -439,7 +434,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -475,7 +470,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -547,7 +542,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

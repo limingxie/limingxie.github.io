@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_二进制计算(5)" />
 <meta property="og:description" content="这一篇简单的整理了golang 二进制计算 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_05/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_05/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-06T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-06T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_二进制计算(5)">
-<meta itemprop="description" content="这一篇简单的整理了golang 二进制计算 相关的内容。">
-<meta itemprop="datePublished" content="2022-09-06T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 二进制计算 相关的内容。"><meta itemprop="datePublished" content="2022-09-06T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-06T23:28:49+08:00" />
 <meta itemprop="wordCount" content="377">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -173,14 +168,14 @@
 <h4 id="21-其它转十进制">2.1 其它转十进制</h4>
 <p><strong>二进制 =&gt; 十进制</strong><br>
 规则：从低位开始(右边)，把每个位提出来乘2的(位数-1)次方后求和。</p>
-<pre><code>二进制：1011 = (1 * 1) + (1 * 2) + 0 + (1 * 2 * 2 * 2) = 1 + 2 + 0 + 8 = 11  
+<pre tabindex="0"><code>二进制：1011 = (1 * 1) + (1 * 2) + 0 + (1 * 2 * 2 * 2) = 1 + 2 + 0 + 8 = 11  
 十进制：125 = 5 * 1 + 2 * 10 + 1 * 10 * 10 = 5 + 20 + 100 = 125  
 </code></pre><p><strong>八进制 =&gt; 十进制</strong><br>
 规则：从低位开始(右边)，把每个位提出来乘8的(位数-1)次方后求和。</p>
-<pre><code>0123 = 3 * 1 + 2 * 8 + 1 * 8 * 8 = 3 + 16 + 64 = 83
+<pre tabindex="0"><code>0123 = 3 * 1 + 2 * 8 + 1 * 8 * 8 = 3 + 16 + 64 = 83
 </code></pre><p><strong>十六进制 =&gt; 十进制</strong><br>
 规则：从低位开始(右边)，把每个位提出来乘16的(位数-1)次方后求和。</p>
-<pre><code>0x34B = 11 * 1 + 4 * 16 + 3 * 16 * 16 = 11 + 64 + 768 = 843
+<pre tabindex="0"><code>0x34B = 11 * 1 + 4 * 16 + 3 * 16 * 16 = 11 + 64 + 768 = 843
 </code></pre><h4 id="22-十进制转其它进制">2.2 十进制转其它进制</h4>
 <p>规则：将数字不断除于2(8或16)，直到商为0，然后把每步得到到余数倒过来拼接。</p>
 <p><a href="https://limingxie.github.io/images/go/binary/binary_01.png">图片备用地址</a><br>
@@ -188,22 +183,22 @@
 <h4 id="23-二进制转其它进制">2.3 二进制转其它进制</h4>
 <p><strong>二进制 =&gt; 八进制</strong><br>
 规则：将二进制的没三位一组(从低位开始组合)，转成对应的八进制。</p>
-<pre><code>11010101 =&gt; 11 010 101 =&gt; 3 2 5 = 0325
+<pre tabindex="0"><code>11010101 =&gt; 11 010 101 =&gt; 3 2 5 = 0325
 </code></pre><p><strong>二进制 =&gt; 十六进制</strong><br>
 规则：将二进制的没四位一组(从低位开始组合)，转成对应的十六进制。</p>
-<pre><code>11010101 =&gt; 1101 0101 =&gt; D 5 = 0xD5
+<pre tabindex="0"><code>11010101 =&gt; 1101 0101 =&gt; D 5 = 0xD5
 </code></pre><h4 id="24-其它进制转二进制">2.4 其它进制转二进制</h4>
 <p><strong>八进制 =&gt; 二进制</strong><br>
 规则：将八进制的每一位，转成对应的一个3位的二进制。</p>
-<pre><code>0237 =&gt; 10 011 111 = 10011111
+<pre tabindex="0"><code>0237 =&gt; 10 011 111 = 10011111
 </code></pre><p><strong>十六进制 =&gt; 二进制</strong><br>
 规则：将十六进制的每一位，转成对应的一个4位的二进制。</p>
-<pre><code>0x237 =&gt; 10 0011 0111 = 1000110111
+<pre tabindex="0"><code>0x237 =&gt; 10 0011 0111 = 1000110111
 </code></pre><h2 id="3源码反码补码">3.源码，反码，补码</h2>
 <ol>
 <li>二进制的最高位是代表符号，0 代表证书，1 代表负数</li>
 </ol>
-<pre><code> 1 =&gt; [0000 0001]  
+<pre tabindex="0"><code> 1 =&gt; [0000 0001]  
 -1 =&gt; [1000 0001]  
 </code></pre><ol start="2">
 <li>正数的原码，反码，补码 都一样</li>
@@ -211,7 +206,7 @@
 <li>负数的反码是 = 它的反码 + 1</li>
 <li>0的反码，补码都是 0</li>
 </ol>
-<pre><code> 1 =&gt; 原码 [0000 0001] 反码 [0000 0001] 补码 [0000 0001]  
+<pre tabindex="0"><code> 1 =&gt; 原码 [0000 0001] 反码 [0000 0001] 补码 [0000 0001]  
 -1 =&gt; 原码 [1000 0001] 反码 [1111 1110] 补码 [1111 1111]  
 </code></pre><ol start="6">
 <li>在计算机运算的时候，都是以补码的方式来运算。<br>
@@ -222,7 +217,7 @@
 <p><code>&amp;</code> <strong>按位与</strong> =&gt; 两位全为 1，结果为 1，否则为 0<br>
 <code>|</code> <strong>按位或</strong> =&gt; 两位有一个为1，结果为1，否则为 0<br>
 <code>^</code> <strong>按位异或</strong> =&gt; 两位一个为0，一个为1，结果为1，否则为 0</p>
-<pre><code>2 &amp; 3
+<pre tabindex="0"><code>2 &amp; 3
 2的补码 0000 0010
 3的补码 0000 0011
 2 &amp; 3  0000 0010 =&gt; 2
@@ -237,7 +232,7 @@
 3的补码 0000 0011
 2 ^ 3  0000 0000 =&gt; 1
 </code></pre><p><strong>负数的计算</strong></p>
-<pre><code>-2 ^ 2
+<pre tabindex="0"><code>-2 ^ 2
 -2的原码 1000 0010 =&gt; 反码 1111 1101 =&gt; 补码 1111 1110  
 
 2的补码  0000 0010
@@ -248,7 +243,7 @@
 </code></pre><h4 id="42-位移运算符">4.2 位移运算符</h4>
 <p><code>&gt;&gt;</code> 左移运算符：低位溢出，符号位不便，并用符号位补溢出的高位。<br>
 <code>&lt;&lt;</code> 右移运算符：符号位不变，低位补0</p>
-<pre><code>1 &gt;&gt; 2
+<pre tabindex="0"><code>1 &gt;&gt; 2
 0000 0001 &gt;&gt; 0000 0000 = 0
 
 1 &lt;&lt; 2
@@ -313,12 +308,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -340,7 +335,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -376,7 +371,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -448,7 +443,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

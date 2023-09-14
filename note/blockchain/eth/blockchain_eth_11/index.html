@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【区块链笔记】ETH_geth搭建联盟链(11)" />
 <meta property="og:description" content="这篇文章简单的整理了geth搭建联盟链相关的信息。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/blockchain_eth_11/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/blockchain_eth_11/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-11-19T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-11-19T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】ETH_geth搭建联盟链(11)">
-<meta itemprop="description" content="这篇文章简单的整理了geth搭建联盟链相关的信息。">
-<meta itemprop="datePublished" content="2022-11-19T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了geth搭建联盟链相关的信息。"><meta itemprop="datePublished" content="2022-11-19T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-19T23:28:49+08:00" />
 <meta itemprop="wordCount" content="345">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -158,68 +153,68 @@
 </div><div class="content post__content clearfix">
 			<p>这篇文章简单的整理了<code>geth搭建联盟链</code>相关的信息。</p>
 <h2 id="1准备genesisjson">1.准备genesis.json</h2>
-<pre><code>{
-  &quot;alloc&quot;: { // 创世时，一开始的代币分配（非必须）
+<pre tabindex="0"><code>{
+  &#34;alloc&#34;: { // 创世时，一开始的代币分配（非必须）
   },
-  &quot;config&quot;: {
-    &quot;chainId&quot;: 6668,  // 该链的ID。在用geth 启动区块链时，还需要指定一个network 参数。只有当network、chainID、创世区块配置都相同时，才是同一条链。
-    &quot;homesteadBlock&quot;: 0, // 相关协议机制的升级区块所在的高度，签名算法是homestead -&gt;eip155 -&gt; eip158，所以从homesteadBlock 之前区块都通过homestead 相关算法机制来验证，homesteadBlock 到eip155Block 之间的用eip155 算法来验证，依次类推
-    &quot;eip150Block&quot;: 0,
-    &quot;eip150Hash&quot;: &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;,
-    &quot;eip155Block&quot;: 0,
-    &quot;eip158Block&quot;: 0,
-    &quot;byzantiumBlock&quot;: 0,
-    &quot;constantinopleBlock&quot;: 0,
-    &quot;petersburgBlock&quot;: 0,
-    &quot;istanbulBlock&quot;: 0,
-    &quot;ethash&quot;: {}
+  &#34;config&#34;: {
+    &#34;chainId&#34;: 6668,  // 该链的ID。在用geth 启动区块链时，还需要指定一个network 参数。只有当network、chainID、创世区块配置都相同时，才是同一条链。
+    &#34;homesteadBlock&#34;: 0, // 相关协议机制的升级区块所在的高度，签名算法是homestead -&gt;eip155 -&gt; eip158，所以从homesteadBlock 之前区块都通过homestead 相关算法机制来验证，homesteadBlock 到eip155Block 之间的用eip155 算法来验证，依次类推
+    &#34;eip150Block&#34;: 0,
+    &#34;eip150Hash&#34;: &#34;0x0000000000000000000000000000000000000000000000000000000000000000&#34;,
+    &#34;eip155Block&#34;: 0,
+    &#34;eip158Block&#34;: 0,
+    &#34;byzantiumBlock&#34;: 0,
+    &#34;constantinopleBlock&#34;: 0,
+    &#34;petersburgBlock&#34;: 0,
+    &#34;istanbulBlock&#34;: 0,
+    &#34;ethash&#34;: {}
   },
-  &quot;nonce&quot;: &quot;0x000000000000002a&quot;, // 预定一个随机数，这是一个与PoW 机制有关的值
-  &quot;difficulty&quot;: &quot;0x020000&quot;,  // 定义了每次挖矿时，最终确定nonce 的难度
-  &quot;mixhash&quot;: &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, // 一个与PoW 机制有关的值
-  &quot;coinbase&quot;: &quot;0x0000000000000000000000000000000000000000&quot;, // 每挖出一个区块，都会获得奖励。该值指定默认情况下把奖励给到哪个账户。实际上，我们每次挖矿开始之前，都会自己指定miner.setEtherbase(UserAddress)，一般都会把奖励给自己
-  &quot;timestamp&quot;: &quot;0x00&quot;, // 时间戳，规定创世区块开始的时间
-  &quot;parentHash&quot;: &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, // 在区块链中，区块是相连的，parentHash 指定了本区块的上一个区块Hash。对于创世区块来说，parentHash 为0
-  &quot;extraData&quot;: &quot;0x&quot;, // 扩展数据
-  &quot;gasLimit&quot;: &quot;0x2fefd8&quot; // 规定该区块链中，gas 的上限
+  &#34;nonce&#34;: &#34;0x000000000000002a&#34;, // 预定一个随机数，这是一个与PoW 机制有关的值
+  &#34;difficulty&#34;: &#34;0x020000&#34;,  // 定义了每次挖矿时，最终确定nonce 的难度
+  &#34;mixhash&#34;: &#34;0x0000000000000000000000000000000000000000000000000000000000000000&#34;, // 一个与PoW 机制有关的值
+  &#34;coinbase&#34;: &#34;0x0000000000000000000000000000000000000000&#34;, // 每挖出一个区块，都会获得奖励。该值指定默认情况下把奖励给到哪个账户。实际上，我们每次挖矿开始之前，都会自己指定miner.setEtherbase(UserAddress)，一般都会把奖励给自己
+  &#34;timestamp&#34;: &#34;0x00&#34;, // 时间戳，规定创世区块开始的时间
+  &#34;parentHash&#34;: &#34;0x0000000000000000000000000000000000000000000000000000000000000000&#34;, // 在区块链中，区块是相连的，parentHash 指定了本区块的上一个区块Hash。对于创世区块来说，parentHash 为0
+  &#34;extraData&#34;: &#34;0x&#34;, // 扩展数据
+  &#34;gasLimit&#34;: &#34;0x2fefd8&#34; // 规定该区块链中，gas 的上限
 }
 </code></pre><h2 id="2启动节点">2.启动节点</h2>
-<pre><code># 初始化
+<pre tabindex="0"><code># 初始化
 geth --datadir /Users/limingxie/blockchain/eth/data0 init /Users/limingxie/blockchain/eth/data0/genesis.json
 
 # 启动
-geth --identity &quot;node0&quot; --datadir &quot;/Users/limingxie/blockchain/eth/data0&quot; --http --http.port 8545 --http.corsdomain=&quot;*&quot; --http.addr &quot;0.0.0.0&quot; --http.api &quot;eth,web3,miner,admin,personal,net&quot;  --nodiscover --networkid 133 --allow-insecure-unlock --port 30303 --ipcdisable
-</code></pre><pre><code># 指定新的数据目录 新的端口
+geth --identity &#34;node0&#34; --datadir &#34;/Users/limingxie/blockchain/eth/data0&#34; --http --http.port 8545 --http.corsdomain=&#34;*&#34; --http.addr &#34;0.0.0.0&#34; --http.api &#34;eth,web3,miner,admin,personal,net&#34;  --nodiscover --networkid 133 --allow-insecure-unlock --port 30303 --ipcdisable
+</code></pre><pre tabindex="0"><code># 指定新的数据目录 新的端口
 geth --datadir /Users/limingxie/blockchain/eth/data1 init /Users/limingxie/blockchain/eth/data1/genesis.json
-geth --identity &quot;node1&quot; --datadir &quot;/Users/limingxie/blockchain/eth/data1&quot; --http --http.port 8546 --http.corsdomain=&quot;*&quot; --http.addr &quot;0.0.0.0&quot; --http.api &quot;eth,web3,miner,admin,personal,net&quot; --nodiscover   --networkid 133 --allow-insecure-unlock --port 30304 --ipcdisable --authrpc.port 8552
+geth --identity &#34;node1&#34; --datadir &#34;/Users/limingxie/blockchain/eth/data1&#34; --http --http.port 8546 --http.corsdomain=&#34;*&#34; --http.addr &#34;0.0.0.0&#34; --http.api &#34;eth,web3,miner,admin,personal,net&#34; --nodiscover   --networkid 133 --allow-insecure-unlock --port 30304 --ipcdisable --authrpc.port 8552
 
 # 指定新的数据目录 新的端口
 geth --datadir /Users/limingxie/blockchain/eth/data2 init /Users/limingxie/blockchain/eth/data2/genesis.json
-geth --identity &quot;node2&quot; --datadir &quot;/Users/limingxie/blockchain/eth/data2&quot; --http --http.port 8547 --http.corsdomain=&quot;*&quot; --http.addr &quot;0.0.0.0&quot; --http.api &quot;eth,web3,miner,admin,personal,net&quot; --nodiscover   --networkid 133 --allow-insecure-unlock --port 30305 --ipcdisable --authrpc.port 8553
-</code></pre><pre><code># 通过http协议加入进入 console
+geth --identity &#34;node2&#34; --datadir &#34;/Users/limingxie/blockchain/eth/data2&#34; --http --http.port 8547 --http.corsdomain=&#34;*&#34; --http.addr &#34;0.0.0.0&#34; --http.api &#34;eth,web3,miner,admin,personal,net&#34; --nodiscover   --networkid 133 --allow-insecure-unlock --port 30305 --ipcdisable --authrpc.port 8553
+</code></pre><pre tabindex="0"><code># 通过http协议加入进入 console
 geth attach http://127.0.0.1:8545
 </code></pre><h3 id="3node0的操作">3.node0的操作</h3>
 <p>当启动新的两个节点console后，查看enode，到node0上面去加入node1和node2的enode</p>
-<pre><code># 在node0操作
-&gt; admin.addPeer(&quot;enode://5647880cdfd8236224a840942bfe297a3dc2ef8562fd96af587419b867e899de47ec3cd7affdd24ee353721071524245094446d0f5d28567ebbf69872f410f04@127.0.0.1:30304?discport=0&quot;)
+<pre tabindex="0"><code># 在node0操作
+&gt; admin.addPeer(&#34;enode://5647880cdfd8236224a840942bfe297a3dc2ef8562fd96af587419b867e899de47ec3cd7affdd24ee353721071524245094446d0f5d28567ebbf69872f410f04@127.0.0.1:30304?discport=0&#34;)
 true
-&gt; admin.addPeer(&quot;enode://ce02e7c69f2a651214a36e16637543a2910eb81617f0989b8c259765ae6e44765b08a6888d7af175966ed6391f917e6d588c1238441886581152362c11c08f38@127.0.0.1:30305?discport=0&quot;)
+&gt; admin.addPeer(&#34;enode://ce02e7c69f2a651214a36e16637543a2910eb81617f0989b8c259765ae6e44765b08a6888d7af175966ed6391f917e6d588c1238441886581152362c11c08f38@127.0.0.1:30305?discport=0&#34;)
 true
 
 # 查看加入的节点
 admin.peers 
 </code></pre><p>成功加入以后在node0操作如下</p>
-<pre><code># 创建2个账户
-&gt; personal.newAccount(&quot;1234&quot;)
-&quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;
-&gt; personal.newAccount(&quot;12345&quot;)
-&quot;0xc031223c0512f02ba3b6f7b715bce52a96c543db&quot;
+<pre tabindex="0"><code># 创建2个账户
+&gt; personal.newAccount(&#34;1234&#34;)
+&#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;
+&gt; personal.newAccount(&#34;12345&#34;)
+&#34;0xc031223c0512f02ba3b6f7b715bce52a96c543db&#34;
 
 # 设置矿工 返回true
-&gt; miner.setEtherbase(&quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;)
+&gt; miner.setEtherbase(&#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;)
 true
 &gt; eth.coinbase
-&quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;
+&#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;
 
 # 开始挖矿
 &gt; miner.start(1)
@@ -232,27 +227,27 @@ null
 null
 
 # 查看以太币数
-&gt; web3.fromWei(eth.getBalance('0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2'),'ether');
+&gt; web3.fromWei(eth.getBalance(&#39;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#39;),&#39;ether&#39;);
 20
 
 # 转账失败
-&gt; eth.sendTransaction({from:&quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;, to: &quot;0xc031223c0512f02ba3b6f7b715bce52a96c543db&quot;, value: 5000000000000000000})
+&gt; eth.sendTransaction({from:&#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;, to: &#34;0xc031223c0512f02ba3b6f7b715bce52a96c543db&#34;, value: 5000000000000000000})
 Error: authentication needed: password or unlock
  at web3.js:6365:9(45)
  at send (web3.js:5099:62(34))
  at &lt;eval&gt;:1:20(10)
 
 # 解锁账户
-&gt; personal.unlockAccount(&quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;)
+&gt; personal.unlockAccount(&#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;)
 Unlock account 0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2
 Passphrase:
 true
 
 # 创建2笔转账交易
-&gt; eth.sendTransaction({from:&quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;, to:&quot;0xc031223c0512f02ba3b6f7b715bce52a96c543db&quot;, value:5000000000000000000})
-&quot;0xbdba60003be83c884efea837947a12ce695cb546afc57e8f153fe50668999470&quot;
-&gt; eth.sendTransaction({from:&quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;, to:&quot;0xc031223c0512f02ba3b6f7b715bce52a96c543db&quot;, value:2000000000000000000})
-&quot;0xd178aa7207b3fd06b8925eaa804e04e1adb4d794757c09f20e58e8cfbef466b8&quot;
+&gt; eth.sendTransaction({from:&#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;, to:&#34;0xc031223c0512f02ba3b6f7b715bce52a96c543db&#34;, value:5000000000000000000})
+&#34;0xbdba60003be83c884efea837947a12ce695cb546afc57e8f153fe50668999470&#34;
+&gt; eth.sendTransaction({from:&#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;, to:&#34;0xc031223c0512f02ba3b6f7b715bce52a96c543db&#34;, value:2000000000000000000})
+&#34;0xd178aa7207b3fd06b8925eaa804e04e1adb4d794757c09f20e58e8cfbef466b8&#34;
 
 # 挖矿  挖矿了才能打包上述2笔交易
 &gt; miner.start(1)
@@ -263,37 +258,37 @@ null
 null
 
 # 查看账户余额
-&gt; web3.fromWei(eth.getBalance('0xc031223c0512f02ba3b6f7b715bce52a96c543db'),'ether');
+&gt; web3.fromWei(eth.getBalance(&#39;0xc031223c0512f02ba3b6f7b715bce52a96c543db&#39;),&#39;ether&#39;);
 7
 </code></pre><h2 id="4node1查看数据同步情况">4.node1查看数据同步情况</h2>
 <p>先进入node1的控制台</p>
-<pre><code>geth attach http://127.0.0.1:8546
-</code></pre><pre><code># 查看block高度
+<pre tabindex="0"><code>geth attach http://127.0.0.1:8546
+</code></pre><pre tabindex="0"><code># 查看block高度
 &gt; eth.blockNumber
 19
 
 # 余额已经同步过来了
-&gt; web3.fromWei(eth.getBalance('0xc031223c0512f02ba3b6f7b715bce52a96c543db'),'ether');
+&gt; web3.fromWei(eth.getBalance(&#39;0xc031223c0512f02ba3b6f7b715bce52a96c543db&#39;),&#39;ether&#39;);
 7
 
 # 查看tx
-&gt; eth.getTransaction(&quot;0xbdba60003be83c884efea837947a12ce695cb546afc57e8f153fe50668999470&quot;)
+&gt; eth.getTransaction(&#34;0xbdba60003be83c884efea837947a12ce695cb546afc57e8f153fe50668999470&#34;)
 {
-  blockHash: &quot;0x5cf8e182ef0ce4ae90c22e48973b56f26e4eb124eb3a5c989cd4be8d13cecda1&quot;,
+  blockHash: &#34;0x5cf8e182ef0ce4ae90c22e48973b56f26e4eb124eb3a5c989cd4be8d13cecda1&#34;,
   blockNumber: 11,
-  chainId: &quot;0x53a&quot;,
-  from: &quot;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&quot;,
+  chainId: &#34;0x53a&#34;,
+  from: &#34;0xc8a840a45ce3583b59244eb0b4ef2ec9e1bef8f2&#34;,
   gas: 21000,
   gasPrice: 1000000000,
-  hash: &quot;0xbdba60003be83c884efea837947a12ce695cb546afc57e8f153fe50668999470&quot;,
-  input: &quot;0x&quot;,
+  hash: &#34;0xbdba60003be83c884efea837947a12ce695cb546afc57e8f153fe50668999470&#34;,
+  input: &#34;0x&#34;,
   nonce: 0,
-  r: &quot;0xe372ebf954306e4efaec4241ad543625b56cfcf4a5be4e584f45aadcf5563fd8&quot;,
-  s: &quot;0x2fe76455e50a72e7abf8e020c60f023731a67030994f06b45e69396a6b67a910&quot;,
-  to: &quot;0xc031223c0512f02ba3b6f7b715bce52a96c543db&quot;,
+  r: &#34;0xe372ebf954306e4efaec4241ad543625b56cfcf4a5be4e584f45aadcf5563fd8&#34;,
+  s: &#34;0x2fe76455e50a72e7abf8e020c60f023731a67030994f06b45e69396a6b67a910&#34;,
+  to: &#34;0xc031223c0512f02ba3b6f7b715bce52a96c543db&#34;,
   transactionIndex: 0,
-  type: &quot;0x0&quot;,
-  v: &quot;0xa97&quot;,
+  type: &#34;0x0&#34;,
+  v: &#34;0xa97&#34;,
   value: 5000000000000000000
 }
 </code></pre><hr>
@@ -362,12 +357,12 @@ null
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -389,7 +384,7 @@ null
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -425,7 +420,7 @@ null
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -497,7 +492,7 @@ null
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

@@ -12,22 +12,17 @@
 (几年前看了一下基本语法后，就没有碰过了。)
 而且很多资料大部分都是对JavaScript有所了解为前提。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/javascript/javascript_01/" />
+<meta property="og:url" content="https://limingxie.github.io/js/javascript/javascript_01/" /><meta property="article:section" content="js" />
 <meta property="article:published_time" content="2022-04-29T09:05:49+08:00" />
 <meta property="article:modified_time" content="2022-04-29T09:05:49+08:00" />
 
 		<meta itemprop="name" content="【JavaScript笔记】JavaScript基础_结构和类型(1)">
 <meta itemprop="description" content="本想学Nodejs的，结果发现自己的JavaScript的基础太差,
 (几年前看了一下基本语法后，就没有碰过了。)
-而且很多资料大部分都是对JavaScript有所了解为前提。">
-<meta itemprop="datePublished" content="2022-04-29T09:05:49+08:00" />
+而且很多资料大部分都是对JavaScript有所了解为前提。"><meta itemprop="datePublished" content="2022-04-29T09:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-04-29T09:05:49+08:00" />
 <meta itemprop="wordCount" content="382">
-
-
-
 <meta itemprop="keywords" content="js,javascript," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -173,7 +168,7 @@
 <blockquote>
 <p>JavaScript（通常缩写为JS）是一种高级的、解释型的编程语言。</p>
 </blockquote>
-<pre><code>JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。  
+<pre tabindex="0"><code>JavaScript是一门基于原型、头等函数的语言，是一门多范式的语言，它支持面向对象程序设计，指令式编程，以及函数式编程。  
 它提供语法来操控文本、数组、日期以及正则表达式等，不支持I/O，比如网络、存储和图形等，但这些都可以由它的宿主环境提供支持。  
 它已经由ECMA（欧洲电脑制造商协会）通过ECMAScript实现语言的标准化。  
 它被世界上的绝大多数网站所使用，也被世界主流浏览器（Chrome、IE、Firefox、Safari、Opera）支持。
@@ -187,136 +182,136 @@
 </ul>
 <h2 id="2javascript代码结构">2.JavaScript代码结构</h2>
 <p>javascript一般在html里的header里写，如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
-&lt;<span style="color:#f92672">html</span>&gt;
-
-&lt;<span style="color:#f92672">head</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;---------------javascript 语法测试-----------------&#34;</span>);
-    &lt;/<span style="color:#f92672">script</span>&gt;
-&lt;/<span style="color:#f92672">head</span>&gt;
-
-&lt;<span style="color:#f92672">body</span>&gt;
-    <span style="color:#75715e">&lt;!-- 可以这么加javascript,但是为了可读性不建议这么加 --&gt;</span>
-    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;alert(&#39;点我了吗？&#39;);&#34;</span>&gt;点我&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;javascript:alert(&#39;怎么我也点了？&#39;);&#34;</span>&gt;点我一下&lt;/<span style="color:#f92672">a</span>&gt;
-&lt;/<span style="color:#f92672">body</span>&gt;
-
-&lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><p>也可以引用外部js文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;---------------javascript 语法测试-----------------&#34;</span>);
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- 可以这么加javascript,但是为了可读性不建议这么加 --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;alert(&#39;点我了吗？&#39;);&#34;</span>&gt;点我&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;javascript:alert(&#39;怎么我也点了？&#39;);&#34;</span>&gt;点我一下&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>也可以引用外部js文件：</p>
 <p>outjs.js =&gt;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">document.write(&#34;我是外部js文件!&#34;);
-</code></pre></div><p>jshtml.html =&gt;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;outjs.js&#34;</span>&gt;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;----------------外部js文件测试----------------&#34;</span>);
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;看看界面上有没有外部文件的提示&#34;</span>);
-    &lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><h2 id="3javascript的基本数据类型">3.JavaScript的基本数据类型</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>document.write(&#34;我是外部js文件!&#34;);
+</span></span></code></pre></div><p>jshtml.html =&gt;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;outjs.js&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;----------------外部js文件测试----------------&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;看看界面上有没有外部文件的提示&#34;</span>);
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h2 id="3javascript的基本数据类型">3.JavaScript的基本数据类型</h2>
 <p>JavaScripty有6种数据类型。String，Number，Boolean，Null，Undefined，Object。<br>
 具体的方式直接用代码看看：</p>
 <h4 id="31-string字符串">3.1 String(字符串)</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------String----------------------&#34;</span>);
-
-        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello &#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;world!&#34;</span>;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;str:&#34;</span>, <span style="color:#a6e22e">str</span>);   <span style="color:#75715e">//str: hello world!
-</span><span style="color:#75715e"></span>
-        <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;str:&#34;</span>, <span style="color:#a6e22e">str</span>);       <span style="color:#75715e">//str: 123
-</span><span style="color:#75715e"></span>
-        <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;特殊符号\&#34;,\\, \&#39;&#34;</span>; <span style="color:#75715e">// \n \t \\ \&#39;, \&#34;
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;str:&#34;</span>, <span style="color:#a6e22e">str</span>);       <span style="color:#75715e">//str: 特殊符号&#34;,\, &#39;
-</span><span style="color:#75715e"></span>
-        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123&#34;</span>;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;c.toString():&#34;</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">toString</span>());   <span style="color:#75715e">//c.toString(): 123
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(c):&#34;</span>, String(<span style="color:#a6e22e">c</span>));   <span style="color:#75715e">//String(c): 123
-</span><span style="color:#75715e"></span>
-        <span style="color:#75715e">// console.log(&#34;null.toString():&#34;, null.toString());   报错
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;NaN.toString():&#34;</span>, <span style="color:#66d9ef">NaN</span>.<span style="color:#a6e22e">toString</span>());   <span style="color:#75715e">// NaN.toString(): NaN
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// console.log(&#34;undefined.toString():&#34;, a.toString());   报错
-</span><span style="color:#75715e"></span>
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(null):&#34;</span>, String(<span style="color:#66d9ef">null</span>));  <span style="color:#75715e">// String(null): null
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(NaN):&#34;</span>, String(<span style="color:#66d9ef">NaN</span>));   <span style="color:#75715e">// NaN.toString(): NaN
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(undefined):&#34;</span>, String(<span style="color:#66d9ef">undefined</span>));   <span style="color:#75715e">// String(undefined): undefined
-</span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><h4 id="32-number数值">3.2 Number(数值)</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Number----------------------&#34;</span>);
-
-        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;num type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">num</span>);    <span style="color:#75715e">//num type: number
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;num:&#34;</span>, <span style="color:#a6e22e">num</span>);       <span style="color:#75715e">//num: 12
-</span><span style="color:#75715e"></span>
-        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strNum</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;12&#34;</span>;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;strNum type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">strNum</span>);  <span style="color:#75715e">//strNum type: string
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;strNum:&#34;</span>, <span style="color:#a6e22e">strNum</span>);     <span style="color:#75715e">//strNum: 12
-</span><span style="color:#75715e"></span>
-        <span style="color:#75715e">// Number.MAX_VALUE =&gt; 1.7976931348623157e+308
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Number.MIN_VALUE =&gt; 5e-324
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Number.MAX_VALUE * 10 =&gt; Infinity 正无穷大  -Infinity 负无穷大
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Infinity:&#34;</span>, Number.<span style="color:#a6e22e">MAX_VALUE</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);    <span style="color:#75715e">//Infinity: Infinity
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Infinity type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">Infinity</span>);     <span style="color:#75715e">//Infinity type: number
-</span><span style="color:#75715e"></span>
-        <span style="color:#75715e">//Nan =&gt; Not A Number 也是 number类型
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;NaN:&#34;</span>, <span style="color:#e6db74">&#34;abc&#34;</span> <span style="color:#f92672">*</span> <span style="color:#e6db74">&#34;def&#34;</span>);         <span style="color:#75715e">//NaN: NaN
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;NaN type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">NaN</span>);       <span style="color:#75715e">//NaN type: number
-</span><span style="color:#75715e"></span>
-        <span style="color:#75715e">//小数点计算问题
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;0.1 + 0.2 = &#34;</span>, <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>);     <span style="color:#75715e">//0.1 + 0.2 =  0.30000000000000004
-</span><span style="color:#75715e"></span>
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(Infinity):&#34;</span>, Number(<span style="color:#66d9ef">Infinity</span>));         <span style="color:#75715e">//Number(Infinity): Infinity
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(NaN):&#34;</span>, Number(<span style="color:#66d9ef">NaN</span>));                   <span style="color:#75715e">//Number(NaN): NaN
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(null):&#34;</span>, Number(<span style="color:#66d9ef">null</span>));                 <span style="color:#75715e">//Number(null): 0
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(undefined):&#34;</span>, Number(<span style="color:#66d9ef">undefined</span>));       <span style="color:#75715e">//Number(undefined): NaN
-</span><span style="color:#75715e"></span>
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(&#39;123px&#39;):&#34;</span>, parseInt(<span style="color:#e6db74">&#39;123px&#39;</span>));       <span style="color:#75715e">//parseInt(&#39;123px&#39;): 123
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(&#39;123.56&#39;):&#34;</span>, parseInt(<span style="color:#e6db74">&#39;123.56&#39;</span>));     <span style="color:#75715e">//parseInt(&#39;123.56&#39;): 123
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(123.56):&#34;</span>, parseInt(<span style="color:#ae81ff">123.56</span>));         <span style="color:#75715e">//parseInt(123.56): 123
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(null):&#34;</span>, parseInt(<span style="color:#66d9ef">null</span>));             <span style="color:#75715e">//parseInt(null): NaN
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(NaN):&#34;</span>, parseInt(<span style="color:#66d9ef">NaN</span>));               <span style="color:#75715e">//parseInt(NaN): NaN
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(undefined):&#34;</span>, parseInt(<span style="color:#66d9ef">undefined</span>));   <span style="color:#75715e">//parseInt(undefined): NaN
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(123.56px):&#34;</span>, parseFloat(<span style="color:#e6db74">&#39;123.56px&#39;</span>));       <span style="color:#75715e">//parseInt(123.56px): 123.56
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(123.56.78):&#34;</span>, parseFloat(<span style="color:#e6db74">&#39;123.56.78&#39;</span>));      <span style="color:#75715e">//parseInt(123.56.78): 123.56
-</span><span style="color:#75715e"></span>
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(&#39;123px&#39;,10):&#34;</span>, parseInt(<span style="color:#e6db74">&#39;123px&#39;</span>, <span style="color:#ae81ff">10</span>));       <span style="color:#75715e">//parseInt(&#39;123px&#39;): 123 后面的参数标识进制(这里说的是10进制)
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 0x 16进制
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 0 8进制
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 0b 2进制
-</span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><h4 id="33-boolean布尔值">3.3 Boolean(布尔值)</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Boolean----------------------&#34;</span>);
-
-        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">bool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">bool</span>);     <span style="color:#75715e">//bool type: boolean
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, <span style="color:#a6e22e">bool</span>);         <span style="color:#75715e">//bool: true
-</span><span style="color:#75715e"></span>
-        <span style="color:#75715e">/*
-</span><span style="color:#75715e">            数字除了0和NaN是false, 其他都是true;
-</span><span style="color:#75715e">            字符串除了空字符串都是true;
-</span><span style="color:#75715e">            null和undefined都是false;
-</span><span style="color:#75715e">            Object对象转换为true;
-</span><span style="color:#75715e">        */</span>
-
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, Boolean(<span style="color:#ae81ff">1</span>));         <span style="color:#75715e">//bool: true
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, Boolean(<span style="color:#ae81ff">0</span>));         <span style="color:#75715e">//bool: true
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, Boolean(<span style="color:#e6db74">&#34;true&#34;</span>));         <span style="color:#75715e">//bool: true
-</span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><h4 id="34-null空值">3.4 Null(空值)</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Null----------------------&#34;</span>);
-
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;null:&#34;</span>, <span style="color:#66d9ef">null</span>);         <span style="color:#75715e">//null: null
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;null type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">null</span>);     <span style="color:#75715e">//null type: object
-</span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><h4 id="35-undefined未定义">3.5 Undefined(未定义)</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Undefined----------------------&#34;</span>);
-
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;undefined:&#34;</span>, <span style="color:#66d9ef">undefined</span>);         <span style="color:#75715e">//undefined: undefined
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;undefined type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">undefined</span>);     <span style="color:#75715e">//undefined type: undefined
-</span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</code></pre></div><h4 id="36-object对象引用类型">3.6 Object(对象:引用类型)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------String----------------------&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello &#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;world!&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;str:&#34;</span>, <span style="color:#a6e22e">str</span>);   <span style="color:#75715e">//str: hello world!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;str:&#34;</span>, <span style="color:#a6e22e">str</span>);       <span style="color:#75715e">//str: 123
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;特殊符号\&#34;,\\, \&#39;&#34;</span>; <span style="color:#75715e">// \n \t \\ \&#39;, \&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;str:&#34;</span>, <span style="color:#a6e22e">str</span>);       <span style="color:#75715e">//str: 特殊符号&#34;,\, &#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;c.toString():&#34;</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">toString</span>());   <span style="color:#75715e">//c.toString(): 123
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(c):&#34;</span>, String(<span style="color:#a6e22e">c</span>));   <span style="color:#75715e">//String(c): 123
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// console.log(&#34;null.toString():&#34;, null.toString());   报错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;NaN.toString():&#34;</span>, <span style="color:#66d9ef">NaN</span>.<span style="color:#a6e22e">toString</span>());   <span style="color:#75715e">// NaN.toString(): NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// console.log(&#34;undefined.toString():&#34;, a.toString());   报错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(null):&#34;</span>, String(<span style="color:#66d9ef">null</span>));  <span style="color:#75715e">// String(null): null
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(NaN):&#34;</span>, String(<span style="color:#66d9ef">NaN</span>));   <span style="color:#75715e">// NaN.toString(): NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;String(undefined):&#34;</span>, String(<span style="color:#66d9ef">undefined</span>));   <span style="color:#75715e">// String(undefined): undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h4 id="32-number数值">3.2 Number(数值)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Number----------------------&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;num type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">num</span>);    <span style="color:#75715e">//num type: number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;num:&#34;</span>, <span style="color:#a6e22e">num</span>);       <span style="color:#75715e">//num: 12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strNum</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;12&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;strNum type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">strNum</span>);  <span style="color:#75715e">//strNum type: string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;strNum:&#34;</span>, <span style="color:#a6e22e">strNum</span>);     <span style="color:#75715e">//strNum: 12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Number.MAX_VALUE =&gt; 1.7976931348623157e+308
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Number.MIN_VALUE =&gt; 5e-324
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Number.MAX_VALUE * 10 =&gt; Infinity 正无穷大  -Infinity 负无穷大
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Infinity:&#34;</span>, Number.<span style="color:#a6e22e">MAX_VALUE</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);    <span style="color:#75715e">//Infinity: Infinity
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Infinity type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">Infinity</span>);     <span style="color:#75715e">//Infinity type: number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//Nan =&gt; Not A Number 也是 number类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;NaN:&#34;</span>, <span style="color:#e6db74">&#34;abc&#34;</span> <span style="color:#f92672">*</span> <span style="color:#e6db74">&#34;def&#34;</span>);         <span style="color:#75715e">//NaN: NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;NaN type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">NaN</span>);       <span style="color:#75715e">//NaN type: number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//小数点计算问题
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;0.1 + 0.2 = &#34;</span>, <span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>);     <span style="color:#75715e">//0.1 + 0.2 =  0.30000000000000004
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(Infinity):&#34;</span>, Number(<span style="color:#66d9ef">Infinity</span>));         <span style="color:#75715e">//Number(Infinity): Infinity
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(NaN):&#34;</span>, Number(<span style="color:#66d9ef">NaN</span>));                   <span style="color:#75715e">//Number(NaN): NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(null):&#34;</span>, Number(<span style="color:#66d9ef">null</span>));                 <span style="color:#75715e">//Number(null): 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Number(undefined):&#34;</span>, Number(<span style="color:#66d9ef">undefined</span>));       <span style="color:#75715e">//Number(undefined): NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(&#39;123px&#39;):&#34;</span>, parseInt(<span style="color:#e6db74">&#39;123px&#39;</span>));       <span style="color:#75715e">//parseInt(&#39;123px&#39;): 123
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(&#39;123.56&#39;):&#34;</span>, parseInt(<span style="color:#e6db74">&#39;123.56&#39;</span>));     <span style="color:#75715e">//parseInt(&#39;123.56&#39;): 123
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(123.56):&#34;</span>, parseInt(<span style="color:#ae81ff">123.56</span>));         <span style="color:#75715e">//parseInt(123.56): 123
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(null):&#34;</span>, parseInt(<span style="color:#66d9ef">null</span>));             <span style="color:#75715e">//parseInt(null): NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(NaN):&#34;</span>, parseInt(<span style="color:#66d9ef">NaN</span>));               <span style="color:#75715e">//parseInt(NaN): NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(undefined):&#34;</span>, parseInt(<span style="color:#66d9ef">undefined</span>));   <span style="color:#75715e">//parseInt(undefined): NaN
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(123.56px):&#34;</span>, parseFloat(<span style="color:#e6db74">&#39;123.56px&#39;</span>));       <span style="color:#75715e">//parseInt(123.56px): 123.56
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(123.56.78):&#34;</span>, parseFloat(<span style="color:#e6db74">&#39;123.56.78&#39;</span>));      <span style="color:#75715e">//parseInt(123.56.78): 123.56
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;parseInt(&#39;123px&#39;,10):&#34;</span>, parseInt(<span style="color:#e6db74">&#39;123px&#39;</span>, <span style="color:#ae81ff">10</span>));       <span style="color:#75715e">//parseInt(&#39;123px&#39;): 123 后面的参数标识进制(这里说的是10进制)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 0x 16进制
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 0 8进制
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 0b 2进制
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h4 id="33-boolean布尔值">3.3 Boolean(布尔值)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Boolean----------------------&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">bool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">bool</span>);     <span style="color:#75715e">//bool type: boolean
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, <span style="color:#a6e22e">bool</span>);         <span style="color:#75715e">//bool: true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            数字除了0和NaN是false, 其他都是true;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            字符串除了空字符串都是true;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            null和undefined都是false;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            Object对象转换为true;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, Boolean(<span style="color:#ae81ff">1</span>));         <span style="color:#75715e">//bool: true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, Boolean(<span style="color:#ae81ff">0</span>));         <span style="color:#75715e">//bool: true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bool:&#34;</span>, Boolean(<span style="color:#e6db74">&#34;true&#34;</span>));         <span style="color:#75715e">//bool: true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h4 id="34-null空值">3.4 Null(空值)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Null----------------------&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;null:&#34;</span>, <span style="color:#66d9ef">null</span>);         <span style="color:#75715e">//null: null
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;null type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">null</span>);     <span style="color:#75715e">//null type: object
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h4 id="35-undefined未定义">3.5 Undefined(未定义)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;------------------Undefined----------------------&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;undefined:&#34;</span>, <span style="color:#66d9ef">undefined</span>);         <span style="color:#75715e">//undefined: undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;undefined type:&#34;</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">undefined</span>);     <span style="color:#75715e">//undefined type: undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h4 id="36-object对象引用类型">3.6 Object(对象:引用类型)</h4>
 <p>可以参考后续文章<br>
 <a href="https://limingxie.github.io/js/javascript/javascript_04/">【JavaScript笔记】JavaScript基础_Object对象(4)）</a></p>
 <hr>
@@ -376,12 +371,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -403,7 +398,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -439,7 +434,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -511,7 +506,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

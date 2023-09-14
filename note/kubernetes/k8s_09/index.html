@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【kubernetes笔记】k8s_集群安全机制(9)" />
 <meta property="og:description" content="这一篇整理了集群安全机制相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/kubernetes/k8s_09/" />
+<meta property="og:url" content="https://limingxie.github.io/note/kubernetes/k8s_09/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-08-29T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-08-29T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【kubernetes笔记】k8s_集群安全机制(9)">
-<meta itemprop="description" content="这一篇整理了集群安全机制相关的内容。">
-<meta itemprop="datePublished" content="2022-08-29T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了集群安全机制相关的内容。"><meta itemprop="datePublished" content="2022-08-29T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-29T23:28:49+08:00" />
 <meta itemprop="wordCount" content="80">
-
-
-
 <meta itemprop="keywords" content="kubernetes," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -208,14 +203,14 @@
 </ul>
 <h2 id="3rbac-实践授权">3.RBAC 实践授权</h2>
 <h4 id="31-创建命名空间">3.1 创建命名空间</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl create ns roledemo
-</code></pre></div><h4 id="32-在新创建的命名空间创建pod">3.2 在新创建的命名空间创建Pod</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl run nginx --image<span style="color:#f92672">=</span>nginx -n roledemo
-</code></pre></div><h4 id="33-创建角色">3.3 创建角色</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl get role -b roledemo
-</code></pre></div><h4 id="34-创建角色绑定">3.4 创建角色绑定</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$kubectl get role.rolebinding -n roledemo
-</code></pre></div><h4 id="35-使用证书识别身份">3.5 使用证书识别身份</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$kubectl create ns roledemo
+</span></span></code></pre></div><h4 id="32-在新创建的命名空间创建pod">3.2 在新创建的命名空间创建Pod</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$kubectl run nginx --image<span style="color:#f92672">=</span>nginx -n roledemo
+</span></span></code></pre></div><h4 id="33-创建角色">3.3 创建角色</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$kubectl get role -b roledemo
+</span></span></code></pre></div><h4 id="34-创建角色绑定">3.4 创建角色绑定</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$kubectl get role.rolebinding -n roledemo
+</span></span></code></pre></div><h4 id="35-使用证书识别身份">3.5 使用证书识别身份</h4>
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -276,12 +271,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -303,7 +298,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -339,7 +334,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -411,7 +406,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

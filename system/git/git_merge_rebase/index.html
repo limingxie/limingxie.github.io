@@ -12,22 +12,17 @@
 不同的环境需要的功能也不一样，在不同的分支里修改。
 虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/system/git/git_merge_rebase/" />
+<meta property="og:url" content="https://limingxie.github.io/system/git/git_merge_rebase/" /><meta property="article:section" content="system" />
 <meta property="article:published_time" content="2018-07-29T07:28:49+08:00" />
 <meta property="article:modified_time" content="2018-07-29T07:28:49+08:00" />
 
 		<meta itemprop="name" content="git命令merge和rebase的简单应用">
 <meta itemprop="description" content="因为工作的需求，项目分了几个大分支管理了。
 不同的环境需要的功能也不一样，在不同的分支里修改。
-虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。">
-<meta itemprop="datePublished" content="2018-07-29T07:28:49+08:00" />
+虽然我不太喜欢这种做法。但是借此机会对merge和rebase, cherry-pick命令研究了一些。"><meta itemprop="datePublished" content="2018-07-29T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2018-07-29T07:28:49+08:00" />
 <meta itemprop="wordCount" content="186">
-
-
-
 <meta itemprop="keywords" content="git,merge,rebase," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -173,7 +168,7 @@
 期间我们master分支有 m1,m2,m3 的提交记录。<br>
 dev分支有 d1,d2 的提交记录。<br>
 2个分支需要合并代码。</p>
-<pre><code>$ git merge dev     --在master分支把dev分支的代码合并过来。
+<pre tabindex="0"><code>$ git merge dev     --在master分支把dev分支的代码合并过来。
 </code></pre><p>把2支分支合并，<code>有冲突，解决冲突后需要提交一次合并代码记录</code>。<br>
 (为了简单，下图是没有冲突时的场景。)</p>
 <p><a href="https://limingxie.github.io/images/git/git1.png">图片备用地址</a><br>
@@ -186,13 +181,13 @@ dev分支有 d1,d2 的提交记录。<br>
 但是CodeReview的时候发现有不合适的代码，或是有个小Bug需要修改。<br>
 修改后又出现一个提交记录，1个Issue有2个提交记录，看着不舒服。<br>
 这时候用以下方式处理。</p>
-<pre><code>$ git rebase -i HEAD~2      --2代表要修改最近2个记录
+<pre tabindex="0"><code>$ git rebase -i HEAD~2      --2代表要修改最近2个记录
 </code></pre><p><a href="https://limingxie.github.io/images/git/git2.png">图片备用地址</a><br>
 <img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git2.png" alt="2"></p>
 <p><strong>2. 调整顺序</strong></p>
 <p><code>git merge</code>语法是按照时间顺序合并代码的。<br>
 <code>图1</code>所示<code>merge是时间的顺序</code>来合并代码的。</p>
-<pre><code>master: m1 -&gt; m2 -&gt; m3
+<pre tabindex="0"><code>master: m1 -&gt; m2 -&gt; m3
 dev: d1 -&gt; d2
 ==&gt;    -- 合并的代码记录是按照时间的排序
 master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3 
@@ -200,9 +195,9 @@ master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3
 我们现在急需回滚，到 m2 的版本。<br>
 怎么回滚？ 回滚到m2吗？ m1吗？ 这提交记录怎么这么乱 .. .. ㅠㅠ</p>
 <p>我们希望看到的提交记录是</p>
-<pre><code>master: m1 -&gt; m2 -&gt; m3 -&gt; d1 -&gt; d2
+<pre tabindex="0"><code>master: m1 -&gt; m2 -&gt; m3 -&gt; d1 -&gt; d2
 </code></pre><p>这时候我们不能用merge，而是要用rebaes合并代码。</p>
-<pre><code>$ git rebase master     --在dev分支先把master分支的记录拉倒自己的底下...
+<pre tabindex="0"><code>$ git rebase master     --在dev分支先把master分支的记录拉倒自己的底下...
 </code></pre><p><a href="https://limingxie.github.io/images/git/git3.png">图片备用地址</a><br>
 <img src="http://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/git/git3.png" alt="3"></p>
 <h3 id="-分支branch管理策略"><strong>◆ 分支branch管理策略</strong></h3>
@@ -312,12 +307,12 @@ master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -339,7 +334,7 @@ master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -375,7 +370,7 @@ master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -447,7 +442,7 @@ master: m1 -&gt; d1 -&gt; m2 -&gt; d2 -&gt; m3
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

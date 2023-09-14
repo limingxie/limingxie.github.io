@@ -10,20 +10,15 @@
 		<meta property="og:title" content="C语言的编译和执行过程" />
 <meta property="og:description" content="C语言的编译和执行过程。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/etc/compile_c/" />
+<meta property="og:url" content="https://limingxie.github.io/etc/compile_c/" /><meta property="article:section" content="etc" />
 <meta property="article:published_time" content="2020-10-30T08:28:49+08:00" />
 <meta property="article:modified_time" content="2020-10-30T08:28:49+08:00" />
 
 		<meta itemprop="name" content="C语言的编译和执行过程">
-<meta itemprop="description" content="C语言的编译和执行过程。">
-<meta itemprop="datePublished" content="2020-10-30T08:28:49+08:00" />
+<meta itemprop="description" content="C语言的编译和执行过程。"><meta itemprop="datePublished" content="2020-10-30T08:28:49+08:00" />
 <meta itemprop="dateModified" content="2020-10-30T08:28:49+08:00" />
-<meta itemprop="wordCount" content="1190">
-
-
-
+<meta itemprop="wordCount" content="1191">
 <meta itemprop="keywords" content="C,compile,编译," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -178,29 +173,29 @@
 <li><strong>特殊符号:</strong> 如在源程序中出现的#line标识将被解释为当前行号。</li>
 </ul>
 <p>下面简单的写代码看一下过程。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#define A 10
-</span><span style="color:#75715e">#define B 20
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
-        <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span>A;
-        <span style="color:#66d9ef">int</span> b<span style="color:#f92672">=</span>B;
-        <span style="color:#66d9ef">int</span> c<span style="color:#f92672">=</span>a<span style="color:#f92672">+</span>b;
-        printf(<span style="color:#e6db74">&#34;%d + %d = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,a,b,c);
-}
-</code></pre></div><p>创建first.i文件</p>
-<pre><code>$ gcc -E first.c -o first.i
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define A 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define B 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span>A;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> b<span style="color:#f92672">=</span>B;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> c<span style="color:#f92672">=</span>a<span style="color:#f92672">+</span>b;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d + %d = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,a,b,c);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>创建first.i文件</p>
+<pre tabindex="0"><code>$ gcc -E first.c -o first.i
 </code></pre><p>查看一下first.i内容</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#960050;background-color:#1e0010">$</span> cat first.i
-<span style="color:#75715e"># 1 &#34;first.c&#34;
-</span><span style="color:#75715e"># 1 &#34;&lt;built-in&gt;&#34; 1
-</span><span style="color:#75715e"></span>... ...
-<span style="color:#66d9ef">int</span> main(){
-        <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>;
-        <span style="color:#66d9ef">int</span> b<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>;
-        <span style="color:#66d9ef">int</span> c<span style="color:#f92672">=</span>a<span style="color:#f92672">+</span>b;
-        printf(<span style="color:#e6db74">&#34;%d + %d = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,a,b,c);
-}
-</code></pre></div><p><code>可以看出A的值被替换了， stdio.h的内容也插入进来了。</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> cat first.i
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1 &#34;first.c&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># 1 &#34;&lt;built-in&gt;&#34; 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>... ...
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> b<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> c<span style="color:#f92672">=</span>a<span style="color:#f92672">+</span>b;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d + %d = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,a,b,c);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>可以看出A的值被替换了， stdio.h的内容也插入进来了。</code></p>
 <hr>
 <h4 id="2编译compilation"><strong>2.编译Compilation</strong></h4>
 <p>做完预处理后，Compiler会做编译成Assemble。<br>
@@ -227,9 +222,9 @@ Source code -&gt; (GENERIC -&gt; GIMPLE) -&gt; (SSA -&gt; RTL) -&gt; Assembly)</
 这次优化根据所在的结构和环境进一步做一些有效的优化。<br>
 这样最终生成汇编Assemble。</p>
 <p>下面看看实际过程。</p>
-<pre><code>$ gcc -S first.i -o first.s
+<pre tabindex="0"><code>$ gcc -S first.i -o first.s
 </code></pre><p>查看一下first.s内容</p>
-<pre><code>$ cat first.s
+<pre tabindex="0"><code>$ cat first.s
 	.section	__TEXT,__text,regular,pure_instructions
 	.macosx_version_min 10, 13
 	.globl	_main                   ## -- Begin function main
@@ -264,7 +259,7 @@ _main:                                  ## @main
                                         ## -- End function
 	.section	__TEXT,__cstring,cstring_literals
 L_.str:                                 ## @.str
-	.asciz	&quot;%d + %d = %d\n&quot;
+	.asciz	&#34;%d + %d = %d\n&#34;
 
 
 .subsections_via_symbols
@@ -275,9 +270,9 @@ L_.str:                                 ## @.str
 汇编的主要目的是把目标对象 ***.o
 转换成有Instruction和Data的 ELF Binary format结构。</p>
 <p>下面看看实际过程。</p>
-<pre><code>$ gcc -c first.s -o first.o
+<pre tabindex="0"><code>$ gcc -c first.s -o first.o
 </code></pre><p>查看一下first.o内容</p>
-<pre><code>$ cat first.o
+<pre tabindex="0"><code>$ cat first.o
 ���� �� �__text__TEXTC ��__cstring__TEXTCc__compact_unwind__LDX x�__eh_frame__TEXTx@�
                                                                                      h$
 �
@@ -287,7 +282,7 @@ CzRx
 2- �$h�������CA�C
   _main_printf%
 </code></pre><p>用hexdump命令查看会是什么内容？</p>
-<pre><code>$ hexdump -C first.o
+<pre tabindex="0"><code>$ hexdump -C first.o
 00000000  cf fa ed fe 07 00 00 01  03 00 00 00 01 00 00 00  |................|
 00000010  04 00 00 00 00 02 00 00  00 20 00 00 00 00 00 00  |......... ......|
 00000020  19 00 00 00 88 01 00 00  00 00 00 00 00 00 00 00  |................|
@@ -346,9 +341,9 @@ CzRx
 printf()函数或 scanf()函数是已经有了已编号好标准的包。<br>
 不需要再次编译，在这次过程会跟程序链接(link)。</p>
 <p>看看实际执行结果</p>
-<pre><code>$ gcc first.o -o first
+<pre tabindex="0"><code>$ gcc first.o -o first
 </code></pre><p>最终结果的执行。</p>
-<pre><code>$ ./first
+<pre tabindex="0"><code>$ ./first
 10 + 20 = 30
 </code></pre><h4 id="总结"><strong>总结</strong></h4>
 <p>C语言编译时会经过预处理，编译，汇编，链接4个过程<br>
@@ -422,12 +417,12 @@ printf()函数或 scanf()函数是已经有了已编号好标准的包。<br>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -449,7 +444,7 @@ printf()函数或 scanf()函数是已经有了已编号好标准的包。<br>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -485,7 +480,7 @@ printf()函数或 scanf()函数是已经有了已编号好标准的包。<br>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -557,7 +552,7 @@ printf()函数或 scanf()函数是已经有了已编号好标准的包。<br>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

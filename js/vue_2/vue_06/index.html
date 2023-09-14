@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【Vue笔记】Vue入门简介_侦听属性(06)" />
 <meta property="og:description" content="这一篇整理了侦听属性相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_06/" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_06/" /><meta property="article:section" content="js" />
 <meta property="article:published_time" content="2022-06-04T23:45:49+08:00" />
 <meta property="article:modified_time" content="2022-06-04T23:45:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_侦听属性(06)">
-<meta itemprop="description" content="这一篇整理了侦听属性相关的内容。">
-<meta itemprop="datePublished" content="2022-06-04T23:45:49+08:00" />
+<meta itemprop="description" content="这一篇整理了侦听属性相关的内容。"><meta itemprop="datePublished" content="2022-06-04T23:45:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-04T23:45:49+08:00" />
 <meta itemprop="wordCount" content="189">
-
-
-
 <meta itemprop="keywords" content="vue,watch," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -168,105 +163,105 @@
 <p>被Vue管理的所有函数最好写普通方式，这样this才能找到Vue实例<br>
 但是不是Vue所管理的函数，比如setTimeout的回调函数，最好写箭头函数，这样this才能找到Vue实例</p>
 <h4 id="实例">实例</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-&lt;<span style="color:#f92672">html</span>&gt;
-
-&lt;<span style="color:#f92672">head</span>&gt;
-    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-&lt;/<span style="color:#f92672">head</span>&gt;
-&lt;<span style="color:#f92672">body</span>&gt;
-    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
-        &lt;<span style="color:#f92672">h3</span>&gt;今天天气{{info}}&lt;/<span style="color:#f92672">h3</span>&gt;
-        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changeWeather&#34;</span>&gt;切换天气&lt;/<span style="color:#f92672">button</span>&gt;
-        <span style="color:#75715e">&lt;!-- 如下可以写简单的语句，但是复杂就不建议这么写 --&gt;</span>
-        <span style="color:#75715e">&lt;!-- &lt;button @click=&#34;isHot = !isHot&#34;&gt;切换天气&lt;/button&gt; --&gt;</span>
-
-        &lt;<span style="color:#f92672">hr</span> /&gt;
-        &lt;<span style="color:#f92672">h3</span>&gt;a的值是:{{numbers.a}}&lt;/<span style="color:#f92672">h3</span>&gt;
-        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;numbers.a++&#34;</span>&gt;点我让a+1&lt;/<span style="color:#f92672">button</span>&gt;
-        &lt;<span style="color:#f92672">h3</span>&gt;b的值是:{{numbers.b}}&lt;/<span style="color:#f92672">h3</span>&gt;
-        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;numbers.b++&#34;</span>&gt;点我让b+1&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vm</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
-            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-                <span style="color:#a6e22e">isHot</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-                <span style="color:#a6e22e">numbers</span><span style="color:#f92672">:</span> {
-                    <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
-                    <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
-                }
-            },
-            <span style="color:#a6e22e">computed</span><span style="color:#f92672">:</span> {
-                <span style="color:#a6e22e">info</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isHot</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;炎热&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;凉爽&#39;</span>;
-                }
-            },
-            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-                <span style="color:#a6e22e">changeWeather</span>() {
-                    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isHot</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isHot</span>;
-                }
-            },
-            <span style="color:#a6e22e">watch</span><span style="color:#f92672">:</span> {
-                <span style="color:#a6e22e">isHot</span><span style="color:#f92672">:</span> {
-                    <span style="color:#75715e">// immediate:true, //默认是false，初始化时把handler执行一次
-</span><span style="color:#75715e"></span>                    <span style="color:#75715e">//当isHot有变化的时候会调用这个函数
-</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">handler</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>) {
-                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>);
-                    }
-                },
-                <span style="color:#75715e">//简写
-</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">isHot1</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>) {
-                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>);
-                },
-                <span style="color:#75715e">//计算属性也可以监视
-</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">info</span><span style="color:#f92672">:</span> {
-                    <span style="color:#a6e22e">handler</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>) {
-                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>);
-                    }
-                },
-                <span style="color:#75715e">//监视多级结构中，某个属性的变化
-</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#39;numbers.a&#39;</span><span style="color:#f92672">:</span> {
-                    <span style="color:#a6e22e">handler</span>() {
-                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;a变了&#39;</span>);
-                    }
-                },
-                <span style="color:#75715e">//监视一个对象的多级数据改变。
-</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">numbers</span><span style="color:#f92672">:</span> {
-                    <span style="color:#a6e22e">deep</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,<span style="color:#75715e">//默认false, 检测对象属性深度的变化
-</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">handler</span>() {
-                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;numbers变了&#39;</span>);
-                    }
-                }
-
-            }
-        });
-
-        <span style="color:#75715e">//也可以在实例中监视
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">/*
-</span><span style="color:#75715e">            //完整写法
-</span><span style="color:#75715e">            vm.$watch(&#39;info&#39;, {
-</span><span style="color:#75715e">                immediate:true,
-</span><span style="color:#75715e">                deep: true,
-</span><span style="color:#75715e">                handler: function (newVal, oldVal) {
-</span><span style="color:#75715e">                    console.log(newVal, oldVal);
-</span><span style="color:#75715e">                }
-</span><span style="color:#75715e">            });
-</span><span style="color:#75715e">            简写//
-</span><span style="color:#75715e">            vm.$watch(&#39;isHot&#39;, function (newVal, oldVal) {
-</span><span style="color:#75715e">            console.log(newVal, oldVal);
-</span><span style="color:#75715e">        })
-</span><span style="color:#75715e">        */</span>
-        
-    &lt;/<span style="color:#f92672">script</span>&gt;
-&lt;/<span style="color:#f92672">body</span>&gt;
-
-&lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;今天天气{{info}}&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changeWeather&#34;</span>&gt;切换天气&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 如下可以写简单的语句，但是复杂就不建议这么写 --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- &lt;button @click=&#34;isHot = !isHot&#34;&gt;切换天气&lt;/button&gt; --&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">hr</span> /&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;a的值是:{{numbers.a}}&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;numbers.a++&#34;</span>&gt;点我让a+1&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;b的值是:{{numbers.b}}&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;numbers.b++&#34;</span>&gt;点我让b+1&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vm</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">isHot</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">numbers</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">computed</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">info</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isHot</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;炎热&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;凉爽&#39;</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">changeWeather</span>() {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isHot</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isHot</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">watch</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">isHot</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// immediate:true, //默认是false，初始化时把handler执行一次
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#75715e">//当isHot有变化的时候会调用这个函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">handler</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                },
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//简写
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">isHot1</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>);
+</span></span><span style="display:flex;"><span>                },
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//计算属性也可以监视
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">info</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">handler</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">newVal</span>, <span style="color:#a6e22e">oldVal</span>);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                },
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//监视多级结构中，某个属性的变化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#39;numbers.a&#39;</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">handler</span>() {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;a变了&#39;</span>);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                },
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//监视一个对象的多级数据改变。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">numbers</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">deep</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,<span style="color:#75715e">//默认false, 检测对象属性深度的变化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">handler</span>() {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;numbers变了&#39;</span>);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//也可以在实例中监视
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            //完整写法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            vm.$watch(&#39;info&#39;, {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                immediate:true,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                deep: true,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                handler: function (newVal, oldVal) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                    console.log(newVal, oldVal);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            });
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            简写//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            vm.$watch(&#39;isHot&#39;, function (newVal, oldVal) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            console.log(newVal, oldVal);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        })
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -329,12 +324,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -356,7 +351,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -392,7 +387,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -464,7 +459,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

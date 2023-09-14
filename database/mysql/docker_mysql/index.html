@@ -10,20 +10,15 @@
 		<meta property="og:title" content="使用docker运行mysql" />
 <meta property="og:description" content="以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/database/mysql/docker_mysql/" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/docker_mysql/" /><meta property="article:section" content="database" />
 <meta property="article:published_time" content="2018-03-27T07:28:49+08:00" />
 <meta property="article:modified_time" content="2018-03-27T07:28:49+08:00" />
 
 		<meta itemprop="name" content="使用docker运行mysql">
-<meta itemprop="description" content="以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。">
-<meta itemprop="datePublished" content="2018-03-27T07:28:49+08:00" />
+<meta itemprop="description" content="以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。"><meta itemprop="datePublished" content="2018-03-27T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2018-03-27T07:28:49+08:00" />
 <meta itemprop="wordCount" content="82">
-
-
-
 <meta itemprop="keywords" content="docker,mysql,super," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -166,11 +161,11 @@
 </blockquote>
 <p>废话有点多了，看看如何实现&hellip;^^</p>
 <p><strong>1. 安装docker</strong> (建议上官网下载安装包安装。)</p>
-<pre><code>brew install docker
+<pre tabindex="0"><code>brew install docker
 </code></pre><p><strong>2. 下载mysql镜像</strong></p>
-<pre><code>docker pull mysql
+<pre tabindex="0"><code>docker pull mysql
 </code></pre><p><strong>3. 启动mysql实例</strong></p>
-<pre><code>docker run --name mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest
+<pre tabindex="0"><code>docker run --name mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest
 </code></pre><ul>
 <li>&mdash;name 后面的是docker容器名</li>
 <li>-p 32xxx:3306 这里需要注意 <code>32xxx</code> 是你<strong>链接mysql的时候的<code>Port</code>。</strong></li>
@@ -178,13 +173,13 @@
 <li>-d mysql 是你的镜像标签</li>
 </ul>
 <p><strong>4. 在shell中访问mysql</strong></p>
-<pre><code>docker exec -it mingxie-mysql bash
+<pre tabindex="0"><code>docker exec -it mingxie-mysql bash
 root@7c289aa0ca95:/# 
 mysql -uroot -p -h localhost
 Enter password:
 </code></pre><p>输入密码即可。</p>
 <p><strong>5. 在shell中访问mysql日志</strong></p>
-<pre><code>docker logs mingxie-mysql
+<pre tabindex="0"><code>docker logs mingxie-mysql
 </code></pre><p><strong>6. 使用常用工具链接mysql</strong></p>
 <pre><code>Host: 127.0.0.1
 Username: root
@@ -253,12 +248,12 @@ Port: 32xxx
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -280,7 +275,7 @@ Port: 32xxx
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -316,7 +311,7 @@ Port: 32xxx
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -388,7 +383,7 @@ Port: 32xxx
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

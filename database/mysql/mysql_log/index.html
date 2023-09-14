@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【mysql笔记】redo和undo日志" />
 <meta property="og:description" content="这篇整理了redo log 和 undo log 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_log/" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_log/" /><meta property="article:section" content="database" />
 <meta property="article:published_time" content="2022-07-09T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-07-09T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【mysql笔记】redo和undo日志">
-<meta itemprop="description" content="这篇整理了redo log 和 undo log 相关的内容。">
-<meta itemprop="datePublished" content="2022-07-09T23:28:49+08:00" />
+<meta itemprop="description" content="这篇整理了redo log 和 undo log 相关的内容。"><meta itemprop="datePublished" content="2022-07-09T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-09T23:28:49+08:00" />
 <meta itemprop="wordCount" content="261">
-
-
-
 <meta itemprop="keywords" content="mysql,explain," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -171,20 +166,20 @@
 事务执行过程中，redo log不断记录</p>
 <h4 id="12-重做日志的缓冲-redo-log-buffer">1.2 重做日志的缓冲 (redo log buffer)</h4>
 <p>redo log buffer 大小默认 16M ，最大值是4096M，最小值为1M。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%innodb_log_buffer_size%&#39;</span>;
-<span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name          <span style="color:#f92672">|</span> Value    <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_buffer_size <span style="color:#f92672">|</span> <span style="color:#ae81ff">16777216</span> <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
-</span></code></pre></div><h4 id="13-redo的整体流程">1.3 redo的整体流程</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%innodb_log_buffer_size%&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name          <span style="color:#f92672">|</span> Value    <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_buffer_size <span style="color:#f92672">|</span> <span style="color:#ae81ff">16777216</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------------+----------+
+</span></span></span></code></pre></div><h4 id="13-redo的整体流程">1.3 redo的整体流程</h4>
 <p><a href="https://limingxie.github.io/images/database/mysql/redo_log1.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/mysql/redo_log1.png?x-oss-process=image/resize,w_700,m_lfit" alt="mysql_redo_log"></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">第1步:先将原始数据从磁盘中读入内存中来，修改数据的内存拷贝
-第2步:生成一条重做日志并写入redo log buffer，记录的是数据被修改后的值 
-第3步:当事务commit时，将redo log buffer中的内容刷新到 redo log file，对 redo log file采用追加 写的方式
-第4步:定期将内存中修改的数据刷新到磁盘中
-</code></pre></div><h4 id="14-innodb_flush_log_at_trx_commit-参数">1.4 innodb_flush_log_at_trx_commit 参数</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>第1步:先将原始数据从磁盘中读入内存中来，修改数据的内存拷贝
+</span></span><span style="display:flex;"><span>第2步:生成一条重做日志并写入redo log buffer，记录的是数据被修改后的值 
+</span></span><span style="display:flex;"><span>第3步:当事务commit时，将redo log buffer中的内容刷新到 redo log file，对 redo log file采用追加 写的方式
+</span></span><span style="display:flex;"><span>第4步:定期将内存中修改的数据刷新到磁盘中
+</span></span></code></pre></div><h4 id="14-innodb_flush_log_at_trx_commit-参数">1.4 innodb_flush_log_at_trx_commit 参数</h4>
 <p><strong>设置为0</strong> :<br>
 表示每次事务提交时不进行刷盘操作。(系统默认masterthread每隔1s进行一次重做日 志的同步)<br>
 <a href="https://limingxie.github.io/images/database/mysql/redo_log2.png">图片备用地址</a><br>
@@ -211,20 +206,20 @@ MySQL的默认数据目录(var/lib/mysql)下默认有两个名为ib_logfile0和i
 <p><strong>innodb_log_file_size:</strong><br>
 单个 redo log 文件设置大小，默认值为 48M 。最大值为512G，注意最大值 指的是整个 redo log 系列文件之和，<br>
 即(innodb_log_files_in_group * innodb_log_file_size )不能大 于最大值512G。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_log_files_in_group&#39;</span>;
-<span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name             <span style="color:#f92672">|</span> Value <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_files_in_group <span style="color:#f92672">|</span> <span style="color:#ae81ff">2</span>     <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
-</span><span style="color:#75715e"></span>
-mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_log_file_size&#39;</span>;
-<span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name        <span style="color:#f92672">|</span> Value    <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_file_size <span style="color:#f92672">|</span> <span style="color:#ae81ff">50331648</span> <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
-</span></code></pre></div><h2 id="2undo-log">2.undo log</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_log_files_in_group&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name             <span style="color:#f92672">|</span> Value <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_files_in_group <span style="color:#f92672">|</span> <span style="color:#ae81ff">2</span>     <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_log_file_size&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name        <span style="color:#f92672">|</span> Value    <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_log_file_size <span style="color:#f92672">|</span> <span style="color:#ae81ff">50331648</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------------+----------+
+</span></span></span></code></pre></div><h2 id="2undo-log">2.undo log</h2>
 <p>redo og是事务持久性的保证，undo log是事务原子性的保证。<br>
 在事务中更新数据的前置操作其实是要先写入一个undo log。</p>
 <h4 id="21-undo日志的作用">2.1 Undo日志的作用</h4>
@@ -236,13 +231,13 @@ InnoDB对undo log的管理采用段的方式，也就是回滚段(rollback segme
 每个回滚段记录了 1024个undo log segment，而在每个undologsegment段中进行undo页的申请。</p>
 <p><strong>undo页</strong><br>
 从1.1版本开始InnoDB支持最大128个rollback segment ，故其支持同时在线的事务限制提高到了128*1024 。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_undo_logs&#39;</span>;
-<span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name    <span style="color:#f92672">|</span> Value <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
-</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_undo_logs <span style="color:#f92672">|</span> <span style="color:#ae81ff">128</span>   <span style="color:#f92672">|</span>
-<span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
-</span></code></pre></div><h4 id="23-回滚段与事务">2.3 回滚段与事务</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;innodb_undo_logs&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name    <span style="color:#f92672">|</span> Value <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> innodb_undo_logs <span style="color:#f92672">|</span> <span style="color:#ae81ff">128</span>   <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span></code></pre></div><h4 id="23-回滚段与事务">2.3 回滚段与事务</h4>
 <ol>
 <li>每个事务只会使用一个回滚段，一个回滚段在同一时刻可能会服务于多个事务。</li>
 <li>当一个事务开始的时候，会制定一个回滚段，在事务进行的过程中，当数据被修改时，原始的数 据会被复制到回滚段。</li>
@@ -332,12 +327,12 @@ update undo log</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -359,7 +354,7 @@ update undo log</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -395,7 +390,7 @@ update undo log</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -467,7 +462,7 @@ update undo log</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

@@ -11,21 +11,16 @@
 <meta property="og:description" content="这几天研究了用hugo搭建个人博客。
 简单的整理了一下。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/limingxie/hugo_create/" />
+<meta property="og:url" content="https://limingxie.github.io/limingxie/hugo_create/" /><meta property="article:section" content="limingxie" />
 <meta property="article:published_time" content="2018-03-14T10:14:08+08:00" />
 <meta property="article:modified_time" content="2018-03-14T10:14:08+08:00" />
 
 		<meta itemprop="name" content="用hugo搭建个人博客">
 <meta itemprop="description" content="这几天研究了用hugo搭建个人博客。
-简单的整理了一下。">
-<meta itemprop="datePublished" content="2018-03-14T10:14:08+08:00" />
+简单的整理了一下。"><meta itemprop="datePublished" content="2018-03-14T10:14:08+08:00" />
 <meta itemprop="dateModified" content="2018-03-14T10:14:08+08:00" />
 <meta itemprop="wordCount" content="292">
-
-
-
 <meta itemprop="keywords" content="hugo," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -159,33 +154,33 @@
 			<p>这几天研究了用hugo搭建个人博客。</p>
 <p>简单的整理了一下。</p>
 <p><strong>1.安装hugo</strong>（windows 请查看官网介绍 <a href="https://gohugo.io/getting-started/installing/">https://gohugo.io/getting-started/installing/</a>）</p>
-<pre><code>brew install hugo
+<pre tabindex="0"><code>brew install hugo
 </code></pre><p>之后检查版本</p>
-<pre><code>$ hugo version
+<pre tabindex="0"><code>$ hugo version
 Hugo Static Site Generator v0.37.1 darwin/amd64 BuildDate:
 </code></pre><p><strong>2.创建hugo 项目</strong></p>
-<pre><code>$ hugo new site my-blog
+<pre tabindex="0"><code>$ hugo new site my-blog
 Congratulations! Your new Hugo site is created in /Users/limingxie/Projects/my-blog.
 
-Just a few more steps and you're ready to go:
+Just a few more steps and you&#39;re ready to go:
 
 1. Download a theme into the same-named folder.
    Choose a theme from https://themes.gohugo.io/, or
-   create your own with the &quot;hugo new theme &lt;THEMENAME&gt;&quot; command.
+   create your own with the &#34;hugo new theme &lt;THEMENAME&gt;&#34; command.
 2. Perhaps you want to add some content. You can add single files
-   with &quot;hugo new &lt;SECTIONNAME&gt;/&lt;FILENAME&gt;.&lt;FORMAT&gt;&quot;.
-3. Start the built-in live server via &quot;hugo server&quot;.
+   with &#34;hugo new &lt;SECTIONNAME&gt;/&lt;FILENAME&gt;.&lt;FORMAT&gt;&#34;.
+3. Start the built-in live server via &#34;hugo server&#34;.
 
 Visit https://gohugo.io/ for quickstart guide and full documentation.
 </code></pre><p><strong>3.添加模板</strong></p>
-<pre><code>cd my-blog
+<pre tabindex="0"><code>cd my-blog
 git init
 git submodule add https://github.com/keichi/vienna.git themes/vienna
 </code></pre><p><strong>4.添加内容</strong>（content目录下执行。例：/Users/limingxie/Projects/my-blog/content）</p>
-<pre><code>hugo new xxx/my-first-blog.md
+<pre tabindex="0"><code>hugo new xxx/my-first-blog.md
 </code></pre><p>编辑：my-first-blog.md</p>
 <p><strong>5.运行调试</strong></p>
-<pre><code>$ hugo server -D
+<pre tabindex="0"><code>$ hugo server -D
 
                    | EN
 +------------------+----+
@@ -207,17 +202,17 @@ Press Ctrl+C to stop
 </code></pre><p>访问<a href="http://localhost:1313/">http://localhost:1313/</a>调试~</p>
 <p><strong>6.Theme的设定</strong></p>
 <p>打开config.toml</p>
-<pre><code>baseURL = &quot;https://limingxie.github.io/&quot; //这baseURL是部署后的访问地址。
-languageCode = &quot;en-us&quot;
-title = &quot;My New Hugo Site&quot;
-theme = &quot;vienna&quot; // 你使用的theme 名称
+<pre tabindex="0"><code>baseURL = &#34;https://limingxie.github.io/&#34; //这baseURL是部署后的访问地址。
+languageCode = &#34;en-us&#34;
+title = &#34;My New Hugo Site&#34;
+theme = &#34;vienna&#34; // 你使用的theme 名称
 </code></pre><p>查看<a href="https://github.com/keichi/vienna">vienna Theme</a>说明的话还可以做很多设置。</p>
 <p><strong>7.部署到GitHub</strong></p>
 <ol>
 <li>首先在GitHub上创建一个Repository，命名为：limingxie.github.io (这要和你的baseURL一致。)
 2）在/Users/limingxie/Projects/my-blog目录下执行以下命令</li>
 </ol>
-<pre><code>$ hugo --theme=mainroad --buildDrafts --baseUrl=&quot;https://limingxie.github.io/&quot;
+<pre tabindex="0"><code>$ hugo --theme=mainroad --buildDrafts --baseUrl=&#34;https://limingxie.github.io/&#34;
 
                    | EN
 +------------------+----+
@@ -234,11 +229,11 @@ Total in 28 ms
 </code></pre><p>&ndash;buildDrafts 不加会生成无内容的网站
 &ndash;baseUrl要和config.toml的地址一致。</p>
 <p>顺利的话会创建public文件（里面的内容就是你要上传的静态网站的文件。）</p>
-<pre><code>cd public
+<pre tabindex="0"><code>cd public
 git init
 git remote add origin https://github.com/limingxie/limingxie.github.io.git
 git add -A
-git commit -m &quot;first commit&quot;
+git commit -m &#34;first commit&#34;
 git push -u origin master
 </code></pre><h3 id="浏览器里访问httpslimingxiegithubio-就可以访问你的博客了">浏览器里访问：<a href="https://limingxie.github.io/">https://limingxie.github.io/</a> 就可以访问你的博客了</h3>
 <hr>
@@ -295,12 +290,12 @@ git push -u origin master
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -322,7 +317,7 @@ git push -u origin master
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -358,7 +353,7 @@ git push -u origin master
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -430,7 +425,7 @@ git push -u origin master
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

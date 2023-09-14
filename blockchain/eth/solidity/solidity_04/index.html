@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【solidity】字符string和bytes转换(04)" />
 <meta property="og:description" content="这篇文章简单的整理了string相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/blockchain/eth/solidity/solidity_04/" />
+<meta property="og:url" content="https://limingxie.github.io/blockchain/eth/solidity/solidity_04/" /><meta property="article:section" content="blockchain" />
 <meta property="article:published_time" content="2023-05-04T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-05-04T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【solidity】字符string和bytes转换(04)">
-<meta itemprop="description" content="这篇文章简单的整理了string相关的内容。">
-<meta itemprop="datePublished" content="2023-05-04T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了string相关的内容。"><meta itemprop="datePublished" content="2023-05-04T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-05-04T23:28:49+08:00" />
 <meta itemprop="wordCount" content="324">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -160,126 +155,126 @@
 </div><div class="content post__content clearfix">
 			<p>这篇文章简单的整理了<code>string</code>相关的内容。</p>
 <h2 id="1string">1.string</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> DynamicString {
-    <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;limingxie&#39;</span>;
-
-    <span style="color:#66d9ef">function</span> getLength () <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-        <span style="color:#75715e">// return name.length;// 报错没有这个方法
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name).length; <span style="color:#75715e">// 9
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> changeName() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes1</span>) {
-        <span style="color:#75715e">// name[0]=&#39;l&#39;; 报错 不能直接赋值
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">bytes</span>(name)[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;l&#39;</span>;
-    }
-
-    <span style="color:#66d9ef">function</span> getName() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name); <span style="color:#75715e">// 0x6c6c6d696e67786965
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">string</span> name2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;!@%$^*&#34;</span>;
-    <span style="color:#66d9ef">string</span> name3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;李明燮&#34;</span>;
-
-    <span style="color:#66d9ef">function</span> getLength2 () <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name2).length; <span style="color:#75715e">// 6 有些特殊字符是占1字节
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> getLength3 () <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name3).length; <span style="color:#75715e">// 9 一个中文占了3字节UTF8类型
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> getChinesName3() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name3); <span style="color:#75715e">// 0xe69d8ee6988ee787ae
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><h2 id="2bytes">2.bytes</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">DynamicString</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;limingxie&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getLength</span> () <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// return name.length;// 报错没有这个方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name).length; <span style="color:#75715e">// 9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">changeName</span>() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// name[0]=&#39;l&#39;; 报错 不能直接赋值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">bytes</span>(name)[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;l&#39;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getName</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name); <span style="color:#75715e">// 0x6c6c6d696e67786965
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> name2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;!@%$^*&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">string</span> name3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;李明燮&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getLength2</span> () <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name2).length; <span style="color:#75715e">// 6 有些特殊字符是占1字节
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getLength3</span> () <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name3).length; <span style="color:#75715e">// 9 一个中文占了3字节UTF8类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getChinesName3</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes</span>(name3); <span style="color:#75715e">// 0xe69d8ee6988ee787ae
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="2bytes">2.bytes</h2>
 <h3 id="21-固定长度bytes之间的转换">2.1 固定长度bytes之间的转换</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> changeBytes{
-    <span style="color:#66d9ef">bytes9</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xe69d8ee6988ee787ae</span>;
-
-    <span style="color:#66d9ef">function</span> getBytes1() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes1</span>){
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes1</span>(name); <span style="color:#75715e">//0xe6
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> getBytes2() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes2</span>){
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes2</span>(name); <span style="color:#75715e">//0xe69d
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> getBytes3() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes16</span>){
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes16</span>(name); <span style="color:#75715e">// 0xe69d8ee6988ee787ae00000000000000
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><h3 id="22-固定长度bytes转动态bytes">2.2 固定长度bytes转动态bytes</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> fixToDynamic{
-    <span style="color:#66d9ef">bytes9</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x6c6c6d696e67786965</span>;
-
-    <span style="color:#66d9ef">function</span> fixToDynamicBytes() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes</span>) {
-        <span style="color:#75715e">// return bytes(name); 编译报错
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> newName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(name.length);
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> name.length; i<span style="color:#f92672">++</span>){
-            newName[i] <span style="color:#f92672">=</span> name[i];
-        }
-        <span style="color:#66d9ef">return</span> newName; <span style="color:#75715e">// 0x6c6c6d696e67786965
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><h3 id="23-bytes转string">2.3 bytes转string</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-
-<span style="color:#66d9ef">contract</span> BytesToString {
-    <span style="color:#66d9ef">bytes</span> name <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(<span style="color:#ae81ff">2</span>);
-
-    <span style="color:#66d9ef">function</span> Init() <span style="color:#66d9ef">public</span> {
-        name[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x7a</span>;
-        name[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x68</span>;
-    }
-
-    <span style="color:#66d9ef">function</span> bytesToString() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">string</span>(name); <span style="color:#75715e">// zh
-</span><span style="color:#75715e"></span>    }
-}
-</code></pre></div><h3 id="24-固定长度bytes转string">2.4 固定长度bytes转string</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">4</span>;
-
-<span style="color:#66d9ef">contract</span> Bytes32ToString {
-    <span style="color:#66d9ef">bytes2</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x7a68</span>;
-
-    <span style="color:#75715e">// function changeIt() view public returns(string){
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">// return string(name); //报错 不能这样转换
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// }
-</span><span style="color:#75715e"></span>
-    <span style="color:#75715e">// 参数  0x7a68000000000000000000000000000000000000000000000000000000000000
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> bytes32ToString(<span style="color:#66d9ef">bytes32</span> _newName) <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
-        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> newName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(_newName.length);
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>_newName.length; i<span style="color:#f92672">++</span>){
-            newName[i] <span style="color:#f92672">=</span> _newName[i];
-        }
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">string</span>(newName); <span style="color:#75715e">// zh
-</span><span style="color:#75715e"></span>    } 
-
-    <span style="color:#75715e">// 参数  0x7a68000000000000000000000000000000000000000000000000000000000000
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> bytes32ToString2(<span style="color:#66d9ef">bytes32</span> _newName) <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
-        <span style="color:#66d9ef">uint</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>_newName.length; i<span style="color:#f92672">++</span>){
-            <span style="color:#66d9ef">bytes1</span> char <span style="color:#f92672">=</span> _newName[i];
-            <span style="color:#66d9ef">if</span> (char <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> ){
-                count<span style="color:#f92672">++</span>;
-            }
-        }
-
-        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> newName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(count);
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>count; j<span style="color:#f92672">++</span>){
-            newName[j] <span style="color:#f92672">=</span> _newName[j];
-        }
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">string</span>(newName); <span style="color:#75715e">// zh
-</span><span style="color:#75715e"></span>    } 
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">changeBytes</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bytes9</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xe69d8ee6988ee787ae</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getBytes1</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes1</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes1</span>(name); <span style="color:#75715e">//0xe6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getBytes2</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes2</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes2</span>(name); <span style="color:#75715e">//0xe69d
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getBytes3</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes16</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">bytes16</span>(name); <span style="color:#75715e">// 0xe69d8ee6988ee787ae00000000000000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="22-固定长度bytes转动态bytes">2.2 固定长度bytes转动态bytes</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">fixToDynamic</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bytes9</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x6c6c6d696e67786965</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fixToDynamicBytes</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bytes</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// return bytes(name); 编译报错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> newName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(name.length);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> name.length; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            newName[i] <span style="color:#f92672">=</span> name[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> newName; <span style="color:#75715e">// 0x6c6c6d696e67786965
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="23-bytes转string">2.3 bytes转string</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">BytesToString</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bytes</span> name <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Init</span>() <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        name[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x7a</span>;
+</span></span><span style="display:flex;"><span>        name[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x68</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bytesToString</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">string</span>(name); <span style="color:#75715e">// zh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="24-固定长度bytes转string">2.4 固定长度bytes转string</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Bytes32ToString</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bytes2</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x7a68</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// function changeIt() view public returns(string){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// return string(name); //报错 不能这样转换
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 参数  0x7a68000000000000000000000000000000000000000000000000000000000000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bytes32ToString</span>(<span style="color:#66d9ef">bytes32</span> _newName) <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> newName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(_newName.length);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>_newName.length; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            newName[i] <span style="color:#f92672">=</span> _newName[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">string</span>(newName); <span style="color:#75715e">// zh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 参数  0x7a68000000000000000000000000000000000000000000000000000000000000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bytes32ToString2</span>(<span style="color:#66d9ef">bytes32</span> _newName) <span style="color:#66d9ef">pure</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>_newName.length; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">bytes1</span> char <span style="color:#f92672">=</span> _newName[i];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (char <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> ){
+</span></span><span style="display:flex;"><span>                count<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">bytes</span> <span style="color:#66d9ef">memory</span> newName <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bytes</span>(count);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">uint</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>count; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            newName[j] <span style="color:#f92672">=</span> _newName[j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">string</span>(newName); <span style="color:#75715e">// zh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -345,12 +340,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -372,7 +367,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -408,7 +403,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -480,7 +475,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

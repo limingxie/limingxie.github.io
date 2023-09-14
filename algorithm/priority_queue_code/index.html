@@ -11,21 +11,16 @@
 <meta property="og:description" content="今天用go语言简单的写了一下PriorityQueue的方法。
 为了以后方便查看，当做笔记整理了一下~~" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/algorithm/priority_queue_code/" />
+<meta property="og:url" content="https://limingxie.github.io/algorithm/priority_queue_code/" /><meta property="article:section" content="algorithm" />
 <meta property="article:published_time" content="2022-02-15T07:28:49+08:00" />
 <meta property="article:modified_time" content="2022-02-15T07:28:49+08:00" />
 
 		<meta itemprop="name" content="【算法笔记】PriorityQueue的简单实践">
 <meta itemprop="description" content="今天用go语言简单的写了一下PriorityQueue的方法。
-为了以后方便查看，当做笔记整理了一下~~">
-<meta itemprop="datePublished" content="2022-02-15T07:28:49+08:00" />
+为了以后方便查看，当做笔记整理了一下~~"><meta itemprop="datePublished" content="2022-02-15T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-02-15T07:28:49+08:00" />
 <meta itemprop="wordCount" content="224">
-
-
-
 <meta itemprop="keywords" content="Priority Queue,算法,algorithm," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -166,83 +161,83 @@
 </blockquote>
 <p>下面用go语言简单的实现了PriorityQueue。</p>
 <h4 id="struct">struct</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PriorityQueue</span> <span style="color:#66d9ef">struct</span> {
- <span style="color:#a6e22e">Head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
- <span style="color:#a6e22e">Value</span>    <span style="color:#66d9ef">string</span>
- <span style="color:#a6e22e">Priority</span> <span style="color:#66d9ef">int</span>
- <span style="color:#a6e22e">Next</span>     <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
-}
-</code></pre></div><h4 id="push">Push</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">priority</span> <span style="color:#66d9ef">int</span>) {
- <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-  <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">Priority</span>: <span style="color:#a6e22e">priority</span>}
-  <span style="color:#66d9ef">return</span>
- }
- <span style="color:#a6e22e">newNode</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">Priority</span>: <span style="color:#a6e22e">priority</span>}
- <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>
- <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Priority</span> &gt; <span style="color:#a6e22e">priority</span> {
-  <span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span>
- }
- <span style="color:#a6e22e">newNode</span>.<span style="color:#a6e22e">Next</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span>
- <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span> = <span style="color:#a6e22e">newNode</span>
-}
-</code></pre></div><h4 id="pop">Pop</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">Pop</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
- <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
- }
- <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>
- <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Next</span>
- <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
-}
-</code></pre></div><h4 id="peekisemptyprint">Peek,IsEmpty,Print</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">Peek</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
- <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">IsEmpty</span>() <span style="color:#66d9ef">bool</span> {
- <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) <span style="color:#a6e22e">Print</span>() {
- <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-  <span style="color:#66d9ef">return</span>
- }
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#e6db74">&#34; &#34;</span>)
- <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Print</span>()
-}
-</code></pre></div><h4 id="执行结果">执行结果</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#a6e22e">priorityQueue</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">PriorityQueue</span>{}
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#ae81ff">100</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#ae81ff">83</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#ae81ff">64</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;e&#34;</span>, <span style="color:#ae81ff">37</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;f&#34;</span>, <span style="color:#ae81ff">23</span>)
-
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Print  --------&#34;</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Print</span>()
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
-
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Pop  --------&#34;</span>)
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v&#34;</span>, <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Pop</span>())
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Print</span>()
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
-
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Push z --------&#34;</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;z&#34;</span>, <span style="color:#ae81ff">53</span>)
- <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Print</span>()
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
-
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Peek()  --------&#34;</span>)
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v&#34;</span>, <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Peek</span>()) 
-}
-</code></pre></div><p>执行结果为：</p>
-<pre><code>$ go run main.go
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PriorityQueue</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Value</span>    <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Priority</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Next</span>     <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="push">Push</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">value</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">priority</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">Priority</span>: <span style="color:#a6e22e">priority</span>}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">newNode</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">Value</span>: <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">Priority</span>: <span style="color:#a6e22e">priority</span>}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">currentNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Priority</span> &gt; <span style="color:#a6e22e">priority</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">currentNode</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">newNode</span>.<span style="color:#a6e22e">Next</span> = <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">currentNode</span>.<span style="color:#a6e22e">Next</span> = <span style="color:#a6e22e">newNode</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="pop">Pop</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">Pop</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Next</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="peekisemptyprint">Peek,IsEmpty,Print</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">Peek</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PriorityQueue</span>) <span style="color:#a6e22e">IsEmpty</span>() <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Head</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>) <span style="color:#a6e22e">Print</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Next</span>.<span style="color:#a6e22e">Print</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="执行结果">执行结果</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">priorityQueue</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">PriorityQueue</span>{}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#ae81ff">83</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;e&#34;</span>, <span style="color:#ae81ff">37</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;f&#34;</span>, <span style="color:#ae81ff">23</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Print  --------&#34;</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Print</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Pop  --------&#34;</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v&#34;</span>, <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Pop</span>())
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Print</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Push z --------&#34;</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;z&#34;</span>, <span style="color:#ae81ff">53</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Head</span>.<span style="color:#a6e22e">Print</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;-------- Peek()  --------&#34;</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%+v&#34;</span>, <span style="color:#a6e22e">priorityQueue</span>.<span style="color:#a6e22e">Peek</span>()) 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>执行结果为：</p>
+<pre tabindex="0"><code>$ go run main.go
 -------- Print  --------
 a b c e f 
 -------- Pop  --------
@@ -318,12 +313,12 @@ b c z e f
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -345,7 +340,7 @@ b c z e f
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -381,7 +376,7 @@ b c z e f
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -453,7 +448,7 @@ b c z e f
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

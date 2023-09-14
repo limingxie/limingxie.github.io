@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_接口interface(15)" />
 <meta property="og:description" content="这一篇简单的整理了golang 接口interface 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_15/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_15/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-16T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-16T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_接口interface(15)">
-<meta itemprop="description" content="这一篇简单的整理了golang 接口interface 相关的内容。">
-<meta itemprop="datePublished" content="2022-09-16T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 接口interface 相关的内容。"><meta itemprop="datePublished" content="2022-09-16T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-16T23:28:49+08:00" />
 <meta itemprop="wordCount" content="306">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -154,163 +149,163 @@
 			<p>这一篇简单的整理了golang <strong><code>接口interface</code></strong> 相关的内容。</p>
 <h2 id="1接口的基本结构">1.接口的基本结构</h2>
 <p>下面的例子可以简单的说明接口的基本结构</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
- 
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
- 
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Usb</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Start</span>()
- <span style="color:#a6e22e">Stop</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Phone</span> <span style="color:#66d9ef">struct</span> {
- 
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Camera</span> <span style="color:#66d9ef">struct</span> {
- 
-}
-<span style="color:#66d9ef">type</span>  <span style="color:#a6e22e">Computer</span> <span style="color:#66d9ef">struct</span> {
- 
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Start</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接手机...&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Stop</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开手机...&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Start</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接相机...&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Stop</span>()  {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开相机...&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">com</span> <span style="color:#a6e22e">Computer</span>) <span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">usb</span> <span style="color:#a6e22e">Usb</span>)  {
- <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Start</span>()
- <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Stop</span>()
-}
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#a6e22e">phone</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Phone</span>{}
- <span style="color:#a6e22e">camera</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Camera</span>{}
- <span style="color:#a6e22e">computer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Computer</span>{}
- <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">phone</span>)
- <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">camera</span>)
-}
-</code></pre></div><p><strong>执行结果</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
-链接手机...
-断开手机...
-链接相机...
-断开相机...
-</code></pre></div><h2 id="2细节说明">2.细节说明</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Usb</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Start</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Stop</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Phone</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Camera</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span>  <span style="color:#a6e22e">Computer</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Start</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接手机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Phone</span>) <span style="color:#a6e22e">Stop</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开手机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Start</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;链接相机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Camera</span>) <span style="color:#a6e22e">Stop</span>()  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;断开相机...&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">com</span> <span style="color:#a6e22e">Computer</span>) <span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">usb</span> <span style="color:#a6e22e">Usb</span>)  {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Start</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">usb</span>.<span style="color:#a6e22e">Stop</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">phone</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Phone</span>{}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">camera</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Camera</span>{}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">computer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Computer</span>{}
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">phone</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">computer</span>.<span style="color:#a6e22e">Working</span>(<span style="color:#a6e22e">camera</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>执行结果</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ go run main.go
+</span></span><span style="display:flex;"><span>链接手机...
+</span></span><span style="display:flex;"><span>断开手机...
+</span></span><span style="display:flex;"><span>链接相机...
+</span></span><span style="display:flex;"><span>断开相机...
+</span></span></code></pre></div><h2 id="2细节说明">2.细节说明</h2>
 <p>1、接口本身不能创建实例，但是可以指向一个实现了该接口的自定义类型的变量(实例)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> (
- <span style="color:#e6db74">&#34;fmt&#34;</span>
-)
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">E</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Say</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">F</span> <span style="color:#66d9ef">struct</span> {
- <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#a6e22e">F</span>) <span style="color:#a6e22e">Say</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;say()&#34;</span>)
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">F</span>
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">E</span> = <span style="color:#a6e22e">b</span>
- <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Say</span>()
-}
-</code></pre></div><p>2、接口中所有的方法都没有方法体.即都是没有实现的方法。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">E</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Say</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">F</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#a6e22e">F</span>) <span style="color:#a6e22e">Say</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;say()&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">F</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">E</span> = <span style="color:#a6e22e">b</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Say</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>2、接口中所有的方法都没有方法体.即都是没有实现的方法。
 3、在Golang中,一个自定义类型需要将某个接口的所有方法都实现，我们说这个自定义类型实现了该接口。
 4、一个自定义类型只能是实现了接口，才能将该类型的实例赋给接口。
 5、只要是自定义数据类型，就可以实现接口，不仅仅是结构体类型</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Say</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">B</span> <span style="color:#66d9ef">int</span>
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#a6e22e">B</span>) <span style="color:#a6e22e">Say</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;b=&#34;</span>, <span style="color:#a6e22e">b</span>)
-}
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">B</span> = <span style="color:#ae81ff">10</span>
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">A</span> = <span style="color:#a6e22e">i</span>
- <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Say</span>()        <span style="color:#75715e">//b= 10
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>) <span style="color:#75715e">//10
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>6、一个自定义类型可以实现多个接口</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Say</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">B</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Hello</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">C</span> <span style="color:#66d9ef">struct</span> {
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Say</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;A接口被实现&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Hello</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;B接口被实现&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">A</span> = <span style="color:#a6e22e">c</span>
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">B</span> = <span style="color:#a6e22e">c</span>
- <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Say</span>()    <span style="color:#75715e">//A接口被实现
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Hello</span>()  <span style="color:#75715e">//B接口被实现
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>7、接口中不能出现任何变量
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Say</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">B</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#a6e22e">B</span>) <span style="color:#a6e22e">Say</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;b=&#34;</span>, <span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">B</span> = <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">A</span> = <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Say</span>()        <span style="color:#75715e">//b= 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>) <span style="color:#75715e">//10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>6、一个自定义类型可以实现多个接口</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Say</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">B</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Hello</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">C</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Say</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;A接口被实现&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Hello</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;B接口被实现&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">A</span> = <span style="color:#a6e22e">c</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">B</span> = <span style="color:#a6e22e">c</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Say</span>()    <span style="color:#75715e">//A接口被实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">Hello</span>()  <span style="color:#75715e">//B接口被实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>7、接口中不能出现任何变量
 8、-一个接口(比如A接口)可以继承多个别的接口(比如B,C接口)，这时如果要实现A接口，也必须将B,C接口的方法也全部实现。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Say</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">B</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">Hello</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">D</span> <span style="color:#66d9ef">interface</span> {
- <span style="color:#a6e22e">A</span>
- <span style="color:#a6e22e">B</span>
- <span style="color:#a6e22e">Hei</span>()
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">C</span> <span style="color:#66d9ef">struct</span> {
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Say</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;A接口被实现&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Hello</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;B接口被实现&#34;</span>)
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Hei</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;D接口被实现&#34;</span>)
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>
- <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">D</span> = <span style="color:#a6e22e">c</span>
- <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Hello</span>()
- <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Say</span>()
- <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Hei</span>()
-}
-</code></pre></div><p>9、interface类型默认是一个指针(引用类型)，如果没有对interface初始化就使用那么会输出nil
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Say</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">B</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Hello</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">D</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">A</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">B</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Hei</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">C</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Say</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;A接口被实现&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Hello</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;B接口被实现&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>) <span style="color:#a6e22e">Hei</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;D接口被实现&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">C</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">D</span> = <span style="color:#a6e22e">c</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Hello</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Say</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Hei</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>9、interface类型默认是一个指针(引用类型)，如果没有对interface初始化就使用那么会输出nil
 10、空接口interface{}没有任何方法，所以所有类型都实现了空接口</p>
 <hr>
 <p>欢迎大家的意见和交流</p>
@@ -372,12 +367,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -399,7 +394,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -435,7 +430,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -507,7 +502,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

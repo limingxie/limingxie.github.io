@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【cosmos-sdk-多节点笔记】加入出块验证者以及备份" />
 <meta property="og:description" content="根据上一篇文章先启用多节点的私链后，加入验证者以及做备份。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_09/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_09/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2023-08-06T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-08-06T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-sdk-多节点笔记】加入出块验证者以及备份">
-<meta itemprop="description" content="根据上一篇文章先启用多节点的私链后，加入验证者以及做备份。">
-<meta itemprop="datePublished" content="2023-08-06T23:28:49+08:00" />
+<meta itemprop="description" content="根据上一篇文章先启用多节点的私链后，加入验证者以及做备份。"><meta itemprop="datePublished" content="2023-08-06T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-08-06T23:28:49+08:00" />
-<meta itemprop="wordCount" content="845">
-
-
-
+<meta itemprop="wordCount" content="846">
 <meta itemprop="keywords" content="区块链,blockchain,cosmos," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -165,391 +160,391 @@
 			<p>根据上一篇文章先启用多节点的私链后，加入验证者以及做备份。</p>
 <h2 id="1加入出块验证">1.加入出块验证</h2>
 <p>查看目前的质押情况</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./mingxied query staking validators --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;0&#34;</span>
-validators:
-- commission:
-    commission_rates:
-      max_change_rate: <span style="color:#e6db74">&#34;0.010000000000000000&#34;</span>
-      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
-      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
-    update_time: <span style="color:#e6db74">&#34;2023-08-07T06:16:53.431683Z&#34;</span>
-  consensus_pubkey:
-    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
-    key: MTpIZw8qQq56phwriW+eiEjaTNwfIotXNtsALdoP+cU<span style="color:#f92672">=</span>
-  delegator_shares: <span style="color:#e6db74">&#34;51000000.000000000000000000&#34;</span>
-  description:
-    details: <span style="color:#e6db74">&#34;&#34;</span>
-    identity: <span style="color:#e6db74">&#34;&#34;</span>
-    moniker: node1
-    security_contact: <span style="color:#e6db74">&#34;&#34;</span>
-    website: <span style="color:#e6db74">&#34;&#34;</span>
-  jailed: false
-  min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
-  operator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
-  status: BOND_STATUS_BONDED
-  tokens: <span style="color:#e6db74">&#34;51000000&#34;</span>
-  unbonding_height: <span style="color:#e6db74">&#34;0&#34;</span>
-  unbonding_time: <span style="color:#e6db74">&#34;1970-01-01T00:00:00Z&#34;</span>
-</code></pre></div><p>在第二个节点，创建新的出块验证者</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 创建验证者</span>
-./mingxied tx staking create-validator <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --amount<span style="color:#f92672">=</span>41000000stake <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --commission-max-change-rate<span style="color:#f92672">=</span>0.1 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --commission-max-rate<span style="color:#f92672">=</span>0.2 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --commission-rate<span style="color:#f92672">=</span>0.1 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --details<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;details&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --min-self-delegation<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --pubkey<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./mingxied tendermint show-validator --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2/&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --from<span style="color:#f92672">=</span>guanyu <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --chain-id<span style="color:#f92672">=</span>taoyuan <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
-
-
-<span style="color:#75715e"># 执行结果</span>
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.staking.v1beta1.MsgCreateValidator
-    commission:
-      max_change_rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
-      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
-      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
-    delegator_address: cosmos19e4v63424tyjz94vkmq3xlpe3yq4p5qxvrfj0q
-    description:
-      details: details
-      identity: <span style="color:#e6db74">&#34;&#34;</span>
-      moniker: node2
-      security_contact: <span style="color:#e6db74">&#34;&#34;</span>
-      website: <span style="color:#e6db74">&#34;&#34;</span>
-    min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
-    pubkey:
-      <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
-      key: m6+C7BBhZZBF2m2ArjIMbNvbm7lhujh3cdLKB4gPRWI<span style="color:#f92672">=</span>
-    validator_address: cosmosvaloper19e4v63424tyjz94vkmq3xlpe3yq4p5qxfha8rn
-    value:
-      amount: <span style="color:#e6db74">&#34;41000000&#34;</span>
-      denom: stake
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: 1973BF748F7BE6989034E1CC66D6B3B06AA8CF99FDCC0413A413A63D6794266F
-</code></pre></div><p>再次查看出块验证者</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied query staking validators --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;0&#34;</span>
-validators:
-- commission:
-    commission_rates:
-      max_change_rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
-      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
-      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
-    update_time: <span style="color:#e6db74">&#34;2023-08-07T06:41:45.410712Z&#34;</span>
-  consensus_pubkey:
-    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
-    key: m6+C7BBhZZBF2m2ArjIMbNvbm7lhujh3cdLKB4gPRWI<span style="color:#f92672">=</span>
-  delegator_shares: <span style="color:#e6db74">&#34;41000000.000000000000000000&#34;</span>
-  description:
-    details: details
-    identity: <span style="color:#e6db74">&#34;&#34;</span>
-    moniker: node2
-    security_contact: <span style="color:#e6db74">&#34;&#34;</span>
-    website: <span style="color:#e6db74">&#34;&#34;</span>
-  jailed: false
-  min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
-  operator_address: cosmosvaloper19e4v63424tyjz94vkmq3xlpe3yq4p5qxfha8rn
-  status: BOND_STATUS_BONDED
-  tokens: <span style="color:#e6db74">&#34;41000000&#34;</span>
-  unbonding_height: <span style="color:#e6db74">&#34;0&#34;</span>
-  unbonding_time: <span style="color:#e6db74">&#34;1970-01-01T00:00:00Z&#34;</span>
-- commission:
-    commission_rates:
-      max_change_rate: <span style="color:#e6db74">&#34;0.010000000000000000&#34;</span>
-      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
-      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
-    update_time: <span style="color:#e6db74">&#34;2023-08-07T06:16:53.431683Z&#34;</span>
-  consensus_pubkey:
-    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
-    key: MTpIZw8qQq56phwriW+eiEjaTNwfIotXNtsALdoP+cU<span style="color:#f92672">=</span>
-  delegator_shares: <span style="color:#e6db74">&#34;51000000.000000000000000000&#34;</span>
-  description:
-    details: <span style="color:#e6db74">&#34;&#34;</span>
-    identity: <span style="color:#e6db74">&#34;&#34;</span>
-    moniker: node1
-    security_contact: <span style="color:#e6db74">&#34;&#34;</span>
-    website: <span style="color:#e6db74">&#34;&#34;</span>
-  jailed: false
-  min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
-  operator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
-  status: BOND_STATUS_BONDED
-  tokens: <span style="color:#e6db74">&#34;51000000&#34;</span>
-  unbonding_height: <span style="color:#e6db74">&#34;0&#34;</span>
-  unbonding_time: <span style="color:#e6db74">&#34;1970-01-01T00:00:00Z&#34;</span>
-</code></pre></div><h2 id="2获取出块奖励">2.获取出块奖励</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ./mingxied query staking validators --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+</span></span><span style="display:flex;"><span>pagination:
+</span></span><span style="display:flex;"><span>  next_key: null
+</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>validators:
+</span></span><span style="display:flex;"><span>- commission:
+</span></span><span style="display:flex;"><span>    commission_rates:
+</span></span><span style="display:flex;"><span>      max_change_rate: <span style="color:#e6db74">&#34;0.010000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>    update_time: <span style="color:#e6db74">&#34;2023-08-07T06:16:53.431683Z&#34;</span>
+</span></span><span style="display:flex;"><span>  consensus_pubkey:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
+</span></span><span style="display:flex;"><span>    key: MTpIZw8qQq56phwriW+eiEjaTNwfIotXNtsALdoP+cU<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  delegator_shares: <span style="color:#e6db74">&#34;51000000.000000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>  description:
+</span></span><span style="display:flex;"><span>    details: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    identity: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    moniker: node1
+</span></span><span style="display:flex;"><span>    security_contact: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    website: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  jailed: false
+</span></span><span style="display:flex;"><span>  min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>  operator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
+</span></span><span style="display:flex;"><span>  status: BOND_STATUS_BONDED
+</span></span><span style="display:flex;"><span>  tokens: <span style="color:#e6db74">&#34;51000000&#34;</span>
+</span></span><span style="display:flex;"><span>  unbonding_height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  unbonding_time: <span style="color:#e6db74">&#34;1970-01-01T00:00:00Z&#34;</span>
+</span></span></code></pre></div><p>在第二个节点，创建新的出块验证者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 创建验证者</span>
+</span></span><span style="display:flex;"><span>./mingxied tx staking create-validator <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --amount<span style="color:#f92672">=</span>41000000stake <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --commission-max-change-rate<span style="color:#f92672">=</span>0.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --commission-max-rate<span style="color:#f92672">=</span>0.2 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --commission-rate<span style="color:#f92672">=</span>0.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --details<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;details&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --min-self-delegation<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --pubkey<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./mingxied tendermint show-validator --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2/&#34;</span><span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --from<span style="color:#f92672">=</span>guanyu <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --chain-id<span style="color:#f92672">=</span>taoyuan <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 执行结果</span>
+</span></span><span style="display:flex;"><span>auth_info:
+</span></span><span style="display:flex;"><span>  fee:
+</span></span><span style="display:flex;"><span>    amount: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
+</span></span><span style="display:flex;"><span>    granter: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    payer: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  signer_infos: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>  tip: null
+</span></span><span style="display:flex;"><span>body:
+</span></span><span style="display:flex;"><span>  extension_options: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>  memo: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  messages:
+</span></span><span style="display:flex;"><span>  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.staking.v1beta1.MsgCreateValidator
+</span></span><span style="display:flex;"><span>    commission:
+</span></span><span style="display:flex;"><span>      max_change_rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>    delegator_address: cosmos19e4v63424tyjz94vkmq3xlpe3yq4p5qxvrfj0q
+</span></span><span style="display:flex;"><span>    description:
+</span></span><span style="display:flex;"><span>      details: details
+</span></span><span style="display:flex;"><span>      identity: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>      moniker: node2
+</span></span><span style="display:flex;"><span>      security_contact: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>      website: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    pubkey:
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
+</span></span><span style="display:flex;"><span>      key: m6+C7BBhZZBF2m2ArjIMbNvbm7lhujh3cdLKB4gPRWI<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    validator_address: cosmosvaloper19e4v63424tyjz94vkmq3xlpe3yq4p5qxfha8rn
+</span></span><span style="display:flex;"><span>    value:
+</span></span><span style="display:flex;"><span>      amount: <span style="color:#e6db74">&#34;41000000&#34;</span>
+</span></span><span style="display:flex;"><span>      denom: stake
+</span></span><span style="display:flex;"><span>  non_critical_extension_options: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>signatures: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
+</span></span><span style="display:flex;"><span>code: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>codespace: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>data: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>events: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>info: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>logs: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
+</span></span><span style="display:flex;"><span>timestamp: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>tx: null
+</span></span><span style="display:flex;"><span>txhash: 1973BF748F7BE6989034E1CC66D6B3B06AA8CF99FDCC0413A413A63D6794266F
+</span></span></code></pre></div><p>再次查看出块验证者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied query staking validators --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+</span></span><span style="display:flex;"><span>pagination:
+</span></span><span style="display:flex;"><span>  next_key: null
+</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>validators:
+</span></span><span style="display:flex;"><span>- commission:
+</span></span><span style="display:flex;"><span>    commission_rates:
+</span></span><span style="display:flex;"><span>      max_change_rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>    update_time: <span style="color:#e6db74">&#34;2023-08-07T06:41:45.410712Z&#34;</span>
+</span></span><span style="display:flex;"><span>  consensus_pubkey:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
+</span></span><span style="display:flex;"><span>    key: m6+C7BBhZZBF2m2ArjIMbNvbm7lhujh3cdLKB4gPRWI<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  delegator_shares: <span style="color:#e6db74">&#34;41000000.000000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>  description:
+</span></span><span style="display:flex;"><span>    details: details
+</span></span><span style="display:flex;"><span>    identity: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    moniker: node2
+</span></span><span style="display:flex;"><span>    security_contact: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    website: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  jailed: false
+</span></span><span style="display:flex;"><span>  min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>  operator_address: cosmosvaloper19e4v63424tyjz94vkmq3xlpe3yq4p5qxfha8rn
+</span></span><span style="display:flex;"><span>  status: BOND_STATUS_BONDED
+</span></span><span style="display:flex;"><span>  tokens: <span style="color:#e6db74">&#34;41000000&#34;</span>
+</span></span><span style="display:flex;"><span>  unbonding_height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  unbonding_time: <span style="color:#e6db74">&#34;1970-01-01T00:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>- commission:
+</span></span><span style="display:flex;"><span>    commission_rates:
+</span></span><span style="display:flex;"><span>      max_change_rate: <span style="color:#e6db74">&#34;0.010000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      max_rate: <span style="color:#e6db74">&#34;0.200000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>      rate: <span style="color:#e6db74">&#34;0.100000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>    update_time: <span style="color:#e6db74">&#34;2023-08-07T06:16:53.431683Z&#34;</span>
+</span></span><span style="display:flex;"><span>  consensus_pubkey:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.ed25519.PubKey
+</span></span><span style="display:flex;"><span>    key: MTpIZw8qQq56phwriW+eiEjaTNwfIotXNtsALdoP+cU<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  delegator_shares: <span style="color:#e6db74">&#34;51000000.000000000000000000&#34;</span>
+</span></span><span style="display:flex;"><span>  description:
+</span></span><span style="display:flex;"><span>    details: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    identity: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    moniker: node1
+</span></span><span style="display:flex;"><span>    security_contact: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    website: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  jailed: false
+</span></span><span style="display:flex;"><span>  min_self_delegation: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>  operator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
+</span></span><span style="display:flex;"><span>  status: BOND_STATUS_BONDED
+</span></span><span style="display:flex;"><span>  tokens: <span style="color:#e6db74">&#34;51000000&#34;</span>
+</span></span><span style="display:flex;"><span>  unbonding_height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  unbonding_time: <span style="color:#e6db74">&#34;1970-01-01T00:00:00Z&#34;</span>
+</span></span></code></pre></div><h2 id="2获取出块奖励">2.获取出块奖励</h2>
 <h3 id="21-查看奖励">2.1 查看奖励</h3>
 <p>查看目前的奖励<br>
 ./mingxied query distribution rewards [delegator-addr] [validator-addr]</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 查看账户信息</span>
-./mingxied keys list --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-- address: cosmos19e4v63424tyjz94vkmq3xlpe3yq4p5qxvrfj0q
-  name: guanyu
-  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;At6kLGqnnRBchPVxnZki2ZeC/BYPVmMeY8cwhv1Xsn1p&#34;}&#39;</span>
-  type: local
-- address: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-  name: liubei
-  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;AmWsbCNr/R1uRX1NUMu4iUov7nP7+N7lbAif4+nuUXEG&#34;}&#39;</span>
-  type: local
-
-<span style="color:#75715e"># 查看 liubei账户的奖励</span>
-./mingxied query distribution rewards cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-rewards:
-- reward:
-  - amount: <span style="color:#e6db74">&#34;4722703550.722467390255000000&#34;</span>
-    denom: stake
-  validator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
-total:
-- amount: <span style="color:#e6db74">&#34;4722703550.722467390255000000&#34;</span>
-  denom: stake
-
-<span style="color:#75715e"># liubei账户资产</span>
-./mingxied query bank balances cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-balances:
-- amount: <span style="color:#e6db74">&#34;949999949000000&#34;</span>
-  denom: stake
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;0&#34;</span>
-</code></pre></div><h3 id="22-申请领取奖励">2.2 申请领取奖励</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 领取奖励申请</span>
-./mingxied tx distribution withdraw-rewards cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx --from liubei --chain-id taoyuan --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Users/limingxie/.mingxiedir1&#34;</span>
-auth_info:
-  fee:
-    amount: <span style="color:#f92672">[]</span>
-    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-    granter: <span style="color:#e6db74">&#34;&#34;</span>
-    payer: <span style="color:#e6db74">&#34;&#34;</span>
-  signer_infos: <span style="color:#f92672">[]</span>
-  tip: null
-body:
-  extension_options: <span style="color:#f92672">[]</span>
-  memo: <span style="color:#e6db74">&#34;&#34;</span>
-  messages:
-  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward
-    delegator_address: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-    validator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
-  non_critical_extension_options: <span style="color:#f92672">[]</span>
-  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-signatures: <span style="color:#f92672">[]</span>
-confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: <span style="color:#e6db74">&#34;&#34;</span>
-events: <span style="color:#f92672">[]</span>
-gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-height: <span style="color:#e6db74">&#34;0&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs: <span style="color:#f92672">[]</span>
-raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-tx: null
-txhash: CA693C75322E6514A6D01FA4965659F26E54F6FCB3422B7C8E31A9698CDD66C9
-
-<span style="color:#75715e"># 查看执行结果</span>
-./mingxied query tx CA693C75322E6514A6D01FA4965659F26E54F6FCB3422B7C8E31A9698CDD66C9 --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Users/limingxie/.mingxiedir1&#34;</span>
-code: <span style="color:#ae81ff">0</span>
-codespace: <span style="color:#e6db74">&#34;&#34;</span>
-data: 12580A3F2F636F736D6F732E646973747269627574696F6E2E763162657461312E4D7367576974686472617744656C656761746F72526577617264526573706F6E736512150A130A057374616B65120A36383631313139383739
-events:
-- attributes:
-  - index: true
-    key: ZmVl
-    value: null
-  - index: true
-    key: ZmVlX3BheWVy
-    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
-  type: tx
-- attributes:
-  - index: true
-    key: YWNjX3NlcQ<span style="color:#f92672">==</span>
-    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0LzE<span style="color:#f92672">=</span>
-  type: tx
-- attributes:
-  - index: true
-    key: c2lnbmF0dXJl
-    value: a1Fvd1poK0tobitPd01KdG1Pelp3cVkrNnBCQXhvN1RyaVhxRHVHaWdVdDR6SXRWbzdwckxpZ3N6WjBSM0NwS2lxMVhLWlVkQlIzWUtIN0FTQkxCeHc9PQ<span style="color:#f92672">==</span>
-  type: tx
-- attributes:
-  - index: true
-    key: YWN0aW9u
-    value: L2Nvc21vcy5kaXN0cmlidXRpb24udjFiZXRhMS5Nc2dXaXRoZHJhd0RlbGVnYXRvclJld2FyZA<span style="color:#f92672">==</span>
-  type: message
-- attributes:
-  - index: true
-    key: c3BlbmRlcg<span style="color:#f92672">==</span>
-    value: Y29zbW9zMWp2NjVzM2dycWY2djZqbDNkcDR0NmM5dDlyazk5Y2Q4OGx5dWZs
-  - index: true
-    key: YW1vdW50
-    value: Njg2MTExOTg3OXN0YWtl
-  type: coin_spent
-- attributes:
-  - index: true
-    key: cmVjZWl2ZXI<span style="color:#f92672">=</span>
-    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
-  - index: true
-    key: YW1vdW50
-    value: Njg2MTExOTg3OXN0YWtl
-  type: coin_received
-- attributes:
-  - index: true
-    key: cmVjaXBpZW50
-    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
-  - index: true
-    key: c2VuZGVy
-    value: Y29zbW9zMWp2NjVzM2dycWY2djZqbDNkcDR0NmM5dDlyazk5Y2Q4OGx5dWZs
-  - index: true
-    key: YW1vdW50
-    value: Njg2MTExOTg3OXN0YWtl
-  type: transfer
-- attributes:
-  - index: true
-    key: c2VuZGVy
-    value: Y29zbW9zMWp2NjVzM2dycWY2djZqbDNkcDR0NmM5dDlyazk5Y2Q4OGx5dWZs
-  type: message
-- attributes:
-  - index: true
-    key: YW1vdW50
-    value: Njg2MTExOTg3OXN0YWtl
-  - index: true
-    key: dmFsaWRhdG9y
-    value: Y29zbW9zdmFsb3BlcjFlczIwNnd3ZGgzajVjNXYwejQyeW1jMzNyZGxoN200ZmthOWxyeA<span style="color:#f92672">==</span>
-  type: withdraw_rewards
-- attributes:
-  - index: true
-    key: bW9kdWxl
-    value: ZGlzdHJpYnV0aW9u
-  - index: true
-    key: c2VuZGVy
-    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
-  type: message
-gas_used: <span style="color:#e6db74">&#34;106371&#34;</span>
-gas_wanted: <span style="color:#e6db74">&#34;200000&#34;</span>
-height: <span style="color:#e6db74">&#34;282&#34;</span>
-info: <span style="color:#e6db74">&#34;&#34;</span>
-logs:
-- events:
-  - attributes:
-    - key: receiver
-      value: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-    - key: amount
-      value: 6861119879stake
-    type: coin_received
-  - attributes:
-    - key: spender
-      value: cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl
-    - key: amount
-      value: 6861119879stake
-    type: coin_spent
-  - attributes:
-    - key: action
-      value: /cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward
-    - key: sender
-      value: cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl
-    - key: module
-      value: distribution
-    - key: sender
-      value: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-    type: message
-  - attributes:
-    - key: recipient
-      value: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-    - key: sender
-      value: cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl
-    - key: amount
-      value: 6861119879stake
-    type: transfer
-  - attributes:
-    - key: amount
-      value: 6861119879stake
-    - key: validator
-      value: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
-    type: withdraw_rewards
-  log: <span style="color:#e6db74">&#34;&#34;</span>
-  msg_index: <span style="color:#ae81ff">0</span>
-raw_log: <span style="color:#e6db74">&#39;[{&#34;msg_index&#34;:0,&#34;events&#34;:[{&#34;type&#34;:&#34;coin_received&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;receiver&#34;,&#34;value&#34;:&#34;cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204&#34;},{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;}]},{&#34;type&#34;:&#34;coin_spent&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;spender&#34;,&#34;value&#34;:&#34;cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl&#34;},{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;}]},{&#34;type&#34;:&#34;message&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;action&#34;,&#34;value&#34;:&#34;/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward&#34;},{&#34;key&#34;:&#34;sender&#34;,&#34;value&#34;:&#34;cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl&#34;},{&#34;key&#34;:&#34;module&#34;,&#34;value&#34;:&#34;distribution&#34;},{&#34;key&#34;:&#34;sender&#34;,&#34;value&#34;:&#34;cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204&#34;}]},{&#34;type&#34;:&#34;transfer&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;recipient&#34;,&#34;value&#34;:&#34;cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204&#34;},{&#34;key&#34;:&#34;sender&#34;,&#34;value&#34;:&#34;cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl&#34;},{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;}]},{&#34;type&#34;:&#34;withdraw_rewards&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;},{&#34;key&#34;:&#34;validator&#34;,&#34;value&#34;:&#34;cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx&#34;}]}]}]&#39;</span>
-timestamp: <span style="color:#e6db74">&#34;2023-08-07T06:56:18Z&#34;</span>
-tx:
-  <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.tx.v1beta1.Tx
-  auth_info:
-    fee:
-      amount: <span style="color:#f92672">[]</span>
-      gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
-      granter: <span style="color:#e6db74">&#34;&#34;</span>
-      payer: <span style="color:#e6db74">&#34;&#34;</span>
-    signer_infos:
-    - mode_info:
-        single:
-          mode: SIGN_MODE_DIRECT
-      public_key:
-        <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.secp256k1.PubKey
-        key: AmWsbCNr/R1uRX1NUMu4iUov7nP7+N7lbAif4+nuUXEG
-      sequence: <span style="color:#e6db74">&#34;1&#34;</span>
-    tip: null
-  body:
-    extension_options: <span style="color:#f92672">[]</span>
-    memo: <span style="color:#e6db74">&#34;&#34;</span>
-    messages:
-    - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward
-      delegator_address: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
-      validator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
-    non_critical_extension_options: <span style="color:#f92672">[]</span>
-    timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
-  signatures:
-  - kQowZh+Khn+OwMJtmOzZwqY+6pBAxo7TriXqDuGigUt4zItVo7prLigszZ0R3CpKiq1XKZUdBR3YKH7ASBLBxw<span style="color:#f92672">==</span>
-txhash: CA693C75322E6514A6D01FA4965659F26E54F6FCB3422B7C8E31A9698CDD66C9
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 查看 liubei 账户的余额</span>
-./mingxied query bank balances cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204 --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Users/limingxie/.mingxiedir1&#34;</span>
-balances:
-- amount: <span style="color:#e6db74">&#34;950006810119879&#34;</span>
-  denom: stake
-pagination:
-  next_key: null
-  total: <span style="color:#e6db74">&#34;0&#34;</span>
-
-<span style="color:#75715e">## 如果报 failed to execute message; message index: 0: no validator distribution info</span>
-<span style="color:#75715e">## 需要先执行一次 withdraw-all-rewards 之后再用 withdraw-rewards 申请获取奖励</span>
-</code></pre></div><h3 id="23-委托管理">2.3 委托管理</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 查看账户信息</span>
+</span></span><span style="display:flex;"><span>./mingxied keys list --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+</span></span><span style="display:flex;"><span>- address: cosmos19e4v63424tyjz94vkmq3xlpe3yq4p5qxvrfj0q
+</span></span><span style="display:flex;"><span>  name: guanyu
+</span></span><span style="display:flex;"><span>  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;At6kLGqnnRBchPVxnZki2ZeC/BYPVmMeY8cwhv1Xsn1p&#34;}&#39;</span>
+</span></span><span style="display:flex;"><span>  type: local
+</span></span><span style="display:flex;"><span>- address: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>  name: liubei
+</span></span><span style="display:flex;"><span>  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;AmWsbCNr/R1uRX1NUMu4iUov7nP7+N7lbAif4+nuUXEG&#34;}&#39;</span>
+</span></span><span style="display:flex;"><span>  type: local
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看 liubei账户的奖励</span>
+</span></span><span style="display:flex;"><span>./mingxied query distribution rewards cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>rewards:
+</span></span><span style="display:flex;"><span>- reward:
+</span></span><span style="display:flex;"><span>  - amount: <span style="color:#e6db74">&#34;4722703550.722467390255000000&#34;</span>
+</span></span><span style="display:flex;"><span>    denom: stake
+</span></span><span style="display:flex;"><span>  validator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
+</span></span><span style="display:flex;"><span>total:
+</span></span><span style="display:flex;"><span>- amount: <span style="color:#e6db74">&#34;4722703550.722467390255000000&#34;</span>
+</span></span><span style="display:flex;"><span>  denom: stake
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># liubei账户资产</span>
+</span></span><span style="display:flex;"><span>./mingxied query bank balances cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>balances:
+</span></span><span style="display:flex;"><span>- amount: <span style="color:#e6db74">&#34;949999949000000&#34;</span>
+</span></span><span style="display:flex;"><span>  denom: stake
+</span></span><span style="display:flex;"><span>pagination:
+</span></span><span style="display:flex;"><span>  next_key: null
+</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span></code></pre></div><h3 id="22-申请领取奖励">2.2 申请领取奖励</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 领取奖励申请</span>
+</span></span><span style="display:flex;"><span>./mingxied tx distribution withdraw-rewards cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx --from liubei --chain-id taoyuan --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Users/limingxie/.mingxiedir1&#34;</span>
+</span></span><span style="display:flex;"><span>auth_info:
+</span></span><span style="display:flex;"><span>  fee:
+</span></span><span style="display:flex;"><span>    amount: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>    gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
+</span></span><span style="display:flex;"><span>    granter: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    payer: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  signer_infos: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>  tip: null
+</span></span><span style="display:flex;"><span>body:
+</span></span><span style="display:flex;"><span>  extension_options: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>  memo: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  messages:
+</span></span><span style="display:flex;"><span>  - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward
+</span></span><span style="display:flex;"><span>    delegator_address: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>    validator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
+</span></span><span style="display:flex;"><span>  non_critical_extension_options: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>  timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>signatures: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
+</span></span><span style="display:flex;"><span>code: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>codespace: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>data: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>events: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>info: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>logs: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
+</span></span><span style="display:flex;"><span>timestamp: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>tx: null
+</span></span><span style="display:flex;"><span>txhash: CA693C75322E6514A6D01FA4965659F26E54F6FCB3422B7C8E31A9698CDD66C9
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看执行结果</span>
+</span></span><span style="display:flex;"><span>./mingxied query tx CA693C75322E6514A6D01FA4965659F26E54F6FCB3422B7C8E31A9698CDD66C9 --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Users/limingxie/.mingxiedir1&#34;</span>
+</span></span><span style="display:flex;"><span>code: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>codespace: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>data: 12580A3F2F636F736D6F732E646973747269627574696F6E2E763162657461312E4D7367576974686472617744656C656761746F72526577617264526573706F6E736512150A130A057374616B65120A36383631313139383739
+</span></span><span style="display:flex;"><span>events:
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: ZmVl
+</span></span><span style="display:flex;"><span>    value: null
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: ZmVlX3BheWVy
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
+</span></span><span style="display:flex;"><span>  type: tx
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: YWNjX3NlcQ<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0LzE<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  type: tx
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: c2lnbmF0dXJl
+</span></span><span style="display:flex;"><span>    value: a1Fvd1poK0tobitPd01KdG1Pelp3cVkrNnBCQXhvN1RyaVhxRHVHaWdVdDR6SXRWbzdwckxpZ3N6WjBSM0NwS2lxMVhLWlVkQlIzWUtIN0FTQkxCeHc9PQ<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>  type: tx
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: YWN0aW9u
+</span></span><span style="display:flex;"><span>    value: L2Nvc21vcy5kaXN0cmlidXRpb24udjFiZXRhMS5Nc2dXaXRoZHJhd0RlbGVnYXRvclJld2FyZA<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>  type: message
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: c3BlbmRlcg<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWp2NjVzM2dycWY2djZqbDNkcDR0NmM5dDlyazk5Y2Q4OGx5dWZs
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: YW1vdW50
+</span></span><span style="display:flex;"><span>    value: Njg2MTExOTg3OXN0YWtl
+</span></span><span style="display:flex;"><span>  type: coin_spent
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: cmVjZWl2ZXI<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: YW1vdW50
+</span></span><span style="display:flex;"><span>    value: Njg2MTExOTg3OXN0YWtl
+</span></span><span style="display:flex;"><span>  type: coin_received
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: cmVjaXBpZW50
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: c2VuZGVy
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWp2NjVzM2dycWY2djZqbDNkcDR0NmM5dDlyazk5Y2Q4OGx5dWZs
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: YW1vdW50
+</span></span><span style="display:flex;"><span>    value: Njg2MTExOTg3OXN0YWtl
+</span></span><span style="display:flex;"><span>  type: transfer
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: c2VuZGVy
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWp2NjVzM2dycWY2djZqbDNkcDR0NmM5dDlyazk5Y2Q4OGx5dWZs
+</span></span><span style="display:flex;"><span>  type: message
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: YW1vdW50
+</span></span><span style="display:flex;"><span>    value: Njg2MTExOTg3OXN0YWtl
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: dmFsaWRhdG9y
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zdmFsb3BlcjFlczIwNnd3ZGgzajVjNXYwejQyeW1jMzNyZGxoN200ZmthOWxyeA<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>  type: withdraw_rewards
+</span></span><span style="display:flex;"><span>- attributes:
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: bW9kdWxl
+</span></span><span style="display:flex;"><span>    value: ZGlzdHJpYnV0aW9u
+</span></span><span style="display:flex;"><span>  - index: true
+</span></span><span style="display:flex;"><span>    key: c2VuZGVy
+</span></span><span style="display:flex;"><span>    value: Y29zbW9zMWVzMjA2d3dkaDNqNWM1djB6NDJ5bWMzM3JkbGg3bTRmbmYzMjA0
+</span></span><span style="display:flex;"><span>  type: message
+</span></span><span style="display:flex;"><span>gas_used: <span style="color:#e6db74">&#34;106371&#34;</span>
+</span></span><span style="display:flex;"><span>gas_wanted: <span style="color:#e6db74">&#34;200000&#34;</span>
+</span></span><span style="display:flex;"><span>height: <span style="color:#e6db74">&#34;282&#34;</span>
+</span></span><span style="display:flex;"><span>info: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>logs:
+</span></span><span style="display:flex;"><span>- events:
+</span></span><span style="display:flex;"><span>  - attributes:
+</span></span><span style="display:flex;"><span>    - key: receiver
+</span></span><span style="display:flex;"><span>      value: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>    - key: amount
+</span></span><span style="display:flex;"><span>      value: 6861119879stake
+</span></span><span style="display:flex;"><span>    type: coin_received
+</span></span><span style="display:flex;"><span>  - attributes:
+</span></span><span style="display:flex;"><span>    - key: spender
+</span></span><span style="display:flex;"><span>      value: cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl
+</span></span><span style="display:flex;"><span>    - key: amount
+</span></span><span style="display:flex;"><span>      value: 6861119879stake
+</span></span><span style="display:flex;"><span>    type: coin_spent
+</span></span><span style="display:flex;"><span>  - attributes:
+</span></span><span style="display:flex;"><span>    - key: action
+</span></span><span style="display:flex;"><span>      value: /cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward
+</span></span><span style="display:flex;"><span>    - key: sender
+</span></span><span style="display:flex;"><span>      value: cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl
+</span></span><span style="display:flex;"><span>    - key: module
+</span></span><span style="display:flex;"><span>      value: distribution
+</span></span><span style="display:flex;"><span>    - key: sender
+</span></span><span style="display:flex;"><span>      value: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>    type: message
+</span></span><span style="display:flex;"><span>  - attributes:
+</span></span><span style="display:flex;"><span>    - key: recipient
+</span></span><span style="display:flex;"><span>      value: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>    - key: sender
+</span></span><span style="display:flex;"><span>      value: cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl
+</span></span><span style="display:flex;"><span>    - key: amount
+</span></span><span style="display:flex;"><span>      value: 6861119879stake
+</span></span><span style="display:flex;"><span>    type: transfer
+</span></span><span style="display:flex;"><span>  - attributes:
+</span></span><span style="display:flex;"><span>    - key: amount
+</span></span><span style="display:flex;"><span>      value: 6861119879stake
+</span></span><span style="display:flex;"><span>    - key: validator
+</span></span><span style="display:flex;"><span>      value: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
+</span></span><span style="display:flex;"><span>    type: withdraw_rewards
+</span></span><span style="display:flex;"><span>  log: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  msg_index: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>raw_log: <span style="color:#e6db74">&#39;[{&#34;msg_index&#34;:0,&#34;events&#34;:[{&#34;type&#34;:&#34;coin_received&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;receiver&#34;,&#34;value&#34;:&#34;cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204&#34;},{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;}]},{&#34;type&#34;:&#34;coin_spent&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;spender&#34;,&#34;value&#34;:&#34;cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl&#34;},{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;}]},{&#34;type&#34;:&#34;message&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;action&#34;,&#34;value&#34;:&#34;/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward&#34;},{&#34;key&#34;:&#34;sender&#34;,&#34;value&#34;:&#34;cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl&#34;},{&#34;key&#34;:&#34;module&#34;,&#34;value&#34;:&#34;distribution&#34;},{&#34;key&#34;:&#34;sender&#34;,&#34;value&#34;:&#34;cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204&#34;}]},{&#34;type&#34;:&#34;transfer&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;recipient&#34;,&#34;value&#34;:&#34;cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204&#34;},{&#34;key&#34;:&#34;sender&#34;,&#34;value&#34;:&#34;cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl&#34;},{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;}]},{&#34;type&#34;:&#34;withdraw_rewards&#34;,&#34;attributes&#34;:[{&#34;key&#34;:&#34;amount&#34;,&#34;value&#34;:&#34;6861119879stake&#34;},{&#34;key&#34;:&#34;validator&#34;,&#34;value&#34;:&#34;cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx&#34;}]}]}]&#39;</span>
+</span></span><span style="display:flex;"><span>timestamp: <span style="color:#e6db74">&#34;2023-08-07T06:56:18Z&#34;</span>
+</span></span><span style="display:flex;"><span>tx:
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.tx.v1beta1.Tx
+</span></span><span style="display:flex;"><span>  auth_info:
+</span></span><span style="display:flex;"><span>    fee:
+</span></span><span style="display:flex;"><span>      amount: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>      gas_limit: <span style="color:#e6db74">&#34;200000&#34;</span>
+</span></span><span style="display:flex;"><span>      granter: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>      payer: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    signer_infos:
+</span></span><span style="display:flex;"><span>    - mode_info:
+</span></span><span style="display:flex;"><span>        single:
+</span></span><span style="display:flex;"><span>          mode: SIGN_MODE_DIRECT
+</span></span><span style="display:flex;"><span>      public_key:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.crypto.secp256k1.PubKey
+</span></span><span style="display:flex;"><span>        key: AmWsbCNr/R1uRX1NUMu4iUov7nP7+N7lbAif4+nuUXEG
+</span></span><span style="display:flex;"><span>      sequence: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    tip: null
+</span></span><span style="display:flex;"><span>  body:
+</span></span><span style="display:flex;"><span>    extension_options: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>    memo: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    messages:
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward
+</span></span><span style="display:flex;"><span>      delegator_address: cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204
+</span></span><span style="display:flex;"><span>      validator_address: cosmosvaloper1es206wwdh3j5c5v0z42ymc33rdlh7m4fka9lrx
+</span></span><span style="display:flex;"><span>    non_critical_extension_options: <span style="color:#f92672">[]</span>
+</span></span><span style="display:flex;"><span>    timeout_height: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>  signatures:
+</span></span><span style="display:flex;"><span>  - kQowZh+Khn+OwMJtmOzZwqY+6pBAxo7TriXqDuGigUt4zItVo7prLigszZ0R3CpKiq1XKZUdBR3YKH7ASBLBxw<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>txhash: CA693C75322E6514A6D01FA4965659F26E54F6FCB3422B7C8E31A9698CDD66C9
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 查看 liubei 账户的余额</span>
+</span></span><span style="display:flex;"><span>./mingxied query bank balances cosmos1es206wwdh3j5c5v0z42ymc33rdlh7m4fnf3204 --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Users/limingxie/.mingxiedir1&#34;</span>
+</span></span><span style="display:flex;"><span>balances:
+</span></span><span style="display:flex;"><span>- amount: <span style="color:#e6db74">&#34;950006810119879&#34;</span>
+</span></span><span style="display:flex;"><span>  denom: stake
+</span></span><span style="display:flex;"><span>pagination:
+</span></span><span style="display:flex;"><span>  next_key: null
+</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 如果报 failed to execute message; message index: 0: no validator distribution info</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 需要先执行一次 withdraw-all-rewards 之后再用 withdraw-rewards 申请获取奖励</span>
+</span></span></code></pre></div><h3 id="23-委托管理">2.3 委托管理</h3>
 <p>如果需要把自己的币委托给别的账户，可以用<!-- raw HTML omitted --> tx staking delegate命令</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&lt;appd&gt; tx staking delegate cosmosvaloper1l2rsakp388kuv9k8qzq6lrm9taddae7fpx59wm 1000stake --from mykey
-</code></pre></div><h2 id="3状态快照以及备份">3.状态快照以及备份</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 快照，直接替换 原来的 genesis.json 后启动链</span>
-./mingxied export --for-zero-height --height<span style="color:#f92672">=</span>&lt;height&gt; &gt; genesis-&lt;height&gt;.json
-</code></pre></div><h3 id="备份">备份</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;appd&gt; tx staking delegate cosmosvaloper1l2rsakp388kuv9k8qzq6lrm9taddae7fpx59wm 1000stake --from mykey
+</span></span></code></pre></div><h2 id="3状态快照以及备份">3.状态快照以及备份</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 快照，直接替换 原来的 genesis.json 后启动链</span>
+</span></span><span style="display:flex;"><span>./mingxied export --for-zero-height --height<span style="color:#f92672">=</span>&lt;height&gt; &gt; genesis-&lt;height&gt;.json
+</span></span></code></pre></div><h3 id="备份">备份</h3>
 <p>直接备份 &ndash;home 的目录文件。</p>
 <hr>
 <p>欢迎大家的意见和交流</p>
@@ -617,12 +612,12 @@ pagination:
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -644,7 +639,7 @@ pagination:
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -680,7 +675,7 @@ pagination:
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -752,7 +747,7 @@ pagination:
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

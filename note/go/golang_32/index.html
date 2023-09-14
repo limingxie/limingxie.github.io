@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_反射的实现(32)" />
 <meta property="og:description" content="这一篇简单的整理了golang 反射的实现 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_32/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_32/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-10-03T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-03T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_反射的实现(32)">
-<meta itemprop="description" content="这一篇简单的整理了golang 反射的实现 相关的内容。">
-<meta itemprop="datePublished" content="2022-10-03T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 反射的实现 相关的内容。"><meta itemprop="datePublished" content="2022-10-03T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-03T23:28:49+08:00" />
 <meta itemprop="wordCount" content="281">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -157,7 +152,7 @@
 </div><div class="content post__content clearfix">
 			<p>这一篇简单的整理了golang <strong><code>反射的实现</code></strong> 相关的内容。</p>
 <h2 id="1反射实现中常用的几个方法">1.反射实现中常用的几个方法</h2>
-<pre><code>
+<pre tabindex="0"><code>
 //TypeOf返回接口中保存的值的类型，TypeOf(nil)会返回nil。
 func TypeOf(i interface{}) Type
 
@@ -188,98 +183,98 @@ Call方法会自行创建一个代表可变参数的切片，将对应可变参�
 func (v Value) Call(in []Value) []Value
 value.Method(i).Call(nil)
 </code></pre><h2 id="2反射实践">2.反射实践</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> (
- <span style="color:#e6db74">&#34;fmt&#34;</span>
- <span style="color:#e6db74">&#34;reflect&#34;</span>
-)
-
-<span style="color:#75715e">//定义了一个Monster结构体
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
- <span style="color:#a6e22e">Name</span>   <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34;`</span>
- <span style="color:#a6e22e">Age</span>    <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`json:&#34;monster_age&#34;`</span>
- <span style="color:#a6e22e">Weight</span> <span style="color:#66d9ef">int</span>
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Run</span>() {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;person run&#34;</span>)
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Hello</span>(<span style="color:#a6e22e">area</span> <span style="color:#66d9ef">string</span>) {
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v Hello %s\n&#34;</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">area</span>)
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">area</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">h</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">string</span> {
- <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%v sleep in %s for %d hour\n&#34;</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">area</span>, <span style="color:#a6e22e">h</span>)
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestStruct</span>(<span style="color:#a6e22e">p</span> <span style="color:#66d9ef">interface</span>{}) {
-
- <span style="color:#75715e">//获取reflect.Type 类型
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">p</span>)
-
- <span style="color:#75715e">//获取reflect.Value 类型
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">p</span>)
-
- <span style="color:#75715e">//获取到p对应的类别
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">Kind</span>()
-
- <span style="color:#75715e">//如果传入的不是struct，就退出
-</span><span style="color:#75715e"></span>
- <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span> {
-  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;expect struct&#34;</span>)
-  <span style="color:#66d9ef">return</span>
- }
-
- <span style="color:#75715e">//获取结构体的字段数
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fieldCount</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">NumField</span>()
-
- <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">fieldCount</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-  <span style="color:#a6e22e">fname</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>
-  <span style="color:#a6e22e">fValue</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">FieldByName</span>(<span style="color:#a6e22e">fname</span>)
-  <span style="color:#a6e22e">valTag</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Tag</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;json&#34;</span>)
-  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = %v, tag = %v\n&#34;</span>, <span style="color:#a6e22e">fname</span>, <span style="color:#a6e22e">fValue</span>, <span style="color:#a6e22e">valTag</span>)
- }
-
- <span style="color:#75715e">//获取到该结构体有多少个方法
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">methodCount</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">NumMethod</span>()
- <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;struct has %d methods\n&#34;</span>, <span style="color:#a6e22e">methodCount</span>)
-
- <span style="color:#75715e">//var params []reflect.Value
-</span><span style="color:#75715e"></span> <span style="color:#75715e">//方法的排序默认是按照 函数名的排序（ASCII码）
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">Method</span>(<span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">Call</span>(<span style="color:#66d9ef">nil</span>) <span style="color:#75715e">//获取到第二个方法。调用它
-</span><span style="color:#75715e"></span>
- <span style="color:#75715e">//调用结构体的第3个方法Method(2)
-</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">params</span> []<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>
- <span style="color:#a6e22e">params</span> = append(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#e6db74">&#34;bed&#34;</span>))
- <span style="color:#a6e22e">params</span> = append(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#ae81ff">2</span>))
-
- <span style="color:#75715e">//传入的参数是 []reflect.Value, 返回[]reflect.Value
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">Method</span>(<span style="color:#ae81ff">2</span>).<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">params</span>)
- <span style="color:#75715e">//返回结果, 返回的结果是 []reflect.Value*/
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;res=&#34;</span>, <span style="color:#a6e22e">res</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">String</span>())
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
- <span style="color:#75715e">//创建了一个Monster实例
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Person</span>{
-  <span style="color:#a6e22e">Name</span>:   <span style="color:#e6db74">&#34;tom&#34;</span>,
-  <span style="color:#a6e22e">Age</span>:    <span style="color:#ae81ff">400</span>,
-  <span style="color:#a6e22e">Weight</span>: <span style="color:#ae81ff">55</span>,
- }
- <span style="color:#75715e">//将Monster实例传递给TestStruct函数
-</span><span style="color:#75715e"></span> <span style="color:#a6e22e">TestStruct</span>(<span style="color:#a6e22e">p</span>)
-}
-</code></pre></div><h4 id="执行结果">执行结果</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
-Name <span style="color:#f92672">=</span> tom, tag <span style="color:#f92672">=</span> name
-Age <span style="color:#f92672">=</span> 400, tag <span style="color:#f92672">=</span> monster_age
-Weight <span style="color:#f92672">=</span> 55, tag <span style="color:#f92672">=</span> 
-struct has <span style="color:#ae81ff">3</span> methods
-person run
-res<span style="color:#f92672">=</span> tom sleep in bed <span style="color:#66d9ef">for</span> <span style="color:#ae81ff">2</span> hour
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;reflect&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//定义了一个Monster结构体
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Name</span>   <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34;`</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Age</span>    <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`json:&#34;monster_age&#34;`</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Weight</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Run</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;person run&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Hello</span>(<span style="color:#a6e22e">area</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v Hello %s\n&#34;</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">area</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Person</span>) <span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">area</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">h</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%v sleep in %s for %d hour\n&#34;</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">area</span>, <span style="color:#a6e22e">h</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestStruct</span>(<span style="color:#a6e22e">p</span> <span style="color:#66d9ef">interface</span>{}) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//获取reflect.Type 类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//获取reflect.Value 类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//获取到p对应的类别
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">Kind</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//如果传入的不是struct，就退出
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;expect struct&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//获取结构体的字段数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fieldCount</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">NumField</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">fieldCount</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fname</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Name</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fValue</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">FieldByName</span>(<span style="color:#a6e22e">fname</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">valTag</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>).<span style="color:#a6e22e">Tag</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;json&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s = %v, tag = %v\n&#34;</span>, <span style="color:#a6e22e">fname</span>, <span style="color:#a6e22e">fValue</span>, <span style="color:#a6e22e">valTag</span>)
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//获取到该结构体有多少个方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">methodCount</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">NumMethod</span>()
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;struct has %d methods\n&#34;</span>, <span style="color:#a6e22e">methodCount</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//var params []reflect.Value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//方法的排序默认是按照 函数名的排序（ASCII码）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">Method</span>(<span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">Call</span>(<span style="color:#66d9ef">nil</span>) <span style="color:#75715e">//获取到第二个方法。调用它
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//调用结构体的第3个方法Method(2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">params</span> []<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">params</span> = append(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#e6db74">&#34;bed&#34;</span>))
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">params</span> = append(<span style="color:#a6e22e">params</span>, <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//传入的参数是 []reflect.Value, 返回[]reflect.Value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">val</span>.<span style="color:#a6e22e">Method</span>(<span style="color:#ae81ff">2</span>).<span style="color:#a6e22e">Call</span>(<span style="color:#a6e22e">params</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//返回结果, 返回的结果是 []reflect.Value*/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;res=&#34;</span>, <span style="color:#a6e22e">res</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">String</span>())
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//创建了一个Monster实例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Person</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Name</span>:   <span style="color:#e6db74">&#34;tom&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Age</span>:    <span style="color:#ae81ff">400</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Weight</span>: <span style="color:#ae81ff">55</span>,
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">//将Monster实例传递给TestStruct函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">TestStruct</span>(<span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="执行结果">执行结果</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ go run main.go
+</span></span><span style="display:flex;"><span>Name <span style="color:#f92672">=</span> tom, tag <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>Age <span style="color:#f92672">=</span> 400, tag <span style="color:#f92672">=</span> monster_age
+</span></span><span style="display:flex;"><span>Weight <span style="color:#f92672">=</span> 55, tag <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>struct has <span style="color:#ae81ff">3</span> methods
+</span></span><span style="display:flex;"><span>person run
+</span></span><span style="display:flex;"><span>res<span style="color:#f92672">=</span> tom sleep in bed <span style="color:#66d9ef">for</span> <span style="color:#ae81ff">2</span> hour
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -339,12 +334,12 @@ res<span style="color:#f92672">=</span> tom sleep in bed <span style="color:#66d
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -366,7 +361,7 @@ res<span style="color:#f92672">=</span> tom sleep in bed <span style="color:#66d
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -402,7 +397,7 @@ res<span style="color:#f92672">=</span> tom sleep in bed <span style="color:#66d
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -474,7 +469,7 @@ res<span style="color:#f92672">=</span> tom sleep in bed <span style="color:#66d
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

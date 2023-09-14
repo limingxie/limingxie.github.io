@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【操作系统笔记】OS_信号量和管程(10)" />
 <meta property="og:description" content="这一篇整理了操作系统的信号量和管程相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/os/os_10/" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_10/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2023-02-11T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-02-11T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【操作系统笔记】OS_信号量和管程(10)">
-<meta itemprop="description" content="这一篇整理了操作系统的信号量和管程相关的内容。">
-<meta itemprop="datePublished" content="2023-02-11T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了操作系统的信号量和管程相关的内容。"><meta itemprop="datePublished" content="2023-02-11T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-02-11T23:28:49+08:00" />
 <meta itemprop="wordCount" content="650">
-
-
-
 <meta itemprop="keywords" content="操作系统,OS,Operating System," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -206,26 +201,26 @@
 <ol>
 <li>
 <p>用二进制信号量实现的互斥</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">mutex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">1</span>);
-   
-mutex<span style="color:#f92672">-&gt;</span>P();
-...
-mutex<span style="color:#f92672">-&gt;</span>V();
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>mutex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mutex<span style="color:#f92672">-&gt;</span>P();
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>mutex<span style="color:#f92672">-&gt;</span>V();
+</span></span></code></pre></div></li>
 <li>
 <p>用二进制信号量实现的调度约束</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">condition <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">0</span>);
-   
-<span style="color:#75715e">//Thread A
-</span><span style="color:#75715e"></span>...
-condition<span style="color:#f92672">-&gt;</span>P(); <span style="color:#75715e">//等待线程B某一些指令完成之后再继续运行,在此阻塞
-</span><span style="color:#75715e"></span>  ...
-   
-<span style="color:#75715e">//Thread B
-</span><span style="color:#75715e"></span>...
-condition<span style="color:#f92672">-&gt;</span>V(); <span style="color:#75715e">//信号量增加唤醒线程A
-</span><span style="color:#75715e"></span>  ...
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>condition <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//Thread A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>...
+</span></span><span style="display:flex;"><span>condition<span style="color:#f92672">-&gt;</span>P(); <span style="color:#75715e">//等待线程B某一些指令完成之后再继续运行,在此阻塞
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//Thread B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>...
+</span></span><span style="display:flex;"><span>condition<span style="color:#f92672">-&gt;</span>V(); <span style="color:#75715e">//信号量增加唤醒线程A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  ...
+</span></span></code></pre></div></li>
 <li>
 <p>一个线程等待另一个线程处理事情</p>
 <p>比如生产东西或消费东西(生产者消费者模式),互斥(锁机制)是不够的</p>
@@ -247,28 +242,28 @@ condition<span style="color:#f92672">-&gt;</span>V(); <span style="color:#75715e
 <li>一般信号量 fullBuffers</li>
 <li>一般信号了 emptyBuffers</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BoundedBuffer</span>{
-  mutex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">1</span>);
-  fullBuffers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">0</span>);   <span style="color:#75715e">//说明缓冲区初始为空
-</span><span style="color:#75715e"></span>   emptyBuffers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(n);  <span style="color:#75715e">//同时可以有n个生产者来生产
-</span><span style="color:#75715e"></span>};
-   
-BoundedBuffer<span style="color:#f92672">::</span>Deposit(c){
-  emptyBuffers<span style="color:#f92672">-&gt;</span>P();
-  mutex<span style="color:#f92672">-&gt;</span>P();
-  Add c to the buffer;
-  mutex<span style="color:#f92672">-&gt;</span>V();
-  fullBuffers<span style="color:#f92672">-&gt;</span>V();
-}
-   
-BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
-  fullBuffers<span style="color:#f92672">-&gt;</span>P();
-  mutex<span style="color:#f92672">-&gt;</span>P();
-  Remove c from buffer;
-  mutex<span style="color:#f92672">-&gt;</span>V();
-  emptyBuffers<span style="color:#f92672">-&gt;</span>V();
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BoundedBuffer</span>{
+</span></span><span style="display:flex;"><span>  mutex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>  fullBuffers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(<span style="color:#ae81ff">0</span>);   <span style="color:#75715e">//说明缓冲区初始为空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   emptyBuffers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Semaphore(n);  <span style="color:#75715e">//同时可以有n个生产者来生产
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BoundedBuffer<span style="color:#f92672">::</span>Deposit(c){
+</span></span><span style="display:flex;"><span>  emptyBuffers<span style="color:#f92672">-&gt;</span>P();
+</span></span><span style="display:flex;"><span>  mutex<span style="color:#f92672">-&gt;</span>P();
+</span></span><span style="display:flex;"><span>  Add c to the buffer;
+</span></span><span style="display:flex;"><span>  mutex<span style="color:#f92672">-&gt;</span>V();
+</span></span><span style="display:flex;"><span>  fullBuffers<span style="color:#f92672">-&gt;</span>V();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
+</span></span><span style="display:flex;"><span>  fullBuffers<span style="color:#f92672">-&gt;</span>P();
+</span></span><span style="display:flex;"><span>  mutex<span style="color:#f92672">-&gt;</span>P();
+</span></span><span style="display:flex;"><span>  Remove c from buffer;
+</span></span><span style="display:flex;"><span>  mutex<span style="color:#f92672">-&gt;</span>V();
+</span></span><span style="display:flex;"><span>  emptyBuffers<span style="color:#f92672">-&gt;</span>V();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 </ol>
 <h2 id="3信号量实现">3.信号量实现</h2>
 <p>使用硬件原语</p>
@@ -280,27 +275,27 @@ BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
 <ul>
 <li>禁用中断</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Semaphore</span>{
-  <span style="color:#66d9ef">int</span> sem;
-  WaitQueue q;
-};
-
-Semaphore<span style="color:#f92672">::</span>P(){
-  <span style="color:#f92672">--</span>sem;
-  <span style="color:#66d9ef">if</span>(sem <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
-    Add <span style="color:#66d9ef">this</span> <span style="color:#66d9ef">thread</span> t to q;
-    block(p);
-  }
-};
-
-Semaphore<span style="color:#f92672">::</span>V(){
-  <span style="color:#f92672">++</span>sem;
-  <span style="color:#66d9ef">if</span>(sem <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>){
-    Remove a <span style="color:#66d9ef">thread</span> t from q;
-    wakeup(t);
-  }
-}
-</code></pre></div><p>信号量的双用途</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Semaphore</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> sem;
+</span></span><span style="display:flex;"><span>  WaitQueue q;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Semaphore<span style="color:#f92672">::</span>P(){
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">--</span>sem;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(sem <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    Add <span style="color:#66d9ef">this</span> <span style="color:#66d9ef">thread</span> t to q;
+</span></span><span style="display:flex;"><span>    block(p);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Semaphore<span style="color:#f92672">::</span>V(){
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">++</span>sem;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(sem <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    Remove a <span style="color:#66d9ef">thread</span> t from q;
+</span></span><span style="display:flex;"><span>    wakeup(t);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>信号量的双用途</p>
 <ul>
 <li>互斥和条件同步</li>
 <li>但等待条件是独立的互斥</li>
@@ -351,53 +346,53 @@ Semaphore<span style="color:#f92672">::</span>V(){
 <li>需要维持每个条件队列</li>
 <li>线程等待的条件等待signal()</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Condition</span>{
-  <span style="color:#66d9ef">int</span> numWaiting <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-  WaitQueue q;
-};
-
-Condition<span style="color:#f92672">::</span>Wait(lock){
-  numWaiting<span style="color:#f92672">++</span>;
-  Add <span style="color:#66d9ef">this</span> <span style="color:#66d9ef">thread</span> t to q;
-  release(lock);
-  schedule(); <span style="color:#75715e">//need mutex
-</span><span style="color:#75715e"></span>  require(lock);
-}
-
-Condition<span style="color:#f92672">::</span>Signal(){
-  <span style="color:#66d9ef">if</span>(numWaiting <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
-    Remove a <span style="color:#66d9ef">thread</span> t from q;
-    wakeup(t); <span style="color:#75715e">//need mutex
-</span><span style="color:#75715e"></span>    numWaiting<span style="color:#f92672">--</span>;
-  }
-}
-</code></pre></div><p>管程解决生产者-消费者问题</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BoundedBuffer</span>{
-  Lock lock;
-  <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;  <span style="color:#75715e">//buffer 为空
-</span><span style="color:#75715e"></span>  Condition notFull, notEmpty;
-};
-
-BoundedBuffer<span style="color:#f92672">::</span>Deposit(c){
-  lock<span style="color:#f92672">-&gt;</span>Acquire();    <span style="color:#75715e">//管程的定义:只有一个线程能够进入管程
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">while</span>(count <span style="color:#f92672">==</span> n)
-    notFull.Wait(<span style="color:#f92672">&amp;</span>lock); <span style="color:#75715e">//释放前面的锁
-</span><span style="color:#75715e"></span>  Add c to the buffer;
-  count<span style="color:#f92672">++</span>;
-  notEmpty.Signal();
-  lock<span style="color:#f92672">-&gt;</span>Release();
-}
-
-BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
-  lock<span style="color:#f92672">-&gt;</span>Acquire();
-  <span style="color:#66d9ef">while</span>(count <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
-    notEmpty.Wait(<span style="color:#f92672">&amp;</span>lock);
-  Remove c from buffer;
-  count<span style="color:#f92672">--</span>;
-  notFull.Signal();
-  lock<span style="color:#f92672">-&gt;</span>Release();
-}
-</code></pre></div><p><a href="https://limingxie.github.io/images/os/os10/os_10_02.png">图片备用地址</a><br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Condition</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> numWaiting <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  WaitQueue q;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Condition<span style="color:#f92672">::</span>Wait(lock){
+</span></span><span style="display:flex;"><span>  numWaiting<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>  Add <span style="color:#66d9ef">this</span> <span style="color:#66d9ef">thread</span> t to q;
+</span></span><span style="display:flex;"><span>  release(lock);
+</span></span><span style="display:flex;"><span>  schedule(); <span style="color:#75715e">//need mutex
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  require(lock);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Condition<span style="color:#f92672">::</span>Signal(){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(numWaiting <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    Remove a <span style="color:#66d9ef">thread</span> t from q;
+</span></span><span style="display:flex;"><span>    wakeup(t); <span style="color:#75715e">//need mutex
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    numWaiting<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>管程解决生产者-消费者问题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BoundedBuffer</span>{
+</span></span><span style="display:flex;"><span>  Lock lock;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;  <span style="color:#75715e">//buffer 为空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  Condition notFull, notEmpty;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BoundedBuffer<span style="color:#f92672">::</span>Deposit(c){
+</span></span><span style="display:flex;"><span>  lock<span style="color:#f92672">-&gt;</span>Acquire();    <span style="color:#75715e">//管程的定义:只有一个线程能够进入管程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">while</span>(count <span style="color:#f92672">==</span> n)
+</span></span><span style="display:flex;"><span>    notFull.Wait(<span style="color:#f92672">&amp;</span>lock); <span style="color:#75715e">//释放前面的锁
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  Add c to the buffer;
+</span></span><span style="display:flex;"><span>  count<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>  notEmpty.Signal();
+</span></span><span style="display:flex;"><span>  lock<span style="color:#f92672">-&gt;</span>Release();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
+</span></span><span style="display:flex;"><span>  lock<span style="color:#f92672">-&gt;</span>Acquire();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(count <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    notEmpty.Wait(<span style="color:#f92672">&amp;</span>lock);
+</span></span><span style="display:flex;"><span>  Remove c from buffer;
+</span></span><span style="display:flex;"><span>  count<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>  notFull.Signal();
+</span></span><span style="display:flex;"><span>  lock<span style="color:#f92672">-&gt;</span>Release();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://limingxie.github.io/images/os/os10/os_10_02.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os10/os_10_02.png" alt="os_10_02"></p>
 <p>开发,调试并行程序很难</p>
 <ul>
@@ -454,106 +449,106 @@ BoundedBuffer<span style="color:#f92672">::</span>Remove(c){
 </ul>
 <h4 id="读者优先设计">读者优先设计</h4>
 <p>只要有一个读者处于活动状态, 后来的读者都会被接纳.如果读者源源不断的出现,那么写者使用处于阻塞状态.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//信号量实现
-</span><span style="color:#75715e">//writer
-</span><span style="color:#75715e"></span>sem_wait(WriteMutex);
-write;
-sem_post(WriteMutex);
-
-<span style="color:#75715e">//reader
-</span><span style="color:#75715e"></span>sem_wait(CountMutex);
-<span style="color:#66d9ef">if</span>(Rcount <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
-  sem_wait(WriteMutex); <span style="color:#75715e">//确保后续不会有写者进入
-</span><span style="color:#75715e"></span><span style="color:#f92672">++</span>Rcount;
-read;
-<span style="color:#f92672">--</span>Rcount;
-<span style="color:#66d9ef">if</span>(Rcount <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
-  sem_post(WriteMutex); <span style="color:#75715e">//全部读者全部离开才能唤醒写者
-</span><span style="color:#75715e"></span>sem_post(CountMutex);
-</code></pre></div><h4 id="写者优先设计">写者优先设计</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">//信号量实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//writer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sem_wait(WriteMutex);
+</span></span><span style="display:flex;"><span>write;
+</span></span><span style="display:flex;"><span>sem_post(WriteMutex);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//reader
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sem_wait(CountMutex);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(Rcount <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>  sem_wait(WriteMutex); <span style="color:#75715e">//确保后续不会有写者进入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">++</span>Rcount;
+</span></span><span style="display:flex;"><span>read;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">--</span>Rcount;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(Rcount <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>  sem_post(WriteMutex); <span style="color:#75715e">//全部读者全部离开才能唤醒写者
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sem_post(CountMutex);
+</span></span></code></pre></div><h4 id="写者优先设计">写者优先设计</h4>
 <p>一旦写者就绪,那么写者会尽可能的执行写操作.如果写者源源不断的出现的话,那么读者就始终处于阻塞状态.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//writer
-</span><span style="color:#75715e"></span>Database<span style="color:#f92672">::</span>Write(){
-  Wait until readers<span style="color:#f92672">/</span>writers;
-  write database;
-  check out <span style="color:#f92672">-</span> wake up waiting readers<span style="color:#f92672">/</span>writers;
-}
-<span style="color:#75715e">//reader
-</span><span style="color:#75715e"></span>Database<span style="color:#f92672">::</span>Read(){
-  Wait until no writers;
-  read database;
-  check out <span style="color:#f92672">-</span> wake up waiting writers;
-}
-
-<span style="color:#75715e">//管程实现
-</span><span style="color:#75715e"></span>AR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of active readers
-</span><span style="color:#75715e"></span>AW <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of active writers
-</span><span style="color:#75715e"></span>WR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of waiting readers
-</span><span style="color:#75715e"></span>WW <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of waiting writers
-</span><span style="color:#75715e"></span>Condition okToRead;
-Condition okToWrite;
-Lock lock;
-<span style="color:#75715e">//writer
-</span><span style="color:#75715e"></span>Public Database<span style="color:#f92672">::</span>Write(){
-  <span style="color:#75715e">//Wait until no readers/writers;
-</span><span style="color:#75715e"></span>  StartWrite();
-  write database;
-  <span style="color:#75715e">//check out - wake up waiting readers/writers;
-</span><span style="color:#75715e"></span>  DoneWrite();
-}
-
-Private Database<span style="color:#f92672">::</span>StartWrite(){
-  lock.Acquire();
-  <span style="color:#66d9ef">while</span>((AW <span style="color:#f92672">+</span> AR) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
-    WW<span style="color:#f92672">++</span>;
-    okToWrite.wait(<span style="color:#f92672">&amp;</span>lock);
-    WW<span style="color:#f92672">--</span>;  
-  }
-  AW<span style="color:#f92672">++</span>;
-  lock.Release();
-}
-
-Private Database<span style="color:#f92672">::</span>DoneWrite(){
-  lock.Acquire();
-  AW<span style="color:#f92672">--</span>;
-  <span style="color:#66d9ef">if</span>(WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
-    okToWrite.signal();
-  }
-  <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(WR <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
-    okToRead.broadcast(); <span style="color:#75715e">//唤醒所有reader 
-</span><span style="color:#75715e"></span>  }
-  lock.Release();
-}
-
-<span style="color:#75715e">//reader
-</span><span style="color:#75715e"></span>Public Database<span style="color:#f92672">::</span>Read(){
-  <span style="color:#75715e">//Wait until no writers;
-</span><span style="color:#75715e"></span>  StartRead();
-  read database;
-  <span style="color:#75715e">//check out - wake up waiting writers;
-</span><span style="color:#75715e"></span>  DoneRead();
-}
-
-Private Database<span style="color:#f92672">::</span>StartRead(){
-  lock.Acquire();
-  <span style="color:#66d9ef">while</span>(AW <span style="color:#f92672">+</span> WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){    <span style="color:#75715e">//关注等待的writer,体现出写者优先
-</span><span style="color:#75715e"></span>    WR<span style="color:#f92672">++</span>;
-    okToRead.wait(<span style="color:#f92672">&amp;</span>lock);
-    WR<span style="color:#f92672">--</span>;
-  }
-  AR<span style="color:#f92672">++</span>;
-  lock.Release();
-}
-
-<span style="color:#66d9ef">private</span> Database<span style="color:#f92672">::</span>DoneRead(){
-  lock.Acquire();
-  AR<span style="color:#f92672">--</span>;
-  <span style="color:#66d9ef">if</span>(AR <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){  <span style="color:#75715e">//只有读者全部没有了,才需要唤醒
-</span><span style="color:#75715e"></span>    okToWrite.signal();
-  }
-  lock.Release();
-}
-</code></pre></div><h3 id="52-哲学家就餐问题">5.2 哲学家就餐问题</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">//writer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Database<span style="color:#f92672">::</span>Write(){
+</span></span><span style="display:flex;"><span>  Wait until readers<span style="color:#f92672">/</span>writers;
+</span></span><span style="display:flex;"><span>  write database;
+</span></span><span style="display:flex;"><span>  check out <span style="color:#f92672">-</span> wake up waiting readers<span style="color:#f92672">/</span>writers;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//reader
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Database<span style="color:#f92672">::</span>Read(){
+</span></span><span style="display:flex;"><span>  Wait until no writers;
+</span></span><span style="display:flex;"><span>  read database;
+</span></span><span style="display:flex;"><span>  check out <span style="color:#f92672">-</span> wake up waiting writers;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//管程实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>AR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of active readers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>AW <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of active writers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>WR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of waiting readers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>WW <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// # of waiting writers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Condition okToRead;
+</span></span><span style="display:flex;"><span>Condition okToWrite;
+</span></span><span style="display:flex;"><span>Lock lock;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//writer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Public Database<span style="color:#f92672">::</span>Write(){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//Wait until no readers/writers;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  StartWrite();
+</span></span><span style="display:flex;"><span>  write database;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//check out - wake up waiting readers/writers;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  DoneWrite();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Private Database<span style="color:#f92672">::</span>StartWrite(){
+</span></span><span style="display:flex;"><span>  lock.Acquire();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>((AW <span style="color:#f92672">+</span> AR) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    WW<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    okToWrite.wait(<span style="color:#f92672">&amp;</span>lock);
+</span></span><span style="display:flex;"><span>    WW<span style="color:#f92672">--</span>;  
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  AW<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>  lock.Release();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Private Database<span style="color:#f92672">::</span>DoneWrite(){
+</span></span><span style="display:flex;"><span>  lock.Acquire();
+</span></span><span style="display:flex;"><span>  AW<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    okToWrite.signal();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(WR <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    okToRead.broadcast(); <span style="color:#75715e">//唤醒所有reader 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>  lock.Release();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//reader
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Public Database<span style="color:#f92672">::</span>Read(){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//Wait until no writers;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  StartRead();
+</span></span><span style="display:flex;"><span>  read database;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//check out - wake up waiting writers;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  DoneRead();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Private Database<span style="color:#f92672">::</span>StartRead(){
+</span></span><span style="display:flex;"><span>  lock.Acquire();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(AW <span style="color:#f92672">+</span> WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){    <span style="color:#75715e">//关注等待的writer,体现出写者优先
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    WR<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    okToRead.wait(<span style="color:#f92672">&amp;</span>lock);
+</span></span><span style="display:flex;"><span>    WR<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  AR<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>  lock.Release();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> Database<span style="color:#f92672">::</span>DoneRead(){
+</span></span><span style="display:flex;"><span>  lock.Acquire();
+</span></span><span style="display:flex;"><span>  AR<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(AR <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> WW <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){  <span style="color:#75715e">//只有读者全部没有了,才需要唤醒
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    okToWrite.signal();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  lock.Release();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="52-哲学家就餐问题">5.2 哲学家就餐问题</h3>
 <p>共享数据:</p>
 <ul>
 <li>
@@ -561,56 +556,56 @@ Private Database<span style="color:#f92672">::</span>StartRead(){
 </li>
 <li>
 <p>Semaphone fork [5] initialized to 1</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define N 5
-</span><span style="color:#75715e">#define LEFT (i + N - 1) % N </span><span style="color:#75715e">// 左邻居
-</span><span style="color:#75715e"></span><span style="color:#75715e">#define RIGHT (i + 1) % N    </span><span style="color:#75715e">// 右邻居
-</span><span style="color:#75715e"></span><span style="color:#75715e">#define THINKING 0
-</span><span style="color:#75715e">#define HUNGRY   1
-</span><span style="color:#75715e">#define EATING   2
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> semaphore;
-<span style="color:#66d9ef">int</span> state[N];                <span style="color:#75715e">// 跟踪每个哲学家的状态
-</span><span style="color:#75715e"></span>semaphore mutex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;         <span style="color:#75715e">// 临界区的互斥，临界区是 state 数组，对其修改需要互斥
-</span><span style="color:#75715e"></span>semaphore s[N];              <span style="color:#75715e">// 每个哲学家一个信号量
-</span><span style="color:#75715e"></span>  
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">philosopher</span>(<span style="color:#66d9ef">int</span> i) {
-    <span style="color:#66d9ef">while</span>(TRUE) {
-        think(i);
-        take_two(i);
-        eat(i);
-        put_two(i);
-    }
-}
-  
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">take_two</span>(<span style="color:#66d9ef">int</span> i) {
-    P(<span style="color:#f92672">&amp;</span>mutex);
-    state[i] <span style="color:#f92672">=</span> HUNGRY;
-    check(i);
-    V(<span style="color:#f92672">&amp;</span>mutex);
-    P(<span style="color:#f92672">&amp;</span>s[i]); <span style="color:#75715e">// 只有收到通知之后才可以开始吃，否则会一直等下去
-</span><span style="color:#75715e"></span>}
-  
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">put_two</span>(i) {
-    P(<span style="color:#f92672">&amp;</span>mutex);
-    state[i] <span style="color:#f92672">=</span> THINKING;
-    check(LEFT); <span style="color:#75715e">// 尝试通知左右邻居，自己吃完了，你们可以开始吃了
-</span><span style="color:#75715e"></span>    check(RIGHT);
-    V(<span style="color:#f92672">&amp;</span>mutex);
-}
-  
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span>(<span style="color:#66d9ef">int</span> i) {
-    P(<span style="color:#f92672">&amp;</span>mutex);
-    state[i] <span style="color:#f92672">=</span> EATING;
-    V(<span style="color:#f92672">&amp;</span>mutex);
-}
-  
-<span style="color:#75715e">// 检查两个邻居是否都没有用餐，如果是的话，就 V(&amp;s[i])，使得 P(&amp;s[i]) 能够得到通知并继续执行
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">check</span>(i) {         
-    <span style="color:#66d9ef">if</span>(state[i] <span style="color:#f92672">==</span> HUNGRY <span style="color:#f92672">&amp;&amp;</span> state[LEFT] <span style="color:#f92672">!=</span> EATING <span style="color:#f92672">&amp;&amp;</span> state[RIGHT] <span style="color:#f92672">!=</span>EATING) {
-        state[i] <span style="color:#f92672">=</span> EATING;
-        V(<span style="color:#f92672">&amp;</span>s[i]);
-    }
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define N 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define LEFT (i + N - 1) % N </span><span style="color:#75715e">// 左邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define RIGHT (i + 1) % N    </span><span style="color:#75715e">// 右邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define THINKING 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define HUNGRY   1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define EATING   2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> semaphore;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> state[N];                <span style="color:#75715e">// 跟踪每个哲学家的状态
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>semaphore mutex <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;         <span style="color:#75715e">// 临界区的互斥，临界区是 state 数组，对其修改需要互斥
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>semaphore s[N];              <span style="color:#75715e">// 每个哲学家一个信号量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">philosopher</span>(<span style="color:#66d9ef">int</span> i) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(TRUE) {
+</span></span><span style="display:flex;"><span>        think(i);
+</span></span><span style="display:flex;"><span>        take_two(i);
+</span></span><span style="display:flex;"><span>        eat(i);
+</span></span><span style="display:flex;"><span>        put_two(i);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">take_two</span>(<span style="color:#66d9ef">int</span> i) {
+</span></span><span style="display:flex;"><span>    P(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>    state[i] <span style="color:#f92672">=</span> HUNGRY;
+</span></span><span style="display:flex;"><span>    check(i);
+</span></span><span style="display:flex;"><span>    V(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>    P(<span style="color:#f92672">&amp;</span>s[i]); <span style="color:#75715e">// 只有收到通知之后才可以开始吃，否则会一直等下去
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">put_two</span>(i) {
+</span></span><span style="display:flex;"><span>    P(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>    state[i] <span style="color:#f92672">=</span> THINKING;
+</span></span><span style="display:flex;"><span>    check(LEFT); <span style="color:#75715e">// 尝试通知左右邻居，自己吃完了，你们可以开始吃了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    check(RIGHT);
+</span></span><span style="display:flex;"><span>    V(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span>(<span style="color:#66d9ef">int</span> i) {
+</span></span><span style="display:flex;"><span>    P(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>    state[i] <span style="color:#f92672">=</span> EATING;
+</span></span><span style="display:flex;"><span>    V(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 检查两个邻居是否都没有用餐，如果是的话，就 V(&amp;s[i])，使得 P(&amp;s[i]) 能够得到通知并继续执行
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">check</span>(i) {         
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(state[i] <span style="color:#f92672">==</span> HUNGRY <span style="color:#f92672">&amp;&amp;</span> state[LEFT] <span style="color:#f92672">!=</span> EATING <span style="color:#f92672">&amp;&amp;</span> state[RIGHT] <span style="color:#f92672">!=</span>EATING) {
+</span></span><span style="display:flex;"><span>        state[i] <span style="color:#f92672">=</span> EATING;
+</span></span><span style="display:flex;"><span>        V(<span style="color:#f92672">&amp;</span>s[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 </ul>
 <hr>
 <p>欢迎大家的意见和交流</p>
@@ -678,12 +673,12 @@ Private Database<span style="color:#f92672">::</span>StartRead(){
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -705,7 +700,7 @@ Private Database<span style="color:#f92672">::</span>StartRead(){
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -741,7 +736,7 @@ Private Database<span style="color:#f92672">::</span>StartRead(){
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -813,7 +808,7 @@ Private Database<span style="color:#f92672">::</span>StartRead(){
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

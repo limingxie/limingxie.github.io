@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【区块链笔记】BTC_挖矿(06)" />
 <meta property="og:description" content="这篇文章简单的整理了比特币挖矿相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_06/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_06/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-10-25T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-25T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】BTC_挖矿(06)">
-<meta itemprop="description" content="这篇文章简单的整理了比特币挖矿相关的内容。">
-<meta itemprop="datePublished" content="2022-10-25T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了比特币挖矿相关的内容。"><meta itemprop="datePublished" content="2022-10-25T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-25T23:28:49+08:00" />
 <meta itemprop="wordCount" content="122">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin,挖矿," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -171,7 +166,7 @@
 <p>Hash(bolck header) &lt;= target  (目标target是一个256位长的数值。)<br>
 计算公式：difficulty = difficulty_1_target / current_target</p>
 </blockquote>
-<pre><code>newdiff = diff * (2016 * 10 * 60 )/R  
+<pre tabindex="0"><code>newdiff = diff * (2016 * 10 * 60 )/R  
 
 newdiff：      新的难度调整值  
 diff:          上次难度调整结果  
@@ -180,7 +175,7 @@ R:             本次难度调整的2016个出快实际用时
 
 难度 = 创世块hash/当前难度hash  
 </code></pre><p>而创始区块的难度是写死的。hash:0x1d00ffff</p>
-<pre><code>genesis = CreateGenesisBlock(1296688602, 414098458, 0x1d00ffff, 1, 50 * COIN);  
+<pre tabindex="0"><code>genesis = CreateGenesisBlock(1296688602, 414098458, 0x1d00ffff, 1, 50 * COIN);  
 </code></pre><p>为了防止难度调整幅度异常，代码中做了调整<code>不能大于或小于4倍的限制</code>。<br>
 难度调整是在各节点自己做计算。</p>
 <h5 id="那为什么调整挖矿难度">那为什么调整挖矿难度？</h5>
@@ -320,12 +315,12 @@ R:             本次难度调整的2016个出快实际用时
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -347,7 +342,7 @@ R:             本次难度调整的2016个出快实际用时
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -383,7 +378,7 @@ R:             本次难度调整的2016个出快实际用时
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -455,7 +450,7 @@ R:             本次难度调整的2016个出快实际用时
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

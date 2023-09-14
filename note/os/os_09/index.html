@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【操作系统笔记】OS_同步(09)" />
 <meta property="og:description" content="这一篇整理了操作系统的操作系统同步相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/os/os_09/" />
+<meta property="og:url" content="https://limingxie.github.io/note/os/os_09/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2023-02-10T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-02-10T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【操作系统笔记】OS_同步(09)">
-<meta itemprop="description" content="这一篇整理了操作系统的操作系统同步相关的内容。">
-<meta itemprop="datePublished" content="2023-02-10T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了操作系统的操作系统同步相关的内容。"><meta itemprop="datePublished" content="2023-02-10T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-02-10T23:28:49+08:00" />
 <meta itemprop="wordCount" content="282">
-
-
-
 <meta itemprop="keywords" content="操作系统,OS,Operating System," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -330,21 +325,21 @@
 <li>bool flag[]; //指示进程是否准备好进入临界区</li>
 </ul>
 <p>进入临界区:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">flag[i] <span style="color:#f92672">=</span> true;
-turn <span style="color:#f92672">=</span> j;
-<span style="color:#66d9ef">while</span>(flag[j] <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">==</span> j);
-</code></pre></div><p>退出临界区:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">flag[i] <span style="color:#f92672">=</span> false;
-</code></pre></div><p>实例:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">do</span>{
- flag[i] <span style="color:#f92672">=</span> true;
- turn <span style="color:#f92672">=</span> j;
- <span style="color:#66d9ef">while</span>(flag[j] <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">==</span> j);
- CRITICAL SECTION
- flag[i] <span style="color:#f92672">=</span> false;
- REMAINDER SECTION
-}<span style="color:#66d9ef">while</span>(true);
-</code></pre></div><p><a href="https://limingxie.github.io/images/os/os09/os_09_06.png">图片备用地址</a><br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>flag[i] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>turn <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(flag[j] <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">==</span> j);
+</span></span></code></pre></div><p>退出临界区:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>flag[i] <span style="color:#f92672">=</span> false;
+</span></span></code></pre></div><p>实例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">do</span>{
+</span></span><span style="display:flex;"><span> flag[i] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span> turn <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">while</span>(flag[j] <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">==</span> j);
+</span></span><span style="display:flex;"><span> CRITICAL SECTION
+</span></span><span style="display:flex;"><span> flag[i] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span> REMAINDER SECTION
+</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">while</span>(true);
+</span></span></code></pre></div><p><a href="https://limingxie.github.io/images/os/os09/os_09_06.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_06.png" alt="os_09_06"></p>
 <h5 id="bakery-算法n个进程的临界区">Bakery 算法(N个进程的临界区)</h5>
 <ul>
@@ -382,10 +377,10 @@ turn <span style="color:#f92672">=</span> j;
 <ul>
 <li>
 <p>前面的例子变得简单起来:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">lock_next_pid<span style="color:#f92672">-&gt;</span>Acquire();
-new_pid <span style="color:#f92672">=</span> next_pid<span style="color:#f92672">++</span>;
-lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>lock_next_pid<span style="color:#f92672">-&gt;</span>Acquire();
+</span></span><span style="display:flex;"><span>new_pid <span style="color:#f92672">=</span> next_pid<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
+</span></span></code></pre></div></li>
 </ul>
 <h5 id="大多数现代体系结构都提供特殊的原子操作指令">大多数现代体系结构都提供特殊的原子操作指令</h5>
 <ul>
@@ -408,18 +403,18 @@ lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
 <ul>
 <li>交换内存中的两个值</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">TestandSet</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>target){
-  <span style="color:#66d9ef">bool</span> rv <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>target;
-  <span style="color:#f92672">*</span>target <span style="color:#f92672">=</span> true;
-  <span style="color:#66d9ef">return</span> rv;
-}
-
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Exchange</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>b){
-  <span style="color:#66d9ef">bool</span> tmp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>a;
-  <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>b;
-  <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> tmp;
-}
-</code></pre></div><p><a href="https://limingxie.github.io/images/os/os09/os_09_10.png">图片备用地址</a><br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">TestandSet</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>target){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">bool</span> rv <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>target;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>target <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> rv;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Exchange</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span>b){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">bool</span> tmp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>a;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>b;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> tmp;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://limingxie.github.io/images/os/os09/os_09_10.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/os/os09/os_09_10.png" alt="os_09_10"></p>
 <h5 id="远在操作指令优点和缺点">远在操作指令优点和缺点</h5>
 <p><a href="https://limingxie.github.io/images/os/os09/os_09_12.png">图片备用地址</a><br>
@@ -511,12 +506,12 @@ lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -538,7 +533,7 @@ lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -574,7 +569,7 @@ lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -646,7 +641,7 @@ lock_next_pid<span style="color:#f92672">-&gt;</span>Release();
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

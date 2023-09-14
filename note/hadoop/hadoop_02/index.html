@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【hadoop笔记】hadoop_HDFS的shell操作(2)" />
 <meta property="og:description" content="这篇文章整理了HDFS的shell操作相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/hadoop/hadoop_02/" />
+<meta property="og:url" content="https://limingxie.github.io/note/hadoop/hadoop_02/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-08-15T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-08-15T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【hadoop笔记】hadoop_HDFS的shell操作(2)">
-<meta itemprop="description" content="这篇文章整理了HDFS的shell操作相关的内容。">
-<meta itemprop="datePublished" content="2022-08-15T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章整理了HDFS的shell操作相关的内容。"><meta itemprop="datePublished" content="2022-08-15T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-15T23:28:49+08:00" />
 <meta itemprop="wordCount" content="280">
-
-
-
 <meta itemprop="keywords" content="hadoop," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -157,74 +152,74 @@
 </div><div class="content post__content clearfix">
 			<p>这篇文章整理了HDFS的shell操作相关的内容。</p>
 <h2 id="1基本语法">1.基本语法</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hadoop fs 具体命令 
-OR 
-hdfs dfs 具体命令
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bin/hadoop fs
-<span style="color:#f92672">[</span>-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-cat <span style="color:#f92672">[</span>-ignoreCrc<span style="color:#f92672">]</span> &lt;src&gt; ...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-chgrp <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> GROUP PATH...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-chmod <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> &lt;MODE<span style="color:#f92672">[</span>,MODE<span style="color:#f92672">]</span>... | OCTALMODE&gt; PATH...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-chown <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>OWNER<span style="color:#f92672">][</span>:<span style="color:#f92672">[</span>GROUP<span style="color:#f92672">]]</span> PATH...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-copyFromLocal <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-copyToLocal <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-ignoreCrc<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-crc<span style="color:#f92672">]</span> &lt;src&gt; ... &lt;localdst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-count <span style="color:#f92672">[</span>-q<span style="color:#f92672">]</span> &lt;path&gt; ...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-cp <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;src&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-df <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>&lt;path&gt; ...<span style="color:#f92672">]]</span>
-<span style="color:#f92672">[</span>-du <span style="color:#f92672">[</span>-s<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> &lt;path&gt; ...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-get <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-ignoreCrc<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-crc<span style="color:#f92672">]</span> &lt;src&gt; ... &lt;localdst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-getmerge <span style="color:#f92672">[</span>-nl<span style="color:#f92672">]</span> &lt;src&gt; &lt;localdst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-help <span style="color:#f92672">[</span>cmd ...<span style="color:#f92672">]]</span>
-       <span style="color:#f92672">[</span>-ls <span style="color:#f92672">[</span>-d<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>&lt;path&gt; ...<span style="color:#f92672">]]</span>
-       <span style="color:#f92672">[</span>-mkdir <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;path&gt; ...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-moveFromLocal &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-moveToLocal &lt;src&gt; &lt;localdst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-mv &lt;src&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-put <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-rm <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-r|-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-skipTrash<span style="color:#f92672">]</span> &lt;src&gt; ...<span style="color:#f92672">]</span>
-       <span style="color:#f92672">[</span>-rmdir <span style="color:#f92672">[</span>--ignore-fail-on-non-empty<span style="color:#f92672">]</span> &lt;dir&gt; ...<span style="color:#f92672">]</span>
-&lt;acl_spec&gt; &lt;path&gt;<span style="color:#f92672">]]</span>
-       <span style="color:#f92672">[</span>-setrep <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-w<span style="color:#f92672">]</span> &lt;rep&gt; &lt;path&gt; ...<span style="color:#f92672">]</span>
-</code></pre></div><h2 id="2常用命令">2.常用命令</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hadoop fs 具体命令 
+</span></span><span style="display:flex;"><span>OR 
+</span></span><span style="display:flex;"><span>hdfs dfs 具体命令
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ bin/hadoop fs
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-cat <span style="color:#f92672">[</span>-ignoreCrc<span style="color:#f92672">]</span> &lt;src&gt; ...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-chgrp <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> GROUP PATH...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-chmod <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> &lt;MODE<span style="color:#f92672">[</span>,MODE<span style="color:#f92672">]</span>... | OCTALMODE&gt; PATH...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-chown <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>OWNER<span style="color:#f92672">][</span>:<span style="color:#f92672">[</span>GROUP<span style="color:#f92672">]]</span> PATH...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-copyFromLocal <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-copyToLocal <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-ignoreCrc<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-crc<span style="color:#f92672">]</span> &lt;src&gt; ... &lt;localdst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-count <span style="color:#f92672">[</span>-q<span style="color:#f92672">]</span> &lt;path&gt; ...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-cp <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;src&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-df <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>&lt;path&gt; ...<span style="color:#f92672">]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-du <span style="color:#f92672">[</span>-s<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> &lt;path&gt; ...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-get <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-ignoreCrc<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-crc<span style="color:#f92672">]</span> &lt;src&gt; ... &lt;localdst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-getmerge <span style="color:#f92672">[</span>-nl<span style="color:#f92672">]</span> &lt;src&gt; &lt;localdst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-help <span style="color:#f92672">[</span>cmd ...<span style="color:#f92672">]]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-ls <span style="color:#f92672">[</span>-d<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>&lt;path&gt; ...<span style="color:#f92672">]]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-mkdir <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;path&gt; ...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-moveFromLocal &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-moveToLocal &lt;src&gt; &lt;localdst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-mv &lt;src&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-put <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-p<span style="color:#f92672">]</span> &lt;localsrc&gt; ... &lt;dst&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-rm <span style="color:#f92672">[</span>-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-r|-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-skipTrash<span style="color:#f92672">]</span> &lt;src&gt; ...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-rmdir <span style="color:#f92672">[</span>--ignore-fail-on-non-empty<span style="color:#f92672">]</span> &lt;dir&gt; ...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>&lt;acl_spec&gt; &lt;path&gt;<span style="color:#f92672">]]</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">[</span>-setrep <span style="color:#f92672">[</span>-R<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-w<span style="color:#f92672">]</span> &lt;rep&gt; &lt;path&gt; ...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h2 id="2常用命令">2.常用命令</h2>
 <h4 id="21-启动">2.1 启动</h4>
 <p>启动 Hadoop 集群</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sbin/start-dfs.sh
-sbin/start-yarn.sh
-</code></pre></div><p>-help:输出这个命令参数</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hadoop fs -help rm
-</code></pre></div><p>创建/sanguo 文件夹</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hadoop fs -mkdir /sanguo
-</code></pre></div><h4 id="22-上传">2.2 上传</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sbin/start-dfs.sh
+</span></span><span style="display:flex;"><span>sbin/start-yarn.sh
+</span></span></code></pre></div><p>-help:输出这个命令参数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hadoop fs -help rm
+</span></span></code></pre></div><p>创建/sanguo 文件夹</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hadoop fs -mkdir /sanguo
+</span></span></code></pre></div><h4 id="22-上传">2.2 上传</h4>
 <p>-moveFromLocal:从本地剪切粘贴到 HDFS</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vim shuguo.txt
-输入:
-shuguo
-$ hadoop fs -moveFromLocal ./shuguo.txt /sanguo
-</code></pre></div><p>-copyFromLocal:从本地文件系统中拷贝文件到 HDFS 路径去</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vim weiguo.txt
-输入:
-weiguo
-$ hadoop fs -copyFromLocal weiguo.txt
-/sanguo
-</code></pre></div><p>-put:等同于 copyFromLocal，生产环境更习惯用 put</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vim wuguo.txt
-输入:
-wuguo
-$ hadoop fs -put ./wuguo.txt /sanguo
-</code></pre></div><p>-appendToFile:追加一个文件到已经存在的文件末尾</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ vim liubei.txt
-输入:
-liubei
-$ hadoop fs -appendToFile liubei.txt
-/sanguo/shuguo.txt
-</code></pre></div><h4 id="23-下载">2.3 下载</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ vim shuguo.txt
+</span></span><span style="display:flex;"><span>输入:
+</span></span><span style="display:flex;"><span>shuguo
+</span></span><span style="display:flex;"><span>$ hadoop fs -moveFromLocal ./shuguo.txt /sanguo
+</span></span></code></pre></div><p>-copyFromLocal:从本地文件系统中拷贝文件到 HDFS 路径去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ vim weiguo.txt
+</span></span><span style="display:flex;"><span>输入:
+</span></span><span style="display:flex;"><span>weiguo
+</span></span><span style="display:flex;"><span>$ hadoop fs -copyFromLocal weiguo.txt
+</span></span><span style="display:flex;"><span>/sanguo
+</span></span></code></pre></div><p>-put:等同于 copyFromLocal，生产环境更习惯用 put</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ vim wuguo.txt
+</span></span><span style="display:flex;"><span>输入:
+</span></span><span style="display:flex;"><span>wuguo
+</span></span><span style="display:flex;"><span>$ hadoop fs -put ./wuguo.txt /sanguo
+</span></span></code></pre></div><p>-appendToFile:追加一个文件到已经存在的文件末尾</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ vim liubei.txt
+</span></span><span style="display:flex;"><span>输入:
+</span></span><span style="display:flex;"><span>liubei
+</span></span><span style="display:flex;"><span>$ hadoop fs -appendToFile liubei.txt
+</span></span><span style="display:flex;"><span>/sanguo/shuguo.txt
+</span></span></code></pre></div><h4 id="23-下载">2.3 下载</h4>
 <p>-copyToLocal:从 HDFS 拷贝到本地</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hadoop fs -copyToLocal
-/sanguo/shuguo.txt ./
-</code></pre></div><p>-get:等同于 copyToLocal，生产环境更习惯用 get</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hadoop fs -get
-/sanguo/shuguo.txt ./shuguo2.txt
-</code></pre></div><h4 id="24-hdfs-操作">2.4 HDFS 操作</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ hadoop fs -copyToLocal
+</span></span><span style="display:flex;"><span>/sanguo/shuguo.txt ./
+</span></span></code></pre></div><p>-get:等同于 copyToLocal，生产环境更习惯用 get</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ hadoop fs -get
+</span></span><span style="display:flex;"><span>/sanguo/shuguo.txt ./shuguo2.txt
+</span></span></code></pre></div><h4 id="24-hdfs-操作">2.4 HDFS 操作</h4>
 <p>-ls: 显示目录信息<br>
 -cat:显示文件内容<br>
 -chgrp、-chmod、-chown:Linux 文件系统中的用法一样，修改文件所属权限<br>
@@ -235,14 +230,14 @@ $ hadoop fs -appendToFile liubei.txt
 -rm:删除文件或文件夹<br>
 -rm -r:递归删除目录及目录里面内容<br>
 -du 统计文件夹的大小信息</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hadoop fs -du -s -h /jinguo
-<span style="color:#ae81ff">27</span> <span style="color:#ae81ff">81</span> /jinguo
-$ hadoop fs -du -h /jinguo <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">42</span> /jinguo/shuguo.txt
-<span style="color:#ae81ff">7</span> <span style="color:#ae81ff">21</span> /jinguo/weiguo.txt
-<span style="color:#ae81ff">6</span> <span style="color:#ae81ff">18</span> /jinguo/wuguo.tx
-</code></pre></div><p>-setrep:设置 HDFS 中文件的副本数量</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hadoop fs -setrep <span style="color:#ae81ff">10</span> /jinguo/shuguo.txt
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ hadoop fs -du -s -h /jinguo
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">27</span> <span style="color:#ae81ff">81</span> /jinguo
+</span></span><span style="display:flex;"><span>$ hadoop fs -du -h /jinguo <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">42</span> /jinguo/shuguo.txt
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span> <span style="color:#ae81ff">21</span> /jinguo/weiguo.txt
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span> <span style="color:#ae81ff">18</span> /jinguo/wuguo.tx
+</span></span></code></pre></div><p>-setrep:设置 HDFS 中文件的副本数量</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hadoop fs -setrep <span style="color:#ae81ff">10</span> /jinguo/shuguo.txt
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -302,12 +297,12 @@ $ hadoop fs -du -h /jinguo <span style="color:#ae81ff">14</span> <span style="co
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -329,7 +324,7 @@ $ hadoop fs -du -h /jinguo <span style="color:#ae81ff">14</span> <span style="co
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -365,7 +360,7 @@ $ hadoop fs -du -h /jinguo <span style="color:#ae81ff">14</span> <span style="co
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -437,7 +432,7 @@ $ hadoop fs -du -h /jinguo <span style="color:#ae81ff">14</span> <span style="co
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

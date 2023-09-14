@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【golang笔记】go_字符串函数(7)" />
 <meta property="og:description" content="这一篇简单的整理了golang 常用函数 内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_07/" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_07/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-09-08T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-08T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_字符串函数(7)">
-<meta itemprop="description" content="这一篇简单的整理了golang 常用函数 内容。">
-<meta itemprop="datePublished" content="2022-09-08T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 常用函数 内容。"><meta itemprop="datePublished" content="2022-09-08T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-08T23:28:49+08:00" />
 <meta itemprop="wordCount" content="130">
-
-
-
 <meta itemprop="keywords" content="golang," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -184,21 +179,21 @@
 <p>统计包含的字符的数量</p>
 <h4 id="stringsequalfoldabc-abc-true">strings.EqualFold(&ldquo;abc&rdquo;, &ldquo;Abc&rdquo;) //true</h4>
 <p>不区分大小的作比较。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#e6db74">&#34;abc&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Abc&#34;</span>  <span style="color:#75715e">//false
-</span></code></pre></div><h4 id="stringsindexaa_abc-abc-3">strings.Index(&ldquo;aa_abc&rdquo;, &ldquo;abc&rdquo;) //3</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#e6db74">&#34;abc&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Abc&#34;</span>  <span style="color:#75715e">//false
+</span></span></span></code></pre></div><h4 id="stringsindexaa_abc-abc-3">strings.Index(&ldquo;aa_abc&rdquo;, &ldquo;abc&rdquo;) //3</h4>
 <p>返回第一次出现的index值</p>
 <h4 id="stringslastindexgolang-go-go-7">strings.LastIndex(&ldquo;golang go&rdquo;, go) //7</h4>
 <p>返回最后出现的index值，没有返回-1</p>
 <h4 id="stringsreplacego-go-ha-go-beijing-n-n指定替换第几个-1表示全部">strings.Replace(&ldquo;go go ha&rdquo;, &ldquo;go&rdquo;, &ldquo;beijing&rdquo;, n) //n指定替换第几个，-1表示全部</h4>
 <h4 id="stringssplitgo-hello-world--stringgo-hello-world">strings.Split(&ldquo;go, hello, world&rdquo;) // []string{&ldquo;go&rdquo;, &ldquo;hello&rdquo;, &ldquo;world&rdquo;}</h4>
 <p>字符转数组</p>
-<h4 id="stringsjoinstringgo-hello-world--gohelloworld">strings.Join([]string{&ldquo;go&rdquo;, &ldquo;hello&rdquo;, &ldquo;world&rdquo;}, &ldquo;,&quot;) //go,hello,world</h4>
+<h4 id="stringsjoinstringgo-hello-world--gohelloworld">strings.Join([]string{&ldquo;go&rdquo;, &ldquo;hello&rdquo;, &ldquo;world&rdquo;}, &ldquo;,&rdquo;) //go,hello,world</h4>
 <p>数组转字符</p>
 <h4 id="stringstolowergo-stringstouppergo">strings.ToLower(&ldquo;Go&rdquo;) strings.ToUpper(&ldquo;Go&rdquo;)</h4>
 <p>字符转 大小写。</p>
-<h4 id="stringstrimspace-aa-bb---aa-bb">strings.TrimSpace(&rdquo; aa bb &ldquo;) // &ldquo;aa bb&rdquo;</h4>
+<h4 id="stringstrimspace-aa-bb---aa-bb">strings.TrimSpace(&quot; aa bb &ldquo;) // &ldquo;aa bb&rdquo;</h4>
 <p>去掉空格</p>
-<h4 id="stringstrim-hello------hello">strings.Trim(&rdquo;! he!llo ! &ldquo;, &quot; !&quot;) // he!llo</h4>
+<h4 id="stringstrim-hello------hello">strings.Trim(&rdquo;! he!llo ! &ldquo;, &quot; !&rdquo;) // he!llo</h4>
 <p>去掉空格和指定字符</p>
 <h4 id="stringstrimleft-stringstrimright">strings.TrimLeft strings.TrimRight</h4>
 <h4 id="stringshasprefixftpaa-ftp-true">strings.HasPrefix(&ldquo;ftp//aa&rdquo;, &ldquo;ftp&rdquo;) //true</h4>
@@ -265,12 +260,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -292,7 +287,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -328,7 +323,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -400,7 +395,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

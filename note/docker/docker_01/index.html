@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【docker笔记】docker_常用命令(1)" />
 <meta property="og:description" content="这一篇整理了docker的常用命令。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/docker/docker_01/" />
+<meta property="og:url" content="https://limingxie.github.io/note/docker/docker_01/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-07-31T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-07-31T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【docker笔记】docker_常用命令(1)">
-<meta itemprop="description" content="这一篇整理了docker的常用命令。">
-<meta itemprop="datePublished" content="2022-07-31T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了docker的常用命令。"><meta itemprop="datePublished" content="2022-07-31T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-31T23:28:49+08:00" />
 <meta itemprop="wordCount" content="227">
-
-
-
 <meta itemprop="keywords" content="docker," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -167,9 +162,9 @@
 			<p>这一篇整理了docker的常用命令。</p>
 <h2 id="1镜像管理">1.镜像管理</h2>
 <h4 id="11-docker-images">1.1 docker images</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#列出镜像</span>
-docker images <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#列出镜像</span>
+</span></span><span style="display:flex;"><span>docker images <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li>-a :列出本地所有的镜像（含中间映像层）</li>
 <li>-f :显示满足条件的镜像；</li>
 <li>-q :只显示镜像ID。</li>
@@ -177,21 +172,21 @@ docker images <span style="color:#f92672">[</span>options<span style="color:#f92
 <li>&ndash;no-trunc :显示完整的镜像信息；</li>
 </ul>
 <h4 id="12-docker-search">1.2 docker search</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 查询容器镜像</span>
-docker search xxx
-</code></pre></div><p>-s 查看搜藏数大于指定数量的镜像</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 查询容器镜像</span>
+</span></span><span style="display:flex;"><span>docker search xxx
+</span></span></code></pre></div><p>-s 查看搜藏数大于指定数量的镜像</p>
 <h4 id="13-docker-pull">1.3 docker pull</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 拉取容器镜像</span>
-docker pull xxx:<span style="color:#f92672">[</span>tag<span style="color:#f92672">]</span>默认 latest
-</code></pre></div><h4 id="14-docker-rmi">1.4 docker rmi</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 删除容器镜像</span>
-docker rmi xxx
-
-docker rmi -f <span style="color:#66d9ef">$(</span>docker images -qa<span style="color:#66d9ef">)</span>
-</code></pre></div><h2 id="2容器启动和关闭">2.容器启动和关闭</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 拉取容器镜像</span>
+</span></span><span style="display:flex;"><span>docker pull xxx:<span style="color:#f92672">[</span>tag<span style="color:#f92672">]</span>默认 latest
+</span></span></code></pre></div><h4 id="14-docker-rmi">1.4 docker rmi</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 删除容器镜像</span>
+</span></span><span style="display:flex;"><span>docker rmi xxx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker rmi -f <span style="color:#66d9ef">$(</span>docker images -qa<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><h2 id="2容器启动和关闭">2.容器启动和关闭</h2>
 <h4 id="21-docker-run">2.1 docker run</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> IMAGE <span style="color:#f92672">[</span>COMMAND<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>ARG...<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> IMAGE <span style="color:#f92672">[</span>COMMAND<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>ARG...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li>&ndash;name=为容器指定一个名称；</li>
 <li>-d: 后台运行容器，并返回容器ID；</li>
 <li>-i: 以交互模式运行容器，通常与 -t 同时使用；</li>
@@ -203,25 +198,25 @@ docker rmi -f <span style="color:#66d9ef">$(</span>docker images -qa<span style=
 <li>&ndash;volume , -v: 绑定一个卷</li>
 </ul>
 <h4 id="22-docker-startstoprestart">2.2 docker start/stop/restart</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker start <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
-docker stop <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
-docker restart <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
-</code></pre></div><h4 id="23-docker-rm">2.3 docker rm</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#删除一个或多个容器。</span>
-docker rm <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
-
-<span style="color:#75715e">#杀掉一个运行中的容器</span>
-docker kill <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker start <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>docker stop <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>docker restart <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h4 id="23-docker-rm">2.3 docker rm</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#删除一个或多个容器。</span>
+</span></span><span style="display:flex;"><span>docker rm <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#杀掉一个运行中的容器</span>
+</span></span><span style="display:flex;"><span>docker kill <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li>-f :通过 SIGKILL 信号强制删除一个运行中的容器。</li>
 <li>-l :移除容器间的网络连接，而非容器本身。</li>
 <li>-v :删除与容器关联的卷。</li>
 </ul>
 <h2 id="3容器管理">3.容器管理</h2>
 <h4 id="31-docker-ps">3.1 docker ps</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#列出容器</span>
-docker ps <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#列出容器</span>
+</span></span><span style="display:flex;"><span>docker ps <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li>-a :显示所有的容器，包括未运行的。</li>
 <li>-f :根据条件过滤显示的内容。</li>
 <li>-q :静默模式，只显示容器编号。</li>
@@ -229,41 +224,41 @@ docker ps <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672"
 <li>&ndash;no-trunc :不截断输出。</li>
 </ul>
 <h4 id="32-docker-stats">3.2 docker stats</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 显示容器资源的使用情况</span>
-docker stats <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 显示容器资源的使用情况</span>
+</span></span><span style="display:flex;"><span>docker stats <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>CONTAINER...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li>&ndash;all , -a :显示所有的容器，包括未运行的。</li>
 <li>&ndash;format :指定返回值的模板文件。</li>
 <li>&ndash;no-stream :展示当前状态就直接退出了，不再实时更新。</li>
 <li>&ndash;no-trunc :不截断输出。</li>
 </ul>
 <h4 id="33-docker-exec">3.3 docker exec</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker exec <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER COMMAND <span style="color:#f92672">[</span>ARG...<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker exec <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER COMMAND <span style="color:#f92672">[</span>ARG...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li>-d :分离模式: 在后台运行</li>
 <li>-i :即使没有附加也保持STDIN 打开</li>
 <li>-t :分配一个伪终端</li>
 </ul>
 <h4 id="34-docker-inspect">3.4 docker inspect</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#获取容器/镜像的元数据</span>
-docker inspect <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> NAME|ID <span style="color:#f92672">[</span>NAME|ID...<span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#获取容器/镜像的元数据</span>
+</span></span><span style="display:flex;"><span>docker inspect <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> NAME|ID <span style="color:#f92672">[</span>NAME|ID...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li>-f :指定返回值的模板文件。</li>
 <li>-s :显示总的文件大小。</li>
 <li>&ndash;type :为指定类型返回JSON。</li>
 </ul>
 <h4 id="35-docker-logs">3.5 docker logs</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker logs <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker logs <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER
+</span></span></code></pre></div><ul>
 <li>-f : 跟踪日志输出</li>
 <li>-t : 显示时间戳</li>
 <li>&ndash;tail :仅列出最新N条容器日志</li>
 <li>&ndash;since :显示某个开始时间的所有日志</li>
 </ul>
 <h4 id="36-docker-top">3.6 docker top</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#查看容器中运行的进程信息</span>
-docker top <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>ps OPTIONS<span style="color:#f92672">]</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#查看容器中运行的进程信息</span>
+</span></span><span style="display:flex;"><span>docker top <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> CONTAINER <span style="color:#f92672">[</span>ps OPTIONS<span style="color:#f92672">]</span>
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -323,12 +318,12 @@ docker top <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -350,7 +345,7 @@ docker top <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -386,7 +381,7 @@ docker top <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -458,7 +453,7 @@ docker top <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

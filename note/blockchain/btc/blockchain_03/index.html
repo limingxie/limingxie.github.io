@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【区块链笔记】BTC_协议(03)" />
 <meta property="og:description" content="这篇文章简单的整理了比特币协议相关内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_03/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_03/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-10-22T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-22T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】BTC_协议(03)">
-<meta itemprop="description" content="这篇文章简单的整理了比特币协议相关内容。">
-<meta itemprop="datePublished" content="2022-10-22T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了比特币协议相关内容。"><meta itemprop="datePublished" content="2022-10-22T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-22T23:28:49+08:00" />
 <meta itemprop="wordCount" content="92">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin,共识协议," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -184,7 +179,7 @@
 不停地更换随机数(nonce)，当随机数满足条件，就算成功了。<br>
 第一个算出来的人，可以打包这个交易块，也可以获得奖励(coinbase)。<br>
 以及打包交易的的交易手续费。</p>
-<pre><code>Hash(Block Header) &lt;= target(目标值)
+<pre tabindex="0"><code>Hash(Block Header) &lt;= target(目标值)
 </code></pre><blockquote>
 <p>通过挖矿证明(工作量证明)善意节点，并获取挖矿奖金和区块的记账权利</p>
 </blockquote>
@@ -197,7 +192,7 @@
 <li>指向币的来源。</li>
 </ol>
 <p>下面是比特币系统中交易的例子，</p>
-<pre><code>A通过挖矿获得10BTC，在下面A将这10BTC转给B 5BTC，转给C 5BTC。  
+<pre tabindex="0"><code>A通过挖矿获得10BTC，在下面A将这10BTC转给B 5BTC，转给C 5BTC。  
 之后B再转给C 2BTC，转给D 3BTC。当C转给E 7BTC时 C的2个来元交易都需要指明。  
 这样就有效的预防双花攻击(double spending attack)
 </code></pre><p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_protocol.png">图片备用地址</a><br>
@@ -310,12 +305,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -337,7 +332,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -373,7 +368,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -445,7 +440,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

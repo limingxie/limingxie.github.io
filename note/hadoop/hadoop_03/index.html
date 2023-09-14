@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【hadoop笔记】hadoop_HDFS结构简介(3)" />
 <meta property="og:description" content="这篇文章整理了HDFS结构相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/hadoop/hadoop_03/" />
+<meta property="og:url" content="https://limingxie.github.io/note/hadoop/hadoop_03/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-08-16T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-08-16T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【hadoop笔记】hadoop_HDFS结构简介(3)">
-<meta itemprop="description" content="这篇文章整理了HDFS结构相关的内容。">
-<meta itemprop="datePublished" content="2022-08-16T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章整理了HDFS结构相关的内容。"><meta itemprop="datePublished" content="2022-08-16T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-16T23:28:49+08:00" />
 <meta itemprop="wordCount" content="117">
-
-
-
 <meta itemprop="keywords" content="hadoop," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -186,41 +181,41 @@
 <h4 id="checkpoint时间设置">CheckPoint时间设置</h4>
 <p>1)通常情况下，SecondaryNameNode 每隔一小时执行一次。
 [hdfs-default.xml]</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;property&gt;</span>
-  <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.checkpoint.period<span style="color:#f92672">&lt;/name&gt;</span>
-  <span style="color:#f92672">&lt;value&gt;</span>3600s<span style="color:#f92672">&lt;/value&gt;</span>
-<span style="color:#f92672">&lt;/property&gt;</span>
-</code></pre></div><p>2)一分钟检查一次操作次数，当操作次数达到 1 百万时，SecondaryNameNode 执行一次。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;property&gt;</span>
-  <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.checkpoint.txns<span style="color:#f92672">&lt;/name&gt;</span>
-  <span style="color:#f92672">&lt;value&gt;</span>1000000<span style="color:#f92672">&lt;/value&gt;</span> 
-  <span style="color:#f92672">&lt;description&gt;</span>操作动作次数<span style="color:#f92672">&lt;/description&gt;</span> 
-<span style="color:#f92672">&lt;/property&gt;</span>
-<span style="color:#f92672">&lt;property&gt;</span>
-  <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.checkpoint.check.period<span style="color:#f92672">&lt;/name&gt;</span>
-  <span style="color:#f92672">&lt;value&gt;</span>60s<span style="color:#f92672">&lt;/value&gt;</span>
-  <span style="color:#f92672">&lt;description&gt;</span> 1 分钟检查一次操作次数<span style="color:#f92672">&lt;/description&gt;</span> 
-<span style="color:#f92672">&lt;/property&gt;</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.checkpoint.period<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>3600s<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+</span></span></code></pre></div><p>2)一分钟检查一次操作次数，当操作次数达到 1 百万时，SecondaryNameNode 执行一次。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.checkpoint.txns<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>1000000<span style="color:#f92672">&lt;/value&gt;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>操作动作次数<span style="color:#f92672">&lt;/description&gt;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.checkpoint.check.period<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>60s<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span> 1 分钟检查一次操作次数<span style="color:#f92672">&lt;/description&gt;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+</span></span></code></pre></div><hr>
 <h2 id="6datanode工作机制">6.DataNode工作机制</h2>
 <p><a href="https://limingxie.github.io/images/database/hadoop/hadoop_06.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/hadoop/hadoop_06.png" alt="hadoop_01"></p>
 <p>DN 向 NN 汇报当前解读信息的时间间隔，默认 6 小时;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;property&gt;</span>
-    <span style="color:#f92672">&lt;name&gt;</span>dfs.blockreport.intervalMsec<span style="color:#f92672">&lt;/name&gt;</span>
-    <span style="color:#f92672">&lt;value&gt;</span>21600000<span style="color:#f92672">&lt;/value&gt;</span>
-    <span style="color:#f92672">&lt;description&gt;</span>Determines block reporting interval in milliseconds.<span style="color:#f92672">&lt;/description&gt;</span>
-<span style="color:#f92672">&lt;/property&gt;</span>
-</code></pre></div><p>DN 扫描自己节点块信息列表的时间，默认 6 小时</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;property&gt;</span>
-    <span style="color:#f92672">&lt;name&gt;</span>dfs.datanode.directoryscan.interval<span style="color:#f92672">&lt;/name&gt;</span>
-    <span style="color:#f92672">&lt;value&gt;</span>21600s<span style="color:#f92672">&lt;/value&gt;</span>
-    <span style="color:#f92672">&lt;description&gt;</span>Interval in seconds for Datanode to scan data directories and reconcile the difference between blocks in memory and on the disk.
-    Support multiple time unit suffix(case insensitive), as described
-    in dfs.heartbeat.interval.
-    <span style="color:#f92672">&lt;/description&gt;</span>
-<span style="color:#f92672">&lt;/property&gt;</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;name&gt;</span>dfs.blockreport.intervalMsec<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;value&gt;</span>21600000<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;description&gt;</span>Determines block reporting interval in milliseconds.<span style="color:#f92672">&lt;/description&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+</span></span></code></pre></div><p>DN 扫描自己节点块信息列表的时间，默认 6 小时</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;name&gt;</span>dfs.datanode.directoryscan.interval<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;value&gt;</span>21600s<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;description&gt;</span>Interval in seconds for Datanode to scan data directories and reconcile the difference between blocks in memory and on the disk.
+</span></span><span style="display:flex;"><span>    Support multiple time unit suffix(case insensitive), as described
+</span></span><span style="display:flex;"><span>    in dfs.heartbeat.interval.
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/description&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+</span></span></code></pre></div><hr>
 <h2 id="7数据完整性">7.数据完整性</h2>
 <p><a href="https://limingxie.github.io/images/database/hadoop/hadoop_07.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/database/hadoop/hadoop_07.png" alt="hadoop_01"></p>
@@ -231,15 +226,15 @@
 <p>hdfs-site.xml 配置文件中的<br>
 heartbeat.recheck.interval 的单位为毫秒，<br>
 dfs.heartbeat.interval 的单位为秒。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;property&gt;</span>
-   <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.heartbeat.recheck-interval<span style="color:#f92672">&lt;/name&gt;</span>
-   <span style="color:#f92672">&lt;value&gt;</span>300000<span style="color:#f92672">&lt;/value&gt;</span>
-<span style="color:#f92672">&lt;/property&gt;</span>
-<span style="color:#f92672">&lt;property&gt;</span>
-   <span style="color:#f92672">&lt;name&gt;</span>dfs.heartbeat.interval<span style="color:#f92672">&lt;/name&gt;</span>
-   <span style="color:#f92672">&lt;value&gt;</span>3<span style="color:#f92672">&lt;/value&gt;</span>
-<span style="color:#f92672">&lt;/property&gt;</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.heartbeat.recheck-interval<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;value&gt;</span>300000<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;name&gt;</span>dfs.heartbeat.interval<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;value&gt;</span>3<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+</span></span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -299,12 +294,12 @@ dfs.heartbeat.interval 的单位为秒。</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -326,7 +321,7 @@ dfs.heartbeat.interval 的单位为秒。</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -362,7 +357,7 @@ dfs.heartbeat.interval 的单位为秒。</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -434,7 +429,7 @@ dfs.heartbeat.interval 的单位为秒。</p>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

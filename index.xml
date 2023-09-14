@@ -6,7 +6,16 @@
     <description>Recent content on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Aug 2023 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Sep 2023 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【solidity】多签(Multi-signature)</title>
+      <link>https://limingxie.github.io/blockchain/eth/solidity/solidity_17/</link>
+      <pubDate>Wed, 13 Sep 2023 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/blockchain/eth/solidity/solidity_17/</guid>
+      <description>&lt;p&gt;这里简单的整理了用solidity实现多签功能。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【cosmos-sdk-笔记】修改各模块的运行参数</title>
       <link>https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_14/</link>
@@ -1642,8 +1651,8 @@ Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、
       
       <guid>https://limingxie.github.io/note/docker/docker_02/</guid>
       <description>&lt;h2 id=&#34;1volumemount&#34;&gt;1.volume，mount&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -it -v /test:/soft centos /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -it -v /test:/soft centos /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>

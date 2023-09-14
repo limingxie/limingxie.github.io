@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【区块链笔记】ETH_web3.eth相关API(03)" />
 <meta property="og:description" content="这篇文章简单的整理了以太坊web3.eth相关API相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/web3js/blockchain_eth_web3js_03/" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/web3js/blockchain_eth_web3js_03/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-12-02T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-12-02T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】ETH_web3.eth相关API(03)">
-<meta itemprop="description" content="这篇文章简单的整理了以太坊web3.eth相关API相关的内容。">
-<meta itemprop="datePublished" content="2022-12-02T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了以太坊web3.eth相关API相关的内容。"><meta itemprop="datePublished" content="2022-12-02T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-12-02T23:28:49+08:00" />
 <meta itemprop="wordCount" content="250">
-
-
-
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -247,12 +242,12 @@ nonce:整数 nonce 值，可选</li>
 默认区块:默认“latest”，可以传入指定的区块高度
 回调函数，如果没有则为同步调用</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">var</span> result <span style="color:#f92672">=</span> web3.eth.call({ to<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0xc4abd0339eb8d57087278718986382264244252f&#34;</span>,data<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;0xc6888fa10000000000000000000000000000000000000000000000000000000000000003&#34;</span> });
-console.log(result);
-</code></pre></div><h2 id="8-日志过滤事件监听">8. 日志过滤(事件监听)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> result <span style="color:#f92672">=</span> web3.eth.call({ to<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0xc4abd0339eb8d57087278718986382264244252f&#34;</span>,data<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;0xc6888fa10000000000000000000000000000000000000000000000000000000000000003&#34;</span> });
+</span></span><span style="display:flex;"><span>console.log(result);
+</span></span></code></pre></div><h2 id="8-日志过滤事件监听">8. 日志过滤(事件监听)</h2>
 <ul>
 <li>web3.eth.filter( filterOptions [ , callback ] )
-// filterString 可以是 &lsquo;latest&rsquo; or &lsquo;pending&rsquo;
+// filterString 可以是 &rsquo;latest&rsquo; or &lsquo;pending&rsquo;
 var filter = web3.eth.filter(filterString);
 // 或者可以填入一个日志过滤 options
 var filter = web3.eth.filter(options);
@@ -357,12 +352,12 @@ var event = myContractInstance.MyEvent([{valueA: 23}][, additionalFilterObject] 
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -384,7 +379,7 @@ var event = myContractInstance.MyEvent([{valueA: 23}][, additionalFilterObject] 
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -420,7 +415,7 @@ var event = myContractInstance.MyEvent([{valueA: 23}][, additionalFilterObject] 
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -492,7 +487,7 @@ var event = myContractInstance.MyEvent([{valueA: 23}][, additionalFilterObject] 
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

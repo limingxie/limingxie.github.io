@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【ES笔记】Elasticsearch_结构和常用API简介(2)" />
 <meta property="og:description" content="简单的做一下Elasticsearch的结构和常用语法的记录。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/es/elasticsearch_02/" />
+<meta property="og:url" content="https://limingxie.github.io/note/es/elasticsearch_02/" /><meta property="article:section" content="note" />
 <meta property="article:published_time" content="2022-08-09T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-08-09T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【ES笔记】Elasticsearch_结构和常用API简介(2)">
-<meta itemprop="description" content="简单的做一下Elasticsearch的结构和常用语法的记录。">
-<meta itemprop="datePublished" content="2022-08-09T23:28:49+08:00" />
+<meta itemprop="description" content="简单的做一下Elasticsearch的结构和常用语法的记录。"><meta itemprop="datePublished" content="2022-08-09T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-09T23:28:49+08:00" />
 <meta itemprop="wordCount" content="242">
-
-
-
 <meta itemprop="keywords" content="elasticsearch,es,database,index," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -191,71 +186,71 @@
 </ol>
 <h2 id="2elasticsearch常用api">2.Elasticsearch常用API</h2>
 <h4 id="21-查看健康状态">2.1 查看健康状态</h4>
-<pre><code>    curl -X GET 127.0.0.1:9200/_cat/health?v
+<pre tabindex="0"><code>    curl -X GET 127.0.0.1:9200/_cat/health?v
 </code></pre><p>结果：</p>
-<pre><code>    epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
+<pre tabindex="0"><code>    epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
     1564726309 06:11:49  elasticsearch yellow          1         1      3   3    0    0        1             0                  -                 75.0%
 </code></pre><h4 id="22-查询当前es集群中所有的indices">2.2 查询当前es集群中所有的indices</h4>
-<pre><code>    curl -X GET 127.0.0.1:9200/_cat/indices?v
+<pre tabindex="0"><code>    curl -X GET 127.0.0.1:9200/_cat/indices?v
 </code></pre><p>结果：</p>
-<pre><code>    health status index                uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+<pre tabindex="0"><code>    health status index                uuid                   pri rep docs.count docs.deleted store.size pri.store.size
     green  open   .kibana_task_manager LUo-IxjDQdWeAbR-SYuYvQ   1   0          2            0     45.5kb         45.5kb
     green  open   .kibana_1            PLvyZV1bRDWex05xkOrNNg   1   0          4            1     23.9kb         23.9kb
     yellow open   user                 o42mIpDeSgSWZ6eARWUfKw   1   1          0            0       283b           283b
 </code></pre><h4 id="23-创建索引">2.3 创建索引</h4>
-<pre><code>    curl -X PUT 127.0.0.1:9200/www
+<pre tabindex="0"><code>    curl -X PUT 127.0.0.1:9200/www
 </code></pre><p>结果：</p>
-<pre><code>    {&quot;acknowledged&quot;:true,&quot;shards_acknowledged&quot;:true,&quot;index&quot;:&quot;www&quot;}
+<pre tabindex="0"><code>    {&#34;acknowledged&#34;:true,&#34;shards_acknowledged&#34;:true,&#34;index&#34;:&#34;www&#34;}
 </code></pre><h4 id="24-删除索引">2.4 删除索引</h4>
-<pre><code>    curl -X DELETE 127.0.0.1:9200/www
+<pre tabindex="0"><code>    curl -X DELETE 127.0.0.1:9200/www
 </code></pre><p>结果：</p>
-<pre><code>    {&quot;acknowledged&quot;:true}
+<pre tabindex="0"><code>    {&#34;acknowledged&#34;:true}
 </code></pre><h4 id="25-插入记录">2.5 插入记录</h4>
-<pre><code>    curl -H &quot;ContentType:application/json&quot; -X POST 127.0.0.1:9200/user/person -d '
+<pre tabindex="0"><code>    curl -H &#34;ContentType:application/json&#34; -X POST 127.0.0.1:9200/user/person -d &#39;
     {
-        &quot;name&quot;: &quot;LMH&quot;,
-        &quot;age&quot;: 18,
-        &quot;married&quot;: true
-    }'
+        &#34;name&#34;: &#34;LMH&#34;,
+        &#34;age&#34;: 18,
+        &#34;married&#34;: true
+    }&#39;
 </code></pre><p>结果：</p>
-<pre><code>{
-    &quot;_index&quot;: &quot;user&quot;,
-    &quot;_type&quot;: &quot;person&quot;,
-    &quot;_id&quot;: &quot;MLcwUWwBvEa8j5UrLZj4&quot;,
-    &quot;_version&quot;: 1,
-    &quot;result&quot;: &quot;created&quot;,
-    &quot;_shards&quot;: {
-        &quot;total&quot;: 2,
-        &quot;successful&quot;: 1,
-        &quot;failed&quot;: 0
+<pre tabindex="0"><code>{
+    &#34;_index&#34;: &#34;user&#34;,
+    &#34;_type&#34;: &#34;person&#34;,
+    &#34;_id&#34;: &#34;MLcwUWwBvEa8j5UrLZj4&#34;,
+    &#34;_version&#34;: 1,
+    &#34;result&#34;: &#34;created&#34;,
+    &#34;_shards&#34;: {
+        &#34;total&#34;: 2,
+        &#34;successful&#34;: 1,
+        &#34;failed&#34;: 0
     },
-    &quot;_seq_no&quot;: 3,
-    &quot;_primary_term&quot;: 1
+    &#34;_seq_no&#34;: 3,
+    &#34;_primary_term&#34;: 1
 }
 </code></pre><h4 id="26-put方法需要传入id">2.6 PUT方法，需要传入id</h4>
-<pre><code>    curl -H &quot;ContentType:application/json&quot; -X PUT 127.0.0.1:9200/user/person/4 -d '
+<pre tabindex="0"><code>    curl -H &#34;ContentType:application/json&#34; -X PUT 127.0.0.1:9200/user/person/4 -d &#39;
     {
-        &quot;name&quot;: &quot;LMH&quot;,
-        &quot;age&quot;: 18,
-        &quot;married&quot;: false
-    }'
+        &#34;name&#34;: &#34;LMH&#34;,
+        &#34;age&#34;: 18,
+        &#34;married&#34;: false
+    }&#39;
 </code></pre><h4 id="27-全检索">2.7 全检索</h4>
-<pre><code>    curl -X GET 127.0.0.1:9200/user/person/_search
+<pre tabindex="0"><code>    curl -X GET 127.0.0.1:9200/user/person/_search
 </code></pre><h4 id="28-按条件检索">2.8 按条件检索</h4>
-<pre><code>    curl -H &quot;ContentType:application/json&quot; -X PUT 127.0.0.1:9200/user/person/4 -d '
+<pre tabindex="0"><code>    curl -H &#34;ContentType:application/json&#34; -X PUT 127.0.0.1:9200/user/person/4 -d &#39;
     {
-        &quot;query&quot;:{
-            &quot;match&quot;: {&quot;name&quot;: &quot;LMH&quot;}
+        &#34;query&#34;:{
+            &#34;match&#34;: {&#34;name&#34;: &#34;LMH&#34;}
         }    
-    }'
+    }&#39;
 </code></pre><h4 id="29-条件检索size字段">2.9 条件检索size字段</h4>
-<pre><code>    curl -H &quot;ContentType:application/json&quot; -X PUT 127.0.0.1:9200/user/person/4 -d '
+<pre tabindex="0"><code>    curl -H &#34;ContentType:application/json&#34; -X PUT 127.0.0.1:9200/user/person/4 -d &#39;
     {
-        &quot;query&quot;:{
-            &quot;match&quot;: {&quot;name&quot;: &quot;LMH&quot;},
-            &quot;size&quot;: 2
+        &#34;query&#34;:{
+            &#34;match&#34;: {&#34;name&#34;: &#34;LMH&#34;},
+            &#34;size&#34;: 2
         }    
-    }'
+    }&#39;
 </code></pre><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -325,12 +320,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -352,7 +347,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -388,7 +383,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -460,7 +455,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;

@@ -10,20 +10,15 @@
 		<meta property="og:title" content="【webpack笔记】webpack_基础配置(02)" />
 <meta property="og:description" content="这一篇整理了webpack的基础配置相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/webpack/webpack_02/" />
+<meta property="og:url" content="https://limingxie.github.io/js/webpack/webpack_02/" /><meta property="article:section" content="js" />
 <meta property="article:published_time" content="2022-07-14T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-07-14T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【webpack笔记】webpack_基础配置(02)">
-<meta itemprop="description" content="这一篇整理了webpack的基础配置相关的内容。">
-<meta itemprop="datePublished" content="2022-07-14T23:55:49+08:00" />
+<meta itemprop="description" content="这一篇整理了webpack的基础配置相关的内容。"><meta itemprop="datePublished" content="2022-07-14T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-14T23:55:49+08:00" />
 <meta itemprop="wordCount" content="787">
-
-
-
 <meta itemprop="keywords" content="webpack," />
-
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -175,314 +170,314 @@
 生产模式：production</p>
 <h2 id="2webpack-配置文件">2.Webpack 配置文件</h2>
 <p>在项目根目录下新建文件：webpack.config.js</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#css-loader：负责将 Css 文件编译成 Webpack 能识别的模块</span>
-<span style="color:#75715e">#style-loader：会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容</span>
-npm i css-loader style-loader -D
-
-<span style="color:#75715e">#负责将 Less 文件编译成 Css 文件</span>
-npm i less-loader -D
-
-<span style="color:#75715e">#sass-loader：负责将 Sass 文件编译成 css 文件</span>
-<span style="color:#75715e">#sass：sass-loader 依赖 sass 进行编译</span>
-npm i sass-loader sass -D
-
-<span style="color:#75715e">#负责将 Styl 文件编译成 Css 文件</span>
-npm i stylus-loader -D
-
-<span style="color:#75715e">#html资源包</span>
-npm i html-webpack-plugin -D
-
-<span style="color:#75715e">#下开发服务器插件</span>
-npm i webpack-dev-server -D
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Node.js的核心模块，专门用来处理文件路径
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
-
-<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
-  <span style="color:#75715e">// 入口
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// 相对路径和绝对路径都行
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;./src/main.js&#34;</span>,
-  <span style="color:#75715e">// 输出
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
-    <span style="color:#75715e">// path: 文件输出目录，必须是绝对路径
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// path.resolve()方法返回一个绝对路径
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// __dirname 当前文件的文件夹绝对路径
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;dist&#34;</span>),
-    <span style="color:#75715e">// filename: 输出文件名
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/js/main.js&#34;</span>, <span style="color:#75715e">// 将 js 文件输出到 static/js 目录中
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// 自动将上次打包目录资源清空
-</span><span style="color:#75715e"></span>  },
-  <span style="color:#75715e">// 加载器
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
-      {
-        <span style="color:#75715e">// 用来匹配 .css 结尾的文件
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
-        <span style="color:#75715e">// use 数组里面 Loader 执行顺序是从右到左
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.less$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;less-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.s[ac]ss$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;sass-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.styl$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;stylus-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|jpe?g|gif|webp)$/</span>,
-        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset&#34;</span>,
-        <span style="color:#a6e22e">parser</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">dataUrlCondition</span><span style="color:#f92672">:</span> {
-            <span style="color:#a6e22e">maxSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#75715e">// 小于10kb的图片会被base64处理
-</span><span style="color:#75715e"></span>          }
-        },
-        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
-          <span style="color:#75715e">// 将图片文件输出到 static/imgs 目录中
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// 将图片文件命名 [hash:8][ext][query]
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [hash:8]: hash值取8位
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [ext]: 使用之前的文件扩展名
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [query]: 添加之前的query参数
-</span><span style="color:#75715e"></span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/imgs/[hash:8][ext][query]&#34;</span>,
-        },
-      },
-      {
-        <span style="color:#75715e">//&#34;asset/resource&#34; 相当于file-loader, 将文件转化成 Webpack 能识别的资源，其他不做处理
-</span><span style="color:#75715e"></span>        <span style="color:#75715e">//&#34;asset&#34; 相当于url-loader, 将文件转化成 Webpack 能识别的资源，同时小于某个大小的资源会处理成 data URI 形式
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(ttf|woff2?)$/</span>,
-        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset/resource&#34;</span>,
-        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/media/[hash:8][ext][query]&#34;</span>,
-        },
-      },
-    ],
-  },
-  <span style="color:#a6e22e">plug</span>
-  <span style="color:#75715e">// 插件
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
-    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span>({
-      <span style="color:#75715e">// 指定检查文件的根目录
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;src&#34;</span>),
-    }),
-    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span>({
-      <span style="color:#75715e">// 以 public/index.html 为模板创建文件
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">// 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;public/index.html&#34;</span>),
-    }),
-  ],
-  <span style="color:#75715e">// 开发服务器
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">devServer</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;localhost&#34;</span>, <span style="color:#75715e">// 启动服务器域名
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;3000&#34;</span>, <span style="color:#75715e">// 启动服务器端口号
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">open</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// 是否自动打开浏览器
-</span><span style="color:#75715e"></span>  },
-  <span style="color:#75715e">// 模式
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;development&#34;</span>, <span style="color:#75715e">// 开发模式
-</span><span style="color:#75715e"></span>};
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx webpack
-</code></pre></div><p>输出路径变化</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">├── dist
-    └── static
-         ├── imgs
-         │    └── 7003350e.png
-         └── js
-              └── main.js
-</code></pre></div><h2 id="3生产模式">3.生产模式</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#css-loader：负责将 Css 文件编译成 Webpack 能识别的模块</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#style-loader：会动态创建一个 Style 标签，里面放置 Webpack 中 Css 模块内容</span>
+</span></span><span style="display:flex;"><span>npm i css-loader style-loader -D
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#负责将 Less 文件编译成 Css 文件</span>
+</span></span><span style="display:flex;"><span>npm i less-loader -D
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#sass-loader：负责将 Sass 文件编译成 css 文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#sass：sass-loader 依赖 sass 进行编译</span>
+</span></span><span style="display:flex;"><span>npm i sass-loader sass -D
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#负责将 Styl 文件编译成 Css 文件</span>
+</span></span><span style="display:flex;"><span>npm i stylus-loader -D
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#html资源包</span>
+</span></span><span style="display:flex;"><span>npm i html-webpack-plugin -D
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#下开发服务器插件</span>
+</span></span><span style="display:flex;"><span>npm i webpack-dev-server -D
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// Node.js的核心模块，专门用来处理文件路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 入口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 相对路径和绝对路径都行
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;./src/main.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 输出
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// path: 文件输出目录，必须是绝对路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// path.resolve()方法返回一个绝对路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// __dirname 当前文件的文件夹绝对路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;dist&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// filename: 输出文件名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/js/main.js&#34;</span>, <span style="color:#75715e">// 将 js 文件输出到 static/js 目录中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// 自动将上次打包目录资源清空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 加载器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 用来匹配 .css 结尾的文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// use 数组里面 Loader 执行顺序是从右到左
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.less$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;less-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.s[ac]ss$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;sass-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.styl$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;stylus-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|jpe?g|gif|webp)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">parser</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">dataUrlCondition</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">maxSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#75715e">// 小于10kb的图片会被base64处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          }
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e">// 将图片文件输出到 static/imgs 目录中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// 将图片文件命名 [hash:8][ext][query]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [hash:8]: hash值取8位
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [ext]: 使用之前的文件扩展名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [query]: 添加之前的query参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/imgs/[hash:8][ext][query]&#34;</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//&#34;asset/resource&#34; 相当于file-loader, 将文件转化成 Webpack 能识别的资源，其他不做处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//&#34;asset&#34; 相当于url-loader, 将文件转化成 Webpack 能识别的资源，同时小于某个大小的资源会处理成 data URI 形式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(ttf|woff2?)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset/resource&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/media/[hash:8][ext][query]&#34;</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plug</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 插件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 指定检查文件的根目录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;src&#34;</span>),
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 以 public/index.html 为模板创建文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">// 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;public/index.html&#34;</span>),
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 开发服务器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">devServer</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;localhost&#34;</span>, <span style="color:#75715e">// 启动服务器域名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;3000&#34;</span>, <span style="color:#75715e">// 启动服务器端口号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">open</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// 是否自动打开浏览器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 模式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;development&#34;</span>, <span style="color:#75715e">// 开发模式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npx webpack
+</span></span></code></pre></div><p>输出路径变化</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>├── dist
+</span></span><span style="display:flex;"><span>    └── static
+</span></span><span style="display:flex;"><span>         ├── imgs
+</span></span><span style="display:flex;"><span>         │    └── 7003350e.png
+</span></span><span style="display:flex;"><span>         └── js
+</span></span><span style="display:flex;"><span>              └── main.js
+</span></span></code></pre></div><h2 id="3生产模式">3.生产模式</h2>
 <p>创建文件目录</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">├── webpack-test <span style="color:#f92672">(</span>项目根目录<span style="color:#f92672">)</span>
-    ├── config <span style="color:#f92672">(</span>Webpack配置文件目录<span style="color:#f92672">)</span>
-    │    ├── webpack.dev.js<span style="color:#f92672">(</span>开发模式配置文件<span style="color:#f92672">)</span>
-    │    └── webpack.prod.js<span style="color:#f92672">(</span>生产模式配置文件<span style="color:#f92672">)</span>
-    ├── node_modules <span style="color:#f92672">(</span>下载包存放目录<span style="color:#f92672">)</span>
-    ├── src <span style="color:#f92672">(</span>项目源码目录，除了html其他都在src里面<span style="color:#f92672">)</span>
-    │    └── 略
-    ├── public <span style="color:#f92672">(</span>项目html文件<span style="color:#f92672">)</span>
-    │    └── index.html
-    ├── .eslintrc.js<span style="color:#f92672">(</span>Eslint配置文件<span style="color:#f92672">)</span>
-    ├── babel.config.js<span style="color:#f92672">(</span>Babel配置文件<span style="color:#f92672">)</span>
-    └── package.json <span style="color:#f92672">(</span>包的依赖管理配置文件<span style="color:#f92672">)</span>
-</code></pre></div><h4 id="31-webpackdevjs">3.1 webpack.dev.js</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;eslint-webpack-plugin&#34;</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;html-webpack-plugin&#34;</span>);
-
-<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;./src/main.js&#34;</span>,
-  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>, <span style="color:#75715e">// 开发模式没有输出，不需要指定输出目录
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/js/main.js&#34;</span>, <span style="color:#75715e">// 将 js 文件输出到 static/js 目录中
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// clean: true, // 开发模式没有输出，不需要清空输出结果
-</span><span style="color:#75715e"></span>  },
-  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
-      {
-        <span style="color:#75715e">// 用来匹配 .css 结尾的文件
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
-        <span style="color:#75715e">// use 数组里面 Loader 执行顺序是从右到左
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.less$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;less-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.s[ac]ss$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;sass-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.styl$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;stylus-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|jpe?g|gif|webp)$/</span>,
-        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset&#34;</span>,
-        <span style="color:#a6e22e">parser</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">dataUrlCondition</span><span style="color:#f92672">:</span> {
-            <span style="color:#a6e22e">maxSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>, <span style="color:#75715e">// 小于10kb的图片会被base64处理
-</span><span style="color:#75715e"></span>          },
-        },
-        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
-          <span style="color:#75715e">// 将图片文件输出到 static/imgs 目录中
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// 将图片文件命名 [hash:8][ext][query]
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [hash:8]: hash值取8位
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [ext]: 使用之前的文件扩展名
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [query]: 添加之前的query参数
-</span><span style="color:#75715e"></span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/imgs/[hash:8][ext][query]&#34;</span>,
-        },
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(ttf|woff2?)$/</span>,
-        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset/resource&#34;</span>,
-        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/media/[hash:8][ext][query]&#34;</span>,
-        },
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.js$/</span>,
-        <span style="color:#a6e22e">exclude</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/node_modules/</span>, <span style="color:#75715e">// 排除node_modules代码不编译
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">loader</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;babel-loader&#34;</span>,
-      },
-    ],
-  },
-  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
-    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span>({
-      <span style="color:#75715e">// 指定检查文件的根目录
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../src&#34;</span>),
-    }),
-    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span>({
-      <span style="color:#75715e">// 以 public/index.html 为模板创建文件
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">// 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../public/index.html&#34;</span>),
-    }),
-  ],
-  <span style="color:#75715e">// 其他省略
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">devServer</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;localhost&#34;</span>, <span style="color:#75715e">// 启动服务器域名
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;3000&#34;</span>, <span style="color:#75715e">// 启动服务器端口号
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">open</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// 是否自动打开浏览器
-</span><span style="color:#75715e"></span>  },
-  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;development&#34;</span>,
-};
-</code></pre></div><p>执行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx webpack serve --config ./config/webpack.dev.js
-</code></pre></div><h4 id="32-webpackprodjs">3.2 webpack.prod.js</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;eslint-webpack-plugin&#34;</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;html-webpack-plugin&#34;</span>);
-
-<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;./src/main.js&#34;</span>,
-  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../dist&#34;</span>), <span style="color:#75715e">// 生产模式需要输出
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/js/main.js&#34;</span>, <span style="color:#75715e">// 将 js 文件输出到 static/js 目录中
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-  },
-  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
-      {
-        <span style="color:#75715e">// 用来匹配 .css 结尾的文件
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
-        <span style="color:#75715e">// use 数组里面 Loader 执行顺序是从右到左
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.less$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;less-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.s[ac]ss$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;sass-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.styl$/</span>,
-        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;stylus-loader&#34;</span>],
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|jpe?g|gif|webp)$/</span>,
-        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset&#34;</span>,
-        <span style="color:#a6e22e">parser</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">dataUrlCondition</span><span style="color:#f92672">:</span> {
-            <span style="color:#a6e22e">maxSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>, <span style="color:#75715e">// 小于10kb的图片会被base64处理
-</span><span style="color:#75715e"></span>          },
-        },
-        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
-          <span style="color:#75715e">// 将图片文件输出到 static/imgs 目录中
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// 将图片文件命名 [hash:8][ext][query]
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [hash:8]: hash值取8位
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [ext]: 使用之前的文件扩展名
-</span><span style="color:#75715e"></span>          <span style="color:#75715e">// [query]: 添加之前的query参数
-</span><span style="color:#75715e"></span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/imgs/[hash:8][ext][query]&#34;</span>,
-        },
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(ttf|woff2?)$/</span>,
-        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset/resource&#34;</span>,
-        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/media/[hash:8][ext][query]&#34;</span>,
-        },
-      },
-      {
-        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.js$/</span>,
-        <span style="color:#a6e22e">exclude</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/node_modules/</span>, <span style="color:#75715e">// 排除node_modules代码不编译
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">loader</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;babel-loader&#34;</span>,
-      },
-    ],
-  },
-  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
-    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span>({
-      <span style="color:#75715e">// 指定检查文件的根目录
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../src&#34;</span>),
-    }),
-    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span>({
-      <span style="color:#75715e">// 以 public/index.html 为模板创建文件
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">// 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../public/index.html&#34;</span>),
-    }),
-  ],
-  <span style="color:#75715e">// devServer: {
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">//   host: &#34;localhost&#34;, // 启动服务器域名
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">//   port: &#34;3000&#34;, // 启动服务器端口号
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">//   open: true, // 是否自动打开浏览器
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// },
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;production&#34;</span>,
-};
-</code></pre></div><p>运行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npx webpack --config ./config/webpack.prod.js
-</code></pre></div><h4 id="33-配置运行指令">3.3 配置运行指令</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>├── webpack-test <span style="color:#f92672">(</span>项目根目录<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    ├── config <span style="color:#f92672">(</span>Webpack配置文件目录<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    │    ├── webpack.dev.js<span style="color:#f92672">(</span>开发模式配置文件<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    │    └── webpack.prod.js<span style="color:#f92672">(</span>生产模式配置文件<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    ├── node_modules <span style="color:#f92672">(</span>下载包存放目录<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    ├── src <span style="color:#f92672">(</span>项目源码目录，除了html其他都在src里面<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    │    └── 略
+</span></span><span style="display:flex;"><span>    ├── public <span style="color:#f92672">(</span>项目html文件<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    │    └── index.html
+</span></span><span style="display:flex;"><span>    ├── .eslintrc.js<span style="color:#f92672">(</span>Eslint配置文件<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    ├── babel.config.js<span style="color:#f92672">(</span>Babel配置文件<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    └── package.json <span style="color:#f92672">(</span>包的依赖管理配置文件<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h4 id="31-webpackdevjs">3.1 webpack.dev.js</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;eslint-webpack-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;html-webpack-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;./src/main.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>, <span style="color:#75715e">// 开发模式没有输出，不需要指定输出目录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/js/main.js&#34;</span>, <span style="color:#75715e">// 将 js 文件输出到 static/js 目录中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// clean: true, // 开发模式没有输出，不需要清空输出结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 用来匹配 .css 结尾的文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// use 数组里面 Loader 执行顺序是从右到左
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.less$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;less-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.s[ac]ss$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;sass-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.styl$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;stylus-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|jpe?g|gif|webp)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">parser</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">dataUrlCondition</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">maxSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>, <span style="color:#75715e">// 小于10kb的图片会被base64处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e">// 将图片文件输出到 static/imgs 目录中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// 将图片文件命名 [hash:8][ext][query]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [hash:8]: hash值取8位
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [ext]: 使用之前的文件扩展名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [query]: 添加之前的query参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/imgs/[hash:8][ext][query]&#34;</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(ttf|woff2?)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset/resource&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/media/[hash:8][ext][query]&#34;</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.js$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">exclude</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/node_modules/</span>, <span style="color:#75715e">// 排除node_modules代码不编译
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">loader</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;babel-loader&#34;</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 指定检查文件的根目录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../src&#34;</span>),
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 以 public/index.html 为模板创建文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">// 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../public/index.html&#34;</span>),
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 其他省略
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">devServer</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;localhost&#34;</span>, <span style="color:#75715e">// 启动服务器域名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;3000&#34;</span>, <span style="color:#75715e">// 启动服务器端口号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">open</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// 是否自动打开浏览器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;development&#34;</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npx webpack serve --config ./config/webpack.dev.js
+</span></span></code></pre></div><h4 id="32-webpackprodjs">3.2 webpack.prod.js</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;eslint-webpack-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;html-webpack-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;./src/main.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../dist&#34;</span>), <span style="color:#75715e">// 生产模式需要输出
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/js/main.js&#34;</span>, <span style="color:#75715e">// 将 js 文件输出到 static/js 目录中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 用来匹配 .css 结尾的文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// use 数组里面 Loader 执行顺序是从右到左
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.less$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;less-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.s[ac]ss$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;sass-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.styl$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;style-loader&#34;</span>, <span style="color:#e6db74">&#34;css-loader&#34;</span>, <span style="color:#e6db74">&#34;stylus-loader&#34;</span>],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|jpe?g|gif|webp)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">parser</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">dataUrlCondition</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">maxSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>, <span style="color:#75715e">// 小于10kb的图片会被base64处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          },
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e">// 将图片文件输出到 static/imgs 目录中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// 将图片文件命名 [hash:8][ext][query]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [hash:8]: hash值取8位
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [ext]: 使用之前的文件扩展名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// [query]: 添加之前的query参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/imgs/[hash:8][ext][query]&#34;</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(ttf|woff2?)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;asset/resource&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;static/media/[hash:8][ext][query]&#34;</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.js$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">exclude</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/node_modules/</span>, <span style="color:#75715e">// 排除node_modules代码不编译
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">loader</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;babel-loader&#34;</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ESLintWebpackPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 指定检查文件的根目录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../src&#34;</span>),
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HtmlWebpackPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 以 public/index.html 为模板创建文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">// 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../public/index.html&#34;</span>),
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// devServer: {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//   host: &#34;localhost&#34;, // 启动服务器域名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//   port: &#34;3000&#34;, // 启动服务器端口号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//   open: true, // 是否自动打开浏览器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// },
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;production&#34;</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npx webpack --config ./config/webpack.prod.js
+</span></span></code></pre></div><h4 id="33-配置运行指令">3.3 配置运行指令</h4>
 <p>添加到package.json中scripts</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// package.json
-</span><span style="color:#75715e"></span>{
-  <span style="color:#75715e">// 其他省略
-</span><span style="color:#75715e"></span>  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#f92672">:</span> {
-    <span style="color:#e6db74">&#34;start&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;npm run dev&#34;</span>,
-    <span style="color:#e6db74">&#34;dev&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;npx webpack serve --config ./config/webpack.dev.js&#34;</span>,
-    <span style="color:#e6db74">&#34;build&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;npx webpack --config ./config/webpack.prod.js&#34;</span>
-  }
-}
-</code></pre></div><p><strong>执行</strong><br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// package.json
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 其他省略
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;start&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;npm run dev&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;dev&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;npx webpack serve --config ./config/webpack.dev.js&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;build&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;npx webpack --config ./config/webpack.prod.js&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>执行</strong><br>
 开发模式：npm start 或 npm run dev
 生产模式：npm run build</p>
 <hr>
@@ -545,12 +540,12 @@ npm i webpack-dev-server -D
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_09/">【cosmos-sdk-多节点笔记】加入出块验证者以及备份</a></li>
 		</ul>
 	</div>
 </div>
@@ -572,7 +567,7 @@ npm i webpack-dev-server -D
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">76</span>
+				<span class="widget__counter widget__counter--bubble">77</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -608,7 +603,7 @@ npm i webpack-dev-server -D
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">47</span>
+				<span class="widget__counter widget__counter--bubble">48</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -680,7 +675,7 @@ npm i webpack-dev-server -D
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">24</span>
+				<span class="widget__counter widget__counter--bubble">25</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
