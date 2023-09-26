@@ -178,7 +178,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------正常调用----------&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>            Animal animal <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Animal<span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>            animal<span style="color:#f92672">.</span><span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            animal<span style="color:#f92672">.</span><span style="color:#a6e22e">setAge</span><span style="color:#f92672">(</span><span style="color:#ae81ff">10</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;animal age:&#34;</span> <span style="color:#f92672">+</span> animal<span style="color:#f92672">.</span><span style="color:#a6e22e">getAge</span><span style="color:#f92672">());</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------使用反射----------&#34;</span><span style="color:#f92672">);</span>
@@ -191,7 +191,7 @@
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 根据Constructor实例的newInstance()，获取反射类
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Object animalObj <span style="color:#f92672">=</span> animalConstructor<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">();</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 使用invoke方法调用反射类的函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            setPriceMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>animalObj<span style="color:#f92672">,</span> 15<span style="color:#f92672">);</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            setPriceMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>animalObj<span style="color:#f92672">,</span> <span style="color:#ae81ff">15</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 只调用方法，只需要下面两个步骤
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Method getPriceMethod <span style="color:#f92672">=</span> clz<span style="color:#f92672">.</span><span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getAge&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>            Object age <span style="color:#f92672">=</span> getPriceMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>animalObj<span style="color:#f92672">);</span>
@@ -238,7 +238,7 @@
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 获取反射类，指定构造函数的时候
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Class clz6 <span style="color:#f92672">=</span> Animal<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span>            Constructor constructor6 <span style="color:#f92672">=</span> clz4<span style="color:#f92672">.</span><span style="color:#a6e22e">getConstructor</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>            Animal animal6 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Animal<span style="color:#f92672">)</span> constructor6<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;马&#34;</span><span style="color:#f92672">,</span> 15<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Animal animal6 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Animal<span style="color:#f92672">)</span> constructor6<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;马&#34;</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">15</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----------Class6----------&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>animal6<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">());</span>
 </span></span><span style="display:flex;"><span>
@@ -362,12 +362,12 @@ name
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_13/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:修改存储结构)</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_12/">【cosmos-sdk-笔记】cosmovisor 简单实现(代码:基础)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_11/">【cosmos-sdk-笔记】cosmovisor 简单实现(实践)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_10/">【cosmos-sdk-笔记】cosmovisor简介</a></li>
 		</ul>
 	</div>
 </div>
@@ -389,7 +389,7 @@ name
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">77</span>
+				<span class="widget__counter widget__counter--bubble">79</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
@@ -397,7 +397,7 @@ name
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/cosmos/">cosmos</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">14</span>
+				<span class="widget__counter widget__counter--bubble">16</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
