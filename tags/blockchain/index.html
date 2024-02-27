@@ -125,6 +125,65 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/note/blockchain/fisco/ca/" rel="bookmark">
+			【FISCO笔记】证书生成和验证
+			</a>
+		</h2>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2024-02-25T23:28:49&#43;08:00">2024-02-25</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/fisco/" rel="category">fisco</a>, <a class="meta__link" href="/categories/ca/" rel="category">ca</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		FISCO BCOS网络采用面向CA的准入机制，使用x509协议的证书格式，
+支持任意多级的证书结构，保障信息保密性、认证性、完整性及不可抵赖性。
+根据现有业务场景，FISCO BCOS默认采用三级的证书结构，自上而下分别为链证书、机构证书、节点证书。
+x509协议证书包括了证书版本号、序列号、证书的签名算法、消息摘要算法等生成信息；
+同时包括了证书的颁发者、有效期、使用者、公钥信息、SSL通信需要用到的密码套件等信息。
+节点通过加载证书，在接受数据包时，根据证书规定的密码套件和其消息字段，对数据包中携带的证书进行验证。
+1、角色 FISCO BCOS的证书结构中有４种角色，分别是联盟链委员会、联盟链成员机构、联盟链参与方（节点和SDK）。
+1. 联盟链委员会 联盟链委员会拥有联盟链的根证书ca.crt和私钥ca.key，
+通过使用ca.key对联盟链成员机构签发机构证书，负责完成联盟链成员机构的准入、剔除等操作。
+ca.crt 链证书 ca.key 链私钥 2. 联盟链成员(机构) 联盟链成员机构为经过联盟链委员会许可，加入到联盟链的机构。
+联盟链成员机构拥有机构私钥agency.key和经过根私钥ca.key签发的机构证书agency.crt。
+联盟链成员机构可以通过机构私钥签发节点证书，从而配置本机构的节点和SDK。
+ca.crt 链证书 agency.crt 机构证书 agency.csr 机构证书请求文件 agency.key 机构私钥 3. 联盟链参与方(节点/SDK) 联盟链参与方可以通过运行节点或SDK联盟链交互，
+拥有与其他节点进行通信的节点证书node.crt和私钥node.key。
+联盟链参与方运行节点或SDK时，需要加载根证书ca.crt和相应的节点证书node.crt和私钥node.key；
+与其他成员进行网络通信时，使用预先加载的证书进行身份认证。
+ca.crt 链证书 node.crt 节点证书 node.key 节点私钥 sdk.crt SDK证书 sdk.key SDK私钥 2、证书生成流程 1.联盟链委员会初始化根证书ca.crt 本地生成私钥ca.key； 自签生成根证书ca.crt。 图片备用地址
+2.联盟链成员机构获取机构证书agency.crt 本地生成私钥agency.key； 由本地私钥生成证书请求文件agency.csr； 将证书请求文件agency.csr发送至联盟链委员会； 联盟链委员会使用ca.key对证书请求文件agency.csr进行签发，得到联盟链成员机构证书agency.crt； 联盟链委员会将联盟链成员机构证书agency.crt发送至对应成员。 图片备用地址
+３.节点/SDK获取证书node.crt 本地生成私钥node.key； 由本地私钥生成证书请求文件node.csr； 将证书请求文件node.csr发送至联盟链成员机构； 联盟链成员机构使用agency.key对证书请求文件node.csr进行签发，得到节点/SDK证书node.crt； 联盟链成员机构将节点证书node.crt发送至对应实体。 图片备用地址
+3、证书验证 在程序启动时，会首先加载本地的ca.crt和node.crt； 当节点验证对方的证书时，会首先使用对方node.crt中的公钥验证附带的签名，当验证通过时，可以确认对应节点拥有当前node.crt对应的node.key； 之后节点会使用agency.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/note/blockchain/fisco/account/" rel="bookmark">
+			【FISCO笔记】账户创建和使用
+			</a>
+		</h2>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2024-02-24T23:28:49&#43;08:00">2024-02-24</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/fisco/" rel="category">fisco</a>, <a class="meta__link" href="/categories/account/" rel="category">account</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		<p>FISCO BCOS也是基于公私钥方式管理用户和账户地址。<br>
+为了方便操作，官方直接提供了管理用户的脚本，<br>
+国密生成账户脚本get_gm_account.sh与非国密get_account.sh。</p>
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/note/blockchain/aptos/aptos_01/" rel="bookmark">
 			【aptos-笔记】Account账户管理
 			</a>
@@ -276,49 +335,11 @@ cosmos生态中智能合约是通过cosmos wasm实现的。</p>
 	<div class="content list__excerpt post__content clearfix">
 		<p>这一篇简单的测试一下 cosmoviser 的自动更新功能。</p>
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/note/blockchain/cosmos/cosmos_sdk_10/" rel="bookmark">
-			【cosmos-sdk-笔记】cosmovisor简介
-			</a>
-		</h2>
-		<div class="list__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
-</div>
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-08-07T23:28:49&#43;08:00">2023-08-07</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blockchain/" rel="category">blockchain</a>, <a class="meta__link" href="/categories/cosmos/" rel="category">cosmos</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<p>cosmos-sdk提供 upgrade 模块，可以优雅的升级新的功能</p>
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/note/blockchain/cosmos/cosmos_sdk_09/" rel="bookmark">
-			【cosmos-sdk-多节点笔记】加入出块验证者以及备份
-			</a>
-		</h2>
-		<div class="list__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
-</div>
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-08-06T23:28:49&#43;08:00">2023-08-06</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/blockchain/" rel="category">blockchain</a>, <a class="meta__link" href="/categories/cosmos/" rel="category">cosmos</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<p>根据上一篇文章先启用多节点的私链后，加入验证者以及做备份。</p>
-	</div>
 </article>
 </main>
 
 <div class="pagination">
-	<span class="pagination__item pagination__item--current">1/8</span>
+	<span class="pagination__item pagination__item--current">1/9</span>
 	<a class="pagination__item pagination__item--next btn" href="/tags/blockchain/page/2/">»</a>
 </div>
 
@@ -337,12 +358,12 @@ cosmos生态中智能合约是通过cosmos wasm实现的。</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
-			<li class="widget__item"><a class="widget__link" href="/blockchain/eth/solidity/solidity_17/">【solidity】多签(Multi-signature)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_14/">【cosmos-sdk-笔记】修改各模块的运行参数</a></li>
 		</ul>
 	</div>
 </div>
@@ -350,6 +371,10 @@ cosmos生态中智能合约是通过cosmos wasm实现的。</p>
 	<h4 class="widget__title">Categories</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/account/">account</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">16</span>
@@ -373,6 +398,10 @@ cosmos生态中智能合约是通过cosmos wasm实现的。</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/ca/">ca</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/cosmos/">cosmos</a>&nbsp;
@@ -405,6 +434,10 @@ cosmos生态中智能合约是通过cosmos wasm实现的。</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">48</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/fisco/">fisco</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
@@ -531,8 +564,8 @@ cosmos生态中智能合约是通过cosmos wasm实现的。</p>
 
 		
 		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="简书" rel="noopener noreferrer" href="https://www.jianshu.com/u/93eee2dde88b" target="_blank">
-				<span>简书</span>
+			<a class="widget-social__link widget__link btn" title="知乎" rel="noopener noreferrer" href="https://www.zhihu.com/people/limingxie" target="_blank">
+				<span>知乎</span>
 			</a>
 		</div>
 		
@@ -544,7 +577,7 @@ cosmos生态中智能合约是通过cosmos wasm实现的。</p>
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			&copy; 2024 李明燮(li_mingxie)  email:li_mingxie@163.com.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>
