@@ -13,26 +13,9 @@
       <pubDate>Sun, 25 Feb 2024 23:28:49 +0800</pubDate>
       
       <guid>https://limingxie.github.io/note/blockchain/fisco/ca/</guid>
-      <description>FISCO BCOS网络采用面向CA的准入机制，使用x509协议的证书格式，
-支持任意多级的证书结构，保障信息保密性、认证性、完整性及不可抵赖性。
-根据现有业务场景，FISCO BCOS默认采用三级的证书结构，自上而下分别为链证书、机构证书、节点证书。
-x509协议证书包括了证书版本号、序列号、证书的签名算法、消息摘要算法等生成信息；
-同时包括了证书的颁发者、有效期、使用者、公钥信息、SSL通信需要用到的密码套件等信息。
-节点通过加载证书，在接受数据包时，根据证书规定的密码套件和其消息字段，对数据包中携带的证书进行验证。
-1、角色 FISCO BCOS的证书结构中有４种角色，分别是联盟链委员会、联盟链成员机构、联盟链参与方（节点和SDK）。
-1. 联盟链委员会 联盟链委员会拥有联盟链的根证书ca.crt和私钥ca.key，
-通过使用ca.key对联盟链成员机构签发机构证书，负责完成联盟链成员机构的准入、剔除等操作。
-ca.crt 链证书 ca.key 链私钥 2. 联盟链成员(机构) 联盟链成员机构为经过联盟链委员会许可，加入到联盟链的机构。
-联盟链成员机构拥有机构私钥agency.key和经过根私钥ca.key签发的机构证书agency.crt。
-联盟链成员机构可以通过机构私钥签发节点证书，从而配置本机构的节点和SDK。
-ca.crt 链证书 agency.crt 机构证书 agency.csr 机构证书请求文件 agency.key 机构私钥 3. 联盟链参与方(节点/SDK) 联盟链参与方可以通过运行节点或SDK联盟链交互，
-拥有与其他节点进行通信的节点证书node.crt和私钥node.key。
-联盟链参与方运行节点或SDK时，需要加载根证书ca.crt和相应的节点证书node.crt和私钥node.key；
-与其他成员进行网络通信时，使用预先加载的证书进行身份认证。
-ca.crt 链证书 node.crt 节点证书 node.key 节点私钥 sdk.crt SDK证书 sdk.key SDK私钥 2、证书生成流程 1.联盟链委员会初始化根证书ca.crt 本地生成私钥ca.key； 自签生成根证书ca.crt。 图片备用地址
-2.联盟链成员机构获取机构证书agency.crt 本地生成私钥agency.key； 由本地私钥生成证书请求文件agency.csr； 将证书请求文件agency.csr发送至联盟链委员会； 联盟链委员会使用ca.key对证书请求文件agency.csr进行签发，得到联盟链成员机构证书agency.crt； 联盟链委员会将联盟链成员机构证书agency.crt发送至对应成员。 图片备用地址
-３.节点/SDK获取证书node.crt 本地生成私钥node.key； 由本地私钥生成证书请求文件node.csr； 将证书请求文件node.csr发送至联盟链成员机构； 联盟链成员机构使用agency.key对证书请求文件node.csr进行签发，得到节点/SDK证书node.crt； 联盟链成员机构将节点证书node.crt发送至对应实体。 图片备用地址
-3、证书验证 在程序启动时，会首先加载本地的ca.crt和node.crt； 当节点验证对方的证书时，会首先使用对方node.crt中的公钥验证附带的签名，当验证通过时，可以确认对应节点拥有当前node.crt对应的node.key； 之后节点会使用agency.</description>
+      <description>&lt;p&gt;FISCO BCOS网络采用面向CA的准入机制，使用&lt;strong&gt;x509协议的证书格式&lt;/strong&gt;，&lt;br&gt;
+支持任意多级的证书结构，保障信息保密性、认证性、完整性及不可抵赖性。&lt;br&gt;
+根据现有业务场景，FISCO BCOS默认采用三级的证书结构，自上而下分别为链证书、机构证书、节点证书。&lt;/p&gt;</description>
     </item>
     
   </channel>
