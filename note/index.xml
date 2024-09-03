@@ -6,7 +6,18 @@
     <description>Recent content in Notes on 宅男 &#43; 屌丝 &#43; 程序员</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 25 Feb 2024 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/note/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Sep 2024 23:28:49 +0800</lastBuildDate><atom:link href="https://limingxie.github.io/note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Oauth2.0笔记】简单整理概念</title>
+      <link>https://limingxie.github.io/note/oauth/oauth2_0/</link>
+      <pubDate>Sun, 01 Sep 2024 23:28:49 +0800</pubDate>
+      
+      <guid>https://limingxie.github.io/note/oauth/oauth2_0/</guid>
+      <description>&lt;p&gt;这几天因工作需求查看了Oauth2.0相关的文档，其实之前也是看了好几次了。&lt;br&gt;
+但是过几天就会忘记其原理，岁月不饶人，这记忆&amp;hellip;ㅠㅠ&lt;br&gt;
+还是自己做个笔记后续方便查看。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【FISCO笔记】证书生成和验证</title>
       <link>https://limingxie.github.io/note/blockchain/fisco/ca/</link>
@@ -1386,8 +1397,8 @@ PeriodicAllowance&lt;br&gt;
       
       <guid>https://limingxie.github.io/note/docker/docker_02/</guid>
       <description>&lt;h2 id=&#34;1volumemount&#34;&gt;1.volume，mount&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -it -v /test:/soft centos /bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -it -v /test:/soft centos /bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>

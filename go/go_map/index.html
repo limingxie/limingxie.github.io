@@ -11,16 +11,21 @@
 <meta property="og:description" content="go的hashtable是用map实现。
 今天简单的整理了map的结构。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/go/go_map/" /><meta property="article:section" content="go" />
+<meta property="og:url" content="https://limingxie.github.io/go/go_map/" />
 <meta property="article:published_time" content="2022-03-19T07:28:49+08:00" />
 <meta property="article:modified_time" content="2022-03-19T07:28:49+08:00" />
 
 		<meta itemprop="name" content="【go笔记】map结构的简介">
 <meta itemprop="description" content="go的hashtable是用map实现。
-今天简单的整理了map的结构。"><meta itemprop="datePublished" content="2022-03-19T07:28:49+08:00" />
+今天简单的整理了map的结构。">
+<meta itemprop="datePublished" content="2022-03-19T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-03-19T07:28:49+08:00" />
 <meta itemprop="wordCount" content="497">
+
+
+
 <meta itemprop="keywords" content="go,golang,slice,make," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -158,73 +163,73 @@
 <h4 id="hmap">hmap</h4>
 <p>在源码中, map的结构体是hmap, 它是hashmap的“缩写”。<br>
 先看看看源码是怎么解释的。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A header for a Go map.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hmap</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// Make sure this stays in sync with the compiler&#39;s definition.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">count</span>     <span style="color:#66d9ef">int</span> <span style="color:#75715e">// # live cells == size of map.  Must be first (used by len() builtin)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">flags</span>     <span style="color:#66d9ef">uint8</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">B</span>         <span style="color:#66d9ef">uint8</span>  <span style="color:#75715e">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">noverflow</span> <span style="color:#66d9ef">uint16</span> <span style="color:#75715e">// approximate number of overflow buckets; see incrnoverflow for details
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">hash0</span>     <span style="color:#66d9ef">uint32</span> <span style="color:#75715e">// hash seed 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">buckets</span>    <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// array of 2^B Buckets. may be nil if count==0.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">oldbuckets</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// previous bucket array of half the size, non-nil only when growing
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">nevacuate</span>  <span style="color:#66d9ef">uintptr</span>        <span style="color:#75715e">// progress counter for evacuation (buckets less than this have been evacuated)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">extra</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">mapextra</span> <span style="color:#75715e">// optional fields
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>下面是每个字段的内容和值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// A header for a Go map.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hmap</span> <span style="color:#66d9ef">struct</span> {
+ <span style="color:#75715e">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// Make sure this stays in sync with the compiler&#39;s definition.
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">count</span>     <span style="color:#66d9ef">int</span> <span style="color:#75715e">// # live cells == size of map.  Must be first (used by len() builtin)
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">flags</span>     <span style="color:#66d9ef">uint8</span>
+ <span style="color:#a6e22e">B</span>         <span style="color:#66d9ef">uint8</span>  <span style="color:#75715e">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">noverflow</span> <span style="color:#66d9ef">uint16</span> <span style="color:#75715e">// approximate number of overflow buckets; see incrnoverflow for details
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">hash0</span>     <span style="color:#66d9ef">uint32</span> <span style="color:#75715e">// hash seed 
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">buckets</span>    <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// array of 2^B Buckets. may be nil if count==0.
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">oldbuckets</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// previous bucket array of half the size, non-nil only when growing
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">nevacuate</span>  <span style="color:#66d9ef">uintptr</span>        <span style="color:#75715e">// progress counter for evacuation (buckets less than this have been evacuated)
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">extra</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">mapextra</span> <span style="color:#75715e">// optional fields
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>下面是每个字段的内容和值。</p>
 <p><a href="https://limingxie.github.io/images/go/map/hamp.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/map/hmap.png?x-oss-process=image/resize,w_800,m_lfit" alt="map_struct">)</p>
 <h4 id="bmap">bmap</h4>
 <p>其中可以看出保存map数据的是在【buckets unsafe.Pointer】<br>
 源码中的buckets pointer 是指向 bmap。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// A bucket for a Go map.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">bmap</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// tophash generally contains the top byte of the hash value
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// for each key in this bucket. If tophash[0] &lt; minTopHash,
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// tophash[0] is a bucket evacuation state instead.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">tophash</span> [<span style="color:#a6e22e">bucketCnt</span>]<span style="color:#66d9ef">uint8</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Followed by bucketCnt keys and then bucketCnt elems.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// NOTE: packing all the keys together and then all the elems together makes the
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// code a bit more complicated than alternating key/elem/key/elem/... but it allows
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// us to eliminate padding which would be needed for, e.g., map[int64]int8.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// Followed by an overflow pointer.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>这里只有一个tophash字段，但是实际运行中bmap的结构会多几个字段。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// A bucket for a Go map.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">bmap</span> <span style="color:#66d9ef">struct</span> {
+ <span style="color:#75715e">// tophash generally contains the top byte of the hash value
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// for each key in this bucket. If tophash[0] &lt; minTopHash,
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// tophash[0] is a bucket evacuation state instead.
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">tophash</span> [<span style="color:#a6e22e">bucketCnt</span>]<span style="color:#66d9ef">uint8</span>
+ <span style="color:#75715e">// Followed by bucketCnt keys and then bucketCnt elems.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// NOTE: packing all the keys together and then all the elems together makes the
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// code a bit more complicated than alternating key/elem/key/elem/... but it allows
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// us to eliminate padding which would be needed for, e.g., map[int64]int8.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// Followed by an overflow pointer.
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>这里只有一个tophash字段，但是实际运行中bmap的结构会多几个字段。<br>
 看看这些源码的内容。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// https://github.com/golang/go/blob/go1.13.8/src/cmd/compile/internal/gc/reflect.go
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">bmap</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Type</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Type</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 略...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">field</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Field</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;topbits&#34;</span>, <span style="color:#a6e22e">arr</span>))
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 略...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">keys</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;keys&#34;</span>, <span style="color:#a6e22e">arr</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">keys</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 略...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">elems</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;elems&#34;</span>, <span style="color:#a6e22e">arr</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">elems</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 略...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> int(<span style="color:#a6e22e">elemtype</span>.<span style="color:#a6e22e">Align</span>) &gt; <span style="color:#a6e22e">Widthptr</span> <span style="color:#f92672">||</span> int(<span style="color:#a6e22e">keytype</span>.<span style="color:#a6e22e">Align</span>) &gt; <span style="color:#a6e22e">Widthptr</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;pad&#34;</span>, <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Types</span>[<span style="color:#a6e22e">TUINTPTR</span>]))
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 略...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">overflow</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;overflow&#34;</span>, <span style="color:#a6e22e">otyp</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">overflow</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 略...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>从这里我们可以推断出，在执行的过程中bmap的结构是如下的。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">bmap</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">topbits</span>  [<span style="color:#ae81ff">8</span>]<span style="color:#66d9ef">uint8</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">keys</span>     [<span style="color:#ae81ff">8</span>]<span style="color:#a6e22e">keytype</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">values</span>   [<span style="color:#ae81ff">8</span>]<span style="color:#a6e22e">valuetype</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pad</span>      <span style="color:#66d9ef">uintptr</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">overflow</span> <span style="color:#66d9ef">uintptr</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>这是每个字段含有的内容和值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// https://github.com/golang/go/blob/go1.13.8/src/cmd/compile/internal/gc/reflect.go
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">bmap</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Type</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Type</span> {
+  <span style="color:#75715e">// 略...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">field</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Field</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
+    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;topbits&#34;</span>, <span style="color:#a6e22e">arr</span>))
+  <span style="color:#75715e">// 略...
+</span><span style="color:#75715e"></span>  
+    <span style="color:#a6e22e">keys</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;keys&#34;</span>, <span style="color:#a6e22e">arr</span>)
+    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">keys</span>)
+  <span style="color:#75715e">// 略...
+</span><span style="color:#75715e"></span>  
+    <span style="color:#a6e22e">elems</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;elems&#34;</span>, <span style="color:#a6e22e">arr</span>)
+    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">elems</span>)
+  <span style="color:#75715e">// 略...
+</span><span style="color:#75715e"></span>  
+    <span style="color:#66d9ef">if</span> int(<span style="color:#a6e22e">elemtype</span>.<span style="color:#a6e22e">Align</span>) &gt; <span style="color:#a6e22e">Widthptr</span> <span style="color:#f92672">||</span> int(<span style="color:#a6e22e">keytype</span>.<span style="color:#a6e22e">Align</span>) &gt; <span style="color:#a6e22e">Widthptr</span> {
+        <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;pad&#34;</span>, <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">Types</span>[<span style="color:#a6e22e">TUINTPTR</span>]))
+    }
+  <span style="color:#75715e">// 略...
+</span><span style="color:#75715e"></span>  
+    <span style="color:#a6e22e">overflow</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makefield</span>(<span style="color:#e6db74">&#34;overflow&#34;</span>, <span style="color:#a6e22e">otyp</span>)
+    <span style="color:#a6e22e">field</span> = append(<span style="color:#a6e22e">field</span>, <span style="color:#a6e22e">overflow</span>)
+  <span style="color:#75715e">// 略...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>从这里我们可以推断出，在执行的过程中bmap的结构是如下的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">bmap</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">topbits</span>  [<span style="color:#ae81ff">8</span>]<span style="color:#66d9ef">uint8</span>
+    <span style="color:#a6e22e">keys</span>     [<span style="color:#ae81ff">8</span>]<span style="color:#a6e22e">keytype</span>
+    <span style="color:#a6e22e">values</span>   [<span style="color:#ae81ff">8</span>]<span style="color:#a6e22e">valuetype</span>
+    <span style="color:#a6e22e">pad</span>      <span style="color:#66d9ef">uintptr</span>
+    <span style="color:#a6e22e">overflow</span> <span style="color:#66d9ef">uintptr</span>
+}
+</code></pre></div><p>这是每个字段含有的内容和值。</p>
 <p><a href="https://limingxie.github.io/images/go/map/bamp.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/map/bmap.png?x-oss-process=image/resize,w_800,m_lfit" alt="map_struct">)</p>
 <p>这里需要解释一下。每个bucket(bmap)会存8调数据。<br>
@@ -233,22 +238,22 @@
 <h4 id="mapextra">mapextra</h4>
 <p>hamap里除了buckets(bmap)以外还有个extra *mapextra字段，<br>
 从字段名就能看出是是用于扩展的。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// mapextra holds fields that are not present on all maps.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">mapextra</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// If both key and elem do not contain pointers and are inline, then we mark bucket
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// type as containing no pointers. This avoids scanning such maps.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// However, bmap.overflow is a pointer. In order to keep overflow buckets
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// alive, we store pointers to all overflow buckets in hmap.extra.overflow and hmap.extra.oldoverflow.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// overflow and oldoverflow are only used if key and elem do not contain pointers.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// overflow contains overflow buckets for hmap.buckets.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// oldoverflow contains overflow buckets for hmap.oldbuckets.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// The indirection allows to store a pointer to the slice in hiter.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">overflow</span>    <span style="color:#f92672">*</span>[]<span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">oldoverflow</span> <span style="color:#f92672">*</span>[]<span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// nextOverflow holds a pointer to a free overflow bucket.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">nextOverflow</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="2map的key的定位过程">2.map的key的定位过程</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// mapextra holds fields that are not present on all maps.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">mapextra</span> <span style="color:#66d9ef">struct</span> {
+ <span style="color:#75715e">// If both key and elem do not contain pointers and are inline, then we mark bucket
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// type as containing no pointers. This avoids scanning such maps.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// However, bmap.overflow is a pointer. In order to keep overflow buckets
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// alive, we store pointers to all overflow buckets in hmap.extra.overflow and hmap.extra.oldoverflow.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// overflow and oldoverflow are only used if key and elem do not contain pointers.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// overflow contains overflow buckets for hmap.buckets.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// oldoverflow contains overflow buckets for hmap.oldbuckets.
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// The indirection allows to store a pointer to the slice in hiter.
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">overflow</span>    <span style="color:#f92672">*</span>[]<span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
+ <span style="color:#a6e22e">oldoverflow</span> <span style="color:#f92672">*</span>[]<span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
+ <span style="color:#75715e">// nextOverflow holds a pointer to a free overflow bucket.
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">nextOverflow</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">bmap</span>
+}
+</code></pre></div><h3 id="2map的key的定位过程">2.map的key的定位过程</h3>
 <p>下面继续看看Map是如何在这样的结构中保存数据和查询的。</p>
 <p><a href="https://limingxie.github.io/images/go/map/map.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/map/map.png?x-oss-process=image/resize,w_1000,m_lfit" alt="map_struct">)</p>
@@ -270,6 +275,8 @@
 <p><code>email: li_mingxie@163.com</code></p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
 		</div>
 		<footer class="post__footer">
 			
@@ -336,12 +343,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -472,6 +479,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

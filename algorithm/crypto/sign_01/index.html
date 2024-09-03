@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【算法笔记】sign_数字签名的简实现" />
 <meta property="og:description" content="这篇文章简单的整理了数字签名的简实现。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/algorithm/crypto/sign_01/" /><meta property="article:section" content="algorithm" />
+<meta property="og:url" content="https://limingxie.github.io/algorithm/crypto/sign_01/" />
 <meta property="article:published_time" content="2022-11-02T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-11-02T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【算法笔记】sign_数字签名的简实现">
-<meta itemprop="description" content="这篇文章简单的整理了数字签名的简实现。"><meta itemprop="datePublished" content="2022-11-02T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了数字签名的简实现。">
+<meta itemprop="datePublished" content="2022-11-02T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-02T23:28:49+08:00" />
 <meta itemprop="wordCount" content="177">
+
+
+
 <meta itemprop="keywords" content="密码学,sign," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -168,84 +173,84 @@
 <h2 id="3简单实现">3.简单实现</h2>
 <p>实际用的时候，使用bouncycastle库做签名验证。<br>
 下面的代码只是一个简单的模拟。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> org.example<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.junit.Test<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.security.KeyFactory<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.security.PrivateKey<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.security.PublicKey<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.security.spec.X509EncodedKeySpec<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Base64<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.security.spec.PKCS8EncodedKeySpec<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @author : 李明燮
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @since : 2022/11/2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * create at : 2022/11/1 11:09 PM
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SignTest</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//模拟数字签名过程
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//模拟发送方
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">makeSigMsg</span><span style="color:#f92672">(</span>String strPrivateKey<span style="color:#f92672">,</span> String data<span style="color:#f92672">){</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//私钥说明书
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        PKCS8EncodedKeySpec pkcs8EncodedKeySpec <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PKCS8EncodedKeySpec<span style="color:#f92672">(</span>Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">getDecoder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span>strPrivateKey<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            KeyFactory keyFactory <span style="color:#f92672">=</span> KeyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;RSA&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>            PrivateKey privateKey <span style="color:#f92672">=</span> keyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">generatePrivate</span><span style="color:#f92672">(</span>pkcs8EncodedKeySpec<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//对data进行hash算法后，执行私钥加密
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            data <span style="color:#f92672">=</span> HashUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">sha</span><span style="color:#f92672">(</span>data<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span>            String encData <span style="color:#f92672">=</span> RsaUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">privKeyEncrytData</span><span style="color:#f92672">(</span>data<span style="color:#f92672">,</span> privateKey<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> encData<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
-</span></span><span style="display:flex;"><span>            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//模拟接收方
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">verifSigMsg</span><span style="color:#f92672">(</span>String strPubKey<span style="color:#f92672">,</span> String data<span style="color:#f92672">,</span> String encMsg<span style="color:#f92672">){</span>
-</span></span><span style="display:flex;"><span>        X509EncodedKeySpec x509EncodedKeySpec <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> X509EncodedKeySpec<span style="color:#f92672">(</span>Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">getDecoder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span>strPubKey<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            KeyFactory keyFactory <span style="color:#f92672">=</span> KeyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;RSA&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>            PublicKey publicKey <span style="color:#f92672">=</span> keyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">generatePublic</span><span style="color:#f92672">(</span>x509EncodedKeySpec<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            String decData <span style="color:#f92672">=</span> RsaUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">pubKeyDecrytData</span><span style="color:#f92672">(</span>encMsg<span style="color:#f92672">,</span>publicKey<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>decData<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>HashUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">sha</span><span style="color:#f92672">(</span>data<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()))){</span>
-</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;数字签名验证通过&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;数字签名验证失败&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
-</span></span><span style="display:flex;"><span>            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">(){</span>
-</span></span><span style="display:flex;"><span>        String strPubKey <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKgi54xoLp9XLdxKrdTK18kkFThuX0PTeMwu+BpOfY8dUUj+/iF4eaANACvlw1NruUBJad66DjnzHnyMZ6hfZJ0CAwEAAQ==&#34;</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>        String strPriKey <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAqCLnjGgun1ct3Eqt1MrXySQVOG5fQ9N4zC74Gk59jx1RSP7+IXh5oA0AK+XDU2u5QElp3roOOfMefIxnqF9knQIDAQABAkA7sxkQS7WyMhxAieurENMJwlwei2IcDSxpI4xImvIOLD6RW05NyOdQViNJUCSCIw7hUjL4MjfiXUid8iP9dOlpAiEA/G8kpjGmSuaczv4sRy4RUp7b/hYKIo7PBs94QXvDVPMCIQCqguwPLyzX0pI790ZCaHc8LvVIpDdB7yj8/tT6/NUELwIgHyc4Rqpp82RyhbkojcBJswCX9cuShKFLO3PvS2WSvbECICJbMN86XSm7ZvWoNELrM6MvvwJ8/BlP7A1V92n/CZjHAiEAgVVKXN98r/n/Rto9Z1RiH2Tdb37F/M65H0gBUXWmbpE=&#34;</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        String data <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;做签名测试了~~&#34;</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        String encMsg <span style="color:#f92672">=</span> makeSigMsg<span style="color:#f92672">(</span>strPriKey<span style="color:#f92672">,</span> data<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>encMsg<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> verifSigMsg<span style="color:#f92672">(</span>strPubKey<span style="color:#f92672">,</span>data<span style="color:#f92672">,</span>encMsg<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>flag<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> org.example<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> org.junit.Test<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.security.KeyFactory<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.security.PrivateKey<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.security.PublicKey<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.security.spec.X509EncodedKeySpec<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Base64<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.security.spec.PKCS8EncodedKeySpec<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @author : 李明燮
+</span><span style="color:#75715e"> * @since : 2022/11/2
+</span><span style="color:#75715e"> * create at : 2022/11/1 11:09 PM
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SignTest</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#75715e">//模拟数字签名过程
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//模拟发送方
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">makeSigMsg</span><span style="color:#f92672">(</span>String strPrivateKey<span style="color:#f92672">,</span> String data<span style="color:#f92672">){</span>
+        <span style="color:#75715e">//私钥说明书
+</span><span style="color:#75715e"></span>        PKCS8EncodedKeySpec pkcs8EncodedKeySpec <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PKCS8EncodedKeySpec<span style="color:#f92672">(</span>Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">getDecoder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span>strPrivateKey<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()));</span>
+
+        <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
+            KeyFactory keyFactory <span style="color:#f92672">=</span> KeyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;RSA&#34;</span><span style="color:#f92672">);</span>
+            PrivateKey privateKey <span style="color:#f92672">=</span> keyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">generatePrivate</span><span style="color:#f92672">(</span>pkcs8EncodedKeySpec<span style="color:#f92672">);</span>
+
+            <span style="color:#75715e">//对data进行hash算法后，执行私钥加密
+</span><span style="color:#75715e"></span>            data <span style="color:#f92672">=</span> HashUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">sha</span><span style="color:#f92672">(</span>data<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
+            String encData <span style="color:#f92672">=</span> RsaUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">privKeyEncrytData</span><span style="color:#f92672">(</span>data<span style="color:#f92672">,</span> privateKey<span style="color:#f92672">);</span>
+
+            <span style="color:#66d9ef">return</span> encData<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">//模拟接收方
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">verifSigMsg</span><span style="color:#f92672">(</span>String strPubKey<span style="color:#f92672">,</span> String data<span style="color:#f92672">,</span> String encMsg<span style="color:#f92672">){</span>
+        X509EncodedKeySpec x509EncodedKeySpec <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> X509EncodedKeySpec<span style="color:#f92672">(</span>Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">getDecoder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">decode</span><span style="color:#f92672">(</span>strPubKey<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()));</span>
+
+        <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
+            KeyFactory keyFactory <span style="color:#f92672">=</span> KeyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;RSA&#34;</span><span style="color:#f92672">);</span>
+            PublicKey publicKey <span style="color:#f92672">=</span> keyFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">generatePublic</span><span style="color:#f92672">(</span>x509EncodedKeySpec<span style="color:#f92672">);</span>
+
+            String decData <span style="color:#f92672">=</span> RsaUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">pubKeyDecrytData</span><span style="color:#f92672">(</span>encMsg<span style="color:#f92672">,</span>publicKey<span style="color:#f92672">);</span>
+
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>decData<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>HashUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">sha</span><span style="color:#f92672">(</span>data<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()))){</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;数字签名验证通过&#34;</span><span style="color:#f92672">);</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;数字签名验证失败&#34;</span><span style="color:#f92672">);</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Test</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">(){</span>
+        String strPubKey <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKgi54xoLp9XLdxKrdTK18kkFThuX0PTeMwu+BpOfY8dUUj+/iF4eaANACvlw1NruUBJad66DjnzHnyMZ6hfZJ0CAwEAAQ==&#34;</span><span style="color:#f92672">;</span>
+        String strPriKey <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAqCLnjGgun1ct3Eqt1MrXySQVOG5fQ9N4zC74Gk59jx1RSP7+IXh5oA0AK+XDU2u5QElp3roOOfMefIxnqF9knQIDAQABAkA7sxkQS7WyMhxAieurENMJwlwei2IcDSxpI4xImvIOLD6RW05NyOdQViNJUCSCIw7hUjL4MjfiXUid8iP9dOlpAiEA/G8kpjGmSuaczv4sRy4RUp7b/hYKIo7PBs94QXvDVPMCIQCqguwPLyzX0pI790ZCaHc8LvVIpDdB7yj8/tT6/NUELwIgHyc4Rqpp82RyhbkojcBJswCX9cuShKFLO3PvS2WSvbECICJbMN86XSm7ZvWoNELrM6MvvwJ8/BlP7A1V92n/CZjHAiEAgVVKXN98r/n/Rto9Z1RiH2Tdb37F/M65H0gBUXWmbpE=&#34;</span><span style="color:#f92672">;</span>
+
+        String data <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;做签名测试了~~&#34;</span><span style="color:#f92672">;</span>
+
+        String encMsg <span style="color:#f92672">=</span> makeSigMsg<span style="color:#f92672">(</span>strPriKey<span style="color:#f92672">,</span> data<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>encMsg<span style="color:#f92672">);</span>
+
+        <span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> verifSigMsg<span style="color:#f92672">(</span>strPubKey<span style="color:#f92672">,</span>data<span style="color:#f92672">,</span>encMsg<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>flag<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -308,12 +313,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -444,6 +449,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

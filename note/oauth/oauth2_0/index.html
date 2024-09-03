@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>【Oauth2.0笔记】简单整理概念 - 宅男 &#43; 屌丝 &#43; 程序员</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="【Oauth2.0笔记】简单整理概念" />
+<meta property="og:description" content="这几天因工作需求查看了Oauth2.0相关的文档，其实之前也是看了好几次了。
+但是过几天就会忘记其原理，岁月不饶人，这记忆&hellip;ㅠㅠ
+还是自己做个笔记后续方便查看。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limingxie.github.io/note/oauth/oauth2_0/" />
+<meta property="article:published_time" content="2024-09-01T23:28:49+08:00" />
+<meta property="article:modified_time" content="2024-09-01T23:28:49+08:00" />
+
+		<meta itemprop="name" content="【Oauth2.0笔记】简单整理概念">
+<meta itemprop="description" content="这几天因工作需求查看了Oauth2.0相关的文档，其实之前也是看了好几次了。
+但是过几天就会忘记其原理，岁月不饶人，这记忆&hellip;ㅠㅠ
+还是自己做个笔记后续方便查看。">
+<meta itemprop="datePublished" content="2024-09-01T23:28:49+08:00" />
+<meta itemprop="dateModified" content="2024-09-01T23:28:49+08:00" />
+<meta itemprop="wordCount" content="368">
+
+
+
+<meta itemprop="keywords" content="Oauth2.0," />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="李明燮(li_mingxie)_Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/images/limingxie2.jpeg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">李明燮(li_mingxie)_Blog</div>
+					<div class="logo__tagline">宅男 &#43; 屌丝 &#43; 程序员</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/limingxie/">
+				
+				<span class="menu__text">随笔</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/go/">
+				
+				<span class="menu__text">Golang</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/java/">
+				
+				<span class="menu__text">Java</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/js/">
+				
+				<span class="menu__text">js相关</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/database/">
+				
+				<span class="menu__text">database</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/algorithm/">
+				
+				<span class="menu__text">算法</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/etc/">
+				
+				<span class="menu__text">其它</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/note/">
+				
+				<span class="menu__text">笔记</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">【Oauth2.0笔记】简单整理概念</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">李明燮(li_mingxie)</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2024-09-01T23:28:49&#43;08:00">2024-09-01</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/oauth2.0/" rel="category">Oauth2.0</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-oauth20的出现">1. Oauth2.0的出现</a></li>
+    <li><a href="#2-oauth20-授权流程">2. Oauth2.0 授权流程</a></li>
+    <li><a href="#3-access-token">3. Access Token</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#4refresh-token">4.Refresh Token</a></li>
+    <li><a href="#5authorization-code-授权原理和实现方法">5.Authorization Code 授权原理和实现方法</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#6模拟获取过程">6.模拟获取过程</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#7最后">7.最后</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>这几天因工作需求查看了Oauth2.0相关的文档，其实之前也是看了好几次了。<br>
+但是过几天就会忘记其原理，岁月不饶人，这记忆&hellip;ㅠㅠ<br>
+还是自己做个笔记后续方便查看。</p>
+<h2 id="1-oauth20的出现">1. Oauth2.0的出现</h2>
+<p>网上资料介绍有很多版本，我最喜欢这种解释。</p>
+<p>有A和B两家互联网企业，现在有个需求，A公司需要访问B公司的用户信息，比如头像，照片之类的。<br>
+这时候技术上如何实现呢？</p>
+<p>方案一：B公司提供接口</p>
+<pre><code>GET /photos?account=
+</code></pre><p>显然这种方法是无法接受的，因为这样的话，B的用户就没有任何隐私了。</p>
+<p>方案二：</p>
+<pre><code>GET /photos?account=&amp;pwd=
+</code></pre><p>貌似还可以，但是凭什么用户把自己B公司的密码存放在A公司呢？<br>
+即使存放在A公司，但是调用B公司接口的时候A公司是很容易获取到用户密码的。<br>
+为了解决这个问题，出现了Auth2.0。</p>
+<p><a href="https://limingxie.github.io/images/struct/oauth/oauth2_0.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/struct/oauth/oauth2_0.png" alt="oauth2_0_01"></p>
+<p>这里我们先看看4个角色：</p>
+<ul>
+<li>资源所有者：用户就是自己的资源所有者。</li>
+<li>客户端：A公司的系统是客户端。</li>
+<li>资源服务器：B公司就是资源服务器(存放头像的服务器)。</li>
+<li>授权服务器：B公司就是授权服务器(确认用户身份，并给A服务器授权的服务器)。</li>
+</ul>
+<p>以下是原版的解释，可以做参考。</p>
+<pre><code>* Resource Owner: The resource owner is the user who authorizes an application to access their account.   
+  The application’s access to the user’s account is limited to the scope of the authorization granted (e.g. read or write access)
+* Client: The client is the application that wants to access the user’s account.   
+  Before it may do so, it must be authorized by the user, and the authorization must be validated by the API.
+* Resource Server: The resource server hosts the protected user accounts.
+* Authorization Server: The authorization server verifies the identity of the user then issues access tokens to the application.
+</code></pre><h2 id="2-oauth20-授权流程">2. Oauth2.0 授权流程</h2>
+<p>模拟整个交互过程。</p>
+<p>用户访问A网站，A需要访问B的用户信息。这时A会打开一个页面。<br>
+这个页面就是B部署在鉴权服务器上面的一个鉴权页面，比如A想获取(假设B是腾讯)QQ头像和昵称。</p>
+<p><a href="https://limingxie.github.io/images/struct/oauth/oauth2_0_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/struct/oauth/oauth2_0_02.png" alt="oauth2_0_01"></p>
+<p>这个界面是B提供的，所以所有的信息交互是用户和B在进行，跟A是没关系。<br>
+B的鉴权服务器确认了用户的身份以后，B鉴权服务器会给A发送一个令牌(access token，全局唯一的随机字符串)。<br>
+后续A请求B的时候，都会带上这个令牌，B鉴权服务器会验证这个令牌是否合法。(也可以放到HTTP的Header里面)</p>
+<pre><code>GET /photos?accesstoken=xxxxx
+</code></pre><p>每个access token都有scope，为了限制授权资源的范围。<br>
+每个access token都有过期时间，过期了需要重新申请，被窃取也不能一直用。</p>
+<h2 id="3-access-token">3. Access Token</h2>
+<p>一般Access Token 包含着如下信息：</p>
+<pre><code>标识符      jti (JWT ID): 用于标识这个 JWT 的唯一标识符。
+哪个用户    sub (Subject): 表示这个 JWT 的主题，通常是用户的唯一标识符。
+什么时候    iat (Issued At): 时间戳。
+过期时间    exp (Expiration Time): 表示这个 JWT 的过期时间戳。
+授权范围    scope: 表示这个 JWT 授予的权限范围，这里包含了 openid、profile 和 offline_access。
+谁发的      iss (Issuer): 表示这个 JWT 的发行者，通常是认证服务器的 URL。
+授权的app   aud (Audience): 表示这个 JWT 的预期接收者，通常是应用的唯一标识符。
+</code></pre><p>这里再整理一次获取Access Token的流程：</p>
+<h4 id="1a需要实现一个api接口">1.A需要实现一个API接口:</h4>
+<pre><code>GET /recieve_code?code=
+</code></pre><h4 id="2a需要访问b资源的时候a会打开一个页面这个页面就是b提供的一个鉴权页面">2.A需要访问B资源的时候，A会打开一个页面，这个页面就是B提供的一个鉴权页面。</h4>
+<p>一般是B提供SDK实现这一步的功能。A打开界面你的时候把第一步的接口地址告诉B(或已经存储)。<br>
+当用户执行授权操成功后，平台就会自动调用第一步中提供的 url，并传过来一个code。</p>
+<p><a href="https://limingxie.github.io/images/struct/oauth/oauth2_0_02.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/struct/oauth/oauth2_0_02.png" alt="oauth2_0_02"></p>
+<h4 id="3第一步接口获取code后兑换access-token">3.第一步接口获取Code后，兑换Access Token。</h4>
+<p>这时一般会获取Access Token和refresh token。<br>
+当Access Token到期以后，A可以通过refresh token再次获取新的Access Token。<br>
+这样Access Token过期以后，不用反复地做授权的操作了。</p>
+<h2 id="4refresh-token">4.Refresh Token</h2>
+<p>为了防止泄露后一直有效，access token是有期限。<br>
+但是有效期，每次Access Token 到期后，重复的让用户给A授权是很麻烦的事情。<br>
+于是 Oauth2.0 引入了 refresh token 机制。<br>
+当鉴权服务器发送access token给使用方时，同时也发送一个 efresh token。<br>
+这个refresh token的有效期很长，作用是可以用来刷新access token。</p>
+<p>这里需要注意的是如果refresh token泄露了就很麻烦了。<br>
+所以refresh token一定要保存在使用方的服务器上，而绝不能存放在移动 app、PC端软件、浏览器上，也不能在网络上随便传递。<br>
+调用refresh接口的时候，一定是从使用方服务器到鉴权服务器的https访问。<br>
+所以，refresh token 比 access token 隐蔽得多，也安全得多。</p>
+<h2 id="5authorization-code-授权原理和实现方法">5.Authorization Code 授权原理和实现方法</h2>
+<p>Oauth 2.0有好几种授权流程，最常见的是Authorization Code。其它的可以自行查找看看。</p>
+<p>先看流程图<br>
+<a href="https://limingxie.github.io/images/struct/oauth/oauth2_0_03.png">图片备用地址</a><br>
+<img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/struct/oauth/oauth2_0_03.png" alt="oauth2_0_01"></p>
+<p>这里解释一下authorization code</p>
+<ul>
+<li>code一个一次性的临时凭证，它可以兑换 access token</li>
+<li>code是由鉴权服务器生成的一个随机且唯一的字符串</li>
+<li>鉴权服务器会记录下code的生成时间、将要兑换给谁（例子里是 A）、授权的用户是谁</li>
+<li>在第5步，鉴权服务器会验证A的身份，并且检查code的有效期。通过的话就会生成access token</li>
+<li>code是一次性的，在第5步成功兑换access token之后就会作废</li>
+<li>code的有效期很短，一般不会超过1,2分钟。A在第4步获取到code之后，就立刻走第5步获取Access Token。</li>
+</ul>
+<h4 id="为什么不直接获得access-token而是先返回code">为什么不直接获得Access Token而是先返回code？</h4>
+<ol>
+<li>code 的有效期很短，留给攻击者的时间很短</li>
+<li>code兑换Access Token的时候鉴权服务器还会对A的身份做一次验证。</li>
+</ol>
+<h4 id="怎么验证a的身份">怎么验证A的身份？</h4>
+<p>当A和B决定合作，B一般会发给A一个client_id和client_secret。<br>
+A从B那里通过code兑换Access Token的时候，也需要提供client_secret做的签名。<br>
+所以攻击者哪怕劫取了code，也很难获取Access token。除非client_secret泄露了。</p>
+<h2 id="6模拟获取过程">6.模拟获取过程</h2>
+<h4 id="1第一步-用户访问a">1.第一步 用户访问A</h4>
+<pre><code>GET /photos?xxx=?
+</code></pre><p>参数应该是根据业务需求来定。</p>
+<h4 id="2第二步-打开授权界面">2.第二步 打开授权界面</h4>
+<pre><code>GET /oauth2/auth
+</code></pre><p>常用的参数</p>
+<ul>
+<li>client_id =&gt; 需要表明调用方。必填</li>
+<li>redirect_uri =&gt; 传了做校验不传则使用注册的默认值。选填</li>
+<li>scope =&gt; 授权范围。选填</li>
+<li>state =&gt; CSRF攻击。A传的值B返回给A。选填</li>
+</ul>
+<h4 id="3第三步-用户授权">3.第三步 用户授权</h4>
+<p>这时候B会做以下验证。</p>
+<ul>
+<li>确认用户身份</li>
+<li>检查 client_id 是否合法</li>
+<li>检查 redirect_url 是否和事先注册的相符</li>
+<li>检查 scope。</li>
+<li>通过后生成code，并跳转到redirect_url，附上code和state，state是原封不动传回。</li>
+</ul>
+<h4 id="4第四步-a获得code">4.第四步 A获得code</h4>
+<pre><code>GET /recieve_code?code=
+</code></pre><p>这是A要提供的接口。<br>
+在接口里获得code以后，A还需要用client_secret签名，向B请求Access Token。</p>
+<h4 id="5第五步-a获得access-token">5.第五步 A获得Access Token</h4>
+<pre><code>POST /oauth2/token　
+</code></pre><p>常用的参数</p>
+<ul>
+<li>code 必填</li>
+<li>client_id 必填</li>
+<li>redirect_uri 选填</li>
+<li>hmac 用client_secret签名 必填</li>
+</ul>
+<p>这时B需要做如下验证</p>
+<ul>
+<li>检查code是否已过期</li>
+<li>检查code是否已经使用过，如果是使用过，很可能已经泄漏，需要采取相关措施</li>
+<li>检查client_id是否合法，client_id和code对应的client_id是否一致</li>
+<li>检查 redirect_uri参数和上面调用Auth Endpoint时传的redirect_uri是否完全一致。</li>
+<li>检查 hmac</li>
+<li>检查都通过，废弃掉code，生成access token并返回。</li>
+</ul>
+<h4 id="6第六步-a使用access-token访问资源">6.第六步 A使用Access Token访问资源</h4>
+<pre><code>GET /photos?access_token=xxxx
+</code></pre><p>或放到Header中去调用接口，这就看怎么规定调用方式了。</p>
+<h2 id="7最后">7.最后</h2>
+<p>其实Oauth2.0授权方式有4种，这里只整理了最常用的 授权码 方式。
+还有隐藏式，密码式和凭证式。<br>
+这里就没做整理了，后续有机会再整理整理。</p>
+<hr>
+<p>欢迎大家的意见和交流</p>
+<p><code>email: li_mingxie@163.com</code></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/oauth2.0/" rel="tag">Oauth2.0</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="李明燮(li_mingxie) avatar" src="/images/limingxie2.jpeg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 李明燮(li_mingxie)</span>
+	</div>
+	<div class="authorbox__description">
+		宅男 + 屌丝 + 程序员
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/note/blockchain/fisco/ca/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">【FISCO笔记】证书生成和验证</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://limingxie.github.io/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
+			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
+			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/account/">account</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/algorithm/">algorithm</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/aptos/">aptos</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/basic/">basic</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/bitcoin/">bitcoin</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/blockchain/">blockchain</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">80</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/btc/">btc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/ca/">ca</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/cosmos/">cosmos</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/database/">database</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">14</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/design/">design</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">5</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/elasticsearch/">elasticsearch</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/emas/">Emas</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">13</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/etc/">etc</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/eth/">eth</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">48</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/fisco/">fisco</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/git/">git</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">46</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hadoop/">hadoop</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hugo/">hugo</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/java/">Java</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">11</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">JavaScript</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kafka/">kafka</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">linux</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">16</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/metaverse/">metaverse</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mysql/">mysql</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/network/">network</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nginx/">nginx</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">2</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">12</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/product/">product</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/redis/">redis</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/solidity/">solidity</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">25</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/test/">test</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/vue/">vue</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">36</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/web3/">web3</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">10</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/webpack/">webpack</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/work/">work</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/zookeeper/">zookeeper</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">3</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">9</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/limingxie" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:li_mingxie@163.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 416 288"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>li_mingxie@163.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="知乎" rel="noopener noreferrer" href="https://www.zhihu.com/people/limingxie" target="_blank">
+				<span>知乎</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 李明燮(li_mingxie)  email:li_mingxie@163.com.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

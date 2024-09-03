@@ -11,16 +11,21 @@
 <meta property="og:description" content="今天用go语言简单的写了一下稀疏数组的简单实例饿。
 为了以后方便查看，当做笔记整理了一下~~" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/algorithm/sparse_array/" /><meta property="article:section" content="algorithm" />
+<meta property="og:url" content="https://limingxie.github.io/algorithm/sparse_array/" />
 <meta property="article:published_time" content="2022-10-04T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-04T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【算法笔记】稀疏数组sparseArray的简单实践">
 <meta itemprop="description" content="今天用go语言简单的写了一下稀疏数组的简单实例饿。
-为了以后方便查看，当做笔记整理了一下~~"><meta itemprop="datePublished" content="2022-10-04T23:28:49+08:00" />
+为了以后方便查看，当做笔记整理了一下~~">
+<meta itemprop="datePublished" content="2022-10-04T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-04T23:28:49+08:00" />
 <meta itemprop="wordCount" content="402">
+
+
+
 <meta itemprop="keywords" content="sparse array,算法,algorithm," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -158,113 +163,113 @@
 <p><a href="https://limingxie.github.io/images/algorithm/base/sparse_array_01.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/algorithm/base/sparse_array_01.png" alt="map_reduce_10"></p>
 <h2 id="2代码实例">2.代码实例</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ValNode</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">row</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">col</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//创建数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span> [<span style="color:#ae81ff">11</span>][<span style="color:#ae81ff">11</span>]<span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>] = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">4</span>][<span style="color:#ae81ff">4</span>] = <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//遍历打印
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">result</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d  &#34;</span>, <span style="color:#a6e22e">v2</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sparseArr</span> []<span style="color:#a6e22e">ValNode</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//标准的一个稀疏数组应该还有一个 记录元素的二维数组的规模(行和列，默认值)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//创建一个ValNode 值结点
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ValNode</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">row</span>: <span style="color:#ae81ff">8</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">col</span>: <span style="color:#ae81ff">8</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">val</span>: <span style="color:#ae81ff">0</span>,
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">sparseArr</span> = append(<span style="color:#a6e22e">sparseArr</span>, <span style="color:#a6e22e">valNode</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">result</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">v2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建一个ValNode 值结点
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ValNode</span>{
-</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">row</span>: <span style="color:#a6e22e">i</span>,
-</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">col</span>: <span style="color:#a6e22e">j</span>,
-</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">v2</span>,
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sparseArr</span> = append(<span style="color:#a6e22e">sparseArr</span>, <span style="color:#a6e22e">valNode</span>)
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//输出稀疏数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;当前的稀疏数组是:::::&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sparseArr</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d: %d %d %d\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">col</span>, <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">val</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result2</span> [<span style="color:#ae81ff">8</span>][<span style="color:#ae81ff">8</span>]<span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 遍历 sparseArr [遍历文件每一行]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sparseArr</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> { <span style="color:#75715e">//跳过第一行记录值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#a6e22e">result2</span>[<span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">row</span>][<span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">col</span>] = <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">val</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 看看chessMap2 是不是恢复.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;恢复后的原始数据......&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">result2</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d  &#34;</span>, <span style="color:#a6e22e">v2</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="执行结果">执行结果</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ go run main.go
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span>当前的稀疏数组是:::::
-</span></span><span style="display:flex;"><span>0: <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>1: <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>2: <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>3: <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>4: <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>恢复后的原始数据......
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ValNode</span> <span style="color:#66d9ef">struct</span> {
+ <span style="color:#a6e22e">row</span> <span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">col</span> <span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+
+ <span style="color:#75715e">//创建数组
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span> [<span style="color:#ae81ff">11</span>][<span style="color:#ae81ff">11</span>]<span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">1</span>
+ <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">2</span>
+ <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>] = <span style="color:#ae81ff">1</span>
+ <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">4</span>][<span style="color:#ae81ff">4</span>] = <span style="color:#ae81ff">2</span>
+
+ <span style="color:#75715e">//遍历打印
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">result</span> {
+  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d  &#34;</span>, <span style="color:#a6e22e">v2</span>)
+  }
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+ }
+
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sparseArr</span> []<span style="color:#a6e22e">ValNode</span>
+
+ <span style="color:#75715e">//标准的一个稀疏数组应该还有一个 记录元素的二维数组的规模(行和列，默认值)
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//创建一个ValNode 值结点
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ValNode</span>{
+  <span style="color:#a6e22e">row</span>: <span style="color:#ae81ff">8</span>,
+  <span style="color:#a6e22e">col</span>: <span style="color:#ae81ff">8</span>,
+  <span style="color:#a6e22e">val</span>: <span style="color:#ae81ff">0</span>,
+ }
+
+ <span style="color:#a6e22e">sparseArr</span> = append(<span style="color:#a6e22e">sparseArr</span>, <span style="color:#a6e22e">valNode</span>)
+
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">result</span> {
+  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">v2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span> {
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+    <span style="color:#75715e">//创建一个ValNode 值结点
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ValNode</span>{
+     <span style="color:#a6e22e">row</span>: <span style="color:#a6e22e">i</span>,
+     <span style="color:#a6e22e">col</span>: <span style="color:#a6e22e">j</span>,
+     <span style="color:#a6e22e">val</span>: <span style="color:#a6e22e">v2</span>,
+    }
+    <span style="color:#a6e22e">sparseArr</span> = append(<span style="color:#a6e22e">sparseArr</span>, <span style="color:#a6e22e">valNode</span>)
+   }
+  }
+
+ }
+
+ <span style="color:#75715e">//输出稀疏数组
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;当前的稀疏数组是:::::&#34;</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sparseArr</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d: %d %d %d\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">row</span>, <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">col</span>, <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">val</span>)
+ }
+
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result2</span> [<span style="color:#ae81ff">8</span>][<span style="color:#ae81ff">8</span>]<span style="color:#66d9ef">int</span>
+
+ <span style="color:#75715e">// 遍历 sparseArr [遍历文件每一行]
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">valNode</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">sparseArr</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> { <span style="color:#75715e">//跳过第一行记录值
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">result2</span>[<span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">row</span>][<span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">col</span>] = <span style="color:#a6e22e">valNode</span>.<span style="color:#a6e22e">val</span>
+  }
+ }
+
+ <span style="color:#75715e">// 看看chessMap2 是不是恢复.
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;恢复后的原始数据......&#34;</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">result2</span> {
+  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v2</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d  &#34;</span>, <span style="color:#a6e22e">v2</span>)
+  }
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>()
+ }
+}
+</code></pre></div><h4 id="执行结果">执行结果</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+当前的稀疏数组是:::::
+0: <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">0</span>
+1: <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
+2: <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span>
+3: <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">1</span>
+4: <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>
+恢复后的原始数据......
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+<span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>  
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -330,12 +335,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -466,6 +471,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【es6笔记】es6的入门简介_Symbol(4)" />
 <meta property="og:description" content="这里整理了ES6新增的类型Symbol。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/emas/emas_script_04/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/emas/emas_script_04/" />
 <meta property="article:published_time" content="2022-05-12T09:05:49+08:00" />
 <meta property="article:modified_time" content="2022-05-12T09:05:49+08:00" />
 
 		<meta itemprop="name" content="【es6笔记】es6的入门简介_Symbol(4)">
-<meta itemprop="description" content="这里整理了ES6新增的类型Symbol。"><meta itemprop="datePublished" content="2022-05-12T09:05:49+08:00" />
+<meta itemprop="description" content="这里整理了ES6新增的类型Symbol。">
+<meta itemprop="datePublished" content="2022-05-12T09:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-05-12T09:05:49+08:00" />
 <meta itemprop="wordCount" content="165">
+
+
+
 <meta itemprop="keywords" content="es6,Symbol," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -136,91 +141,91 @@
 		</header>
 		<div class="content post__content clearfix">
 			<p>这里整理了ES6新增的类型Symbol。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCType html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------Symbol--------------&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        ES引入了新的数据类型Symbol。标识独一无二的值。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        JavaScript第七种数据类型。是一种类似于字符串的数据类型。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        特点：
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        1.Symbol的值是唯一的，用来解决命名冲突的问题。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        2.Symbol值不能与其他数据进行运算
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        3.Symbol定义的对象属性不能使用 for...in 循环遍历, 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">          但是可以用Reflect.ownKeys方法获取对象的所有键名
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">s1</span>); <span style="color:#75715e">//Symbol() &#34;symbol&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小明&#39;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小明&#39;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">s3</span>); <span style="color:#75715e">//false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小红&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s4</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">s4</span>); <span style="color:#75715e">// Symbol(小红) &#39;symbol&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s5</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小红&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s4</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">s5</span>); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">keyFor</span>(<span style="color:#a6e22e">s5</span>)); <span style="color:#75715e">//小红
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 查看描述
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s6</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小刚&#34;</span>); <span style="color:#75715e">//小刚
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s6</span>.<span style="color:#a6e22e">description</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 转换string
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s7</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小张&#39;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(String(<span style="color:#a6e22e">s7</span>)); <span style="color:#75715e">//Symbol(小张)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// bool判断
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s8</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Boolean(<span style="color:#a6e22e">s8</span>)); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//USONB 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// u undefined
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// s string symbol
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// o object
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// n number
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// b boolean
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">kind</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;kind&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">car</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;奔驰&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// [Synmbol(&#39;kind&#39;)]: &#39;赛车游戏&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            [<span style="color:#a6e22e">kind</span>]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小轿车&#39;</span>,
-</span></span><span style="display:flex;"><span>            [<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;col&#34;</span>)]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;红色&#39;</span>,
-</span></span><span style="display:flex;"><span>            [<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;colour&#34;</span>)]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;黑色&#39;</span>,
-</span></span><span style="display:flex;"><span>            [<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#39;加速&#39;</span>)]<span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;需要加速&#34;</span>);
-</span></span><span style="display:flex;"><span>            },
-</span></span><span style="display:flex;"><span>            [<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;减速&#39;</span>)]<span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;需要减速&#34;</span>);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">kind</span>]); <span style="color:#75715e">//小轿车
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>.<span style="color:#a6e22e">kind</span>); <span style="color:#75715e">//undefined
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;col&#34;</span>)]); <span style="color:#75715e">//undefined
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;colour&#34;</span>)]); <span style="color:#75715e">//黑色
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;加速&#34;</span>)](); <span style="color:#75715e">//需要加速
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//car[Symbol(&#39;减速&#39;)](); // TypeError: car[Symbol(...)] is not a function
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//Symbol.for() 都会重复使用同一个Symbol值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//Symbol() 他是每次都会用不同的Symbol值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------Symbol--------------&#34;</span>);
+        <span style="color:#75715e">/*
+</span><span style="color:#75715e">        ES引入了新的数据类型Symbol。标识独一无二的值。
+</span><span style="color:#75715e">        JavaScript第七种数据类型。是一种类似于字符串的数据类型。
+</span><span style="color:#75715e">        特点：
+</span><span style="color:#75715e">        1.Symbol的值是唯一的，用来解决命名冲突的问题。
+</span><span style="color:#75715e">        2.Symbol值不能与其他数据进行运算
+</span><span style="color:#75715e">        3.Symbol定义的对象属性不能使用 for...in 循环遍历, 
+</span><span style="color:#75715e">          但是可以用Reflect.ownKeys方法获取对象的所有键名
+</span><span style="color:#75715e">        */</span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>();
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">s1</span>); <span style="color:#75715e">//Symbol() &#34;symbol&#34;
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小明&#39;</span>);
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小明&#39;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">s3</span>); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小红&#34;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s4</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">s4</span>); <span style="color:#75715e">// Symbol(小红) &#39;symbol&#39;
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s5</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小红&#34;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s4</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">s5</span>); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">keyFor</span>(<span style="color:#a6e22e">s5</span>)); <span style="color:#75715e">//小红
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 查看描述
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s6</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;小刚&#34;</span>); <span style="color:#75715e">//小刚
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s6</span>.<span style="color:#a6e22e">description</span>);
+
+        <span style="color:#75715e">// 转换string
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s7</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;小张&#39;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(String(<span style="color:#a6e22e">s7</span>)); <span style="color:#75715e">//Symbol(小张)
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// bool判断
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s8</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>();
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Boolean(<span style="color:#a6e22e">s8</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//USONB 
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// u undefined
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// s string symbol
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// o object
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// n number
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// b boolean
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">kind</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;kind&#34;</span>);
+
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">car</span> <span style="color:#f92672">=</span> {
+            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;奔驰&#34;</span>,
+            <span style="color:#75715e">// [Synmbol(&#39;kind&#39;)]: &#39;赛车游戏&#39;,
+</span><span style="color:#75715e"></span>            [<span style="color:#a6e22e">kind</span>]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小轿车&#39;</span>,
+            [<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;col&#34;</span>)]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;红色&#39;</span>,
+            [<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;colour&#34;</span>)]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;黑色&#39;</span>,
+            [<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#39;加速&#39;</span>)]<span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;需要加速&#34;</span>);
+            },
+            [<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#39;减速&#39;</span>)]<span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;需要减速&#34;</span>);
+            }
+        };
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">kind</span>]); <span style="color:#75715e">//小轿车
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>.<span style="color:#a6e22e">kind</span>); <span style="color:#75715e">//undefined
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;col&#34;</span>)]); <span style="color:#75715e">//undefined
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;colour&#34;</span>)]); <span style="color:#75715e">//黑色
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">car</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;加速&#34;</span>)](); <span style="color:#75715e">//需要加速
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//car[Symbol(&#39;减速&#39;)](); // TypeError: car[Symbol(...)] is not a function
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//Symbol.for() 都会重复使用同一个Symbol值
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//Symbol() 他是每次都会用不同的Symbol值
+</span><span style="color:#75715e"></span>
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -283,12 +288,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -419,6 +424,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

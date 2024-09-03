@@ -13,7 +13,7 @@
 PeriodicAllowance
 该津贴有限额，该限额会定期重置。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_05/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_05/" />
 <meta property="article:published_time" content="2023-07-01T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-07-01T23:28:49+08:00" />
 
@@ -21,10 +21,15 @@ PeriodicAllowance
 <meta itemprop="description" content="BasicAllowance
 该津贴有一次性限制、过期或无限制。
 PeriodicAllowance
-该津贴有限额，该限额会定期重置。"><meta itemprop="datePublished" content="2023-07-01T23:28:49+08:00" />
+该津贴有限额，该限额会定期重置。">
+<meta itemprop="datePublished" content="2023-07-01T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-07-01T23:28:49+08:00" />
 <meta itemprop="wordCount" content="383">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,cosmos," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -159,161 +164,161 @@ PeriodicAllowance<br>
 该津贴有限额，该限额会定期重置。</p>
 <h2 id="1-准备环境以及启动链">1. 准备环境以及启动链</h2>
 <p>simd 版本是 v0.44.0</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd config chain-id demo
-</span></span><span style="display:flex;"><span>./simd config keyring-backend test
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 添加用户
-</span></span><span style="display:flex;"><span>./simd keys add alice
-</span></span><span style="display:flex;"><span>./simd keys add bob
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 为了方便写到变量
-</span></span><span style="display:flex;"><span>export ALICE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show alice --address<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>export BOB<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show bob --address<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 初始化链
-</span></span><span style="display:flex;"><span>./simd init test --chain-id demo
-</span></span><span style="display:flex;"><span>./simd add-genesis-account alice 5000000000stake --keyring-backend test
-</span></span><span style="display:flex;"><span>./simd add-genesis-account bob 2000kudos --keyring-backend test
-</span></span><span style="display:flex;"><span>./simd gentx alice 1000000stake --chain-id demo
-</span></span><span style="display:flex;"><span>./simd collect-gentxs
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 启动
-</span></span><span style="display:flex;"><span>./simd start
-</span></span></code></pre></div><h2 id="2-feegrant-grant">2. feegrant grant</h2>
-<pre tabindex="0"><code>simd tx feegrant grant [granter_key_or_address] [grantee]  
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd config chain-id demo
+./simd config keyring-backend test
+
+// 添加用户
+./simd keys add alice
+./simd keys add bob
+
+
+// 为了方便写到变量
+export ALICE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show alice --address<span style="color:#66d9ef">)</span>
+export BOB<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show bob --address<span style="color:#66d9ef">)</span>
+
+// 初始化链
+./simd init test --chain-id demo
+./simd add-genesis-account alice 5000000000stake --keyring-backend test
+./simd add-genesis-account bob 2000kudos --keyring-backend test
+./simd gentx alice 1000000stake --chain-id demo
+./simd collect-gentxs
+
+// 启动
+./simd start
+</code></pre></div><h2 id="2-feegrant-grant">2. feegrant grant</h2>
+<pre><code>simd tx feegrant grant [granter_key_or_address] [grantee]  
 --from string         Name or address of private key with which to sign  
 --spend-limit string  Spend limit specifies the max limit can be used, if not mentioned there is no limit  
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd tx feegrant grant $ALICE $BOB --from alice --spend-limit 100000stake
-</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;body&#34;</span>: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;messages&#34;</span>: <span style="color:#f92672">[</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.MsgGrantAllowance&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;grantee&#34;</span>: <span style="color:#e6db74">&#34;cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;allowance&#34;</span>: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.BasicAllowance&#34;</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;spend_limit&#34;</span>: <span style="color:#f92672">[</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;denom&#34;</span>: <span style="color:#e6db74">&#34;stake&#34;</span>,
-</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#e6db74">&#34;100000&#34;</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">]</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;expiration&#34;</span>: null
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;memo&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;timeout_height&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;extension_options&#34;</span>: <span style="color:#f92672">[]</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;non_critical_extension_options&#34;</span>: <span style="color:#f92672">[]</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;auth_info&#34;</span>: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;signer_infos&#34;</span>: <span style="color:#f92672">[]</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;fee&#34;</span>: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#f92672">[]</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gas_limit&#34;</span>: <span style="color:#e6db74">&#34;200000&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;payer&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;signatures&#34;</span>: <span style="color:#f92672">[]</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-</span></span><span style="display:flex;"><span>code: <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>codespace: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>data: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span>gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span>height: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span>info: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>logs: <span style="color:#f92672">[]</span>
-</span></span><span style="display:flex;"><span>raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-</span></span><span style="display:flex;"><span>timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>tx: null
-</span></span><span style="display:flex;"><span>txhash: 04B12BD58966A30AC64E060FD879ECC092AC20614D10E2C769C4035DE5D3640C
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd query feegrant grants $BOB
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>allowances:
-</span></span><span style="display:flex;"><span>- allowance:
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.feegrant.v1beta1.BasicAllowance
-</span></span><span style="display:flex;"><span>    expiration: null
-</span></span><span style="display:flex;"><span>    spend_limit:
-</span></span><span style="display:flex;"><span>    - amount: <span style="color:#e6db74">&#34;100000&#34;</span>
-</span></span><span style="display:flex;"><span>      denom: stake
-</span></span><span style="display:flex;"><span>  grantee: cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7  //bob
-</span></span><span style="display:flex;"><span>  granter: cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej  //alice
-</span></span><span style="display:flex;"><span>pagination:
-</span></span><span style="display:flex;"><span>  next_key: null
-</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd query bank balances $ALICE
-</span></span><span style="display:flex;"><span>./simd query bank balances $BOB
-</span></span></code></pre></div><p>ALICE的钱少了100000stake是因为添加到 Bob 签署的交易中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd query feegrant grants $BOB
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>allowances:
-</span></span><span style="display:flex;"><span>- allowance:
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.feegrant.v1beta1.BasicAllowance
-</span></span><span style="display:flex;"><span>    expiration: null
-</span></span><span style="display:flex;"><span>    spend_limit:
-</span></span><span style="display:flex;"><span>    - amount: <span style="color:#e6db74">&#34;100000&#34;</span>
-</span></span><span style="display:flex;"><span>      denom: stake
-</span></span><span style="display:flex;"><span>  grantee: cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7  //bob
-</span></span><span style="display:flex;"><span>  granter: cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej  //alice
-</span></span><span style="display:flex;"><span>pagination:
-</span></span><span style="display:flex;"><span>  next_key: null
-</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span></code></pre></div><h2 id="3-撤销">3. 撤销</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd tx feegrant revoke $ALICE $BOB --from alice
-</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;body&#34;</span>: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;messages&#34;</span>: <span style="color:#f92672">[</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.MsgRevokeAllowance&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;grantee&#34;</span>: <span style="color:#e6db74">&#34;cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;memo&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;timeout_height&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;extension_options&#34;</span>: <span style="color:#f92672">[]</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;non_critical_extension_options&#34;</span>: <span style="color:#f92672">[]</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;auth_info&#34;</span>: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;signer_infos&#34;</span>: <span style="color:#f92672">[]</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;fee&#34;</span>: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#f92672">[]</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gas_limit&#34;</span>: <span style="color:#e6db74">&#34;200000&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;payer&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;signatures&#34;</span>: <span style="color:#f92672">[]</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-</span></span><span style="display:flex;"><span>code: <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>codespace: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>data: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span>gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span>height: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span>info: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>logs: <span style="color:#f92672">[]</span>
-</span></span><span style="display:flex;"><span>raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
-</span></span><span style="display:flex;"><span>timestamp: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>tx: null
-</span></span><span style="display:flex;"><span>txhash: 02C9CCDDB531B86873677A5E8664C92191CAE0A2A81B5ABCEF9EF4F08BD3DAF7
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 再次查看
-</span></span><span style="display:flex;"><span>./simd query feegrant grants $BOB
-</span></span><span style="display:flex;"><span>allowances: <span style="color:#f92672">[]</span>
-</span></span><span style="display:flex;"><span>pagination:
-</span></span><span style="display:flex;"><span>  next_key: null
-</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span></code></pre></div><hr>
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tx feegrant grant $ALICE $BOB --from alice --spend-limit 100000stake
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;body&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;messages&#34;</span>: <span style="color:#f92672">[</span>
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.MsgGrantAllowance&#34;</span>,
+                <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej&#34;</span>,
+                <span style="color:#e6db74">&#34;grantee&#34;</span>: <span style="color:#e6db74">&#34;cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7&#34;</span>,
+                <span style="color:#e6db74">&#34;allowance&#34;</span>: <span style="color:#f92672">{</span>
+                    <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.BasicAllowance&#34;</span>,
+                    <span style="color:#e6db74">&#34;spend_limit&#34;</span>: <span style="color:#f92672">[</span>
+                        <span style="color:#f92672">{</span>
+                            <span style="color:#e6db74">&#34;denom&#34;</span>: <span style="color:#e6db74">&#34;stake&#34;</span>,
+                            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#e6db74">&#34;100000&#34;</span>
+                        <span style="color:#f92672">}</span>
+                    <span style="color:#f92672">]</span>,
+                    <span style="color:#e6db74">&#34;expiration&#34;</span>: null
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;memo&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+        <span style="color:#e6db74">&#34;timeout_height&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
+        <span style="color:#e6db74">&#34;extension_options&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;non_critical_extension_options&#34;</span>: <span style="color:#f92672">[]</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;auth_info&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;signer_infos&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;fee&#34;</span>: <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#f92672">[]</span>,
+            <span style="color:#e6db74">&#34;gas_limit&#34;</span>: <span style="color:#e6db74">&#34;200000&#34;</span>,
+            <span style="color:#e6db74">&#34;payer&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+            <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;signatures&#34;</span>: <span style="color:#f92672">[]</span>
+<span style="color:#f92672">}</span>
+
+confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
+code: <span style="color:#ae81ff">0</span>
+codespace: <span style="color:#e6db74">&#34;&#34;</span>
+data: <span style="color:#e6db74">&#34;&#34;</span>
+gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
+gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
+height: <span style="color:#e6db74">&#34;0&#34;</span>
+info: <span style="color:#e6db74">&#34;&#34;</span>
+logs: <span style="color:#f92672">[]</span>
+raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
+timestamp: <span style="color:#e6db74">&#34;&#34;</span>
+tx: null
+txhash: 04B12BD58966A30AC64E060FD879ECC092AC20614D10E2C769C4035DE5D3640C
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query feegrant grants $BOB
+
+allowances:
+- allowance:
+    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.feegrant.v1beta1.BasicAllowance
+    expiration: null
+    spend_limit:
+    - amount: <span style="color:#e6db74">&#34;100000&#34;</span>
+      denom: stake
+  grantee: cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7  //bob
+  granter: cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej  //alice
+pagination:
+  next_key: null
+  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query bank balances $ALICE
+./simd query bank balances $BOB
+</code></pre></div><p>ALICE的钱少了100000stake是因为添加到 Bob 签署的交易中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd query feegrant grants $BOB
+
+allowances:
+- allowance:
+    <span style="color:#e6db74">&#39;@type&#39;</span>: /cosmos.feegrant.v1beta1.BasicAllowance
+    expiration: null
+    spend_limit:
+    - amount: <span style="color:#e6db74">&#34;100000&#34;</span>
+      denom: stake
+  grantee: cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7  //bob
+  granter: cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej  //alice
+pagination:
+  next_key: null
+  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</code></pre></div><h2 id="3-撤销">3. 撤销</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tx feegrant revoke $ALICE $BOB --from alice
+<span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;body&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;messages&#34;</span>: <span style="color:#f92672">[</span>
+            <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.feegrant.v1beta1.MsgRevokeAllowance&#34;</span>,
+                <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;cosmos14cvn7rl270t0w3y9hgrnxgmja903dw29syyqej&#34;</span>,
+                <span style="color:#e6db74">&#34;grantee&#34;</span>: <span style="color:#e6db74">&#34;cosmos195gar5ada3nlxzfu23smmq0p5waagt9yg4q2k7&#34;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;memo&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+        <span style="color:#e6db74">&#34;timeout_height&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
+        <span style="color:#e6db74">&#34;extension_options&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;non_critical_extension_options&#34;</span>: <span style="color:#f92672">[]</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;auth_info&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;signer_infos&#34;</span>: <span style="color:#f92672">[]</span>,
+        <span style="color:#e6db74">&#34;fee&#34;</span>: <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;amount&#34;</span>: <span style="color:#f92672">[]</span>,
+            <span style="color:#e6db74">&#34;gas_limit&#34;</span>: <span style="color:#e6db74">&#34;200000&#34;</span>,
+            <span style="color:#e6db74">&#34;payer&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+            <span style="color:#e6db74">&#34;granter&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#e6db74">&#34;signatures&#34;</span>: <span style="color:#f92672">[]</span>
+<span style="color:#f92672">}</span>
+
+confirm transaction before signing and broadcasting <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
+code: <span style="color:#ae81ff">0</span>
+codespace: <span style="color:#e6db74">&#34;&#34;</span>
+data: <span style="color:#e6db74">&#34;&#34;</span>
+gas_used: <span style="color:#e6db74">&#34;0&#34;</span>
+gas_wanted: <span style="color:#e6db74">&#34;0&#34;</span>
+height: <span style="color:#e6db74">&#34;0&#34;</span>
+info: <span style="color:#e6db74">&#34;&#34;</span>
+logs: <span style="color:#f92672">[]</span>
+raw_log: <span style="color:#e6db74">&#39;[]&#39;</span>
+timestamp: <span style="color:#e6db74">&#34;&#34;</span>
+tx: null
+txhash: 02C9CCDDB531B86873677A5E8664C92191CAE0A2A81B5ABCEF9EF4F08BD3DAF7
+
+// 再次查看
+./simd query feegrant grants $BOB
+allowances: <span style="color:#f92672">[]</span>
+pagination:
+  next_key: null
+  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -379,12 +384,12 @@ PeriodicAllowance<br>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -515,6 +520,10 @@ PeriodicAllowance<br>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

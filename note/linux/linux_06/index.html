@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【linux笔记】linux入门简介_文件操作命令(06)" />
 <meta property="og:description" content="这一篇整理了文件操作相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/linux/linux_06/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/linux/linux_06/" />
 <meta property="article:published_time" content="2022-07-22T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-07-22T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【linux笔记】linux入门简介_文件操作命令(06)">
-<meta itemprop="description" content="这一篇整理了文件操作相关的内容。"><meta itemprop="datePublished" content="2022-07-22T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了文件操作相关的内容。">
+<meta itemprop="datePublished" content="2022-07-22T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-22T23:28:49+08:00" />
 <meta itemprop="wordCount" content="234">
+
+
+
 <meta itemprop="keywords" content="linux," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -153,25 +158,25 @@
 <h4 id="1-pwd">1. pwd</h4>
 <p>显示当前工作目录的绝对路径</p>
 <h4 id="2-ls">2. Ls</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls
-</span></span><span style="display:flex;"><span>ls -l   <span style="color:#f92672">==</span>  ll
-</span></span><span style="display:flex;"><span>ls -a
-</span></span></code></pre></div><h4 id="3-cd">3. cd</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd 路径
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#回到上一次所在目录</span>
-</span></span><span style="display:flex;"><span>cd -    
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#跳转到实际物理路径，而非快捷方式路径</span>
-</span></span><span style="display:flex;"><span>cd -P
-</span></span></code></pre></div><h4 id="4-mkdirrmdir">4. mkdir,rmdir</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls
+ls -l   <span style="color:#f92672">==</span>  ll
+ls -a
+</code></pre></div><h4 id="3-cd">3. cd</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd 路径
+<span style="color:#75715e">#回到上一次所在目录</span>
+cd -    
+<span style="color:#75715e">#跳转到实际物理路径，而非快捷方式路径</span>
+cd -P
+</code></pre></div><h4 id="4-mkdirrmdir">4. mkdir,rmdir</h4>
 <p>mkdir [选项] 要创建的目录</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#创建一个目录</span>
-</span></span><span style="display:flex;"><span>mkdir <span style="color:#f92672">[</span>选项<span style="color:#f92672">]</span> 要创建的目录
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#创建一个多级目录</span>
-</span></span><span style="display:flex;"><span>mkdir -p xiyou/dssz/meihouwang
-</span></span></code></pre></div><p>rmdir:Remove directory 移除目录</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rmdir root/like/file
-</span></span></code></pre></div><h4 id="5-touch">5. touch</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#创建一个目录</span>
+mkdir <span style="color:#f92672">[</span>选项<span style="color:#f92672">]</span> 要创建的目录
+
+<span style="color:#75715e">#创建一个多级目录</span>
+mkdir -p xiyou/dssz/meihouwang
+</code></pre></div><p>rmdir:Remove directory 移除目录</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rmdir root/like/file
+</code></pre></div><h4 id="5-touch">5. touch</h4>
 <p>touch 文件名称</p>
 <h4 id="6-cp-复制文件或目录">6. cp 复制文件或目录</h4>
 <p>cp [选项] source dest  =&gt;  复制source文件到dest
@@ -184,11 +189,11 @@ cp -r 递归复制整个文件夹</p>
 <li>-v 显示指令的详细执行过程</li>
 </ul>
 <h4 id="8-mv-移动文件与目录或重命名">8. mv 移动文件与目录或重命名</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#重命名</span>
-</span></span><span style="display:flex;"><span>mv oldNameFile newNameFile
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#移动文件</span>
-</span></span><span style="display:flex;"><span>mv /temp/movefile /targetFolder
-</span></span></code></pre></div><h4 id="9-cat-查看文件内容">9. cat 查看文件内容</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#重命名</span>
+mv oldNameFile newNameFile
+<span style="color:#75715e">#移动文件</span>
+mv /temp/movefile /targetFolder
+</code></pre></div><h4 id="9-cat-查看文件内容">9. cat 查看文件内容</h4>
 <p>cat [选项]要查看的文件</p>
 <ul>
 <li>-n 显示所有行的行号，包括空行。</li>
@@ -226,42 +231,42 @@ cp -r 递归复制整个文件夹</p>
 </li>
 </ul>
 <h4 id="13-head-显示文件头部内容">13. head 显示文件头部内容</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#查看文件头10行内容</span>
-</span></span><span style="display:flex;"><span>head 文件
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看文件头5行内容，5可以是任意行数</span>
-</span></span><span style="display:flex;"><span>head -n <span style="color:#ae81ff">5</span> 文件
-</span></span></code></pre></div><h4 id="14-tail-输出文件尾部内容">14. tail 输出文件尾部内容</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#查看文件头10行内容</span>
+head 文件
+
+<span style="color:#75715e">#查看文件头5行内容，5可以是任意行数</span>
+head -n <span style="color:#ae81ff">5</span> 文件
+</code></pre></div><h4 id="14-tail-输出文件尾部内容">14. tail 输出文件尾部内容</h4>
 <p>tail 文件<br>
 tail -n 5 文件<br>
 tail -f 文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># -n&lt;行数&gt; 输出文件尾部n行的内容</span>
-</span></span><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">1</span> smartd.conf
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -f 显示文件最新追加的内容，监视文件变化</span>
-</span></span><span style="display:flex;"><span>tail -f houge.txt
-</span></span></code></pre></div><h4 id="15--输出重定向和--追加">15. &gt; 输出重定向和 &raquo; 追加</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#列表的内容写入文件a.txt中(覆盖写)</span>
-</span></span><span style="display:flex;"><span>ls-l &gt;文件
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#列表的内容追加到文件aa.txt的末尾</span>
-</span></span><span style="display:flex;"><span>ls-al &gt;&gt;文件
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#将文件 1 的内容覆盖到文件 2</span>
-</span></span><span style="display:flex;"><span>cat 文件 <span style="color:#ae81ff">1</span> &gt; 文件 <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>echo “内容” &gt;&gt; 文件
-</span></span></code></pre></div><h4 id="16-ln-软链接">16. ln 软链接</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#给原文件创建一个软链接</span>
-</span></span><span style="display:flex;"><span>ln -s <span style="color:#f92672">[</span>原文件或目录<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>软链接名<span style="color:#f92672">]</span>
-</span></span></code></pre></div><p>rm -rf 软链接名，而不是 rm -rf 软链接名/<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># -n&lt;行数&gt; 输出文件尾部n行的内容</span>
+tail -n <span style="color:#ae81ff">1</span> smartd.conf
+
+<span style="color:#75715e"># -f 显示文件最新追加的内容，监视文件变化</span>
+tail -f houge.txt
+</code></pre></div><h4 id="15--输出重定向和--追加">15. &gt; 输出重定向和 &raquo; 追加</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#列表的内容写入文件a.txt中(覆盖写)</span>
+ls-l &gt;文件
+
+<span style="color:#75715e">#列表的内容追加到文件aa.txt的末尾</span>
+ls-al &gt;&gt;文件
+
+<span style="color:#75715e">#将文件 1 的内容覆盖到文件 2</span>
+cat 文件 <span style="color:#ae81ff">1</span> &gt; 文件 <span style="color:#ae81ff">2</span>
+echo “内容” &gt;&gt; 文件
+</code></pre></div><h4 id="16-ln-软链接">16. ln 软链接</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#给原文件创建一个软链接</span>
+ln -s <span style="color:#f92672">[</span>原文件或目录<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>软链接名<span style="color:#f92672">]</span>
+</code></pre></div><p>rm -rf 软链接名，而不是 rm -rf 软链接名/<br>
 <strong>如果使用 rm -rf 软链接名/ 删除，会把软链接对应的真实目录下内容删掉</strong></p>
 <h4 id="17-history-查看已经执行过历史命令">17. history 查看已经执行过历史命令</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#查看已经执行过历史命令</span>
-</span></span><span style="display:flex;"><span>history
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#删除记录</span>
-</span></span><span style="display:flex;"><span>history -c
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#查看已经执行过历史命令</span>
+history
+
+<span style="color:#75715e">#删除记录</span>
+history -c
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -321,12 +326,12 @@ tail -f 文件</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -457,6 +462,10 @@ tail -f 文件</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

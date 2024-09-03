@@ -11,16 +11,21 @@
 <meta property="og:description" content="这些天因为工作上的需求，一套代码部署到不同的环境里。
 虽然说是一样的业务，但是在不同的环境里难免会有一些少许不同的业务。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/limingxie/solid/" /><meta property="article:section" content="limingxie" />
+<meta property="og:url" content="https://limingxie.github.io/limingxie/solid/" />
 <meta property="article:published_time" content="2018-09-01T07:28:49+08:00" />
 <meta property="article:modified_time" content="2018-09-01T07:28:49+08:00" />
 
 		<meta itemprop="name" content="solid原则简单笔记">
 <meta itemprop="description" content="这些天因为工作上的需求，一套代码部署到不同的环境里。
-虽然说是一样的业务，但是在不同的环境里难免会有一些少许不同的业务。"><meta itemprop="datePublished" content="2018-09-01T07:28:49+08:00" />
+虽然说是一样的业务，但是在不同的环境里难免会有一些少许不同的业务。">
+<meta itemprop="datePublished" content="2018-09-01T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2018-09-01T07:28:49+08:00" />
 <meta itemprop="wordCount" content="116">
+
+
+
 <meta itemprop="keywords" content="solid,design," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -149,23 +154,23 @@
 但是我觉得经典的面向对象编程思想应该能对我有帮助。<br>
 查到了一个很有趣的原则：solid原则。</p>
 <p>当做自己的笔记简单的整理了一下<code>solid原则</code>。</p>
-<pre tabindex="0"><code>SRP	    The Single Responsibility Principle	    单一责任原则
+<pre><code>SRP	    The Single Responsibility Principle	    单一责任原则
 OCP	    The Open Closed Principle	            开放封闭原则
 LSP	    The Liskov Substitution Principle	    里氏替换原则
 ISP	    The Interface Segregation Principle	    接口分离原则
 DIP	    The Dependency Inversion Principle	    依赖倒置原则
 </code></pre><p><strong>◆ 单一责任原则(The Single Responsibility Principle)</strong></p>
-<pre tabindex="0"><code>一个类只完成它应该完成的职责。
+<pre><code>一个类只完成它应该完成的职责。
 </code></pre><p>这一原则其实项目刚开始的时候很容易遵守。<br>
 但是项目久了后，你会发现你的项目越来越变味儿。<br>
 需要不断的重构中，维持单一责任原则。</p>
 <p><strong>◆ 开放封闭原则(The Open Closed Principle)</strong></p>
-<pre tabindex="0"><code>软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。
+<pre><code>软件实体(类,模块,函数等等)应当对扩展开放，对修改闭合。
 </code></pre><p>好难好难。<br>
 尤其是api的版本不断的升级，老版本的api又不能弃用的时候，<br>
 而且结构在不断的变化的时候&hellip;ㅠㅠ</p>
 <p><strong>◆ 里氏替换原则(The Liskov Substitution Principle)</strong></p>
-<pre tabindex="0"><code>只有在确定是 is-a 的关系时才能使用继承。
+<pre><code>只有在确定是 is-a 的关系时才能使用继承。
 </code></pre><p>这一原则我刚开始的时候还真不理解。其实很简单。<br>
 我们创建一个[人]的抽象类， [老人]，[孩子]，[女人] 的类可以都继承[人]这个抽象类。<br>
 那[猩猩]也走路，用手。很像人，它能不能继承[人]？<br>
@@ -179,16 +184,16 @@ DIP	    The Dependency Inversion Principle	    依赖倒置原则
 <p>[鸵鸟] is [鸟]。 如果说这命题不成立，有点牵强。<br>
 但是[鸵鸟]能否继承[鸟]，这得看具体业务场景了。</p>
 <p><strong>◆ 接口分离原则(The Interface Segregation Principle)</strong></p>
-<pre tabindex="0"><code>如果一个接口包含了过多的方法，应该通过分离接口将其拆分。
+<pre><code>如果一个接口包含了过多的方法，应该通过分离接口将其拆分。
 </code></pre><p>拆分后怎么管理和监控，又是一门学问&hellip;^^</p>
 <p><strong>◆ 依赖倒置原则(The Dependency Inversion Principle)</strong></p>
-<pre tabindex="0"><code>上层(抽象)不应该依赖于下层(实体)，下层(实体)应该依赖于上层(抽象)。
+<pre><code>上层(抽象)不应该依赖于下层(实体)，下层(实体)应该依赖于上层(抽象)。
 </code></pre><p>这道理其实都懂，但是有意的事情是，如果定期做重构的话，你会发现有些代码还真这样。</p>
 <p>另外多提一下2个原则<br>
 <strong>◆ 迪米特法则，又称最少知道原则（Demeter Principle）</strong></p>
-<pre tabindex="0"><code>一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。
+<pre><code>一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。
 </code></pre><p><strong>◆ 合成复用原则（Composite Reuse Principle）</strong></p>
-<pre tabindex="0"><code>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。
+<pre><code>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。
 </code></pre><p>其实也没有什么内容，就当自己的笔记整理了一下。</p>
 <hr>
 <p>欢迎大家的意见和交流</p>
@@ -253,12 +258,12 @@ DIP	    The Dependency Inversion Principle	    依赖倒置原则
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -389,6 +394,10 @@ DIP	    The Dependency Inversion Principle	    依赖倒置原则
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

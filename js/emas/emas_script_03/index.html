@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【es6笔记】es6的入门简介_函数和参数(3)" />
 <meta property="og:description" content="这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/emas/emas_script_03/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/emas/emas_script_03/" />
 <meta property="article:published_time" content="2022-05-11T09:05:49+08:00" />
 <meta property="article:modified_time" content="2022-05-11T09:05:49+08:00" />
 
 		<meta itemprop="name" content="【es6笔记】es6的入门简介_函数和参数(3)">
-<meta itemprop="description" content="这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。"><meta itemprop="datePublished" content="2022-05-11T09:05:49+08:00" />
+<meta itemprop="description" content="这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。">
+<meta itemprop="datePublished" content="2022-05-11T09:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-05-11T09:05:49+08:00" />
 <meta itemprop="wordCount" content="418">
+
+
+
 <meta itemprop="keywords" content="es6,function,parameter," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -136,168 +141,168 @@
 		</header>
 		<div class="content post__content clearfix">
 			<p>这里整理了ES6新增的函数(箭头函数)和参数(默认值和rest)相关内容。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCType html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------1.箭头函数--------------&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">func1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a + b = &#34;</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>);
-</span></span><span style="display:flex;"><span>        };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1.声明
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">func2</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a + b = &#34;</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>);
-</span></span><span style="display:flex;"><span>        };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">func1</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// a + b =  3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">func2</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// a + b =  3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2.this是静态的，this始终指向函数声明时坐在的作用域，不会变
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getName1</span>(){
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">getName2</span> <span style="color:#f92672">=</span> () =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;小张&#39;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xiaoming</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">getName1</span>(); <span style="color:#75715e">//小张
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">getName2</span>(); <span style="color:#75715e">//小张
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">getName1</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">xiaoming</span>); <span style="color:#75715e">//小明
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">getName2</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">xiaoming</span>); <span style="color:#75715e">//小张
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 3.不能作为构造函数实例化对象
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) =&gt;{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// let xiaozhang = new Person(&#39;小张&#39;, 20); //TypeError: Person is not a constructor
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// console.log(xiaozhang); 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 4.不能使用arguments变量会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// let fn = (a,b) =&gt; {
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//     console.log(arguments);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// }
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// fn(1,2); // ReferenceError: arguments is not defined
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 5.箭头函数的简写
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 1)省略小括号，当形参只有一个时，可以省略
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">add</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span> =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">n</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//10
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2)省略大括号，当函数体只有一条语句时，可以省略
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 3)省略return，当函数体只有一条语句且是return语句时，可以省略
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">add2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span> =&gt; <span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">n</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">4</span>)); <span style="color:#75715e">//8
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 练习
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">62</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">41</span>,<span style="color:#ae81ff">72</span>,<span style="color:#ae81ff">93</span>,<span style="color:#ae81ff">10</span>];
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">item</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">item</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>); <span style="color:#75715e">//(6) [4, 62, 6, 8, 72, 10]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">item</span> =&gt; <span style="color:#a6e22e">item</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>); <span style="color:#75715e">//(6) [4, 62, 6, 8, 72, 10]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//箭头函数适合于，和this无关的回调，定时器，数组方法回调
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//不适合this有关的，比如DOM事件回调，对象的回调。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------2.参数--------------&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1.参数默认值: 给默认值的参数一般放后面
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">func3</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a + b = &#34;</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">func3</span>(<span style="color:#ae81ff">2</span>); <span style="color:#75715e">// a + b =  12
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2.参数默认值: 参数可以是一个对象，也可以是一个函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printUser</span>({<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;北京&#39;</span>}) {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">address</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">user</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">address</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;上海&#39;</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printUser</span>(<span style="color:#a6e22e">user</span>); <span style="color:#75715e">//小明 10 上海
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 3.rest 参数：用于获取函数的实参，用来代替arguments
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//ES5的方式
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printArg</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arguments</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printArg</span>(<span style="color:#e6db74">&#39;北京&#39;</span>, <span style="color:#e6db74">&#39;上海&#39;</span>, <span style="color:#e6db74">&#39;深圳&#39;</span>); <span style="color:#75715e">//(3) [&#34;北京&#34;, &#34;上海&#34;, &#34;深圳&#34;, callee: ƒ, Symbol(Symbol.iterator): ƒ]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//ES6的 rest方式
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printArg1</span>(...<span style="color:#a6e22e">args</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">args</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printArg1</span>(<span style="color:#e6db74">&#39;北京&#39;</span>, <span style="color:#e6db74">&#39;上海&#39;</span>, <span style="color:#e6db74">&#39;深圳&#39;</span>); <span style="color:#75715e">//(3) [&#34;北京&#34;, &#34;上海&#34;, &#34;深圳&#34;]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//rest 参数必须放最后，否则报错 //TypeError: Rest parameter must be last formal parameter
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printArg2</span>(<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>,...<span style="color:#a6e22e">args</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">args</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printArg2</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>); <span style="color:#75715e">// 1 2 [3,4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 4.扩展运算符
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aa</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#e6db74">&#39;小红&#39;</span>, <span style="color:#e6db74">&#39;小刚&#39;</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn1</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arguments</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fn1</span>(<span style="color:#a6e22e">aa</span>); <span style="color:#75715e">// [Array(3), callee: ƒ, Symbol(Symbol.iterator): ƒ]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//下面是等同效果
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">fn1</span>(...<span style="color:#a6e22e">aa</span>); <span style="color:#75715e">// (3) [ &#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39; ]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">fn1</span>(<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#e6db74">&#39;小红&#39;</span>, <span style="color:#e6db74">&#39;小刚&#39;</span>); <span style="color:#75715e">// (3) [ &#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39; ]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 练习
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//1.合并
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bb</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#e6db74">&#39;小红&#39;</span>];
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cc</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;小刚&#39;</span>, <span style="color:#e6db74">&#39;小美&#39;</span>];
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bbcc</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">bb</span>, ...<span style="color:#a6e22e">cc</span>];
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">bbcc</span>); <span style="color:#75715e">// [ &#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39;, &#39;小美&#39; ]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//2.克隆
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ee</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ff</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">ee</span>]; <span style="color:#75715e">// [1,2,3]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------1.箭头函数--------------&#34;</span>);
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">func1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a + b = &#34;</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>);
+        };
+
+        <span style="color:#75715e">// 1.声明
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">func2</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) =&gt; {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a + b = &#34;</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>);
+        };
+
+        <span style="color:#a6e22e">func1</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// a + b =  3
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">func2</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// a + b =  3
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 2.this是静态的，this始终指向函数声明时坐在的作用域，不会变
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getName1</span>(){
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+        }
+
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">getName2</span> <span style="color:#f92672">=</span> () =&gt; {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+        }
+
+        window.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;小张&#39;</span>;
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xiaoming</span> <span style="color:#f92672">=</span> {
+            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>
+        }
+        <span style="color:#a6e22e">getName1</span>(); <span style="color:#75715e">//小张
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">getName2</span>(); <span style="color:#75715e">//小张
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">getName1</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">xiaoming</span>); <span style="color:#75715e">//小明
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">getName2</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">xiaoming</span>); <span style="color:#75715e">//小张
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 3.不能作为构造函数实例化对象
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) =&gt;{
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+        }
+
+        <span style="color:#75715e">// let xiaozhang = new Person(&#39;小张&#39;, 20); //TypeError: Person is not a constructor
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// console.log(xiaozhang); 
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 4.不能使用arguments变量会报错
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// let fn = (a,b) =&gt; {
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//     console.log(arguments);
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// }
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// fn(1,2); // ReferenceError: arguments is not defined
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 5.箭头函数的简写
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 1)省略小括号，当形参只有一个时，可以省略
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">add</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span> =&gt; {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">n</span>;
+        }
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//10
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 2)省略大括号，当函数体只有一条语句时，可以省略
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 3)省略return，当函数体只有一条语句且是return语句时，可以省略
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">add2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span> =&gt; <span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">n</span>;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">4</span>)); <span style="color:#75715e">//8
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 练习
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">62</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">41</span>,<span style="color:#ae81ff">72</span>,<span style="color:#ae81ff">93</span>,<span style="color:#ae81ff">10</span>];
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">item</span>){
+            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">item</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>){
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+            }
+        });
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>); <span style="color:#75715e">//(6) [4, 62, 6, 8, 72, 10]
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">item</span> =&gt; <span style="color:#a6e22e">item</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>); <span style="color:#75715e">//(6) [4, 62, 6, 8, 72, 10]
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//箭头函数适合于，和this无关的回调，定时器，数组方法回调
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//不适合this有关的，比如DOM事件回调，对象的回调。
+</span><span style="color:#75715e"></span>
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;--------------2.参数--------------&#34;</span>);
+
+        <span style="color:#75715e">// 1.参数默认值: 给默认值的参数一般放后面
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">func3</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a + b = &#34;</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>);
+        }
+        
+        <span style="color:#a6e22e">func3</span>(<span style="color:#ae81ff">2</span>); <span style="color:#75715e">// a + b =  12
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 2.参数默认值: 参数可以是一个对象，也可以是一个函数
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printUser</span>({<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;北京&#39;</span>}) {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">address</span>);
+        }
+
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">user</span> <span style="color:#f92672">=</span> {
+            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>,
+            <span style="color:#a6e22e">address</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;上海&#39;</span>
+        }
+
+        <span style="color:#a6e22e">printUser</span>(<span style="color:#a6e22e">user</span>); <span style="color:#75715e">//小明 10 上海
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 3.rest 参数：用于获取函数的实参，用来代替arguments
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//ES5的方式
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printArg</span>() {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arguments</span>);
+        }
+
+        <span style="color:#a6e22e">printArg</span>(<span style="color:#e6db74">&#39;北京&#39;</span>, <span style="color:#e6db74">&#39;上海&#39;</span>, <span style="color:#e6db74">&#39;深圳&#39;</span>); <span style="color:#75715e">//(3) [&#34;北京&#34;, &#34;上海&#34;, &#34;深圳&#34;, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//ES6的 rest方式
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printArg1</span>(...<span style="color:#a6e22e">args</span>){
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">args</span>);
+        }
+
+        <span style="color:#a6e22e">printArg1</span>(<span style="color:#e6db74">&#39;北京&#39;</span>, <span style="color:#e6db74">&#39;上海&#39;</span>, <span style="color:#e6db74">&#39;深圳&#39;</span>); <span style="color:#75715e">//(3) [&#34;北京&#34;, &#34;上海&#34;, &#34;深圳&#34;]
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//rest 参数必须放最后，否则报错 //TypeError: Rest parameter must be last formal parameter
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printArg2</span>(<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>,...<span style="color:#a6e22e">args</span>){
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">args</span>);
+        }
+
+        <span style="color:#a6e22e">printArg2</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>); <span style="color:#75715e">// 1 2 [3,4]
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 4.扩展运算符
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aa</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#e6db74">&#39;小红&#39;</span>, <span style="color:#e6db74">&#39;小刚&#39;</span>];
+
+        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn1</span>() {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arguments</span>);
+        }
+
+        <span style="color:#a6e22e">fn1</span>(<span style="color:#a6e22e">aa</span>); <span style="color:#75715e">// [Array(3), callee: ƒ, Symbol(Symbol.iterator): ƒ]
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//下面是等同效果
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">fn1</span>(...<span style="color:#a6e22e">aa</span>); <span style="color:#75715e">// (3) [ &#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39; ]
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">fn1</span>(<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#e6db74">&#39;小红&#39;</span>, <span style="color:#e6db74">&#39;小刚&#39;</span>); <span style="color:#75715e">// (3) [ &#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39; ]
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 练习
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//1.合并
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bb</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#e6db74">&#39;小红&#39;</span>];
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cc</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;小刚&#39;</span>, <span style="color:#e6db74">&#39;小美&#39;</span>];
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bbcc</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">bb</span>, ...<span style="color:#a6e22e">cc</span>];
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">bbcc</span>); <span style="color:#75715e">// [ &#39;小明&#39;, &#39;小红&#39;, &#39;小刚&#39;, &#39;小美&#39; ]
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//2.克隆
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ee</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>];
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ff</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">ee</span>]; <span style="color:#75715e">// [1,2,3]
+</span><span style="color:#75715e"></span>
+
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -363,12 +368,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -499,6 +504,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

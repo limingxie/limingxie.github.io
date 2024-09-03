@@ -12,17 +12,22 @@
 支持任意多级的证书结构，保障信息保密性、认证性、完整性及不可抵赖性。
 根据现有业务场景，FISCO BCOS默认采用三级的证书结构，自上而下分别为链证书、机构证书、节点证书。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/fisco/ca/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/fisco/ca/" />
 <meta property="article:published_time" content="2024-02-25T23:28:49+08:00" />
 <meta property="article:modified_time" content="2024-02-25T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【FISCO笔记】证书生成和验证">
 <meta itemprop="description" content="FISCO BCOS网络采用面向CA的准入机制，使用x509协议的证书格式，
 支持任意多级的证书结构，保障信息保密性、认证性、完整性及不可抵赖性。
-根据现有业务场景，FISCO BCOS默认采用三级的证书结构，自上而下分别为链证书、机构证书、节点证书。"><meta itemprop="datePublished" content="2024-02-25T23:28:49+08:00" />
+根据现有业务场景，FISCO BCOS默认采用三级的证书结构，自上而下分别为链证书、机构证书、节点证书。">
+<meta itemprop="datePublished" content="2024-02-25T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2024-02-25T23:28:49+08:00" />
 <meta itemprop="wordCount" content="120">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,fisco,bcos," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -176,27 +181,27 @@
 <h3 id="1-联盟链委员会">1. 联盟链委员会</h3>
 <p>联盟链委员会拥有联盟链的根证书ca.crt和私钥ca.key，<br>
 通过使用ca.key对联盟链成员机构签发机构证书，负责完成联盟链成员机构的准入、剔除等操作。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>ca.crt  链证书
-</span></span><span style="display:flex;"><span>ca.key  链私钥
-</span></span></code></pre></div><h3 id="2-联盟链成员机构">2. 联盟链成员(机构)</h3>
+<pre><code class="language-console" data-lang="console">ca.crt  链证书
+ca.key  链私钥
+</code></pre><h3 id="2-联盟链成员机构">2. 联盟链成员(机构)</h3>
 <p>联盟链成员机构为经过联盟链委员会许可，加入到联盟链的机构。<br>
 联盟链成员机构拥有机构私钥agency.key和经过根私钥ca.key签发的机构证书agency.crt。<br>
 联盟链成员机构可以通过机构私钥签发节点证书，从而配置本机构的节点和SDK。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>ca.crt        链证书
-</span></span><span style="display:flex;"><span>agency.crt    机构证书
-</span></span><span style="display:flex;"><span>agency.csr    机构证书请求文件
-</span></span><span style="display:flex;"><span>agency.key    机构私钥
-</span></span></code></pre></div><h3 id="3-联盟链参与方节点sdk">3. 联盟链参与方(节点/SDK)</h3>
+<pre><code class="language-console" data-lang="console">ca.crt        链证书
+agency.crt    机构证书
+agency.csr    机构证书请求文件
+agency.key    机构私钥
+</code></pre><h3 id="3-联盟链参与方节点sdk">3. 联盟链参与方(节点/SDK)</h3>
 <p>联盟链参与方可以通过运行节点或SDK联盟链交互，<br>
 拥有与其他节点进行通信的节点证书node.crt和私钥node.key。<br>
 联盟链参与方运行节点或SDK时，需要加载根证书ca.crt和相应的节点证书node.crt和私钥node.key；<br>
 与其他成员进行网络通信时，使用预先加载的证书进行身份认证。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>ca.crt      链证书
-</span></span><span style="display:flex;"><span>node.crt    节点证书
-</span></span><span style="display:flex;"><span>node.key    节点私钥
-</span></span><span style="display:flex;"><span>sdk.crt     SDK证书
-</span></span><span style="display:flex;"><span>sdk.key     SDK私钥
-</span></span></code></pre></div><h2 id="2证书生成流程">2、证书生成流程</h2>
+<pre><code class="language-console" data-lang="console">ca.crt      链证书
+node.crt    节点证书
+node.key    节点私钥
+sdk.crt     SDK证书
+sdk.key     SDK私钥
+</code></pre><h2 id="2证书生成流程">2、证书生成流程</h2>
 <h3 id="1联盟链委员会初始化根证书cacrt">1.联盟链委员会初始化根证书ca.crt</h3>
 <ul>
 <li>本地生成私钥ca.key；</li>
@@ -234,19 +239,19 @@
 </ol>
 <p><a href="https://limingxie.github.io/images/blockchain/fisco/ca/ca_04.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/fisco/ca/ca_04.png" alt="fisco_bcos"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>.key	私钥文件  
-</span></span><span style="display:flex;"><span>.crt	证书文件  
-</span></span><span style="display:flex;"><span>.csr	证书请求文件  
-</span></span></code></pre></div><h2 id="4加密算法">4、加密算法</h2>
+<pre><code class="language-console" data-lang="console">.key	私钥文件  
+.crt	证书文件  
+.csr	证书请求文件  
+</code></pre><h2 id="4加密算法">4、加密算法</h2>
 <p><a href="https://limingxie.github.io/images/blockchain/fisco/ca/ca_05.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/fisco/ca/ca_05.png" alt="fisco_bcos"></p>
 <h2 id="5证书生成实例">5、证书生成实例</h2>
 <p>以生成联盟链成员机构机构证书为例：</p>
 <p>1.机构首先在本地使用机构私钥agency.key生成证书请求文件agency.csr；</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>openssl req -new -sha256 -subj &#34;/CN=$name/O=fisco-bcos/OU=agency&#34; -key ./agency.key -config ./cert.cnf -out ./agency.csr
-</span></span></code></pre></div><p>2.联盟链委员会根据证书请求文件生成机构证书agency.crt；</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>openssl x509 -req -days 3650 -sha256 -CA ./ca.crt -CAkey ./ca.key -CAcreateserial -in ./agency.csr -out ./agency.crt  -extensions v4_req -extfile ./cert.cnf
-</span></span></code></pre></div><hr>
+<pre><code class="language-console" data-lang="console">openssl req -new -sha256 -subj &quot;/CN=$name/O=fisco-bcos/OU=agency&quot; -key ./agency.key -config ./cert.cnf -out ./agency.csr
+</code></pre><p>2.联盟链委员会根据证书请求文件生成机构证书agency.crt；</p>
+<pre><code class="language-console" data-lang="console">openssl x509 -req -days 3650 -sha256 -CA ./ca.crt -CAkey ./ca.key -CAcreateserial -in ./agency.csr -out ./agency.crt  -extensions v4_req -extfile ./cert.cnf
+</code></pre><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -292,6 +297,12 @@
 			<p class="pager__title">【FISCO笔记】账户创建和使用</p>
 		</a>
 	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/note/oauth/oauth2_0/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">【Oauth2.0笔记】简单整理概念</p>
+		</a>
+	</div>
 </nav>
 
 
@@ -309,12 +320,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -445,6 +456,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

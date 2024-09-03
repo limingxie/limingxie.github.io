@@ -11,16 +11,21 @@
 <meta property="og:description" content="Go语言是通过 Goroutine 和 Channel 实现并发编程。
 Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、通信。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/go/go_channel/" /><meta property="article:section" content="go" />
+<meta property="og:url" content="https://limingxie.github.io/go/go_channel/" />
 <meta property="article:published_time" content="2022-10-01T07:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-01T07:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang】channel介绍">
 <meta itemprop="description" content="Go语言是通过 Goroutine 和 Channel 实现并发编程。
-Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、通信。"><meta itemprop="datePublished" content="2022-10-01T07:28:49+08:00" />
+Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、通信。">
+<meta itemprop="datePublished" content="2022-10-01T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-01T07:28:49+08:00" />
 <meta itemprop="wordCount" content="1374">
+
+
+
 <meta itemprop="keywords" content="channel,make,select,close," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -189,7 +194,7 @@ Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、
 不要通过共享内存来通信，而要通过通信来实现内存共享。</p>
 </blockquote>
 <p>它依赖CSP（Communication Sequence Process） 模型，简称通信顺序进程。</p>
-<pre tabindex="0"><code> -----------               ----------- 
+<pre><code> -----------               ----------- 
 | Goroutine | - Channel - | Goroutine |
  -----------               ----------- 
       |                         |    
@@ -201,298 +206,298 @@ Goroutine 用于执行并发任务，Channel 用于 goroutine 之间的同步、
 </code></pre><hr>
 <h2 id="1channel定义赋值取值">1.Channel定义，赋值，取值</h2>
 <p>Channel的操作符是 <strong><code>&lt;-</code></strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">//定义chan
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//分配空间
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ch</span> = make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//赋值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//取值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ch</span>
-</span></span></code></pre></div><h4 id="实例">实例</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//定义chan
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
+<span style="color:#75715e">//分配空间
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">ch</span> = make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#ae81ff">3</span>)
+<span style="color:#75715e">//赋值
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+<span style="color:#75715e">//取值
+</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ch</span>
+</code></pre></div><h4 id="实例">实例</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>)
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
+
+ <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>)
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
+<span style="color:#ae81ff">10</span>
+<span style="color:#ae81ff">20</span>
+</code></pre></div><hr>
 <h2 id="2channel类型">2.Channel类型</h2>
 <p>Channel有 3中类型， chan &lt;-chan(只读) chan&lt;-(只写)</p>
 <h4 id="例子">例子</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//管道可以声明为只读或者只写
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//1. 在默认情况下下，管道是双向
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//var chan1 chan int //可读可写
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//2 声明为只写
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chan2</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">chan2</span> = make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">chan2</span><span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//num := &lt;-chan2 //error
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;chan2=&#34;</span>, <span style="color:#a6e22e">chan2</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//3. 声明为只读
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chan3</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">num2</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">chan3</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//chan3&lt;- 30 //err
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;num2&#34;</span>, <span style="color:#a6e22e">num2</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#75715e">//管道可以声明为只读或者只写
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//1. 在默认情况下下，管道是双向
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//var chan1 chan int //可读可写
+</span><span style="color:#75715e"></span> 
+ <span style="color:#75715e">//2 声明为只写
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chan2</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">chan2</span> = make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">3</span>)
+ <span style="color:#a6e22e">chan2</span><span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
+ <span style="color:#75715e">//num := &lt;-chan2 //error
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;chan2=&#34;</span>, <span style="color:#a6e22e">chan2</span>)
+
+ <span style="color:#75715e">//3. 声明为只读
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chan3</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">num2</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">chan3</span>
+ <span style="color:#75715e">//chan3&lt;- 30 //err
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;num2&#34;</span>, <span style="color:#a6e22e">num2</span>)
+}
+</code></pre></div><hr>
 <h2 id="3channel遍历">3.Channel遍历</h2>
 <p>Channel的遍历是使用用 for range</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//遍历管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//在遍历时，如果channel没有关闭，则会出现deadlock的错误
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//在遍历时，如果channel已经关闭，则会正常遍历数据，遍历完后，就会退出遍历
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">intChan</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;v=&#34;</span>, <span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//遍历管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//在另一个协程中遍历是不用close
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">intChan</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;v=&#34;</span>, <span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#75715e">//遍历管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">5</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+
+ <span style="color:#75715e">//在遍历时，如果channel没有关闭，则会出现deadlock的错误
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//在遍历时，如果channel已经关闭，则会正常遍历数据，遍历完后，就会退出遍历
+</span><span style="color:#75715e"></span> close(<span style="color:#a6e22e">intChan</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">intChan</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;v=&#34;</span>, <span style="color:#a6e22e">v</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> {
+   <span style="color:#66d9ef">break</span>
+  }
+ }
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>)
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#75715e">//遍历管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">5</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+
+ <span style="color:#75715e">//在另一个协程中遍历是不用close
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">intChan</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;v=&#34;</span>, <span style="color:#a6e22e">v</span>)
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> {
+    <span style="color:#66d9ef">break</span>
+   }
+  }
+ }(<span style="color:#a6e22e">intChan</span>)
+ <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>)
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">$</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
+<span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">2</span>
+<span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">3</span>
+<span style="color:#a6e22e">v</span>= <span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">5</span>
+</code></pre></div><hr>
 <h2 id="4阻塞blocking">4.阻塞blocking</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span> }()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//这里会产生阻塞，等到ch有了值取出才能继续
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>还可以使用for循环做判断，但是这么判断很有可能消耗没必要的cpu资源。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//buclose的话 下面你的 for{ _, ok:= ... } 会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  close(<span style="color:#a6e22e">ch</span>)
-</span></span><span style="display:flex;"><span> }()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//这里会产生阻塞，等到ch有了值取出才能继续
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//这里的ok可以判断channel是否关闭或没有数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>)
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+ }()
+
+ <span style="color:#75715e">//这里会产生阻塞，等到ch有了值取出才能继续
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
+}
+</code></pre></div><p>还可以使用for循环做判断，但是这么判断很有可能消耗没必要的cpu资源。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">2</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+  <span style="color:#75715e">//buclose的话 下面你的 for{ _, ok:= ... } 会报错
+</span><span style="color:#75715e"></span>  close(<span style="color:#a6e22e">ch</span>)
+ }()
+
+ <span style="color:#75715e">//这里会产生阻塞，等到ch有了值取出才能继续
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> {
+  <span style="color:#75715e">//这里的ok可以判断channel是否关闭或没有数据
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+   <span style="color:#66d9ef">break</span>
+  }
+ }
+}
+</code></pre></div><hr>
 <h2 id="5buffered-channels">5.Buffered Channels</h2>
 <p>Channel的缓冲是make的时候可以设定，如果没有设定缓冲只能是阻塞式的运行。</p>
 <h4 id="没有缓冲">没有缓冲</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span>  close(<span style="color:#a6e22e">ch</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;数据放入结束&#34;</span>)
-</span></span><span style="display:flex;"><span> }()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ch</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ go run main.go
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span>数据放入结束
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
-</span></span></code></pre></div><h4 id="设置缓冲区">设置缓冲区</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span>  close(<span style="color:#a6e22e">ch</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;数据放入结束&#34;</span>)
-</span></span><span style="display:flex;"><span> }()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ch</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ go run main.go
-</span></span><span style="display:flex;"><span>数据放入结束
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">30</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">30</span>
+  close(<span style="color:#a6e22e">ch</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;数据放入结束&#34;</span>)
+ }()
+
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ch</span> {
+  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+ }
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
+<span style="color:#ae81ff">10</span>
+<span style="color:#ae81ff">20</span>
+数据放入结束
+<span style="color:#ae81ff">30</span>
+</code></pre></div><h4 id="设置缓冲区">设置缓冲区</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">3</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">30</span>
+  close(<span style="color:#a6e22e">ch</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;数据放入结束&#34;</span>)
+ }()
+
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ch</span> {
+  <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+ }
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
+数据放入结束
+<span style="color:#ae81ff">10</span>
+<span style="color:#ae81ff">20</span>
+<span style="color:#ae81ff">30</span>
+</code></pre></div><hr>
 <h2 id="6select">6.select</h2>
 <p>管道(channel)实现了多个goroutine之前的同步或者通信，<br>
 select实现了多个管道(channel)的同步或者通信，并且select具有阻塞的特性。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//使用select可以解决从管道取数据的阻塞问题
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//1.定义一个管道 10个数据int
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//2.定义一个管道 5个数据string
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//传统的方法在遍历管道时，如果不关闭会阻塞而导致 deadlock
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//label:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">select</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//注意: 这里，如果intChan一直没有关闭，不会一直阻塞而deadlock
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//，会自动到下一个case匹配
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从intChan读取的数据%d\n&#34;</span>, <span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">stringChan</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从stringChan读取的数据%s\n&#34;</span>, <span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">default</span>:
-</span></span><span style="display:flex;"><span>   close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>   close(<span style="color:#a6e22e">stringChan</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;都取不到了，不玩了, 程序员可以加入逻辑\n&#34;</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//break label
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="斐波那契数列">斐波那契数列</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">quit</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">select</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">x</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">y</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">quit</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;quit&#34;</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">quit</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">quit</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span> }()
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">quit</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="select的注意事项">select的注意事项</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+
+ <span style="color:#75715e">//使用select可以解决从管道取数据的阻塞问题
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//1.定义一个管道 10个数据int
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+ <span style="color:#75715e">//2.定义一个管道 5个数据string
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">5</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">i</span>)
+ }
+
+ <span style="color:#75715e">//传统的方法在遍历管道时，如果不关闭会阻塞而导致 deadlock
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//label:
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> {
+  <span style="color:#66d9ef">select</span> {
+  <span style="color:#75715e">//注意: 这里，如果intChan一直没有关闭，不会一直阻塞而deadlock
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//，会自动到下一个case匹配
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>:
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从intChan读取的数据%d\n&#34;</span>, <span style="color:#a6e22e">v</span>)
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">stringChan</span>:
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从stringChan读取的数据%s\n&#34;</span>, <span style="color:#a6e22e">v</span>)
+  <span style="color:#66d9ef">default</span>:
+   close(<span style="color:#a6e22e">intChan</span>)
+   close(<span style="color:#a6e22e">stringChan</span>)
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;都取不到了，不玩了, 程序员可以加入逻辑\n&#34;</span>)
+   <span style="color:#66d9ef">return</span>
+   <span style="color:#75715e">//break label
+</span><span style="color:#75715e"></span>  }
+ }
+}
+</code></pre></div><h4 id="斐波那契数列">斐波那契数列</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">quit</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+ <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#66d9ef">select</span> {
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">x</span>:
+   <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> = <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">y</span>
+  <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">quit</span>:
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;quit&#34;</span>)
+   <span style="color:#66d9ef">return</span>
+  }
+ }
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+ <span style="color:#a6e22e">quit</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
+  }
+  <span style="color:#a6e22e">quit</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0</span>
+ }()
+ <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">quit</span>)
+}
+</code></pre></div><h4 id="select的注意事项">select的注意事项</h4>
 <p>select没有感知channel的关闭，这引出了2个问题：<br>
 1）继续在关闭的通道上读，会读到通道传输数据类型的零值，<br>
 2）继续在关闭的通道上写，将会panic。</p>
@@ -501,162 +506,163 @@ select实现了多个管道(channel)的同步或者通信，并且select具有�
 我们需要使用select的一个特征：select不会在nil的通道上进行等待
 这种情况，把只读通道设置为nil即可解决</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//  close(intChan)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">stringChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">select</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从intChan读取的数据%d\n&#34;</span>, <span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">stringChan</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从stringChan读取的数据%s ,%t \n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stringChan</span> = <span style="color:#66d9ef">nil</span>
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">default</span>:
-</span></span><span style="display:flex;"><span>   close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// close(stringChan)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;都取不到了，不玩了, 程序员可以加入逻辑\n&#34;</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="7关闭隧道">7.关闭隧道</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+<span style="color:#75715e">//  close(intChan)
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">5</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">stringChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#a6e22e">i</span>)
+ }
+ close(<span style="color:#a6e22e">stringChan</span>)
+
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#66d9ef">select</span> {
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>:
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从intChan读取的数据%d\n&#34;</span>, <span style="color:#a6e22e">v</span>)
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">stringChan</span>:
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;从stringChan读取的数据%s ,%t \n&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span>)
+   <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+    <span style="color:#a6e22e">stringChan</span> = <span style="color:#66d9ef">nil</span>
+   }
+  <span style="color:#66d9ef">default</span>:
+   close(<span style="color:#a6e22e">intChan</span>)
+   <span style="color:#75715e">// close(stringChan)
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;都取不到了，不玩了, 程序员可以加入逻辑\n&#34;</span>)
+   <span style="color:#66d9ef">return</span>
+  }
+ }
+}
+</code></pre></div><h2 id="7关闭隧道">7.关闭隧道</h2>
 <p>内建的<code>close</code>方法可以用来关闭channel。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// c &lt;- 3 //=&gt;关闭后在写入会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//但是可以读取
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>) <span style="color:#75715e">//第3次已经没有值，所以返回 默认值0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>) <span style="color:#75715e">//第4次已经没有值，所以返回 默认值0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><h4 id="for-range-读取完后自动退出">for range 读取完后自动退出</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>close(<span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">c</span> {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="通过i-ok---c可以查看channel的状态判断值是零值还是正常读取的值">通过i, ok := &lt;-c可以查看Channel的状态，判断值是零值还是正常读取的值</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span>close(<span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d, %t&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span>) <span style="color:#75715e">//0, false
-</span></span></span></code></pre></div><p><strong>需要注意的细节：</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//不写close直接deadlock! 错误，在别的协程中调用inChan只会阻塞
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>在新的协程中执行时，没有写close将会阻塞</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//close(intChan)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span> }(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>执行结果</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ go run main.go
-</span></span><span style="display:flex;"><span>num<span style="color:#f92672">=</span>10, ok<span style="color:#f92672">=</span>true
-</span></span><span style="display:flex;"><span>num<span style="color:#f92672">=</span>20, ok<span style="color:#f92672">=</span>true
-</span></span></code></pre></div><p>写了close后才能正常的获取ok=false</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span>)
-</span></span><span style="display:flex;"><span> }(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>执行结果</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ go run main.go
-</span></span><span style="display:flex;"><span>num<span style="color:#f92672">=</span>10, ok<span style="color:#f92672">=</span>true
-</span></span><span style="display:flex;"><span>num<span style="color:#f92672">=</span>20, ok<span style="color:#f92672">=</span>true
-</span></span><span style="display:flex;"><span>num<span style="color:#f92672">=</span>0, ok<span style="color:#f92672">=</span>false
-</span></span></code></pre></div><h2 id="8常用的开发模式">8.常用的开发模式</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span>
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">2</span>
+ close(<span style="color:#a6e22e">c</span>)
+ <span style="color:#75715e">// c &lt;- 3 //=&gt;关闭后在写入会报错
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//但是可以读取
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>) <span style="color:#75715e">//第3次已经没有值，所以返回 默认值0
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>) <span style="color:#75715e">//第4次已经没有值，所以返回 默认值0
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="for-range-读取完后自动退出">for range 读取完后自动退出</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+<span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">2</span>
+close(<span style="color:#a6e22e">c</span>)
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">c</span> {
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>)
+}
+</code></pre></div><h4 id="通过i-ok---c可以查看channel的状态判断值是零值还是正常读取的值">通过i, ok := &lt;-c可以查看Channel的状态，判断值是零值还是正常读取的值</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+close(<span style="color:#a6e22e">c</span>)
+<span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c</span>
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d, %t&#34;</span>, <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span>) <span style="color:#75715e">//0, false
+</span></code></pre></div><p><strong>需要注意的细节：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
+ 
+ <span style="color:#75715e">//不写close直接deadlock! 错误，在别的协程中调用inChan只会阻塞
+</span><span style="color:#75715e"></span> close(<span style="color:#a6e22e">intChan</span>)
+
+  <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span>)
+
+  <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span>)
+
+  <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span>)
+}
+
+</code></pre></div><p>在新的协程中执行时，没有写close将会阻塞</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
+ <span style="color:#75715e">//close(intChan)
+</span><span style="color:#75715e"></span>
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+  <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span>)
+
+  <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span>)
+
+  <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span>)
+ }(<span style="color:#a6e22e">intChan</span>)
+
+ <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>)
+}
+</code></pre></div><p><strong>执行结果</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
+num<span style="color:#f92672">=</span>10, ok<span style="color:#f92672">=</span>true
+num<span style="color:#f92672">=</span>20, ok<span style="color:#f92672">=</span>true
+</code></pre></div><p>写了close后才能正常的获取ok=false</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">10</span>
+ <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">20</span>
+ close(<span style="color:#a6e22e">intChan</span>)
+
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+  <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num1</span>, <span style="color:#a6e22e">ok</span>)
+
+  <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num2</span>, <span style="color:#a6e22e">ok</span>)
+
+  <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;num=%d, ok=%t\n&#34;</span>, <span style="color:#a6e22e">num3</span>, <span style="color:#a6e22e">ok</span>)
+ }(<span style="color:#a6e22e">intChan</span>)
+
+ <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>)
+}
+</code></pre></div><p><strong>执行结果</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run main.go
+num<span style="color:#f92672">=</span>10, ok<span style="color:#f92672">=</span>true
+num<span style="color:#f92672">=</span>20, ok<span style="color:#f92672">=</span>true
+num<span style="color:#f92672">=</span>0, ok<span style="color:#f92672">=</span>false
+</code></pre></div><h2 id="8常用的开发模式">8.常用的开发模式</h2>
 <p>go协程开发时一般会有3个对象。</p>
 <ul>
 <li>需要处理的资源</li>
@@ -666,155 +672,155 @@ select实现了多个管道(channel)的同步或者通信，并且select具有�
 <p>看看下列例子
 求1~80000中获取 2000倍数的数字</p>
 <h2 id="81-普通的channel阻塞模式">8.1 普通的Channel阻塞模式</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//给管道写入数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">80000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//计算2000的倍数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">exitChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//如果 ok =false 说明管道已没数据，退出循环
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//退出时给exitChan管道输入一个值，表示我这个协程结束。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//如果是2000的倍数放入到保存结果的channel中
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2000</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">num</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//要是用的协程数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//创建3个管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)  <span style="color:#75715e">// 输入数据，资源
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10000</span>) <span style="color:#75715e">// 计算素数结果的管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">n</span>)   <span style="color:#75715e">// 判断所有的协程都结束的管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//输入数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//启用协程计算2000的倍数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span>, <span style="color:#a6e22e">exitChan</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// go func() {
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//等待所有的协程结束
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">exitChan</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">resChan</span>)
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">exitChan</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// }()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">resChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>上述问题是用Channel的阻塞实现了，所有协程的等待。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#75715e">//给管道写入数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">80000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+ close(<span style="color:#a6e22e">intChan</span>)
+}
+
+<span style="color:#75715e">//计算2000的倍数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">exitChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>) {
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#75715e">//如果 ok =false 说明管道已没数据，退出循环
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+   <span style="color:#75715e">//退出时给exitChan管道输入一个值，表示我这个协程结束。
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">true</span>
+   <span style="color:#66d9ef">break</span>
+  }
+
+  <span style="color:#75715e">//如果是2000的倍数放入到保存结果的channel中
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2000</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+   <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">num</span>
+  }
+ }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#75715e">//要是用的协程数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">4</span>
+ <span style="color:#75715e">//创建3个管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)  <span style="color:#75715e">// 输入数据，资源
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10000</span>) <span style="color:#75715e">// 计算素数结果的管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">n</span>)   <span style="color:#75715e">// 判断所有的协程都结束的管道
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//输入数据
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span>)
+
+ <span style="color:#75715e">//启用协程计算2000的倍数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span>, <span style="color:#a6e22e">exitChan</span>)
+ }
+
+ <span style="color:#75715e">// go func() {
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//等待所有的协程结束
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">exitChan</span>
+ }
+ close(<span style="color:#a6e22e">resChan</span>)
+ close(<span style="color:#a6e22e">exitChan</span>)
+ <span style="color:#75715e">// }()
+</span><span style="color:#75715e"></span>
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">resChan</span>
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+   <span style="color:#66d9ef">break</span>
+  }
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+ }
+}
+</code></pre></div><p>上述问题是用Channel的阻塞实现了，所有协程的等待。<br>
 使用<code>sync.WaitGroup</code>会实现的更轻松。</p>
 <h2 id="82-syncwaitgrou模式">8.2 sync.WaitGrou模式</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;sync&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//给管道写入数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">80000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//计算2000的倍数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//如果 ok =false 说明管道已没数据，退出循环
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//退出时告诉wg已结束
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//如果是2000的倍数放入到保存结果的channel中
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2000</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">num</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//要是用的协程数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//创建3个管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)  <span style="color:#75715e">// 输入数据，资源
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10000</span>) <span style="color:#75715e">// 计算素数结果的管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">n</span>) <span style="color:#75715e">// 判断所有的协程都结束
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//输入数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//启用协程计算2000的倍数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//等待所有的协程结束
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">resChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">resChan</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="9channel结构简介">9.Channel结构简介</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;sync&#34;</span>
+)
+
+<span style="color:#75715e">//给管道写入数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">80000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+ close(<span style="color:#a6e22e">intChan</span>)
+}
+
+<span style="color:#75715e">//计算2000的倍数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#75715e">//如果 ok =false 说明管道已没数据，退出循环
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+   <span style="color:#75715e">//退出时告诉wg已结束
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+   <span style="color:#66d9ef">break</span>
+  }
+
+  <span style="color:#75715e">//如果是2000的倍数放入到保存结果的channel中
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2000</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+   <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">num</span>
+  }
+ }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#75715e">//要是用的协程数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">4</span>
+ <span style="color:#75715e">//创建3个管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)  <span style="color:#75715e">// 输入数据，资源
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10000</span>) <span style="color:#75715e">// 计算素数结果的管道
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">n</span>) <span style="color:#75715e">// 判断所有的协程都结束
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//输入数据
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span>)
+
+ <span style="color:#75715e">//启用协程计算2000的倍数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>)
+ }
+
+ <span style="color:#75715e">//等待所有的协程结束
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+ close(<span style="color:#a6e22e">resChan</span>)
+
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">resChan</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+ }
+}
+</code></pre></div><h2 id="9channel结构简介">9.Channel结构简介</h2>
 <h4 id="91-数据结构">9.1 数据结构</h4>
 <p><strong><code>runtime/chan.go</code></strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hchan</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">qcount</span>   <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 队列中剩余元素
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">dataqsiz</span> <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 队列长度，eg make(chan int64, 5), dataqsiz为5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">buf</span>      <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// 数据存储环形数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">elemsize</span> <span style="color:#66d9ef">uint16</span>         <span style="color:#75715e">// 每个元素的大小
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">closed</span>   <span style="color:#66d9ef">uint32</span>         <span style="color:#75715e">// 是否关闭 0 未关闭
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">elemtype</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">_type</span>         <span style="color:#75715e">// 元素类型
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sendx</span>    <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 发送者写入位置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">recvx</span>    <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 接受者读数据位置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">recvq</span>    <span style="color:#a6e22e">waitq</span>          <span style="color:#75715e">// 接收者队列，保存正在读取channel的goroutine
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sendq</span>    <span style="color:#a6e22e">waitq</span>          <span style="color:#75715e">// 发送者队列，保存正在发送channel的goroutine
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">lock</span>     <span style="color:#a6e22e">mutex</span>          <span style="color:#75715e">// 锁
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p><strong>waitq 是双向链表，sudog 为 goroutine 的封装</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">waitq</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">first</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">last</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>var intChan chan int = make(chan int, 6)</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hchan</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">qcount</span>   <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 队列中剩余元素
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">dataqsiz</span> <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 队列长度，eg make(chan int64, 5), dataqsiz为5
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">buf</span>      <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// 数据存储环形数组
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">elemsize</span> <span style="color:#66d9ef">uint16</span>         <span style="color:#75715e">// 每个元素的大小
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">closed</span>   <span style="color:#66d9ef">uint32</span>         <span style="color:#75715e">// 是否关闭 0 未关闭
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">elemtype</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">_type</span>         <span style="color:#75715e">// 元素类型
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sendx</span>    <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 发送者写入位置
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">recvx</span>    <span style="color:#66d9ef">uint</span>           <span style="color:#75715e">// 接受者读数据位置
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">recvq</span>    <span style="color:#a6e22e">waitq</span>          <span style="color:#75715e">// 接收者队列，保存正在读取channel的goroutine
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sendq</span>    <span style="color:#a6e22e">waitq</span>          <span style="color:#75715e">// 发送者队列，保存正在发送channel的goroutine
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">lock</span>     <span style="color:#a6e22e">mutex</span>          <span style="color:#75715e">// 锁
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p><strong>waitq 是双向链表，sudog 为 goroutine 的封装</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">waitq</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">first</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
+    <span style="color:#a6e22e">last</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">sudog</span>
+}
+</code></pre></div><p><strong>var intChan chan int = make(chan int, 6)</strong></p>
 <p><a href="https://limingxie.github.io/images/go/channle/go_chan_struct.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/channel/go_chan_struct.png" alt="go_chan_struct"></p>
 <p>上图为一个长度为6，类型为int, 两个接收者，三个发送者的channel，当前接收者准备读数据的位置为0，发送者发送数据位置为4</p>
@@ -892,12 +898,12 @@ select实现了多个管道(channel)的同步或者通信，并且select具有�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -1028,6 +1034,10 @@ select实现了多个管道(channel)的同步或者通信，并且select具有�
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

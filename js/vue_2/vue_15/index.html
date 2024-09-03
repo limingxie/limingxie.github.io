@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【Vue笔记】Vue入门简介_自定义指令(15)" />
 <meta property="og:description" content="这一篇整理了自定义指令相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_15/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_15/" />
 <meta property="article:published_time" content="2022-06-13T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-06-13T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_自定义指令(15)">
-<meta itemprop="description" content="这一篇整理了自定义指令相关的内容。"><meta itemprop="datePublished" content="2022-06-13T23:55:49+08:00" />
+<meta itemprop="description" content="这一篇整理了自定义指令相关的内容。">
+<meta itemprop="datePublished" content="2022-06-13T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-13T23:55:49+08:00" />
 <meta itemprop="wordCount" content="184">
+
+
+
 <meta itemprop="keywords" content="vue,directives," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -152,120 +157,120 @@
 			<p>这一篇整理了自定义指令相关的内容。</p>
 <h4 id="函数式">函数式</h4>
 <p>定义一个​​v-big​​​指令，和​​v-text​​功能类似，但会把绑定的数值放大10倍</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h2</span>&gt;当前的n值是&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-text</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">h2</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h2</span>&gt;放大10倍后的n值是：&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-big</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">h2</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n++&#34;</span>&gt;点我n+1&lt;/<span style="color:#f92672">button</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建vue实例
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">n</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">/*big:function () {
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            }*/</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//big函数何时会被调用？
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//1、指令与函数成功绑定时（一上来）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//2、指令所在的模板被重新解析时
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">big</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><h4 id="对象式">对象式</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;当前的n值是&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-text</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">h2</span>&gt;放大10倍后的n值是：&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-big</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">h2</span>&gt;
+    &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n++&#34;</span>&gt;点我n+1&lt;/<span style="color:#f92672">button</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+    <span style="color:#75715e">//创建vue实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">n</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+        },
+        <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+            <span style="color:#75715e">/*big:function () {
+</span><span style="color:#75715e">            }*/</span>
+            <span style="color:#75715e">//big函数何时会被调用？
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//1、指令与函数成功绑定时（一上来）
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//2、指令所在的模板被重新解析时
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">big</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>
+            }
+        }
+    })
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><h4 id="对象式">对象式</h4>
 <p>定义一个​​v-fbind​​​指令，和​​v-bind​​​功能类似，但可以让其所绑定的​​input​​元素默认获取焦点</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-bind:value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-fbind:value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n++&#34;</span>&gt;点我n+1&lt;/<span style="color:#f92672">button</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建vue实例
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">n</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fbind</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">bind</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
-</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">//指令与函数成功绑定时（一上来）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bind&#34;</span>);
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>
-</span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">inserted</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
-</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">//指令所在元素被插入页面时
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;inserted&#34;</span>);
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">focus</span>()
-</span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
-</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">//指令所在元素被重新解析时
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;update&#34;</span>);
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><h4 id="需要注意的地方">需要注意的地方</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-bind:value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-fbind:value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+    &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;n++&#34;</span>&gt;点我n+1&lt;/<span style="color:#f92672">button</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+    <span style="color:#75715e">//创建vue实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">n</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>
+        },
+        <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+            <span style="color:#a6e22e">fbind</span><span style="color:#f92672">:</span>{
+                <span style="color:#a6e22e">bind</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                    <span style="color:#75715e">//指令与函数成功绑定时（一上来）
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;bind&#34;</span>);
+                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>
+                },
+                <span style="color:#a6e22e">inserted</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                    <span style="color:#75715e">//指令所在元素被插入页面时
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;inserted&#34;</span>);
+                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">focus</span>()
+                },
+                <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">element</span>,<span style="color:#a6e22e">binding</span>){
+                    <span style="color:#75715e">//指令所在元素被重新解析时
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;update&#34;</span>);
+                    <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span>
+                }
+            }
+        }
+    })
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><h4 id="需要注意的地方">需要注意的地方</h4>
 <p><strong>命名</strong><br>
 如果指令是多个单词：</p>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&#39;big-number&#39;:function (element,binding){
-</span></span><span style="display:flex;"><span>  element.innerHTML = binding.value * 10
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>或者</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&#39;big-number&#39; (element,binding){
-</span></span><span style="display:flex;"><span>  element.innerHTML = binding.value * 10
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>this</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>directives:{
-</span></span><span style="display:flex;"><span>            fbind:{
-</span></span><span style="display:flex;"><span>                bind(element,binding){
-</span></span><span style="display:flex;"><span>                    //此处的this是window
-</span></span><span style="display:flex;"><span>                    console.log(&#34;bind&#34;);
-</span></span><span style="display:flex;"><span>                    element.value = binding.value
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span></code></pre></div><h4 id="全局指令">全局指令</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&#39;big-number&#39;:function (element,binding){
+  element.innerHTML = binding.value * 10
+}
+</code></pre></div><p>或者</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&#39;big-number&#39; (element,binding){
+  element.innerHTML = binding.value * 10
+}
+</code></pre></div><p><strong>this</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">directives:{
+            fbind:{
+                bind(element,binding){
+                    //此处的this是window
+                    console.log(&#34;bind&#34;);
+                    element.value = binding.value
+                }
+            }
+        }
+</code></pre></div><h4 id="全局指令">全局指令</h4>
 <p>像过滤器一样，我们把刚才的两个指令改为全局指令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>Vue.directive(&#39;big&#39;, function (element, binding) {
-</span></span><span style="display:flex;"><span>        element.innerHTML = binding.value * 10
-</span></span><span style="display:flex;"><span>    })
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>Vue.directive(&#39;fbind&#39;,{
-</span></span><span style="display:flex;"><span>        bind(element,binding){
-</span></span><span style="display:flex;"><span>            element.value = binding.value
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        inserted(element,binding){
-</span></span><span style="display:flex;"><span>            element.focus()
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        update(element,binding){
-</span></span><span style="display:flex;"><span>            element.value = binding.value
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span></code></pre></div><h4 id="总结">总结</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Vue.directive(&#39;big&#39;, function (element, binding) {
+        element.innerHTML = binding.value * 10
+    })
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">Vue.directive(&#39;fbind&#39;,{
+        bind(element,binding){
+            element.value = binding.value
+        },
+        inserted(element,binding){
+            element.focus()
+        },
+        update(element,binding){
+            element.value = binding.value
+        }
+    })
+</code></pre></div><h4 id="总结">总结</h4>
 <p>一、定义语法:</p>
 <p>(1).局部指令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">指令名</span><span style="color:#f92672">:</span><span style="color:#a6e22e">配置对象</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">指令名</span><span style="color:#f92672">:</span><span style="color:#a6e22e">回调函数</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p>(2).全局指令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+  <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+    <span style="color:#a6e22e">指令名</span><span style="color:#f92672">:</span><span style="color:#a6e22e">配置对象</span>
+  }
+})
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+  <span style="color:#a6e22e">directives</span><span style="color:#f92672">:</span>{
+    <span style="color:#a6e22e">指令名</span><span style="color:#f92672">:</span><span style="color:#a6e22e">回调函数</span>
+  }
+})
+</code></pre></div><p>(2).全局指令</p>
 <p>​​​Vue.directive(指令名,配置对象)​​​或 ​​Vue.directive(指令名,回调函数)​​</p>
 <p>二、配置对象中常用的3个回调:<br>
 (1).bind：指令与元素成功绑定时调用<br>
@@ -337,12 +342,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -473,6 +478,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

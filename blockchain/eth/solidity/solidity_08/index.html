@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【solidity】作用域和构造函数(08)" />
 <meta property="og:description" content="这篇文章简单的整理了函数相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/blockchain/eth/solidity/solidity_08/" /><meta property="article:section" content="blockchain" />
+<meta property="og:url" content="https://limingxie.github.io/blockchain/eth/solidity/solidity_08/" />
 <meta property="article:published_time" content="2023-05-08T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-05-08T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【solidity】作用域和构造函数(08)">
-<meta itemprop="description" content="这篇文章简单的整理了函数相关的内容。"><meta itemprop="datePublished" content="2023-05-08T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了函数相关的内容。">
+<meta itemprop="datePublished" content="2023-05-08T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-05-08T23:28:49+08:00" />
 <meta itemprop="wordCount" content="124">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -148,56 +153,56 @@
 </div><div class="content post__content clearfix">
 			<p>这篇文章简单的整理了<code>函数</code>相关的内容。</p>
 <h2 id="1作用域">1.作用域</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">ValueCopy</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 100
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test1</span>() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// a不会报重定义错误，函数内部只认内部参数a
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">uint</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 300
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test2</span>(<span style="color:#66d9ef">uint</span> a) <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// a重定义报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// for(uint a = 0; a &lt; 10: a++){
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// }
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// a重定义报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// uint a = 500;  
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 400
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="2构造函数">2.构造函数</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">gouzao</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> aa <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">uint</span> _aa) <span style="color:#66d9ef">public</span>{
-</span></span><span style="display:flex;"><span>        aa <span style="color:#f92672">=</span> _aa;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">gouzao2</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> owner;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>() <span style="color:#66d9ef">public</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 可以记录合约的拥有者
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        owner <span style="color:#f92672">=</span> msg.sender;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+
+<span style="color:#66d9ef">contract</span> ValueCopy {
+
+    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+    <span style="color:#66d9ef">uint</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
+
+    <span style="color:#66d9ef">function</span> test() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
+        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 100
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#66d9ef">function</span> test1() <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
+        <span style="color:#75715e">// a不会报重定义错误，函数内部只认内部参数a
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">uint</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>;
+        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 300
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#66d9ef">function</span> test2(<span style="color:#66d9ef">uint</span> a) <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
+        a <span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span>;
+
+        <span style="color:#75715e">// a重定义报错
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// for(uint a = 0; a &lt; 10: a++){
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// }
+</span><span style="color:#75715e"></span>        {
+            <span style="color:#75715e">// a重定义报错
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// uint a = 500;  
+</span><span style="color:#75715e"></span>        }
+
+        <span style="color:#66d9ef">return</span> a; <span style="color:#75715e">// 返回 400
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div><h2 id="2构造函数">2.构造函数</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">0</span>;
+
+<span style="color:#66d9ef">contract</span> gouzao {
+    <span style="color:#66d9ef">uint</span> <span style="color:#66d9ef">public</span> aa <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+    constructor(<span style="color:#66d9ef">uint</span> _aa) <span style="color:#66d9ef">public</span>{
+        aa <span style="color:#f92672">=</span> _aa;
+    }
+}
+
+<span style="color:#66d9ef">contract</span> gouzao2 {
+    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> owner;
+    constructor() <span style="color:#66d9ef">public</span>{
+        <span style="color:#75715e">// 可以记录合约的拥有者
+</span><span style="color:#75715e"></span>        owner <span style="color:#f92672">=</span> msg.sender;
+    }
+}
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -263,12 +268,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -399,6 +404,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

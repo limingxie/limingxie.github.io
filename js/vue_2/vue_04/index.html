@@ -16,7 +16,7 @@ methods中配置的函数，不要用箭头函数，这样this就不指向Vue实
 函数的参数中 event 可以用 $event 指定。
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_04/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_04/" />
 <meta property="article:published_time" content="2022-06-02T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-06-02T23:55:49+08:00" />
 
@@ -27,10 +27,15 @@ methods中配置的函数，不要用箭头函数，这样this就不指向Vue实
 时间回调写在Vue实例的 methods 对象中, 不要写在data中
 methods中配置的函数，不要用箭头函数，这样this就不指向Vue实例了
 函数的参数中 event 可以用 $event 指定。
-"><meta itemprop="datePublished" content="2022-06-02T23:55:49+08:00" />
+">
+<meta itemprop="datePublished" content="2022-06-02T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-02T23:55:49+08:00" />
 <meta itemprop="wordCount" content="421">
+
+
+
 <meta itemprop="keywords" content="vue,event," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -179,47 +184,47 @@ methods中配置的函数，不要用箭头函数，这样this就不指向Vue实
 <li>函数的参数中 event 可以用 $event 指定。</li>
 </ol>
 <h4 id="实例">实例</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;你好，{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">v-on:click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showIfo11&#34;</span>&gt;点我11(不传参)&lt;/<span style="color:#f92672">button</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 简写可以用 @click --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showIfo22($event,66)&#34;</span>&gt;点我22(传参)&lt;/<span style="color:#f92672">button</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span> <span style="color:#75715e">//这里的是数据劫持和数据代理
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">//函数不要写在这里，可以用但是不推荐（函数没必要做数据代理）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            },
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">showIfo11</span>(<span style="color:#a6e22e">event</span>) {<span style="color:#75715e">//不能用箭头函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#75715e">//console.log(event.target.innerText);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#75715e">//console.log(this) // 此处的this是 Vue实例
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好11，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">showIfo22</span>(<span style="color:#a6e22e">event</span>,<span style="color:#a6e22e">number</span>) {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">number</span>)
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好22，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><h2 id="2键盘修饰符">2.键盘修饰符</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+        &lt;<span style="color:#f92672">h3</span>&gt;你好，{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">v-on:click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showIfo11&#34;</span>&gt;点我11(不传参)&lt;/<span style="color:#f92672">button</span>&gt;
+        <span style="color:#75715e">&lt;!-- 简写可以用 @click --&gt;</span>
+        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showIfo22($event,66)&#34;</span>&gt;点我22(传参)&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span> <span style="color:#75715e">//这里的是数据劫持和数据代理
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">//函数不要写在这里，可以用但是不推荐（函数没必要做数据代理）
+</span><span style="color:#75715e"></span>            },
+            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">showIfo11</span>(<span style="color:#a6e22e">event</span>) {<span style="color:#75715e">//不能用箭头函数
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">//console.log(event.target.innerText);
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">//console.log(this) // 此处的this是 Vue实例
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好11，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+                },
+                <span style="color:#a6e22e">showIfo22</span>(<span style="color:#a6e22e">event</span>,<span style="color:#a6e22e">number</span>) {
+                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">number</span>)
+                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好22，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+                }
+            }
+        });
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h2 id="2键盘修饰符">2.键盘修饰符</h2>
 <p><strong>prevent</strong>: 阻止默认事件</p>
 <p><strong>stop</strong>: 阻止时间冒泡</p>
 <p><strong>once</strong>: 事件只触发一次</p>
@@ -227,113 +232,113 @@ methods中配置的函数，不要用箭头函数，这样this就不指向Vue实
 <p><strong>self</strong>: 只有event.target是当前操作的元素时才触发事件</p>
 <p><strong>passive</strong>: 事件的默认行为立即执行，无需等待事件回调执行完毕</p>
 <h4 id="实例-1">实例</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">style</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">demo1</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">50</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">skyblue</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">box1</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">skyblue</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">box2</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">orange</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">list</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">plum</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">auto</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">li</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">style</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;你好，{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 阻止默认事件 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">prevent</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">a</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- &lt;a href=&#34;https://www.baidu.com&#34; @click.stop.prevent=&#34;showInfo&#34;&gt;点我提示信息&lt;/a&gt; --&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 阻止冒泡 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo1&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">stop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">button</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 事件只触发一次 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">once</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">button</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 使用事件的捕获模式 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box1&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">capture</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showMessage(1)&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>            div1
-</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box2&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showMessage(2)&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>                div2
-</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 只有event.target是当前操作的元素时才触发事件 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo1&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">self</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">button</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 --&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- scroll 滚动条  wheel 鼠标滚轮 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">ul</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">wheel</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">passive</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;1&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;2&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;3&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">li</span>&gt;4&lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">ul</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>
-</span></span><span style="display:flex;"><span>            },
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">showInfo</span>(<span style="color:#a6e22e">e</span>) {
-</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// e.preventDefault();
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#75715e">// e.stopPropagation();
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好11，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">showMessage</span>(<span style="color:#a6e22e">e</span>) {
-</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// e.preventDefault();
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#75715e">// e.stopPropagation();
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好11，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">demo</span>(){
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;#&#34;</span>);
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;终于结束了&#34;</span>)
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><h2 id="3键盘事件">3.键盘事件</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+    &lt;<span style="color:#f92672">style</span>&gt;
+        <span style="color:#f92672">*</span> {
+            <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+        }
+
+        .<span style="color:#a6e22e">demo1</span> {
+            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">50</span><span style="color:#66d9ef">px</span>;
+            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">skyblue</span>;
+        }
+
+        .<span style="color:#a6e22e">box1</span> {
+            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span>;
+            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">skyblue</span>;
+        }
+
+        .<span style="color:#a6e22e">box2</span> {
+            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span>;
+            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">orange</span>;
+        }
+
+        .<span style="color:#a6e22e">list</span>{
+            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">plum</span>;
+            <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">auto</span>;
+        }
+        <span style="color:#f92672">li</span>{
+            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+        }
+    &lt;/<span style="color:#f92672">style</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+        &lt;<span style="color:#f92672">h3</span>&gt;你好，{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
+        <span style="color:#75715e">&lt;!-- 阻止默认事件 --&gt;</span>
+        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">prevent</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">a</span>&gt;
+        <span style="color:#75715e">&lt;!-- &lt;a href=&#34;https://www.baidu.com&#34; @click.stop.prevent=&#34;showInfo&#34;&gt;点我提示信息&lt;/a&gt; --&gt;</span>
+
+        <span style="color:#75715e">&lt;!-- 阻止冒泡 --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo1&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;
+            &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">stop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+
+        <span style="color:#75715e">&lt;!-- 事件只触发一次 --&gt;</span>
+        &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">once</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">button</span>&gt;
+
+        <span style="color:#75715e">&lt;!-- 使用事件的捕获模式 --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box1&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">capture</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showMessage(1)&#34;</span>&gt;
+            div1
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box2&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showMessage(2)&#34;</span>&gt;
+                div2
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+
+        <span style="color:#75715e">&lt;!-- 只有event.target是当前操作的元素时才触发事件 --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo1&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">self</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;
+            &lt;<span style="color:#f92672">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;点我提示信息&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+
+        <span style="color:#75715e">&lt;!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 --&gt;</span>
+        <span style="color:#75715e">&lt;!-- scroll 滚动条  wheel 鼠标滚轮 --&gt;</span>
+        &lt;<span style="color:#f92672">ul</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">wheel</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">passive</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list&#34;</span>&gt;
+            &lt;<span style="color:#f92672">li</span>&gt;1&lt;/<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">li</span>&gt;2&lt;/<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">li</span>&gt;3&lt;/<span style="color:#f92672">li</span>&gt;
+            &lt;<span style="color:#f92672">li</span>&gt;4&lt;/<span style="color:#f92672">li</span>&gt;
+        &lt;/<span style="color:#f92672">ul</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>
+            },
+            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">showInfo</span>(<span style="color:#a6e22e">e</span>) {
+                    <span style="color:#75715e">// e.preventDefault();
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// e.stopPropagation();
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好11，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+                },
+                <span style="color:#a6e22e">showMessage</span>(<span style="color:#a6e22e">e</span>) {
+                    <span style="color:#75715e">// e.preventDefault();
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// e.stopPropagation();
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你好11，&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+                },
+                <span style="color:#a6e22e">demo</span>(){
+                    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;#&#34;</span>);
+                    }
+                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;终于结束了&#34;</span>)
+                }
+            }
+        });
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h2 id="3键盘事件">3.键盘事件</h2>
 <h4 id="1常用按键事件别名">1.常用按键事件别名</h4>
 <pre><code>回车 =&gt; enter
 删除 =&gt; delete
@@ -355,47 +360,47 @@ methods中配置的函数，不要用箭头函数，这样this就不指向Vue实
 <p>可以定义一个别名，Vue.config.keyCodes.xxx = 键码
 但是也不是那么推荐。</p>
 <h4 id="实例-2">实例</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;你好，{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;按键回车提示&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">keyup</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">enter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.Enter=&#34;showInfo&#34;&gt; --&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.ctrl.y=&#34;showInfo&#34;&gt; --&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.13=&#34;showInfo&#34;&gt; 不推荐，以后会消除 --&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.caps-lock=&#34;showInfo&#34;&gt; --&gt;</span>
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">keyCodes</span>.<span style="color:#a6e22e">huiche</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span> 
-</span></span><span style="display:flex;"><span>            },
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">showInfo</span>(<span style="color:#a6e22e">e</span>) {
-</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// if(e.keyCode != 13) {
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#75715e">//     return
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#75715e">// }
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">keyCode</span>);
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+        &lt;<span style="color:#f92672">h3</span>&gt;你好，{{name}}&lt;/<span style="color:#f92672">h3</span>&gt;
+        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;按键回车提示&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">keyup</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">enter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;showInfo&#34;</span>&gt;
+        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.Enter=&#34;showInfo&#34;&gt; --&gt;</span>
+        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.ctrl.y=&#34;showInfo&#34;&gt; --&gt;</span>
+        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.13=&#34;showInfo&#34;&gt; 不推荐，以后会消除 --&gt;</span>
+        <span style="color:#75715e">&lt;!-- &lt;input type=&#34;text&#34; placeholder=&#34;安县回车提示&#34; @keyup.caps-lock=&#34;showInfo&#34;&gt; --&gt;</span>
+    &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">keyCodes</span>.<span style="color:#a6e22e">huiche</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>;
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span> 
+            },
+            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">showInfo</span>(<span style="color:#a6e22e">e</span>) {
+                    <span style="color:#75715e">// if(e.keyCode != 13) {
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">//     return
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// }
+</span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">keyCode</span>);
+                    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>);
+                }
+            }
+        });
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -458,12 +463,12 @@ methods中配置的函数，不要用箭头函数，这样this就不指向Vue实
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -594,6 +599,10 @@ methods中配置的函数，不要用箭头函数，这样this就不指向Vue实
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

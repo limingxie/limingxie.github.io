@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【cosmos-wasm-笔记】部署智能合约" />
 <meta property="og:description" content="简单的整理了智能合约的部署和使用。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_16/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_16/" />
 <meta property="article:published_time" content="2023-09-25T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-09-25T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-wasm-笔记】部署智能合约">
-<meta itemprop="description" content="简单的整理了智能合约的部署和使用。"><meta itemprop="datePublished" content="2023-09-25T23:28:49+08:00" />
+<meta itemprop="description" content="简单的整理了智能合约的部署和使用。">
+<meta itemprop="datePublished" content="2023-09-25T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-09-25T23:28:49+08:00" />
 <meta itemprop="wordCount" content="511">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,cosmos,wasm," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -161,136 +166,136 @@
 			<p>简单的整理了智能合约的部署和使用。</p>
 <h2 id="1下载和编译测试合约代码">1.下载和编译测试合约代码</h2>
 <h3 id="11-下载代码和编译">1.1 下载代码和编译</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 下载代码</span>
-</span></span><span style="display:flex;"><span>$ git clone https://github.com/InterWasm/cw-contracts
-</span></span><span style="display:flex;"><span>$ cd cw-contracts
-</span></span><span style="display:flex;"><span>$ git checkout main
-</span></span><span style="display:flex;"><span>$ cd contracts/nameservice
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用稳定版编译</span>
-</span></span><span style="display:flex;"><span>$ rustup default stable
-</span></span><span style="display:flex;"><span>$ cargo wasm
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 优化编译，可以让变异完的文件变小</span>
-</span></span><span style="display:flex;"><span>$ RUSTFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-C link-arg=-s&#39;</span> cargo wasm
-</span></span></code></pre></div><h3 id="12-执行测试代码">1.2 执行测试代码</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ RUST_BACKTRACE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> cargo unit-test
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>running <span style="color:#ae81ff">15</span> tests
-</span></span><span style="display:flex;"><span>test tests::tests::proper_init_no_fees ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::fails_on_register_insufficient_fees ... ok
-</span></span><span style="display:flex;"><span>test coin_helpers::test::assert_sent_sufficient_coin_works ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::fails_on_register_wrong_fee_denom ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::fails_on_register_already_taken_name ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::fails_on_transfer_from_nonowner ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::fails_on_transfer_insufficient_fees ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::fails_on_transfer_non_existent ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::proper_init_with_fees ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::register_available_name_and_query_works ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::register_available_name_fails_with_invalid_name ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::returns_empty_on_query_unregistered_name ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::register_available_name_and_query_works_with_fees ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::transfer_works ... ok
-</span></span><span style="display:flex;"><span>test tests::tests::transfer_works_with_fees ... ok
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>test result: ok. <span style="color:#ae81ff">15</span> passed; <span style="color:#ae81ff">0</span> failed; <span style="color:#ae81ff">0</span> ignored; <span style="color:#ae81ff">0</span> measured; <span style="color:#ae81ff">0</span> filtered out;
-</span></span></code></pre></div><h3 id="13-优化编译">1.3 优化编译</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 下载代码</span>
+$ git clone https://github.com/InterWasm/cw-contracts
+$ cd cw-contracts
+$ git checkout main
+$ cd contracts/nameservice
+
+<span style="color:#75715e"># 使用稳定版编译</span>
+$ rustup default stable
+$ cargo wasm
+
+<span style="color:#75715e"># 优化编译，可以让变异完的文件变小</span>
+$ RUSTFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-C link-arg=-s&#39;</span> cargo wasm
+</code></pre></div><h3 id="12-执行测试代码">1.2 执行测试代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ RUST_BACKTRACE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> cargo unit-test
+
+running <span style="color:#ae81ff">15</span> tests
+test tests::tests::proper_init_no_fees ... ok
+test tests::tests::fails_on_register_insufficient_fees ... ok
+test coin_helpers::test::assert_sent_sufficient_coin_works ... ok
+test tests::tests::fails_on_register_wrong_fee_denom ... ok
+test tests::tests::fails_on_register_already_taken_name ... ok
+test tests::tests::fails_on_transfer_from_nonowner ... ok
+test tests::tests::fails_on_transfer_insufficient_fees ... ok
+test tests::tests::fails_on_transfer_non_existent ... ok
+test tests::tests::proper_init_with_fees ... ok
+test tests::tests::register_available_name_and_query_works ... ok
+test tests::tests::register_available_name_fails_with_invalid_name ... ok
+test tests::tests::returns_empty_on_query_unregistered_name ... ok
+test tests::tests::register_available_name_and_query_works_with_fees ... ok
+test tests::tests::transfer_works ... ok
+test tests::tests::transfer_works_with_fees ... ok
+
+test result: ok. <span style="color:#ae81ff">15</span> passed; <span style="color:#ae81ff">0</span> failed; <span style="color:#ae81ff">0</span> ignored; <span style="color:#ae81ff">0</span> measured; <span style="color:#ae81ff">0</span> filtered out;
+</code></pre></div><h3 id="13-优化编译">1.3 优化编译</h3>
 <p>可以更小 详情可以看这里： <a href="https://github.com/CosmWasm/rust-optimizer">https://github.com/CosmWasm/rust-optimizer</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker run --rm -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>:/code <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --mount type<span style="color:#f92672">=</span>volume,source<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">_cache&#34;</span>,target<span style="color:#f92672">=</span>/target <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --mount type<span style="color:#f92672">=</span>volume,source<span style="color:#f92672">=</span>registry_cache,target<span style="color:#f92672">=</span>/usr/local/cargo/registry <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  cosmwasm/rust-optimizer:0.14.0
-</span></span></code></pre></div><h2 id="2部署合约">2.部署合约</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run --rm -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>:/code <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --mount type<span style="color:#f92672">=</span>volume,source<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">_cache&#34;</span>,target<span style="color:#f92672">=</span>/target <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --mount type<span style="color:#f92672">=</span>volume,source<span style="color:#f92672">=</span>registry_cache,target<span style="color:#f92672">=</span>/usr/local/cargo/registry <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  cosmwasm/rust-optimizer:0.14.0
+</code></pre></div><h2 id="2部署合约">2.部署合约</h2>
 <h3 id="21-存储合约">2.1 存储合约</h3>
 <p>先查看list-code的信息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ wasmd query wasm list-code $NODE
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#或</span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm list-code --node tcp://localhost:26657
-</span></span></code></pre></div><p>存储bytecode以及获取CODE_ID</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ wasmd tx wasm store ./cw_nameservice.wasm --from validator $TXFLAG -y --output json --keyring-backend test
-</span></span><span style="display:flex;"><span>$ wasmd tx wasm store ./cw_nameservice.wasm --from validator --node tcp://localhost:26657 --chain-id test --gas-prices 0.0stake --gas auto --gas-adjustment 1.3 -y --output json --keyring-backend test
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 结果</span>
-</span></span><span style="display:flex;"><span>gas estimate: <span style="color:#ae81ff">1530621</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;height&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;txhash&#34;</span>:<span style="color:#e6db74">&#34;20335A347A77C1C5E63CEFA26BDF558419306CBACF100EBEA7A1E861825F9803&#34;</span>,<span style="color:#e6db74">&#34;codespace&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;code&#34;</span>:0,<span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;raw_log&#34;</span>:<span style="color:#e6db74">&#34;[]&#34;</span>,<span style="color:#e6db74">&#34;logs&#34;</span>:<span style="color:#f92672">[]</span>,<span style="color:#e6db74">&#34;info&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;gas_wanted&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;gas_used&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;tx&#34;</span>:null,<span style="color:#e6db74">&#34;timestamp&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;events&#34;</span>:<span style="color:#f92672">[]}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ RES<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>wasmd query tx 20335A347A77C1C5E63CEFA26BDF558419306CBACF100EBEA7A1E861825F9803 --output json<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>$ CODE_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo $RES | jq -r <span style="color:#e6db74">&#39;.logs[0].events[-1].attributes[-1].value&#39;</span><span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>$ echo $CODE_ID
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><p>查看合约实例</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ wasmd query wasm list-contract-by-code $CODE_ID $NODE --output json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;contracts&#34;</span>:<span style="color:#f92672">[]</span>,<span style="color:#e6db74">&#34;pagination&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;next_key&#34;</span>:null,<span style="color:#e6db74">&#34;total&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">}}</span>
-</span></span></code></pre></div><p>也可以下载合约文件，比对一下是不是一致</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ wasmd query wasm code $CODE_ID $NODE download.wasm
-</span></span><span style="display:flex;"><span>$ diff ./cw_nameservice.wasm ./download.wasm
-</span></span></code></pre></div><h3 id="22-创建合约实例">2.2 创建合约实例</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 准备 instantiation 信息</span>
-</span></span><span style="display:flex;"><span>$ INIT<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;purchase_price&#34;:{&#34;amount&#34;:&#34;100&#34;,&#34;denom&#34;:&#34;stake&#34;},&#34;transfer_price&#34;:{&#34;amount&#34;:&#34;999&#34;,&#34;denom&#34;:&#34;stake&#34;}}&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Instantiate 合约</span>
-</span></span><span style="display:flex;"><span>$ wasmd tx wasm instantiate $CODE_ID <span style="color:#e6db74">&#34;</span>$INIT<span style="color:#e6db74">&#34;</span> --from validator --label <span style="color:#e6db74">&#34;name service&#34;</span> $TXFLAG -y --no-admin --keyring-backend test
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看合约地址</span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm list-contract-by-code $CODE_ID $NODE --output json
-</span></span><span style="display:flex;"><span>$ CONTRACT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>wasmd query wasm list-contract-by-code $CODE_ID $NODE --output json | jq -r <span style="color:#e6db74">&#39;.contracts[-1]&#39;</span><span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>$ echo $CONTRACT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看合约信息</span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm contract $CONTRACT $NODE
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看合约余额</span>
-</span></span><span style="display:flex;"><span>$ wasmd query bank balances $CONTRACT $NODE
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看所有合约状态</span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm contract-state all $CONTRACT $NODE
-</span></span><span style="display:flex;"><span>models:
-</span></span><span style="display:flex;"><span>- key: 636F6E666967
-</span></span><span style="display:flex;"><span>  value: eyJwdXJjaGFzZV9wcmljZSI6eyJkZW5vbSI6InN0YWtlIiwiYW1vdW50IjoiMTAwIn0sInRyYW5zZmVyX3ByaWNlIjp7ImRlbm9tIjoic3Rha2UiLCJhbW91bnQiOiI5OTkifX0<span style="color:#f92672">=</span>
-</span></span><span style="display:flex;"><span>pagination:
-</span></span><span style="display:flex;"><span>  next_key: null
-</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wasmd query wasm list-code $NODE
+<span style="color:#75715e">#或</span>
+$ wasmd query wasm list-code --node tcp://localhost:26657
+</code></pre></div><p>存储bytecode以及获取CODE_ID</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wasmd tx wasm store ./cw_nameservice.wasm --from validator $TXFLAG -y --output json --keyring-backend test
+$ wasmd tx wasm store ./cw_nameservice.wasm --from validator --node tcp://localhost:26657 --chain-id test --gas-prices 0.0stake --gas auto --gas-adjustment 1.3 -y --output json --keyring-backend test
+
+<span style="color:#75715e"># 结果</span>
+gas estimate: <span style="color:#ae81ff">1530621</span>
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;height&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;txhash&#34;</span>:<span style="color:#e6db74">&#34;20335A347A77C1C5E63CEFA26BDF558419306CBACF100EBEA7A1E861825F9803&#34;</span>,<span style="color:#e6db74">&#34;codespace&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;code&#34;</span>:0,<span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;raw_log&#34;</span>:<span style="color:#e6db74">&#34;[]&#34;</span>,<span style="color:#e6db74">&#34;logs&#34;</span>:<span style="color:#f92672">[]</span>,<span style="color:#e6db74">&#34;info&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;gas_wanted&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;gas_used&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;tx&#34;</span>:null,<span style="color:#e6db74">&#34;timestamp&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;events&#34;</span>:<span style="color:#f92672">[]}</span>
+
+$ RES<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>wasmd query tx 20335A347A77C1C5E63CEFA26BDF558419306CBACF100EBEA7A1E861825F9803 --output json<span style="color:#66d9ef">)</span>
+$ CODE_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo $RES | jq -r <span style="color:#e6db74">&#39;.logs[0].events[-1].attributes[-1].value&#39;</span><span style="color:#66d9ef">)</span>
+$ echo $CODE_ID
+<span style="color:#ae81ff">1</span>
+</code></pre></div><p>查看合约实例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wasmd query wasm list-contract-by-code $CODE_ID $NODE --output json
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;contracts&#34;</span>:<span style="color:#f92672">[]</span>,<span style="color:#e6db74">&#34;pagination&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;next_key&#34;</span>:null,<span style="color:#e6db74">&#34;total&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">}}</span>
+</code></pre></div><p>也可以下载合约文件，比对一下是不是一致</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wasmd query wasm code $CODE_ID $NODE download.wasm
+$ diff ./cw_nameservice.wasm ./download.wasm
+</code></pre></div><h3 id="22-创建合约实例">2.2 创建合约实例</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 准备 instantiation 信息</span>
+$ INIT<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;purchase_price&#34;:{&#34;amount&#34;:&#34;100&#34;,&#34;denom&#34;:&#34;stake&#34;},&#34;transfer_price&#34;:{&#34;amount&#34;:&#34;999&#34;,&#34;denom&#34;:&#34;stake&#34;}}&#39;</span>
+<span style="color:#75715e"># Instantiate 合约</span>
+$ wasmd tx wasm instantiate $CODE_ID <span style="color:#e6db74">&#34;</span>$INIT<span style="color:#e6db74">&#34;</span> --from validator --label <span style="color:#e6db74">&#34;name service&#34;</span> $TXFLAG -y --no-admin --keyring-backend test
+
+<span style="color:#75715e"># 查看合约地址</span>
+$ wasmd query wasm list-contract-by-code $CODE_ID $NODE --output json
+$ CONTRACT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>wasmd query wasm list-contract-by-code $CODE_ID $NODE --output json | jq -r <span style="color:#e6db74">&#39;.contracts[-1]&#39;</span><span style="color:#66d9ef">)</span>
+$ echo $CONTRACT
+
+<span style="color:#75715e"># 查看合约信息</span>
+$ wasmd query wasm contract $CONTRACT $NODE
+<span style="color:#75715e"># 查看合约余额</span>
+$ wasmd query bank balances $CONTRACT $NODE
+
+<span style="color:#75715e"># 查看所有合约状态</span>
+$ wasmd query wasm contract-state all $CONTRACT $NODE
+models:
+- key: 636F6E666967
+  value: eyJwdXJjaGFzZV9wcmljZSI6eyJkZW5vbSI6InN0YWtlIiwiYW1vdW50IjoiMTAwIn0sInRyYW5zZmVyX3ByaWNlIjp7ImRlbm9tIjoic3Rha2UiLCJhbW91bnQiOiI5OTkifX0<span style="color:#f92672">=</span>
+pagination:
+  next_key: null
+  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</code></pre></div><blockquote>
 <p>这结果的key值其实是config的16进制</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ echo 636F6E666967 | xxd -r -ps
-</span></span><span style="display:flex;"><span>config
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ echo -n config | xxd -ps
-</span></span><span style="display:flex;"><span>636f6e666967
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm contract-state all $CONTRACT $NODE --output <span style="color:#e6db74">&#34;json&#34;</span> | jq -r <span style="color:#e6db74">&#39;.models[0].key&#39;</span> | xxd -r -ps
-</span></span><span style="display:flex;"><span>config
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm contract-state all $CONTRACT $NODE --output <span style="color:#e6db74">&#34;json&#34;</span> | jq -r <span style="color:#e6db74">&#39;.models[0].value&#39;</span> | base64 -d
-</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;purchase_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;transfer_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;999&#34;</span><span style="color:#f92672">}}</span>
-</span></span></code></pre></div><p>也可以使用smart query查询</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ CONFIG_QUERY<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;config&#34;: {}}&#39;</span>
-</span></span><span style="display:flex;"><span>wasmd query wasm contract-state smart $CONTRACT <span style="color:#e6db74">&#34;</span>$CONFIG_QUERY<span style="color:#e6db74">&#34;</span> $NODE --output json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;purchase_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;transfer_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;999&#34;</span><span style="color:#f92672">}}}</span>
-</span></span></code></pre></div><h2 id="3-调用合约">3. 调用合约</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 给账户地址登录一个名字叫 fred </span>
-</span></span><span style="display:flex;"><span>$ REGISTER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;register&#34;:{&#34;name&#34;:&#34;fred&#34;}}&#39;</span>
-</span></span><span style="display:flex;"><span>$ wasmd tx wasm execute $CONTRACT <span style="color:#e6db74">&#34;</span>$REGISTER<span style="color:#e6db74">&#34;</span> --amount 100stake --from validator $TXFLAG -y --keyring-backend test
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用 smart query 查询</span>
-</span></span><span style="display:flex;"><span>$ NAME_QUERY<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;resolve_record&#34;: {&#34;name&#34;: &#34;fred&#34;}}&#39;</span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm contract-state smart $CONTRACT <span style="color:#e6db74">&#34;</span>$NAME_QUERY<span style="color:#e6db74">&#34;</span> $NODE --output json
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># {&#34;data&#34;:{&#34;address&#34;:&#34;wasm1smfyqu0srwhmmzlsz8nk4uxhwdzdwwdazfwdqy&#34;}}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ wasmd keys add test --keyring-backend test
-</span></span><span style="display:flex;"><span>- address: wasm10hdygu8r5v79z6xdrpgma0afhk8szuvxee0v0j
-</span></span><span style="display:flex;"><span>  name: test
-</span></span><span style="display:flex;"><span>  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;AxDalYjk0aIEpuLWicdY/BGJRKf3/Hg8qDLRzLwQnye5&#34;}&#39;</span>
-</span></span><span style="display:flex;"><span>  type: local
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 把所有权给到新添加的test用户</span>
-</span></span><span style="display:flex;"><span>$ TRANSFER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;transfer&#34;:{&#34;name&#34;:&#34;fred&#34;,&#34;to&#34;:&#34;wasm10hdygu8r5v79z6xdrpgma0afhk8szuvxee0v0j&#34;}}&#39;</span>
-</span></span><span style="display:flex;"><span>$ wasmd tx wasm execute $CONTRACT <span style="color:#e6db74">&#34;</span>$TRANSFER<span style="color:#e6db74">&#34;</span> --amount 999stake --from validator $TXFLAG -y --keyring-backend test
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用 smart query 查询变更后的结果</span>
-</span></span><span style="display:flex;"><span>$ NAME_QUERY<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;resolve_record&#34;: {&#34;name&#34;: &#34;fred&#34;}}&#39;</span>
-</span></span><span style="display:flex;"><span>$ wasmd query wasm contract-state smart $CONTRACT <span style="color:#e6db74">&#34;</span>$NAME_QUERY<span style="color:#e6db74">&#34;</span> $NODE --output json
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># {&#34;data&#34;:{&#34;address&#34;:&#34;wasm10hdygu8r5v79z6xdrpgma0afhk8szuvxee0v0j&#34;}}</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo 636F6E666967 | xxd -r -ps
+config
+
+$ echo -n config | xxd -ps
+636f6e666967
+
+$ wasmd query wasm contract-state all $CONTRACT $NODE --output <span style="color:#e6db74">&#34;json&#34;</span> | jq -r <span style="color:#e6db74">&#39;.models[0].key&#39;</span> | xxd -r -ps
+config
+
+$ wasmd query wasm contract-state all $CONTRACT $NODE --output <span style="color:#e6db74">&#34;json&#34;</span> | jq -r <span style="color:#e6db74">&#39;.models[0].value&#39;</span> | base64 -d
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;purchase_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;transfer_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;999&#34;</span><span style="color:#f92672">}}</span>
+</code></pre></div><p>也可以使用smart query查询</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ CONFIG_QUERY<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;config&#34;: {}}&#39;</span>
+wasmd query wasm contract-state smart $CONTRACT <span style="color:#e6db74">&#34;</span>$CONFIG_QUERY<span style="color:#e6db74">&#34;</span> $NODE --output json
+<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;purchase_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;transfer_price&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;denom&#34;</span>:<span style="color:#e6db74">&#34;stake&#34;</span>,<span style="color:#e6db74">&#34;amount&#34;</span>:<span style="color:#e6db74">&#34;999&#34;</span><span style="color:#f92672">}}}</span>
+</code></pre></div><h2 id="3-调用合约">3. 调用合约</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 给账户地址登录一个名字叫 fred </span>
+$ REGISTER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;register&#34;:{&#34;name&#34;:&#34;fred&#34;}}&#39;</span>
+$ wasmd tx wasm execute $CONTRACT <span style="color:#e6db74">&#34;</span>$REGISTER<span style="color:#e6db74">&#34;</span> --amount 100stake --from validator $TXFLAG -y --keyring-backend test
+
+<span style="color:#75715e"># 使用 smart query 查询</span>
+$ NAME_QUERY<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;resolve_record&#34;: {&#34;name&#34;: &#34;fred&#34;}}&#39;</span>
+$ wasmd query wasm contract-state smart $CONTRACT <span style="color:#e6db74">&#34;</span>$NAME_QUERY<span style="color:#e6db74">&#34;</span> $NODE --output json
+<span style="color:#75715e"># {&#34;data&#34;:{&#34;address&#34;:&#34;wasm1smfyqu0srwhmmzlsz8nk4uxhwdzdwwdazfwdqy&#34;}}</span>
+
+$ wasmd keys add test --keyring-backend test
+- address: wasm10hdygu8r5v79z6xdrpgma0afhk8szuvxee0v0j
+  name: test
+  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;AxDalYjk0aIEpuLWicdY/BGJRKf3/Hg8qDLRzLwQnye5&#34;}&#39;</span>
+  type: local
+
+<span style="color:#75715e"># 把所有权给到新添加的test用户</span>
+$ TRANSFER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;transfer&#34;:{&#34;name&#34;:&#34;fred&#34;,&#34;to&#34;:&#34;wasm10hdygu8r5v79z6xdrpgma0afhk8szuvxee0v0j&#34;}}&#39;</span>
+$ wasmd tx wasm execute $CONTRACT <span style="color:#e6db74">&#34;</span>$TRANSFER<span style="color:#e6db74">&#34;</span> --amount 999stake --from validator $TXFLAG -y --keyring-backend test
+
+<span style="color:#75715e"># 使用 smart query 查询变更后的结果</span>
+$ NAME_QUERY<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{&#34;resolve_record&#34;: {&#34;name&#34;: &#34;fred&#34;}}&#39;</span>
+$ wasmd query wasm contract-state smart $CONTRACT <span style="color:#e6db74">&#34;</span>$NAME_QUERY<span style="color:#e6db74">&#34;</span> $NODE --output json
+<span style="color:#75715e"># {&#34;data&#34;:{&#34;address&#34;:&#34;wasm10hdygu8r5v79z6xdrpgma0afhk8szuvxee0v0j&#34;}}</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -359,12 +364,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -495,6 +500,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

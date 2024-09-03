@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【nginx笔记】nginx_配置策略(02)" />
 <meta property="og:description" content="这一片简单的整理了 nginx_配置策略 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/nginx/nginx_02/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/nginx/nginx_02/" />
 <meta property="article:published_time" content="2022-10-16T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-16T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【nginx笔记】nginx_配置策略(02)">
-<meta itemprop="description" content="这一片简单的整理了 nginx_配置策略 相关的内容。"><meta itemprop="datePublished" content="2022-10-16T23:28:49+08:00" />
+<meta itemprop="description" content="这一片简单的整理了 nginx_配置策略 相关的内容。">
+<meta itemprop="datePublished" content="2022-10-16T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-16T23:28:49+08:00" />
 <meta itemprop="wordCount" content="178">
+
+
+
 <meta itemprop="keywords" content="nginx," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -162,24 +167,24 @@
 <h2 id="1servername匹配规则">1.servername匹配规则</h2>
 <h4 id="完整匹配">完整匹配</h4>
 <p>我们可以在同一servername中匹配多个域名</p>
-<pre tabindex="0"><code>server_name  vod.mmban.com www1.mmban.com;
+<pre><code>server_name  vod.mmban.com www1.mmban.com;
 </code></pre><h4 id="通配符匹配">通配符匹配</h4>
-<pre tabindex="0"><code>server_name  *.mmban.com
+<pre><code>server_name  *.mmban.com
 </code></pre><h4 id="通配符结束匹配">通配符结束匹配</h4>
-<pre tabindex="0"><code>server_name  vod.*;
+<pre><code>server_name  vod.*;
 </code></pre><h4 id="正则匹配">正则匹配</h4>
-<pre tabindex="0"><code>server_name  ~^[0-9]+\.mmban\.com$;
+<pre><code>server_name  ~^[0-9]+\.mmban\.com$;
 </code></pre><h2 id="2反向代理和正向代理">2.反向代理和正向代理</h2>
 <p>总是说反向代理，起初不太明白。其实很简单。<br>
 传统的代理服务器是:</p>
-<pre tabindex="0"><code> --------------------
+<pre><code> --------------------
 | 客户端  -&gt; 代理服务器 | -&gt; 目标服务器
  --------------------
 </code></pre><blockquote>
 <p>其中客户端和代理服务器是一伙的，他两合作链目标服务器。</p>
 </blockquote>
 <p>反向代理是客户端链接代理服务器，代理服务器帮助服务器判断，链那个业务服务器。</p>
-<pre tabindex="0"><code>          -----------------------
+<pre><code>          -----------------------
 客户端 -&gt; | 代理服务器 -&gt; 目标服务器 |
           -----------------------
 </code></pre><blockquote>
@@ -189,7 +194,7 @@
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/system/nginx/nginx_01.png" alt="go_nginx_01"></p>
 <h2 id="3负载均衡">3.负载均衡</h2>
 <h3 id="31-具体配置">3.1 具体配置</h3>
-<pre tabindex="0"><code>upstream httpd {
+<pre><code>upstream httpd {
     server 192.168.0.102:80;
     server 192.168.0.103:80;
 }
@@ -198,7 +203,7 @@
 <p>默认情况下使用轮询方式，逐一转发，这种方式适用于无状态请求。</p>
 <h4 id="weight权重">weight(权重)</h4>
 <p>指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。</p>
-<pre tabindex="0"><code>upstream httpd {
+<pre><code>upstream httpd {
     server 127.0.0.1:8050   weight=6 down;
     server 127.0.0.1:8060   weight=2;
     server 127.0.0.1:8060   weight=2 backup;
@@ -218,13 +223,13 @@
 <h2 id="3动静分离">3.动静分离</h2>
 <p>就是把动态资源和静态资源分离出来，让nginx直接访问静态资源，<br>
 不需要再访问服务器，转接给客户端。</p>
-<pre tabindex="0"><code>location / {
+<pre><code>location / {
     proxy_pass http://127.0.0.1:8080;
     root   html;
     index  index.html index.htm;
 }
 </code></pre><p>==&gt; 把静态文件放到领路径下访问，不用在访问实际业务服务器。</p>
-<pre tabindex="0"><code>location /css {
+<pre><code>location /css {
     root   /usr/local/nginx/static;
     index  index.html index.htm;
 }
@@ -237,13 +242,13 @@ location /js {
     index  index.html index.htm;
 }
 </code></pre><p>也可以使用正则</p>
-<pre tabindex="0"><code>location ~*/(css|img|js) {
+<pre><code>location ~*/(css|img|js) {
     root   /usr/local/nginx/static;
     index  index.html index.htm;
 }
 </code></pre><h2 id="4urlrewrite">4.UrlRewrite</h2>
 <p>rewrite语法格式及参数语法</p>
-<pre tabindex="0"><code>rewrite是实现URL重写的关键指令，根据regex (正则表达式)部分内容，  
+<pre><code>rewrite是实现URL重写的关键指令，根据regex (正则表达式)部分内容，  
 重定向到replacement，结尾是flag标记。  
 
 rewrite     &lt;regex&gt;     &lt;replacement&gt;   [flag];  
@@ -264,7 +269,7 @@ break #本条规则匹配完成即终止，不再匹配后面的任何规则
 redirect #返回302临时重定向，浏览器地址会显示跳转后的URL地址  
 permanent #返回301永久重定向，浏览器地址栏会显示跳转后的URL地址
 </code></pre><p>实例</p>
-<pre tabindex="0"><code>rewrite   ^/([0-9]+).html$     /index.jsp?pageNum=$1    break;
+<pre><code>rewrite   ^/([0-9]+).html$     /index.jsp?pageNum=$1    break;
 </code></pre><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -325,12 +330,12 @@ permanent #返回301永久重定向，浏览器地址栏会显示跳转后的URL
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -461,6 +466,10 @@ permanent #返回301永久重定向，浏览器地址栏会显示跳转后的URL
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

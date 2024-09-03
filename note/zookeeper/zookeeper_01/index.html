@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【zookeeper笔记】zookeeper_启动和配置(1)" />
 <meta property="og:description" content="简单的整理了zookeeper启动和相关配置。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/zookeeper/zookeeper_01/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/zookeeper/zookeeper_01/" />
 <meta property="article:published_time" content="2022-08-11T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-08-11T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【zookeeper笔记】zookeeper_启动和配置(1)">
-<meta itemprop="description" content="简单的整理了zookeeper启动和相关配置。"><meta itemprop="datePublished" content="2022-08-11T23:28:49+08:00" />
+<meta itemprop="description" content="简单的整理了zookeeper启动和相关配置。">
+<meta itemprop="datePublished" content="2022-08-11T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-11T23:28:49+08:00" />
 <meta itemprop="wordCount" content="186">
+
+
+
 <meta itemprop="keywords" content="zookeeper," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -150,9 +155,9 @@
 </div><div class="content post__content clearfix">
 			<p>简单的整理了zookeeper启动和相关配置。</p>
 <h2 id="1单节点启动">1.单节点启动</h2>
-<pre tabindex="0"><code>#run zookeeper
+<pre><code>#run zookeeper
 docker run --name some-zookeeper --restart always -d zookeeper
-</code></pre><pre tabindex="0"><code>#status
+</code></pre><pre><code>#status
 $ docker exec -i zookeeper zkServer.sh status
 ZooKeeper JMX enabled by default
 Using config: /conf/zoo.cfg
@@ -160,72 +165,72 @@ Client port found: 2181. Client address: localhost. Client SSL: false.
 Mode: standalone
 </code></pre><h2 id="2集群模式">2.集群模式</h2>
 <p>创建stack.yml</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">zoo1</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">zookeeper</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hostname</span>: <span style="color:#ae81ff">zoo1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
-</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">2181</span>:<span style="color:#ae81ff">2181</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ZOO_MY_ID</span>: <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ZOO_SERVERS</span>: <span style="color:#ae81ff">server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">zoo2</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">zookeeper</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hostname</span>: <span style="color:#ae81ff">zoo2</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
-</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">2182</span>:<span style="color:#ae81ff">2181</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ZOO_MY_ID</span>: <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ZOO_SERVERS</span>: <span style="color:#ae81ff">server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">zoo3</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">zookeeper</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hostname</span>: <span style="color:#ae81ff">zoo3</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
-</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">2183</span>:<span style="color:#ae81ff">2181</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ZOO_MY_ID</span>: <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ZOO_SERVERS</span>: <span style="color:#ae81ff">server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose -f stack.yml up
-</span></span></code></pre></div><p>查看状态</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@zoo1:/apache-zookeeper-3.8.0-bin/bin# zkServer.sh status
-</span></span><span style="display:flex;"><span>ZooKeeper JMX enabled by default
-</span></span><span style="display:flex;"><span>Using config: /conf/zoo.cfg
-</span></span><span style="display:flex;"><span>Client port found: 2181. Client address: localhost. Client SSL: false.
-</span></span><span style="display:flex;"><span>Mode: follower
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#Mode: leader</span>
-</span></span></code></pre></div><h2 id="3confzoocfg">3.conf/zoo.cfg</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
+
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">zoo1</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">zookeeper</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">hostname</span>: <span style="color:#ae81ff">zoo1</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#ae81ff">2181</span>:<span style="color:#ae81ff">2181</span>
+    <span style="color:#f92672">environment</span>:
+      <span style="color:#f92672">ZOO_MY_ID</span>: <span style="color:#ae81ff">1</span>
+      <span style="color:#f92672">ZOO_SERVERS</span>: <span style="color:#ae81ff">server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181</span>
+
+  <span style="color:#f92672">zoo2</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">zookeeper</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">hostname</span>: <span style="color:#ae81ff">zoo2</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#ae81ff">2182</span>:<span style="color:#ae81ff">2181</span>
+    <span style="color:#f92672">environment</span>:
+      <span style="color:#f92672">ZOO_MY_ID</span>: <span style="color:#ae81ff">2</span>
+      <span style="color:#f92672">ZOO_SERVERS</span>: <span style="color:#ae81ff">server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181</span>
+
+  <span style="color:#f92672">zoo3</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">zookeeper</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">hostname</span>: <span style="color:#ae81ff">zoo3</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#ae81ff">2183</span>:<span style="color:#ae81ff">2181</span>
+    <span style="color:#f92672">environment</span>:
+      <span style="color:#f92672">ZOO_MY_ID</span>: <span style="color:#ae81ff">3</span>
+      <span style="color:#f92672">ZOO_SERVERS</span>: <span style="color:#ae81ff">server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose -f stack.yml up
+</code></pre></div><p>查看状态</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@zoo1:/apache-zookeeper-3.8.0-bin/bin# zkServer.sh status
+ZooKeeper JMX enabled by default
+Using config: /conf/zoo.cfg
+Client port found: 2181. Client address: localhost. Client SSL: false.
+Mode: follower
+<span style="color:#75715e">#Mode: leader</span>
+</code></pre></div><h2 id="3confzoocfg">3.conf/zoo.cfg</h2>
 <p>zookeeper的常用配置解释</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 数据路径</span>
-</span></span><span style="display:flex;"><span>dataDir<span style="color:#f92672">=</span>/data
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 日志存储路径</span>
-</span></span><span style="display:flex;"><span>dataLogDir<span style="color:#f92672">=</span>/datalog
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 心跳毫秒</span>
-</span></span><span style="display:flex;"><span>tickTime<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># initLimit*tickTime 服务启动时 判断Leader和flower的链接是否正常</span>
-</span></span><span style="display:flex;"><span>initLimit<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># syncLimit*tickTime 服务启动后 判断Leader和flower的链接是否正常</span>
-</span></span><span style="display:flex;"><span>syncLimit<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 客户端连接server的port，即对外服务port，一般设置为2181</span>
-</span></span><span style="display:flex;"><span>clientPort<span style="color:#f92672">=</span><span style="color:#ae81ff">2181</span> 
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这个參数和上面的參数搭配使用，这个參数指定了须要保留的文件数目。默认是保留3个。</span>
-</span></span><span style="display:flex;"><span>autopurge.snapRetainCount<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3.4.0及之后版本号，ZK提供了自己主动清理事务日志和快照文件的功能，这个參数指定了清理频率。</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 单位是小时。须要配置一个1或更大的整数，默认是0。表不开启自己主动清理功能</span>
-</span></span><span style="display:flex;"><span>autopurge.purgeInterval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 单个client与单台server之间的连接数的限制，是ip级别的，默认是60。</span>
-</span></span><span style="display:flex;"><span>maxClientCnxns<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
-</span></span><span style="display:flex;"><span>standaloneEnabled<span style="color:#f92672">=</span>true
-</span></span><span style="display:flex;"><span>admin.enableServer<span style="color:#f92672">=</span>true
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#ZK集群节点配置，2181 对 client 端提供服务，端口号2888用于集群节点之间数据通信，端口号3888用于集群中Leader选举</span>
-</span></span><span style="display:flex;"><span>server.1<span style="color:#f92672">=</span>localhost:2888:3888;<span style="color:#ae81ff">2181</span>
-</span></span></code></pre></div><h2 id="4zookeeper-的三个端口作用">4.zookeeper 的三个端口作用</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 数据路径</span>
+dataDir<span style="color:#f92672">=</span>/data
+<span style="color:#75715e"># 日志存储路径</span>
+dataLogDir<span style="color:#f92672">=</span>/datalog
+<span style="color:#75715e"># 心跳毫秒</span>
+tickTime<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>
+<span style="color:#75715e"># initLimit*tickTime 服务启动时 判断Leader和flower的链接是否正常</span>
+initLimit<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
+<span style="color:#75715e"># syncLimit*tickTime 服务启动后 判断Leader和flower的链接是否正常</span>
+syncLimit<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+<span style="color:#75715e"># 客户端连接server的port，即对外服务port，一般设置为2181</span>
+clientPort<span style="color:#f92672">=</span><span style="color:#ae81ff">2181</span> 
+<span style="color:#75715e"># 这个參数和上面的參数搭配使用，这个參数指定了须要保留的文件数目。默认是保留3个。</span>
+autopurge.snapRetainCount<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>
+<span style="color:#75715e"># 3.4.0及之后版本号，ZK提供了自己主动清理事务日志和快照文件的功能，这个參数指定了清理频率。</span>
+<span style="color:#75715e"># 单位是小时。须要配置一个1或更大的整数，默认是0。表不开启自己主动清理功能</span>
+autopurge.purgeInterval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+<span style="color:#75715e"># 单个client与单台server之间的连接数的限制，是ip级别的，默认是60。</span>
+maxClientCnxns<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+standaloneEnabled<span style="color:#f92672">=</span>true
+admin.enableServer<span style="color:#f92672">=</span>true
+<span style="color:#75715e">#ZK集群节点配置，2181 对 client 端提供服务，端口号2888用于集群节点之间数据通信，端口号3888用于集群中Leader选举</span>
+server.1<span style="color:#f92672">=</span>localhost:2888:3888;<span style="color:#ae81ff">2181</span>
+</code></pre></div><h2 id="4zookeeper-的三个端口作用">4.zookeeper 的三个端口作用</h2>
 <ul>
 <li>2181 : 对 client 端提供服务</li>
 <li>2888 : 集群内机器通信使用</li>
@@ -291,12 +296,12 @@ Mode: standalone
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -427,6 +432,10 @@ Mode: standalone
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

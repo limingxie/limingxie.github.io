@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【cosmos-sdk笔记】启动 simapp" />
 <meta property="og:description" content="看看如何启用 cosmos-sdk 自带的测试用的 simapp。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_01/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_01/" />
 <meta property="article:published_time" content="2023-06-18T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-06-18T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-sdk笔记】启动 simapp">
-<meta itemprop="description" content="看看如何启用 cosmos-sdk 自带的测试用的 simapp。"><meta itemprop="datePublished" content="2023-06-18T23:28:49+08:00" />
+<meta itemprop="description" content="看看如何启用 cosmos-sdk 自带的测试用的 simapp。">
+<meta itemprop="datePublished" content="2023-06-18T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-06-18T23:28:49+08:00" />
 <meta itemprop="wordCount" content="336">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,cosmos," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -155,30 +160,30 @@
 </div><div class="content post__content clearfix">
 			<p>看看如何启用 cosmos-sdk 自带的测试用的 simapp。</p>
 <h2 id="1克隆和编译代码">1.克隆和编译代码</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>// 克隆代码
-</span></span><span style="display:flex;"><span>git clone https://github.com/cosmos/cosmos-sdk --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --branch v0.46.6
-</span></span><span style="display:flex;"><span>cd cosmos-sdk
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 编译代码
-</span></span><span style="display:flex;"><span>make  build
-</span></span><span style="display:flex;"><span>cd build
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 查看版本
-</span></span><span style="display:flex;"><span>./simd version
-</span></span></code></pre></div><h2 id="2添加-key-账户">2.添加 key (账户)</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd keys add alice
-</span></span><span style="display:flex;"><span>./simd keys add bob
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 为了方便操作，存到变量
-</span></span><span style="display:flex;"><span>export ALICE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show alice --address<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>export BOB<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show bob --address<span style="color:#66d9ef">)</span>
-</span></span></code></pre></div><h2 id="3创建genesisfile">3.创建genesisfile</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd init stone-age-1 --chain-id stone-age-block-chain
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 克隆代码
+git clone https://github.com/cosmos/cosmos-sdk --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --branch v0.46.6
+cd cosmos-sdk
+
+// 编译代码
+make  build
+cd build
+
+// 查看版本
+./simd version
+</code></pre></div><h2 id="2添加-key-账户">2.添加 key (账户)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd keys add alice
+./simd keys add bob
+
+// 为了方便操作，存到变量
+export ALICE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show alice --address<span style="color:#66d9ef">)</span>
+export BOB<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>./simd keys show bob --address<span style="color:#66d9ef">)</span>
+</code></pre></div><h2 id="3创建genesisfile">3.创建genesisfile</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd init stone-age-1 --chain-id stone-age-block-chain
+</code></pre></div><blockquote>
 <p>初始话以后，在/User/limingxie/.simapp/config 自动创建默认的genesis.json 文件<br>
 把 stake 改成 自定义的 nstone</p>
 </blockquote>
-<pre tabindex="0"><code>addrbook.json
+<pre><code>addrbook.json
 app.toml        &lt;-- configuration for the app part of your blockchain
 client.toml     &lt;-- configuration for the CLI client of the app
 config.toml     &lt;-- configuration for Tendermint
@@ -187,46 +192,46 @@ gentx           &lt;-- folder that contains the genesis transactions before they
 node_key.json   &lt;-- private key that uniquely identifies your node on the network
 priv_validator_key.json
 </code></pre><h2 id="4创建初始账户和验证者">4.创建初始账户和验证者</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>// 给alice和bob 加nstone和nflint
-</span></span><span style="display:flex;"><span>./simd add-genesis-account alice 6000000000nstone,3000000000nflint
-</span></span><span style="display:flex;"><span>./simd add-genesis-account bob 5000000000nstone,2000000000nflint
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>// alice 质押 nstone 为做验证者做准备
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./simd gentx alice <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    3000000000nstone <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --account-number <span style="color:#ae81ff">0</span> --sequence <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --chain-id stone-age-block-chain <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --pubkey <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.ed25519.PubKey&#34;,&#34;key&#34;:&#34;A1GqoOS+Oxal9yfn/8cXO2KRQ470tWNx89JOKnbu53uq&#34;}&#39;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --gas <span style="color:#ae81ff">1000000</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --gas-prices 0.1nstone <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --keyring-backend os
-</span></span><span style="display:flex;"><span>Genesis transaction written to <span style="color:#e6db74">&#34;/Users/limingxie/.simapp/config/gentx/gentx-518a0d5c831631291be43590f66f7c521125770d.json&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// 把所有验证者关联起来
-</span></span><span style="display:flex;"><span>./simd collect-gentxs
-</span></span></code></pre></div><h2 id="5打开节点">5.打开节点</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 给alice和bob 加nstone和nflint
+./simd add-genesis-account alice 6000000000nstone,3000000000nflint
+./simd add-genesis-account bob 5000000000nstone,2000000000nflint
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// alice 质押 nstone 为做验证者做准备
+
+./simd gentx alice <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    3000000000nstone <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --account-number <span style="color:#ae81ff">0</span> --sequence <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --chain-id stone-age-block-chain <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --pubkey <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.ed25519.PubKey&#34;,&#34;key&#34;:&#34;A1GqoOS+Oxal9yfn/8cXO2KRQ470tWNx89JOKnbu53uq&#34;}&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --gas <span style="color:#ae81ff">1000000</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --gas-prices 0.1nstone <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --keyring-backend os
+Genesis transaction written to <span style="color:#e6db74">&#34;/Users/limingxie/.simapp/config/gentx/gentx-518a0d5c831631291be43590f66f7c521125770d.json&#34;</span>
+
+// 把所有验证者关联起来
+./simd collect-gentxs
+</code></pre></div><h2 id="5打开节点">5.打开节点</h2>
 <p>config.toml文件中找以下配置，可以修改node开放端口</p>
-<pre tabindex="0"><code>[p2p]
+<pre><code>[p2p]
 
 # Address to listen for incoming connections
-laddr = &#34;tcp://0.0.0.0:26656&#34;
+laddr = &quot;tcp://0.0.0.0:26656&quot;
 
 ... ...
 
-external_address = &#34;172.217.22.14:26656&#34; # replace by your own
+external_address = &quot;172.217.22.14:26656&quot; # replace by your own
 </code></pre><p>~/.simapp/config/node_key.json 存储着节点的私钥。<br>
 config.toml文件位置在行中提到node_key_file = &ldquo;config/node_key.json&rdquo;。<br>
 <code>node_key.json</code>丢失或被盗, 从新创建一个就行了，不会丢失任何代币。<br>
 如下命令可以查看nodeId</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd tendermint show-node-id
-</span></span><span style="display:flex;"><span>e9b52965f638a1f0b40889fd56058d06b15f561b
-</span></span></code></pre></div><h2 id="6和其它节点建立链接">6.和其它节点建立链接</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tendermint show-node-id
+e9b52965f638a1f0b40889fd56058d06b15f561b
+</code></pre></div><h2 id="6和其它节点建立链接">6.和其它节点建立链接</h2>
 <p>开始的时候，在config.toml文件配置中手动保存 node-id@listen-address</p>
-<pre tabindex="0"><code>persistent_peers = &#34;432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656,
-5735836cbaa747e013e47b11839db2c2990b918a@121.37.49.12:26656&#34;
+<pre><code>persistent_peers = &quot;432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656,
+5735836cbaa747e013e47b11839db2c2990b918a@121.37.49.12:26656&quot;
 
 // 设为种子节点
-seeds = &#34;432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656&#34;
+seeds = &quot;432d816d0a1648c5bc3f060bd28dea6ff13cb413@216.58.206.174:26656&quot;
 </code></pre><blockquote>
 <p>persistent_peers 里没必要把所有的节点写进去，你可以只写你信任的节点。</p>
 </blockquote>
@@ -242,32 +247,32 @@ log_level</p>
 timeout_prevote<br>
 timeout_precommit_delta</p>
 <p>config/config.toml</p>
-<pre tabindex="0"><code>[consensus]
+<pre><code>[consensus]
 ...
 
-timeout_propose = &#34;3s&#34;          # 提议超时时间：在收到提议块之前等待的时间长度，如果超过该时间，则进行预投票
-timeout_propose_delta = &#34;500ms&#34; # 提议超时时间增量：每个轮次提议超时时间的增加量
-timeout_prevote = &#34;1s&#34;          # 预投票超时时间：在收到超过2/3的预投票（&#34;anything&#34;，即不是单个块或nil）后等待的时间长度
-timeout_prevote_delta = &#34;500ms&#34; # 预投票超时时间增量：每个轮次预投票超时时间的增加量。
-timeout_precommit = &#34;1s&#34;        # 预提交超时时间：在收到超过2/3的预提交（&#34;anything&#34;，即不是单个块或nil）后等待的时间长度。
-timeout_precommit_delta = &#34;500ms&#34; # 预提交超时时间增量：每个轮次预提交超时时间的增加量。
-timeout_commit = &#34;1s&#34;           # 提交超时时间：在提交一个块后，在开始新的高度之前等待的时间长度（这给我们一个机会收到更多的预提交，即使我们已经有超过2/3的预提交）
+timeout_propose = &quot;3s&quot;          # 提议超时时间：在收到提议块之前等待的时间长度，如果超过该时间，则进行预投票
+timeout_propose_delta = &quot;500ms&quot; # 提议超时时间增量：每个轮次提议超时时间的增加量
+timeout_prevote = &quot;1s&quot;          # 预投票超时时间：在收到超过2/3的预投票（&quot;anything&quot;，即不是单个块或nil）后等待的时间长度
+timeout_prevote_delta = &quot;500ms&quot; # 预投票超时时间增量：每个轮次预投票超时时间的增加量。
+timeout_precommit = &quot;1s&quot;        # 预提交超时时间：在收到超过2/3的预提交（&quot;anything&quot;，即不是单个块或nil）后等待的时间长度。
+timeout_precommit_delta = &quot;500ms&quot; # 预提交超时时间增量：每个轮次预提交超时时间的增加量。
+timeout_commit = &quot;1s&quot;           # 提交超时时间：在提交一个块后，在开始新的高度之前等待的时间长度（这给我们一个机会收到更多的预提交，即使我们已经有超过2/3的预提交）
 </code></pre><p>查看tendermint版本</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./simd tendermint version
-</span></span><span style="display:flex;"><span>ABCI: 0.17.0
-</span></span><span style="display:flex;"><span>BlockProtocol: <span style="color:#ae81ff">11</span>
-</span></span><span style="display:flex;"><span>P2PProtocol: <span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span>Tendermint: v0.34.23
-</span></span></code></pre></div><h2 id="8创建用户">8.创建用户</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo adduser chainuser
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sudo mv ~/.myprojectd /home/chainuser
-</span></span><span style="display:flex;"><span>sudo chown -R chainuser:chainuser /home/chainuser/.simd
-</span></span></code></pre></div><h2 id="9启动">9.启动</h2>
-<pre tabindex="0"><code>./simd start
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./simd tendermint version
+ABCI: 0.17.0
+BlockProtocol: <span style="color:#ae81ff">11</span>
+P2PProtocol: <span style="color:#ae81ff">8</span>
+Tendermint: v0.34.23
+</code></pre></div><h2 id="8创建用户">8.创建用户</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo adduser chainuser
+
+sudo mv ~/.myprojectd /home/chainuser
+sudo chown -R chainuser:chainuser /home/chainuser/.simd
+</code></pre></div><h2 id="9启动">9.启动</h2>
+<pre><code>./simd start
 </code></pre><p>也可以作为服务启动<br>
 保存如下文件： /etc/systemd/system/simd.service</p>
-<pre tabindex="0"><code>[Unit]
+<pre><code>[Unit]
 Description=My Project Chain Daemon
 After=network-online.target
 
@@ -281,7 +286,7 @@ LimitNOFILE=4096
 [Install]
 WantedBy=multi-user.target
 </code></pre><p>启动服务</p>
-<pre tabindex="0"><code>sudo systemctl daemon-reload
+<pre><code>sudo systemctl daemon-reload
 sudo systemctl enable simd
 
 sudo systemctl start simd
@@ -351,12 +356,12 @@ sudo systemctl start simd
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -487,6 +492,10 @@ sudo systemctl start simd
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

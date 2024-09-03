@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【区块链笔记】ETH_Solidity简单代币合约(03)" />
 <meta property="og:description" content="这篇文章简单的整理了以太坊solidity简单代币合约。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/solidity/blockchain_eth_solidity_03/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/solidity/blockchain_eth_solidity_03/" />
 <meta property="article:published_time" content="2022-11-24T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-11-24T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】ETH_Solidity简单代币合约(03)">
-<meta itemprop="description" content="这篇文章简单的整理了以太坊solidity简单代币合约。"><meta itemprop="datePublished" content="2022-11-24T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了以太坊solidity简单代币合约。">
+<meta itemprop="datePublished" content="2022-11-24T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-24T23:28:49+08:00" />
 <meta itemprop="wordCount" content="191">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -156,53 +161,53 @@
 <li>事件(Events) 非常方便的EVM日志工具接口。</li>
 </ul>
 <h2 id="2coin例子">2.Coin例子</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">22</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Coin</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> minter;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mapping</span> (<span style="color:#66d9ef">address</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">uint</span>) balances;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">event</span> <span style="color:#a6e22e">Sent</span>(<span style="color:#66d9ef">address</span> <span style="color:#66d9ef">from</span>, <span style="color:#66d9ef">address</span> to, <span style="color:#66d9ef">uint</span> amount);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>()<span style="color:#66d9ef">public</span>{
-</span></span><span style="display:flex;"><span>        minter <span style="color:#f92672">=</span> msg.sender;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">mint</span>(<span style="color:#66d9ef">address</span> receiver, <span style="color:#66d9ef">uint</span> amount) <span style="color:#66d9ef">public</span> {
-</span></span><span style="display:flex;"><span>        require(msg.sender <span style="color:#f92672">==</span> minter);
-</span></span><span style="display:flex;"><span>        balances[receiver] <span style="color:#f92672">+=</span> amount;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">send</span>(<span style="color:#66d9ef">address</span> receiver, <span style="color:#66d9ef">uint</span> amount) <span style="color:#66d9ef">public</span> {
-</span></span><span style="display:flex;"><span>        require(balances[msg.sender] <span style="color:#f92672">&gt;=</span> amount);
-</span></span><span style="display:flex;"><span>        balances[msg.sender] <span style="color:#f92672">-=</span> amount;
-</span></span><span style="display:flex;"><span>        balances[receiver] <span style="color:#f92672">+=</span> amount;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        emit Sent(msg.sender, receiver, amount);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getMinterBalance</span>() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> balances[minter];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>有造币者(minter)，造币方法(mint)，以及发放币的方法(send)<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">22</span>;
+
+<span style="color:#66d9ef">contract</span> Coin{
+    <span style="color:#66d9ef">address</span> <span style="color:#66d9ef">public</span> minter;
+    <span style="color:#66d9ef">mapping</span> (<span style="color:#66d9ef">address</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">uint</span>) balances;
+    <span style="color:#66d9ef">event</span> Sent(<span style="color:#66d9ef">address</span> <span style="color:#66d9ef">from</span>, <span style="color:#66d9ef">address</span> to, <span style="color:#66d9ef">uint</span> amount);
+    constructor()<span style="color:#66d9ef">public</span>{
+        minter <span style="color:#f92672">=</span> msg.sender;
+    }
+    <span style="color:#66d9ef">function</span> mint(<span style="color:#66d9ef">address</span> receiver, <span style="color:#66d9ef">uint</span> amount) <span style="color:#66d9ef">public</span> {
+        require(msg.sender <span style="color:#f92672">==</span> minter);
+        balances[receiver] <span style="color:#f92672">+=</span> amount;
+    }
+    <span style="color:#66d9ef">function</span> send(<span style="color:#66d9ef">address</span> receiver, <span style="color:#66d9ef">uint</span> amount) <span style="color:#66d9ef">public</span> {
+        require(balances[msg.sender] <span style="color:#f92672">&gt;=</span> amount);
+        balances[msg.sender] <span style="color:#f92672">-=</span> amount;
+        balances[receiver] <span style="color:#f92672">+=</span> amount;
+
+        emit Sent(msg.sender, receiver, amount);
+    }
+    <span style="color:#66d9ef">function</span> getMinterBalance() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">uint</span>) {
+        <span style="color:#66d9ef">return</span> balances[minter];
+    }
+}
+</code></pre></div><p>有造币者(minter)，造币方法(mint)，以及发放币的方法(send)<br>
 只是为了测试，没有多余的错误和溢出判断。</p>
 <p><a href="https://limingxie.github.io/images/blockchain/ethereum/solidity/eth_solidity_003.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/ethereum/solidity/eth_solidity_003.png" alt="eth_solidity_003"></p>
 <h2 id="2coin去掉造币方法设定一个定量">2.Coin去掉造币方法，设定一个定量</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sol" data-lang="sol"><span style="display:flex;"><span><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">22</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">contract</span> <span style="color:#a6e22e">Coin</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mapping</span> (<span style="color:#66d9ef">address</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">uint</span>) balances;
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// event Sent(address from, address to, uint amount);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">uint</span> initTotalSupply) <span style="color:#66d9ef">public</span> {
-</span></span><span style="display:flex;"><span>       balances[msg.sender] <span style="color:#f92672">=</span> initTotalSupply
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">send</span>(<span style="color:#66d9ef">address</span> receiver, <span style="color:#66d9ef">uint</span> amount) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bool</span> success) {
-</span></span><span style="display:flex;"><span>        require(balances[msg.sender] <span style="color:#f92672">&gt;=</span> amount);
-</span></span><span style="display:flex;"><span>        require(balances[receiver] <span style="color:#f92672">+</span> amount <span style="color:#f92672">&gt;=</span> balances[receiver]);
-</span></span><span style="display:flex;"><span>        balances[msg.sender] <span style="color:#f92672">-=</span> amount;
-</span></span><span style="display:flex;"><span>        balances[receiver] <span style="color:#f92672">+=</span> amount;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// emit Sent(msg.sender, receiver, amount);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>直接构造的时候设定一个定量的币，有发放币的方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sol" data-lang="sol"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">22</span>;
+
+<span style="color:#66d9ef">contract</span> Coin{
+    <span style="color:#66d9ef">mapping</span> (<span style="color:#66d9ef">address</span><span style="color:#f92672">=&gt;</span><span style="color:#66d9ef">uint</span>) balances;
+    <span style="color:#75715e">// event Sent(address from, address to, uint amount);
+</span><span style="color:#75715e"></span>    constructor(<span style="color:#66d9ef">uint</span> initTotalSupply) <span style="color:#66d9ef">public</span> {
+       balances[msg.sender] <span style="color:#f92672">=</span> initTotalSupply
+    }
+    <span style="color:#66d9ef">function</span> send(<span style="color:#66d9ef">address</span> receiver, <span style="color:#66d9ef">uint</span> amount) <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">bool</span> success) {
+        require(balances[msg.sender] <span style="color:#f92672">&gt;=</span> amount);
+        require(balances[receiver] <span style="color:#f92672">+</span> amount <span style="color:#f92672">&gt;=</span> balances[receiver]);
+        balances[msg.sender] <span style="color:#f92672">-=</span> amount;
+        balances[receiver] <span style="color:#f92672">+=</span> amount;
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+        <span style="color:#75715e">// emit Sent(msg.sender, receiver, amount);
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div><p>直接构造的时候设定一个定量的币，有发放币的方法。</p>
 <p><a href="https://limingxie.github.io/images/blockchain/ethereum/solidity/eth_solidity_004.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/blockchain/ethereum/solidity/eth_solidity_004.png" alt="eth_solidity_004"></p>
 <p>address public minter;</p>
@@ -291,12 +296,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -427,6 +432,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

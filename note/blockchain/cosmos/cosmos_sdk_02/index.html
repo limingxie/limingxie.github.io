@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【cosmos-sdk笔记】simd 常用的命令整理" />
 <meta property="og:description" content="整理了，simd链 启用后的简单的操作命令。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_02/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_02/" />
 <meta property="article:published_time" content="2023-06-20T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-06-20T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-sdk笔记】simd 常用的命令整理">
-<meta itemprop="description" content="整理了，simd链 启用后的简单的操作命令。"><meta itemprop="datePublished" content="2023-06-20T23:28:49+08:00" />
+<meta itemprop="description" content="整理了，simd链 启用后的简单的操作命令。">
+<meta itemprop="datePublished" content="2023-06-20T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-06-20T23:28:49+08:00" />
 <meta itemprop="wordCount" content="58">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,cosmos," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -149,21 +154,21 @@
 </div><div class="content post__content clearfix">
 			<p>整理了，simd链 启用后的简单的操作命令。</p>
 <h2 id="key">key</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>// 添加
-</span></span><span style="display:flex;"><span>./simd keys add alice
-</span></span><span style="display:flex;"><span>// 查看
-</span></span><span style="display:flex;"><span>./simd keys list
-</span></span><span style="display:flex;"><span>./simd keys show alice 
-</span></span><span style="display:flex;"><span>./simd keys show alice --address
-</span></span></code></pre></div><h2 id="group">group</h2>
-<pre tabindex="0"><code>./simd query group
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">// 添加
+./simd keys add alice
+// 查看
+./simd keys list
+./simd keys show alice 
+./simd keys show alice --address
+</code></pre></div><h2 id="group">group</h2>
+<pre><code>./simd query group
 ./simd tx group
 </code></pre><h2 id="bank">bank</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>//simd query bank balances <span style="color:#f92672">[</span>address<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>./simd query bank balances cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
-</span></span><span style="display:flex;"><span>//simd tx bank send <span style="color:#f92672">[</span>from_key_or_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>to_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>amount<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>./simd tx bank send cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0 cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd  5000stake
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//simd query bank balances <span style="color:#f92672">[</span>address<span style="color:#f92672">]</span>
+./simd query bank balances cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0
+//simd tx bank send <span style="color:#f92672">[</span>from_key_or_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>to_address<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>amount<span style="color:#f92672">]</span>
+./simd tx bank send cosmos1nxqdcm8tjrnf3c4x4082kjdhmmeafvrhkdk5z0 cosmos1afk9zr2hn2jsac63h4hm60vl9z3e5u69gndzf7c99cqge3vzwjzsfwkgpd  5000stake
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -229,12 +234,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -365,6 +370,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

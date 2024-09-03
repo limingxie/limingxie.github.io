@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【Vue笔记】Vue入门简介_插槽(29)" />
 <meta property="og:description" content="这一篇整理了插槽相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_29/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_29/" />
 <meta property="article:published_time" content="2022-06-27T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-06-27T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_插槽(29)">
-<meta itemprop="description" content="这一篇整理了插槽相关的内容。"><meta itemprop="datePublished" content="2022-06-27T23:55:49+08:00" />
+<meta itemprop="description" content="这一篇整理了插槽相关的内容。">
+<meta itemprop="datePublished" content="2022-06-27T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-27T23:55:49+08:00" />
 <meta itemprop="wordCount" content="607">
+
+
+
 <meta itemprop="keywords" content="vue," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -158,401 +163,402 @@
 			<p>这一篇整理了插槽相关的内容。</p>
 <h2 id="默认插槽">默认插槽</h2>
 <p>新增 Category.vue</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(item,index) in listData&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">item</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;title&#34;</span>,<span style="color:#e6db74">&#34;listData&#34;</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">category</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">h3</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>App.vue 中使用</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;美食&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foods&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;电影&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;films&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>{
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">foods</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;火锅&#34;</span>,<span style="color:#e6db74">&#34;烧烤&#34;</span>,<span style="color:#e6db74">&#34;小龙虾&#34;</span>,<span style="color:#e6db74">&#34;牛排&#34;</span>],
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;劲舞团&#34;</span>,<span style="color:#e6db74">&#34;QQ飞车&#34;</span>,<span style="color:#e6db74">&#34;超级玛丽&#34;</span>,<span style="color:#e6db74">&#34;无人深空&#34;</span>],
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">films</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;《教父》&#34;</span>,<span style="color:#e6db74">&#34;《狩猎》&#34;</span>,<span style="color:#e6db74">&#34;《禁闭岛》&#34;</span>,<span style="color:#e6db74">&#34;《聚焦》&#34;</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>刚才每个分类要展示的信息，样式都是一样的，所以通过传值就可以实现。现在修改需求，每个分类都要展示不同的内容：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(item,index) in listData&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">item</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;title&#34;</span>,<span style="color:#e6db74">&#34;listData&#34;</span>]
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">category</span>{
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
+  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
+}
+<span style="color:#a6e22e">h3</span>{
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><p>App.vue 中使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;美食&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foods&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;电影&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;films&#34;</span><span style="color:#f92672">/&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
+  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
+  <span style="color:#a6e22e">data</span>(){
+    <span style="color:#66d9ef">return</span>{
+      <span style="color:#a6e22e">foods</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;火锅&#34;</span>,<span style="color:#e6db74">&#34;烧烤&#34;</span>,<span style="color:#e6db74">&#34;小龙虾&#34;</span>,<span style="color:#e6db74">&#34;牛排&#34;</span>],
+      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;劲舞团&#34;</span>,<span style="color:#e6db74">&#34;QQ飞车&#34;</span>,<span style="color:#e6db74">&#34;超级玛丽&#34;</span>,<span style="color:#e6db74">&#34;无人深空&#34;</span>],
+      <span style="color:#a6e22e">films</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;《教父》&#34;</span>,<span style="color:#e6db74">&#34;《狩猎》&#34;</span>,<span style="color:#e6db74">&#34;《禁闭岛》&#34;</span>,<span style="color:#e6db74">&#34;《聚焦》&#34;</span>]
+    }
+  }
+
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">container</span> {
+  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
+  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><p>刚才每个分类要展示的信息，样式都是一样的，所以通过传值就可以实现。现在修改需求，每个分类都要展示不同的内容：</p>
 <p>这里就用到了插槽。插槽是给组件预留的空间，插槽如何使用由父组件决定。修改 Category.vue</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;title&#34;</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">category</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">h3</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>修改 App.vue</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;美食&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foods&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://img2.baidu.com/it/u=2073611229,1921777437&amp;fm=253&amp;fmt=auto&amp;app=120&amp;f=JPEG?w=1200&amp;h=675&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">g</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;电影&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">video</span> <span style="color:#a6e22e">controls</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>{
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">foods</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;火锅&#34;</span>,<span style="color:#e6db74">&#34;烧烤&#34;</span>,<span style="color:#e6db74">&#34;小龙虾&#34;</span>,<span style="color:#e6db74">&#34;牛排&#34;</span>],
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;劲舞团&#34;</span>,<span style="color:#e6db74">&#34;QQ飞车&#34;</span>,<span style="color:#e6db74">&#34;超级玛丽&#34;</span>,<span style="color:#e6db74">&#34;无人深空&#34;</span>],
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">films</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;《教父》&#34;</span>,<span style="color:#e6db74">&#34;《狩猎》&#34;</span>,<span style="color:#e6db74">&#34;《禁闭岛》&#34;</span>,<span style="color:#e6db74">&#34;《聚焦》&#34;</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">img</span>,<span style="color:#a6e22e">video</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">%</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><h2 id="具名插槽">具名插槽</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;title&#34;</span>]
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">category</span>{
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
+  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
+}
+<span style="color:#a6e22e">h3</span>{
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><p>修改 App.vue</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;美食&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foods&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://img2.baidu.com/it/u=2073611229,1921777437&amp;fm=253&amp;fmt=auto&amp;app=120&amp;f=JPEG?w=1200&amp;h=675&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">g</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;电影&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">video</span> <span style="color:#a6e22e">controls</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4&#34;</span><span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
+  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
+  <span style="color:#a6e22e">data</span>(){
+    <span style="color:#66d9ef">return</span>{
+      <span style="color:#a6e22e">foods</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;火锅&#34;</span>,<span style="color:#e6db74">&#34;烧烤&#34;</span>,<span style="color:#e6db74">&#34;小龙虾&#34;</span>,<span style="color:#e6db74">&#34;牛排&#34;</span>],
+      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;劲舞团&#34;</span>,<span style="color:#e6db74">&#34;QQ飞车&#34;</span>,<span style="color:#e6db74">&#34;超级玛丽&#34;</span>,<span style="color:#e6db74">&#34;无人深空&#34;</span>],
+      <span style="color:#a6e22e">films</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;《教父》&#34;</span>,<span style="color:#e6db74">&#34;《狩猎》&#34;</span>,<span style="color:#e6db74">&#34;《禁闭岛》&#34;</span>,<span style="color:#e6db74">&#34;《聚焦》&#34;</span>]
+    }
+  }
+
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">container</span> {
+  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
+  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
+}
+<span style="color:#a6e22e">img</span>,<span style="color:#a6e22e">video</span>{
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">%</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><h2 id="具名插槽">具名插槽</h2>
 <p>具名插槽是当子组件需要显示不同的效果时使用具名插槽，通过 name 属性给插槽命名。我们修改 Category.vue</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">这是一些默认值</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">没有内容时展示</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">这是一些默认值</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">没有内容时展示</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;title&#34;</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">category</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">h3</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>修改 App.vue</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;美食&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foods&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://img2.baidu.com/it/u=2073611229,1921777437&amp;fm=253&amp;fmt=auto&amp;app=120&amp;f=JPEG?w=1200&amp;h=675&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">更多美食</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">g</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foot&#34;</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">单机游戏</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">网络游戏</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;电影&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">video</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span> <span style="color:#a6e22e">controls</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">只有template能用</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">:</span><span style="color:#a6e22e">footer</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foot&#34;</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">经典</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">热门</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">推荐</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>{
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">foods</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;火锅&#34;</span>,<span style="color:#e6db74">&#34;烧烤&#34;</span>,<span style="color:#e6db74">&#34;小龙虾&#34;</span>,<span style="color:#e6db74">&#34;牛排&#34;</span>],
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;劲舞团&#34;</span>,<span style="color:#e6db74">&#34;QQ飞车&#34;</span>,<span style="color:#e6db74">&#34;超级玛丽&#34;</span>,<span style="color:#e6db74">&#34;无人深空&#34;</span>],
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">films</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;《教父》&#34;</span>,<span style="color:#e6db74">&#34;《狩猎》&#34;</span>,<span style="color:#e6db74">&#34;《禁闭岛》&#34;</span>,<span style="color:#e6db74">&#34;《聚焦》&#34;</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span>,.<span style="color:#a6e22e">foot</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">img</span>,<span style="color:#a6e22e">video</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">%</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><h4 id="作用域插槽">作用域插槽</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">这是一些默认值</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">没有内容时展示</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">这是一些默认值</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">没有内容时展示</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;title&#34;</span>]
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">category</span>{
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
+  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
+}
+<span style="color:#a6e22e">h3</span>{
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><p>修改 App.vue</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;美食&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foods&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://img2.baidu.com/it/u=2073611229,1921777437&amp;fm=253&amp;fmt=auto&amp;app=120&amp;f=JPEG?w=1200&amp;h=675&#34;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">更多美食</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">listData</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">g</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foot&#34;</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">单机游戏</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">网络游戏</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;电影&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">video</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span> <span style="color:#a6e22e">controls</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4&#34;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">只有template能用</span><span style="color:#f92672">--&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">:</span><span style="color:#a6e22e">footer</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foot&#34;</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span><span style="color:#f92672">&gt;</span>
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">经典</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">热门</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.baidu.com&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">推荐</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
+  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
+  <span style="color:#a6e22e">data</span>(){
+    <span style="color:#66d9ef">return</span>{
+      <span style="color:#a6e22e">foods</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;火锅&#34;</span>,<span style="color:#e6db74">&#34;烧烤&#34;</span>,<span style="color:#e6db74">&#34;小龙虾&#34;</span>,<span style="color:#e6db74">&#34;牛排&#34;</span>],
+      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;劲舞团&#34;</span>,<span style="color:#e6db74">&#34;QQ飞车&#34;</span>,<span style="color:#e6db74">&#34;超级玛丽&#34;</span>,<span style="color:#e6db74">&#34;无人深空&#34;</span>],
+      <span style="color:#a6e22e">films</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;《教父》&#34;</span>,<span style="color:#e6db74">&#34;《狩猎》&#34;</span>,<span style="color:#e6db74">&#34;《禁闭岛》&#34;</span>,<span style="color:#e6db74">&#34;《聚焦》&#34;</span>]
+    }
+  }
+
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">container</span>,.<span style="color:#a6e22e">foot</span> {
+  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
+  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
+}
+<span style="color:#a6e22e">img</span>,<span style="color:#a6e22e">video</span>{
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">%</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><h4 id="作用域插槽">作用域插槽</h4>
 <p>如果数据在 Category 中，但需要展示不同的形式，我们可以通过插槽传值，类似于我们从父组件向子组件传值：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">title</span> }}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">games</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">msg</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;title&#34;</span>],
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;劲舞团&#34;</span>, <span style="color:#e6db74">&#34;QQ飞车&#34;</span>, <span style="color:#e6db74">&#34;超级玛丽&#34;</span>, <span style="color:#e6db74">&#34;无人深空&#34;</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">category</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">h3</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>App 中在子组件中使用 ​​<!-- raw HTML omitted -->​​ 包裹要展示的内容</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;receiveValue&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in receiveValue.games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">g</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">receiveValue</span>.<span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{games,msg}&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ol</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">g</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ol&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{games,msg}&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h4</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">g</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h4&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span>, .<span style="color:#a6e22e">foot</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">img</span>, <span style="color:#a6e22e">video</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">%</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><h2 id="插槽总结">插槽总结</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;category&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h3</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">title</span> }}<span style="color:#a6e22e">分类</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h3&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">games</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">msg</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;title&#34;</span>],
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">games</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;劲舞团&#34;</span>, <span style="color:#e6db74">&#34;QQ飞车&#34;</span>, <span style="color:#e6db74">&#34;超级玛丽&#34;</span>, <span style="color:#e6db74">&#34;无人深空&#34;</span>]
+    }
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">category</span> {
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span><span style="color:#a6e22e">px</span>;
+  <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">300</span><span style="color:#a6e22e">px</span>;
+}
+
+<span style="color:#a6e22e">h3</span> {
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">-</span><span style="color:#a6e22e">align</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">center</span>;
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+
+</code></pre></div><p>App 中在子组件中使用 ​​<!-- raw HTML omitted -->​​ 包裹要展示的内容</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;receiveValue&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in receiveValue.games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">g</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">receiveValue</span>.<span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{games,msg}&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ol</span><span style="color:#f92672">&gt;</span>
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">g</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ol&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;游戏&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{games,msg}&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h4</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(g,index) in games&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">g</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h4&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">msg</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/a&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Category</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/Category&#34;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;App&#39;</span>,
+  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">Category</span>},
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+.<span style="color:#a6e22e">container</span>, .<span style="color:#a6e22e">foot</span> {
+  <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">flex</span>;
+  <span style="color:#a6e22e">justify</span><span style="color:#f92672">-</span><span style="color:#a6e22e">content</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">space</span><span style="color:#f92672">-</span><span style="color:#a6e22e">around</span>;
+}
+
+<span style="color:#a6e22e">img</span>, <span style="color:#a6e22e">video</span> {
+  <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">%</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><h2 id="插槽总结">插槽总结</h2>
 <p>1、作用：让父组件可以向子组件指定位置插入 html 结构，也是一种组件问通信的方式，适用于父组件==&gt;子组件<br>
 2、分类：默认插槽、具名插槽、作用域插槽<br>
 3、使用方式：</p>
 <h4 id="默认插槽-1">默认插槽</h4>
 <p>父组件中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">html结构</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">子组件中</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">定义插槽</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">插槽默认内容</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/templdte&gt;</span>
-</span></span></code></pre></div><h4 id="具名插槽-1">具名插槽</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">html结构</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
+
+<span style="color:#a6e22e">子组件中</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">定义插槽</span><span style="color:#f92672">--&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">插槽默认内容</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/templdte&gt;</span>
+</code></pre></div><h4 id="具名插槽-1">具名插槽</h4>
 <p>父组件中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">html结构1</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">tenplate</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">:</span><span style="color:#a6e22e">footer</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">html结构2</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">子组件中</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span><span style="color:#f92672">--</span><span style="color:#a6e22e">定义插槽</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">插槽默认内容</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#a6e22e">footer</span><span style="color:#960050;background-color:#1e0010">”</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">插槽默认内容</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span></code></pre></div><p>作用域插槽<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">html结构1</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">tenplate</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">:</span><span style="color:#a6e22e">footer</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">html结构2</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+<span style="color:#a6e22e">子组件中</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span><span style="color:#f92672">--</span><span style="color:#a6e22e">定义插槽</span><span style="color:#f92672">--&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">插槽默认内容</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#a6e22e">footer</span><span style="color:#960050;background-color:#1e0010">”</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">插槽默认内容</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+</code></pre></div><p>作用域插槽<br>
 1、理解：数据在组件的自身，但根据数据生成的结构需要组件的使用者来决定，(games 数据在 Category 组件中，但使用数据所遍历出来的结构由 App 组件决定)<br>
 2.具体编码：</p>
 <p>父组件中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">category</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;scopeData&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">生成的是ul列表</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g in scopeDsta.games&#34;</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g&#34;</span><span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">g</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">scopeData</span>}<span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">生成的是h4标题</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h4</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g in scopeData&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">g</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h4&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">子组件中</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">games</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category &#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  props: [&#34;</span><span style="color:#a6e22e">title</span><span style="color:#e6db74">&#34;],
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  //数据在子组件自身
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  data() {
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    return{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      games:[&#39;红色警戒,穿越火线&#39;,&#34;</span><span style="color:#a6e22e">劲舞团</span><span style="color:#e6db74">&#34;,超级玛丽&#34;</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>注意​​scope​​​和​​slot-scope​​​过时了，可以使用​​v-slot​​</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">category</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;scopeData&#34;</span>
+  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">生成的是ul列表</span><span style="color:#f92672">--&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g in scopeDsta.games&#34;</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g&#34;</span><span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">g</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Category</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">scopeData</span>}<span style="color:#f92672">&gt;</span>
+  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">生成的是h4标题</span><span style="color:#f92672">--&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h4</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g in scopeData&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;g&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">g</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h4&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Category&gt;</span>
+
+<span style="color:#a6e22e">子组件中</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">slot</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">games</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;games&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/slot&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span>{
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Category &#39;,
+</span><span style="color:#e6db74">  props: [&#34;</span><span style="color:#a6e22e">title</span><span style="color:#e6db74">&#34;],
+</span><span style="color:#e6db74">  //数据在子组件自身
+</span><span style="color:#e6db74">  data() {
+</span><span style="color:#e6db74">    return{
+</span><span style="color:#e6db74">      games:[&#39;红色警戒,穿越火线&#39;,&#34;</span><span style="color:#a6e22e">劲舞团</span><span style="color:#e6db74">&#34;,超级玛丽&#34;</span>]
+    }
+  }
+}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><p>注意​​scope​​​和​​slot-scope​​​过时了，可以使用​​v-slot​​</p>
 <h4 id="slot">$slot</h4>
 <p>App 中有 Demo 组件，使用插槽</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Demo</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">你好</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Demo&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span></code></pre></div><p>在子组件 Demo 中的 ​​mounted​​​ 生命钩子中打印 ​​this​​</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>可以看到 ​​$slot​​​中有刚才使用的 h2 标签<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Demo</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">你好</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Demo&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+</code></pre></div><p>在子组件 Demo 中的 ​​mounted​​​ 生命钩子中打印 ​​this​​</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">mounted</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>);
+}
+</code></pre></div><p>可以看到 ​​$slot​​​中有刚才使用的 h2 标签<br>
 如果在App中使用具名插槽</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Demo</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;slot1&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">你好</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Demo&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Demo</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span> <span style="color:#a6e22e">slot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;slot1&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">你好</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/Demo&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -612,12 +618,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -748,6 +754,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

@@ -12,17 +12,22 @@
 感觉有些内容不应该在同一个服务里。
 于是我做了一个决定: 拆分服务。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/go/my_go_test4/" /><meta property="article:section" content="go" />
+<meta property="og:url" content="https://limingxie.github.io/go/my_go_test4/" />
 <meta property="article:published_time" content="2019-02-12T08:38:02+08:00" />
 <meta property="article:modified_time" content="2019-02-12T08:38:02+08:00" />
 
 		<meta itemprop="name" content="Go项目:傻瓜式联合测试">
 <meta itemprop="description" content="现在微服务很流行，加上我的项目从10个表增加到30&#43;表的业务量。
 感觉有些内容不应该在同一个服务里。
-于是我做了一个决定: 拆分服务。"><meta itemprop="datePublished" content="2019-02-12T08:38:02+08:00" />
+于是我做了一个决定: 拆分服务。">
+<meta itemprop="datePublished" content="2019-02-12T08:38:02+08:00" />
 <meta itemprop="dateModified" content="2019-02-12T08:38:02+08:00" />
 <meta itemprop="wordCount" content="494">
+
+
+
 <meta itemprop="keywords" content="go,test,join test,golang," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -156,7 +161,7 @@
 			<p>现在微服务很流行，加上我的项目从10个表增加到30+表的业务量。<br>
 感觉有些内容不应该在同一个服务里。
 于是我做了一个决定: <strong><code>拆分服务</code></strong>。</p>
-<pre tabindex="0"><code>分了4个服务后发现每个服务都不到8个表。每个服务的业务复杂度都不高。  
+<pre><code>分了4个服务后发现每个服务都不到8个表。每个服务的业务复杂度都不高。  
 心理暗自高兴，都说微服务，微服务，原来这么好？
 
 这种好心情维持不到半天，后面出的问题让我晕头转向。
@@ -165,7 +170,7 @@
 当我分了服务后写单元测试，其实没遇到过什么大问题。<br>
 可以使用上一篇文章介绍的测试替身。
 <a href="https://limingxie.github.io/go/my_go_test3/">Go项目的测试代码3（测试替身Test Double）</a></p>
-<pre tabindex="0"><code>问题是每个服务的功能是需要调用其他的服务。   
+<pre><code>问题是每个服务的功能是需要调用其他的服务。   
 `单元测试没问题，不能确保联合调用没问题`。  
 (初期把单元测试过的代码直接发布运营，把我害惨了...)
 </code></pre><p>我做了所有人都能想到的傻瓜式的联合测试方法。<br>
@@ -179,17 +184,17 @@
 <!-- raw HTML omitted --></p>
 <h4 id="实际运用例子"><strong>实际运用例子</strong></h4>
 <p>有点linux和docker基础的人，看下面的脚本应该能想到怎么做的吧？</p>
-<pre tabindex="0"><code>#deleted container and image, network
+<pre><code>#deleted container and image, network
 docker rm -f a-service-api-container b-service-api-container... my-mysql 2&gt; /dev/null
 docker rmi -f a-service-api-image  b-service-api-image ... 2&gt; /dev/null
 docker network rm my-network 2&gt; /dev/null
-echo &#39;&#39;
-echo &#39;&lt;============== start =============&gt;&#39;
+echo ''
+echo '&lt;============== start =============&gt;'
 
 #create docker network
 docker network create my-network
 
-echo &#39;mysql starting ...&#39;
+echo 'mysql starting ...'
 docker run --name my-mysql --network my-network -p 40000:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest
 
 export DBSCRIPT=create_db.sql
@@ -202,8 +207,8 @@ while true; do
     mysqladmin -h 127.0.0.1 -P 40000 -uroot ping 2&gt; /dev/null &amp;&amp; break
 done
 
-echo &#34;CREATE DATABASE a_database_test CHARACTER SET utf8 COLLATE utf8_general_ci;&#34;  &gt; ${DBSCRIPT}
-echo &#34;CREATE DATABASE b_database_test CHARACTER SET utf8 COLLATE utf8_general_ci;&#34;  &gt;&gt; ${DBSCRIPT}
+echo &quot;CREATE DATABASE a_database_test CHARACTER SET utf8 COLLATE utf8_general_ci;&quot;  &gt; ${DBSCRIPT}
+echo &quot;CREATE DATABASE b_database_test CHARACTER SET utf8 COLLATE utf8_general_ci;&quot;  &gt;&gt; ${DBSCRIPT}
 ... ...
 ( mysql -h 127.0.0.1 -P 40000 -uroot &lt; ${DBSCRIPT} || exit ) &amp;&amp; rm ${DBSCRIPT}
 
@@ -213,8 +218,8 @@ docker build -f ./a-service-api/Dockerfile_jointest --force-rm=true -t a-service
 #启用容器 需要注意的是，你启动容器的时候，需要多一个添加初始数据的操作
 docker run -d --name a-service-api-container -i  -p 40001:8081 \
 --network my-network \
--e DATABASE_DRIVER=&#34;mysql&#34; \ 
--e DATABASE_CONNECTION=&#34;root:1234@tcp(my-mysql)/a_database_test&#34; \
+-e DATABASE_DRIVER=&quot;mysql&quot; \ 
+-e DATABASE_CONNECTION=&quot;root:1234@tcp(my-mysql)/a_database_test&quot; \
 -e ... ...
 a-service-api-image:latest
 
@@ -223,8 +228,8 @@ docker build -f ./b-service-api/Dockerfile_jointest --force-rm=true -t b-service
 
 docker run -d --name b-service-api-container -i  -p 40002:8082 \
 --network my-network \
--e DATABASE_DRIVER=&#34;mysql&#34; \
--e DATABASE_CONNECTION=&#34;root:1234@tcp(my-mysql)/b_database_test&#34; \
+-e DATABASE_DRIVER=&quot;mysql&quot; \
+-e DATABASE_CONNECTION=&quot;root:1234@tcp(my-mysql)/b_database_test&quot; \
 -e ... ...
 b-service-api-image:latest
 
@@ -246,10 +251,10 @@ done
 ... ...
 
 
-echo &#39;&#39;
-echo &#39;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&#39;
-echo &#39;&#39;
-echo &#39;test start ....... &#39;
+echo ''
+echo '&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;'
+echo ''
+echo 'test start ....... '
 
 #运营你的测试代码
 go test ./a-service-api/controllers
@@ -259,9 +264,9 @@ go test ./b-service-api/models
 ... ...
 ... ...
 go test ./service-test
-echo &#39;test end!&#39;
-echo &#39;&#39;
-echo &#39;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&#39;
+echo 'test end!'
+echo ''
+echo '&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;'
 
 
 #delete invalid container
@@ -276,12 +281,12 @@ docker rmi -f a-service-api-image  b-service-api-image ... ... 1&gt; /dev/null
 docker network prune -f 1&gt; /dev/null
 docker network rm my-network 2&gt; /dev/null
 
-echo &#39;&#39;
-echo &#39;&lt;============== end ===============&gt;&#39;
+echo ''
+echo '&lt;============== end ===============&gt;'
 </code></pre><hr>
 <p>上面的脚本里，创建镜像的时候用到了 Dockerfile 是这么写的。<br>
 (老鸟就不用看了，为了不熟悉的人才上传的)</p>
-<pre tabindex="0"><code>FROM golang:builder AS builder
+<pre><code>FROM golang:builder AS builder
 WORKDIR /go/src/a-service-api/
 COPY ./a-service-api/ /go/src/xxxx/a-service-api/
 
@@ -289,15 +294,15 @@ COPY ./a-service-api/ /go/src/xxxx/a-service-api/
 ENV CGO_ENABLED=0
 # build steps
 WORKDIR /go/src/xxxx/a-service-api/
-RUN echo &#34;&gt;&gt;&gt; 1: go version&#34; &amp;&amp; go version
-RUN echo &#34;&gt;&gt;&gt; 2: go get&#34; &amp;&amp; go get -v -d
-RUN echo &#34;&gt;&gt;&gt; 3: go install&#34; &amp;&amp; go install
+RUN echo &quot;&gt;&gt;&gt; 1: go version&quot; &amp;&amp; go version
+RUN echo &quot;&gt;&gt;&gt; 2: go get&quot; &amp;&amp; go get -v -d
+RUN echo &quot;&gt;&gt;&gt; 3: go install&quot; &amp;&amp; go install
  
 # make application docker image use alpine
 FROM alpine:3.6
 # using timezone
 COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN echo &#34;Asia/Shanghai&#34; &gt;  /etc/timezone
+RUN echo &quot;Asia/Shanghai&quot; &gt;  /etc/timezone
 
 # copy config file to image 
 RUN mkdir config
@@ -308,10 +313,10 @@ COPY --from=builder /go/bin/a-service-api/ bin/
 EXPOSE 8081
 
 # 需要注意的是，你启动api服务的时候需要先添加联合测试的初始数据以后再启动api服务
-CMD [&#34;bin/a-service-api&#34;, &#34;join-test&#34;]
+CMD [&quot;bin/a-service-api&quot;, &quot;join-test&quot;]
 </code></pre><hr>
 <p>看看执行结果？</p>
-<pre tabindex="0"><code>... ...
+<pre><code>... ...
 ... ...
 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
 
@@ -404,12 +409,12 @@ test end!
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -540,6 +545,10 @@ test end!
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

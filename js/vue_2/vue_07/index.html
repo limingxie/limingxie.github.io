@@ -11,16 +11,21 @@
 <meta property="og:description" content="这一篇整理了样式相关的内容。
 绑定class和绑定style。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_07/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_07/" />
 <meta property="article:published_time" content="2022-06-05T23:05:49+08:00" />
 <meta property="article:modified_time" content="2022-06-05T23:05:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_样式(7)">
 <meta itemprop="description" content="这一篇整理了样式相关的内容。
-绑定class和绑定style。"><meta itemprop="datePublished" content="2022-06-05T23:05:49+08:00" />
+绑定class和绑定style。">
+<meta itemprop="datePublished" content="2022-06-05T23:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-05T23:05:49+08:00" />
 <meta itemprop="wordCount" content="120">
+
+
+
 <meta itemprop="keywords" content="vue,class,style," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -154,69 +159,69 @@
 			<p>这一篇整理了样式相关的内容。<br>
 绑定class和绑定style。</p>
 <h4 id="实例">实例</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 绑定class 字符写法：绑定不确定样式class --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mod&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changemod&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 绑定class 数组写法：绑定class样式 可以放数组 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;classArr&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changemod&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 绑定class 对象写法：可以绑定对象，给true，false 判断适不适用 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;classArr&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changemod&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 绑定style 对象写法 --&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- &lt;div class=&#34;basic&#34; :style={fontSize: fsize+&#39;px&#39;}&gt;{{name}}&lt;/div&gt;&lt;br/&gt;&lt;br/&gt; --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;styleObj&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 绑定style 数组写法 --&gt;</span>
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[styleObj,styleObj1]&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;张三&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;nomarl&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">classArr</span><span style="color:#f92672">:</span>[
-</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;sad&#39;</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;happy&#39;</span>,
-</span></span><span style="display:flex;"><span>                    ...
-</span></span><span style="display:flex;"><span>                ],
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">classObj</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">nomarl</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">happy</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">sad</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// fsize: 40,
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">styleObj</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">fontSize</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;40px&#39;</span>
-</span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">styleObj1</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;red&#39;</span>
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>                
-</span></span><span style="display:flex;"><span>            },
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">changemod</span>() {
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mod</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;happy&#39;</span>;
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../js/vue.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uft-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+        <span style="color:#75715e">&lt;!-- 绑定class 字符写法：绑定不确定样式class --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mod&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changemod&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+        <span style="color:#75715e">&lt;!-- 绑定class 数组写法：绑定class样式 可以放数组 --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;classArr&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changemod&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+        <span style="color:#75715e">&lt;!-- 绑定class 对象写法：可以绑定对象，给true，false 判断适不适用 --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;classArr&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;changemod&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+
+        <span style="color:#75715e">&lt;!-- 绑定style 对象写法 --&gt;</span>
+        <span style="color:#75715e">&lt;!-- &lt;div class=&#34;basic&#34; :style={fontSize: fsize+&#39;px&#39;}&gt;{{name}}&lt;/div&gt;&lt;br/&gt;&lt;br/&gt; --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;styleObj&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+        <span style="color:#75715e">&lt;!-- 绑定style 数组写法 --&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;basic&#34;</span> <span style="color:#a6e22e">:style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[styleObj,styleObj1]&#34;</span>&gt;{{name}}&lt;/<span style="color:#f92672">div</span>&gt;&lt;<span style="color:#f92672">br</span>/&gt;&lt;<span style="color:#f92672">br</span>/&gt;
+
+    &lt;/<span style="color:#f92672">div</span>&gt;
+
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+       <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+            <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;张三&#39;</span>,
+                <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;nomarl&#39;</span>,
+                <span style="color:#a6e22e">classArr</span><span style="color:#f92672">:</span>[
+                    <span style="color:#e6db74">&#39;sad&#39;</span>,
+                    <span style="color:#e6db74">&#39;happy&#39;</span>,
+                    ...
+                ],
+                <span style="color:#a6e22e">classObj</span><span style="color:#f92672">:</span>{
+                    <span style="color:#a6e22e">nomarl</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>,
+                    <span style="color:#a6e22e">happy</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>,
+                    <span style="color:#a6e22e">sad</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>,
+                },
+                <span style="color:#75715e">// fsize: 40,
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">styleObj</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">fontSize</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;40px&#39;</span>
+                },
+                <span style="color:#a6e22e">styleObj1</span><span style="color:#f92672">:</span> {
+                    <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;red&#39;</span>
+                }
+                
+            },
+            <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">changemod</span>() {
+                    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mod</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;happy&#39;</span>;
+                }
+            }
+        });
+        
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -282,12 +287,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -418,6 +423,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

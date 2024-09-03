@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【区块链笔记】BTC_交易系统(04)" />
 <meta property="og:description" content="这篇文章简单的整理了比特币交易系统相关内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_04/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_04/" />
 <meta property="article:published_time" content="2022-10-23T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-23T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】BTC_交易系统(04)">
-<meta itemprop="description" content="这篇文章简单的整理了比特币交易系统相关内容。"><meta itemprop="datePublished" content="2022-10-23T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了比特币交易系统相关内容。">
+<meta itemprop="datePublished" content="2022-10-23T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-23T23:28:49+08:00" />
 <meta itemprop="wordCount" content="100">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin,共识协议," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -169,7 +174,7 @@
 <li>UTXO存在权节点的数据库里，为了方便查询检测全节点是在内存当中存储utxo。</li>
 <li>转账消耗属于自己的UTXO, 同时生成新的UTXO,并用接受者的公钥加密锁定</li>
 </ul>
-<pre tabindex="0"><code>total input = total output
+<pre><code>total input = total output
 1 BTC = 0.99BTC + 0.01BTC(tx fee)
 </code></pre><p>每笔UTXO要记录产生它的交易hash值以及属于第几个交易，<br>
 因为一个交易有可能只有一部是分属于UTXO，因为另一个交易有可能会花掉。</p>
@@ -307,12 +312,12 @@ coinbase的第一笔交易和普通交易。</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -443,6 +448,10 @@ coinbase的第一笔交易和普通交易。</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

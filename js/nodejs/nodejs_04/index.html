@@ -13,7 +13,7 @@ Promise是JS中进行异步编程的解决方案。可以有效的避免了之�
 Promise是一个构造函数。
 Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/nodejs/nodejs_04/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/nodejs/nodejs_04/" />
 <meta property="article:published_time" content="2022-05-25T09:05:49+08:00" />
 <meta property="article:modified_time" content="2022-05-25T09:05:49+08:00" />
 
@@ -21,10 +21,15 @@ Promise对象用来封装一个异步操作并可以获取成功或失败的结�
 <meta itemprop="description" content="1.Promiose 是什么？
 Promise是JS中进行异步编程的解决方案。可以有效的避免了之前版本的回调地狱方式。
 Promise是一个构造函数。
-Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。"><meta itemprop="datePublished" content="2022-05-25T09:05:49+08:00" />
+Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。">
+<meta itemprop="datePublished" content="2022-05-25T09:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-05-25T09:05:49+08:00" />
-<meta itemprop="wordCount" content="573">
+<meta itemprop="wordCount" content="569">
+
+
+
 <meta itemprop="keywords" content="Nodejs,Promise," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -170,77 +175,77 @@ Promise对象用来封装一个异步操作并可以获取成功或失败的结�
 Promise是一个构造函数。<br>
 Promise对象用来封装一个异步操作并可以获取成功或失败的结果值。</p>
 <p>简单的看看Promise和传统的回调方式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    编写一个抽奖程序，抽奖的过程是：  
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    取一个随机数1~100，1~30为中奖，31~100为没中奖。  
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rand</span>(<span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">ceil</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;-----------传统方式-----------&#39;</span>);
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">raffle</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">100</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">30</span>) {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">a</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 恭喜你中奖了, 奖金是10万元。`</span>);
-</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">a</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 很遗憾，您没中奖，再接再厉！`</span>);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }, <span style="color:#ae81ff">1000</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">raffle</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;-----------Promise方式-----------&#39;</span>);
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//new Promise的时候需要制定一个回调函数，这个函数的参数是resolve和reject。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//resolve是成功时调用，reject是失败时调用。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">100</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">30</span>) {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">a</span>);
-</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">a</span>);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }, <span style="color:#ae81ff">1000</span>);
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//then也有2个回调函数，成功第一个，失败第二个。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">value</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 恭喜你中奖了, 奖金是10万元。`</span>);
-</span></span><span style="display:flex;"><span>    }, (<span style="color:#a6e22e">reason</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">reason</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 很遗憾，您没中奖，再接再厉！`</span>)
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="2什么时候用promise">2.什么时候用Promise？</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">/*
+</span><span style="color:#75715e">    编写一个抽奖程序，抽奖的过程是：  
+</span><span style="color:#75715e">    取一个随机数1~100，1~30为中奖，31~100为没中奖。  
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rand</span>(<span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>) {
+    <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">ceil</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+}
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;-----------传统方式-----------&#39;</span>);
+{
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">raffle</span>() {
+        <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">100</span>);
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">30</span>) {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">a</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 恭喜你中奖了, 奖金是10万元。`</span>);
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">a</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 很遗憾，您没中奖，再接再厉！`</span>);
+            }
+        }, <span style="color:#ae81ff">1000</span>);
+    }
+
+    <span style="color:#a6e22e">raffle</span>();
+}
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;-----------Promise方式-----------&#39;</span>);
+{
+    <span style="color:#75715e">//new Promise的时候需要制定一个回调函数，这个函数的参数是resolve和reject。
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//resolve是成功时调用，reject是失败时调用。
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+        <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">100</span>);
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">30</span>) {
+                <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">a</span>);
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">a</span>);
+            }
+        }, <span style="color:#ae81ff">1000</span>);
+    });
+
+    <span style="color:#75715e">//then也有2个回调函数，成功第一个，失败第二个。
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">value</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 恭喜你中奖了, 奖金是10万元。`</span>);
+    }, (<span style="color:#a6e22e">reason</span>) =&gt; {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">reason</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> | 很遗憾，您没中奖，再接再厉！`</span>)
+    });
+}
+</code></pre></div><h2 id="2什么时候用promise">2.什么时候用Promise？</h2>
 <p>简单的说异步编程的时候会使用Promise。<br>
 一般的异步编程有: 1.fs文件读取 2.http请求 3.DataBase操作 4.定时器等等&hellip;</p>
 <p>下面我们看看简单的读取文件的方法:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//普通的回调函数的方式
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">err</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">toString</span>());
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//promise的方式
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toString</span>());
-</span></span><span style="display:flex;"><span>}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><p>这么一看Promise方式的代码好像更复杂&hellip;.^^;;<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
+
+<span style="color:#75715e">//普通的回调函数的方式
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">err</span>;
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">toString</span>());
+});
+
+<span style="color:#75715e">//promise的方式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+        <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
+    });
+});
+
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toString</span>());
+}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+});
+</code></pre></div><p>这么一看Promise方式的代码好像更复杂&hellip;.^^;;<br>
 我们看看Promise的有点是什么？</p>
 <h2 id="3promise优点">3.Promise优点</h2>
 <ol>
@@ -256,68 +261,69 @@ Promise对象用来封装一个异步操作并可以获取成功或失败的结�
 </ol>
 <p>第一个有点可能没什么太大的感触，但是回调地狱是没有Promise的链式调用之前是每个开发者的噩梦。<br>
 我们举一个简单的例子看看:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    想读取 test1.txt test2.txt test3.txt 三个文件，并且把它们的内容都读取出来。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    普通的回调方式，很容易就会发生回调地狱，如果有4个甚至更多文件，这个地狱就更深了...^^;;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//普通读取文件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test1.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data1</span>) =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test2.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data2</span>) =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test3.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data3</span>) =&gt; {
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
-</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data1</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data2</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data3</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                });
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//使用Promise读取文件, 虽然看着比普通的方式更复杂，
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//但是他解决的回调地狱的问题，以及提高了代码可读性。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test1.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test2.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">resolve</span>([<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">data</span>]);
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
-</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test3.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">data</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
-</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;\r\n&#39;</span>));
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><h2 id="4promisestate">4.PromiseState</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">    想读取 test1.txt test2.txt test3.txt 三个文件，并且把它们的内容都读取出来。
+</span><span style="color:#75715e">    普通的回调方式，很容易就会发生回调地狱，如果有4个甚至更多文件，这个地狱就更深了...^^;;
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">//普通读取文件
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test1.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data1</span>) =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test2.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data2</span>) =&gt; {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test3.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data3</span>) =&gt; {
+                    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
+                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">err</span>);
+                    } <span style="color:#66d9ef">else</span> {
+                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data1</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data2</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;\r\n&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data3</span>;
+                        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
+                    }
+                });
+            }
+        });
+    }
+});
+
+
+<span style="color:#75715e">//使用Promise读取文件, 虽然看着比普通的方式更复杂，
+</span><span style="color:#75715e">//但是他解决的回调地狱的问题，以及提高了代码可读性。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test1.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+        <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
+    });
+});
+
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test2.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+            <span style="color:#a6e22e">resolve</span>([<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">data</span>]);
+        });
+    });
+}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+}).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">value</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#e6db74">&#39;./test3.txt&#39;</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+            <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">data</span>);
+            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">value</span>);
+        });
+    });
+}, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">reason</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+}).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">value</span>) =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;\r\n&#39;</span>));
+});
+
+</code></pre></div><h2 id="4promisestate">4.PromiseState</h2>
 <p>Promise对象的状态有两种：pending和fulfilled。<br>
 1.Pending: 等待中<br>
 2.Resolved(fulfilled): 成功<br>
@@ -329,60 +335,60 @@ Pending: 等待中 =&gt; Rejected: 失败</p>
 <p>Promise 对象值 Promiseresult<br>
 保存异步任务成功或失败的结果值<br>
 resovle, reject 两个方法能修改这个值</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCType html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; { });
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p</span>); 
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[Prototype]]: Promise
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseState]]: &#34;pending&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseResult]]: undefined
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;OK&#39;</span>);
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>); <span style="color:#75715e">//Promise {&lt;fulfilled&gt;: &#39;OK&#39;}
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[Prototype]]: Promise
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseState]]: &#34;fulfilled&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseResult]]: &#34;OK&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">reject</span>(<span style="color:#e6db74">&#39;fail&#39;</span>);
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p2</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[Prototype]]: Promise
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseState]]: &#34;rejected&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseResult]]: &#34;fail&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> (<span style="color:#e6db74">&#34;fail&#34;</span>);
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p3</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[Prototype]]: Promise
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseState]]: &#34;rejected&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            [[PromiseResult]]: &#34;fail&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><h2 id="6promise-api">6.Promise API</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; { });
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p</span>); 
+        <span style="color:#75715e">/*
+</span><span style="color:#75715e">            [[Prototype]]: Promise
+</span><span style="color:#75715e">            [[PromiseState]]: &#34;pending&#34;
+</span><span style="color:#75715e">            [[PromiseResult]]: undefined
+</span><span style="color:#75715e">        */</span>
+
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+            <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;OK&#39;</span>);
+        });
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>); <span style="color:#75715e">//Promise {&lt;fulfilled&gt;: &#39;OK&#39;}
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">/*
+</span><span style="color:#75715e">            [[Prototype]]: Promise
+</span><span style="color:#75715e">            [[PromiseState]]: &#34;fulfilled&#34;
+</span><span style="color:#75715e">            [[PromiseResult]]: &#34;OK&#34;
+</span><span style="color:#75715e">        */</span>
+
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+            <span style="color:#a6e22e">reject</span>(<span style="color:#e6db74">&#39;fail&#39;</span>);
+        });
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p2</span>);
+        <span style="color:#75715e">/*
+</span><span style="color:#75715e">            [[Prototype]]: Promise
+</span><span style="color:#75715e">            [[PromiseState]]: &#34;rejected&#34;
+</span><span style="color:#75715e">            [[PromiseResult]]: &#34;fail&#34;
+</span><span style="color:#75715e">        */</span>
+        
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+                <span style="color:#66d9ef">throw</span> (<span style="color:#e6db74">&#34;fail&#34;</span>);
+        });
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p3</span>);
+        <span style="color:#75715e">/*
+</span><span style="color:#75715e">            [[Prototype]]: Promise
+</span><span style="color:#75715e">            [[PromiseState]]: &#34;rejected&#34;
+</span><span style="color:#75715e">            [[PromiseResult]]: &#34;fail&#34;
+</span><span style="color:#75715e">        */</span>
+            
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h2 id="6promise-api">6.Promise API</h2>
 <h4 id="构造函数-promiseexecutor">构造函数 Promise(executor)</h4>
 <p>(resolve, reject) =&gt; {<br>
 //这里的函数是同步调用的，不会进队列<br>
@@ -406,53 +412,53 @@ console.log(result);</p>
 const result = Promise.all(p1,p2,p3);<br>
 console.log(result);</p>
 <h4 id="utilpromisify">util.promisify</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">util</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;util&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//使用promisify返回一个新的函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">myReadFile</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">util</span>.<span style="color:#a6e22e">promisify</span>(<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">myReadFile</span>(<span style="color:#e6db74">&#39;./aa.txt&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span>=&gt;{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toString</span>());
-</span></span><span style="display:flex;"><span>}, <span style="color:#a6e22e">reason</span>=&gt;{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><h2 id="7附加整理">7.附加整理</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">util</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;util&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
+
+<span style="color:#75715e">//使用promisify返回一个新的函数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">myReadFile</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">util</span>.<span style="color:#a6e22e">promisify</span>(<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>);
+
+<span style="color:#a6e22e">myReadFile</span>(<span style="color:#e6db74">&#39;./aa.txt&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span>=&gt;{
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toString</span>());
+}, <span style="color:#a6e22e">reason</span>=&gt;{
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+})
+</code></pre></div><h2 id="7附加整理">7.附加整理</h2>
 <h4 id="promise-调用">Promise 调用</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setTimeout</span>(()=&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;OK&#39;</span>);
-</span></span><span style="display:flex;"><span>    },<span style="color:#ae81ff">2000</span>)
-</span></span><span style="display:flex;"><span>})
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span> =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>}, <span style="color:#a6e22e">reason</span> =&gt; {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
-</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span> =&gt;{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(()=&gt;{});
-</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span> =&gt;{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;111&#39;</span>);
-</span></span><span style="display:flex;"><span>}).<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> =&gt;{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">warn</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><h4 id="自定义读取文件方法">自定义读取文件方法</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">myReadFile</span>(<span style="color:#a6e22e">path</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>)=&gt;{
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>).<span style="color:#a6e22e">readFile</span>(<span style="color:#a6e22e">path</span>, (<span style="color:#a6e22e">err</span>,<span style="color:#a6e22e">data</span>)=&gt;{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
-</span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">myReadFile</span>(<span style="color:#e6db74">&#39;./test.txt&#39;</span>)
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span>=&gt;{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toString</span>());
-</span></span><span style="display:flex;"><span>}, <span style="color:#a6e22e">reason</span>=&gt;{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
-</span></span><span style="display:flex;"><span>}) 
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+    <span style="color:#a6e22e">setTimeout</span>(()=&gt; {
+        <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;OK&#39;</span>);
+    },<span style="color:#ae81ff">2000</span>)
+})
+
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span> =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>);
+}, <span style="color:#a6e22e">reason</span> =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+}).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span> =&gt;{
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(()=&gt;{});
+}).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span> =&gt;{
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;111&#39;</span>);
+}).<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> =&gt;{
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">warn</span>(<span style="color:#a6e22e">err</span>);
+});
+</code></pre></div><h4 id="自定义读取文件方法">自定义读取文件方法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">myReadFile</span>(<span style="color:#a6e22e">path</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>)=&gt;{
+        <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>).<span style="color:#a6e22e">readFile</span>(<span style="color:#a6e22e">path</span>, (<span style="color:#a6e22e">err</span>,<span style="color:#a6e22e">data</span>)=&gt;{
+            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">err</span>) <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+            <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">data</span>);
+        });
+    })
+}
+
+<span style="color:#a6e22e">myReadFile</span>(<span style="color:#e6db74">&#39;./test.txt&#39;</span>)
+.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">value</span>=&gt;{
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">toString</span>());
+}, <span style="color:#a6e22e">reason</span>=&gt;{
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">reason</span>);
+}) 
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -515,12 +521,12 @@ console.log(result);</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -651,6 +657,10 @@ console.log(result);</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

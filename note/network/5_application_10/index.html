@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)" />
 <meta property="og:description" content="这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/network/5_application_10/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/network/5_application_10/" />
 <meta property="article:published_time" content="2022-04-27T18:05:49+08:00" />
 <meta property="article:modified_time" content="2022-04-27T18:05:49+08:00" />
 
 		<meta itemprop="name" content="【网络协议笔记】第五层:应用层(Application)HTTPS协议简介(10)">
-<meta itemprop="description" content="这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。"><meta itemprop="datePublished" content="2022-04-27T18:05:49+08:00" />
+<meta itemprop="description" content="这一篇整理了WebSocket、FTP、RESTful、SMTP、IMAP、POP等协议。">
+<meta itemprop="datePublished" content="2022-04-27T18:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-04-27T18:05:49+08:00" />
 <meta itemprop="wordCount" content="238">
+
+
+
 <meta itemprop="keywords" content="WebSocket,FTP,RESTful,SMTP,IMAP,POP,network," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -211,21 +216,21 @@
 <h3 id="22-建立连接">2.2 建立连接</h3>
 <p>WebSocket需要借助HTTP协议来建立连接（也叫作握手，Handshake）。</p>
 <p>由客户端（浏览器）主动发出握手请求：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>GET /chat HTTP/1.1  
-</span></span><span style="display:flex;"><span>Host: server.example.com  
-</span></span><span style="display:flex;"><span>Upgrade: websocket  
-</span></span><span style="display:flex;"><span>Connection: Upgrade  
-</span></span><span style="display:flex;"><span>Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==  
-</span></span><span style="display:flex;"><span>Origin: &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">com</span>&gt;  
-</span></span><span style="display:flex;"><span>Sec-WebSocket-Protocol: chat, superchat  
-</span></span><span style="display:flex;"><span>Sec-WebSocket-Version: 13  
-</span></span></code></pre></div><p>服务器响应：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>HTTP/1.1 101 Switching Protocols  
-</span></span><span style="display:flex;"><span>Upgrade: websocket  
-</span></span><span style="display:flex;"><span>Connection: Upgrade  
-</span></span><span style="display:flex;"><span>Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=  
-</span></span><span style="display:flex;"><span>Sec-WebSocket-Protocol: chat  
-</span></span></code></pre></div><p><strong>Connection</strong>：必须设置Upgrade，表示客户端希望连接升级。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">GET /chat HTTP/1.1  
+Host: server.example.com  
+Upgrade: websocket  
+Connection: Upgrade  
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==  
+Origin: &lt;<span style="color:#f92672">http:</span><span style="color:#960050;background-color:#1e0010">//</span><span style="color:#a6e22e">example</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">com</span>&gt;  
+Sec-WebSocket-Protocol: chat, superchat  
+Sec-WebSocket-Version: 13  
+</code></pre></div><p>服务器响应：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">HTTP/1.1 101 Switching Protocols  
+Upgrade: websocket  
+Connection: Upgrade  
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=  
+Sec-WebSocket-Protocol: chat  
+</code></pre></div><p><strong>Connection</strong>：必须设置Upgrade，表示客户端希望连接升级。<br>
 <strong>Upgrade</strong>：必须设置websocket，表示希望升级到WebSocket协议。<br>
 <strong>Sec-WebSocket-Version</strong>：表示支持的WebSocket版本，RFC_6455要求使用的版本是13。<br>
 <strong>Sec-WebSocket-Key</strong>：客户端生成的随机字符串（比如例子中的dGhlIHNhbXBsZSBub25jZQ==）。</p>
@@ -241,8 +246,8 @@
 <h3 id="23-使用">2.3 使用</h3>
 <p>WebSocket体验和演示：<a href="https://www.websocket.org/echo.html">https://www.websocket.org/echo.html</a><br>
 W3C标准化了一套WebSocket API，可以直接使用JS调用。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>let ws = new WebSocket(&#39;wss://example.com&#39;)  
-</span></span></code></pre></div><h2 id="3webservice">3.WebService</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">let ws = new WebSocket(&#39;wss://example.com&#39;)  
+</code></pre></div><h2 id="3webservice">3.WebService</h2>
 <p>WebService（Web服务）是一种跨编程语言和跨操作系统平台的远程调用技术标准。</p>
 <p>WebService使用场景举例：</p>
 <ul>
@@ -473,12 +478,12 @@ idbeny.com/v2/users/66</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -609,6 +614,10 @@ idbeny.com/v2/users/66</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

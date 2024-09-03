@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【Vue笔记】Vue入门简介_全局事件总线(24)" />
 <meta property="og:description" content="在 vue 里我们可以通过全局事件总线来实现任意组件之间通信" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_24/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_24/" />
 <meta property="article:published_time" content="2022-06-22T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-06-22T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_全局事件总线(24)">
-<meta itemprop="description" content="在 vue 里我们可以通过全局事件总线来实现任意组件之间通信"><meta itemprop="datePublished" content="2022-06-22T23:55:49+08:00" />
+<meta itemprop="description" content="在 vue 里我们可以通过全局事件总线来实现任意组件之间通信">
+<meta itemprop="datePublished" content="2022-06-22T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-22T23:55:49+08:00" />
 <meta itemprop="wordCount" content="450">
+
+
+
 <meta itemprop="keywords" content="vue," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -154,105 +159,105 @@
 这样的话我所有组件的都可以访问到这个属性，然后可以通过这个属性来访问其他组件给这个属性上面绑定的一些方法，从而去传递数据。<br>
 而且这个属性还可以去访问 Vue 实例对象上的方法。因为 Vue 组件构造函数的原型对象的原型对象是指向 Vue 的原型对象的</p>
 <p>main.js中，增加以下代码</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//引入Vue
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Vue</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//引入App
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./App&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//关闭vue的生产提示
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//创建vm
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">render</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">h</span> =&gt; <span style="color:#a6e22e">h</span>(<span style="color:#a6e22e">App</span>),
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">beforeCreate</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">$bus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#75715e">//安装全局事件总线
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p>School.vue 中给 $bus 绑定 hello 事件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;school&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校名称</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校地址</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">address</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;School&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//给$bus绑定hello事件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;hello&#34;</span>, (<span style="color:#a6e22e">data</span>) =&gt; {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;我是school组件，到了数据：&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data</span>);
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">beforeDestroy</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">off</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>Student.vue 中触发事件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生姓名</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生年龄</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">age</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendStudentName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">点我向School组件传递学生姓名</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Student&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sendStudentName</span>(){
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;hello&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><h2 id="总结">总结</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//引入Vue
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Vue</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>;
+<span style="color:#75715e">//引入App
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./App&#39;</span>;
+
+<span style="color:#75715e">//关闭vue的生产提示
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+<span style="color:#75715e">//创建vm
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+    <span style="color:#a6e22e">render</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">h</span> =&gt; <span style="color:#a6e22e">h</span>(<span style="color:#a6e22e">App</span>),
+    <span style="color:#a6e22e">beforeCreate</span>() {
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">$bus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#75715e">//安装全局事件总线
+</span><span style="color:#75715e"></span>    }
+})
+</code></pre></div><p>School.vue 中给 $bus 绑定 hello 事件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;school&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校名称</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校地址</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">address</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;School&#34;</span>,
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
+      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+    }
+  },
+  <span style="color:#a6e22e">mounted</span>() {
+    <span style="color:#75715e">//给$bus绑定hello事件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;hello&#34;</span>, (<span style="color:#a6e22e">data</span>) =&gt; {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;我是school组件，到了数据：&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data</span>);
+    })
+  },
+  <span style="color:#a6e22e">beforeDestroy</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">off</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><p>Student.vue 中触发事件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生姓名</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生年龄</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">age</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendStudentName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">点我向School组件传递学生姓名</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Student&#34;</span>,
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
+      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>
+    }
+  },
+  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+    <span style="color:#a6e22e">sendStudentName</span>(){
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;hello&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
+    }
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span> <span style="color:#a6e22e">scoped</span><span style="color:#f92672">&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><h2 id="总结">总结</h2>
 <h4 id="全局事件总线globaleventbus">全局事件总线(GlobalEventBus)</h4>
 <p>1.一种组件问通信的方式，适用于任意组件问通信<br>
 2.安装全局事件总线：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">beforeCreate</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">$bus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#75715e">//安装全局事件总线,$bus就相当于当前vm
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    },
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p>3.使用事件总线：<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+    ......
+    <span style="color:#a6e22e">beforeCreate</span>() {
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">$bus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#75715e">//安装全局事件总线,$bus就相当于当前vm
+</span><span style="color:#75715e"></span>    },
+    ......
+})
+</code></pre></div><p>3.使用事件总线：<br>
 ①.接收数据：A组件想接收数据，则在A组件中给 $bus 绑定自定义事件，事件的​​​回调留在A组件自身​​</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">methods</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">demo</span>(<span style="color:#a6e22e">data</span>){......}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//给$bus绑定hello事件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;xxx&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">demo</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>或者不写上边的 method，直接写成一个箭头函数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">methods</span>(){
+    <span style="color:#a6e22e">demo</span>(<span style="color:#a6e22e">data</span>){......}
+}
+......
+<span style="color:#a6e22e">mounted</span>() {
+    <span style="color:#75715e">//给$bus绑定hello事件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;xxx&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">demo</span>)
+}
+</code></pre></div><p>或者不写上边的 method，直接写成一个箭头函数</p>
 <p>②.提供数据：​​this.$bus.$emit( &quot; xxx&quot;,数据)​​</p>
 <p>4.最好在​​beforeDestroy​​​钩子中，用​​$off​​去解绑当前组件所用到的事件</p>
 <h4 id="todolist-改为全局事件总线">todolist 改为全局事件总线</h4>
@@ -260,153 +265,154 @@
 通过 Item 组件操作 App.vue 中的数据。我们之前的写法是，在App.vue中先把删除和勾选的方法传给 List 组件，然后 List 传给了 Item。<br>
 实际上 List 并没有用这些方法，只是进行了传递。所以这里适合用全局事件总线</p>
 <p>修改 main.js</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//引入Vue
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Vue</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//引入App
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./App&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//关闭vue的生产提示
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//创建vm
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">render</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">h</span> =&gt; <span style="color:#a6e22e">h</span>(<span style="color:#a6e22e">App</span>),
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">beforeCreate</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">$bus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p>App.vue 中不给 List 传东西了，同时 绑定事件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">List</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">todos</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todos&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  ......
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">checkTodo</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deleteTodo</span>)
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">destroyed</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>......
-</span></span></code></pre></div><p>相应的 List 中也不用接收了，也不需要给 Item 传了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo-main&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Item</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todoObj in todos&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todoObj.id&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">:</span><span style="color:#a6e22e">todo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todoObj&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Item</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./Item&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;List&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;todos&#34;</span>],
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Item</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>Item 中也不需要接收了，触发方式也需要修改</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Item&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#39;todo&#39;</span>],
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//勾选 or 取消勾选
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleCheck</span>(<span style="color:#a6e22e">id</span>){
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//this.checkTodo(id)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>,<span style="color:#a6e22e">id</span>)
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//删除
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleDelete</span>(<span style="color:#a6e22e">id</span>){
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">confirm</span>(<span style="color:#e6db74">&#34;确认删除吗?&#34;</span>)){
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//this.deleteTodo(id)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#a6e22e">id</span>)
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="nexttick">$nextTick</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//引入Vue
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Vue</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>;
+<span style="color:#75715e">//引入App
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./App&#39;</span>;
+
+<span style="color:#75715e">//关闭vue的生产提示
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+<span style="color:#75715e">//创建vm
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+    <span style="color:#a6e22e">render</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">h</span> =&gt; <span style="color:#a6e22e">h</span>(<span style="color:#a6e22e">App</span>),
+    <span style="color:#a6e22e">beforeCreate</span>() {
+        <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">$bus</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>
+    }
+})
+</code></pre></div><p>App.vue 中不给 List 传东西了，同时 绑定事件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">List</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">todos</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todos&#34;</span><span style="color:#f92672">/&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+......
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  ......
+  <span style="color:#a6e22e">mounted</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">checkTodo</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deleteTodo</span>)
+  },
+  <span style="color:#a6e22e">destroyed</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>)
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+......
+</code></pre></div><p>相应的 List 中也不用接收了，也不需要给 Item 传了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo-main&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Item</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todoObj in todos&#34;</span>
+            <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todoObj.id&#34;</span>
+            <span style="color:#f92672">:</span><span style="color:#a6e22e">todo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todoObj&#34;</span>
+      <span style="color:#f92672">/&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Item</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./Item&#34;</span>
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;List&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;todos&#34;</span>],
+  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">Item</span>
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+</code></pre></div><p>Item 中也不需要接收了，触发方式也需要修改</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Item&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#39;todo&#39;</span>],
+  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+    <span style="color:#75715e">//勾选 or 取消勾选
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleCheck</span>(<span style="color:#a6e22e">id</span>){
+      <span style="color:#75715e">//this.checkTodo(id)
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>,<span style="color:#a6e22e">id</span>)
+    },
+    <span style="color:#75715e">//删除
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleDelete</span>(<span style="color:#a6e22e">id</span>){
+      <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">confirm</span>(<span style="color:#e6db74">&#34;确认删除吗?&#34;</span>)){
+        <span style="color:#75715e">//this.deleteTodo(id)
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#a6e22e">id</span>)
+      }
+    }
+  }
+}
+</code></pre></div><h4 id="nexttick">$nextTick</h4>
 <p>App.vue 中增加样式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>.<span style="color:#a6e22e">btn</span><span style="color:#f92672">-</span><span style="color:#a6e22e">edit</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">ffffff</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">border</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">px</span> <span style="color:#a6e22e">solid</span> <span style="color:#a6e22e">skyblue</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">margin</span><span style="color:#f92672">-</span><span style="color:#a6e22e">right</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>同时增加修改 todo 的方法，同时绑定</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//更新todo
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">updateTodo</span>(<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">title</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">todo</span>) =&gt; {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">id</span>) <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">title</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">title</span>
-</span></span><span style="display:flex;"><span>      })
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;updateTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">updateTodo</span>)
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">destroyed</span>() {
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;updateTodo&#34;</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span></code></pre></div><p>Item.vue 中增加编辑按钮，使用增加的样式<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">.<span style="color:#a6e22e">btn</span><span style="color:#f92672">-</span><span style="color:#a6e22e">edit</span> {
+  <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">ffffff</span>;
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">skyblue</span>;
+  <span style="color:#a6e22e">border</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#a6e22e">px</span> <span style="color:#a6e22e">solid</span> <span style="color:#a6e22e">skyblue</span>;
+  <span style="color:#a6e22e">margin</span><span style="color:#f92672">-</span><span style="color:#a6e22e">right</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+}
+</code></pre></div><p>同时增加修改 todo 的方法，同时绑定</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//更新todo
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">updateTodo</span>(<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">title</span>) {
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">todo</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">id</span>) <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">title</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">title</span>
+      })
+    }
+
+<span style="color:#a6e22e">mounted</span>() {
+    ......
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;updateTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">updateTodo</span>)
+  },
+  <span style="color:#a6e22e">destroyed</span>() {
+    ......
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;updateTodo&#34;</span>)
+  }
+</code></pre></div><p>Item.vue 中增加编辑按钮，使用增加的样式<br>
 增加点击事件 ​​handleEdit​​​，使用​​isEdit​​来判断是否处于编辑状态。这个方法中先判断有没有 isEdit 属性，如果没有则追加，如果有则直接改为 true<br>
 增加 input ，值和 span 中显示的值一样，如果是编辑状态则展示。而 span 则相反<br>
 同时 input 增加失去焦点事件 handleBlur，当失去焦点时，修改 todo 的值</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">label</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">checked</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.done&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">change</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleCheck(todo.id)&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">span</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;!todo.isEdit&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span>
-</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.isEdit&#34;</span>
-</span></span><span style="display:flex;"><span>             <span style="color:#f92672">:</span><span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.title&#34;</span>
-</span></span><span style="display:flex;"><span>              <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">blur</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleBlur(todo,$event)&#34;</span>
-</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;inputTitle&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/label&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-danger&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleDelete(todo.id)&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">删除</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;!todo.isEdit&#34;</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-edit&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleEdit(todo)&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">编辑</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  ......
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//编辑
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleEdit</span>(<span style="color:#a6e22e">todo</span>){
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">todo</span>, <span style="color:#e6db74">&#39;isEdit&#39;</span>)){
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">isEdit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>      }<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$set</span>(<span style="color:#a6e22e">todo</span>,<span style="color:#e6db74">&#34;isEdit&#34;</span>,<span style="color:#66d9ef">true</span>)
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//同时获取焦点，
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$nextTick</span>(<span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">inputTitle</span>.<span style="color:#a6e22e">focus</span>()
-</span></span><span style="display:flex;"><span>      })
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//失去焦点处理
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleBlur</span>(<span style="color:#a6e22e">todo</span>,<span style="color:#a6e22e">e</span>){
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">isEdit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">trim</span>()) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;输入内容不能为空&#34;</span>)
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;updateTodo&#34;</span>,<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>nextTick
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">label</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">checked</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.done&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">change</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleCheck(todo.id)&#34;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">span</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;!todo.isEdit&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span>
+             <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.isEdit&#34;</span>
+             <span style="color:#f92672">:</span><span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.title&#34;</span>
+              <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">blur</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleBlur(todo,$event)&#34;</span>
+              <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;inputTitle&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/label&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-danger&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleDelete(todo.id)&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">删除</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">show</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;!todo.isEdit&#34;</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-edit&#34;</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleEdit(todo)&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">编辑</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  ......
+    <span style="color:#75715e">//编辑
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleEdit</span>(<span style="color:#a6e22e">todo</span>){
+      <span style="color:#66d9ef">if</span>(Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">todo</span>, <span style="color:#e6db74">&#39;isEdit&#39;</span>)){
+        <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">isEdit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+      }<span style="color:#66d9ef">else</span>{
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$set</span>(<span style="color:#a6e22e">todo</span>,<span style="color:#e6db74">&#34;isEdit&#34;</span>,<span style="color:#66d9ef">true</span>)
+      }
+      <span style="color:#75715e">//同时获取焦点，
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$nextTick</span>(<span style="color:#66d9ef">function</span> () {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$refs</span>.<span style="color:#a6e22e">inputTitle</span>.<span style="color:#a6e22e">focus</span>()
+      })
+    },
+    <span style="color:#75715e">//失去焦点处理
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleBlur</span>(<span style="color:#a6e22e">todo</span>,<span style="color:#a6e22e">e</span>){
+      <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">isEdit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+      <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">trim</span>()) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;输入内容不能为空&#34;</span>)
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#34;updateTodo&#34;</span>,<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)
+    }
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><p>nextTick
 1.语法​​this.$nextTick(回调函数)<br>
 2.作用：在下一次DOM更新结束后执行其指定的回调<br>
 3.什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在 nextTick 所指定的回调函数中执行</p>
@@ -470,12 +476,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -606,6 +612,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

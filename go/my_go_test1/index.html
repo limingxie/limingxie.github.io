@@ -12,17 +12,22 @@
 Go项目的测试代码（基础）
 这里简单的共享一下我在项目中使用的方式。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/go/my_go_test1/" /><meta property="article:section" content="go" />
+<meta property="og:url" content="https://limingxie.github.io/go/my_go_test1/" />
 <meta property="article:published_time" content="2018-05-27T20:37:02+08:00" />
 <meta property="article:modified_time" content="2018-05-27T20:37:02+08:00" />
 
 		<meta itemprop="name" content="Go项目的测试代码2（项目运用）">
 <meta itemprop="description" content="上一篇文章介绍了最基本的测试代码的写法。
 Go项目的测试代码（基础）
-这里简单的共享一下我在项目中使用的方式。"><meta itemprop="datePublished" content="2018-05-27T20:37:02+08:00" />
+这里简单的共享一下我在项目中使用的方式。">
+<meta itemprop="datePublished" content="2018-05-27T20:37:02+08:00" />
 <meta itemprop="dateModified" content="2018-05-27T20:37:02+08:00" />
 <meta itemprop="wordCount" content="578">
+
+
+
 <meta itemprop="keywords" content="go,test,golang," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -174,7 +179,7 @@ Go项目的测试代码（基础）
 <p>因为现在都已微服务的形式开发，没必要太复杂的结构。<br>
 分controller和model已经能<code>满足我们的需求</code>，<code>不需要再细分了</code>。</p>
 </blockquote>
-<pre tabindex="0"><code>|___config          ||==&gt; 配置文件
+<pre><code>|___config          ||==&gt; 配置文件
 | |___config.qa.go
 | |___config.production.go
 ... ...
@@ -214,109 +219,110 @@ controller是提供接口api的直接入口，所以那些重要的api都需要�
 <h3 id="init-函数">init() 函数</h3>
 <p>每个package里有 init_test.go文件<br>
 这里写 init()方法 执行 go test的时候的<code>初始化方法</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">controllers</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">appEnv</span>           = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;app-env&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;APP_ENV&#34;</span>), <span style="color:#e6db74">&#34;app env&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ctx</span>              <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">echoApp</span>          <span style="color:#f92672">*</span><span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Echo</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">xormEngine</span>       <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//执行1个线程
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOMAXPROCS</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//测试数据的链接是内存里的sqlite ==&gt; 每次执行测试代码的时候用到的是内存的sqlite 所以不用管理数据库
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#e6db74">&#34;sqlite3&#34;</span>, <span style="color:#e6db74">&#34;:memory:&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>  panic(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//读取配置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Config</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>  panic(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//建立Redis链接 没有用到redis可以跳过
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">SetRedisConn</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_REDIS_CONNECTION&#34;</span>))
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//登记struct到xormEngine
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">xormEngine</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//初始化数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//echo架构
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">echoApp</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">echoApp</span>.<span style="color:#a6e22e">Validator</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">filters</span>.<span style="color:#a6e22e">Validator</span>{}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//为了测试先模拟一个context
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">ctx</span> = <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">echomiddleware</span>.<span style="color:#a6e22e">ContextDBName</span>, <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">NewSession</span>())
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="seed-函数">Seed() 函数</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">controllers</span>
+
+<span style="color:#66d9ef">var</span> (
+ <span style="color:#a6e22e">appEnv</span>           = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;app-env&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;APP_ENV&#34;</span>), <span style="color:#e6db74">&#34;app env&#34;</span>)
+ <span style="color:#a6e22e">ctx</span>              <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>
+ <span style="color:#a6e22e">echoApp</span>          <span style="color:#f92672">*</span><span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Echo</span>
+ <span style="color:#a6e22e">xormEngine</span>       <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+ <span style="color:#75715e">//执行1个线程
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOMAXPROCS</span>(<span style="color:#ae81ff">1</span>)
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>
+ <span style="color:#75715e">//测试数据的链接是内存里的sqlite ==&gt; 每次执行测试代码的时候用到的是内存的sqlite 所以不用管理数据库
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#e6db74">&#34;sqlite3&#34;</span>, <span style="color:#e6db74">&#34;:memory:&#34;</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  panic(<span style="color:#a6e22e">err</span>)
+ }
+ <span style="color:#75715e">//读取配置
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Config</span>
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  panic(<span style="color:#a6e22e">err</span>)
+ }
+
+ <span style="color:#75715e">//建立Redis链接 没有用到redis可以跳过
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">SetRedisConn</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_REDIS_CONNECTION&#34;</span>))
+ <span style="color:#75715e">//登记struct到xormEngine
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">xormEngine</span>)
+ <span style="color:#75715e">//初始化数据
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">models</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>)
+
+ <span style="color:#75715e">//echo架构
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">echoApp</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+ <span style="color:#a6e22e">echoApp</span>.<span style="color:#a6e22e">Validator</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">filters</span>.<span style="color:#a6e22e">Validator</span>{}
+
+ <span style="color:#75715e">//为了测试先模拟一个context
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">ctx</span> = <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">echomiddleware</span>.<span style="color:#a6e22e">ContextDBName</span>, <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">NewSession</span>())
+}
+</code></pre></div><h3 id="seed-函数">Seed() 函数</h3>
 <p>我觉得写测试代码的时候，制作<code>测试数据</code>的时间比会<code>占50%以上</code>。<br>
 让人最头疼的事情。</p>
 <p>刚开始的时候我觉得可以直接写。<br>
 如下:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">tenants</span> = []<span style="color:#a6e22e">Tenant</span>{
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;eland&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;上海衣恋&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;T02&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Ice cream&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">brands</span> = []<span style="color:#a6e22e">Brand</span>{
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;EE&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Eland&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;EK&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Eland Accessory&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;IC&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Haagen-Dazs&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tenants</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">brands</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>但是当有一些<code>mapping表</code>的话这么加数据会是个噩梦&hellip;ㅠㅠ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
+ <span style="color:#a6e22e">tenants</span> = []<span style="color:#a6e22e">Tenant</span>{
+  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;eland&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;上海衣恋&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
+  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;T02&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Ice cream&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
+ }
+
+ <span style="color:#a6e22e">brands</span> = []<span style="color:#a6e22e">Brand</span>{
+  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;EE&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Eland&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
+  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;EK&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Eland Accessory&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
+  {<span style="color:#a6e22e">Id</span>: <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">Code</span>: <span style="color:#e6db74">&#34;IC&#34;</span>, <span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Haagen-Dazs&#34;</span>, <span style="color:#a6e22e">Enable</span>: <span style="color:#66d9ef">true</span>},
+ }
+    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
+)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) {
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tenants</span> {
+  <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
+ }
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">brands</span> {
+  <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
+ }
+    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
+}
+</code></pre></div><p>但是当有一些<code>mapping表</code>的话这么加数据会是个噩梦&hellip;ㅠㅠ</p>
 <p>这时候可以先把数据添加到<code>mysql数据库</code>(使用流行的工具应该还不错吧？)。<br>
 <code>sqlite</code>的可视化工具太难用果断放弃。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>, <span style="color:#a6e22e">executeMode</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">ExecuteMode</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//建立原始数据的连接
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">driverName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_DRIVER&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">dataSourceName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_CONNECTION&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">testXormEngine</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#a6e22e">driverName</span>, <span style="color:#a6e22e">dataSourceName</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>  panic(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//登记struct
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">testXormEngine</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//数据保存到内存的sqlite
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">Tenant_SetTestData</span>(<span style="color:#a6e22e">testXormEngine</span>, <span style="color:#a6e22e">xormEngine</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Brand_SetTestData</span>(<span style="color:#a6e22e">testXormEngine</span>, <span style="color:#a6e22e">xormEngine</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Sync</span>(new(<span style="color:#a6e22e">Tenant</span>))
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Sync</span>(new(<span style="color:#a6e22e">Brand</span>))
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Tenant_SetTestData</span>(<span style="color:#a6e22e">testXormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>, <span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tenants</span> []<span style="color:#a6e22e">Tenant</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">testXormEngine</span>.<span style="color:#a6e22e">Find</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tenants</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tenants</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
-</span></span></code></pre></div><h2 id="多人做的项目如何管理原始数据">多人做的项目如何管理原始数据？</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>, <span style="color:#a6e22e">executeMode</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">ExecuteMode</span>) {
+ <span style="color:#75715e">//建立原始数据的连接
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">driverName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_DRIVER&#34;</span>)
+ <span style="color:#a6e22e">dataSourceName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_CONNECTION&#34;</span>)
+ <span style="color:#a6e22e">testXormEngine</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#a6e22e">driverName</span>, <span style="color:#a6e22e">dataSourceName</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  panic(<span style="color:#a6e22e">err</span>)
+ }
+
+ <span style="color:#75715e">//登记struct
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">testXormEngine</span>)
+
+ <span style="color:#75715e">//数据保存到内存的sqlite
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">Tenant_SetTestData</span>(<span style="color:#a6e22e">testXormEngine</span>, <span style="color:#a6e22e">xormEngine</span>)
+ <span style="color:#a6e22e">Brand_SetTestData</span>(<span style="color:#a6e22e">testXormEngine</span>, <span style="color:#a6e22e">xormEngine</span>)
+    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) {
+ <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Sync</span>(new(<span style="color:#a6e22e">Tenant</span>))
+ <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Sync</span>(new(<span style="color:#a6e22e">Brand</span>))
+    <span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Tenant_SetTestData</span>(<span style="color:#a6e22e">testXormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>, <span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) {
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tenants</span> []<span style="color:#a6e22e">Tenant</span>
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">testXormEngine</span>.<span style="color:#a6e22e">Find</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tenants</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+ }
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tenants</span> {
+  <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">Insert</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">u</span>)
+ }
+}
+<span style="color:#f92672">...</span> <span style="color:#f92672">...</span>
+
+</code></pre></div><h2 id="多人做的项目如何管理原始数据">多人做的项目如何管理原始数据？</h2>
 <p>我是这么做的</p>
 <ul>
 <li>准备一个<code>公用的mysql数据库</code>(没有的话可以让下班最晚的员工开数据库共享&hellip;^^)</li>
@@ -328,111 +334,111 @@ controller是提供接口api的直接入口，所以那些重要的api都需要�
 </ul>
 <h2 id="接口api测试代码">接口api测试代码</h2>
 <p>繁琐的准备工作已经做完，终于可以写测试代码了&hellip;^^</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Test_ColleagueApiController_GetColleagues</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//需要测试的api
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">GET</span>, <span style="color:#e6db74">&#34;/api/v1/colleagues/:id&#34;</span>, <span style="color:#66d9ef">nil</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//添加token和context
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">rec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">SetContextWithToken</span>(<span style="color:#a6e22e">req</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//执行完测试代码后需要回滚
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">factory</span>.<span style="color:#a6e22e">DB</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Context</span>()).<span style="color:#a6e22e">Close</span>()
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">factory</span>.<span style="color:#a6e22e">DB</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Context</span>()).<span style="color:#a6e22e">Rollback</span>()
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">factory</span>.<span style="color:#a6e22e">DB</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Context</span>()).<span style="color:#a6e22e">Begin</span>()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//参数设定
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamNames</span>(<span style="color:#e6db74">&#34;id&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamValues</span>(<span style="color:#e6db74">&#34;1&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//调用api方法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Ok</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">ColleagueApiController</span>{}.<span style="color:#a6e22e">GetBrandShops</span>(<span style="color:#a6e22e">c</span>))
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">rec</span>.<span style="color:#a6e22e">Code</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//api返回结果的结构
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Result</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">ColleagueId</span> <span style="color:#66d9ef">int64</span>  <span style="color:#e6db74">`json:&#34;colleagueId&#34;`</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">ColleagueNo</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;colleagueNo&#34;`</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">Name</span>        <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34;`</span>
-</span></span><span style="display:flex;"><span>  } <span style="color:#e6db74">`json:&#34;result&#34;`</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Success</span> <span style="color:#66d9ef">bool</span> <span style="color:#e6db74">`json:&#34;success&#34;`</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//验证结果
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Ok</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">rec</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Bytes</span>(), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>))
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Result</span>.<span style="color:#a6e22e">ColleagueId</span>, int64(<span style="color:#ae81ff">1</span>))
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Result</span>.<span style="color:#a6e22e">ColleagueNo</span>, <span style="color:#e6db74">&#34;C000001&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Result</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;测试人员&#34;</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Test_ColleagueApiController_GetColleagues</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+ <span style="color:#75715e">//需要测试的api
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">GET</span>, <span style="color:#e6db74">&#34;/api/v1/colleagues/:id&#34;</span>, <span style="color:#66d9ef">nil</span>)
+
+ <span style="color:#75715e">//添加token和context
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">rec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">SetContextWithToken</span>(<span style="color:#a6e22e">req</span>)
+
+ <span style="color:#75715e">//执行完测试代码后需要回滚
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">factory</span>.<span style="color:#a6e22e">DB</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Context</span>()).<span style="color:#a6e22e">Close</span>()
+ <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">factory</span>.<span style="color:#a6e22e">DB</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Context</span>()).<span style="color:#a6e22e">Rollback</span>()
+ <span style="color:#a6e22e">factory</span>.<span style="color:#a6e22e">DB</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Context</span>()).<span style="color:#a6e22e">Begin</span>()
+
+ <span style="color:#75715e">//参数设定
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamNames</span>(<span style="color:#e6db74">&#34;id&#34;</span>)
+ <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamValues</span>(<span style="color:#e6db74">&#34;1&#34;</span>)
+
+ <span style="color:#75715e">//调用api方法
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Ok</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">ColleagueApiController</span>{}.<span style="color:#a6e22e">GetBrandShops</span>(<span style="color:#a6e22e">c</span>))
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">rec</span>.<span style="color:#a6e22e">Code</span>)
+
+ <span style="color:#75715e">//api返回结果的结构
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Result</span> <span style="color:#66d9ef">struct</span> {
+   <span style="color:#a6e22e">ColleagueId</span> <span style="color:#66d9ef">int64</span>  <span style="color:#e6db74">`json:&#34;colleagueId&#34;`</span>
+   <span style="color:#a6e22e">ColleagueNo</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;colleagueNo&#34;`</span>
+   <span style="color:#a6e22e">Name</span>        <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34;`</span>
+  } <span style="color:#e6db74">`json:&#34;result&#34;`</span>
+  <span style="color:#a6e22e">Success</span> <span style="color:#66d9ef">bool</span> <span style="color:#e6db74">`json:&#34;success&#34;`</span>
+ }
+
+ <span style="color:#75715e">//验证结果
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Ok</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">rec</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Bytes</span>(), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>))
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Result</span>.<span style="color:#a6e22e">ColleagueId</span>, int64(<span style="color:#ae81ff">1</span>))
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Result</span>.<span style="color:#a6e22e">ColleagueNo</span>, <span style="color:#e6db74">&#34;C000001&#34;</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Result</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;测试人员&#34;</span>)
+}
+</code></pre></div><hr>
 <h2 id="models的测试代码">models的测试代码</h2>
 <h3 id="init-函数-1">init() 函数</h3>
 <p>和controllers 的init()方法没什么区别</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">appEnv</span>     = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;app-env&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;APP_ENV&#34;</span>), <span style="color:#e6db74">&#34;app env&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOMAXPROCS</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#e6db74">&#34;sqlite3&#34;</span>, <span style="color:#e6db74">&#34;:memory:&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>  panic(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Config</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>  panic(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">SetModelConfig</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ModelConfig</span>{<span style="color:#a6e22e">ValidTimeout</span>: <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ValidTimeout</span>, <span style="color:#a6e22e">AppEnv</span>: <span style="color:#f92672">*</span><span style="color:#a6e22e">appEnv</span>})
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">SetRedisConn</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_REDIS_CONNECTION&#34;</span>))
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">xormEngine</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>多写了一个<code>GetContext()方法</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
+ <span style="color:#a6e22e">appEnv</span>     = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;app-env&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;APP_ENV&#34;</span>), <span style="color:#e6db74">&#34;app env&#34;</span>)
+ <span style="color:#a6e22e">xormEngine</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+ <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOMAXPROCS</span>(<span style="color:#ae81ff">1</span>)
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>
+ <span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#e6db74">&#34;sqlite3&#34;</span>, <span style="color:#e6db74">&#34;:memory:&#34;</span>)
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  panic(<span style="color:#a6e22e">err</span>)
+ }
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Config</span>
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  panic(<span style="color:#a6e22e">err</span>)
+ }
+ <span style="color:#a6e22e">SetModelConfig</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ModelConfig</span>{<span style="color:#a6e22e">ValidTimeout</span>: <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ValidTimeout</span>, <span style="color:#a6e22e">AppEnv</span>: <span style="color:#f92672">*</span><span style="color:#a6e22e">appEnv</span>})
+ <span style="color:#a6e22e">SetRedisConn</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TEST_SERVICE_REDIS_CONNECTION&#34;</span>))
+ <span style="color:#a6e22e">SetXormEngineSync</span>(<span style="color:#a6e22e">xormEngine</span>)
+
+ <span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">xormEngine</span>, <span style="color:#a6e22e">configutil</span>.<span style="color:#a6e22e">TestMode</span>)
+}
+</code></pre></div><p>多写了一个<code>GetContext()方法</code>
 如果需要数据连接先调用。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetContextForTest</span>() <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span> {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">echomiddleware</span>.<span style="color:#a6e22e">ContextDBName</span>, <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">NewSession</span>())
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="测试代码">测试代码</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetContextForTest</span>() <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span> {
+ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">echomiddleware</span>.<span style="color:#a6e22e">ContextDBName</span>, <span style="color:#a6e22e">xormEngine</span>.<span style="color:#a6e22e">NewSession</span>())
+}
+</code></pre></div><h3 id="测试代码">测试代码</h3>
 <p>models的测试代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Test_GetTenantAppInfosFromAppContainers</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 因为这个方法不需要连数据库所以也不需要这些操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// ctx := GetContextForTest()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// factory.DB(ctx).Begin()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// defer factory.DB(ctx).Close()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// defer factory.DB(ctx).Rollback()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">appContainers</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">TenantAppContainer</span>{
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;admin&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;admin&#34;</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;dev&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;dev&#34;</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;plan&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;plan&#34;</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;admin&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;admin&#34;</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;plan&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;plan&#34;</span>},
-</span></span><span style="display:flex;"><span>  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;dev&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;dev&#34;</span>},
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//测试该方法的功能
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">appInfos</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GetTenantAppInfosFromAppContainers</span>(<span style="color:#a6e22e">appContainers</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>), <span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>), <span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">Roles</span>), <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">Roles</span>), <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">RoleCode</span>, <span style="color:#e6db74">&#34;admin&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">RoleName</span>, <span style="color:#e6db74">&#34;admin&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">RoleCode</span>, <span style="color:#e6db74">&#34;plan&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">RoleName</span>, <span style="color:#e6db74">&#34;plan&#34;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">TenantAppId</span>, int64(<span style="color:#ae81ff">2</span>))
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Test_GetTenantAppInfosFromAppContainers</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+ <span style="color:#75715e">// 因为这个方法不需要连数据库所以也不需要这些操作
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// ctx := GetContextForTest()
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// factory.DB(ctx).Begin()
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// defer factory.DB(ctx).Close()
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// defer factory.DB(ctx).Rollback()
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">appContainers</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">TenantAppContainer</span>{
+  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;admin&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;admin&#34;</span>},
+  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;dev&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;dev&#34;</span>},
+  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;plan&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;plan&#34;</span>},
+  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;admin&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;admin&#34;</span>},
+  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;plan&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;plan&#34;</span>},
+  {<span style="color:#a6e22e">TenantAppId</span>: <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">RoleCode</span>: <span style="color:#e6db74">&#34;dev&#34;</span>, <span style="color:#a6e22e">RoleName</span>: <span style="color:#e6db74">&#34;dev&#34;</span>},
+ }
+
+ <span style="color:#75715e">//测试该方法的功能
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">appInfos</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">GetTenantAppInfosFromAppContainers</span>(<span style="color:#a6e22e">appContainers</span>)
+
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>), <span style="color:#ae81ff">3</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>), <span style="color:#ae81ff">3</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">Roles</span>), <span style="color:#ae81ff">2</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, len(<span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">Roles</span>), <span style="color:#ae81ff">1</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">RoleCode</span>, <span style="color:#e6db74">&#34;admin&#34;</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">RoleName</span>, <span style="color:#e6db74">&#34;admin&#34;</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">RoleCode</span>, <span style="color:#e6db74">&#34;plan&#34;</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">Roles</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">RoleName</span>, <span style="color:#e6db74">&#34;plan&#34;</span>)
+ <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">Equals</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">appInfos</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">TenantAppId</span>, int64(<span style="color:#ae81ff">2</span>))
+}
+</code></pre></div><hr>
 <p>你们准备好应对如下的场景吗？</p>
 <blockquote>
 <p>产品经理：因为客户的需求我们需要赶紧发布最新版本。
 我：稍等，让我确认一下~</p>
 </blockquote>
-<pre tabindex="0"><code>cd models 
+<pre><code>cd models 
 go test
 cd ..
 cd controllers
@@ -508,12 +514,12 @@ go test
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -644,6 +650,10 @@ go test
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【区块链笔记】BTC_协议(03)" />
 <meta property="og:description" content="这篇文章简单的整理了比特币协议相关内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_03/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/btc/blockchain_03/" />
 <meta property="article:published_time" content="2022-10-22T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-22T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】BTC_协议(03)">
-<meta itemprop="description" content="这篇文章简单的整理了比特币协议相关内容。"><meta itemprop="datePublished" content="2022-10-22T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了比特币协议相关内容。">
+<meta itemprop="datePublished" content="2022-10-22T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-22T23:28:49+08:00" />
 <meta itemprop="wordCount" content="92">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,BTC,bitcoin,共识协议," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -179,7 +184,7 @@
 不停地更换随机数(nonce)，当随机数满足条件，就算成功了。<br>
 第一个算出来的人，可以打包这个交易块，也可以获得奖励(coinbase)。<br>
 以及打包交易的的交易手续费。</p>
-<pre tabindex="0"><code>Hash(Block Header) &lt;= target(目标值)
+<pre><code>Hash(Block Header) &lt;= target(目标值)
 </code></pre><blockquote>
 <p>通过挖矿证明(工作量证明)善意节点，并获取挖矿奖金和区块的记账权利</p>
 </blockquote>
@@ -192,7 +197,7 @@
 <li>指向币的来源。</li>
 </ol>
 <p>下面是比特币系统中交易的例子，</p>
-<pre tabindex="0"><code>A通过挖矿获得10BTC，在下面A将这10BTC转给B 5BTC，转给C 5BTC。  
+<pre><code>A通过挖矿获得10BTC，在下面A将这10BTC转给B 5BTC，转给C 5BTC。  
 之后B再转给C 2BTC，转给D 3BTC。当C转给E 7BTC时 C的2个来元交易都需要指明。  
 这样就有效的预防双花攻击(double spending attack)
 </code></pre><p><a href="https://limingxie.github.io/images/blockchain/bitcoin/blockchain_protocol.png">图片备用地址</a><br>
@@ -305,12 +310,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -441,6 +446,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

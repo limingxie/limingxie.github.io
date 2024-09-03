@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【kafka笔记】kafka_定义和启动(1)" />
 <meta property="og:description" content="这一篇整理了kafka的 定义和启动 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/kafka/kafka_01/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/kafka/kafka_01/" />
 <meta property="article:published_time" content="2022-10-05T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-10-05T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【kafka笔记】kafka_定义和启动(1)">
-<meta itemprop="description" content="这一篇整理了kafka的 定义和启动 相关的内容。"><meta itemprop="datePublished" content="2022-10-05T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了kafka的 定义和启动 相关的内容。">
+<meta itemprop="datePublished" content="2022-10-05T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-10-05T23:28:49+08:00" />
 <meta itemprop="wordCount" content="173">
+
+
+
 <meta itemprop="keywords" content="kafka," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -193,32 +198,32 @@
 <h2 id="3容器启动kafka">3.容器启动kafka</h2>
 <p>我使用的是<code>bitnami/kafka</code>镜像<br>
 详细的可以参考 ==&gt; <a href="https://hub.docker.com/r/bitnami/kafka">https://hub.docker.com/r/bitnami/kafka</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://raw.githubusercontent.com/bitnami/containers/main/bitnami/kafka/docker-compose.yml &gt; docker-compose.yml
-</span></span><span style="display:flex;"><span>docker-compose up -d
-</span></span></code></pre></div><p>容器中bin目录的sh脚本在一下路径下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /opt/bitnami/kafka/bin
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>//producer 给 test topic 发消息
-</span></span><span style="display:flex;"><span>kafka-console-producer.sh --broker-list kafka:9092 --topic test
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>//consumer 订阅 test 消息
-</span></span><span style="display:flex;"><span>kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic test
-</span></span></code></pre></div><h2 id="4config配置">4.config配置</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -sSL https://raw.githubusercontent.com/bitnami/containers/main/bitnami/kafka/docker-compose.yml &gt; docker-compose.yml
+docker-compose up -d
+</code></pre></div><p>容器中bin目录的sh脚本在一下路径下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /opt/bitnami/kafka/bin
+
+//producer 给 test topic 发消息
+kafka-console-producer.sh --broker-list kafka:9092 --topic test
+
+//consumer 订阅 test 消息
+kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic test
+</code></pre></div><h2 id="4config配置">4.config配置</h2>
 <h4 id="41-configserverproperties">4.1 config/server.properties</h4>
-<pre tabindex="0"><code>#broker 的全局唯一编号，不能重复，只能是数字。 broker.id=0
+<pre><code>#broker 的全局唯一编号，不能重复，只能是数字。 broker.id=0
 ... ...
-#kafka 运行日志(数据)存放的路径，路径不需要提前创建，kafka 自动帮你创建，可以 配置多个磁盘路径，路径与路径之间可以用&#34;，&#34;分隔  
+#kafka 运行日志(数据)存放的路径，路径不需要提前创建，kafka 自动帮你创建，可以 配置多个磁盘路径，路径与路径之间可以用&quot;，&quot;分隔  
 log.dirs=/opt/module/kafka/datas
 ... ...
 #配置连接 Zookeeper 集群地址(在 zk 根目录下创建/kafka，方便管理)
 zookeeper.connect=kafka:2181,kafka:2181,kafka:2181/kafka
 </code></pre><h4 id="42-环境变量">4.2 环境变量</h4>
-<pre tabindex="0"><code>#KAFKA_HOME
+<pre><code>#KAFKA_HOME
 export KAFKA_HOME=/opt/module/kafka 
 export PATH=$PATH:$KAFKA_HOME/bin
 </code></pre><h4 id="43-启动集群">4.3 启动集群</h4>
 <p>先启动 Zookeeper 集群，然后启动 Kafka。</p>
-<pre tabindex="0"><code>zk.sh start
+<pre><code>zk.sh start
 //启动服务
 bin/kafka-server-start.sh -daemon config/server.properties
 //停止服务
@@ -288,12 +293,12 @@ Kafka 集群就没有办法再获取停止进程的信息，只能手动杀死 K
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -424,6 +429,10 @@ Kafka 集群就没有办法再获取停止进程的信息，只能手动杀死 K
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

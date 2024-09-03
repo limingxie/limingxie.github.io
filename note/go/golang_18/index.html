@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【golang笔记】go_类型断言(18)" />
 <meta property="og:description" content="这一篇简单的整理了golang 类型断言 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_18/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_18/" />
 <meta property="article:published_time" content="2022-09-19T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-19T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_类型断言(18)">
-<meta itemprop="description" content="这一篇简单的整理了golang 类型断言 相关的内容。"><meta itemprop="datePublished" content="2022-09-19T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang 类型断言 相关的内容。">
+<meta itemprop="datePublished" content="2022-09-19T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-19T23:28:49+08:00" />
 <meta itemprop="wordCount" content="199">
+
+
+
 <meta itemprop="keywords" content="golang," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -149,77 +154,77 @@
 			<p>这一篇简单的整理了golang <strong><code>类型断言</code></strong> 相关的内容。</p>
 <h2 id="1类型断言基本用法">1.类型断言基本用法</h2>
 <p>类型断言是由于一个接口是一般类型，不知道是具体类型的时候，就需要使用类型断言。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//类型断言(带检测的)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">interface</span>{}
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">float32</span> = <span style="color:#ae81ff">2.1</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">a</span> = <span style="color:#a6e22e">b</span> <span style="color:#75715e">//空接口，可以接收任意类型
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//类型断言(带检测的)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>.(<span style="color:#66d9ef">float32</span>); <span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;convert success&#34;</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;c 的类型是 %T 值是=%v\n&#34;</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span> } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;convert fail&#34;</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;继续执行...&#34;</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="2类型断言-type-用法">2.类型断言 type 用法</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#75715e">//类型断言(带检测的)
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">interface</span>{}
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">float32</span> = <span style="color:#ae81ff">2.1</span>
+ <span style="color:#a6e22e">a</span> = <span style="color:#a6e22e">b</span> <span style="color:#75715e">//空接口，可以接收任意类型
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//类型断言(带检测的)
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>.(<span style="color:#66d9ef">float32</span>); <span style="color:#a6e22e">ok</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;convert success&#34;</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;c 的类型是 %T 值是=%v\n&#34;</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>)
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;convert fail&#34;</span>)
+ }
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;继续执行...&#34;</span>)
+}
+</code></pre></div><h2 id="2类型断言-type-用法">2.类型断言 type 用法</h2>
 <p>可以接结合 switch 语句，在条件中使用.(type)获取数据类型。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//定义Student类型
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//编写一个函数，可以判断输入的参数是什么类型
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TypeJudge</span>(<span style="color:#a6e22e">items</span><span style="color:#f92672">...</span> <span style="color:#66d9ef">interface</span>{}) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">items</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">x</span>.(<span style="color:#66d9ef">type</span>) {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">bool</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 bool 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">float32</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 float32 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">float64</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 float64 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int32</span>, <span style="color:#66d9ef">int64</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 整数 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">string</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 string 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Student</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 Student 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 *Student 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">default</span> :
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是  类型 不确定，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">float32</span> = <span style="color:#ae81ff">1.1</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">float64</span> = <span style="color:#ae81ff">2.3</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">int32</span> = <span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;tom&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">address</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;北京&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">n4</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">300</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">stu1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">stu2</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Student</span>{}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">TypeJudge</span>(<span style="color:#a6e22e">n1</span>, <span style="color:#a6e22e">n2</span>, <span style="color:#a6e22e">n3</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">address</span>, <span style="color:#a6e22e">n4</span>, <span style="color:#a6e22e">stu1</span>, <span style="color:#a6e22e">stu2</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#75715e">//定义Student类型
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span> {
+
+}
+
+<span style="color:#75715e">//编写一个函数，可以判断输入的参数是什么类型
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TypeJudge</span>(<span style="color:#a6e22e">items</span><span style="color:#f92672">...</span> <span style="color:#66d9ef">interface</span>{}) {
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">items</span> {
+  <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">x</span>.(<span style="color:#66d9ef">type</span>) {
+   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">bool</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 bool 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">float32</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 float32 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">float64</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 float64 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int32</span>, <span style="color:#66d9ef">int64</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 整数 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+   <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">string</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 string 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+   <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Student</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 Student 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+   <span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是 *Student 类型，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+   <span style="color:#66d9ef">default</span> :
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;第%v个参数是  类型 不确定，值是%v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">x</span>)
+  }
+ }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n1</span> <span style="color:#66d9ef">float32</span> = <span style="color:#ae81ff">1.1</span>
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n2</span> <span style="color:#66d9ef">float64</span> = <span style="color:#ae81ff">2.3</span>
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n3</span> <span style="color:#66d9ef">int32</span> = <span style="color:#ae81ff">30</span>
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span> = <span style="color:#e6db74">&#34;tom&#34;</span>
+ <span style="color:#a6e22e">address</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+ <span style="color:#a6e22e">n4</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">300</span>
+
+ <span style="color:#a6e22e">stu1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{}
+ <span style="color:#a6e22e">stu2</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Student</span>{}
+
+ <span style="color:#a6e22e">TypeJudge</span>(<span style="color:#a6e22e">n1</span>, <span style="color:#a6e22e">n2</span>, <span style="color:#a6e22e">n3</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">address</span>, <span style="color:#a6e22e">n4</span>, <span style="color:#a6e22e">stu1</span>, <span style="color:#a6e22e">stu2</span>)
+}
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -279,12 +284,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -415,6 +420,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

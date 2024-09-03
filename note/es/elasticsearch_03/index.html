@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【ES笔记】Elasticsearch_常用API(3)" />
 <meta property="og:description" content="整理了Elasticsearch常用的API方法。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/es/elasticsearch_03/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/es/elasticsearch_03/" />
 <meta property="article:published_time" content="2022-08-10T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-08-10T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【ES笔记】Elasticsearch_常用API(3)">
-<meta itemprop="description" content="整理了Elasticsearch常用的API方法。"><meta itemprop="datePublished" content="2022-08-10T23:28:49+08:00" />
+<meta itemprop="description" content="整理了Elasticsearch常用的API方法。">
+<meta itemprop="datePublished" content="2022-08-10T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-08-10T23:28:49+08:00" />
 <meta itemprop="wordCount" content="804">
+
+
+
 <meta itemprop="keywords" content="elasticsearch,es,database,index," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -168,143 +173,144 @@
 			<p>整理了Elasticsearch常用的API方法。</p>
 <h2 id="1索引操作">1.索引操作</h2>
 <h4 id="11-创建索引">1.1 创建索引</h4>
-<pre tabindex="0"><code>PUT请求 ：http://127.0.0.1:9200/shopping
+<pre><code>PUT请求 ：http://127.0.0.1:9200/shopping
 
 {
-    &#34;acknowledged&#34;【响应结果】: true, 
-    &#34;shards_acknowledged&#34;【分片结果】: true, 
-    &#34;index&#34;【索引名称】: &#34;shopping&#34;
+    &quot;acknowledged&quot;【响应结果】: true, 
+    &quot;shards_acknowledged&quot;【分片结果】: true, 
+    &quot;index&quot;【索引名称】: &quot;shopping&quot;
 }
 </code></pre><h4 id="12-查看所有索引">1.2 查看所有索引</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/_cat/indices?v
+<pre><code>GET请求 ：http://127.0.0.1:9200/_cat/indices?v
 </code></pre><h4 id="13-查看单个索引">1.3 查看单个索引</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/shopping
+<pre><code>GET请求 ：http://127.0.0.1:9200/shopping
 
 {
-    &#34;shopping&#34;【索引名】: {        
-        &#34;aliases&#34;【别名】: {},
-        &#34;mappings&#34;【映射】: {},
-        &#34;settings&#34;【设置】: {
-            &#34;index&#34;【设置 - 索引】: {
-                &#34;creation_date&#34;【设置 - 索引 - 创建时间】: &#34;1614265373911&#34;,
-                &#34;number_of_shards&#34;【设置 - 索引 - 主分片数量】: &#34;1&#34;,
-                &#34;number_of_replicas&#34;【设置 - 索引 - 副分片数量】: &#34;1&#34;,
-                &#34;uuid&#34;【设置 - 索引 - 唯一标识】: &#34;eI5wemRERTumxGCc1bAk2A&#34;,
-                &#34;version&#34;【设置 - 索引 - 版本】: {
-                    &#34;created&#34;: &#34;7080099&#34;
+    &quot;shopping&quot;【索引名】: {        
+        &quot;aliases&quot;【别名】: {},
+        &quot;mappings&quot;【映射】: {},
+        &quot;settings&quot;【设置】: {
+            &quot;index&quot;【设置 - 索引】: {
+                &quot;creation_date&quot;【设置 - 索引 - 创建时间】: &quot;1614265373911&quot;,
+                &quot;number_of_shards&quot;【设置 - 索引 - 主分片数量】: &quot;1&quot;,
+                &quot;number_of_replicas&quot;【设置 - 索引 - 副分片数量】: &quot;1&quot;,
+                &quot;uuid&quot;【设置 - 索引 - 唯一标识】: &quot;eI5wemRERTumxGCc1bAk2A&quot;,
+                &quot;version&quot;【设置 - 索引 - 版本】: {
+                    &quot;created&quot;: &quot;7080099&quot;
                 },
-                &#34;provided_name&#34;【设置 - 索引 - 名称】: &#34;shopping&#34;
+                &quot;provided_name&quot;【设置 - 索引 - 名称】: &quot;shopping&quot;
             }
         }
     }
 }
 </code></pre><h4 id="14-删除索引">1.4 删除索引</h4>
-<pre tabindex="0"><code>DELETE请求 ：http://127.0.0.1:9200/shopping
+<pre><code>DELETE请求 ：http://127.0.0.1:9200/shopping
 </code></pre><h2 id="2文档操作">2.文档操作</h2>
 <h4 id="21-创建文档">2.1 创建文档</h4>
-<pre tabindex="0"><code>POST请求 ：http://127.0.0.1:9200/shopping/_doc
+<pre><code>POST请求 ：http://127.0.0.1:9200/shopping/_doc
 {
-    &#34;title&#34;:&#34;小米手机&#34;,
-    &#34;category&#34;:&#34;小米&#34;,
-    &#34;images&#34;:&#34;http://www.gulixueyuan.com/xm.jpg&#34;,
-    &#34;price&#34;:3999.00
+    &quot;title&quot;:&quot;小米手机&quot;,
+    &quot;category&quot;:&quot;小米&quot;,
+    &quot;images&quot;:&quot;http://www.gulixueyuan.com/xm.jpg&quot;,
+    &quot;price&quot;:3999.00
 }
 
 {
-    &#34;_index&#34;【索引】: &#34;shopping&#34;,
-    &#34;_type&#34;【类型-文档】: &#34;_doc&#34;,
-    &#34;_id&#34;【唯一标识】: &#34;Xhsa2ncBlvF_7lxyCE9G&#34;, #可以类比为MySQL中的主键，随机生成
-    &#34;_version&#34;【版本】: 1,
-    &#34;result&#34;【结果】: &#34;created&#34;, #这里的create表示创建成功
-    &#34;_shards&#34;【分片】: {
-        &#34;total&#34;【分片 - 总数】: 2,
-        &#34;successful&#34;【分片 - 成功】: 1,
-        &#34;failed&#34;【分片 - 失败】: 0
+    &quot;_index&quot;【索引】: &quot;shopping&quot;,
+    &quot;_type&quot;【类型-文档】: &quot;_doc&quot;,
+    &quot;_id&quot;【唯一标识】: &quot;Xhsa2ncBlvF_7lxyCE9G&quot;, #可以类比为MySQL中的主键，随机生成
+    &quot;_version&quot;【版本】: 1,
+    &quot;result&quot;【结果】: &quot;created&quot;, #这里的create表示创建成功
+    &quot;_shards&quot;【分片】: {
+        &quot;total&quot;【分片 - 总数】: 2,
+        &quot;successful&quot;【分片 - 成功】: 1,
+        &quot;failed&quot;【分片 - 失败】: 0
     },
-    &#34;_seq_no&#34;: 0,
-    &#34;_primary_term&#34;: 1
+    &quot;_seq_no&quot;: 0,
+    &quot;_primary_term&quot;: 1
 }
 </code></pre><h4 id="22-查看文档">2.2 查看文档</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/shopping/_doc/1
+<pre><code>GET请求 ：http://127.0.0.1:9200/shopping/_doc/1
 
 {
-    &#34;_index&#34;【索引】: &#34;shopping&#34;,
-    &#34;_type&#34;【文档类型】: &#34;_doc&#34;,
-    &#34;_id&#34;: &#34;1&#34;,
-    &#34;_version&#34;: 2,
-    &#34;_seq_no&#34;: 2,
-    &#34;_primary_term&#34;: 2,
-    &#34;found&#34;【查询结果】: true, # true表示查找到，false表示未查找到
-    &#34;_source&#34;【文档源信息】: {
-        &#34;title&#34;: &#34;华为手机&#34;,
-        &#34;category&#34;: &#34;华为&#34;,
-        &#34;images&#34;: &#34;http://www.gulixueyuan.com/hw.jpg&#34;,
-        &#34;price&#34;: 4999.00
+    &quot;_index&quot;【索引】: &quot;shopping&quot;,
+    &quot;_type&quot;【文档类型】: &quot;_doc&quot;,
+    &quot;_id&quot;: &quot;1&quot;,
+    &quot;_version&quot;: 2,
+    &quot;_seq_no&quot;: 2,
+    &quot;_primary_term&quot;: 2,
+    &quot;found&quot;【查询结果】: true, # true表示查找到，false表示未查找到
+    &quot;_source&quot;【文档源信息】: {
+        &quot;title&quot;: &quot;华为手机&quot;,
+        &quot;category&quot;: &quot;华为&quot;,
+        &quot;images&quot;: &quot;http://www.gulixueyuan.com/hw.jpg&quot;,
+        &quot;price&quot;: 4999.00
     }
 }
 </code></pre><h4 id="23-修改文档">2.3 修改文档</h4>
-<pre tabindex="0"><code>POST请求 ：http://127.0.0.1:9200/shopping/_doc/1
+<pre><code>POST请求 ：http://127.0.0.1:9200/shopping/_doc/1
 {
-    &#34;title&#34;:&#34;华为手机&#34;,
-    &#34;category&#34;:&#34;华为&#34;,
-    &#34;images&#34;:&#34;http://www.gulixueyuan.com/hw.jpg&#34;,
-    &#34;price&#34;:4999.00
+    &quot;title&quot;:&quot;华为手机&quot;,
+    &quot;category&quot;:&quot;华为&quot;,
+    &quot;images&quot;:&quot;http://www.gulixueyuan.com/hw.jpg&quot;,
+    &quot;price&quot;:4999.00
 }
 
 {
-    &#34;_index&#34;: &#34;shopping&#34;,
-    &#34;_type&#34;: &#34;_doc&#34;,
-    &#34;_id&#34;: &#34;1&#34;,
-    &#34;_version&#34;【版本】: 2,
-    &#34;result&#34;【结果】: &#34;updated&#34;, # updated表示数据被更新
-    &#34;_shards&#34;: {
-        &#34;total&#34;: 2,
-        &#34;successful&#34;: 1,
-        &#34;failed&#34;: 0
+    &quot;_index&quot;: &quot;shopping&quot;,
+    &quot;_type&quot;: &quot;_doc&quot;,
+    &quot;_id&quot;: &quot;1&quot;,
+    &quot;_version&quot;【版本】: 2,
+    &quot;result&quot;【结果】: &quot;updated&quot;, # updated表示数据被更新
+    &quot;_shards&quot;: {
+        &quot;total&quot;: 2,
+        &quot;successful&quot;: 1,
+        &quot;failed&quot;: 0
     },
-    &#34;_seq_no&#34;: 2,
-    &#34;_primary_term&#34;: 2
+    &quot;_seq_no&quot;: 2,
+    &quot;_primary_term&quot;: 2
 }
+
 </code></pre><h4 id="24-修改字段">2.4 修改字段</h4>
-<pre tabindex="0"><code>POST请求 ：http://127.0.0.1:9200/shopping/_update/1
+<pre><code>POST请求 ：http://127.0.0.1:9200/shopping/_update/1
 { 
-  &#34;doc&#34;: {
-    &#34;price&#34;:3000.00
+  &quot;doc&quot;: {
+    &quot;price&quot;:3000.00
   } 
 }
 </code></pre><h4 id="25-删除文档">2.5 删除文档</h4>
-<pre tabindex="0"><code>DELETE请求 ：http://127.0.0.1:9200/shopping/_doc/1
+<pre><code>DELETE请求 ：http://127.0.0.1:9200/shopping/_doc/1
 
 {
-    &#34;_index&#34;: &#34;shopping&#34;,
-    &#34;_type&#34;: &#34;_doc&#34;,
-    &#34;_id&#34;: &#34;1&#34;,
-    &#34;_version&#34;【版本】: 4, #对数据的操作，都会更新版本
-    &#34;result&#34;【结果】: &#34;deleted&#34;, # deleted表示数据被标记为删除
-    &#34;_shards&#34;: {
-        &#34;total&#34;: 2,
-        &#34;successful&#34;: 1,
-        &#34;failed&#34;: 0
+    &quot;_index&quot;: &quot;shopping&quot;,
+    &quot;_type&quot;: &quot;_doc&quot;,
+    &quot;_id&quot;: &quot;1&quot;,
+    &quot;_version&quot;【版本】: 4, #对数据的操作，都会更新版本
+    &quot;result&quot;【结果】: &quot;deleted&quot;, # deleted表示数据被标记为删除
+    &quot;_shards&quot;: {
+        &quot;total&quot;: 2,
+        &quot;successful&quot;: 1,
+        &quot;failed&quot;: 0
     },
-    &#34;_seq_no&#34;: 4,
-    &#34;_primary_term&#34;: 2
+    &quot;_seq_no&quot;: 4,
+    &quot;_primary_term&quot;: 2
 }
 </code></pre><h2 id="3映射操作">3.映射操作</h2>
 <h4 id="31-创建映射">3.1 创建映射</h4>
-<pre tabindex="0"><code>PUT请求 ：http://127.0.0.1:9200/student/_mapping
+<pre><code>PUT请求 ：http://127.0.0.1:9200/student/_mapping
 {
-  &#34;properties&#34;: {
-    &#34;name&#34;:{
-      &#34;type&#34;: &#34;text&#34;,
-      &#34;index&#34;: true
+  &quot;properties&quot;: {
+    &quot;name&quot;:{
+      &quot;type&quot;: &quot;text&quot;,
+      &quot;index&quot;: true
     },
-    &#34;sex&#34;:{
-      &#34;type&#34;: &#34;text&#34;,
-      &#34;index&#34;: false
+    &quot;sex&quot;:{
+      &quot;type&quot;: &quot;text&quot;,
+      &quot;index&quot;: false
     },
-    &#34;age&#34;:{
-      &#34;type&#34;: &#34;long&#34;,
-      &#34;index&#34;: false
+    &quot;age&quot;:{
+      &quot;type&quot;: &quot;long&quot;,
+      &quot;index&quot;: false
     }
   }
 }
@@ -333,158 +339,158 @@ false：字段不会被索引，不能用来搜索</li>
 <li>analyzer：分词器，这里的ik_max_word即使用ik分词器</li>
 </ul>
 <h4 id="32-查看映射">3.2 查看映射</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_mapping
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_mapping
 </code></pre><h4 id="33-索引映射关联">3.3 索引映射关联</h4>
-<pre tabindex="0"><code>PUT请求 ：http://127.0.0.1:9200/student1
+<pre><code>PUT请求 ：http://127.0.0.1:9200/student1
 {
-  &#34;settings&#34;: {},
-  &#34;mappings&#34;: {
-   &#34;properties&#34;: {
-  &#34;name&#34;:{
-    &#34;type&#34;: &#34;text&#34;,
-    &#34;index&#34;: true
+  &quot;settings&quot;: {},
+  &quot;mappings&quot;: {
+   &quot;properties&quot;: {
+  &quot;name&quot;:{
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;index&quot;: true
     
   },
-  &#34;sex&#34;:{
-    &#34;type&#34;: &#34;text&#34;,
-    &#34;index&#34;: false
+  &quot;sex&quot;:{
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;index&quot;: false
   },
-  &#34;age&#34;:{
-    &#34;type&#34;: &#34;long&#34;,
-    &#34;index&#34;: false
+  &quot;age&quot;:{
+    &quot;type&quot;: &quot;long&quot;,
+    &quot;index&quot;: false
   }
    }
   }
 }
 </code></pre><h2 id="4高级查询">4.高级查询</h2>
 <h2 id="41-查询所有文档">4.1 查询所有文档</h2>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;match_all&#34;: {}
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
   }
 }
-# &#34;query&#34;：这里的query代表一个查询对象，里面可以有不同的查询属性
-# &#34;match_all&#34;：查询类型，例如：match_all(代表查询所有)， match，term ， range 等等
+# &quot;query&quot;：这里的query代表一个查询对象，里面可以有不同的查询属性
+# &quot;match_all&quot;：查询类型，例如：match_all(代表查询所有)， match，term ， range 等等
 # {查询条件}：查询条件会根据类型的不同，写法也有差异
 
 {
-  &#34;took【查询花费时间，单位毫秒】&#34; : 1116,
-  &#34;timed_out【是否超时】&#34; : false,
-  &#34;_shards【分片信息】&#34; : {
-    &#34;total【总数】&#34; : 1,
-    &#34;successful【成功】&#34; : 1,
-    &#34;skipped【忽略】&#34; : 0,
-    &#34;failed【失败】&#34; : 0
+  &quot;took【查询花费时间，单位毫秒】&quot; : 1116,
+  &quot;timed_out【是否超时】&quot; : false,
+  &quot;_shards【分片信息】&quot; : {
+    &quot;total【总数】&quot; : 1,
+    &quot;successful【成功】&quot; : 1,
+    &quot;skipped【忽略】&quot; : 0,
+    &quot;failed【失败】&quot; : 0
   },
-  &#34;hits【搜索命中结果】&#34; : {
-     &#34;total&#34;【搜索条件匹配的文档总数】: {
-         &#34;value&#34;【总命中计数的值】: 3,
-         &#34;relation&#34;【计数规则】: &#34;eq&#34; # eq 表示计数准确， gte表示计数不准确
+  &quot;hits【搜索命中结果】&quot; : {
+     &quot;total&quot;【搜索条件匹配的文档总数】: {
+         &quot;value&quot;【总命中计数的值】: 3,
+         &quot;relation&quot;【计数规则】: &quot;eq&quot; # eq 表示计数准确， gte表示计数不准确
      },
-    &#34;max_score【匹配度分值】&#34; : 1.0,
-    &#34;hits【命中结果集合】&#34; : [
+    &quot;max_score【匹配度分值】&quot; : 1.0,
+    &quot;hits【命中结果集合】&quot; : [
        。。。
       }
     ]
   }
 }
 </code></pre><h4 id="42-匹配查询">4.2 匹配查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;match&#34;: {
-        &#34;name&#34;:&#34;zhangsan&#34;
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+        &quot;name&quot;:&quot;zhangsan&quot;
     }
   }
 }
 </code></pre><h4 id="43-字段匹配查询">4.3 字段匹配查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;multi_match&#34;: {
-        &#34;query&#34;: &#34;zhangsan&#34;,
-        &#34;fields&#34;: [&#34;name&#34;,&#34;nickname&#34;]
+  &quot;query&quot;: {
+    &quot;multi_match&quot;: {
+        &quot;query&quot;: &quot;zhangsan&quot;,
+        &quot;fields&quot;: [&quot;name&quot;,&quot;nickname&quot;]
     }
   }
 }
 </code></pre><h4 id="44-关键字精确查询">4.4 关键字精确查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;term&#34;: {
-      &#34;name&#34;: {
-        &#34;value&#34;: &#34;zhangsan&#34;
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;name&quot;: {
+        &quot;value&quot;: &quot;zhangsan&quot;
       }
     }
   }
 }
 </code></pre><h4 id="45-多关键字精确查询">4.5 多关键字精确查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;terms&#34;: {
-      &#34;name&#34;: [&#34;zhangsan&#34;,&#34;lisi&#34;]
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;name&quot;: [&quot;zhangsan&quot;,&quot;lisi&quot;]
     }
   }
 }
 </code></pre><h4 id="46-指定查询字段">4.6 指定查询字段</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;_source&#34;: [&#34;name&#34;,&#34;nickname&#34;],  
-  &#34;query&#34;: {
-    &#34;terms&#34;: {
-      &#34;nickname&#34;: [&#34;zhangsan&#34;]
+  &quot;_source&quot;: [&quot;name&quot;,&quot;nickname&quot;],  
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;nickname&quot;: [&quot;zhangsan&quot;]
     }
   }
 }
 </code></pre><h4 id="47-过滤字段">4.7 过滤字段</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;_source&#34;: {
-    &#34;includes&#34;: [&#34;name&#34;,&#34;nickname&#34;]
+  &quot;_source&quot;: {
+    &quot;includes&quot;: [&quot;name&quot;,&quot;nickname&quot;]
   },  
-  &#34;query&#34;: {
-    &#34;terms&#34;: {
-      &#34;nickname&#34;: [&#34;zhangsan&#34;]
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;nickname&quot;: [&quot;zhangsan&quot;]
     }
   }
 }
 
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;_source&#34;: {
-    &#34;excludes&#34;: [&#34;name&#34;,&#34;nickname&#34;]
+  &quot;_source&quot;: {
+    &quot;excludes&quot;: [&quot;name&quot;,&quot;nickname&quot;]
   },  
-  &#34;query&#34;: {
-    &#34;terms&#34;: {
-      &#34;nickname&#34;: [&#34;zhangsan&#34;]
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;nickname&quot;: [&quot;zhangsan&quot;]
     }
   }
 }
 </code></pre><h4 id="48-组合查询">4.8 组合查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;bool&#34;: {
-      &#34;must&#34;: [
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
         {
-          &#34;match&#34;: {
-            &#34;name&#34;: &#34;zhangsan&#34;
+          &quot;match&quot;: {
+            &quot;name&quot;: &quot;zhangsan&quot;
           }
         }
       ],
-      &#34;must_not&#34;: [
+      &quot;must_not&quot;: [
         {
-          &#34;match&#34;: {
-            &#34;age&#34;: &#34;40&#34;
+          &quot;match&quot;: {
+            &quot;age&quot;: &quot;40&quot;
           }
         }
       ],
-      &#34;should&#34;: [
+      &quot;should&quot;: [
         {
-          &#34;match&#34;: {
-            &#34;sex&#34;: &#34;男&#34;
+          &quot;match&quot;: {
+            &quot;sex&quot;: &quot;男&quot;
           }
         }
       ]
@@ -492,13 +498,13 @@ GET请求 ：http://127.0.0.1:9200/student/_search
   }
 }
 </code></pre><h4 id="49-范围查询">4.9 范围查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;range&#34;: {
-      &#34;age&#34;: {
-        &#34;gte&#34;: 30,
-        &#34;lte&#34;: 35
+  &quot;query&quot;: {
+    &quot;range&quot;: {
+      &quot;age&quot;: {
+        &quot;gte&quot;: 30,
+        &quot;lte&quot;: 35
       }
     }
   }
@@ -510,12 +516,12 @@ GET请求 ：http://127.0.0.1:9200/student/_search
 <li>lte 小于等于&lt;=</li>
 </ul>
 <h4 id="410-模糊查询">4.10 模糊查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;fuzzy&#34;: {
-      &#34;title&#34;: {
-        &#34;value&#34;: &#34;zhangsan&#34;
+  &quot;query&quot;: {
+    &quot;fuzzy&quot;: {
+      &quot;title&quot;: {
+        &quot;value&quot;: &quot;zhangsan&quot;
       }
     }
   }
@@ -523,60 +529,60 @@ GET请求 ：http://127.0.0.1:9200/student/_search
 
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;fuzzy&#34;: {
-      &#34;title&#34;: {
-        &#34;value&#34;: &#34;zhangsan&#34;,
-  &#34;fuzziness&#34;: 2
+  &quot;query&quot;: {
+    &quot;fuzzy&quot;: {
+      &quot;title&quot;: {
+        &quot;value&quot;: &quot;zhangsan&quot;,
+  &quot;fuzziness&quot;: 2
       }
     }
   }
 }
 </code></pre><h4 id="411-单字段排序">4.11 单字段排序</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;match&#34;: {
-        &#34;name&#34;:&#34;zhangsan&#34;
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+        &quot;name&quot;:&quot;zhangsan&quot;
     }
   },
-  &#34;sort&#34;: [{
-    &#34;age&#34;: {
-        &#34;order&#34;:&#34;desc&#34;
+  &quot;sort&quot;: [{
+    &quot;age&quot;: {
+        &quot;order&quot;:&quot;desc&quot;
     }
   }]
 }
 </code></pre><h4 id="412-多字段排序">4.12 多字段排序</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
-  &#34;query&#34;: {
-    &#34;match_all&#34;: {}
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
   },
-  &#34;sort&#34;: [
+  &quot;sort&quot;: [
     {
-      &#34;age&#34;: {
-        &#34;order&#34;: &#34;desc&#34;
+      &quot;age&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
       }
     },
     {
-      &#34;_score&#34;:{
-        &#34;order&#34;: &#34;desc&#34;
+      &quot;_score&quot;:{
+        &quot;order&quot;: &quot;desc&quot;
       }
     }
   ]
 }
 </code></pre><h4 id="413-高亮查询">4.13 高亮查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;match&#34;: {
-      &#34;name&#34;: &#34;zhangsan&#34;
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;name&quot;: &quot;zhangsan&quot;
     }
   },
-  &#34;highlight&#34;: {
-    &#34;pre_tags&#34;: &#34;&lt;font color=&#39;red&#39;&gt;&#34;,
-    &#34;post_tags&#34;: &#34;&lt;/font&gt;&#34;,
-    &#34;fields&#34;: {
-      &#34;name&#34;: {}
+  &quot;highlight&quot;: {
+    &quot;pre_tags&quot;: &quot;&lt;font color='red'&gt;&quot;,
+    &quot;post_tags&quot;: &quot;&lt;/font&gt;&quot;,
+    &quot;fields&quot;: {
+      &quot;name&quot;: {}
     }
   }
 }
@@ -587,108 +593,108 @@ GET请求 ：http://127.0.0.1:9200/student/_search
 <li>title：这里声明title字段需要高亮，后面可以为这个字段设置特有配置，也可以空</li>
 </ul>
 <h4 id="414-分页查询">4.14 分页查询</h4>
-<pre tabindex="0"><code>GET请求 ：http://127.0.0.1:9200/student/_search
+<pre><code>GET请求 ：http://127.0.0.1:9200/student/_search
 {
-  &#34;query&#34;: {
-    &#34;match_all&#34;: {}
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
   },
-  &#34;sort&#34;: [
+  &quot;sort&quot;: [
     {
-      &#34;age&#34;: {
-        &#34;order&#34;: &#34;desc&#34;
+      &quot;age&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
       }
     }
   ],
-  &#34;from&#34;: 0,
-  &#34;size&#34;: 2
+  &quot;from&quot;: 0,
+  &quot;size&quot;: 2
 }
 </code></pre><h4 id="415-聚合查询">4.15 聚合查询</h4>
-<pre tabindex="0"><code>#对某个字段取最大值max
+<pre><code>#对某个字段取最大值max
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;max_age&#34;:{
-        &#34;max&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;max_age&quot;:{
+        &quot;max&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 }
 
 #对某个字段取最小值min
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;min_age&#34;:{
-        &#34;min&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;min_age&quot;:{
+        &quot;min&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 }
 
 #对某个字段求和sum
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;sum_age&#34;:{
-        &#34;sum&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;sum_age&quot;:{
+        &quot;sum&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 }
 
 #对某个字段取平均值avg
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;avg_age&#34;:{
-        &#34;avg&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;avg_age&quot;:{
+        &quot;avg&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 }
 
 #对某个字段的值进行去重之后再取总数
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;distinct_age&#34;:{
-        &#34;cardinality&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;distinct_age&quot;:{
+        &quot;cardinality&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 }
 
 #State聚合
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;stats_age&#34;:{
-        &#34;stats&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;stats_age&quot;:{
+        &quot;stats&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 }
 </code></pre><h4 id="416-桶聚合查询">4.16 桶聚合查询</h4>
-<pre tabindex="0"><code>#terms聚合，分组统计
+<pre><code>#terms聚合，分组统计
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;age_groupby&#34;:{
-        &#34;terms&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;age_groupby&quot;:{
+        &quot;terms&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 } 
 
 #在terms分组下再进行聚合
 GET请求 ：http://127.0.0.1:9200/student/_search
 {
-    &#34;aggs&#34;:{
-      &#34;age_groupby&#34;:{
-        &#34;terms&#34;:{&#34;field&#34;:&#34;age&#34;}
+    &quot;aggs&quot;:{
+      &quot;age_groupby&quot;:{
+        &quot;terms&quot;:{&quot;field&quot;:&quot;age&quot;}
       }
     },
-    &#34;size&#34;:0
+    &quot;size&quot;:0
 } 
 </code></pre><hr>
 <p>欢迎大家的意见和交流</p>
@@ -759,12 +765,12 @@ GET请求 ：http://127.0.0.1:9200/student/_search
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -895,6 +901,10 @@ GET请求 ：http://127.0.0.1:9200/student/_search
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【mysql笔记】数据库备份和还原" />
 <meta property="og:description" content="这篇整理了备份还原相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_backup/" /><meta property="article:section" content="database" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_backup/" />
 <meta property="article:published_time" content="2022-07-12T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-07-12T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【mysql笔记】数据库备份和还原">
-<meta itemprop="description" content="这篇整理了备份还原相关的内容。"><meta itemprop="datePublished" content="2022-07-12T23:28:49+08:00" />
+<meta itemprop="description" content="这篇整理了备份还原相关的内容。">
+<meta itemprop="datePublished" content="2022-07-12T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-12T23:28:49+08:00" />
 <meta itemprop="wordCount" content="464">
+
+
+
 <meta itemprop="keywords" content="mysql,explain," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -175,106 +180,106 @@
 逻辑备份就是 备份sql语句 ，在恢复的 时候执行备份的sql语句实现数据库数据的重现。</p>
 <h2 id="2-mysqldump实现逻辑备份">2. mysqldump实现逻辑备份</h2>
 <h4 id="21-备份一个数据库">2.1 备份一个数据库</h4>
-<pre tabindex="0"><code>基本语法:  
+<pre><code>基本语法:  
 mysqldump –u 用户名称 –h 主机名称 –p密码 待备份的数据库名称[tbname, [tbname...]]&gt; 备份文件名 称.sql
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb<span style="color:#f92672">&gt;</span>testdb.<span style="color:#66d9ef">sql</span>  <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">备份文件存储在当前目录下</span>
-</span></span><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#f92672">&gt;</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">/</span>testdb.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="22-备份全部数据库">2.2 备份全部数据库</h4>
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb<span style="color:#f92672">&gt;</span>testdb.<span style="color:#66d9ef">sql</span>  <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">备份文件存储在当前目录下</span>
+mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#f92672">&gt;</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">/</span>testdb.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="22-备份全部数据库">2.2 备份全部数据库</h4>
 <p>若想用mysqldump备份整个实例，可以使用 &ndash;all-databases 或 -A 参数:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#75715e">--all-databases &gt; all_database.sql
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#f92672">-</span>A <span style="color:#f92672">&gt;</span> all_database.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="23-备份部分数据库">2.3 备份部分数据库</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#75715e">--all-databases &gt; all_database.sql
+</span><span style="color:#75715e"></span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#f92672">-</span>A <span style="color:#f92672">&gt;</span> all_database.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="23-备份部分数据库">2.3 备份部分数据库</h4>
 <p>使用 &ndash;databases 或 -B 参数</p>
-<pre tabindex="0"><code>mysqldump –u user –h host –p --databases [数据库的名称1 [数据库的名称2...]] &gt; 备份文件名 称.sql
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--databases testdb testdb11 &gt;two_database.sql
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>B testdb testdb11 <span style="color:#f92672">&gt;</span> two_database.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="24-备份部分表">2.4 备份部分表</h4>
-<pre tabindex="0"><code>mysqldump –u user –h host –p 数据库的名称 [表名1 [表名2...]] &gt; 备份文件名称.sql
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb student<span style="color:#f92672">&gt;</span> book.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="25-备份单表的部分数据">2.5 备份单表的部分数据</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb student <span style="color:#75715e">--where=&#34;id &lt; 10 &#34; &gt; student_part_id10_low_bak.sql
-</span></span></span></code></pre></div><h4 id="26-排除某些表的备份">2.6 排除某些表的备份</h4>
+<pre><code>mysqldump –u user –h host –p --databases [数据库的名称1 [数据库的名称2...]] &gt; 备份文件名 称.sql
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--databases testdb testdb11 &gt;two_database.sql
+</span><span style="color:#75715e"></span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>B testdb testdb11 <span style="color:#f92672">&gt;</span> two_database.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="24-备份部分表">2.4 备份部分表</h4>
+<pre><code>mysqldump –u user –h host –p 数据库的名称 [表名1 [表名2...]] &gt; 备份文件名称.sql
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb student<span style="color:#f92672">&gt;</span> book.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="25-备份单表的部分数据">2.5 备份单表的部分数据</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb student <span style="color:#75715e">--where=&#34;id &lt; 10 &#34; &gt; student_part_id10_low_bak.sql
+</span></code></pre></div><h4 id="26-排除某些表的备份">2.6 排除某些表的备份</h4>
 <p>选项 &ndash;ignore-table 可以完成这个功能</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--ignore-table=testdb.student &gt; no_stu_bak.sql
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>grep <span style="color:#e6db74">&#34;student&#34;</span> no_stu_bak.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="27-只备份结构或只备份数据">2.7 只备份结构或只备份数据</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--ignore-table=testdb.student &gt; no_stu_bak.sql
+</span><span style="color:#75715e"></span>grep <span style="color:#e6db74">&#34;student&#34;</span> no_stu_bak.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="27-只备份结构或只备份数据">2.7 只备份结构或只备份数据</h4>
 <p>只备份结构的话可以使用 &ndash;no-data 简写为 -d 选项;<br>
 只备份数据可以使用 &ndash;no-create-info 简写为-t 选项。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--no-data &gt; testdb_no_data_bak.sql
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">#</span> grep <span style="color:#e6db74">&#34;INSERT&#34;</span> testdb_no_data_bak.<span style="color:#66d9ef">sql</span>
-</span></span><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--no-create-info &gt; testdb_no_create_info_bak.sql
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">#</span> grep <span style="color:#e6db74">&#34;CREATE&#34;</span> testdb_no_create_info_bak.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="28-备份中包含存储过程函数事件">2.8 备份中包含存储过程、函数、事件</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--no-data &gt; testdb_no_data_bak.sql
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span> grep <span style="color:#e6db74">&#34;INSERT&#34;</span> testdb_no_data_bak.<span style="color:#66d9ef">sql</span>
+mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#75715e">--no-create-info &gt; testdb_no_create_info_bak.sql
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span> grep <span style="color:#e6db74">&#34;CREATE&#34;</span> testdb_no_create_info_bak.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="28-备份中包含存储过程函数事件">2.8 备份中包含存储过程、函数、事件</h4>
 <p>mysqldump备份默认是不包含存储过程，自定义函数及事件的。<br>
 可以使用 &ndash;routines 或 -R 选项来备份存储过程及函数，<br>
 使用 &ndash;events 或 -E 参数来备份事件。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>R <span style="color:#f92672">-</span>E <span style="color:#75715e">--databases testdb &gt; fun_testdb_bak.sql
-</span></span></span></code></pre></div><h2 id="3-mysql恢复数据">3. mysql恢复数据</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>R <span style="color:#f92672">-</span>E <span style="color:#75715e">--databases testdb &gt; fun_testdb_bak.sql
+</span></code></pre></div><h2 id="3-mysql恢复数据">3. mysql恢复数据</h2>
 <p>基本语法:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#960050;background-color:#1e0010">–</span>u root <span style="color:#960050;background-color:#1e0010">–</span>p [dbname] <span style="color:#f92672">&lt;</span> backup.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="31-单库备份中恢复单库">3.1 单库备份中恢复单库</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">&lt;</span> testdb.<span style="color:#66d9ef">sql</span>
-</span></span><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb<span style="color:#f92672">&lt;</span> testdb.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="32-全量备份恢复">3.2 全量备份恢复</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#960050;background-color:#1e0010">–</span>u root <span style="color:#960050;background-color:#1e0010">–</span>p <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">all</span>.<span style="color:#66d9ef">sql</span>
-</span></span><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">all</span>.<span style="color:#66d9ef">sql</span>
-</span></span></code></pre></div><h4 id="33-从全量备份中恢复单库">3.3 从全量备份中恢复单库</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>sed <span style="color:#f92672">-</span>n <span style="color:#e6db74">&#39;/^-- Current Database: `testdb`/,/^-- Current Database: `/p&#39;</span> all_database.<span style="color:#66d9ef">sql</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> testdb.<span style="color:#66d9ef">sql</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">分离完成后我们再导入</span>testdb.sql即可恢复单个库
-</span></span></code></pre></div><h4 id="34-从单库备份中恢复单表">3.4 从单库备份中恢复单表</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>cat testdb.<span style="color:#66d9ef">sql</span> <span style="color:#f92672">|</span> sed <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;/./{H;$!d;}&#39;</span> <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;x;/CREATE TABLE `class`/!d;q&#39;</span> <span style="color:#f92672">&gt;</span> class_structure.<span style="color:#66d9ef">sql</span>
-</span></span><span style="display:flex;"><span>cat testdb.<span style="color:#66d9ef">sql</span> <span style="color:#f92672">|</span> grep <span style="color:#75715e">--ignore-case &#39;insert into `class`&#39; &gt; class_data.sql 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">用</span>shell语法分离出创建表的语句及插入数据的语句后 <span style="color:#960050;background-color:#1e0010">再依次导出即可完成恢复</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>use testdb;
-</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">source</span> class_structure.<span style="color:#66d9ef">sql</span>;
-</span></span><span style="display:flex;"><span>Query OK, <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">rows</span> affected, <span style="color:#ae81ff">1</span> warning (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">source</span> class_data.<span style="color:#66d9ef">sql</span>;
-</span></span><span style="display:flex;"><span>Query OK, <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> affected (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">01</span> sec)
-</span></span></code></pre></div><h2 id="4导入导出文件">4.导入导出文件</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#960050;background-color:#1e0010">–</span>u root <span style="color:#960050;background-color:#1e0010">–</span>p [dbname] <span style="color:#f92672">&lt;</span> backup.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="31-单库备份中恢复单库">3.1 单库备份中恢复单库</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">&lt;</span> testdb.<span style="color:#66d9ef">sql</span>
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb<span style="color:#f92672">&lt;</span> testdb.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="32-全量备份恢复">3.2 全量备份恢复</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql <span style="color:#960050;background-color:#1e0010">–</span>u root <span style="color:#960050;background-color:#1e0010">–</span>p <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">all</span>.<span style="color:#66d9ef">sql</span>
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>pxxxxxx <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">all</span>.<span style="color:#66d9ef">sql</span>
+</code></pre></div><h4 id="33-从全量备份中恢复单库">3.3 从全量备份中恢复单库</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">sed <span style="color:#f92672">-</span>n <span style="color:#e6db74">&#39;/^-- Current Database: `testdb`/,/^-- Current Database: `/p&#39;</span> all_database.<span style="color:#66d9ef">sql</span>
+<span style="color:#f92672">&gt;</span> testdb.<span style="color:#66d9ef">sql</span>
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">分离完成后我们再导入</span>testdb.sql即可恢复单个库
+</code></pre></div><h4 id="34-从单库备份中恢复单表">3.4 从单库备份中恢复单表</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">cat testdb.<span style="color:#66d9ef">sql</span> <span style="color:#f92672">|</span> sed <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;/./{H;$!d;}&#39;</span> <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;x;/CREATE TABLE `class`/!d;q&#39;</span> <span style="color:#f92672">&gt;</span> class_structure.<span style="color:#66d9ef">sql</span>
+cat testdb.<span style="color:#66d9ef">sql</span> <span style="color:#f92672">|</span> grep <span style="color:#75715e">--ignore-case &#39;insert into `class`&#39; &gt; class_data.sql 
+</span><span style="color:#75715e"></span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">用</span>shell语法分离出创建表的语句及插入数据的语句后 <span style="color:#960050;background-color:#1e0010">再依次导出即可完成恢复</span>
+
+use testdb;
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">source</span> class_structure.<span style="color:#66d9ef">sql</span>;
+Query OK, <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">rows</span> affected, <span style="color:#ae81ff">1</span> warning (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
+
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">source</span> class_data.<span style="color:#66d9ef">sql</span>;
+Query OK, <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> affected (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">01</span> sec)
+</code></pre></div><h2 id="4导入导出文件">4.导入导出文件</h2>
 <h4 id="41-导出文件">4.1 导出文件</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">GLOBAL</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%secure%&#39;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name            <span style="color:#f92672">|</span> Value                 <span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> require_secure_transport <span style="color:#f92672">|</span> <span style="color:#66d9ef">OFF</span>                   <span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> secure_file_priv         <span style="color:#f92672">|</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">-</span>files<span style="color:#f92672">/</span> <span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#34;/var/lib/mysql-files/account.txt&#34;</span>;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>T <span style="color:#e6db74">&#34;/var/lib/mysql-files/&#34;</span> testdb account
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>T <span style="color:#e6db74">&#34;/var/lib/mysql-files/&#34;</span> testdb account <span style="color:#75715e">--fields-terminated-by=&#39;,&#39; --fields-optionally-enclosed-by=&#39;\&#34;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--execute=&#34;SELECT * FROM account;&#34; testdb&gt; &#34;/var/lib/mysql-files/account.txt&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#/</span>G的格式
-</span></span><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--vertical --execute=&#34;SELECT * FROM account;&#34; testdb &gt; &#34;/var/lib/mysql-files/account_1.txt&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span>xml格式
-</span></span><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--xml --execute=&#34;SELECT * FROM account;&#34; testdb&gt;&#34;/var/lib/mysql-files/account_3.xml&#34;
-</span></span></span></code></pre></div><h4 id="42-导入文件">4.2 导入文件</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_0.txt&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LOAD</span> <span style="color:#66d9ef">DATA</span> INFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_0.txt&#39;</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">TABLE</span> testdb.account;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_1.txt&#39;</span> FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LOAD</span> <span style="color:#66d9ef">DATA</span> INFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_1.txt&#39;</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">TABLE</span> testdb.account FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account.txt&#39;</span> FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
-</span></span><span style="display:flex;"><span> mysqlimport <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#e6db74">&#39;/var/lib/mysql-files/account.txt&#39;</span> <span style="color:#75715e">--fields-terminated-by=&#39;,&#39; --fields-optionally-enclosed-by=&#39;\&#34;&#39;
-</span></span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">GLOBAL</span> VARIABLES <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%secure%&#39;</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> Variable_name            <span style="color:#f92672">|</span> Value                 <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> require_secure_transport <span style="color:#f92672">|</span> <span style="color:#66d9ef">OFF</span>                   <span style="color:#f92672">|</span>
+<span style="color:#f92672">|</span> secure_file_priv         <span style="color:#f92672">|</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">-</span>files<span style="color:#f92672">/</span> <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------------+-----------------------+
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#34;/var/lib/mysql-files/account.txt&#34;</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>T <span style="color:#e6db74">&#34;/var/lib/mysql-files/&#34;</span> testdb account
+
+mysqldump <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#f92672">-</span>T <span style="color:#e6db74">&#34;/var/lib/mysql-files/&#34;</span> testdb account <span style="color:#75715e">--fields-terminated-by=&#39;,&#39; --fields-optionally-enclosed-by=&#39;\&#34;&#39;
+</span><span style="color:#75715e"></span>
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--execute=&#34;SELECT * FROM account;&#34; testdb&gt; &#34;/var/lib/mysql-files/account.txt&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">#/</span>G的格式
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--vertical --execute=&#34;SELECT * FROM account;&#34; testdb &gt; &#34;/var/lib/mysql-files/account_1.txt&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">#</span>xml格式
+mysql <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p <span style="color:#75715e">--xml --execute=&#34;SELECT * FROM account;&#34; testdb&gt;&#34;/var/lib/mysql-files/account_3.xml&#34;
+</span></code></pre></div><h4 id="42-导入文件">4.2 导入文件</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_0.txt&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
+<span style="color:#66d9ef">LOAD</span> <span style="color:#66d9ef">DATA</span> INFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_0.txt&#39;</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">TABLE</span> testdb.account;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_1.txt&#39;</span> FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
+<span style="color:#66d9ef">LOAD</span> <span style="color:#66d9ef">DATA</span> INFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account_1.txt&#39;</span> <span style="color:#66d9ef">INTO</span> <span style="color:#66d9ef">TABLE</span> testdb.account FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> testdb.account <span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;/var/lib/mysql-files/account.txt&#39;</span> FIELDS TERMINATED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;,&#39;</span> ENCLOSED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除数据</span>
+<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> testdb.account;
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">回复数据</span>
+ mysqlimport <span style="color:#f92672">-</span>uroot <span style="color:#f92672">-</span>p testdb <span style="color:#e6db74">&#39;/var/lib/mysql-files/account.txt&#39;</span> <span style="color:#75715e">--fields-terminated-by=&#39;,&#39; --fields-optionally-enclosed-by=&#39;\&#34;&#39;
+</span></code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -331,12 +336,12 @@ mysqldump –u 用户名称 –h 主机名称 –p密码 待备份的数据库�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -467,6 +472,10 @@ mysqldump –u 用户名称 –h 主机名称 –p密码 待备份的数据库�
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

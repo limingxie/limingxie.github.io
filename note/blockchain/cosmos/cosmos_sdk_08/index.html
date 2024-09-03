@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【cosmos-sdk笔记】启动多节点" />
 <meta property="og:description" content="测试了多节点的启用，做了操作笔记，供以后参考。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_08/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_08/" />
 <meta property="article:published_time" content="2023-08-01T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-08-01T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-sdk笔记】启动多节点">
-<meta itemprop="description" content="测试了多节点的启用，做了操作笔记，供以后参考。"><meta itemprop="datePublished" content="2023-08-01T23:28:49+08:00" />
+<meta itemprop="description" content="测试了多节点的启用，做了操作笔记，供以后参考。">
+<meta itemprop="datePublished" content="2023-08-01T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-08-01T23:28:49+08:00" />
 <meta itemprop="wordCount" content="216">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,cosmos," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -152,7 +157,7 @@
 			<p>测试了多节点的启用，做了操作笔记，供以后参考。</p>
 <h2 id="1创建项目">1.创建项目</h2>
 <p>首先引用cosmos-sdk简单的写了一个 tvote的模块。</p>
-<pre tabindex="0"><code>git clone https://github.com/taoyuans/mingxie.git
+<pre><code>git clone https://github.com/taoyuans/mingxie.git
 
 cd mingxie
 git checkout main_v1
@@ -161,65 +166,65 @@ go build -o ./build/mingxied ./cmd/mingxied/main.go
 cd build
 </code></pre><h2 id="2查看帮助">2.查看帮助</h2>
 <p>是否有 tvote 模块</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ./mingxied tx tvote -h
-</span></span><span style="display:flex;"><span>tvote transactions subcommands
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Usage:
-</span></span><span style="display:flex;"><span>  mingxied tx tvote <span style="color:#f92672">[</span>flags<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>  mingxied tx tvote <span style="color:#f92672">[</span>command<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Available Commands:
-</span></span><span style="display:flex;"><span>  save-voter  Broadcast message save-voter
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Flags:
-</span></span><span style="display:flex;"><span>  -h, --help   help <span style="color:#66d9ef">for</span> tvote
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Global Flags:
-</span></span><span style="display:flex;"><span>      --chain-id string     The network chain ID <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;mingxie&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>      --home string         directory <span style="color:#66d9ef">for</span> config and data <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;/Users/limingxie/.mingxie&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>      --log_format string   The logging format <span style="color:#f92672">(</span>json|plain<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;plain&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>      --log_level string    The logging level <span style="color:#f92672">(</span>trace|debug|info|warn|error|fatal|panic<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;info&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>      --trace               print out full stack trace on errors
-</span></span></code></pre></div><h2 id="3初始化配置">3.初始化配置</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 节点 1</span>
-</span></span><span style="display:flex;"><span>./mingxied config chain-id taoyuan --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>./mingxied config keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>./mingxied keys add liubei --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>./mingxied keys add guanyu --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./mingxied init node1 --chain-id taoyuan --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./mingxied add-genesis-account liubei 950000000000000stake --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>./mingxied add-genesis-account guanyu 850000000000000stake --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./mingxied gentx liubei 51000000stake --chain-id taoyuan --moniker<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;node1&#34;</span> --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>./mingxied collect-gentxs
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 节点 2</span>
-</span></span><span style="display:flex;"><span>./mingxied config chain-id taoyuan --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
-</span></span><span style="display:flex;"><span>./mingxied config keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
-</span></span><span style="display:flex;"><span>cp /root/.mingxiedir1/guanyu.info /root/.mingxiedir2/
-</span></span><span style="display:flex;"><span>cp /root/.mingxiedir1/config/genesis.json /root/.mingxiedir2/config/
-</span></span></code></pre></div><h2 id="4节点之间的链接">4.节点之间的链接</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied tendermint show-node-id --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>f15e48b8162b9f20c59efa384fe9f85501c30e06
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./mingxied tendermint show-node-id --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
-</span></span><span style="display:flex;"><span>d931f08afe4b821a4bc21b6246f8a3a3cd54eefd
-</span></span></code></pre></div><p>根据实际情况修改<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./mingxied tx tvote -h
+tvote transactions subcommands
+
+Usage:
+  mingxied tx tvote <span style="color:#f92672">[</span>flags<span style="color:#f92672">]</span>
+  mingxied tx tvote <span style="color:#f92672">[</span>command<span style="color:#f92672">]</span>
+
+Available Commands:
+  save-voter  Broadcast message save-voter
+
+Flags:
+  -h, --help   help <span style="color:#66d9ef">for</span> tvote
+
+Global Flags:
+      --chain-id string     The network chain ID <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;mingxie&#34;</span><span style="color:#f92672">)</span>
+      --home string         directory <span style="color:#66d9ef">for</span> config and data <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;/Users/limingxie/.mingxie&#34;</span><span style="color:#f92672">)</span>
+      --log_format string   The logging format <span style="color:#f92672">(</span>json|plain<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;plain&#34;</span><span style="color:#f92672">)</span>
+      --log_level string    The logging level <span style="color:#f92672">(</span>trace|debug|info|warn|error|fatal|panic<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;info&#34;</span><span style="color:#f92672">)</span>
+      --trace               print out full stack trace on errors
+</code></pre></div><h2 id="3初始化配置">3.初始化配置</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 节点 1</span>
+./mingxied config chain-id taoyuan --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+./mingxied config keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+./mingxied keys add liubei --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+./mingxied keys add guanyu --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+
+./mingxied init node1 --chain-id taoyuan --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+
+./mingxied add-genesis-account liubei 950000000000000stake --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+./mingxied add-genesis-account guanyu 850000000000000stake --keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+
+./mingxied gentx liubei 51000000stake --chain-id taoyuan --moniker<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;node1&#34;</span> --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+./mingxied collect-gentxs
+
+<span style="color:#75715e"># 节点 2</span>
+./mingxied config chain-id taoyuan --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
+./mingxied config keyring-backend os --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
+cp /root/.mingxiedir1/guanyu.info /root/.mingxiedir2/
+cp /root/.mingxiedir1/config/genesis.json /root/.mingxiedir2/config/
+</code></pre></div><h2 id="4节点之间的链接">4.节点之间的链接</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied tendermint show-node-id --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+f15e48b8162b9f20c59efa384fe9f85501c30e06
+
+./mingxied tendermint show-node-id --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
+d931f08afe4b821a4bc21b6246f8a3a3cd54eefd
+</code></pre></div><p>根据实际情况修改<br>
 config/confing.toml的persistent_peers</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /root/.mingxiedir1/config/confing.toml
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Comma separated list of nodes to keep persistent connections to</span>
-</span></span><span style="display:flex;"><span>persistent_peers <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f15e48b8162b9f20c59efa384fe9f85501c30e06@192.168.1.1:26656,9dc322a1d7420d1253ffe4d4b375e392cf696393@192.168.2:26656&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#如果是在同一台机器起两个节点，第二个节点需要修改端口配置</span>
-</span></span><span style="display:flex;"><span>vi /root/.mingxiedir2/config/confing.toml
-</span></span><span style="display:flex;"><span>vi /root/.mingxiedir2/config/app.toml
-</span></span></code></pre></div><h2 id="5启动连">5.启动连</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied start --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
-</span></span><span style="display:flex;"><span>./mingxied start --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vi /root/.mingxiedir1/config/confing.toml
+
+<span style="color:#75715e"># Comma separated list of nodes to keep persistent connections to</span>
+persistent_peers <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f15e48b8162b9f20c59efa384fe9f85501c30e06@192.168.1.1:26656,9dc322a1d7420d1253ffe4d4b375e392cf696393@192.168.2:26656&#34;</span>
+
+<span style="color:#75715e">#如果是在同一台机器起两个节点，第二个节点需要修改端口配置</span>
+vi /root/.mingxiedir2/config/confing.toml
+vi /root/.mingxiedir2/config/app.toml
+</code></pre></div><h2 id="5启动连">5.启动连</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied start --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir1&#34;</span>
+./mingxied start --home<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/.mingxiedir2&#34;</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -285,12 +290,12 @@ config/confing.toml的persistent_peers</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -421,6 +426,10 @@ config/confing.toml的persistent_peers</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

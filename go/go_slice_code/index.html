@@ -12,17 +12,22 @@
 看起来有点像，但是了解切片(slice)结构后，会发现这其实是个两个不同的结构。
 下面简单的整理了切片(slice)的结构。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/go/go_slice_code/" /><meta property="article:section" content="go" />
+<meta property="og:url" content="https://limingxie.github.io/go/go_slice_code/" />
 <meta property="article:published_time" content="2022-03-12T07:28:49+08:00" />
 <meta property="article:modified_time" content="2022-03-12T07:28:49+08:00" />
 
 		<meta itemprop="name" content="【go笔记】切片(slice)结构的简介">
 <meta itemprop="description" content="我们java里有个ArrayList， 那go有切片(slice)。
 看起来有点像，但是了解切片(slice)结构后，会发现这其实是个两个不同的结构。
-下面简单的整理了切片(slice)的结构。"><meta itemprop="datePublished" content="2022-03-12T07:28:49+08:00" />
+下面简单的整理了切片(slice)的结构。">
+<meta itemprop="datePublished" content="2022-03-12T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-03-12T07:28:49+08:00" />
 <meta itemprop="wordCount" content="1448">
+
+
+
 <meta itemprop="keywords" content="go,golang,slice,make," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -165,12 +170,12 @@
 <p><a href="https://limingxie.github.io/images/go/slice/slice_code_1.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/slice/slice_code_1.png?x-oss-process=image/resize,h_200,m_lfit" alt="slice_struct"></p>
 <p>Slice 的数据结构可以如下定义:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">slice</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>  <span style="color:#75715e">//指向第一个元素的地址
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">len</span>   <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cap</span>   <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="2切片slice的内存布局">2.切片(slice)的内存布局</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">slice</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>  <span style="color:#75715e">//指向第一个元素的地址
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">len</span>   <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">cap</span>   <span style="color:#66d9ef">int</span>
+}
+</code></pre></div><h3 id="2切片slice的内存布局">2.切片(slice)的内存布局</h3>
 <p>我们看看下图切片(slice)的内存布局是如何实现的。</p>
 <p><a href="https://limingxie.github.io/images/go/slice/slice_code_2.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/slice/slice_code_2.png?x-oss-process=image/resize,h_200,m_lfit" alt="slice_struct"></p>
@@ -180,20 +185,20 @@
 <p><a href="https://limingxie.github.io/images/go/slice/slice_code_3.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/go/slice/slice_code_3.png?x-oss-process=image/resize,h_200,m_lfit" alt="slice_struct"></p>
 <p>如果上述结构了解了，下面的这个现象就好理解了。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">4</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">100</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">200</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)    <span style="color:#75715e">//[102 203]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>) <span style="color:#75715e">//[0 1 102 203 4 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">300</span>) <span style="color:#75715e">// 这个操作会影响 s1,data1 值， 因为都看同一个值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)    <span style="color:#75715e">//[102 203 300]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>) <span style="color:#75715e">//[0 1 102 203 300 5]
-</span></span></span></code></pre></div><h3 id="3切片slice的append">3.切片(slice)的append</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
+
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">4</span>]
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">100</span>
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">200</span>
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)    <span style="color:#75715e">//[102 203]
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>) <span style="color:#75715e">//[0 1 102 203 4 5]
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">300</span>) <span style="color:#75715e">// 这个操作会影响 s1,data1 值， 因为都看同一个值
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)    <span style="color:#75715e">//[102 203 300]
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>) <span style="color:#75715e">//[0 1 102 203 300 5]
+</span></code></pre></div><h3 id="3切片slice的append">3.切片(slice)的append</h3>
 <p>给切片(slice)添加元素需要用append。<br>
 当切片(slice)的cap有剩余空间时是直接添加到下一个位置，<br>
 如果没有剩余空间，会扩容2倍的空间(高于1024 扩容 1.25倍)。
@@ -203,337 +208,337 @@
 <h3 id="4切片slice代码实验">4.切片(slice)代码实验</h3>
 <p>切片(slice)的几个特性直接写了代码了。
 可以尝试着看下面的代码，了解切片(slice)的一些特性和用法。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">//slice声明方式
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//1.声明切片
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s1</span> []<span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;是空&#34;</span>)
-</span></span><span style="display:flex;"><span> } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;不是空&#34;</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 2.:=
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{}
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 3.make()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s3</span> []<span style="color:#66d9ef">int</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span>, <span style="color:#a6e22e">s3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 4.初始化赋值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// make([]type, len, cap)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s4</span> []<span style="color:#66d9ef">int</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s4</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s5</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s5</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 5.从数组切片
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s6</span> []<span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// 前包后不包
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">s6</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s6</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//slice截取
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest1</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice0</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">8</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice1</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">6</span>]        <span style="color:#75715e">//可以简写为 var slice []int = arr[:end]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice2</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">5</span>:<span style="color:#ae81ff">10</span>]       <span style="color:#75715e">//可以简写为 var slice[]int = arr[start:]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice3</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>:len(<span style="color:#a6e22e">arr</span>)] <span style="color:#75715e">//var slice []int = arr[:]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice4</span> = <span style="color:#a6e22e">arr</span>[:len(<span style="color:#a6e22e">arr</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr: %v\n&#34;</span>, <span style="color:#a6e22e">arr</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice0: %v\n&#34;</span>, <span style="color:#a6e22e">slice0</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice1: %v\n&#34;</span>, <span style="color:#a6e22e">slice1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice2: %v\n&#34;</span>, <span style="color:#a6e22e">slice2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice3: %v\n&#34;</span>, <span style="color:#a6e22e">slice3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice4: %v\n&#34;</span>, <span style="color:#a6e22e">slice4</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//slice截取的值，会指向原有的值。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest2</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">4</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">100</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">200</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)    <span style="color:#75715e">//[102 203]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>) <span style="color:#75715e">//[0 1 102 203 4 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//需要注意的现象
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">data1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">30</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">6</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data1</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data1</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">2</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> = append(<span style="color:#a6e22e">s1</span>, <span style="color:#ae81ff">10</span>) <span style="color:#75715e">// 这个操作会影响 s1,data1 值， 因为都看同一个值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)    <span style="color:#75715e">//[0 1 10]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">data1</span>) <span style="color:#75715e">//[0 1 10 3 4 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">data2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">30</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">6</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data2</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data2</span>[<span style="color:#ae81ff">3</span>:] <span style="color:#75715e">//s2的值是 指向s2[0] 所以s2和data2的指针地址不一样，但是s2[1],和data2[4] 指向的都是同一个内存空间。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// s2 = append(s2, 10)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v, %v, %v, %p\n&#34;</span>, <span style="color:#a6e22e">s2</span>, len(<span style="color:#a6e22e">s2</span>), cap(<span style="color:#a6e22e">s2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">1</span>])             <span style="color:#75715e">//[10 4 5], 3, 27, 0xc000108110
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v, %v, %v, %p\n&#34;</span>, <span style="color:#a6e22e">data2</span>, len(<span style="color:#a6e22e">data2</span>), cap(<span style="color:#a6e22e">data2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data2</span>[<span style="color:#ae81ff">4</span>]) <span style="color:#75715e">//[0 1 2 10 4 5], 6, 30, 0xc000108110
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//声明slice的时候 len 和 cap 的关系
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest3</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">8</span>: <span style="color:#ae81ff">100</span>} <span style="color:#75715e">// 通过初始化表达式构造，可使用索引号。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, len(<span style="color:#a6e22e">s1</span>), cap(<span style="color:#a6e22e">s1</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>) <span style="color:#75715e">// 使用 make 创建，指定 len 和 cap 值。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s2</span>, len(<span style="color:#a6e22e">s2</span>), cap(<span style="color:#a6e22e">s2</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s3</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e">// 省略 cap，相当于 cap = len。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s3</span>, len(<span style="color:#a6e22e">s3</span>), cap(<span style="color:#a6e22e">s3</span>))
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest4</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">2</span>] <span style="color:#75715e">// *int, 获取底层数组元素指针。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#f92672">*</span><span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">100</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>) <span style="color:#75715e">//[0 1 102 3]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest5</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [][]<span style="color:#66d9ef">int</span>{
-</span></span><span style="display:flex;"><span>  []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>},
-</span></span><span style="display:flex;"><span>  []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>},
-</span></span><span style="display:flex;"><span>  []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">33</span>, <span style="color:#ae81ff">44</span>},
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest6</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> }{}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span>[:] <span style="color:#75715e">//指向同一个内存空间
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">d</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">20</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p, %p, %p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">s</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//0xc0000c0060, 0xc0000c0060, 0xc0000c0060, 0xc000096060, 0xc0000c0060
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;d: %v,  s: %v\n&#34;</span>, <span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">s</span>)                         <span style="color:#75715e">//d: [{0} {10} {20} {0} {0}],  s: [{0} {10} {20} {0} {0}]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span> <span style="color:#75715e">//新建一个内存空间
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">3</span>].<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p, %p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//0xc0000c0060, 0xc0000c0060, 0xc0000c00c0, 0xc0000c00c0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;d: %v,  s: %v\n&#34;</span>, <span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">s1</span>)                   <span style="color:#75715e">//d: [{0} {10} {20} {0} {0}],  s: [{0} {10} {20} {30} {0}]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//slice追加添加元素，append
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest7</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice a : %v\n&#34;</span>, <span style="color:#a6e22e">a</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice b : %v\n&#34;</span>, <span style="color:#a6e22e">b</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">...</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice c : %v\n&#34;</span>, <span style="color:#a6e22e">c</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">c</span>, <span style="color:#ae81ff">7</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice d : %v\n&#34;</span>, <span style="color:#a6e22e">d</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">d</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice e : %v\n&#34;</span>, <span style="color:#a6e22e">e</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//虽然有多余的容量cap但是超出长度，append后
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest8</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>) <span style="color:#75715e">//0xc000004078
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> = append(<span style="color:#a6e22e">s1</span>, <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>) <span style="color:#75715e">//0xc000004078
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">s1</span>, <span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//0xc000004078, 0xc000004090
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span>)              <span style="color:#75715e">//[1] [1 3]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s2</span> = append(<span style="color:#a6e22e">s2</span>, <span style="color:#ae81ff">4</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//0xc000004078, 0xc000004090
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//[1] [1 3 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest9</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">10</span>: <span style="color:#ae81ff">0</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[:<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">100</span>) <span style="color:#75715e">// 第一次 append 不超出 s.cap 限制。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">data</span>)         <span style="color:#75715e">// 不会从新分配底层数组。    [0 1 100] [0 1 100 3 4 0 0 0 0 0 0]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">// 比对底层数组起始指针。 0xc000086060 0xc000086060
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">200</span>) <span style="color:#75715e">// 一次 append 两个值，超出 s.cap 限制。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">data</span>)         <span style="color:#75715e">// 重新分配底层数组，与原数组无关。   [0 1 100 200] [0 1 100 3 4 0 0 0 0 0 0]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">// 比对底层数组起始指针。    0xc0000c0060 0xc000086060
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// cap的变化
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest10</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> cap(<span style="color:#a6e22e">s</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">50</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> cap(<span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">n</span> &gt; <span style="color:#a6e22e">c</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;cap: %d -&gt; %d\n&#34;</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">n</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">c</span> = <span style="color:#a6e22e">n</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  cap: 1 -&gt; 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  cap: 2 -&gt; 4
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  cap: 4 -&gt; 8
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  cap: 8 -&gt; 16
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  cap: 16 -&gt; 32
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  cap: 32 -&gt; 64
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//copy的使用
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest11</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
-</span></span><span style="display:flex;"><span> copy(<span style="color:#a6e22e">s2</span>, <span style="color:#a6e22e">s1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s3</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s3 : %v\n&#34;</span>, <span style="color:#a6e22e">s3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s3</span> = append(<span style="color:#a6e22e">s3</span>, <span style="color:#a6e22e">s2</span><span style="color:#f92672">...</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;appended slice s3 : %v\n&#34;</span>, <span style="color:#a6e22e">s3</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s3</span> = append(<span style="color:#a6e22e">s3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;last slice s3 : %v\n&#34;</span>, <span style="color:#a6e22e">s3</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  slice s1 : [1 2 3 4 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  slice s2 : [0 0 0 0 0 0 0 0 0 0]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  copied slice s1 : [1 2 3 4 5]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  copied slice s2 : [1 2 3 4 5 0 0 0 0 0]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  slice s3 : [1 2 3]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  appended slice s3 : [1 2 3 1 2 3 4 5 0 0 0 0 0]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  last slice s3 : [1 2 3 1 2 3 4 5 0 0 0 0 0 4 5 6]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//copy的使用
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest12</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;array data : &#34;</span>, <span style="color:#a6e22e">data</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">8</span>:]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[:<span style="color:#ae81ff">5</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
-</span></span><span style="display:flex;"><span> copy(<span style="color:#a6e22e">s2</span>, <span style="color:#a6e22e">s1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;last array data : &#34;</span>, <span style="color:#a6e22e">data</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  array data :  [0 1 2 3 4 5 6 7 8 9]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  slice s1 : [8 9]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  slice s2 : [0 1 2 3 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  copied slice s1 : [8 9]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  copied slice s2 : [8 9 2 3 4]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  last array data :  [8 9 2 3 4 5 6 7 8 9]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//使用 for range 遍历
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest13</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[:]
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;index : %v , value : %v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">value</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 0 , value : 0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 1 , value : 1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 2 , value : 2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 3 , value : 3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 4 , value : 4
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 5 , value : 5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 6 , value : 6
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 7 , value : 7
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 8 , value : 8
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  index : 9 , value : 9
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//slice 截取赋值的时候注意事项 重点看 c
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest14</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice a : %v , len(a) : %v\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>)) <span style="color:#75715e">//slice a : [1 3 4 5] , len(a) : 4
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">2</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice b : %v , len(b) : %v\n&#34;</span>, <span style="color:#a6e22e">b</span>, len(<span style="color:#a6e22e">b</span>)) <span style="color:#75715e">//slice b : [3] , len(b) : 1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice c : %v , len(c) : %v\n&#34;</span>, <span style="color:#a6e22e">c</span>, len(<span style="color:#a6e22e">c</span>)) <span style="color:#75715e">//slice c : [3 4 5] , len(c) : 3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//slice string的操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest15</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">5</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>) <span style="color:#75715e">//hello
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">6</span>:]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//world
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//slice string的操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest16</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Hello world&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//中文字符需要用[]rune(str)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">6</span>] = <span style="color:#e6db74">&#39;G&#39;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[:<span style="color:#ae81ff">8</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#39;!&#39;</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">s</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//Hello Go!
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//slice string的操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest17</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;你好，世界！hello world！&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">str</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">3</span>] = <span style="color:#e6db74">&#39;够&#39;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">4</span>] = <span style="color:#e6db74">&#39;浪&#39;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">12</span>] = <span style="color:#e6db74">&#39;g&#39;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[:<span style="color:#ae81ff">14</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">s</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//你好，够浪！hello go
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//[:] 截取的时候cap是 原有数据的截取后的容量
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest18</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">d1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>[<span style="color:#ae81ff">5</span>:<span style="color:#ae81ff">7</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">d1</span>, len(<span style="color:#a6e22e">d1</span>), cap(<span style="color:#a6e22e">d1</span>)) <span style="color:#75715e">//[5 6] 2 5
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">d2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>[:<span style="color:#ae81ff">6</span>:<span style="color:#ae81ff">8</span>]
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">d2</span>, len(<span style="color:#a6e22e">d2</span>), cap(<span style="color:#a6e22e">d2</span>)) <span style="color:#75715e">//[0 1 2 3 4 5] 6 8
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest19</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Replace</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Trim</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">slice</span>), <span style="color:#e6db74">&#34;[]&#34;</span>), <span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#e6db74">&#34;,&#34;</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//0,1,2,3,4,5,6,7,8,9
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//slice声明方式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest</span>() {
+ <span style="color:#75715e">//1.声明切片
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s1</span> []<span style="color:#66d9ef">int</span>
+ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;是空&#34;</span>)
+ } <span style="color:#66d9ef">else</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;不是空&#34;</span>)
+ }
+ <span style="color:#75715e">// 2.:=
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{}
+ <span style="color:#75715e">// 3.make()
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s3</span> []<span style="color:#66d9ef">int</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span>, <span style="color:#a6e22e">s3</span>)
+ <span style="color:#75715e">// 4.初始化赋值
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// make([]type, len, cap)
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s4</span> []<span style="color:#66d9ef">int</span> = make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s4</span>)
+ <span style="color:#a6e22e">s5</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s5</span>)
+ <span style="color:#75715e">// 5.从数组切片
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s6</span> []<span style="color:#66d9ef">int</span>
+ <span style="color:#75715e">// 前包后不包
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">s6</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s6</span>)
+}
+
+<span style="color:#75715e">//slice截取
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest1</span>() {
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice0</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">8</span>]
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice1</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">6</span>]        <span style="color:#75715e">//可以简写为 var slice []int = arr[:end]
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice2</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">5</span>:<span style="color:#ae81ff">10</span>]       <span style="color:#75715e">//可以简写为 var slice[]int = arr[start:]
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice3</span> []<span style="color:#66d9ef">int</span> = <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>:len(<span style="color:#a6e22e">arr</span>)] <span style="color:#75715e">//var slice []int = arr[:]
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">slice4</span> = <span style="color:#a6e22e">arr</span>[:len(<span style="color:#a6e22e">arr</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arr: %v\n&#34;</span>, <span style="color:#a6e22e">arr</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice0: %v\n&#34;</span>, <span style="color:#a6e22e">slice0</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice1: %v\n&#34;</span>, <span style="color:#a6e22e">slice1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice2: %v\n&#34;</span>, <span style="color:#a6e22e">slice2</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice3: %v\n&#34;</span>, <span style="color:#a6e22e">slice3</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice4: %v\n&#34;</span>, <span style="color:#a6e22e">slice4</span>)
+}
+
+<span style="color:#75715e">//slice截取的值，会指向原有的值。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest2</span>() {
+ <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
+
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">4</span>]
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">100</span>
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">200</span>
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>)    <span style="color:#75715e">//[102 203]
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>) <span style="color:#75715e">//[0 1 102 203 4 5]
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//需要注意的现象
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">data1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">30</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">6</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">data1</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">i</span>
+ }
+ <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data1</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">2</span>]
+ <span style="color:#a6e22e">s1</span> = append(<span style="color:#a6e22e">s1</span>, <span style="color:#ae81ff">10</span>) <span style="color:#75715e">// 这个操作会影响 s1,data1 值， 因为都看同一个值
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)    <span style="color:#75715e">//[0 1 10]
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v\n&#34;</span>, <span style="color:#a6e22e">data1</span>) <span style="color:#75715e">//[0 1 10 3 4 5]
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">data2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">30</span>)
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">6</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">data2</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">i</span>
+ }
+ <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data2</span>[<span style="color:#ae81ff">3</span>:] <span style="color:#75715e">//s2的值是 指向s2[0] 所以s2和data2的指针地址不一样，但是s2[1],和data2[4] 指向的都是同一个内存空间。
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">10</span>
+ <span style="color:#75715e">// s2 = append(s2, 10)
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v, %v, %v, %p\n&#34;</span>, <span style="color:#a6e22e">s2</span>, len(<span style="color:#a6e22e">s2</span>), cap(<span style="color:#a6e22e">s2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">1</span>])             <span style="color:#75715e">//[10 4 5], 3, 27, 0xc000108110
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v, %v, %v, %p\n&#34;</span>, <span style="color:#a6e22e">data2</span>, len(<span style="color:#a6e22e">data2</span>), cap(<span style="color:#a6e22e">data2</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data2</span>[<span style="color:#ae81ff">4</span>]) <span style="color:#75715e">//[0 1 2 10 4 5], 6, 30, 0xc000108110
+</span><span style="color:#75715e"></span>
+}
+
+<span style="color:#75715e">//声明slice的时候 len 和 cap 的关系
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest3</span>() {
+ <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">8</span>: <span style="color:#ae81ff">100</span>} <span style="color:#75715e">// 通过初始化表达式构造，可使用索引号。
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, len(<span style="color:#a6e22e">s1</span>), cap(<span style="color:#a6e22e">s1</span>))
+
+ <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>) <span style="color:#75715e">// 使用 make 创建，指定 len 和 cap 值。
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s2</span>, len(<span style="color:#a6e22e">s2</span>), cap(<span style="color:#a6e22e">s2</span>))
+
+ <span style="color:#a6e22e">s3</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">6</span>) <span style="color:#75715e">// 省略 cap，相当于 cap = len。
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s3</span>, len(<span style="color:#a6e22e">s3</span>), cap(<span style="color:#a6e22e">s3</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest4</span>() {
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+ <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">2</span>] <span style="color:#75715e">// *int, 获取底层数组元素指针。
+</span><span style="color:#75715e"></span> <span style="color:#f92672">*</span><span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">100</span>
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>) <span style="color:#75715e">//[0 1 102 3]
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest5</span>() {
+ <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [][]<span style="color:#66d9ef">int</span>{
+  []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>},
+  []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>},
+  []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">33</span>, <span style="color:#ae81ff">44</span>},
+ }
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest6</span>() {
+ <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>
+ }{}
+
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span>[:] <span style="color:#75715e">//指向同一个内存空间
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">d</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">10</span>
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">20</span>
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p, %p, %p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">s</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//0xc0000c0060, 0xc0000c0060, 0xc0000c0060, 0xc000096060, 0xc0000c0060
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;d: %v,  s: %v\n&#34;</span>, <span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">s</span>)                         <span style="color:#75715e">//d: [{0} {10} {20} {0} {0}],  s: [{0} {10} {20} {0} {0}]
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span> <span style="color:#75715e">//新建一个内存空间
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">3</span>].<span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">30</span>
+
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p, %p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">//0xc0000c0060, 0xc0000c0060, 0xc0000c00c0, 0xc0000c00c0
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;d: %v,  s: %v\n&#34;</span>, <span style="color:#a6e22e">d</span>, <span style="color:#a6e22e">s1</span>)                   <span style="color:#75715e">//d: [{0} {10} {20} {0} {0}],  s: [{0} {10} {20} {30} {0}]
+</span><span style="color:#75715e"></span>
+}
+
+<span style="color:#75715e">//slice追加添加元素，append
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest7</span>() {
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice a : %v\n&#34;</span>, <span style="color:#a6e22e">a</span>)
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>}
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice b : %v\n&#34;</span>, <span style="color:#a6e22e">b</span>)
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">...</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice c : %v\n&#34;</span>, <span style="color:#a6e22e">c</span>)
+ <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">c</span>, <span style="color:#ae81ff">7</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice d : %v\n&#34;</span>, <span style="color:#a6e22e">d</span>)
+ <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">d</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice e : %v\n&#34;</span>, <span style="color:#a6e22e">e</span>)
+}
+
+<span style="color:#75715e">//虽然有多余的容量cap但是超出长度，append后
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest8</span>() {
+ <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>) <span style="color:#75715e">//0xc000004078
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">s1</span> = append(<span style="color:#a6e22e">s1</span>, <span style="color:#ae81ff">1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>) <span style="color:#75715e">//0xc000004078
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">s1</span>, <span style="color:#ae81ff">3</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//0xc000004078, 0xc000004090
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span>)              <span style="color:#75715e">//[1] [1 3]
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">s2</span> = append(<span style="color:#a6e22e">s2</span>, <span style="color:#ae81ff">4</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%p, %p\n&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s1</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//0xc000004078, 0xc000004090
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//[1] [1 3 4]
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest9</span>() {
+ <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">10</span>: <span style="color:#ae81ff">0</span>}
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[:<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">3</span>]
+
+ <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">100</span>) <span style="color:#75715e">// 第一次 append 不超出 s.cap 限制。
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">data</span>)         <span style="color:#75715e">// 不会从新分配底层数组。    [0 1 100] [0 1 100 3 4 0 0 0 0 0 0]
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">// 比对底层数组起始指针。 0xc000086060 0xc000086060
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">200</span>) <span style="color:#75715e">// 一次 append 两个值，超出 s.cap 限制。
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">data</span>)         <span style="color:#75715e">// 重新分配底层数组，与原数组无关。   [0 1 100 200] [0 1 100 3 4 0 0 0 0 0 0]
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e">// 比对底层数组起始指针。    0xc0000c0060 0xc000086060
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">// cap的变化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest10</span>() {
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> cap(<span style="color:#a6e22e">s</span>)
+
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">50</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">i</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> cap(<span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">n</span> &gt; <span style="color:#a6e22e">c</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;cap: %d -&gt; %d\n&#34;</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">n</span>)
+   <span style="color:#a6e22e">c</span> = <span style="color:#a6e22e">n</span>
+  }
+ }
+ <span style="color:#75715e">/*
+</span><span style="color:#75715e">  cap: 1 -&gt; 2
+</span><span style="color:#75715e">  cap: 2 -&gt; 4
+</span><span style="color:#75715e">  cap: 4 -&gt; 8
+</span><span style="color:#75715e">  cap: 8 -&gt; 16
+</span><span style="color:#75715e">  cap: 16 -&gt; 32
+</span><span style="color:#75715e">  cap: 32 -&gt; 64
+</span><span style="color:#75715e"> */</span>
+}
+
+<span style="color:#75715e">//copy的使用
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest11</span>() {
+ <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
+ <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
+ copy(<span style="color:#a6e22e">s2</span>, <span style="color:#a6e22e">s1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
+ <span style="color:#a6e22e">s3</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s3 : %v\n&#34;</span>, <span style="color:#a6e22e">s3</span>)
+ <span style="color:#a6e22e">s3</span> = append(<span style="color:#a6e22e">s3</span>, <span style="color:#a6e22e">s2</span><span style="color:#f92672">...</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;appended slice s3 : %v\n&#34;</span>, <span style="color:#a6e22e">s3</span>)
+ <span style="color:#a6e22e">s3</span> = append(<span style="color:#a6e22e">s3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;last slice s3 : %v\n&#34;</span>, <span style="color:#a6e22e">s3</span>)
+
+ <span style="color:#75715e">/*
+</span><span style="color:#75715e">  slice s1 : [1 2 3 4 5]
+</span><span style="color:#75715e">  slice s2 : [0 0 0 0 0 0 0 0 0 0]
+</span><span style="color:#75715e">  copied slice s1 : [1 2 3 4 5]
+</span><span style="color:#75715e">  copied slice s2 : [1 2 3 4 5 0 0 0 0 0]
+</span><span style="color:#75715e">  slice s3 : [1 2 3]
+</span><span style="color:#75715e">  appended slice s3 : [1 2 3 1 2 3 4 5 0 0 0 0 0]
+</span><span style="color:#75715e">  last slice s3 : [1 2 3 1 2 3 4 5 0 0 0 0 0 4 5 6]
+</span><span style="color:#75715e"> */</span>
+
+}
+
+<span style="color:#75715e">//copy的使用
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest12</span>() {
+ <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;array data : &#34;</span>, <span style="color:#a6e22e">data</span>)
+ <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">8</span>:]
+ <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[:<span style="color:#ae81ff">5</span>]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
+ copy(<span style="color:#a6e22e">s2</span>, <span style="color:#a6e22e">s1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s1 : %v\n&#34;</span>, <span style="color:#a6e22e">s1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;copied slice s2 : %v\n&#34;</span>, <span style="color:#a6e22e">s2</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;last array data : &#34;</span>, <span style="color:#a6e22e">data</span>)
+
+ <span style="color:#75715e">/*
+</span><span style="color:#75715e">  array data :  [0 1 2 3 4 5 6 7 8 9]
+</span><span style="color:#75715e">  slice s1 : [8 9]
+</span><span style="color:#75715e">  slice s2 : [0 1 2 3 4]
+</span><span style="color:#75715e">  copied slice s1 : [8 9]
+</span><span style="color:#75715e">  copied slice s2 : [8 9 2 3 4]
+</span><span style="color:#75715e">  last array data :  [8 9 2 3 4 5 6 7 8 9]
+</span><span style="color:#75715e"> */</span>
+}
+
+<span style="color:#75715e">//使用 for range 遍历
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest13</span>() {
+ <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> [<span style="color:#f92672">...</span>]<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
+ <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">data</span>[:]
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;index : %v , value : %v\n&#34;</span>, <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">value</span>)
+ }
+ <span style="color:#75715e">/*
+</span><span style="color:#75715e">  index : 0 , value : 0
+</span><span style="color:#75715e">  index : 1 , value : 1
+</span><span style="color:#75715e">  index : 2 , value : 2
+</span><span style="color:#75715e">  index : 3 , value : 3
+</span><span style="color:#75715e">  index : 4 , value : 4
+</span><span style="color:#75715e">  index : 5 , value : 5
+</span><span style="color:#75715e">  index : 6 , value : 6
+</span><span style="color:#75715e">  index : 7 , value : 7
+</span><span style="color:#75715e">  index : 8 , value : 8
+</span><span style="color:#75715e">  index : 9 , value : 9
+</span><span style="color:#75715e"> */</span>
+}
+
+<span style="color:#75715e">//slice 截取赋值的时候注意事项 重点看 c
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest14</span>() {
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice a : %v , len(a) : %v\n&#34;</span>, <span style="color:#a6e22e">a</span>, len(<span style="color:#a6e22e">a</span>)) <span style="color:#75715e">//slice a : [1 3 4 5] , len(a) : 4
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">2</span>]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice b : %v , len(b) : %v\n&#34;</span>, <span style="color:#a6e22e">b</span>, len(<span style="color:#a6e22e">b</span>)) <span style="color:#75715e">//slice b : [3] , len(b) : 1
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">3</span>]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;slice c : %v , len(c) : %v\n&#34;</span>, <span style="color:#a6e22e">c</span>, len(<span style="color:#a6e22e">c</span>)) <span style="color:#75715e">//slice c : [3 4 5] , len(c) : 3
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">//slice string的操作
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest15</span>() {
+ <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>
+ <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">5</span>]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>) <span style="color:#75715e">//hello
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">str</span>[<span style="color:#ae81ff">6</span>:]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s2</span>) <span style="color:#75715e">//world
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">//slice string的操作
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest16</span>() {
+ <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Hello world&#34;</span>
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//中文字符需要用[]rune(str)
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">6</span>] = <span style="color:#e6db74">&#39;G&#39;</span>
+ <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[:<span style="color:#ae81ff">8</span>]
+ <span style="color:#a6e22e">s</span> = append(<span style="color:#a6e22e">s</span>, <span style="color:#e6db74">&#39;!&#39;</span>)
+ <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">s</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//Hello Go!
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">//slice string的操作
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest17</span>() {
+ <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;你好，世界！hello world！&#34;</span>
+ <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> []rune(<span style="color:#a6e22e">str</span>)
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">3</span>] = <span style="color:#e6db74">&#39;够&#39;</span>
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">4</span>] = <span style="color:#e6db74">&#39;浪&#39;</span>
+ <span style="color:#a6e22e">s</span>[<span style="color:#ae81ff">12</span>] = <span style="color:#e6db74">&#39;g&#39;</span>
+ <span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">s</span>[:<span style="color:#ae81ff">14</span>]
+ <span style="color:#a6e22e">str</span> = string(<span style="color:#a6e22e">s</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//你好，够浪！hello go
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">//[:] 截取的时候cap是 原有数据的截取后的容量
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest18</span>() {
+ <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
+ <span style="color:#a6e22e">d1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>[<span style="color:#ae81ff">5</span>:<span style="color:#ae81ff">7</span>]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">d1</span>, len(<span style="color:#a6e22e">d1</span>), cap(<span style="color:#a6e22e">d1</span>)) <span style="color:#75715e">//[5 6] 2 5
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">d2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">slice</span>[:<span style="color:#ae81ff">6</span>:<span style="color:#ae81ff">8</span>]
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">d2</span>, len(<span style="color:#a6e22e">d2</span>), cap(<span style="color:#a6e22e">d2</span>)) <span style="color:#75715e">//[0 1 2 3 4 5] 6 8
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sliceTest19</span>() {
+ <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
+ <span style="color:#a6e22e">str</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Replace</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Trim</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprint</span>(<span style="color:#a6e22e">slice</span>), <span style="color:#e6db74">&#34;[]&#34;</span>), <span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#e6db74">&#34;,&#34;</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">str</span>) <span style="color:#75715e">//0,1,2,3,4,5,6,7,8,9
+</span><span style="color:#75715e"></span>}
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -602,12 +607,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -738,6 +743,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

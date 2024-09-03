@@ -10,15 +10,20 @@
 		<meta property="og:title" content="使用docker运行mysql" />
 <meta property="og:description" content="以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/database/mysql/docker_mysql/" /><meta property="article:section" content="database" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/docker_mysql/" />
 <meta property="article:published_time" content="2018-03-27T07:28:49+08:00" />
 <meta property="article:modified_time" content="2018-03-27T07:28:49+08:00" />
 
 		<meta itemprop="name" content="使用docker运行mysql">
-<meta itemprop="description" content="以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。"><meta itemprop="datePublished" content="2018-03-27T07:28:49+08:00" />
+<meta itemprop="description" content="以前开发的时候都是用本地的sqlite开发，但是极少数情况下，sqlite支持的语法发布到服务器上链接mysql会报错。">
+<meta itemprop="datePublished" content="2018-03-27T07:28:49+08:00" />
 <meta itemprop="dateModified" content="2018-03-27T07:28:49+08:00" />
 <meta itemprop="wordCount" content="82">
+
+
+
 <meta itemprop="keywords" content="docker,mysql,super," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -161,11 +166,11 @@
 </blockquote>
 <p>废话有点多了，看看如何实现&hellip;^^</p>
 <p><strong>1. 安装docker</strong> (建议上官网下载安装包安装。)</p>
-<pre tabindex="0"><code>brew install docker
+<pre><code>brew install docker
 </code></pre><p><strong>2. 下载mysql镜像</strong></p>
-<pre tabindex="0"><code>docker pull mysql
+<pre><code>docker pull mysql
 </code></pre><p><strong>3. 启动mysql实例</strong></p>
-<pre tabindex="0"><code>docker run --name mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest
+<pre><code>docker run --name mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest
 </code></pre><ul>
 <li>&mdash;name 后面的是docker容器名</li>
 <li>-p 32xxx:3306 这里需要注意 <code>32xxx</code> 是你<strong>链接mysql的时候的<code>Port</code>。</strong></li>
@@ -173,13 +178,13 @@
 <li>-d mysql 是你的镜像标签</li>
 </ul>
 <p><strong>4. 在shell中访问mysql</strong></p>
-<pre tabindex="0"><code>docker exec -it mingxie-mysql bash
+<pre><code>docker exec -it mingxie-mysql bash
 root@7c289aa0ca95:/# 
 mysql -uroot -p -h localhost
 Enter password:
 </code></pre><p>输入密码即可。</p>
 <p><strong>5. 在shell中访问mysql日志</strong></p>
-<pre tabindex="0"><code>docker logs mingxie-mysql
+<pre><code>docker logs mingxie-mysql
 </code></pre><p><strong>6. 使用常用工具链接mysql</strong></p>
 <pre><code>Host: 127.0.0.1
 Username: root
@@ -248,12 +253,12 @@ Port: 32xxx
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -384,6 +389,10 @@ Port: 32xxx
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

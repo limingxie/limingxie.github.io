@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【golang笔记】go_channel实用案例(26)" />
 <meta property="og:description" content="这一篇简单的整理了golang channel实用案例 相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/go/golang_26/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/go/golang_26/" />
 <meta property="article:published_time" content="2022-09-27T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-09-27T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【golang笔记】go_channel实用案例(26)">
-<meta itemprop="description" content="这一篇简单的整理了golang channel实用案例 相关的内容。"><meta itemprop="datePublished" content="2022-09-27T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇简单的整理了golang channel实用案例 相关的内容。">
+<meta itemprop="datePublished" content="2022-09-27T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-09-27T23:28:49+08:00" />
 <meta itemprop="wordCount" content="350">
+
+
+
 <meta itemprop="keywords" content="golang," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -158,146 +163,147 @@ intchan =&gt; 启用一个协程往这里添加1~80000的数据<br>
 resChan =&gt; 启动的n个协程从 intchan读取数据后，计算出的素数往这个管道中添加。<br>
 exitChan =&gt; 每个协程结束任务，往这个管道中添加是否结束的表示符。 当数据达到启用的协程N个，代表所有的任务都跑完。</p>
 <h4 id="代码">代码</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;time&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//给管道写入数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">80000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//计算素数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">exitChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//如果 ok =false 说明管道已没数据，退出循环
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//退出时给exitChan管道输入一个值，表示我这个协程结束。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//判断是不是素数的标签
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">flag</span> <span style="color:#66d9ef">bool</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">num</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span><span style="color:#f92672">%</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">flag</span> = <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">flag</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">num</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">aa</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span> = <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//要是用的协程数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//创建3个管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)  <span style="color:#75715e">// 输入数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10000</span>) <span style="color:#75715e">// 计算素数结果的管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">n</span>)   <span style="color:#75715e">// 判断所有的协程都结束的管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//输入数据
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//启用协程计算素数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span>, <span style="color:#a6e22e">exitChan</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//等待所有的协程结束
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">exitChan</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  close(<span style="color:#a6e22e">resChan</span>)
-</span></span><span style="display:flex;"><span>  close(<span style="color:#a6e22e">exitChan</span>)
-</span></span><span style="display:flex;"><span> }()
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//关闭管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">resChan</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//这么写速度更快
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//等待所有的协程结束
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// for i := 0; i &lt; n; i++ {
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//  &lt;-exitChan
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// }
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// //关闭管道
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// close(exitChan)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// close(resChan)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// fmt.Println(len(resChan))
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">// for v := range resChan {
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">//  fmt.Println(v)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#75715e">// }
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">aa</span>))
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="2syncwaitgroup的简单使用">2.sync.WaitGroup的简单使用</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;sync&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sender</span>(<span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> close(<span style="color:#a6e22e">ch</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">receiver</span>(<span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>; <span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d,%s&#34;</span>, <span style="color:#a6e22e">val</span>, <span style="color:#e6db74">&#34;revevier&#34;</span>))
-</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;quit recevier&#34;</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">receiver2</span>(<span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>; <span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d,%s&#34;</span>, <span style="color:#a6e22e">val</span>, <span style="color:#e6db74">&#34;revevier2&#34;</span>))
-</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;quit recevier2&#34;</span>)
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">sender</span>(<span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">wg</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">receiver</span>(<span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">wg</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">receiver2</span>(<span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">wg</span>)
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#75715e">//给管道写入数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) {
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">80000</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+ close(<span style="color:#a6e22e">intChan</span>)
+}
+
+<span style="color:#75715e">//计算素数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">exitChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>) {
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#75715e">//如果 ok =false 说明管道已没数据，退出循环
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">intChan</span>
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+   <span style="color:#75715e">//退出时给exitChan管道输入一个值，表示我这个协程结束。
+</span><span style="color:#75715e"></span>   <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">true</span>
+   <span style="color:#66d9ef">break</span>
+  }
+  <span style="color:#75715e">//判断是不是素数的标签
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">flag</span> <span style="color:#66d9ef">bool</span> = <span style="color:#66d9ef">true</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">num</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">num</span><span style="color:#f92672">%</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+    <span style="color:#a6e22e">flag</span> = <span style="color:#66d9ef">false</span>
+    <span style="color:#66d9ef">break</span>
+   }
+  }
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">flag</span> {
+   <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">num</span>
+  }
+ }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">aa</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span> = <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+ <span style="color:#75715e">//要是用的协程数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">4</span>
+ <span style="color:#75715e">//创建3个管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">intChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)  <span style="color:#75715e">// 输入数据
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">resChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10000</span>) <span style="color:#75715e">// 计算素数结果的管道
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">exitChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">bool</span>, <span style="color:#a6e22e">n</span>)   <span style="color:#75715e">// 判断所有的协程都结束的管道
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">//输入数据
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">pushIntChan</span>(<span style="color:#a6e22e">intChan</span>)
+
+ <span style="color:#75715e">//启用协程计算素数
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">calculation</span>(<span style="color:#a6e22e">intChan</span>, <span style="color:#a6e22e">resChan</span>, <span style="color:#a6e22e">exitChan</span>)
+ }
+
+ <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+  <span style="color:#75715e">//等待所有的协程结束
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+   <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">exitChan</span>
+  }
+  close(<span style="color:#a6e22e">resChan</span>)
+  close(<span style="color:#a6e22e">exitChan</span>)
+ }()
+ <span style="color:#75715e">//关闭管道
+</span><span style="color:#75715e"></span>
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">resChan</span>
+  <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+   <span style="color:#66d9ef">break</span>
+  }
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span>)
+ }
+
+ <span style="color:#75715e">//这么写速度更快
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//等待所有的协程结束
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// for i := 0; i &lt; n; i++ {
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//  &lt;-exitChan
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// }
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// //关闭管道
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// close(exitChan)
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// close(resChan)
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">// fmt.Println(len(resChan))
+</span><span style="color:#75715e"></span>
+ <span style="color:#75715e">// for v := range resChan {
+</span><span style="color:#75715e"></span> <span style="color:#75715e">//  fmt.Println(v)
+</span><span style="color:#75715e"></span> <span style="color:#75715e">// }
+</span><span style="color:#75715e"></span>
+ <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">aa</span>))
+}
+
+</code></pre></div><h2 id="2syncwaitgroup的简单使用">2.sync.WaitGroup的简单使用</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;fmt&#34;</span>
+ <span style="color:#e6db74">&#34;sync&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sender</span>(<span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
+ <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+  <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+ }
+ close(<span style="color:#a6e22e">ch</span>)
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">receiver</span>(<span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>; <span style="color:#a6e22e">ok</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d,%s&#34;</span>, <span style="color:#a6e22e">val</span>, <span style="color:#e6db74">&#34;revevier&#34;</span>))
+  } <span style="color:#66d9ef">else</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;quit recevier&#34;</span>)
+   <span style="color:#66d9ef">break</span>
+  }
+ }
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">receiver2</span>(<span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
+ <span style="color:#66d9ef">for</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">val</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>; <span style="color:#a6e22e">ok</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d,%s&#34;</span>, <span style="color:#a6e22e">val</span>, <span style="color:#e6db74">&#34;revevier2&#34;</span>))
+  } <span style="color:#66d9ef">else</span> {
+   <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;quit recevier2&#34;</span>)
+   <span style="color:#66d9ef">break</span>
+  }
+ }
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+ <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
+ <span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">sender</span>(<span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">wg</span>)
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">receiver</span>(<span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">wg</span>)
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+ <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">receiver2</span>(<span style="color:#a6e22e">ch</span>, <span style="color:#a6e22e">wg</span>)
+ <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+}
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -357,12 +363,12 @@ exitChan =&gt; 每个协程结束任务，往这个管道中添加是否结束�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -493,6 +499,10 @@ exitChan =&gt; 每个协程结束任务，往这个管道中添加是否结束�
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

@@ -11,16 +11,21 @@
 <meta property="og:description" content="这里开始整理一下cosmos生态的智能合约。
 cosmos生态中智能合约是通过cosmos wasm实现的。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_15/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_15/" />
 <meta property="article:published_time" content="2023-09-22T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-09-22T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-wasm-笔记】基本概念以及环境配置">
 <meta itemprop="description" content="这里开始整理一下cosmos生态的智能合约。
-cosmos生态中智能合约是通过cosmos wasm实现的。"><meta itemprop="datePublished" content="2023-09-22T23:28:49+08:00" />
+cosmos生态中智能合约是通过cosmos wasm实现的。">
+<meta itemprop="datePublished" content="2023-09-22T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-09-22T23:28:49+08:00" />
 <meta itemprop="wordCount" content="188">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,cosmos,wasm," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -173,61 +178,61 @@ wasmd 包含链和共识功能。</p>
 <p>首先需要安装rust。因为wasm智能合约编写的首选语言是rust。<br>
 可以百度一下，或参看这里。 <a href="https://rustup.rs/">https://rustup.rs/</a></p>
 <h3 id="22-下载编译wasmd代码">2.2 下载编译wasmd代码</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git clone https://github.com/CosmWasm/wasmd.git
-</span></span><span style="display:flex;"><span>$ cd wasmd
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 来去版本标签</span>
-</span></span><span style="display:flex;"><span>$ git fetch --tags
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 切换到最新的版本</span>
-</span></span><span style="display:flex;"><span>$ git checkout v0.41.0
-</span></span><span style="display:flex;"><span>$ make install
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看版本是否按转成功</span>
-</span></span><span style="display:flex;"><span>$ wasmd version
-</span></span></code></pre></div><h3 id="23-启动wasmd链">2.3 启动wasmd链</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/CosmWasm/wasmd.git
+$ cd wasmd
+<span style="color:#75715e"># 来去版本标签</span>
+$ git fetch --tags
+<span style="color:#75715e"># 切换到最新的版本</span>
+$ git checkout v0.41.0
+$ make install
+
+<span style="color:#75715e"># 查看版本是否按转成功</span>
+$ wasmd version
+</code></pre></div><h3 id="23-启动wasmd链">2.3 启动wasmd链</h3>
 <p>简单的编写一个脚本。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>rm -rf ~/.wasmd
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>export DAEMON_NAME<span style="color:#f92672">=</span>wasmd
-</span></span><span style="display:flex;"><span>export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.wasmd
-</span></span><span style="display:flex;"><span>export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./wasmd init test --chain-id test --overwrite
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.voting_params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.wasmd/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.wasmd/config/genesis.json
-</span></span><span style="display:flex;"><span>cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.deposit_params.max_deposit_period = &#34;30s&#34;&#39;</span> $HOME/.wasmd/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.wasmd/config/genesis.json
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./wasmd keys add validator --keyring-backend test
-</span></span><span style="display:flex;"><span>./wasmd genesis add-genesis-account validator 1000000000000000000000stake --keyring-backend test 
-</span></span><span style="display:flex;"><span>./wasmd genesis gentx validator 1000000stake --chain-id test  --keyring-backend test 
-</span></span><span style="display:flex;"><span>./wasmd genesis collect-gentxs 
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
-</span></span><span style="display:flex;"><span>cp ./wasmd $DAEMON_HOME/cosmovisor/genesis/bin
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cosmovisor run start
-</span></span></code></pre></div><p>添加执行权限以及启动本地链</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ chmod +x start.sh
-</span></span><span style="display:flex;"><span>$ ./start.sh
-</span></span></code></pre></div><h2 id="3-验证和变量设置">3. 验证和变量设置</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>rm -rf ~/.wasmd
+
+export DAEMON_NAME<span style="color:#f92672">=</span>wasmd
+export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.wasmd
+export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
+
+./wasmd init test --chain-id test --overwrite
+
+cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.voting_params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.wasmd/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.wasmd/config/genesis.json
+cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.deposit_params.max_deposit_period = &#34;30s&#34;&#39;</span> $HOME/.wasmd/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.wasmd/config/genesis.json
+
+./wasmd keys add validator --keyring-backend test
+./wasmd genesis add-genesis-account validator 1000000000000000000000stake --keyring-backend test 
+./wasmd genesis gentx validator 1000000stake --chain-id test  --keyring-backend test 
+./wasmd genesis collect-gentxs 
+
+mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
+cp ./wasmd $DAEMON_HOME/cosmovisor/genesis/bin
+
+cosmovisor run start
+</code></pre></div><p>添加执行权限以及启动本地链</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ chmod +x start.sh
+$ ./start.sh
+</code></pre></div><h2 id="3-验证和变量设置">3. 验证和变量设置</h2>
 <p>查看账户</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ wasmd keys list --keyring-backend test
-</span></span><span style="display:flex;"><span>- address: wasm18gf6sqfah5qp9gxf0qc3srkwe873kazv34z8x3
-</span></span><span style="display:flex;"><span>  name: validator
-</span></span><span style="display:flex;"><span>  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;AlfQionhph5z5CSF1BoHk/Yt2eUalOf4s72wOlEqhubY&#34;}&#39;</span>
-</span></span><span style="display:flex;"><span>  type: local
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ wasmd query bank balances wasm18gf6sqfah5qp9gxf0qc3srkwe873kazv34z8x3
-</span></span><span style="display:flex;"><span>balances:
-</span></span><span style="display:flex;"><span>- amount: <span style="color:#e6db74">&#34;999999999999998617344&#34;</span>
-</span></span><span style="display:flex;"><span>  denom: stake
-</span></span><span style="display:flex;"><span>pagination:
-</span></span><span style="display:flex;"><span>  next_key: null
-</span></span><span style="display:flex;"><span>  total: <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span></code></pre></div><p>设置好变量，后续章节使用</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ export NODE<span style="color:#f92672">=(</span>--node tcp://localhost:26657<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>$ export TXFLAG<span style="color:#f92672">=(</span>$NODE --chain-id test --gas-prices 0.25stake --gas auto --gas-adjustment 1.3 <span style="color:#f92672">)</span>
-</span></span></code></pre></div><p>下一遍整理如何编译合约以及发布合约。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wasmd keys list --keyring-backend test
+- address: wasm18gf6sqfah5qp9gxf0qc3srkwe873kazv34z8x3
+  name: validator
+  pubkey: <span style="color:#e6db74">&#39;{&#34;@type&#34;:&#34;/cosmos.crypto.secp256k1.PubKey&#34;,&#34;key&#34;:&#34;AlfQionhph5z5CSF1BoHk/Yt2eUalOf4s72wOlEqhubY&#34;}&#39;</span>
+  type: local
+
+$ wasmd query bank balances wasm18gf6sqfah5qp9gxf0qc3srkwe873kazv34z8x3
+balances:
+- amount: <span style="color:#e6db74">&#34;999999999999998617344&#34;</span>
+  denom: stake
+pagination:
+  next_key: null
+  total: <span style="color:#e6db74">&#34;0&#34;</span>
+</code></pre></div><p>设置好变量，后续章节使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export NODE<span style="color:#f92672">=(</span>--node tcp://localhost:26657<span style="color:#f92672">)</span>
+$ export TXFLAG<span style="color:#f92672">=(</span>$NODE --chain-id test --gas-prices 0.25stake --gas auto --gas-adjustment 1.3 <span style="color:#f92672">)</span>
+</code></pre></div><p>下一遍整理如何编译合约以及发布合约。</p>
 <hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
@@ -297,12 +302,12 @@ wasmd 包含链和共识功能。</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -433,6 +438,10 @@ wasmd 包含链和共识功能。</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

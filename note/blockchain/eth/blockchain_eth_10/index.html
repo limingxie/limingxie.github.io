@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【区块链笔记】ETH_geth控制台操作(10)" />
 <meta property="og:description" content="这篇文章简单的整理了geth控制台操作相关的信息。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/blockchain_eth_10/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/eth/blockchain_eth_10/" />
 <meta property="article:published_time" content="2022-11-18T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-11-18T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【区块链笔记】ETH_geth控制台操作(10)">
-<meta itemprop="description" content="这篇文章简单的整理了geth控制台操作相关的信息。"><meta itemprop="datePublished" content="2022-11-18T23:28:49+08:00" />
+<meta itemprop="description" content="这篇文章简单的整理了geth控制台操作相关的信息。">
+<meta itemprop="datePublished" content="2022-11-18T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-11-18T23:28:49+08:00" />
 <meta itemprop="wordCount" content="426">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,ETH," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -151,8 +156,8 @@
 			<p>这篇文章简单的整理了<code>geth控制台操作</code>相关的信息。</p>
 <h2 id="1启动控制台">1.启动控制台</h2>
 <p>启动命令里添加console就可以进入控制台</p>
-<pre tabindex="0"><code>$geth --datadir /Users/limingxie/blockchain/eth/test1_data --networkid 66666 console
-</code></pre><pre tabindex="0"><code>//--http 是连接localhost:8545   console 是打开控制台   2&gt;output.log 是输出日志
+<pre><code>$geth --datadir /Users/limingxie/blockchain/eth/test1_data --networkid 66666 console
+</code></pre><pre><code>//--http 是连接localhost:8545   console 是打开控制台   2&gt;output.log 是输出日志
 $geth --datadir /Users/limingxie/blockchain/eth/test1_data --networkid 66666 --http console 2&gt;output.log
 </code></pre><table>
 <thead>
@@ -251,11 +256,11 @@ $geth --datadir /Users/limingxie/blockchain/eth/test1_data --networkid 66666 --h
 <li><strong><code>txpool.status</code></strong>:交易池中的状态;</li>
 </ul>
 <h2 id="4实际操作">4.实际操作</h2>
-<pre tabindex="0"><code>//查看账户余额：
-&gt; eth.getBalance(&#39;0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab&#39;)
+<pre><code>//查看账户余额：
+&gt; eth.getBalance('0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab')
 6.66001e+27
 
-&gt; web3.fromWei(eth.getBalance(&#39;0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab&#39;),&#39;ether&#39;);
+&gt; web3.fromWei(eth.getBalance('0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab'),'ether');
 6660010000
 
 //查看当前区块
@@ -269,28 +274,28 @@ Repeat passphrase:
 INFO [12-15|23:24:45.034] Your new key was generated               address=0xAd9E42f712F152a8E9F780e6A23D9AFb2a020607
 WARN [12-15|23:24:45.035] Please backup your key file!             path=/Users/limingxie/blockchain/eth/test1_data/keystore/UTC--2022-12-15T15-24-43.534890000Z--ad9e42f712f152a8e9f780e6a23d9afb2a020607
 WARN [12-15|23:24:45.035] Please remember your password!
-&#34;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&#34;
+&quot;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;
 
 //查看创建用户
 &gt; eth.accounts
-[&#34;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&#34;]
+[&quot;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;]
 
 //新的终端查看用户文件信息
 $ cat /Users/limingxie/blockchain/eth/test1_data/keystore/UTC--2022-12-15T15-24-43.534890000Z--ad9e42f712f152a8e9f780e6a23d9afb2a020607
-{&#34;address&#34;:&#34;ad9e42f712f152a8e9f780e6a23d9afb2a020607&#34;,&#34;crypto&#34;:{&#34;cipher&#34;:&#34;aes-128-ctr&#34;,&#34;ciphertext&#34;:&#34;fa0ede4585b510173ab438384740f3386e3df19d934aac5c26ace221d9f47ba8&#34;,&#34;cipherparams&#34;:{&#34;iv&#34;:&#34;293bc427b035f0943b4bbb965c907293&#34;},&#34;kdf&#34;:&#34;scrypt&#34;,&#34;kdfparams&#34;:{&#34;dklen&#34;:32,&#34;n&#34;:262144,&#34;p&#34;:1,&#34;r&#34;:8,&#34;salt&#34;:&#34;d88a19c15fd6c1234d2ebf2d1792571d53ac3ae0829b2ecdcfa8a0d9dd805170&#34;},&#34;mac&#34;:&#34;27ef6a66329edc85ada55946562907a64d9963cb7dee919b086e7f4c75e1ad6a&#34;},&#34;id&#34;:&#34;1c5ce5e3-6e54-4bfc-b6d9-b6414f462b08&#34;,&#34;version&#34;:3}
+{&quot;address&quot;:&quot;ad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;,&quot;crypto&quot;:{&quot;cipher&quot;:&quot;aes-128-ctr&quot;,&quot;ciphertext&quot;:&quot;fa0ede4585b510173ab438384740f3386e3df19d934aac5c26ace221d9f47ba8&quot;,&quot;cipherparams&quot;:{&quot;iv&quot;:&quot;293bc427b035f0943b4bbb965c907293&quot;},&quot;kdf&quot;:&quot;scrypt&quot;,&quot;kdfparams&quot;:{&quot;dklen&quot;:32,&quot;n&quot;:262144,&quot;p&quot;:1,&quot;r&quot;:8,&quot;salt&quot;:&quot;d88a19c15fd6c1234d2ebf2d1792571d53ac3ae0829b2ecdcfa8a0d9dd805170&quot;},&quot;mac&quot;:&quot;27ef6a66329edc85ada55946562907a64d9963cb7dee919b086e7f4c75e1ad6a&quot;},&quot;id&quot;:&quot;1c5ce5e3-6e54-4bfc-b6d9-b6414f462b08&quot;,&quot;version&quot;:3}
 
 //查看新创建用户的余额
 &gt; eth.getBalance(eth.accounts[0]);
 0
 
 //发送以太币
-&gt; eth.sendTransaction({from: eth.accounts[0], to: &#34;0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab&#34;, value: 100000})
-WARN [12-15|23:51:27.506] Served eth_sendTransaction               reqid=134 duration=&#34;64.833µs&#34;  err=&#34;insufficient funds for transfer&#34;
+&gt; eth.sendTransaction({from: eth.accounts[0], to: &quot;0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab&quot;, value: 100000})
+WARN [12-15|23:51:27.506] Served eth_sendTransaction               reqid=134 duration=&quot;64.833µs&quot;  err=&quot;insufficient funds for transfer&quot;
 Error: insufficient funds for transfer
 
 //查看获取coinbase账户
 &gt; eth.coinbase
-&#34;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&#34;
+&quot;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;
 
 //开始挖矿
 &gt; miner.start(1)
@@ -302,14 +307,14 @@ INFO [12-15|23:53:55.495] Etherbase automatically configured       address=0xAd9
 &gt; miner.stop()
 
 //再次查看以太币
-&gt; web3.fromWei(eth.getBalance(eth.accounts[0]),&#39;ether&#39;);
+&gt; web3.fromWei(eth.getBalance(eth.accounts[0]),'ether');
 24
 
 //再次转账
-&gt; eth.sendTransaction({from: eth.accounts[0], to: &#34;0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab&#34;, value: 100000})
+&gt; eth.sendTransaction({from: eth.accounts[0], to: &quot;0x922F12edF3CA38CF04bD5f0d6a1b716C51f5G3ab&quot;, value: 100000})
 WARN [12-16|00:17:37.011] Gas estimation capped by limited funds   original=138,961,213,547,761 balance=24,000,000,000,000,000,000 sent=100,000 maxFeePerGas=1,000,000,000 fundable=23,999,999,999
 WARN [12-16|00:17:37.012] Caller gas above allowance, capping      requested=23,999,999,999 cap=50,000,000
-WARN [12-16|00:17:37.015] Served eth_sendTransaction               reqid=148 duration=10.576325ms err=&#34;authentication needed: password or unlock&#34;
+WARN [12-16|00:17:37.015] Served eth_sendTransaction               reqid=148 duration=10.576325ms err=&quot;authentication needed: password or unlock&quot;
 Error: authentication needed: password or unlock
 
 //解锁账户
@@ -319,11 +324,11 @@ Passphrase:
 true
 
 //再次发送以太币
-&gt; eth.sendTransaction({from: eth.accounts[0], to: &#34;0x922F12edF3FA36CF04bD5f0d6a1b716C51f5F4ab&#34;, value: 100000000000000})
+&gt; eth.sendTransaction({from: eth.accounts[0], to: &quot;0x922F12edF3FA36CF04bD5f0d6a1b716C51f5F4ab&quot;, value: 100000000000000})
 WARN [12-16|00:20:14.592] Gas estimation capped by limited funds   original=138,961,213,547,761 balance=23,999,999,999,999,900,000 sent=100,000,000,000,000 maxFeePerGas=1,000,000,000 fundable=23,999,899,999
 WARN [12-16|00:20:14.592] Caller gas above allowance, capping      requested=23,999,899,999 cap=50,000,000
 INFO [12-16|00:20:14.593] Submitted transaction                    hash=0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f from=0xAd9E42f712F152a8E9F780e6A23D9AFb2a020607 nonce=1 recipient=0x922F12edF3FA36CF04bD5f0d6a1b716C51f5F4ab value=100,000,000,000,000
-&#34;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&#34;
+&quot;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&quot;
 
 //开始挖矿
 &gt; miner.start(1)
@@ -334,57 +339,57 @@ INFO [12-16|00:20:27.876] Transaction pool price threshold updated price=1,000,0
 &gt; miner.stop()
 
 //查看余额减少
-&gt; web3.fromWei(eth.getBalance(eth.accounts[0]),&#39;ether&#39;);
+&gt; web3.fromWei(eth.getBalance(eth.accounts[0]),'ether');
 43.9998999999999
 
 //因为转了2次 100000 和 100000000000000
-&gt; eth.getBalance(&#39;0x922F12edF3FA36CF04bD5f0d6a1b716C51f5F4ab&#39;)
+&gt; eth.getBalance('0x922F12edF3FA36CF04bD5f0d6a1b716C51f5F4ab')
 100000000100000
 
 //查看tx
-&gt; eth.getTransaction(&#34;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&#34;)
+&gt; eth.getTransaction(&quot;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&quot;)
 {
-  blockHash: &#34;0x7f7340215d6a57d35101499326f40648e83a0bc90156af9e9f8be773573e6cf1&#34;,
+  blockHash: &quot;0x7f7340215d6a57d35101499326f40648e83a0bc90156af9e9f8be773573e6cf1&quot;,
   blockNumber: 13,
-  chainId: &#34;0x1046a&#34;,
-  from: &#34;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&#34;,
+  chainId: &quot;0x1046a&quot;,
+  from: &quot;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;,
   gas: 21000,
   gasPrice: 1000000000,
-  hash: &#34;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&#34;,
-  input: &#34;0x&#34;,
+  hash: &quot;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&quot;,
+  input: &quot;0x&quot;,
   nonce: 1,
-  r: &#34;0x53413e893ae7f53dab195c4a0dc7785e0260430da5ef2b33f227dde2fe6d9e4e&#34;,
-  s: &#34;0x3e61756ce5b5e9192679f73c4e5788929e8f7c7c2411041fa3231bc7327e479d&#34;,
-  to: &#34;0x922f12edf3fa36cf04bd5f0d6a1b716c51f5f4ab&#34;,
+  r: &quot;0x53413e893ae7f53dab195c4a0dc7785e0260430da5ef2b33f227dde2fe6d9e4e&quot;,
+  s: &quot;0x3e61756ce5b5e9192679f73c4e5788929e8f7c7c2411041fa3231bc7327e479d&quot;,
+  to: &quot;0x922f12edf3fa36cf04bd5f0d6a1b716c51f5f4ab&quot;,
   transactionIndex: 1,
-  type: &#34;0x0&#34;,
-  v: &#34;0x208f8&#34;,
+  type: &quot;0x0&quot;,
+  v: &quot;0x208f8&quot;,
   value: 100000000000000
 }
 
 //查看block
 &gt; eth.getBlock(13)
-&gt; eth.getBlock(&#34;0x7f7340215d6a57d35101499326f40648e83a0bc90156af9e9f8be773573e6cf1&#34;)
+&gt; eth.getBlock(&quot;0x7f7340215d6a57d35101499326f40648e83a0bc90156af9e9f8be773573e6cf1&quot;)
 {
   difficulty: 131072,
-  extraData: &#34;0xd983010a1a846765746888676f312e31382e318664617277696e&#34;,
+  extraData: &quot;0xd983010a1a846765746888676f312e31382e318664617277696e&quot;,
   gasLimit: 138961213547761,
   gasUsed: 42000,
-  hash: &#34;0x7f7340215d6a57d35101499326f40648e83a0bc90156af9e9f8be773573e6cf1&#34;,
-  logsBloom: &#34;0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&#34;,
-  miner: &#34;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&#34;,
-  mixHash: &#34;0xdeb5d843bc08a9538bbf54e9cb12ee24b5bcd99f0cc644e9b78f7220dd2f5539&#34;,
-  nonce: &#34;0x654ead449a293d84&#34;,
+  hash: &quot;0x7f7340215d6a57d35101499326f40648e83a0bc90156af9e9f8be773573e6cf1&quot;,
+  logsBloom: &quot;0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;,
+  miner: &quot;0xad9e42f712f152a8e9f780e6a23d9afb2a020607&quot;,
+  mixHash: &quot;0xdeb5d843bc08a9538bbf54e9cb12ee24b5bcd99f0cc644e9b78f7220dd2f5539&quot;,
+  nonce: &quot;0x654ead449a293d84&quot;,
   number: 13,
-  parentHash: &#34;0xdc42d2a5401228ec99eed3d067ba2aadbcd2b0f5dccc957c99024b9d29c75247&#34;,
-  receiptsRoot: &#34;0xd95b673818fa493deec414e01e610d97ee287c9421c8eff4102b1647c1a184e4&#34;,
-  sha3Uncles: &#34;0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347&#34;,
+  parentHash: &quot;0xdc42d2a5401228ec99eed3d067ba2aadbcd2b0f5dccc957c99024b9d29c75247&quot;,
+  receiptsRoot: &quot;0xd95b673818fa493deec414e01e610d97ee287c9421c8eff4102b1647c1a184e4&quot;,
+  sha3Uncles: &quot;0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347&quot;,
   size: 760,
-  stateRoot: &#34;0xb349e2f94cd7cb155543465436c756342d9565093141d81575c31af36bc6c3ba&#34;,
+  stateRoot: &quot;0xb349e2f94cd7cb155543465436c756342d9565093141d81575c31af36bc6c3ba&quot;,
   timestamp: 1671121227,
   totalDifficulty: 1707840,
-  transactions: [&#34;0xca7ba0e0689e35244a452d263ae29dc163b0450f78fa6be025b8df320f9afdff&#34;, &#34;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&#34;],
-  transactionsRoot: &#34;0x1589a9bcdd1fa40c4cf22f9ddebe73fe5230ba3b034dbb9401ceaab069646638&#34;,
+  transactions: [&quot;0xca7ba0e0689e35244a452d263ae29dc163b0450f78fa6be025b8df320f9afdff&quot;, &quot;0xe0786ce32a79642dbcf0419946c705a514385886c4c2f65e089a3f4c9f8c3d1f&quot;],
+  transactionsRoot: &quot;0x1589a9bcdd1fa40c4cf22f9ddebe73fe5230ba3b034dbb9401ceaab069646638&quot;,
   uncles: []
 }
 </code></pre><hr>
@@ -453,12 +458,12 @@ INFO [12-16|00:20:27.876] Transaction pool price threshold updated price=1,000,0
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -589,6 +594,10 @@ INFO [12-16|00:20:27.876] Transaction pool price threshold updated price=1,000,0
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

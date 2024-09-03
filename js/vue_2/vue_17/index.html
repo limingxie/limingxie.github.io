@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【Vue笔记】Vue入门简介_组件(17)" />
 <meta property="og:description" content="这一篇整理了组件相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_17/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_17/" />
 <meta property="article:published_time" content="2022-06-15T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-06-15T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_组件(17)">
-<meta itemprop="description" content="这一篇整理了组件相关的内容。"><meta itemprop="datePublished" content="2022-06-15T23:55:49+08:00" />
+<meta itemprop="description" content="这一篇整理了组件相关的内容。">
+<meta itemprop="datePublished" content="2022-06-15T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-15T23:55:49+08:00" />
 <meta itemprop="wordCount" content="553">
+
+
+
 <meta itemprop="keywords" content="vue," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -152,102 +157,102 @@
 			<p>这一篇整理了组件相关的内容。</p>
 <h2 id="非单文件组件">非单文件组件</h2>
 <p>一个文件中包含 n 个组件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Vue初识&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./js/vue.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!--第三步：编写组件标签--&gt;</span>
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">xuexiao</span>&gt;&lt;/<span style="color:#f92672">xuexiao</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">hr</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">student</span>&gt;&lt;/<span style="color:#f92672">student</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root2&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">hello</span>&gt;&lt;/<span style="color:#f92672">hello</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//第一步：创建学校组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;button @click=&#34;showName&#34;&gt;点我提示学校名&lt;/button&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//组件定义时不要写el，因为最终所有组件都要被一个vm管理，由vm决定服务于哪个容器
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//el: &#34;#root&#34;,
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">showName</span>() {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">schoolName</span>)
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//第一步：创建学生组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">student</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学生姓名：{{ studentName }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学生年龄：{{ age }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">studentName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//第一步：创建hello组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;你好：{{ name }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Errol&#34;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//第二步：全局注册组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#39;hello&#39;</span>, <span style="color:#a6e22e">hello</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建vue实例
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#root&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//第二步：注册组件（局部注册）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">xuexiao</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">school</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">student</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建vue实例
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#root2&#34;</span>
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><h4 id="组件使用步骤">组件使用步骤</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;Vue初识&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./js/vue.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
+    <span style="color:#75715e">&lt;!--第三步：编写组件标签--&gt;</span>
+    &lt;<span style="color:#f92672">xuexiao</span>&gt;&lt;/<span style="color:#f92672">xuexiao</span>&gt;
+    &lt;<span style="color:#f92672">hr</span>&gt;
+    &lt;<span style="color:#f92672">student</span>&gt;&lt;/<span style="color:#f92672">student</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root2&#34;</span>&gt;
+    &lt;<span style="color:#f92672">hello</span>&gt;&lt;/<span style="color:#f92672">hello</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+    <span style="color:#75715e">//第一步：创建学校组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;button @click=&#34;showName&#34;&gt;点我提示学校名&lt;/button&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#75715e">//组件定义时不要写el，因为最终所有组件都要被一个vm管理，由vm决定服务于哪个容器
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//el: &#34;#root&#34;,
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
+                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+            }
+        },
+        <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">showName</span>() {
+                <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">schoolName</span>)
+            }
+        }
+    })
+    <span style="color:#75715e">//第一步：创建学生组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">student</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学生姓名：{{ studentName }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学生年龄：{{ age }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">studentName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
+                <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>
+            }
+        }
+    })
+
+    <span style="color:#75715e">//第一步：创建hello组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;你好：{{ name }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Errol&#34;</span>
+            }
+        }
+    })
+
+    <span style="color:#75715e">//第二步：全局注册组件
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#39;hello&#39;</span>, <span style="color:#a6e22e">hello</span>)
+
+    <span style="color:#75715e">//创建vue实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#root&#34;</span>,
+        <span style="color:#75715e">//第二步：注册组件（局部注册）
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">xuexiao</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">school</span>,
+            <span style="color:#a6e22e">student</span>
+        }
+    })
+
+    <span style="color:#75715e">//创建vue实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#root2&#34;</span>
+    })
+
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="组件使用步骤">组件使用步骤</h4>
 <p><strong>Vue中使用组件的三大步骤</strong><br>
 一、定义组件(创建组件)<br>
 二、注册组件<br>
@@ -275,135 +280,135 @@
 (1).组件名尽可能回避HTML中已有的元素名称，例如:h2、H2都不行<br>
 (2).可以使用 name 配置项指定组件在开发者工具中呈现的名字</p>
 <p><strong>2.关于组件标签:</strong></p>
-<pre tabindex="0"><code>第一种写法: ​​​&lt;school&gt;&lt;/school&gt;  ​​​
+<pre><code>第一种写法: ​​​&lt;school&gt;&lt;/school&gt;  ​​​
 第二种写法:​​&lt;school/&gt;  ​​
 备注：不用使用脚手架时,​​&lt;schoo1/&gt;​​会导致后续组件不能渲染  
 </code></pre><p><strong>3.一个简写方式：</strong><br>
 ​​​const school = Vue.extend(options）​​​可简写为：​​const school = options​​</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//第一步：创建学校组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;info&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><h4 id="组件嵌套">组件嵌套</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Vue初识&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./js/vue.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">app</span>&gt;&lt;/<span style="color:#f92672">app</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//定义学生组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">student</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学生名称：{{ name }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学生年龄：{{ age }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;张三&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//定义学校组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;student&gt;&lt;/student&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;三里屯小学&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;北京&#39;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">student</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//定义hello组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;你好{{name}}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Errol&#39;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建app组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;school&gt;&lt;/school&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;hello&gt;&lt;/hello&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">school</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">hello</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#root&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">app</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><p>有一点注意，标准化开发时，建议使用 app 管理其他组件。如果不想在页面中写 app 标签，可以在 new Vue 时增加 template 标签：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;&lt;app&gt;&lt;/app&gt;&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#root&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">app</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><h4 id="vuecomponent">VueComponent</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//第一步：创建学校组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> {
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;info&#39;</span>,
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
+                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+            }
+        }
+    }
+</code></pre></div><h4 id="组件嵌套">组件嵌套</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;Vue初识&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./js/vue.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
+&lt;<span style="color:#f92672">app</span>&gt;&lt;/<span style="color:#f92672">app</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    <span style="color:#75715e">//定义学生组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">student</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学生名称：{{ name }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学生年龄：{{ age }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;张三&#39;</span>,
+                <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>
+            }
+        },
+    })
+    <span style="color:#75715e">//定义学校组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;student&gt;&lt;/student&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;三里屯小学&#39;</span>,
+                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;北京&#39;</span>
+            }
+        },
+        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">student</span>
+        }
+    })
+    <span style="color:#75715e">//定义hello组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;你好{{name}}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Errol&#39;</span>
+            }
+        }
+    })
+
+    <span style="color:#75715e">//创建app组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;school&gt;&lt;/school&gt;
+</span><span style="color:#e6db74">          &lt;hello&gt;&lt;/hello&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">school</span>,
+            <span style="color:#a6e22e">hello</span>
+        }
+    })
+
+    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#root&#39;</span>,
+        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">app</span>
+        }
+    })
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>有一点注意，标准化开发时，建议使用 app 管理其他组件。如果不想在页面中写 app 标签，可以在 new Vue 时增加 template 标签：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+......
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    ......
+    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;&lt;app&gt;&lt;/app&gt;&#39;</span>,
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#root&#39;</span>,
+        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">app</span>
+        }
+    })
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h4 id="vuecomponent">VueComponent</h4>
 <ol>
 <li>school 组件本质是一个名为 VueComponent 的构造函数，且不是程序员定义的，是​​Vue.extend​​ 生成的</li>
 <li>我们只需要写​​<!-- raw HTML omitted -->​​​或​​<!-- raw HTML omitted --><!-- raw HTML omitted -->​​​，Vue 解析时会帮我们创建 school 组件的实例对象，即 vue 帮我们执行的:​​new vuecomponent(options)​​</li>
@@ -418,72 +423,72 @@ Vue的实例对象，以后简称vm</li>
 </ol>
 <h4 id="内置关系">内置关系</h4>
 <p><strong>一个重要的内置关系：</strong>  ​​​</p>
-<pre tabindex="0"><code>VueComponent. prototype.**proto** === Vue.prototype​​
+<pre><code>VueComponent. prototype.**proto** === Vue.prototype​​
 </code></pre><p>可以用以下代码来验证</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">school</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#f92672">**</span><span style="color:#a6e22e">proto</span><span style="color:#f92672">**</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>);
-</span></span></code></pre></div><p><a href="https://limingxie.github.io/images/js/vue/VueComponet.png">图片备用地址</a><br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">school</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#f92672">**</span><span style="color:#a6e22e">proto</span><span style="color:#f92672">**</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>);
+</code></pre></div><p><a href="https://limingxie.github.io/images/js/vue/VueComponet.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/js/vue/VueComponet.png" alt="VueComponet"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//定义一个构造函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Demo</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建demo的一个实例对象
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Demo</span>()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Demo</span>.<span style="color:#a6e22e">prototype</span>);<span style="color:#75715e">//显式原型属性
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">__proto__</span>);<span style="color:#75715e">//隐式原型属性
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Demo</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">__proto__</span>);<span style="color:#75715e">//隐式原型属性
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//通过显式原型属性操作 原型对象，追加x属性为99
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Demo</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">99</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">x</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">x</span>);
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span></code></pre></div><p>2.为什么要有这个关系：让组件实例对象(vc）可以访问到 Vue 原型上的属性、方法
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    <span style="color:#75715e">//定义一个构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Demo</span>() {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+    }
+    <span style="color:#75715e">//创建demo的一个实例对象
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Demo</span>()
+
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Demo</span>.<span style="color:#a6e22e">prototype</span>);<span style="color:#75715e">//显式原型属性
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">__proto__</span>);<span style="color:#75715e">//隐式原型属性
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Demo</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">__proto__</span>);<span style="color:#75715e">//隐式原型属性
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//通过显式原型属性操作 原型对象，追加x属性为99
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Demo</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">99</span>
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">x</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">x</span>);
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><p>2.为什么要有这个关系：让组件实例对象(vc）可以访问到 Vue 原型上的属性、方法
 我们可以用之前的例子验证，写一个 school 组件，然后给 Vue 增加一个 x 属性，然后让 school 来调用</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">school</span>&gt;&lt;/<span style="color:#f92672">school</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">99</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//第一步：创建学校组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;button @click=&#34;showX&#34;&gt;点我输出x&lt;/button&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">showX</span>(){
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span>)
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//创建vue实例
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#root&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//第二步：注册组件（局部注册）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">school</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;
+    &lt;<span style="color:#f92672">school</span>&gt;&lt;/<span style="color:#f92672">school</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">99</span>
+    <span style="color:#75715e">//第一步：创建学校组件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">extend</span>({
+        <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">          &lt;div&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校名称：{{ schoolName }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;h2&gt;学校地址：{{ address }}&lt;/h2&gt;
+</span><span style="color:#e6db74">          &lt;button @click=&#34;showX&#34;&gt;点我输出x&lt;/button&gt;
+</span><span style="color:#e6db74">          &lt;/div&gt;
+</span><span style="color:#e6db74">        `</span>,
+        <span style="color:#a6e22e">data</span>() {
+            <span style="color:#66d9ef">return</span> {
+                <span style="color:#a6e22e">schoolName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
+                <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+            }
+        },
+        <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span>{
+            <span style="color:#a6e22e">showX</span>(){
+                <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span>)
+            }
+        }
+    })
+
+    <span style="color:#75715e">//创建vue实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#root&#34;</span>,
+        <span style="color:#75715e">//第二步：注册组件（局部注册）
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">school</span>
+        }
+    })
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -543,12 +548,12 @@ Vue的实例对象，以后简称vm</li>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -679,6 +684,10 @@ Vue的实例对象，以后简称vm</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

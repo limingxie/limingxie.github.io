@@ -13,7 +13,7 @@
 我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。
 希望有些帮助。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/etc/stack/" /><meta property="article:section" content="etc" />
+<meta property="og:url" content="https://limingxie.github.io/etc/stack/" />
 <meta property="article:published_time" content="2020-10-12T23:28:49+08:00" />
 <meta property="article:modified_time" content="2020-10-12T23:28:49+08:00" />
 
@@ -21,10 +21,15 @@
 <meta itemprop="description" content="我们平时经常遇到栈(stack), 队列(queue), 堆(heap)这些词语。
 像我这样不是计算机专业毕业的程序原来说，为了更好的理解这些内容，
 我自己简单的整理了一下栈(stack), 堆(heap)和队列(queue)的概念。
-希望有些帮助。"><meta itemprop="datePublished" content="2020-10-12T23:28:49+08:00" />
+希望有些帮助。">
+<meta itemprop="datePublished" content="2020-10-12T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2020-10-12T23:28:49+08:00" />
 <meta itemprop="wordCount" content="149">
+
+
+
 <meta itemprop="keywords" content="stack,heap,queue," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -167,10 +172,10 @@
 <h3 id="一-栈stack"><strong>一. 栈(stack)</strong></h3>
 <p>是计算机科学里最重要且最基础的数据结构之一。 (直接看下图更容易理解)</p>
 <h4 id="1常用的几个名词"><strong>1.常用的几个名词</strong></h4>
-<pre tabindex="0"><code>栈顶(top), 栈底(bottom), 进栈(push), 出栈(pop)。  
+<pre><code>栈顶(top), 栈底(bottom), 进栈(push), 出栈(pop)。  
 栈中的每个元素称为一个frame。 
 </code></pre><h4 id="2一个很重要的特点"><strong>2.一个很重要的特点</strong></h4>
-<pre tabindex="0"><code>先进后出: FILO（First In Last Out）的原则存储数据。
+<pre><code>先进后出: FILO（First In Last Out）的原则存储数据。
 </code></pre><p>它按照先进后出的原则存储数据，先进入的数据被压入栈底，最后的数据在栈顶,<br>
 需要读数据的时候从栈顶开始弹出数据（最后一个数据被第一个读出来）。</p>
 <p><a href="https://limingxie.github.io/images/basic/stack_1.png">图片备用地址</a><br>
@@ -191,7 +196,7 @@
 <h3 id="二-堆heap"><strong>二. 堆(heap)</strong></h3>
 <p>堆(Heap)是计算机科学中的一种特别的完全二叉树。(直接看下图更容易理解)<br>
 <strong>维基百科是这么解释的:</strong></p>
-<pre tabindex="0"><code>若是满足以下特性，即可称为堆：  
+<pre><code>若是满足以下特性，即可称为堆：  
 “给定堆中任意节点P和C，若P是C的父节点，那么P的值会小于等于（或大于等于）C的值”。  
 若父节点的值恒小于等于子节点的值，此堆称为最小堆(min heap);  
 反之，若父节点的值恒大于等于子节点的值，此堆称为最大堆(max heap)。  
@@ -201,7 +206,7 @@
 <p>堆中某个节点的值总是不大于或不小于其父节点的值</p>
 </blockquote>
 <h4 id="1常用的几个名词-1"><strong>1.常用的几个名词</strong></h4>
-<pre tabindex="0"><code>插入insert: 向堆中插入一个新元素
+<pre><code>插入insert: 向堆中插入一个新元素
 删除(取顶)delete: 删除堆顶元素	
 上浮swim: 子节点优先级比父节点高时，子节点需要由下而上。
 下沉sink: 子节点优先级比父节点高时，父节点需要由上而下。
@@ -214,7 +219,7 @@
 因为不需要存储左右子节点的指针，单纯地通过数组的下标，就可以找到一个节点的左右子节点和父节点。</p>
 <p><a href="https://limingxie.github.io/images/basic/heap_1.png">图片备用地址</a><br>
 <img src="https://mingxie-blog.oss-cn-beijing.aliyuncs.com/image/basic/heap_1.png" alt="heap"></p>
-<pre tabindex="0"><code>元素42的索引(2 = i)   
+<pre><code>元素42的索引(2 = i)   
 元素31的索引(4 = 2i)   
 元素19的索引(5 = 2i + 1)
 </code></pre><blockquote>
@@ -232,10 +237,10 @@
 <h3 id="三-队列queue"><strong>三. 队列(queue)</strong></h3>
 <p>队列（Queue）与栈一样，是一种线性存储结构</p>
 <h4 id="1常用的几个名词-2"><strong>1.常用的几个名词</strong></h4>
-<pre tabindex="0"><code>队头(front), 队尾(rear), 入队(EnQueue), 出队(DeQueue)。  
+<pre><code>队头(front), 队尾(rear), 入队(EnQueue), 出队(DeQueue)。  
 队列中的每个元素称为一个frame。 
 </code></pre><h4 id="2一个很重要的特点-1"><strong>2.一个很重要的特点</strong></h4>
-<pre tabindex="0"><code>先进先出: (FIFO, First-In-First-Out) 的原则存储数据。  
+<pre><code>先进先出: (FIFO, First-In-First-Out) 的原则存储数据。  
 </code></pre><p>和栈一样，队列也有数组实现和链表实现两种。<br>
 两种实现都能给出快速的O(1)运行时间, 区别在于链表实现指针域要占用空间, 频繁的new和delete会消耗不少的时间开销。<br>
 数组实现的缺点是建立时要确定空间大小。</p>
@@ -323,12 +328,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -459,6 +464,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

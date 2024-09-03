@@ -12,17 +12,22 @@
 为了方便操作，官方直接提供了管理用户的脚本，
 国密生成账户脚本get_gm_account.sh与非国密get_account.sh。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/fisco/account/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/fisco/account/" />
 <meta property="article:published_time" content="2024-02-24T23:28:49+08:00" />
 <meta property="article:modified_time" content="2024-02-24T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【FISCO笔记】账户创建和使用">
 <meta itemprop="description" content="FISCO BCOS也是基于公私钥方式管理用户和账户地址。
 为了方便操作，官方直接提供了管理用户的脚本，
-国密生成账户脚本get_gm_account.sh与非国密get_account.sh。"><meta itemprop="datePublished" content="2024-02-24T23:28:49+08:00" />
+国密生成账户脚本get_gm_account.sh与非国密get_account.sh。">
+<meta itemprop="datePublished" content="2024-02-24T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2024-02-24T23:28:49+08:00" />
 <meta itemprop="wordCount" content="269">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,fisco,bcos," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -158,59 +163,59 @@
 <h2 id="1获取脚本">1.获取脚本</h2>
 <p>下载地址：https://github.com/FISCO-BCOS/console/tree/master/tools</p>
 <p>非国密</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -#LO https://raw.githubusercontent.com/FISCO-BCOS/console/master/tools/get_account.sh <span style="color:#f92672">&amp;&amp;</span> chmod u+x get_account.sh <span style="color:#f92672">&amp;&amp;</span> bash get_account.sh -h
-</span></span></code></pre></div><p>国密</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -#LO https://raw.githubusercontent.com/FISCO-BCOS/console/master/tools/get_gm_account.sh <span style="color:#f92672">&amp;&amp;</span> chmod u+x get_gm_account.sh <span style="color:#f92672">&amp;&amp;</span> bash get_gm_account.sh -h
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Usage: get_account.sh
-</span></span><span style="display:flex;"><span>    default       generate account and store private key in PEM format file
-</span></span><span style="display:flex;"><span>    -p            generate account and store private key in PKCS12 format file
-</span></span><span style="display:flex;"><span>    -k <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>     calculate address of PEM format <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>    -P <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>     calculate address of PKCS12 format <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>    -a            force script to consider the platform is aarch64
-</span></span><span style="display:flex;"><span>    -h Help
-</span></span></code></pre></div><h2 id="2生成密钥">2.生成密钥</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -#LO https://raw.githubusercontent.com/FISCO-BCOS/console/master/tools/get_account.sh <span style="color:#f92672">&amp;&amp;</span> chmod u+x get_account.sh <span style="color:#f92672">&amp;&amp;</span> bash get_account.sh -h
+</code></pre></div><p>国密</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -#LO https://raw.githubusercontent.com/FISCO-BCOS/console/master/tools/get_gm_account.sh <span style="color:#f92672">&amp;&amp;</span> chmod u+x get_gm_account.sh <span style="color:#f92672">&amp;&amp;</span> bash get_gm_account.sh -h
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Usage: get_account.sh
+    default       generate account and store private key in PEM format file
+    -p            generate account and store private key in PKCS12 format file
+    -k <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>     calculate address of PEM format <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>
+    -P <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>     calculate address of PKCS12 format <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>
+    -a            force script to consider the platform is aarch64
+    -h Help
+</code></pre></div><h2 id="2生成密钥">2.生成密钥</h2>
 <p>生成私钥与地址</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ bash get_account.sh
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Account Address   : 0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Private Key <span style="color:#f92672">(</span>pem<span style="color:#f92672">)</span> : accounts/0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b.pem
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Public  Key <span style="color:#f92672">(</span>pem<span style="color:#f92672">)</span> : accounts/0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b.pem.pub
-</span></span></code></pre></div><p>生成的秘钥的默认格式为PEM格式，添加 -p 参数可以生成PKCS12格式的密钥。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ bash get_account.sh -p
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Note: the entered password cannot contain Chinese characters!
-</span></span><span style="display:flex;"><span>Enter Export Password:
-</span></span><span style="display:flex;"><span>Verifying - Enter Export Password:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Account Address   : 0xc65858692fce953b44187999dbb3d5de91c27bb4
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Private Key <span style="color:#f92672">(</span>p12<span style="color:#f92672">)</span> : accounts/0xc65858692fce953b44187999dbb3d5de91c27bb4.p12
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Public  Key <span style="color:#f92672">(</span>pem<span style="color:#f92672">)</span> : accounts/0xc65858692fce953b44187999dbb3d5de91c27bb4.pem.pub
-</span></span></code></pre></div><h2 id="3手动创建账号和地址计算">3.手动创建账号和地址计算</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bash get_account.sh
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Account Address   : 0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Private Key <span style="color:#f92672">(</span>pem<span style="color:#f92672">)</span> : accounts/0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b.pem
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Public  Key <span style="color:#f92672">(</span>pem<span style="color:#f92672">)</span> : accounts/0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b.pem.pub
+</code></pre></div><p>生成的秘钥的默认格式为PEM格式，添加 -p 参数可以生成PKCS12格式的密钥。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bash get_account.sh -p
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Note: the entered password cannot contain Chinese characters!
+Enter Export Password:
+Verifying - Enter Export Password:
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Account Address   : 0xc65858692fce953b44187999dbb3d5de91c27bb4
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Private Key <span style="color:#f92672">(</span>p12<span style="color:#f92672">)</span> : accounts/0xc65858692fce953b44187999dbb3d5de91c27bb4.p12
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Public  Key <span style="color:#f92672">(</span>pem<span style="color:#f92672">)</span> : accounts/0xc65858692fce953b44187999dbb3d5de91c27bb4.pem.pub
+</code></pre></div><h2 id="3手动创建账号和地址计算">3.手动创建账号和地址计算</h2>
 <p>FISCO BCOS的账户地址由ECDSA公钥计算，对ECDSA公钥的16进制表示计算keccak-256sum哈希，取计算结果的后20字节的16进制表示作为账户地址，每个字节需要两个16进制数表示，所以账户地址长度为40。<br>
 FISCO BCOS的账户地址与以太坊兼容。</p>
 <p>生成ECDSA私钥</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ openssl ecparam -name secp256k1 -genkey -noout -out ecprivkey.pem
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ cat ecprivkey.pem
-</span></span><span style="display:flex;"><span>-----BEGIN EC PRIVATE KEY-----
-</span></span><span style="display:flex;"><span>MHQCAQEEIInB6hH8PF37ofPoHXHGTN5ONXy7I0WDAT87/Sfye/3OoAcGBSuBBAAK
-</span></span><span style="display:flex;"><span>oUQDQgAES3GjvnJxbrZvkCSzxJE8I7xCkbJYKYtevIEOGKSCxqP3/hHC4CH0rMYS
-</span></span><span style="display:flex;"><span>zXQK8Jls07jSZdmcX6pkW7dHqiHd2w<span style="color:#f92672">==</span>
-</span></span><span style="display:flex;"><span>-----END EC PRIVATE KEY-----
-</span></span></code></pre></div><p>根据私钥计算公钥</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ openssl ec -in ecprivkey.pem -text -noout 2&gt;/dev/null| sed -n <span style="color:#e6db74">&#39;7,11p&#39;</span> | tr -d <span style="color:#e6db74">&#34;: \n&#34;</span> | awk <span style="color:#e6db74">&#39;{print substr($0,3);}&#39;</span>
-</span></span><span style="display:flex;"><span>4b71a3be72716eb66f9024b3c4913c23bc4291b258298b5ebc810e18a482c6a3f7fe11c2e021f4acc612cd740af0996cd3b8d265d99c5faa645bb747aa21dddb
-</span></span></code></pre></div><p>使用keccak-256sum工具计算账户地址
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ openssl ecparam -name secp256k1 -genkey -noout -out ecprivkey.pem
+
+$ cat ecprivkey.pem
+-----BEGIN EC PRIVATE KEY-----
+MHQCAQEEIInB6hH8PF37ofPoHXHGTN5ONXy7I0WDAT87/Sfye/3OoAcGBSuBBAAK
+oUQDQgAES3GjvnJxbrZvkCSzxJE8I7xCkbJYKYtevIEOGKSCxqP3/hHC4CH0rMYS
+zXQK8Jls07jSZdmcX6pkW7dHqiHd2w<span style="color:#f92672">==</span>
+-----END EC PRIVATE KEY-----
+</code></pre></div><p>根据私钥计算公钥</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ openssl ec -in ecprivkey.pem -text -noout 2&gt;/dev/null| sed -n <span style="color:#e6db74">&#39;7,11p&#39;</span> | tr -d <span style="color:#e6db74">&#34;: \n&#34;</span> | awk <span style="color:#e6db74">&#39;{print substr($0,3);}&#39;</span>
+4b71a3be72716eb66f9024b3c4913c23bc4291b258298b5ebc810e18a482c6a3f7fe11c2e021f4acc612cd740af0996cd3b8d265d99c5faa645bb747aa21dddb
+</code></pre></div><p>使用keccak-256sum工具计算账户地址
 <a href="https://github.com/vkobel/ethereum-generate-wallet/tree/master/lib">https://github.com/vkobel/ethereum-generate-wallet/tree/master/lib</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ openssl ec -in ecprivkey.pem -text -noout 2&gt;/dev/null| sed -n <span style="color:#e6db74">&#39;7,11p&#39;</span> | tr -d <span style="color:#e6db74">&#34;: \n&#34;</span> | awk <span style="color:#e6db74">&#39;{print substr($0,3);}&#39;</span> | ./keccak-256sum -x -l | tr -d <span style="color:#e6db74">&#39; -&#39;</span> | tail -c <span style="color:#ae81ff">41</span>
-</span></span><span style="display:flex;"><span>fa7dbe2e84996351b77a7c5ab26db08666064705
-</span></span></code></pre></div><h2 id="4控制台加载账户">4.控制台加载账户</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ bash start.sh
-</span></span><span style="display:flex;"><span>$ bash start.sh group0
-</span></span><span style="display:flex;"><span>$ bash start.sh group0 -pem pemName
-</span></span><span style="display:flex;"><span>$ bash start.sh group0 -p12 p12Name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ bash start.sh group0 -pem accounts/0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b.pem
-</span></span><span style="display:flex;"><span>$ bash start.sh group0 -p12 accounts/0xc65858692fce953b44187999dbb3d5de91c27bb4.p12
-</span></span><span style="display:flex;"><span>Enter Export Password:
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ openssl ec -in ecprivkey.pem -text -noout 2&gt;/dev/null| sed -n <span style="color:#e6db74">&#39;7,11p&#39;</span> | tr -d <span style="color:#e6db74">&#34;: \n&#34;</span> | awk <span style="color:#e6db74">&#39;{print substr($0,3);}&#39;</span> | ./keccak-256sum -x -l | tr -d <span style="color:#e6db74">&#39; -&#39;</span> | tail -c <span style="color:#ae81ff">41</span>
+fa7dbe2e84996351b77a7c5ab26db08666064705
+</code></pre></div><h2 id="4控制台加载账户">4.控制台加载账户</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bash start.sh
+$ bash start.sh group0
+$ bash start.sh group0 -pem pemName
+$ bash start.sh group0 -p12 p12Name
+
+$ bash start.sh group0 -pem accounts/0x3015d7eb7cfaf0ca34d507a62bbfdab17a68832b.pem
+$ bash start.sh group0 -p12 accounts/0xc65858692fce953b44187999dbb3d5de91c27bb4.p12
+Enter Export Password:
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -279,12 +284,12 @@ FISCO BCOS的账户地址与以太坊兼容。</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -415,6 +420,10 @@ FISCO BCOS的账户地址与以太坊兼容。</p>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

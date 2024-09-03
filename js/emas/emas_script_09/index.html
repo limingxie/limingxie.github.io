@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【es6笔记】es6的入门简介_对象和数值扩展方法(9)" />
 <meta property="og:description" content="这里整理了Object和Number扩展方法。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/emas/emas_script_09/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/emas/emas_script_09/" />
 <meta property="article:published_time" content="2022-05-17T09:05:49+08:00" />
 <meta property="article:modified_time" content="2022-05-17T09:05:49+08:00" />
 
 		<meta itemprop="name" content="【es6笔记】es6的入门简介_对象和数值扩展方法(9)">
-<meta itemprop="description" content="这里整理了Object和Number扩展方法。"><meta itemprop="datePublished" content="2022-05-17T09:05:49+08:00" />
+<meta itemprop="description" content="这里整理了Object和Number扩展方法。">
+<meta itemprop="datePublished" content="2022-05-17T09:05:49+08:00" />
 <meta itemprop="dateModified" content="2022-05-17T09:05:49+08:00" />
 <meta itemprop="wordCount" content="203">
+
+
+
 <meta itemprop="keywords" content="es6,number,object," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -136,105 +141,105 @@
 		</header>
 		<div class="content post__content clearfix">
 			<p>这里整理了Object和Number扩展方法。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCType html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- number 扩展 --------------&#34;</span>);
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Number.EPSILON 是 JS最小精度
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">EPSILON</span>); <span style="color:#75715e">//2.220446049250313e-16
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>); <span style="color:#75715e">//0.30000000000000004
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">a</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span>) <span style="color:#f92672">&lt;</span> Number.<span style="color:#a6e22e">EPSILON</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">equal</span>(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.3</span>)); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//1. 二进制和八进制
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//0b：二进制
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//0o：八进制
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//0x：十六进制
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">0b111110111</span>); <span style="color:#75715e">// 503
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//2. Number.isFinite 检查一个值是否为有限的
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isFinite(<span style="color:#ae81ff">15</span>)); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isFinite(<span style="color:#66d9ef">Infinity</span>)); <span style="color:#75715e">//false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//3. Number.isNaN   检查一个值是否为NaN
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isNaN(<span style="color:#ae81ff">123</span>)); <span style="color:#75715e">//false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isNaN(<span style="color:#66d9ef">NaN</span>)); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//4. Number.paresInt    
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.parseInt(<span style="color:#e6db74">&#39;12.34&#39;</span>)); <span style="color:#75715e">//12
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.parseFloat(<span style="color:#e6db74">&#39;12.34aa&#39;</span>)); <span style="color:#75715e">//12.34
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//5. Number.isInteger
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">isInteger</span>(<span style="color:#ae81ff">25</span>)); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">isInteger</span>(<span style="color:#ae81ff">2.5</span>)); <span style="color:#75715e">//false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//6. Math.trunc 将数字的小数部分去掉
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">trunc</span>(<span style="color:#ae81ff">3.5</span>)); <span style="color:#75715e">//3
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//7. Math.sign 判断一个数 正数，负数 或 零
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//-1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#ae81ff">0</span>)); <span style="color:#75715e">//0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- object方法 扩展 --------------&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//1. Object.is(value1, value2)  判断两个值是否严格相等
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>)); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#f92672">+</span><span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>)); <span style="color:#75715e">//false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#66d9ef">NaN</span>, <span style="color:#66d9ef">NaN</span>)); <span style="color:#75715e">//true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">NaN</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">NaN</span>); <span style="color:#75715e">//false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//2. Object.assign(target, ...sources)  合并多个对象
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config1</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;localhost&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">8080</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;test&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;123456&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">test1</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;aaa&#39;</span>,
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config2</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;192.168.1.1&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3306</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1111&#39;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">test2</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bb&#39;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//后面的覆盖前面的
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">assign</span>(<span style="color:#a6e22e">config1</span>,<span style="color:#a6e22e">config2</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">config</span>);<span style="color:#75715e">//{host: &#39;192.168.1.1&#39;, port: 3306, name: &#39;root&#39;, password: &#39;1111&#39;, test1: &#39;aaa&#39;, test2: &#39;bb&#39;}
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//3. Object.setPrototypeOf Object.getPrototypeof
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span>{
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;小学&#39;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cities</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">area</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;海淀&#39;</span>, <span style="color:#e6db74">&#39;朝阳&#39;</span>, <span style="color:#e6db74">&#39;顺义&#39;</span>]
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            Object.<span style="color:#a6e22e">setPrototypeOf</span>(<span style="color:#a6e22e">school</span>, <span style="color:#a6e22e">cities</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">school</span>); <span style="color:#75715e">// {area: Array(3), name: &#34;小学&#34;}
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">getPrototypeOf</span>(<span style="color:#a6e22e">school</span>)); <span style="color:#75715e">// {area: Array(3)}
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCType html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;&lt;/<span style="color:#f92672">title</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- number 扩展 --------------&#34;</span>);
+        {
+            <span style="color:#75715e">// Number.EPSILON 是 JS最小精度
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">EPSILON</span>); <span style="color:#75715e">//2.220446049250313e-16
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>); <span style="color:#75715e">//0.30000000000000004
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">equal</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
+                <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">a</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">b</span>) <span style="color:#f92672">&lt;</span> Number.<span style="color:#a6e22e">EPSILON</span>;
+            }
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">equal</span>(<span style="color:#ae81ff">0.1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.3</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//1. 二进制和八进制
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//0b：二进制
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//0o：八进制
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//0x：十六进制
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">0b111110111</span>); <span style="color:#75715e">// 503
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//2. Number.isFinite 检查一个值是否为有限的
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isFinite(<span style="color:#ae81ff">15</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isFinite(<span style="color:#66d9ef">Infinity</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//3. Number.isNaN   检查一个值是否为NaN
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isNaN(<span style="color:#ae81ff">123</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.isNaN(<span style="color:#66d9ef">NaN</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//4. Number.paresInt    
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.parseInt(<span style="color:#e6db74">&#39;12.34&#39;</span>)); <span style="color:#75715e">//12
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.parseFloat(<span style="color:#e6db74">&#39;12.34aa&#39;</span>)); <span style="color:#75715e">//12.34
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//5. Number.isInteger
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">isInteger</span>(<span style="color:#ae81ff">25</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Number.<span style="color:#a6e22e">isInteger</span>(<span style="color:#ae81ff">2.5</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//6. Math.trunc 将数字的小数部分去掉
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">trunc</span>(<span style="color:#ae81ff">3.5</span>)); <span style="color:#75715e">//3
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//7. Math.sign 判断一个数 正数，负数 或 零
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//-1
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#ae81ff">0</span>)); <span style="color:#75715e">//0
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">sign</span>(<span style="color:#ae81ff">5</span>)); <span style="color:#75715e">//1
+</span><span style="color:#75715e"></span>        }
+
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;-------------- object方法 扩展 --------------&#34;</span>);
+
+        {
+            <span style="color:#75715e">//1. Object.is(value1, value2)  判断两个值是否严格相等
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#f92672">+</span><span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>)); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">is</span>(<span style="color:#66d9ef">NaN</span>, <span style="color:#66d9ef">NaN</span>)); <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">NaN</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">NaN</span>); <span style="color:#75715e">//false
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//2. Object.assign(target, ...sources)  合并多个对象
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config1</span> <span style="color:#f92672">=</span> {
+                <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;localhost&#39;</span>,
+                <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">8080</span>,
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;test&#39;</span>,
+                <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;123456&#39;</span>,
+                <span style="color:#a6e22e">test1</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;aaa&#39;</span>,
+            }
+
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">config2</span> <span style="color:#f92672">=</span> {
+                <span style="color:#a6e22e">host</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;192.168.1.1&#39;</span>,
+                <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3306</span>,
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>,
+                <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1111&#39;</span>,
+                <span style="color:#a6e22e">test2</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bb&#39;</span>
+            }
+
+            <span style="color:#75715e">//后面的覆盖前面的
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">config</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">assign</span>(<span style="color:#a6e22e">config1</span>,<span style="color:#a6e22e">config2</span>);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">config</span>);<span style="color:#75715e">//{host: &#39;192.168.1.1&#39;, port: 3306, name: &#39;root&#39;, password: &#39;1111&#39;, test1: &#39;aaa&#39;, test2: &#39;bb&#39;}
+</span><span style="color:#75715e"></span>
+            <span style="color:#75715e">//3. Object.setPrototypeOf Object.getPrototypeof
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">school</span> <span style="color:#f92672">=</span>{
+                <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;小学&#39;</span>
+            }
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cities</span> <span style="color:#f92672">=</span> {
+                <span style="color:#a6e22e">area</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;海淀&#39;</span>, <span style="color:#e6db74">&#39;朝阳&#39;</span>, <span style="color:#e6db74">&#39;顺义&#39;</span>]
+            }
+
+            Object.<span style="color:#a6e22e">setPrototypeOf</span>(<span style="color:#a6e22e">school</span>, <span style="color:#a6e22e">cities</span>);
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">school</span>); <span style="color:#75715e">// {area: Array(3), name: &#34;小学&#34;}
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">getPrototypeOf</span>(<span style="color:#a6e22e">school</span>)); <span style="color:#75715e">// {area: Array(3)}
+</span><span style="color:#75715e"></span>        }
+
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -300,12 +305,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -436,6 +441,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

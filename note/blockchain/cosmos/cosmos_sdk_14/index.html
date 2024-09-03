@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【cosmos-sdk-笔记】修改各模块的运行参数" />
 <meta property="og:description" content="这一篇整理了如何修改运行中的链的配置参数。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_14/" /><meta property="article:section" content="note" />
+<meta property="og:url" content="https://limingxie.github.io/note/blockchain/cosmos/cosmos_sdk_14/" />
 <meta property="article:published_time" content="2023-08-20T23:28:49+08:00" />
 <meta property="article:modified_time" content="2023-08-20T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【cosmos-sdk-笔记】修改各模块的运行参数">
-<meta itemprop="description" content="这一篇整理了如何修改运行中的链的配置参数。"><meta itemprop="datePublished" content="2023-08-20T23:28:49+08:00" />
+<meta itemprop="description" content="这一篇整理了如何修改运行中的链的配置参数。">
+<meta itemprop="datePublished" content="2023-08-20T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2023-08-20T23:28:49+08:00" />
-<meta itemprop="wordCount" content="237">
+<meta itemprop="wordCount" content="236">
+
+
+
 <meta itemprop="keywords" content="区块链,blockchain,cosmos," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -166,102 +171,102 @@
 v0.46.6版本的，<!-- raw HTML omitted --> tx gov draft-proposal 方法里没有 /cosmos.gov.v1.MsgUpdateParams 方法。<br>
 而且网上的都是老资料，很容易误导人。<br>
 新版本都没有 change-param 这个命令了&hellip;^^;;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    /cosmos.feegrant.v1beta1.MsgRevokeAllowance
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1.MsgDeposit
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1.MsgExecLegacyContent
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1.MsgSubmitProposal
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1.MsgVote
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1.MsgVoteWeighted
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1beta1.MsgDeposit
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1beta1.MsgSubmitProposal
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1beta1.MsgVote
-</span></span><span style="display:flex;"><span>    /cosmos.gov.v1beta1.MsgVoteWeighted
-</span></span><span style="display:flex;"><span>↓ ▸ /cosmos.group.v1.MsgCreateGroup
-</span></span></code></pre></div><p>后来我在discord里提问，有个开发给我解答说要用/cosmos.gov.v1.MsgUpdateParams<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    /cosmos.feegrant.v1beta1.MsgRevokeAllowance
+    /cosmos.gov.v1.MsgDeposit
+    /cosmos.gov.v1.MsgExecLegacyContent
+    /cosmos.gov.v1.MsgSubmitProposal
+    /cosmos.gov.v1.MsgVote
+    /cosmos.gov.v1.MsgVoteWeighted
+    /cosmos.gov.v1beta1.MsgDeposit
+    /cosmos.gov.v1beta1.MsgSubmitProposal
+    /cosmos.gov.v1beta1.MsgVote
+    /cosmos.gov.v1beta1.MsgVoteWeighted
+↓ ▸ /cosmos.group.v1.MsgCreateGroup
+</code></pre></div><p>后来我在discord里提问，有个开发给我解答说要用/cosmos.gov.v1.MsgUpdateParams<br>
 这才我想到改用别的版本试一试。<br>
 改到最新 v0.47.4 版本以后，就可以看到/cosmos.gov.v1.MsgUpdateParams方法了. 哎～</p>
 <h2 id="2配置环境">2.配置环境</h2>
 <h4 id="startsh">start.sh</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>rm -rf ~/.mingxie
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
-</span></span><span style="display:flex;"><span>export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
-</span></span><span style="display:flex;"><span>export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./mingxied config chain-id test
-</span></span><span style="display:flex;"><span>./mingxied config keyring-backend test
-</span></span><span style="display:flex;"><span>./mingxied config broadcast-mode sync
-</span></span><span style="display:flex;"><span>./mingxied init test --chain-id test --overwrite
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
-</span></span><span style="display:flex;"><span>cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.params.max_deposit_period = &#34;30s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./mingxied keys add validator1 
-</span></span><span style="display:flex;"><span>./mingxied genesis add-genesis-account validator1 1000000000stake --keyring-backend test 
-</span></span><span style="display:flex;"><span>./mingxied genesis gentx validator1 1000000stake --chain-id test 
-</span></span><span style="display:flex;"><span>./mingxied genesis collect-gentxs
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
-</span></span><span style="display:flex;"><span>cp ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cosmovisor run start
-</span></span></code></pre></div><h2 id="3修改配置参数">3.修改配置参数</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>rm -rf ~/.mingxie
+
+export DAEMON_NAME<span style="color:#f92672">=</span>mingxied
+export DAEMON_HOME<span style="color:#f92672">=</span>$HOME/.mingxie
+export DAEMON_RESTART_AFTER_UPGRADE<span style="color:#f92672">=</span>true
+
+./mingxied config chain-id test
+./mingxied config keyring-backend test
+./mingxied config broadcast-mode sync
+./mingxied init test --chain-id test --overwrite
+
+cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.params.voting_period = &#34;20s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
+cat <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#66d9ef">$(</span>jq <span style="color:#e6db74">&#39;.app_state.gov.params.max_deposit_period = &#34;30s&#34;&#39;</span> $HOME/.mingxie/config/genesis.json<span style="color:#66d9ef">)</span> &gt; $HOME/.mingxie/config/genesis.json
+
+./mingxied keys add validator1 
+./mingxied genesis add-genesis-account validator1 1000000000stake --keyring-backend test 
+./mingxied genesis gentx validator1 1000000stake --chain-id test 
+./mingxied genesis collect-gentxs
+
+
+mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
+cp ./mingxied $DAEMON_HOME/cosmovisor/genesis/bin
+
+cosmovisor run start
+</code></pre></div><h2 id="3修改配置参数">3.修改配置参数</h2>
 <p>先查看voting_period是多少？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mingxied query gov param voting
-</span></span><span style="display:flex;"><span>voting_period: <span style="color:#e6db74">&#34;20000000000&#34;</span>
-</span></span></code></pre></div><h4 id="proposaljson">proposal.json</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;messages&#34;</span>: [
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.gov.v1.MsgUpdateParams&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;authority&#34;</span>: <span style="color:#e6db74">&#34;cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;params&#34;</span>: {
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;min_deposit&#34;</span>: [
-</span></span><span style="display:flex;"><span>                    {
-</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;denom&#34;</span>: <span style="color:#e6db74">&#34;stake&#34;</span>,
-</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#e6db74">&#34;10000000&#34;</span>
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                ],
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;max_deposit_period&#34;</span>: <span style="color:#e6db74">&#34;30s&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;voting_period&#34;</span>: <span style="color:#e6db74">&#34;40s&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;quorum&#34;</span>: <span style="color:#e6db74">&#34;0.334000000000000000&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;threshold&#34;</span>: <span style="color:#e6db74">&#34;0.500000000000000000&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;veto_threshold&#34;</span>: <span style="color:#e6db74">&#34;0.334000000000000000&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;min_initial_deposit_ratio&#34;</span>: <span style="color:#e6db74">&#34;0.000000000000000000&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;burn_vote_quorum&#34;</span>: <span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;burn_proposal_deposit_prevote&#34;</span>: <span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;burn_vote_veto&#34;</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    ],
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;ipfs://CID&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;deposit&#34;</span>: <span style="color:#e6db74">&#34;3333stake&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;update voting_period 40s&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;summary&#34;</span>: <span style="color:#e6db74">&#34;ok&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="updatesh">update.sh</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./simd tx gov submit-proposal proposal.json --from validator1 --keyring-backend test -y
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sleep 6s
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./simd tx gov deposit <span style="color:#ae81ff">1</span> 100000000stake --from validator1 --yes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sleep 6s
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./simd tx gov vote <span style="color:#ae81ff">1</span> yes --from validator1 --yes 
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sleep 6s
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>./simd query gov proposal <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><p>查看结果，已改好了～</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./simd query gov param voting
-</span></span><span style="display:flex;"><span>voting_period: <span style="color:#e6db74">&#34;40000000000&#34;</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mingxied query gov param voting
+voting_period: <span style="color:#e6db74">&#34;20000000000&#34;</span>
+</code></pre></div><h4 id="proposaljson">proposal.json</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;messages&#34;</span>: [
+        {
+            <span style="color:#f92672">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;/cosmos.gov.v1.MsgUpdateParams&#34;</span>,
+            <span style="color:#f92672">&#34;authority&#34;</span>: <span style="color:#e6db74">&#34;cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn&#34;</span>,
+            <span style="color:#f92672">&#34;params&#34;</span>: {
+                <span style="color:#f92672">&#34;min_deposit&#34;</span>: [
+                    {
+                        <span style="color:#f92672">&#34;denom&#34;</span>: <span style="color:#e6db74">&#34;stake&#34;</span>,
+                        <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#e6db74">&#34;10000000&#34;</span>
+                    }
+                ],
+                <span style="color:#f92672">&#34;max_deposit_period&#34;</span>: <span style="color:#e6db74">&#34;30s&#34;</span>,
+                <span style="color:#f92672">&#34;voting_period&#34;</span>: <span style="color:#e6db74">&#34;40s&#34;</span>,
+                <span style="color:#f92672">&#34;quorum&#34;</span>: <span style="color:#e6db74">&#34;0.334000000000000000&#34;</span>,
+                <span style="color:#f92672">&#34;threshold&#34;</span>: <span style="color:#e6db74">&#34;0.500000000000000000&#34;</span>,
+                <span style="color:#f92672">&#34;veto_threshold&#34;</span>: <span style="color:#e6db74">&#34;0.334000000000000000&#34;</span>,
+                <span style="color:#f92672">&#34;min_initial_deposit_ratio&#34;</span>: <span style="color:#e6db74">&#34;0.000000000000000000&#34;</span>,
+                <span style="color:#f92672">&#34;burn_vote_quorum&#34;</span>: <span style="color:#66d9ef">false</span>,
+                <span style="color:#f92672">&#34;burn_proposal_deposit_prevote&#34;</span>: <span style="color:#66d9ef">false</span>,
+                <span style="color:#f92672">&#34;burn_vote_veto&#34;</span>: <span style="color:#66d9ef">true</span>
+            }
+        }
+    ],
+    <span style="color:#f92672">&#34;metadata&#34;</span>: <span style="color:#e6db74">&#34;ipfs://CID&#34;</span>,
+    <span style="color:#f92672">&#34;deposit&#34;</span>: <span style="color:#e6db74">&#34;3333stake&#34;</span>,
+    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;update voting_period 40s&#34;</span>,
+    <span style="color:#f92672">&#34;summary&#34;</span>: <span style="color:#e6db74">&#34;ok&#34;</span>
+}
+</code></pre></div><h4 id="updatesh">update.sh</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+<span style="color:#75715e">#!/bin/bash</span>
+
+./simd tx gov submit-proposal proposal.json --from validator1 --keyring-backend test -y
+
+sleep 6s
+
+./simd tx gov deposit <span style="color:#ae81ff">1</span> 100000000stake --from validator1 --yes
+
+sleep 6s
+
+./simd tx gov vote <span style="color:#ae81ff">1</span> yes --from validator1 --yes 
+
+sleep 6s
+
+./simd query gov proposal <span style="color:#ae81ff">1</span>
+</code></pre></div><p>查看结果，已改好了～</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./simd query gov param voting
+voting_period: <span style="color:#e6db74">&#34;40000000000&#34;</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -327,12 +332,12 @@ v0.46.6版本的，<!-- raw HTML omitted --> tx gov draft-proposal 方法里没�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -463,6 +468,10 @@ v0.46.6版本的，<!-- raw HTML omitted --> tx gov draft-proposal 方法里没�
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

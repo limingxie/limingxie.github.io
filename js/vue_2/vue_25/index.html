@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【Vue笔记】Vue入门简介_消息订阅和发布(25)" />
 <meta property="og:description" content="这一篇里整理了Vue 消息订阅与发布。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_25/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_25/" />
 <meta property="article:published_time" content="2022-06-23T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-06-23T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_消息订阅和发布(25)">
-<meta itemprop="description" content="这一篇里整理了Vue 消息订阅与发布。"><meta itemprop="datePublished" content="2022-06-23T23:55:49+08:00" />
+<meta itemprop="description" content="这一篇里整理了Vue 消息订阅与发布。">
+<meta itemprop="datePublished" content="2022-06-23T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-06-23T23:55:49+08:00" />
 <meta itemprop="wordCount" content="272">
+
+
+
 <meta itemprop="keywords" content="vue," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -148,157 +153,157 @@
 			<p>这一篇里整理了Vue 消息订阅与发布。</p>
 <p>1、首先安装 pubsubjs，执行 ​​npm i pubsub-js​​ pubsubjs 一个利用 JavaScript 进行发布/订阅的库<br>
 2、由于是 School 需要接收订阅消息，所以在 School 中先引入 pubsubjs，然后订阅和取消订阅消息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;school&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校名称</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校地址</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">address</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//组件交互相关的代码（数据、方法等）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;School&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#e6db74">&#34;hello&#34;</span>, (<span style="color:#a6e22e">msgName</span>, <span style="color:#a6e22e">data</span>) =&gt; {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;有人发布了hello消息，&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">msgName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;回调执行了，收到数据：&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data</span>);
-</span></span><span style="display:flex;"><span>    })
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">beforeDestroy</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">unsubscribe</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubid</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/*组件的样式*/</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">school</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>需要注意，订阅消息时，回调函数写成箭头函数，或者放到 methods 中，否则方法中的 ​​this​​ 是 undefined</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;school&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校名称</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学校地址</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">address</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
+
+<span style="color:#75715e">//组件交互相关的代码（数据、方法等）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;School&#39;</span>,
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;三里屯小学&#34;</span>,
+      <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+    }
+  },
+  <span style="color:#a6e22e">mounted</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#e6db74">&#34;hello&#34;</span>, (<span style="color:#a6e22e">msgName</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;有人发布了hello消息，&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">msgName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;回调执行了，收到数据：&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">data</span>);
+    })
+  },
+  <span style="color:#a6e22e">beforeDestroy</span>() {
+    <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">unsubscribe</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubid</span>)
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+<span style="color:#75715e">/*组件的样式*/</span>
+.<span style="color:#a6e22e">school</span> {
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">orange</span>;
+  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><p>需要注意，订阅消息时，回调函数写成箭头函数，或者放到 methods 中，否则方法中的 ​​this​​ 是 undefined</p>
 <p>3、Student 中引入 pubsubjs，并发布消息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生姓名</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生年龄</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">age</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendStudentName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">向School组件发送学生姓名</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//组件交互相关的代码（数据、方法等）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Student&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sendStudentName</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">publish</span>(<span style="color:#e6db74">&#34;hello&#34;</span>,<span style="color:#ae81ff">666</span>)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/*组件的样式*/</span>
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">student</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pink</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">margin</span><span style="color:#f92672">-</span><span style="color:#a6e22e">top</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
-</span></span></code></pre></div><p>运行效果：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">组件的结构</span><span style="color:#f92672">--&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生姓名</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">name</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">学生年龄</span><span style="color:#960050;background-color:#1e0010">：</span>{{ <span style="color:#a6e22e">age</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendStudentName&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">向School组件发送学生姓名</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
+<span style="color:#75715e">//组件交互相关的代码（数据、方法等）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Student&#39;</span>,
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;张三&#34;</span>,
+      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>
+    }
+  },
+  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">sendStudentName</span>() {
+      <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">publish</span>(<span style="color:#e6db74">&#34;hello&#34;</span>,<span style="color:#ae81ff">666</span>)
+    }
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">style</span><span style="color:#f92672">&gt;</span>
+<span style="color:#75715e">/*组件的样式*/</span>
+.<span style="color:#a6e22e">student</span> {
+  <span style="color:#a6e22e">background</span><span style="color:#f92672">-</span><span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pink</span>;
+  <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+  <span style="color:#a6e22e">margin</span><span style="color:#f92672">-</span><span style="color:#a6e22e">top</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">px</span>;
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/style&gt;</span>
+</code></pre></div><p>运行效果：</p>
 <h2 id="总结">总结</h2>
 <p>消息订阅与发布(pubsub)<br>
 1.一种组件间通信的方式，适用于任意组件间通信<br>
 2.使用步骤:<br>
-①安装pubsub: ​​​npm i pubsub-js​​​ ②引入:​​import pubsub from &lsquo;pubsub-js&rsquo;​​
+①安装pubsub: ​​​npm i pubsub-js​​​ ②引入:​​import pubsub from &lsquo;pubsub-js'​​
 3.接收数据：<br>
 A组件想接收数据，则在A组件中订阅消息，订阅的回调留在A组件自身</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">methods</span>(){
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">demo</span>(<span style="color:#a6e22e">data</span>){......}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#e6db74">&#34;xxx&#34;</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">demo</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span></code></pre></div><p>4.提供数据：​​pubsub.publish( &ldquo;xxx” ,数据)​​​ 5.最好在​​beforeDestroy​​钩子中，用​​PubSub.unsubscribe(pid)​​去取消订阅</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">methods</span>(){
+  <span style="color:#a6e22e">demo</span>(<span style="color:#a6e22e">data</span>){......}
+}
+......
+<span style="color:#a6e22e">mounted</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#e6db74">&#34;xxx&#34;</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">demo</span>)
+  }
+</code></pre></div><p>4.提供数据：​​pubsub.publish( &ldquo;xxx” ,数据)​​​ 5.最好在​​beforeDestroy​​钩子中，用​​PubSub.unsubscribe(pid)​​去取消订阅</p>
 <p>todolist 使用消息订阅完成<br>
 上一节中把消息勾选和删除改成了事件总线完成，现在我们把这里的删除改用消息订阅完成。由于 App.vue 中需要数据，即要删除的id，所以要订阅消息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//引入组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//第三方库放前边
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Header</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/Header&#34;</span>;
-</span></span><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  ......
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//删除todo，用下划线占位
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">deleteTodo</span>(<span style="color:#a6e22e">_</span>,<span style="color:#a6e22e">id</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//过滤不改变原数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">/*this.todos = this.todos.filter((todo)=&gt;{
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        return todo.id !== id
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      })*/</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//可以精简为
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todos</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">todo</span> =&gt; <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">id</span>)
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  ......
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">checkTodo</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deleteTodo</span>)
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">destroyed</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">unsubscribe</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubId</span>)
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>需要注意的是由于订阅消息的回调方法是 deleteTodo，这个方法是之前写好的，但需要修改，回调函数第一个参数是方法名称，<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">......
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#75715e">//引入组件
+</span><span style="color:#75715e">//第三方库放前边
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Header</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./components/Header&#34;</span>;
+......
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  ......
+  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+    ......
+    <span style="color:#75715e">//删除todo，用下划线占位
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">deleteTodo</span>(<span style="color:#a6e22e">_</span>,<span style="color:#a6e22e">id</span>) {
+      <span style="color:#75715e">//过滤不改变原数组
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">/*this.todos = this.todos.filter((todo)=&gt;{
+</span><span style="color:#75715e">        return todo.id !== id
+</span><span style="color:#75715e">      })*/</span>
+      <span style="color:#75715e">//可以精简为
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todos</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">todo</span> =&gt; <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">id</span>)
+    },
+    ......
+  },
+  ......
+  <span style="color:#a6e22e">mounted</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$on</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">checkTodo</span>)
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deleteTodo</span>)
+  },
+  <span style="color:#a6e22e">destroyed</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$bus</span>.<span style="color:#a6e22e">$off</span>(<span style="color:#e6db74">&#34;checkTodo&#34;</span>)
+    <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">unsubscribe</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pubId</span>)
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><p>需要注意的是由于订阅消息的回调方法是 deleteTodo，这个方法是之前写好的，但需要修改，回调函数第一个参数是方法名称，<br>
 所以我们需要增加一个参数，但由于我们没有用到这个消息名称参数，所以我们可以直接使用 ​​_​​下划线来占位</p>
 <p>Item 中需要发送消息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  ......
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//删除
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleDelete</span>(<span style="color:#a6e22e">id</span>){
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">confirm</span>(<span style="color:#e6db74">&#34;确认删除吗?&#34;</span>)){
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//this.deleteTodo(id)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//this.$bus.$emit(&#34;deleteTodo&#34;,id)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">publish</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#a6e22e">id</span>)
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">......
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">pubsub</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;pubsub-js&#34;</span>
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  ......
+    <span style="color:#75715e">//删除
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handleDelete</span>(<span style="color:#a6e22e">id</span>){
+      <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">confirm</span>(<span style="color:#e6db74">&#34;确认删除吗?&#34;</span>)){
+        <span style="color:#75715e">//this.deleteTodo(id)
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//this.$bus.$emit(&#34;deleteTodo&#34;,id)
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">pubsub</span>.<span style="color:#a6e22e">publish</span>(<span style="color:#e6db74">&#34;deleteTodo&#34;</span>,<span style="color:#a6e22e">id</span>)
+      }
+    }
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -358,12 +363,12 @@ A组件想接收数据，则在A组件中订阅消息，订阅的回调留在A�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -494,6 +499,10 @@ A组件想接收数据，则在A组件中订阅消息，订阅的回调留在A�
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

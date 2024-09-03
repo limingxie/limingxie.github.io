@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【mysql笔记】主从复制" />
 <meta property="og:description" content="这篇整理了mysql主从复制相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_master_slave/" /><meta property="article:section" content="database" />
+<meta property="og:url" content="https://limingxie.github.io/database/mysql/mysql_master_slave/" />
 <meta property="article:published_time" content="2022-07-11T23:28:49+08:00" />
 <meta property="article:modified_time" content="2022-07-11T23:28:49+08:00" />
 
 		<meta itemprop="name" content="【mysql笔记】主从复制">
-<meta itemprop="description" content="这篇整理了mysql主从复制相关的内容。"><meta itemprop="datePublished" content="2022-07-11T23:28:49+08:00" />
+<meta itemprop="description" content="这篇整理了mysql主从复制相关的内容。">
+<meta itemprop="datePublished" content="2022-07-11T23:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-11T23:28:49+08:00" />
 <meta itemprop="wordCount" content="271">
+
+
+
 <meta itemprop="keywords" content="mysql,explain," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -190,13 +195,13 @@
 <p><strong>需要注意的地方</strong><br>
 1 MAC地址 2 hostname 3 IP 地址 4 UUID 。</p>
 <p>查看MySQL Server 的UUID方式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim /var/lib/mysql/auto.cnf
-</span></span><span style="display:flex;"><span>systemctl restart mysqld
-</span></span></code></pre></div><h4 id="32-主机配置">3.2 主机配置</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /var/lib/mysql/auto.cnf
+systemctl restart mysqld
+</code></pre></div><h4 id="32-主机配置">3.2 主机配置</h4>
 <p>主从所有配置项都配置在[mysqld]节点下，且都是小写字母。<br>
 具体参数配置如下:</p>
 <p><strong>my.cnf</strong></p>
-<pre tabindex="0"><code>#[必须]主服务器唯一ID 
+<pre><code>#[必须]主服务器唯一ID 
 server-id=1
 #[必须]启用二进制日志,指名路径。比如:自己本地的路径/log/mysqlbin 
 log-bin=atguigu-bin
@@ -219,7 +224,7 @@ binlog-do-db=需要复制的主数据库名字
 #[可选]设置binlog格式 
 binlog_format=STATEMENT
 </code></pre><p><strong>binlog格式设置</strong></p>
-<pre tabindex="0"><code>#存的是具体操作SQL语句，
+<pre><code>#存的是具体操作SQL语句，
 binlog_format=STATEMENT 
 
 #存的是具体操作的数据
@@ -228,61 +233,61 @@ binlog_format=ROW
 #混合上面2个
 binlog_format=MIXED
 </code></pre><h4 id="33-从机配置">3.3 从机配置</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#[必须]从服务器唯一ID </span>
-</span></span><span style="display:flex;"><span>server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#[可选]启用中继日志 </span>
-</span></span><span style="display:flex;"><span>relay-log<span style="color:#f92672">=</span>mysql-relay
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#[必须]从服务器唯一ID </span>
+server-id<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+
+<span style="color:#75715e">#[可选]启用中继日志 </span>
+relay-log<span style="color:#f92672">=</span>mysql-relay
+</code></pre></div><blockquote>
 <p>注意:主从机都关闭防火墙
 service iptables stop #CentOS 6
 systemctl stop firewalld.service #CentOS 7</p>
 </blockquote>
 <h4 id="34-主机建立账户并授权">3.4 主机:建立账户并授权</h4>
 <p><strong>5.7 版本</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">在主机</span>MySQL里执行授权主从复制的命令
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;从机器数据库IP&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;abc123&#39;</span>;
-</span></span></code></pre></div><p><strong>8.0</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">此语句必须执行。否则见下面。</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">WITH</span> mysql_native_password <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>flush <span style="color:#66d9ef">privileges</span>;
-</span></span></code></pre></div><p>查询Master的状态，并记录下File和Position的值。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> master status;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> File               <span style="color:#f92672">|</span> <span style="color:#66d9ef">Position</span> <span style="color:#f92672">|</span> Binlog_Do_DB <span style="color:#f92672">|</span> Binlog_Ignore_DB <span style="color:#f92672">|</span> Executed_Gtid_Set <span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> mingxie<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span> <span style="color:#f92672">|</span>    <span style="color:#ae81ff">12339</span> <span style="color:#f92672">|</span> rdc_manager  <span style="color:#f92672">|</span>                  <span style="color:#f92672">|</span>                   <span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
-</span></span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">在主机</span>MySQL里执行授权主从复制的命令
+<span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;从机器数据库IP&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;abc123&#39;</span>;
+</code></pre></div><p><strong>8.0</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
+
+<span style="color:#66d9ef">GRANT</span> REPLICATION SLAVE <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">此语句必须执行。否则见下面。</span>
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;slave1&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">WITH</span> mysql_native_password <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
+
+flush <span style="color:#66d9ef">privileges</span>;
+</code></pre></div><p>查询Master的状态，并记录下File和Position的值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> master status;
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> File               <span style="color:#f92672">|</span> <span style="color:#66d9ef">Position</span> <span style="color:#f92672">|</span> Binlog_Do_DB <span style="color:#f92672">|</span> Binlog_Ignore_DB <span style="color:#f92672">|</span> Executed_Gtid_Set <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> mingxie<span style="color:#f92672">-</span>bin.<span style="color:#ae81ff">000001</span> <span style="color:#f92672">|</span>    <span style="color:#ae81ff">12339</span> <span style="color:#f92672">|</span> rdc_manager  <span style="color:#f92672">|</span>                  <span style="color:#f92672">|</span>                   <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">--------------------+----------+--------------+------------------+-------------------+
+</span></code></pre></div><blockquote>
 <p>注意:执行完此步骤后 不要再操作主服务器MySQL，防止主服务器状态值变化</p>
 </blockquote>
 <h4 id="35-从机配置需要复制的主机">3.5 从机:配置需要复制的主机</h4>
 <p><strong>步骤1: 从机上复制主机的命令</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>CHANGE MASTER <span style="color:#66d9ef">TO</span>
-</span></span><span style="display:flex;"><span>MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机的IP地址&#39;</span>, 
-</span></span><span style="display:flex;"><span>MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机用户名&#39;</span>, 
-</span></span><span style="display:flex;"><span>MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机用户名的密码&#39;</span>, 
-</span></span><span style="display:flex;"><span>MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mysql-bin.具体数字&#39;</span>, 
-</span></span><span style="display:flex;"><span>MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">具体值</span>;
-</span></span></code></pre></div><p>举例:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>CHANGE MASTER <span style="color:#66d9ef">TO</span>
-</span></span><span style="display:flex;"><span>MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
-</span></span><span style="display:flex;"><span>MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave1&#39;</span>,
-</span></span><span style="display:flex;"><span>MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;123456&#39;</span>,
-</span></span><span style="display:flex;"><span>MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mingxie-bin.000001&#39;</span>,
-</span></span><span style="display:flex;"><span>MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#ae81ff">12339</span>;
-</span></span></code></pre></div><p><strong>步骤2: 启动slave同步</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">启动</span>slave同步 
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">START</span> SLAVE;
-</span></span></code></pre></div><p>查看同步状态,如下两个值为Yes就说明配置成功。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">CHANGE MASTER <span style="color:#66d9ef">TO</span>
+MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机的IP地址&#39;</span>, 
+MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机用户名&#39;</span>, 
+MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机用户名的密码&#39;</span>, 
+MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mysql-bin.具体数字&#39;</span>, 
+MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">具体值</span>;
+</code></pre></div><p>举例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">CHANGE MASTER <span style="color:#66d9ef">TO</span>
+MASTER_HOST<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
+MASTER_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;slave1&#39;</span>,
+MASTER_PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;123456&#39;</span>,
+MASTER_LOG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mingxie-bin.000001&#39;</span>,
+MASTER_LOG_POS<span style="color:#f92672">=</span><span style="color:#ae81ff">12339</span>;
+</code></pre></div><p><strong>步骤2: 启动slave同步</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">启动</span>slave同步 
+<span style="color:#66d9ef">START</span> SLAVE;
+</code></pre></div><p>查看同步状态,如下两个值为Yes就说明配置成功。</p>
 <p>Slave_IO_Running: Yes<br>
 Slave_SQL_Running: Yes</p>
-<pre tabindex="0"><code>SHOW SLAVE STATUS\G;
+<pre><code>SHOW SLAVE STATUS\G;
 
 mysql&gt; SHOW SLAVE STATUS\G;
 *************************** 1. row ***************************
@@ -295,14 +300,14 @@ mysql&gt; SHOW SLAVE STATUS\G;
                             ... ...
 </code></pre><p>如出现问题需要重置的时候先执行这个命令。</p>
 <h2 id="36-停止和重置">3.6 停止和重置</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>stop slave;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除</span>SLAVE数据库的relaylog日志文件<span style="color:#960050;background-color:#1e0010">，并重新启用新的</span>relaylog文件
-</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">reset</span> slave;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除</span>Master中所有的binglog文件<span style="color:#960050;background-color:#1e0010">，并将日志索引文件清空，重新开始所有新的日志文件</span>(<span style="color:#960050;background-color:#1e0010">慎用</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">reset</span> master; 
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">stop slave;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除</span>SLAVE数据库的relaylog日志文件<span style="color:#960050;background-color:#1e0010">，并重新启用新的</span>relaylog文件
+mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">reset</span> slave;
+
+<span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除</span>Master中所有的binglog文件<span style="color:#960050;background-color:#1e0010">，并将日志索引文件清空，重新开始所有新的日志文件</span>(<span style="color:#960050;background-color:#1e0010">慎用</span>)
+<span style="color:#66d9ef">reset</span> master; 
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -365,12 +370,12 @@ mysql&gt; SHOW SLAVE STATUS\G;
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -501,6 +506,10 @@ mysql&gt; SHOW SLAVE STATUS\G;
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

@@ -10,15 +10,20 @@
 		<meta property="og:title" content="【Vue笔记】Vue入门简介_路由route参数传递(34)" />
 <meta property="og:description" content="这一篇整理了路由相关的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_34/" /><meta property="article:section" content="js" />
+<meta property="og:url" content="https://limingxie.github.io/js/vue_2/vue_34/" />
 <meta property="article:published_time" content="2022-07-02T23:55:49+08:00" />
 <meta property="article:modified_time" content="2022-07-02T23:55:49+08:00" />
 
 		<meta itemprop="name" content="【Vue笔记】Vue入门简介_路由route参数传递(34)">
-<meta itemprop="description" content="这一篇整理了路由相关的内容。"><meta itemprop="datePublished" content="2022-07-02T23:55:49+08:00" />
+<meta itemprop="description" content="这一篇整理了路由相关的内容。">
+<meta itemprop="datePublished" content="2022-07-02T23:55:49+08:00" />
 <meta itemprop="dateModified" content="2022-07-02T23:55:49+08:00" />
 <meta itemprop="wordCount" content="427">
+
+
+
 <meta itemprop="keywords" content="vue," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -152,275 +157,277 @@
 <h2 id="路由的query参数">路由的query参数</h2>
 <p>我们需要创建一个 Detail.vue 组件，根据点击的消息来展示消息id和标题</p>
 <p>创建路由规则，修改 index.js</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>......
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Detail</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;../pages/Detail&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//创建并暴露一个路由器
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">VueRouter</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>        {......},
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/home&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Home</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>                {......},
-</span></span><span style="display:flex;"><span>                {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;message&#39;</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Message</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>                        {
-</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail&#39;</span>,
-</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>
-</span></span><span style="display:flex;"><span>                        }
-</span></span><span style="display:flex;"><span>                    ]
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            ]
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>    ]
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p>修改 Message.vue 组件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m in messageList&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m.id&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带query参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的字符串写法</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!--</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;`/home/message/detail?id=${m.id}&amp;title=${m.title}`&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;--&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带query参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的对象写法</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          path:&#39;/home/message/detail&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          query:{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            id:m.id,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            title:m.title
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          {{ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span> }}
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">view</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/router-view&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Message&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">messageList</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;001&#34;</span>, <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;消息001&#34;</span>},
-</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;002&#34;</span>, <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;消息002&#34;</span>},
-</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;003&#34;</span>, <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;消息003&#34;</span>},
-</span></span><span style="display:flex;"><span>      ]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>创建 Detail.vue 组件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>小结
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">......
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Detail</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;../pages/Detail&#34;</span>;
+<span style="color:#75715e">//创建并暴露一个路由器
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">VueRouter</span>({
+    <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> [
+        {......},
+        {
+            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/home&#39;</span>,
+            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Home</span>,
+            <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
+                {......},
+                {
+                    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;message&#39;</span>,
+                    <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Message</span>,
+                    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
+                        {
+                            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail&#39;</span>,
+                            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>
+                        }
+                    ]
+                }
+            ]
+        },
+    ]
+})
+</code></pre></div><p>修改 Message.vue 组件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m in messageList&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;m.id&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带query参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的字符串写法</span><span style="color:#f92672">--&gt;</span>
+        <span style="color:#75715e">&lt;!--</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;`/home/message/detail?id=${m.id}&amp;title=${m.title}`&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;--&gt;</span>
+        <span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带query参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的对象写法</span><span style="color:#f92672">--&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
+</span><span style="color:#e6db74">          path:&#39;/home/message/detail&#39;,
+</span><span style="color:#e6db74">          query:{
+</span><span style="color:#e6db74">            id:m.id,
+</span><span style="color:#e6db74">            title:m.title
+</span><span style="color:#e6db74">          }
+</span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
+          {{ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span> }}
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">view</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/router-view&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Message&#34;</span>,
+  <span style="color:#a6e22e">data</span>() {
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">messageList</span><span style="color:#f92672">:</span> [
+        {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;001&#34;</span>, <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;消息001&#34;</span>},
+        {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;002&#34;</span>, <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;消息002&#34;</span>},
+        {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;003&#34;</span>, <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;消息003&#34;</span>},
+      ]
+    }
+  }
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><p>创建 Detail.vue 组件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><p>小结
 1.传递参数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span> <span style="color:#a6e22e">跳转并携带query参数</span>,<span style="color:#a6e22e">to的字符串写法</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34; /home/message/detail?id=666&amp;title=你好&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">跳转</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转并携带query参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的对象写法</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  path:&#39;/home/message/detail&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  query:{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    id:666,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    title:&#39;你好&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  }&#34;</span>
-</span></span><span style="display:flex;"><span>}<span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//跳转
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
-</span></span></code></pre></div><p>2.接收参数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>
-</span></span></code></pre></div><h2 id="命名路由">命名路由</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">&lt;!--</span> <span style="color:#a6e22e">跳转并携带query参数</span>,<span style="color:#a6e22e">to的字符串写法</span><span style="color:#f92672">--&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34; /home/message/detail?id=666&amp;title=你好&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">跳转</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
+<span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转并携带query参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的对象写法</span><span style="color:#f92672">--&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span>
+<span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
+</span><span style="color:#e6db74">  path:&#39;/home/message/detail&#39;,
+</span><span style="color:#e6db74">  query:{
+</span><span style="color:#e6db74">    id:666,
+</span><span style="color:#e6db74">    title:&#39;你好&#39;
+</span><span style="color:#e6db74">  }&#34;</span>
+}<span style="color:#f92672">&gt;</span>
+<span style="color:#75715e">//跳转
+</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
+</code></pre></div><p>2.接收参数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>
+<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>
+</code></pre></div><h2 id="命名路由">命名路由</h2>
 <p>命名路由就是给路由起名字，可以简化代码，增加 ​​name​​​ 属性即可。修改 index.js，给 Detail 增加 name 属性：</p>
 <p>在 Message 跳转 Detail 时，代码可以简化为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          name:&#39;xiangqing&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          query:{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            id:m.id,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            title:m.title
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span></code></pre></div><p>index.js 中给 about 增加 name 属性</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
+</span><span style="color:#e6db74">          name:&#39;xiangqing&#39;,
+</span><span style="color:#e6db74">          query:{
+</span><span style="color:#e6db74">            id:m.id,
+</span><span style="color:#e6db74">            title:m.title
+</span><span style="color:#e6db74">          }
+</span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
+</code></pre></div><p>index.js 中给 about 增加 name 属性</p>
 <p>App.vue 中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list-group-item&#34;</span> <span style="color:#a6e22e">active</span><span style="color:#f92672">-</span><span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;active&#34;</span> <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/about&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">About</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;--&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list-group-item&#34;</span> <span style="color:#a6e22e">active</span><span style="color:#f92672">-</span><span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;active&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{name:&#39;guanyu&#39;}&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">About</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
-</span></span></code></pre></div><h2 id="路由的params参数">路由的params参数</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">&lt;!--</span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list-group-item&#34;</span> <span style="color:#a6e22e">active</span><span style="color:#f92672">-</span><span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;active&#34;</span> <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/about&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">About</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;--&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list-group-item&#34;</span> <span style="color:#a6e22e">active</span><span style="color:#f92672">-</span><span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;active&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{name:&#39;guanyu&#39;}&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">About</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
+</code></pre></div><h2 id="路由的params参数">路由的params参数</h2>
 <p>首先需要配置 index.js，使用占位符 params 参数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">VueRouter</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>        {......},
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/home&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Home</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>                {......},
-</span></span><span style="display:flex;"><span>                {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;message&#39;</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Message</span>,
-</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>                        {
-</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
-</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id/:title&#39;</span>,
-</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>
-</span></span><span style="display:flex;"><span>                        }
-</span></span><span style="display:flex;"><span>                    ]
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            ]
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>    ]
-</span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><p>Message.vue 中传值，使用字符串写法：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带params参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的字符串写法</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;`/home/message/detail/${m.id}/${m.title}`&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
-</span></span></code></pre></div><p>或者使用对象写法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">VueRouter</span>({
+    <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> [
+        {......},
+        {
+            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/home&#39;</span>,
+            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Home</span>,
+            <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
+                {......},
+                {
+                    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;message&#39;</span>,
+                    <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Message</span>,
+                    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
+                        {
+                            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
+                            <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id/:title&#39;</span>,
+                            <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>
+                        }
+                    ]
+                }
+            ]
+        },
+    ]
+})
+
+</code></pre></div><p>Message.vue 中传值，使用字符串写法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带params参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的字符串写法</span><span style="color:#f92672">--&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;`/home/message/detail/${m.id}/${m.title}`&#34;</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
+</code></pre></div><p>或者使用对象写法</p>
 <p>特别注意：路由携带params参数时，若使用to的对象写法，则不能使用path配置项，必须使用name配置!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带params参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的对象写法</span><span style="color:#f92672">--&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          name:&#39;xiangqing&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          params:{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            id:m.id,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            title:m.title
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          {{ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span> }}
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
-</span></span></code></pre></div><p>Detail 中取值</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span></code></pre></div><h2 id="props配置">props配置</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">&lt;!--</span><span style="color:#a6e22e">跳转路由并携带params参数</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">to的对象写法</span><span style="color:#f92672">--&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
+</span><span style="color:#e6db74">          name:&#39;xiangqing&#39;,
+</span><span style="color:#e6db74">          params:{
+</span><span style="color:#e6db74">            id:m.id,
+</span><span style="color:#e6db74">            title:m.title
+</span><span style="color:#e6db74">          }
+</span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
+          {{ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span> }}
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
+</code></pre></div><p>Detail 中取值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+</code></pre></div><h2 id="props配置">props配置</h2>
 <p>我们关注一个问题，在 Detail 中，我们接收参数时使用 ​​$route.params.id​​​、​​$route.params.title​​​，如果参数很多，会重复写很多次 ​​$route.params.xxx​​，为了解决这个问题，就用到了 props 配置</p>
 <p>修改 index.js，哪里接收参数就在哪里配置</p>
 <p>第一种写法：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id/:title&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传给Detail组件。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;hello&#34;</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>]
-</span></span></code></pre></div><p>接收时使用 props 接收，使用插值语法读出来即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">a</span>}}{{<span style="color:#a6e22e">b</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>第二种写法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
+    {
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
+        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id/:title&#39;</span>,
+        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
+        <span style="color:#75715e">//props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传给Detail组件。
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>{
+            <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>,
+            <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;hello&#34;</span>
+        }
+    }
+]
+</code></pre></div><p>接收时使用 props 接收，使用插值语法读出来即可</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span>{{<span style="color:#a6e22e">a</span>}}{{<span style="color:#a6e22e">b</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>]
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><p>第二种写法</p>
 <p>修改 index.js</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id/:title&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//props的第二种写法，值为布尔值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//若布尔值为真，就会把该路由组件收到的所有params参数，以props的形式传给Detail组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>]
-</span></span></code></pre></div><p>Detail 接收时</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;title&#34;</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>第三种写法
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
+    {
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
+        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id/:title&#39;</span>,
+        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
+        <span style="color:#75715e">//props的第二种写法，值为布尔值
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//若布尔值为真，就会把该路由组件收到的所有params参数，以props的形式传给Detail组件
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>
+    }
+]
+</code></pre></div><p>Detail 接收时</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;title&#34;</span>]
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div><p>第三种写法
 第二种写法只适合 params 传参。我们看下第三种写法适合 query。修改 index.js</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//props的第三种写法，值为函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span>(<span style="color:#a6e22e">$route</span>){
-</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span><span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">title</span><span style="color:#f92672">:</span><span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>}
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//或简写为结构赋值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span>({<span style="color:#a6e22e">query</span>}){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span><span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">title</span><span style="color:#f92672">:</span><span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>}
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//或接着结构赋值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span>({<span style="color:#a6e22e">query</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">title</span>}}) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">title</span>}
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>]
-</span></span></code></pre></div><p>Message.vue 中使用 query 传参</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          name:&#39;xiangqing&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          query:{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            id:m.id,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            title:m.title
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          {{ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span> }}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
-</span></span></code></pre></div><p>Detail 中接收时仍是同上面一样</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;title&#34;</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
-</span></span></code></pre></div><p>小结：路由的props配置
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> [
+    {
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;xiangqing&#39;</span>,
+        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/&#39;</span>,
+        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
+        <span style="color:#75715e">//props的第三种写法，值为函数
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span>(<span style="color:#a6e22e">$route</span>){
+           <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span><span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">title</span><span style="color:#f92672">:</span><span style="color:#a6e22e">$route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>}
+        }
+        <span style="color:#75715e">//或简写为结构赋值
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span>({<span style="color:#a6e22e">query</span>}){
+            <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">id</span><span style="color:#f92672">:</span><span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>,<span style="color:#a6e22e">title</span><span style="color:#f92672">:</span><span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>}
+        }
+        <span style="color:#75715e">//或接着结构赋值
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">props</span>({<span style="color:#a6e22e">query</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">title</span>}}) {
+            <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">title</span>}
+        }
+    }
+]
+</code></pre></div><p>Message.vue 中使用 query 传参</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">router</span><span style="color:#f92672">-</span><span style="color:#a6e22e">link</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{
+</span><span style="color:#e6db74">          name:&#39;xiangqing&#39;,
+</span><span style="color:#e6db74">          query:{
+</span><span style="color:#e6db74">            id:m.id,
+</span><span style="color:#e6db74">            title:m.title
+</span><span style="color:#e6db74">          }
+</span><span style="color:#e6db74">        }&#34;</span><span style="color:#f92672">&gt;</span>
+          {{ <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">title</span> }}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/router-link&gt;</span>
+</code></pre></div><p>Detail 中接收时仍是同上面一样</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息编号</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">id</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">消息标题</span><span style="color:#960050;background-color:#1e0010">：</span>{{<span style="color:#a6e22e">title</span>}}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Detail&#34;</span>,
+  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;title&#34;</span>]
+}
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+
+</code></pre></div><p>小结：路由的props配置
 作用：让路由组件更方便的收到参数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;xiangqing&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">path</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//第一种写法: props值为对象，该对象中所有的key-value的组合最终都会通过props传给Detail组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//props:{a: 900}
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//第二种写法: props值为布尔值，布尔值为true，则把路由收到的所有params参数通过props传给Detail组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// props :true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//第三种写法:props值为函数，该函数返回的对象中每一组key-value都会通过props传给Detail组件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">props</span>(<span style="color:#a6e22e">route</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">id</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span><span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+  <span style="color:#a6e22e">name</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;xiangqing&#39;</span>,
+  <span style="color:#a6e22e">path</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;detail/:id&#39;</span>,
+  <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Detail</span>,
+  <span style="color:#75715e">//第一种写法: props值为对象，该对象中所有的key-value的组合最终都会通过props传给Detail组件
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//props:{a: 900}
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//第二种写法: props值为布尔值，布尔值为true，则把路由收到的所有params参数通过props传给Detail组件
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// props :true
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//第三种写法:props值为函数，该函数返回的对象中每一组key-value都会通过props传给Detail组件
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">props</span>(<span style="color:#a6e22e">route</span>){
+    <span style="color:#66d9ef">return</span> {
+      <span style="color:#a6e22e">id</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">id</span>,
+      <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span><span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">title</span>
+    }
+  }
+}
+</code></pre></div><hr>
 <p>欢迎大家的意见和交流</p>
 <p><code>email: li_mingxie@163.com</code></p>
 		</div>
@@ -480,12 +487,12 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -616,6 +623,10 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;

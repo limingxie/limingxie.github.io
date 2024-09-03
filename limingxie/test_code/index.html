@@ -11,16 +11,21 @@
 <meta property="og:description" content="最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。
 这次查看的资料比以前研究golang测试稍微详细了点。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://limingxie.github.io/limingxie/test_code/" /><meta property="article:section" content="limingxie" />
+<meta property="og:url" content="https://limingxie.github.io/limingxie/test_code/" />
 <meta property="article:published_time" content="2022-01-26T08:28:49+08:00" />
 <meta property="article:modified_time" content="2022-01-26T08:28:49+08:00" />
 
 		<meta itemprop="name" content="测试代码的基本结构以及(Test Double)的种类">
 <meta itemprop="description" content="最近有机会写.net的项目了, 习惯性的研究了如何去写测试代码。
-这次查看的资料比以前研究golang测试稍微详细了点。"><meta itemprop="datePublished" content="2022-01-26T08:28:49+08:00" />
+这次查看的资料比以前研究golang测试稍微详细了点。">
+<meta itemprop="datePublished" content="2022-01-26T08:28:49+08:00" />
 <meta itemprop="dateModified" content="2022-01-26T08:28:49+08:00" />
 <meta itemprop="wordCount" content="420">
+
+
+
 <meta itemprop="keywords" content="C#,test,arrange,act,Dummary,Fake,Stub,Spy,Mock," />
+
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -166,29 +171,29 @@
 <hr>
 <p>看下代码更实在。懒得从新写了。<br>
 把以前的golang代码<a href="https://limingxie.github.io/go/my_go_test/">Go项目的测试代码1（基础）</a>粘过来了&hellip;^^;;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// add_test.go  ==&gt; 文件名 _test.go 结尾的默认为测试代码文件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">models</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;testing&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//Test开头的默认为测试方法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestAdd</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//arrange
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">res</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">y</span> = <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//act
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">//assert
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;Add的结果不正确&#34;</span>)
-</span></span><span style="display:flex;"><span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>这是我们能看到的最简单的测试代码, 但是现实和理想还是有差距的。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// add_test.go  ==&gt; 文件名 _test.go 结尾的默认为测试代码文件
+</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">models</span>
+
+<span style="color:#f92672">import</span> (
+ <span style="color:#e6db74">&#34;testing&#34;</span>
+)
+
+<span style="color:#75715e">//Test开头的默认为测试方法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestAdd</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+ <span style="color:#75715e">//arrange
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">res</span> <span style="color:#66d9ef">int</span>
+ <span style="color:#a6e22e">x</span> = <span style="color:#ae81ff">2</span>
+ <span style="color:#a6e22e">y</span> = <span style="color:#ae81ff">3</span>
+
+ <span style="color:#75715e">//act
+</span><span style="color:#75715e"></span> <span style="color:#a6e22e">result</span> = <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>)
+
+ <span style="color:#75715e">//assert
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">5</span> {
+  <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#e6db74">&#34;Add的结果不正确&#34;</span>)
+ }
+}
+</code></pre></div><p>这是我们能看到的最简单的测试代码, 但是现实和理想还是有差距的。<br>
 当我们进行测试的时候, 很多情况是跟其他模块有依赖或调用的关系的。
 为了解决这些问题我们会使用测试替身(Test Double)。</p>
 <h2 id="测试替身test-double"><strong>测试替身(Test Double)</strong></h2>
@@ -208,17 +213,17 @@
 </ul>
 <p>简单的说，Dummy是一个执行过程中为需要创建冒充的对象，不能保障正常的功能。<br>
 看看下面的例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">People</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">running</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PeopleDummy</span> <span style="color:#66d9ef">implements</span> People <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">running</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 不采取任何操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>正常是需要实现running()方法，但是在特定的测试场景中不需要这些操作。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">People</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">running</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PeopleDummy</span> <span style="color:#66d9ef">implements</span> People <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">running</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 不采取任何操作
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>正常是需要实现running()方法，但是在特定的测试场景中不需要这些操作。<br>
 这时running()方法不会影响测试内容，也没必要去实现。<br>
 像这样不能正常工作也不影响测试，测试时又需要的对象叫做Dummy对象。</p>
 <h4 id="stub">Stub</h4>
@@ -230,14 +235,14 @@
 </ul>
 <p>简单的说，Stub起到的作用是只返回约定好的结果值。<br>
 看看下面的例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StubUser</span> <span style="color:#66d9ef">implements</span> User <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Test User&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>看上述代码调用StubUser类的findById方法时，返回接受的id和name是Test User的实体对象。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StubUser</span> <span style="color:#66d9ef">implements</span> User <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Test User&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>看上述代码调用StubUser类的findById方法时，返回接受的id和name是Test User的实体对象。<br>
 像这样只为测试返回特定值得对象叫做stub。</p>
 <h4 id="spy">Spy</h4>
 <ul>
@@ -248,20 +253,20 @@
 <p>简单的说，Spy是记录特定函数是否正常的调用的记录。<br>
 顺便也可以当做Stub使用。<br>
 看看下面的例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MailService</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> sendMailCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Collection<span style="color:#f92672">&lt;</span>Mail<span style="color:#f92672">&gt;</span> mails <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sendMail</span><span style="color:#f92672">(</span>Mail mail<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        sendMailCount<span style="color:#f92672">++;</span>
-</span></span><span style="display:flex;"><span>        mails<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>mail<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getSendMailCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sendMailCount<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>这里调用MailService的sendMail方法时，会记录发送的次数。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MailService</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> sendMailCount <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Collection<span style="color:#f92672">&lt;</span>Mail<span style="color:#f92672">&gt;</span> mails <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sendMail</span><span style="color:#f92672">(</span>Mail mail<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        sendMailCount<span style="color:#f92672">++;</span>
+        mails<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>mail<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getSendMailCount</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> sendMailCount<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>这里调用MailService的sendMail方法时，会记录发送的次数。<br>
 后续可以通过getSendMailCount()获取发邮件的次数。<br>
 像这样存储调用记录的类叫做Spy。</p>
 <h4 id="fake">Fake</h4>
@@ -271,52 +276,52 @@
 </ul>
 <p>简单的说Fake是模拟了和生产一样的对象，但是其内容是简化的。<br>
 看看下面的例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long id<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#a6e22e">User</span><span style="color:#f92672">()</span> <span style="color:#f92672">{}</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">User</span><span style="color:#f92672">(</span>Long id<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Long <span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IUserService</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FakeUserService</span> <span style="color:#66d9ef">implements</span> IUserService <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Collection<span style="color:#f92672">&lt;</span>User<span style="color:#f92672">&gt;</span> users <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>findById<span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">())</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            user<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>User user <span style="color:#f92672">:</span> users<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>上面是一个很简单的使用Fack对象的例子。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> Long id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">protected</span> <span style="color:#a6e22e">User</span><span style="color:#f92672">()</span> <span style="color:#f92672">{}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">User</span><span style="color:#f92672">(</span>Long id<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> Long <span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IUserService</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">);</span>
+    User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FakeUserService</span> <span style="color:#66d9ef">implements</span> IUserService <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> Collection<span style="color:#f92672">&lt;</span>User<span style="color:#f92672">&gt;</span> users <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+    
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>findById<span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">())</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            user<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">findById</span><span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>User user <span style="color:#f92672">:</span> users<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>上面是一个很简单的使用Fack对象的例子。<br>
 用实际UserService里的保存和查询方法需要连接数据库。<br>
 在测试环境下，不影响主要测试内容的前提下，<br>
 可以使用Fack类来取代实际连数据库的操作。<br>
@@ -329,50 +334,51 @@
 <p>简单的说Mock是模拟了和生产一样的行为，其行为是简化的。<br>
 因为这次项目用的是C#，Mock方式是基于比较熟悉的Moq写的，只看看大致的方式就行。<br>
 看看下面的例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IUserService</span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> IsHealthy(<span style="color:#66d9ef">int</span> weight, <span style="color:#66d9ef">int</span> height);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserService</span> : IUserService
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> IsHealthy(<span style="color:#66d9ef">int</span> weight, <span style="color:#66d9ef">int</span> height)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*假想一下这里有很多逻辑和其他模块的依赖...^^;;*/</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (weight == <span style="color:#ae81ff">0</span> || height == <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (weight / (height * height) &gt;= <span style="color:#ae81ff">18.5</span> &amp;&amp; weight / (height * height) &lt;= <span style="color:#ae81ff">23.9</span>)
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserServiceTest</span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [Fact]</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> MockTest()
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//这里创建了一个Mock的service, IsHealthy()函数可以想象成依赖了其他模块。</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//给它指定了一个模拟的行为：接受100,170或是 110,170就返回true;其他都返回false了。(没有走实际的逻辑)</span>
-</span></span><span style="display:flex;"><span>        Mock&lt;IUserService&gt; userServiceMock = <span style="color:#66d9ef">new</span> Mock&lt;IUserService&gt;();
-</span></span><span style="display:flex;"><span>        userServiceMock.Setup(x =&gt; x.IsHealthy(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">170</span>)).Returns(<span style="color:#66d9ef">true</span>);
-</span></span><span style="display:flex;"><span>        userServiceMock.Setup(x =&gt; x.IsHealthy(<span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">170</span>)).Returns(<span style="color:#66d9ef">true</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        IUserService userService = userServiceMock.Object;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        Assert.True(userService.IsHealthy(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">170</span>));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        Assert.True(userService.IsHealthy(<span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">170</span>));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        Assert.False(userService.IsHealthy(<span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">180</span>));
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>如上述代码，做一些用户操作时需要先验证是否健康。<br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> IUserService
+{
+    <span style="color:#66d9ef">bool</span> IsHealthy(<span style="color:#66d9ef">int</span> weight, <span style="color:#66d9ef">int</span> height);
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserService</span> : IUserService
+{
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> IsHealthy(<span style="color:#66d9ef">int</span> weight, <span style="color:#66d9ef">int</span> height)
+    {
+        <span style="color:#75715e">/*假想一下这里有很多逻辑和其他模块的依赖...^^;;*/</span>
+        <span style="color:#66d9ef">if</span> (weight == <span style="color:#ae81ff">0</span> || height == <span style="color:#ae81ff">0</span>)
+        {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+        }
+        <span style="color:#66d9ef">if</span> (weight / (height * height) &gt;= <span style="color:#ae81ff">18.5</span> &amp;&amp; weight / (height * height) &lt;= <span style="color:#ae81ff">23.9</span>)
+        {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+        }
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+    }
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserServiceTest</span>
+{
+<span style="color:#a6e22e">    [Fact]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> MockTest()
+    {
+        <span style="color:#75715e">//这里创建了一个Mock的service, IsHealthy()函数可以想象成依赖了其他模块。
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//给它指定了一个模拟的行为：接受100,170或是 110,170就返回true;其他都返回false了。(没有走实际的逻辑)
+</span><span style="color:#75715e"></span>        Mock&lt;IUserService&gt; userServiceMock = <span style="color:#66d9ef">new</span> Mock&lt;IUserService&gt;();
+        userServiceMock.Setup(x =&gt; x.IsHealthy(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">170</span>)).Returns(<span style="color:#66d9ef">true</span>);
+        userServiceMock.Setup(x =&gt; x.IsHealthy(<span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">170</span>)).Returns(<span style="color:#66d9ef">true</span>);
+
+        IUserService userService = userServiceMock.Object;
+
+        Assert.True(userService.IsHealthy(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">170</span>));
+
+        Assert.True(userService.IsHealthy(<span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">170</span>));
+
+        Assert.False(userService.IsHealthy(<span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">180</span>));
+    }
+}
+
+</code></pre></div><p>如上述代码，做一些用户操作时需要先验证是否健康。<br>
 但是这验证健康的服务可能是第三方服务。<br>
 这时候我们会创建一个Mock行为。给指定参数的时候直接返回结果，模拟健康验证行为。<br>
 专注于其他业务的测试。</p>
@@ -474,12 +480,12 @@ Fack是一种实体的模拟(虚假实例)，而Mock是对行为逻辑的模拟(
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/note/oauth/oauth2_0/">【Oauth2.0笔记】简单整理概念</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/ca/">【FISCO笔记】证书生成和验证</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/fisco/account/">【FISCO笔记】账户创建和使用</a></li>
 			<li class="widget__item"><a class="widget__link" href="/limingxie/running/">我跑步，我快乐！</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/aptos/aptos_01/">【aptos-笔记】Account账户管理</a></li>
 			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_16/">【cosmos-wasm-笔记】部署智能合约</a></li>
-			<li class="widget__item"><a class="widget__link" href="/note/blockchain/cosmos/cosmos_sdk_15/">【cosmos-wasm-笔记】基本概念以及环境配置</a></li>
 		</ul>
 	</div>
 </div>
@@ -610,6 +616,10 @@ Fack是一种实体的模拟(虚假实例)，而Mock是对行为逻辑的模拟(
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/nodejs/">Nodejs</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">8</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/oauth2.0/">Oauth2.0</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/os/">OS</a>&nbsp;
